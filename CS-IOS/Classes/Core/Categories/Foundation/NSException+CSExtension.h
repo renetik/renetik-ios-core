@@ -8,5 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSException (CSExtension)
-+ (NSException *)exceptionWithName:(NSString *)name1;
++ (instancetype)exceptionWithName:(NSString *)name1;
+
++ (instancetype)abstractNotImplemented;
 @end

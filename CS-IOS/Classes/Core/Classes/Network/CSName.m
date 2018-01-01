@@ -30,12 +30,6 @@
     return self.name;
 }
 
-+ (NSArray<NSString *> *)asStrings:(NSArray *)names {
-    NSMutableArray<NSString *> *strings = NSMutableArray.new;
-    for (CSName *csName in names)[strings add:csName.description];
-    return strings;
-}
-
 - (instancetype)construct:(NSString *)name :(NSString *)id {
     [super construct];
     self.name = name;

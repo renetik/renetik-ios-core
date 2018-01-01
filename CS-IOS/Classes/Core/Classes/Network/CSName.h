@@ -15,8 +15,6 @@
 
 + (CSName *)findByName:(NSArray<CSName *> *)names :(NSString *)nameToFind;
 
-+ (NSArray<NSString *> *)asStrings:(NSArray<CSName *> *)names;
-
 - (instancetype)construct:(NSString *)name :(NSString *)id;
 
 - (instancetype)construct:(NSString *)name;

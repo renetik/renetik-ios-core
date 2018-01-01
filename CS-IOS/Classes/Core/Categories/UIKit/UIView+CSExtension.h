@@ -194,6 +194,8 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height;
 
+- (instancetype)onTap:(void (^)(void))block;
+
 - (UIView *)addViewUnderLastFilingParent:(UIView *)view;
 
 - (void)removeSubviewsOfClass:(Class)pClass;

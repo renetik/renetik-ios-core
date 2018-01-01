@@ -6,7 +6,9 @@
 
 @interface NSArray<ObjectType> (CSExtension)
 
-//- (ObjectType)objectAtIndexedSubscript:(NSUInteger)idx;
++ (NSArray<NSString *> *)toStringList:(NSArray<NSObject *> *)names;
+
++ (NSArray<NSNumber *> *)toNumberList:(NSArray<NSObject *> *)stringList;
 
 - (ObjectType)objectAs:(ObjectType)anObject;
 

@@ -52,15 +52,10 @@ static char UIButtonBlockKey;
 
 - (instancetype)addTouchCancel:(id)target :(SEL)action;
 
-- (instancetype)setTouchUp:(void (^)(id sender))handler;
+- (instancetype)addTouchUp:(void (^)(id sender))handler;
 
-- (instancetype)setTouchDown:(void (^)(id sender))handler;
+- (instancetype)addTouchDown:(void (^)(id sender))handler;
 
-- (instancetype)setTouchCancel:(void (^)(id sender))handler;
+- (instancetype)addTouchCancel:(void (^)(id sender))handler;
 
-- (void)addTouchEffect;
-
-- (void)onTouchEffect;
-
-- (void)doTouchEffect:(UIColor *)selection;
 @end

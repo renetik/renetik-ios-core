@@ -25,34 +25,19 @@
     return self;
 }
 
-- (instancetype)setTouchUp:(void (^)(id sender))handler {
+- (instancetype)addTouchUp:(void (^)(id sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     return self;
 }
 
-- (instancetype)setTouchDown:(void (^)(id sender))handler {
+- (instancetype)addTouchDown:(void (^)(id sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchDown];
     return self;
 }
 
-- (instancetype)setTouchCancel:(void (^)(id sender))handler {
+- (instancetype)addTouchCancel:(void (^)(id sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchCancel];
     return self;
 }
 
-- (void)addTouchEffect {
-    [self addTouchUp: self:@selector(onTouchEffect)];
-}
-
-- (void)onTouchEffect {
-    [self doTouchEffect:[UIColor colorWithRGBA:150 :150 :150 :0.5]];
-}
-
-- (void)doTouchEffect:(UIColor *)selection {
-    UIColor *previousColor = self.backgroundColor;
-    self.backgroundColor = selection;
-    doLater(^{
-        self.backgroundColor = previousColor;
-    }, 0.3);
-}
 @end
