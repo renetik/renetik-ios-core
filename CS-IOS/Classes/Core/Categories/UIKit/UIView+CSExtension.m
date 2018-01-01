@@ -4,6 +4,7 @@
 
 
 #import "UIColor+CSExtension.h"
+#import "BlocksKit+UIKit.h"
 
 @implementation UIView (CSExtension)
 
@@ -16,7 +17,7 @@
                                      image:image contentMode:UIViewContentModeScaleAspectFit];
     button.layer.cornerRadius = button.frame.size.width / 2;
     button.showsTouchWhenHighlighted = YES;
-    [self addView:[button setTouchDown:onClick]];
+    [self addView:[button addTouchDown:onClick]];
     return button;
 }
 
@@ -625,6 +626,11 @@
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height {
     return [self addView:[UIView createEmptyWithRect:0 :offset - height :self.width :height]];
+}
+
+- (instancetype)onTap:(void (^)(void))block {
+    [self bk_whenTapped:block];
+    return self;
 }
 
 @end

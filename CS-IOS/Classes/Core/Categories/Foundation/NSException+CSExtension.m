@@ -10,8 +10,12 @@
 
 @implementation NSException (CSExtension)
 
-+ (NSException *)exceptionWithName:(NSString *)name {
++ (instancetype)exceptionWithName:(NSString *)name {
     return [self exceptionWithName:name reason:@"" userInfo:nil];
+}
+
++ (instancetype)abstractNotImplemented {
+    return [self exceptionWithName:@"Abstract Method Not Implemented"];
 }
 
 @end

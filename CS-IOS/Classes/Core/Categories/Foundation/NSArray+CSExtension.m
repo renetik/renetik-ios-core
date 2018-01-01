@@ -8,12 +8,20 @@
 
 @implementation NSArray (CSExtension)
 
-//- (id)objectAtIndexedSubscript:(NSUInteger)idx {
-//    return [self at:idx];
-//}
++ (NSArray<NSString *> *)toStringList:(NSArray<NSObject *> *)names {
+    val strings = NSMutableArray.new;
+    for (NSObject *object in names)[strings addObject:object.description];
+    return strings;
+}
+
++ (NSArray<NSNumber *> *)toNumberList:(NSArray<NSObject *> *)stringList {
+    val intList = NSMutableArray.new;
+    for (NSObject *object in stringList) [intList add:@(object.description.intValue)];
+    return intList;
+}
 
 - (id)objectAs:(id)anObject {
-    NSUInteger index = [self indexOf:anObject];
+    val index = [self indexOf:anObject];
     if (index != NSNotFound) return self[index];
     return nil;
 }
@@ -74,7 +82,7 @@
 
 - (NSArray *)filterBySearch:(NSString *)searchText {
     if (searchText.set) {
-        NSMutableArray *filtered = NSMutableArray.new;
+        val filtered = NSMutableArray.new;
         for (id item in self) if ([[item description] containsNoCase:searchText]) [filtered add:item];
         return filtered;
     }

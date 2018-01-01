@@ -57,7 +57,7 @@ void doLaterWith(void (^block)(id), id value, NSTimeInterval delay) {
 
 void invoke(void (^block)(void)) {
     if (!block)return;
-    dispatch_after(0.0f, dispatch_get_main_queue(), block);
+    dispatch_async(dispatch_get_main_queue(), block);
 }
 
 void invokeWith(void (^block)(id), id value) {

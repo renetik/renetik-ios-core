@@ -62,11 +62,4 @@
     return [self.class description];
 }
 
-+ (NSArray<NSString *> *)asStrings:(NSArray<NSObject *> *)names {
-    NSMutableArray<NSString *> *strings = NSMutableArray.new;
-    for (NSObject *object in names)[strings addObject:object.description];
-    return strings;
-}
-
-
 @end
