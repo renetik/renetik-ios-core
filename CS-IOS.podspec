@@ -37,6 +37,14 @@ TODO: Add long description of the pod here.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit'
+  s.dependency 'BlocksKit', '~> 2.2.5'
+  s.dependency 'MBProgressHUD', '~> 1.1.0'
+  s.dependency 'CocoaLumberjack', '~> 3.4.1'
+  s.dependency 'MMDrawerController', '~> 0.6.0'
+  s.dependency 'SBJson', '~> 3.1.1'
+  s.dependency 'ChameleonFramework'
+  s.dependency 'MJRefresh', '~> 3.1.15.3'
+  s.dependency 'DZNEmptyDataSet'
+  s.dependency 'MZAppearance'
 end

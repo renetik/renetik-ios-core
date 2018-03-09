@@ -7,12 +7,14 @@
 //
 
 #import "CSAppDelegate.h"
+#import "CS_IOS/CS-IOS-umbrella.h"
 
 @implementation CSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    info(@"Test");
+    infoInt([@"test.test" split:@"."].size);
     return YES;
 }
 
