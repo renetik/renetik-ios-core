@@ -74,6 +74,7 @@
 }
 
 - (NSNumber *)getIntegerNumber:(NSString *)key {
+    if (![self isSet:key]) return nil;
     return @([self getInteger:key]);
 }
 
@@ -82,6 +83,7 @@
 }
 
 - (NSNumber *)getDoubleNumber:(NSString *)key {
+    if (![self isSet:key]) return nil;
     return @([self getDouble:key]);
 }
 
