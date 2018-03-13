@@ -18,35 +18,65 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "CS-IOS/Classes/**/*",
-  "frameworks": "UIKit",
-  "dependencies": {
-    "BlocksKit": [
-      "~> 2.2.5"
-    ],
-    "MBProgressHUD": [
-      "~> 1.1.0"
-    ],
-    "CocoaLumberjack": [
-      "~> 3.4.1"
-    ],
-    "MMDrawerController": [
-      "~> 0.6.0"
-    ],
-    "SBJson": [
-      "~> 3.1.1"
-    ],
-    "ChameleonFramework": [
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "CS-IOS/Classes/Core/**/*",
+      "frameworks": "UIKit",
+      "dependencies": {
+        "BlocksKit": [
+          "~> 2.2.5"
+        ],
+        "MBProgressHUD": [
+          "~> 1.1.0"
+        ],
+        "CocoaLumberjack": [
+          "~> 3.4.1"
+        ],
+        "MMDrawerController": [
+          "~> 0.6.0"
+        ],
+        "SBJson": [
+          "~> 3.1.1"
+        ],
+        "ChameleonFramework": [
 
-    ],
-    "MJRefresh": [
-      "~> 3.1.15.3"
-    ],
-    "DZNEmptyDataSet": [
+        ],
+        "MJRefresh": [
+          "~> 3.1.15.3"
+        ],
+        "DZNEmptyDataSet": [
 
-    ],
-    "MZAppearance": [
+        ],
+        "MZAppearance": [
 
-    ]
-  }
+        ]
+      }
+    },
+    {
+      "name": "WithAdditions",
+      "source_files": "CS-IOS/Classes/Additions/**/*",
+      "dependencies": {
+        "CS-IOS/Core": [
+
+        ],
+        "AFNetworking": [
+          "~> 3.2"
+        ],
+        "Reachability": [
+          "~> 3.2"
+        ],
+        "SDWebImage": [
+          "~> 4.0.0"
+        ],
+        "RMessage": [
+          "~> 2.2.1"
+        ],
+        "XLPagerTabStrip": [
+          "~> 3.0.0"
+        ]
+      }
+    }
+  ]
 }
