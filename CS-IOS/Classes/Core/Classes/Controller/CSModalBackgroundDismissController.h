@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Rene Dohan. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "CSViewController.h"
 #import "CSChildViewLessController.h"
 

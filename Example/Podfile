@@ -1,6 +1,6 @@
 use_frameworks!
 
 target 'CS-IOS_Example' do
-  pod 'CS-IOS', :path => '../'
+  pod 'CS-IOS/WithAdditions', :path => '../'
 
 end

@@ -7,7 +7,6 @@
 
 @protocol CSSharePhotoButtonsListener;
 
-
 @interface CSSharePhotoButtonsController : NSObject <UIPopoverControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property(nonatomic, strong) UIPopoverController *popover;

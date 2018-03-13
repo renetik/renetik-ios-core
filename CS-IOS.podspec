@@ -30,21 +30,49 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'CS-IOS/Classes/**/*'
+  s.default_subspecs = 'Core'
+
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'CS-IOS/Classes/Core/**/*'
+    ss.frameworks = 'UIKit'
+    ss.dependency 'BlocksKit', '~> 2.2.5'
+    ss.dependency 'MBProgressHUD', '~> 1.1.0'
+    ss.dependency 'CocoaLumberjack', '~> 3.4.1'
+    ss.dependency 'MMDrawerController', '~> 0.6.0'
+    ss.dependency 'SBJson', '~> 3.1.1'
+    ss.dependency 'ChameleonFramework'
+    ss.dependency 'MJRefresh', '~> 3.1.15.3'
+    ss.dependency 'DZNEmptyDataSet'
+    ss.dependency 'MZAppearance'
+  end
+
+   s.subspec 'WithAdditions' do |ss|
+     ss.source_files = 'CS-IOS/Classes/Additions/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'AFNetworking', '~> 3.2'
+     ss.dependency 'Reachability', '~> 3.2'
+     ss.dependency 'SDWebImage', '~> 4.0.0'
+     ss.dependency 'RMessage', '~> 2.2.1'
+     ss.dependency 'XLPagerTabStrip', '~> 3.0.0'
+   end
+
+  #s.source_files = 'CS-IOS/Classes/**/*'
+  #s.module_map = 'module.modulemap'
   
   # s.resource_bundles = {
   #   'CS-IOS' => ['CS-IOS/Assets/*.png']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit'
-  s.dependency 'BlocksKit', '~> 2.2.5'
-  s.dependency 'MBProgressHUD', '~> 1.1.0'
-  s.dependency 'CocoaLumberjack', '~> 3.4.1'
-  s.dependency 'MMDrawerController', '~> 0.6.0'
-  s.dependency 'SBJson', '~> 3.1.1'
-  s.dependency 'ChameleonFramework'
-  s.dependency 'MJRefresh', '~> 3.1.15.3'
-  s.dependency 'DZNEmptyDataSet'
-  s.dependency 'MZAppearance'
+  #s.public_header_files = 'CS-IOS/Classes/**/*.h'
+  #s.frameworks = 'UIKit'
+  #s.dependency 'BlocksKit', '~> 2.2.5'
+  #s.dependency 'MBProgressHUD', '~> 1.1.0'
+  #s.dependency 'CocoaLumberjack', '~> 3.4.1'
+  #s.dependency 'MMDrawerController', '~> 0.6.0'
+  #s.dependency 'SBJson', '~> 3.1.1'
+  #s.dependency 'ChameleonFramework'
+  #s.dependency 'MJRefresh', '~> 3.1.15.3'
+  #s.dependency 'DZNEmptyDataSet'
+  #s.dependency 'MZAppearance'
+
 end

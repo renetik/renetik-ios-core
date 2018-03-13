@@ -3,15 +3,6 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "CSLang.h"
-#import "NSArray+CSExtension.h"
-#import "NSMutableArray+CSExtension.h"
-#import "UIView+CSExtension.h"
-#import "UIViewController+CSExtension.h"
-#import "UIDevice+CSExtension.h"
-#import "UIScrollView+CSExtension.h"
-
 #import "CSTabPagerController.h"
 #import "CSTabPagerTabProtocol.h"
 

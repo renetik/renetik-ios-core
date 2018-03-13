@@ -5,7 +5,6 @@
 
 #import "CSSearchBarController.h"
 
-
 @implementation CSSearchBarController {
     UIViewController *_parent;
     UISearchBar *_bar;

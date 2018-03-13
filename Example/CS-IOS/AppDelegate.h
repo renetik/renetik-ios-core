@@ -6,9 +6,9 @@
 //  Copyright (c) 2018 rene-dohan. All rights reserved.
 //
 
-@import UIKit;
+#import "CS_IOS/CS-IOS-umbrella.h"
 
-@interface CSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : CSAppDelegate
 
 @property (strong, nonatomic) UIWindow *window;
 

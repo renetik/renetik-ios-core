@@ -3,7 +3,7 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "CSViewController.h"
 #import "CSChildViewLessController.h"
 
