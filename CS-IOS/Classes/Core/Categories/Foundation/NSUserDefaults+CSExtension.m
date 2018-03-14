@@ -28,6 +28,10 @@
     return [NSUserDefaults.standardUserDefaults integerForKey:key];
 }
 
++ (NSString *)loadString:(NSString *)key {
+    return [NSUserDefaults.standardUserDefaults stringForKey:key];
+}
+
 + (NSInteger)loadInteger:(NSString *)key :(NSInteger)defaultValue {
     if (![self hasKey:key]) return defaultValue;
     return [NSUserDefaults.standardUserDefaults integerForKey:key];
