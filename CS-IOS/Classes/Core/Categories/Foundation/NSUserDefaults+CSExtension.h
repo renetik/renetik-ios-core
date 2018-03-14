@@ -17,6 +17,8 @@
 
 + (NSInteger)loadInteger:(NSString *)key;
 
++ (NSString *)loadString:(NSString *)key;
+
 + (NSInteger)loadInteger:(NSString *)key :(NSInteger)defaultValue;
 
 + (BOOL)hasKey:(NSString *)key;
