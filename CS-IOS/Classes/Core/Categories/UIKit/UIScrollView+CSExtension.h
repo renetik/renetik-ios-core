@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 1/13/13.
 //
 
-
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UIScrollView (CSExtension)
 
@@ -16,5 +15,7 @@
 - (void)sizeHeightToFit;
 
 - (long)currentPageIndexFrom:(NSUInteger)from;
+
+- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation;
 
 @end

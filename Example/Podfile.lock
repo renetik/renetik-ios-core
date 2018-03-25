@@ -40,13 +40,13 @@ PODS:
     - CocoaLumberjack/Default
   - CS-IOS/Core (0.1.0):
     - BlocksKit (~> 2.2.5)
-    - ChameleonFramework
+    - ChameleonFramework (~> 2.1.0)
     - CocoaLumberjack (~> 3.4.1)
-    - DZNEmptyDataSet
+    - DZNEmptyDataSet (~> 1.8.1)
     - MBProgressHUD (~> 1.1.0)
     - MJRefresh (~> 3.1.15.3)
     - MMDrawerController (~> 0.6.0)
-    - MZAppearance
+    - MZAppearance (~> 1.1.6)
     - SBJson (~> 3.1.1)
   - CS-IOS/WithAdditions (0.1.0):
     - AFNetworking (~> 3.2)
@@ -74,7 +74,7 @@ PODS:
   - MZAppearance (1.1.6)
   - PPTopMostController (0.0.1)
   - Reachability (3.2)
-  - RMessage (2.2.1):
+  - RMessage (2.2.2):
     - HexColors (~> 4.0)
     - PPTopMostController
   - SBJson (3.1.1)
@@ -95,7 +95,7 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
-  CS-IOS: fa9a25da1b97dc191864d7e31807b9055ff23184
+  CS-IOS: 032e4b2b0941794d4a3a7d4df27910cdce4c4a0a
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
@@ -104,7 +104,7 @@ SPEC CHECKSUMS:
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  RMessage: 37b1ab9d92ec1ffbafbbbdfc6f10c9524829c4e6
+  RMessage: 801eaaf88cc0e962c50eb3d7f86ac5e15979ba6d
   SBJson: fed075209a18590e0c30bfbd0b8d8adf15135257
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   XLPagerTabStrip: 0f9f94246c84e7cb60a06ca435da68ac75c8b56e

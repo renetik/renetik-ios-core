@@ -27,4 +27,5 @@
 
 - (instancetype)replaceFromArray:(NSArray *)array;
 
+- (instancetype)reverse;
 @end

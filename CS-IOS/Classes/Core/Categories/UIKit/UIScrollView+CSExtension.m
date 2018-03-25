@@ -30,4 +30,12 @@
 - (long)currentPageIndexFrom:(NSUInteger)from {
     return lround(self.contentOffset.x / (self.contentSize.width / from));
 }
+
+- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation {
+    if (@available(iOS 11, *)){
+        self.contentInset = UIEdgeInsetsMake(navigation.navigationBar.bottom, 0, 0, 0);
+        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    return self;
+}
 @end

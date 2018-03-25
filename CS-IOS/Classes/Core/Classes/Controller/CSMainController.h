@@ -7,13 +7,15 @@
 #import "CSViewController.h"
 
 @class CSMenuItem;
+@class CSMenuHeader;
 
 @interface CSMainController : CSViewController
 
 @property(nonatomic) BOOL showing;
 @property(nonatomic) BOOL appearing;
 @property(nonatomic, readonly) BOOL visible;
-@property(nonatomic, strong) NSMutableArray<CSMenuItem *> *menuItems;
+@property(nonatomic, strong) NSMutableArray<CSMenuItem *> *menu;
+@property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *customMenu;
 @property(nonatomic, strong, readonly) CSActionSheet *menuSheet;
 @property(nonatomic, strong) CSMainController *parent;
 
@@ -34,6 +36,8 @@
 - (void)showIn:(CSMainController *)parent;
 
 - (void)hideIn:(UIViewController *)parent;
+
+- (CSMenuHeader *)addMenuHeader:(NSString *)title;
 
 - (CSMenuItem *)addMenuItem:(NSString *)title;
 
@@ -70,6 +74,8 @@
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
 - (void)onPrepareMenu:(NSMutableArray<CSMenuItem *> *)items;
+
+- (UIBarButtonItem *)onPrepareLeftBarItem;
 
 - (void)updateRightBarItemsAndMenu;
 

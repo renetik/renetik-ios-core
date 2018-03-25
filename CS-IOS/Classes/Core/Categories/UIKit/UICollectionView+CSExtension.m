@@ -59,4 +59,6 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 - (void)registerNibForCell:(Class)pClass {
     [self registerNib:[UINib nibWithName:pClass.NIBName] forCellWithReuseIdentifier:[pClass description]];
 }
+
+
 @end

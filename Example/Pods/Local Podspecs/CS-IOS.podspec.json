@@ -41,16 +41,16 @@
           "~> 3.1.1"
         ],
         "ChameleonFramework": [
-
+          "~> 2.1.0"
         ],
         "MJRefresh": [
           "~> 3.1.15.3"
         ],
         "DZNEmptyDataSet": [
-
+          "~> 1.8.1"
         ],
         "MZAppearance": [
-
+          "~> 1.1.6"
         ]
       }
     },

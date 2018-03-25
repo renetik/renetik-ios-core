@@ -60,4 +60,5 @@
 - (__kindof UICollectionReusableView *)dequeEmptyHeader:(NSIndexPath *)path;
 
 - (void)registerNibForCell:(Class)pClass;
+
 @end
