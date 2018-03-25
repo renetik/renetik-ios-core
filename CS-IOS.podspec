@@ -40,10 +40,10 @@ TODO: Add long description of the pod here.
     ss.dependency 'CocoaLumberjack', '~> 3.4.1'
     ss.dependency 'MMDrawerController', '~> 0.6.0'
     ss.dependency 'SBJson', '~> 3.1.1'
-    ss.dependency 'ChameleonFramework'
+    ss.dependency 'ChameleonFramework', '~> 2.1.0'
     ss.dependency 'MJRefresh', '~> 3.1.15.3'
-    ss.dependency 'DZNEmptyDataSet'
-    ss.dependency 'MZAppearance'
+    ss.dependency 'DZNEmptyDataSet','~> 1.8.1'
+    ss.dependency 'MZAppearance','~> 1.1.6'
   end
 
    s.subspec 'WithAdditions' do |ss|

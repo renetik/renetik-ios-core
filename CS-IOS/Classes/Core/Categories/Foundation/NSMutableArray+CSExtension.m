@@ -8,7 +8,6 @@
 #import "NSObject+CSExtension.h"
 #import "CSCocoaLumberjack.h"
 
-
 @implementation NSMutableArray (CSExtension)
 
 - (instancetype)construct:(NSArray *)array {
@@ -64,5 +63,7 @@
     return self;
 }
 
-
+- (instancetype)reverse {
+    return self.reverseObjectEnumerator.allObjects.mutableCopy;
+}
 @end

@@ -54,7 +54,7 @@
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
 
     for (CSMainController *controller in _controllers) {
-//        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
         controller.view.size = _scrollView.size;

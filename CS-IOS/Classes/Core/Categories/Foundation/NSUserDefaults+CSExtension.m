@@ -32,6 +32,11 @@
     return [NSUserDefaults.standardUserDefaults stringForKey:key];
 }
 
++ (NSString *)loadString:(NSString *)key:(NSString*)defaultValue  {
+    if (![self hasKey:key]) return defaultValue;
+    return [NSUserDefaults.standardUserDefaults stringForKey:key];
+}
+
 + (NSInteger)loadInteger:(NSString *)key :(NSInteger)defaultValue {
     if (![self hasKey:key]) return defaultValue;
     return [NSUserDefaults.standardUserDefaults integerForKey:key];

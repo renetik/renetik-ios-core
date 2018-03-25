@@ -7,6 +7,7 @@
 #import "CSMainController.h"
 #import "CSMenuItem.h"
 #import "CSActionSheet.h"
+#import "CSMenuHeader.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_controllers;
@@ -23,7 +24,8 @@
 
 - (instancetype)construct {
     [super construct];
-    _menuItems = NSMutableArray.new;
+    _menu = NSMutableArray.new;
+    _customMenu = NSMutableArray.new;
     _showing = NO;
     _controllers = NSMutableArray.new;
     return self;
@@ -146,15 +148,17 @@
     NSMutableArray<CSMenuItem *> *menuItems = NSMutableArray.new;
     [self onPrepareMenu:menuItems];
     NSMutableArray<UIBarButtonItem *> *items = NSMutableArray.new;
-    [self.menuSheet clear];
+    self.menuSheet.clear;
     if (menuItems.count > 2) {
         [items add:[MMDrawerBarButtonItem.alloc initWithTarget:self action:@selector(onMenuClick:)]];
         for (int i = 1; i < menuItems.count; ++i) [self.menuSheet addAction:menuItems[i].title :menuItems[i].action];
     }
-    if (menuItems.second && menuItems.count == 2)[items add:[menuItems.second createBarButton]];
-    if (menuItems.first) [items add:[menuItems.first createBarButton]];
+    if (menuItems.second && menuItems.count == 2)[items add:menuItems.second.createBarButton];
+    if (menuItems.first) [items add:menuItems.first.createBarButton];
     [self onPrepareRightBarButtonItems:items];
     [self.navigationItem setRightBarButtonItems:items];
+
+    [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
 }
 
 - (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array {
@@ -185,8 +189,13 @@
 }
 
 - (void)onPrepareMenu:(NSMutableArray<CSMenuItem *> *)items {
-    for (CSMenuItem *item in _menuItems) if (item.visible) [items add:item];
+    for (CSMenuItem *item in _menu) if (item.visible) [items add:item];
     for (CSMainController *controller in _controllers) if (controller.showing) [controller onPrepareMenu:items];
+}
+
+- (UIBarButtonItem *)onPrepareLeftBarItem {
+    for (CSMainController *controller in _controllers) if (controller.showing) return controller.onPrepareLeftBarItem;
+    return nil;
 }
 
 - (void)onMenuClick:(id)sender {
@@ -212,34 +221,38 @@
     self.showing = NO;
 }
 
+- (CSMenuHeader *)addMenuHeader:(NSString *)title {
+    return [_customMenu add:[CSMenuHeader.new construct:self :_menu.count :title]];
+}
+
 - (CSMenuItem *)addMenuItem:(NSString *)title {
-    return [_menuItems add:[CSMenuItem.new construct:self :title]];
+    return [_menu add:[CSMenuItem.new construct:self :title]];
 }
 
 - (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)())onClick {
-    return [_menuItems add:[CSMenuItem.new construct:self :title :onClick]];
+    return [_menu add:[CSMenuItem.new construct:self :title :onClick]];
 }
 
 - (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title {
-    CSMenuItem *menuItem = [_menuItems add:[CSMenuItem.new construct:(self) :title]];
+    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title]];
     menuItem.systemItem = item;
     return menuItem;
 }
 
 - (CSMenuItem *)addImageMenuItem:(UIImage *)image :(NSString *)title {
-    CSMenuItem *menuItem = [_menuItems add:[CSMenuItem.new construct:(self) :title]];
+    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title]];
     menuItem.image = image;
     return menuItem;
 }
 
 - (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)())onClick {
-    CSMenuItem *menuItem = [_menuItems add:[CSMenuItem.new construct:(self) :title :onClick]];
+    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title :onClick]];
     menuItem.systemItem = item;
     return menuItem;
 }
 
 - (CSMenuItem *)addMenuItem {
-    return [_menuItems add:[CSMenuItem.new construct:self :@""]];
+    return [_menu add:[CSMenuItem.new construct:self :@""]];
 }
 
 - (BOOL)visible {
