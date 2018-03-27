@@ -3,7 +3,6 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "CSMenuItem.h"
 #import "CSMainController.h"
@@ -20,7 +19,7 @@
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)())action {
+- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action {
     [self construct:parent :@""];
     self.systemItem = item;
     self.action = action;
@@ -28,13 +27,13 @@
 }
 
 
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)())action {
+- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
     [self construct:parent :title];
     self.action = action;
     return self;
 }
 
-- (instancetype)setOnClick:(void (^)())onClick {
+- (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick {
     self.action = onClick;
     return self;
 }
@@ -58,10 +57,9 @@
 }
 
 - (void)updateMenu {
-    if ([_controller isKindOfClass:CSMainController.class])
-        [((CSMainController *) _controller) updateRightBarItemsAndMenu];
+    if ([_controller isKindOfClass:CSMainController.class]) [_controller updateRightBarItemsAndMenu];
     else if ([_controller.parentViewController isKindOfClass:CSMainController.class])
-        [((CSMainController *) _controller.parentViewController) updateRightBarItemsAndMenu];
+        [(CSMainController *) _controller.parentViewController updateRightBarItemsAndMenu];
     else
         warn(@"CSMainController not found");
 }
@@ -79,7 +77,12 @@
 
 - (void (^)(id))createAction {
     return ^(id sender) {
-        invoke(self.action);
+        invokeWith(self.action, self);
     };
+}
+
+- (instancetype)closeMenu:(BOOL)close {
+    _closeMenu = close;
+    return self;
 }
 @end

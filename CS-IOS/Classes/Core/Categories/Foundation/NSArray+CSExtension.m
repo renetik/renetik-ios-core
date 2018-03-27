@@ -1,7 +1,6 @@
 //
 //  Created by Rene Dohan on 5/9/12.
 //
-#import <UIKit/UIKit.h>
 
 @implementation NSArray (CSExtension)
 
@@ -20,8 +19,7 @@
 }
 
 - (id)at:(NSInteger)index {
-    if (index < self.count) return [self objectAtIndex:(NSUInteger) index];
-    return nil;
+    return index < self.count ? self[(NSUInteger) index] : nil;
 }
 
 - (BOOL)empty {

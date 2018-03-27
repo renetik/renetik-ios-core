@@ -9,6 +9,8 @@
 
 - (NSString *)remove:(NSString *)string;
 
+- (NSString *)removeEnd:(NSString *)string;
+
 - (NSString *)substringTo:(NSUInteger)to;
 
 - (NSString *)add:(NSObject *)first;

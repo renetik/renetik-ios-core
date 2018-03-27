@@ -11,7 +11,9 @@
 
 @property(nonatomic, copy) NSString *title;
 
-@property(nonatomic, copy) void (^action)();
+@property(nonatomic, assign) NSUInteger index;
+
+@property(nonatomic, copy) void (^action)(CSMenuItem *);
 
 @property(nonatomic) BOOL visible;
 
@@ -21,13 +23,15 @@
 
 @property(nonatomic, strong) UIImage *image;
 
+@property(nonatomic) BOOL closeMenu;
+
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title;
 
-- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)())action;
+- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action;
 
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(void))action;
+- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action;
 
-- (instancetype)setOnClick:(void (^)(void))onClick;
+- (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick;
 
 - (void)hide;
 
@@ -38,4 +42,6 @@
 - (void)updateMenu;
 
 - (UIBarButtonItem *)createBarButton;
+
+- (instancetype)closeMenu:(BOOL)close;
 @end

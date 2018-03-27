@@ -229,7 +229,7 @@
     return [_menu add:[CSMenuItem.new construct:self :title]];
 }
 
-- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)())onClick {
+- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick {
     return [_menu add:[CSMenuItem.new construct:self :title :onClick]];
 }
 
@@ -245,7 +245,7 @@
     return menuItem;
 }
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)())onClick {
+- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)(CSMenuItem *))onClick {
     CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title :onClick]];
     menuItem.systemItem = item;
     return menuItem;

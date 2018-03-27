@@ -23,7 +23,6 @@
     [self deselectRowAtIndexPath:self.indexPathForSelectedRow animated:YES];
 }
 
-
 - (void)deselectSelectedRows:(BOOL)animated {
     for (NSIndexPath *path in self.indexPathsForSelectedRows)
         [self deselectRowAtIndexPath:path animated:animated];
