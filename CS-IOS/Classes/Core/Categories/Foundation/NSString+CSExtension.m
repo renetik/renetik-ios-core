@@ -65,6 +65,10 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [self replace:string :@""];
 }
 
+- (NSString *)removeEnd:(NSString *)string {
+    return [self replaceLast:string :@""];
+}
+
 - (NSString *)substringTo:(NSUInteger)to {
     if (to > self.length)return self;
     return [self substringToIndex:to];

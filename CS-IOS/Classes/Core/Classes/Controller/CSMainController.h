@@ -41,13 +41,13 @@
 
 - (CSMenuItem *)addMenuItem:(NSString *)title;
 
-- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)())onClick;
+- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title;
 
 - (CSMenuItem *)addImageMenuItem:(UIImage *)image :(NSString *)title;
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)())onClick;
+- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)addMenuItem;
 

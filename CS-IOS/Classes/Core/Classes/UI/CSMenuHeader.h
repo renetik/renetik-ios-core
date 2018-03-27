@@ -15,5 +15,7 @@
 
 - (instancetype)construct:(CSMainController *)controller :(int)index :(NSString *)title;
 
+- (CSMenuItem *)item:(NSString *)name;
+
 - (instancetype)clear;
 @end
