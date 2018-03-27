@@ -2,6 +2,7 @@
 //  Created by Rene Dohan on 11/2/12.
 //
 
+#import <UIKit/UIKit.h>
 #import "CSArgEvent.h"
 #import "CSResponse.h"
 #import "CSCocoaLumberjack.h"

@@ -147,18 +147,23 @@
     }
     NSMutableArray<CSMenuItem *> *menuItems = NSMutableArray.new;
     [self onPrepareMenu:menuItems];
-    NSMutableArray<UIBarButtonItem *> *items = NSMutableArray.new;
+    UIBarButtonItem *barMenuItem = [self createMenu:menuItems];
+    NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
+    if (barMenuItem) [barItems add:barMenuItem];
+    if (menuItems.second && menuItems.count == 2)[barItems add:menuItems.second.createBarButton];
+    if (menuItems.first) [barItems add:menuItems.first.createBarButton];
+    [self onPrepareRightBarButtonItems:barItems];
+    [self.navigationItem setRightBarButtonItems:barItems];
+    [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
+}
+
+- (UIBarButtonItem *)createMenu:(NSMutableArray<CSMenuItem *> *)menuItems {
     self.menuSheet.clear;
     if (menuItems.count > 2) {
-        [items add:[MMDrawerBarButtonItem.alloc initWithTarget:self action:@selector(onMenuClick:)]];
-        for (int i = 1; i < menuItems.count; ++i) [self.menuSheet addAction:menuItems[i].title :menuItems[i].action];
+        for (uint i = 1; i < menuItems.count; ++i) [self.menuSheet addAction:menuItems[i].title :menuItems[i].action];
+        return [MMDrawerBarButtonItem.alloc initWithTarget:self action:@selector(onMenuClick:)];
     }
-    if (menuItems.second && menuItems.count == 2)[items add:menuItems.second.createBarButton];
-    if (menuItems.first) [items add:menuItems.first.createBarButton];
-    [self onPrepareRightBarButtonItems:items];
-    [self.navigationItem setRightBarButtonItems:items];
-
-    [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
+    return nil;
 }
 
 - (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array {

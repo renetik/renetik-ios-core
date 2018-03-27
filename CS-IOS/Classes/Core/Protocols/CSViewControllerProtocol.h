@@ -3,20 +3,15 @@
 // Copyright (c) 2016 renetik_software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class CSResponse;
-@class CSAlertView;
-@class CSActionSheet;
 @class CSViewController;
+@class UIViewController;
 
 @protocol CSViewControllerProtocol <NSObject>
 
 - (CSResponse *)showFailed:(CSResponse *)response;
-
-- (CSAlertView *)alert;
-
-- (CSActionSheet *)sheet;
 
 - (UIViewController *)asController;
 
