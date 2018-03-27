@@ -8,6 +8,7 @@
 
 @class CSMenuItem;
 @class CSMenuHeader;
+@class CSActionSheet;
 
 @interface CSMainController : CSViewController
 
