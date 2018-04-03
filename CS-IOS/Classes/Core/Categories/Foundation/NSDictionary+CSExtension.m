@@ -4,6 +4,7 @@
 
 
 #import "NSDictionary+CSExtension.h"
+#import "CSLang.h"
 
 @implementation NSDictionary (CSExtension)
 
@@ -34,7 +35,7 @@
 }
 
 - (id)get:(NSString *)key {
-    return self[key];
+    return nullToNil(self[key]);
 }
 
 - (BOOL)contains:(NSString *)key {

@@ -104,6 +104,7 @@
 #import "CSNetwork.h"
 #import "CSResponse.h"
 #import "CSMenuHeader.h"
+#import "CSMenuIcon.h"
 #import "CSMenuItem.h"
 #import "CSRefreshControl.h"
 #import "CSScrollViewPager.h"

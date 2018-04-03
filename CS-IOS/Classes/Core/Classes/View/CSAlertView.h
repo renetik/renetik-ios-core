@@ -54,25 +54,25 @@
 
 - (instancetype)show;
 
-- (instancetype)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit;
+- (instancetype)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit;
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit onCancel:(void (^)())onCancel;
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit onCancel:(void (^)(void))onCancel;
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action;
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action;
 
 - (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)okTitle;
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)okTitle :(void (^)())onSubmit;
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)okTitle :(void (^)(void))onSubmit;
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action;
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action;
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action :(NSString *)button3 :(void (^)())button3Action;
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action :(NSString *)button3 :(void (^)(void))button3Action;
 
 - (instancetype)create:(NSString *)title :(NSString *)message;
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action;
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action;
 
-- (CSAlertView *)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit;
+- (CSAlertView *)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit;
 
 - (void)hide;
 

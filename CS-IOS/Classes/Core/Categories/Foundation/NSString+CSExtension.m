@@ -1,7 +1,6 @@
 //
 //  Created by Rene Dohan on 4/29/12.
 //
-#import "CSLang.h"
 #import "NSString+CSExtension.h"
 
 
@@ -40,11 +39,11 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 + (NSString *)format:(NSString *)format :(NSObject *)argument :(NSObject *)argument2
         :(NSObject *)argument3 :(NSObject *)argument4 :(NSObject *)argument5 {
     return [NSString stringWithFormat:format,
-                                      argument ? argument : @"",
-                                      argument2 ? argument2 : @"",
-                                      argument3 ? argument3 : @"",
-                                      argument4 ? argument4 : @"",
-                                      argument5 ? argument5 : @"",
+                                      argument ? argument.description : @"",
+                                      argument2 ? argument2.description : @"",
+                                      argument3 ? argument3.description : @"",
+                                      argument4 ? argument4.description : @"",
+                                      argument5 ? argument5.description : @"",
                     nil];
 }
 
@@ -54,7 +53,9 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 }
 
 - (NSString *)replaceLast:(NSString *)string :(NSString *)replacement {
-    return [self stringByReplacingCharactersInRange:[self rangeOfString:string options:NSBackwardsSearch] withString:replacement];
+    if ([self contains:string])
+        return [self stringByReplacingCharactersInRange:[self rangeOfString:string options:NSBackwardsSearch] withString:replacement];
+    return self;
 }
 
 - (NSString *)replace:(NSString *)string :(NSString *)replacement {
@@ -161,7 +162,7 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 }
 
 - (NSString *)trim {
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 }
 
 - (BOOL)equals:(NSString *)aString {
@@ -178,6 +179,14 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 
 + (BOOL)empty:(NSString *)text {
     return text == nil || text.empty;
+}
+
+- (int)indexOf:(NSString *)string {
+    return [self rangeOfString:string].location;
+}
+
+- (uint)countString:(NSString *)string {
+    return [self split:string].count - 1;
 }
 
 @end

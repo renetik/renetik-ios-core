@@ -11,9 +11,13 @@
 
 @property(nonatomic, copy) NSString *title;
 
+@property(nonatomic, copy) NSString *subTitle;
+
 @property(nonatomic, assign) NSUInteger index;
 
 @property(nonatomic, copy) void (^action)(CSMenuItem *);
+
+@property(nonatomic, copy) BOOL (^isVisible)(CSMenuItem *);
 
 @property(nonatomic) BOOL visible;
 
@@ -25,11 +29,15 @@
 
 @property(nonatomic) BOOL closeMenu;
 
+@property(nonatomic, strong) UIView *view;
+
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title;
 
 - (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action;
 
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action;
+
+- (instancetype)onClick:(void (^)(CSMenuItem *))onClick;
 
 - (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick;
 
@@ -44,4 +52,8 @@
 - (UIBarButtonItem *)createBarButton;
 
 - (instancetype)closeMenu:(BOOL)close;
+
+- (void)setView:(UIView *)view;
+
+- (instancetype)note:(NSString *)string;
 @end

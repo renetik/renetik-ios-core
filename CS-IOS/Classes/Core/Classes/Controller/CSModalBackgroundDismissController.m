@@ -34,7 +34,7 @@
 - (void)tapBehindDetected:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [sender locationInView:nil];
-        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && UIDevice.systemVersion >= 8)
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
             location = CGPointMake(location.y, location.x);
         if (![self.parent.view pointInside:[self.parent.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
             if (self.parent.view) [self dismissViewController];

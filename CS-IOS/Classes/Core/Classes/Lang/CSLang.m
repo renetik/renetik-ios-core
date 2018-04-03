@@ -2,6 +2,8 @@
 #import "CSLang.h"
 #import "NSString+CSExtension.h"
 #import "MBProgressHUD+CSExtension.h"
+#import "NSMutableArray+CSExtension.h"
+#import "NSMutableDictionary+CSExtension.h"
 
 @implementation CSLang
 
@@ -9,14 +11,27 @@ void run(void (^block)(void)) {
     if (block) block();
 }
 
-id nilToNULL(id object) {
+id nilToNull(id object) {
     if (object == nil) return [NSNull null];
+    return object;
+}
+
+id nullToNil(id object) {
+    if (object == [NSNull null]) return nil;
     return object;
 }
 
 id stringify(id object) {
     if (object == nil) return @"";
     return stringf(@"%@", object);
+}
+
+NSMutableArray *muteArray(NSArray *array) {
+    return [NSMutableArray.new construct:array];
+}
+
+NSMutableDictionary *muteDict(NSDictionary *dictionary) {
+    return [NSMutableDictionary.new construct:dictionary];
 }
 
 void runWith(void (^block)(id), id value) {

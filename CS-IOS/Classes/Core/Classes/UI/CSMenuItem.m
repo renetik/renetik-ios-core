@@ -7,12 +7,16 @@
 #import "CSMenuItem.h"
 #import "CSMainController.h"
 #import "CSCocoaLumberjack.h"
+#import "CSLang.h"
 
+@implementation CSMenuItem {
+    BOOL _visible;
+}
 
-@implementation CSMenuItem
 
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title {
-    [super construct];
+    self.construct;
+    _closeMenu = YES;
     _controller = parent;
     _title = title;
     _visible = YES;
@@ -30,6 +34,11 @@
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
     [self construct:parent :title];
     self.action = action;
+    return self;
+}
+
+- (instancetype)onClick:(void (^)(CSMenuItem *))onClick {
+    self.action = onClick;
     return self;
 }
 
@@ -52,14 +61,19 @@
     [self updateMenu];
 }
 
+- (BOOL)visible {
+    if (_isVisible) return _isVisible(self);
+    return _visible;
+}
+
 - (void)setHidden:(BOOL)hidden {
     self.visible = !hidden;
 }
 
 - (void)updateMenu {
-    if ([_controller isKindOfClass:CSMainController.class]) [_controller updateRightBarItemsAndMenu];
+    if ([_controller isKindOfClass:CSMainController.class]) [_controller updateBarItemsAndMenu];
     else if ([_controller.parentViewController isKindOfClass:CSMainController.class])
-        [(CSMainController *) _controller.parentViewController updateRightBarItemsAndMenu];
+        [(CSMainController *) _controller.parentViewController updateBarItemsAndMenu];
     else
         warn(@"CSMainController not found");
 }
@@ -83,6 +97,15 @@
 
 - (instancetype)closeMenu:(BOOL)close {
     _closeMenu = close;
+    return self;
+}
+
+- (void)setView:(UIView *)view {
+    _view = view;
+}
+
+- (instancetype)note:(NSString *)string {
+    _subTitle = string;
     return self;
 }
 @end

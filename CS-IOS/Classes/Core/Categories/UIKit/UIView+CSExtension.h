@@ -34,11 +34,13 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)fadeIn:(NSTimeInterval)time;
 
-+ (UIView *)createEmptyWithColor:(UIColor *)color;
++ (instancetype)createEmpty;
 
-+ (UIView *)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame;
++ (instancetype)createEmptyWithColor:(UIColor *)color;
 
-+ (UIView *)createEmptyWithFrame:(CGRect)frame;
++ (instancetype)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame;
+
++ (instancetype)createEmptyWithFrame:(CGRect)frame;
 
 - (instancetype)fadeIn;
 

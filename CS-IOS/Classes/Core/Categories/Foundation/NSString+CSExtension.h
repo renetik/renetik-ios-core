@@ -83,4 +83,8 @@
 - (BOOL)contains:(NSString *)string :(NSStringCompareOptions)options;
 
 - (NSString *)replace:(NSString *)string :(NSString *)replacement;
+
+- (int)indexOf:(NSString *)string;
+
+- (uint)countString:(NSString *)string;
 @end

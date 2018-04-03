@@ -3,7 +3,6 @@
 //
 
 #import "CSLang.h"
-#import "NSArray+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "CSCocoaLumberjack.h"
@@ -14,10 +13,6 @@
     [super construct];
     [self addArray:array];
     return self;
-}
-
-- (id)objectAtIndexedSubscript:(NSUInteger)idx {
-    return [self at:idx];
 }
 
 - (id)add:(id)anObject {
@@ -31,7 +26,7 @@
 }
 
 - (id)add:(id)anObject :(NSUInteger)index {
-    [self insertObject:anObject atIndex:index];
+    [self insertObject:nilToNull(anObject) atIndex:index];
     return anObject;
 }
 
@@ -65,5 +60,15 @@
 
 - (instancetype)reverse {
     return self.reverseObjectEnumerator.allObjects.mutableCopy;
+}
+
+- (instancetype)removeLast {
+    [self removeLastObject];
+    return self;
+}
+
+- (instancetype)joinBy:(NSString *)string {
+    [self componentsJoinedByString:string];
+    return self;
 }
 @end

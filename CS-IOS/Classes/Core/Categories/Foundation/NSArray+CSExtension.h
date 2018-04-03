@@ -6,6 +6,8 @@
 
 @interface NSArray<ObjectType> (CSExtension)
 
+//- (ObjectType)objectAtIndexedSubscript:(NSUInteger)idx;
+
 - (ObjectType)objectAs:(ObjectType)anObject;
 
 - (BOOL)contains:(id)anObject;

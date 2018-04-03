@@ -2,10 +2,16 @@
 //  Created by Rene Dohan on 5/9/12.
 //
 
+#import "CSLang.h"
+
 @implementation NSArray (CSExtension)
 
+//- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+//    return [self at:idx];
+//}
+
 - (id)objectAs:(id)anObject {
-    NSUInteger index = [self indexOfObject:anObject];
+    NSUInteger index = [self indexOf:anObject];
     if (index != NSNotFound) return self[index];
     return nil;
 }
@@ -19,7 +25,7 @@
 }
 
 - (id)at:(NSInteger)index {
-    return index < self.count ? self[(NSUInteger) index] : nil;
+    return index < self.count ? nullToNil(self[(NSUInteger) index]) : nil;
 }
 
 - (BOOL)empty {

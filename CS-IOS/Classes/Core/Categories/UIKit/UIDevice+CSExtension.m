@@ -26,11 +26,7 @@
 }
 
 + (BOOL)isWideScreen {
-    return self.isIOS8 ? self.isWideScreenIOS8 : self.isWideScreenIOS7;
-}
-
-+ (BOOL)isWideScreenIOS7 {
-    return fabs((double) UIScreen.mainScreen.bounds.size.height - (double) 568) < DBL_EPSILON;
+    return  self.isWideScreenIOS8 ;
 }
 
 + (BOOL)isWideScreenIOS8 {
@@ -41,10 +37,6 @@
     return self.currentDevice.systemVersion.floatValue;
 }
 
-+ (BOOL)isIOS8 {
-    return self.systemVersion >= 8;
-}
-
 + (BOOL)isIOS10 {
     return self.systemVersion >= 10;
 }
@@ -53,7 +45,4 @@
     return self.systemVersion >= 11;
 }
 
-+ (BOOL)isIOS7 {
-    return self.systemVersion >= 7 && self.systemVersion < 8;
-}
 @end

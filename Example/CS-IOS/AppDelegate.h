@@ -6,7 +6,7 @@
 //  Copyright (c) 2018 rene-dohan. All rights reserved.
 //
 
-#import "CS_IOS/CS-IOS-umbrella.h"
+@import CS_IOS;
 
 @interface AppDelegate : CSAppDelegate
 

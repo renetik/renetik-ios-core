@@ -12,7 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     info(@"Test");
-    infoInt([@"test.test" split:@"."].size);
+    CSMenuIcon.image;
     return YES;
 }
 

@@ -3,11 +3,12 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <MMDrawerController/MMDrawerBarButtonItem.h>
+@import BlocksKit;
 #import "CSMainController.h"
 #import "CSMenuItem.h"
 #import "CSActionSheet.h"
 #import "CSMenuHeader.h"
+#import "CSMenuIcon.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_controllers;
@@ -25,7 +26,6 @@
 - (instancetype)construct {
     [super construct];
     _menu = NSMutableArray.new;
-    _customMenu = NSMutableArray.new;
     _showing = NO;
     _controllers = NSMutableArray.new;
     return self;
@@ -37,10 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.isMainController) {
-        [self updateLeftBarItem];
-        [self updateRightBarItemsAndMenu:NO];
-    }
+    if (self.isMainController) [self updateBarItemsAndMenu:NO];
     [self onViewWillAppear];
     if (!_onViewWillAppearFirstTime) {
         _onViewWillAppearFirstTime = YES;
@@ -131,39 +128,43 @@
     return !self.isMainController;
 }
 
-- (CSActionSheet *)menuSheet {
-    if (self.isMainController && !_menuSheet) _menuSheet = CSActionSheet.new.construct;
-    return _menuSheet;
+
+- (void)updateBarItemsAndMenu {
+    [self updateBarItemsAndMenu:NO];
 }
 
-- (void)updateRightBarItemsAndMenu {
-    [self updateRightBarItemsAndMenu:NO];
-}
-
-- (void)updateRightBarItemsAndMenu:(BOOL)animated {
+- (void)updateBarItemsAndMenu:(BOOL)animated {
     if (self.isChildController) {
-        [_parent updateRightBarItemsAndMenu:animated];
+        [_parent updateBarItemsAndMenu:animated];
         return;
     }
-    NSMutableArray<CSMenuItem *> *menuItems = NSMutableArray.new;
-    [self onPrepareMenu:menuItems];
-    UIBarButtonItem *barMenuItem = [self createMenu:menuItems];
+    NSMutableArray<CSMenuHeader *> *menu = NSMutableArray.new;
+    [self onPrepareMenu:menu];
+    UIBarButtonItem *barMenuItem = [self onCreateMenu:menu];
     NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
     if (barMenuItem) [barItems add:barMenuItem];
-    if (menuItems.second && menuItems.count == 2)[barItems add:menuItems.second.createBarButton];
-    if (menuItems.first) [barItems add:menuItems.first.createBarButton];
+    if (menu.second && menu.count == 2)[barItems add:menu.second.items.first.createBarButton];
+    if (menu.first) [barItems add:menu.first.items.first.createBarButton];
     [self onPrepareRightBarButtonItems:barItems];
     [self.navigationItem setRightBarButtonItems:barItems];
     [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
 }
 
-- (UIBarButtonItem *)createMenu:(NSMutableArray<CSMenuItem *> *)menuItems {
+- (CSActionSheet *)menuSheet {
+    return _menuSheet ? _menuSheet : (_menuSheet = CSActionSheet.new.construct);
+}
+
+- (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuHeader *> *)menu {
+    if (menu.count <= 2) return nil;
     self.menuSheet.clear;
-    if (menuItems.count > 2) {
-        for (uint i = 1; i < menuItems.count; ++i) [self.menuSheet addAction:menuItems[i].title :menuItems[i].action];
-        return [MMDrawerBarButtonItem.alloc initWithTarget:self action:@selector(onMenuClick:)];
+    for (uint i = 1; i < menu.count; ++i) {
+        CSMenuItem *item = menu[i].items.first;
+        [self.menuSheet addAction:item.title :^{item.action(item);}];
     }
-    return nil;
+    return [UIBarButtonItem.alloc bk_initWithImage:CSMenuIcon.image style:UIBarButtonItemStylePlain handler:^(id sender) {
+        if (_menuSheet.visible)[_menuSheet hide];
+        else [_menuSheet showFromBarItem:sender];
+    }];
 }
 
 - (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array {
@@ -193,22 +194,14 @@
     return controllers;
 }
 
-- (void)onPrepareMenu:(NSMutableArray<CSMenuItem *> *)items {
-    for (CSMenuItem *item in _menu) if (item.visible) [items add:item];
-    for (CSMainController *controller in _controllers) if (controller.showing) [controller onPrepareMenu:items];
+- (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)menu {
+    for (CSMenuHeader *header in _menu) if (header.visible) [menu add:header];
+    for (CSMainController *controller in _controllers) if (controller.showing) [controller onPrepareMenu:menu];
 }
 
 - (UIBarButtonItem *)onPrepareLeftBarItem {
     for (CSMainController *controller in _controllers) if (controller.showing) return controller.onPrepareLeftBarItem;
     return nil;
-}
-
-- (void)onMenuClick:(id)sender {
-    if (self.menuSheet.visible)[self.menuSheet hide];
-    else [self.menuSheet showFromBarItem:sender];
-}
-
-- (void)updateLeftBarItem {
 }
 
 - (void)showIn:(CSMainController *)parent {
@@ -226,38 +219,40 @@
     self.showing = NO;
 }
 
-- (CSMenuHeader *)addMenuHeader:(NSString *)title {
-    return [_customMenu add:[CSMenuHeader.new construct:self :_menu.count :title]];
+- (CSMenuHeader *)menuHeader:(NSString *)title {
+    return [_menu add:[CSMenuHeader.new construct:self :_menu.count :title]];
 }
 
-- (CSMenuItem *)addMenuItem:(NSString *)title {
-    return [_menu add:[CSMenuItem.new construct:self :title]];
+- (CSMenuItem *)menuItemView:(UIView *)view {
+    return [self.menuHeader itemView:view];
 }
 
-- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick {
-    return [_menu add:[CSMenuItem.new construct:self :title :onClick]];
+- (CSMenuHeader *)menuHeader {
+    return [self menuHeader:@""];
 }
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title {
-    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title]];
-    menuItem.systemItem = item;
-    return menuItem;
+- (CSMenuItem *)menuItem:(NSString *)title {
+    return [self.menuHeader item:title];
 }
 
-- (CSMenuItem *)addImageMenuItem:(UIImage *)image :(NSString *)title {
-    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title]];
-    menuItem.image = image;
-    return menuItem;
+- (CSMenuItem *)menuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick {
+    return [self.menuHeader item:title :onClick];
 }
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)(CSMenuItem *))onClick {
-    CSMenuItem *menuItem = [_menu add:[CSMenuItem.new construct:(self) :title :onClick]];
-    menuItem.systemItem = item;
-    return menuItem;
+- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)item {
+    return [self.menuHeader item:title type:item];
 }
 
-- (CSMenuItem *)addMenuItem {
-    return [_menu add:[CSMenuItem.new construct:self :@""]];
+- (CSMenuItem *)menuItem:(NSString *)title image:(UIImage *)image {
+    return [self.menuHeader item:title image:image];
+}
+
+- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
+    return [self.menuHeader item:title type:type :onClick];
+}
+
+- (CSMenuItem *)menuItem {
+    return [self menuItem:@""];
 }
 
 - (BOOL)visible {

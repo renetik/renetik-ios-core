@@ -22,7 +22,22 @@
 }
 
 - (CSMenuItem *)item:(NSString *)name {
-    return [_items add:[CSMenuItem.new construct:_controller :_title]];
+    var item = [_items add:[CSMenuItem.new construct:_controller :name]];
+    item.index = (NSUInteger) (_items.size - 1);
+    return item;
+}
+
+- (CSMenuItem *)item:(NSString *)name :(NSString *)subTitle :(void (^)(CSMenuItem *))_onClick {
+    var item = [self item:name];
+    item.subTitle = subTitle;
+    [item onClick:_onClick];
+    return item;
+}
+
+- (CSMenuItem *)item:(NSString *)title :(void (^)(CSMenuItem *))onClick {
+    var item = [self item:title];
+    item.action = onClick;
+    return item;
 }
 
 - (instancetype)clear {
@@ -30,4 +45,32 @@
     return self;
 }
 
+- (CSMenuItem *)item:(NSString *)title type:(UIBarButtonSystemItem)type {
+    CSMenuItem *item = [self item:title];
+    item.systemItem = type;
+    return item;
+}
+
+- (CSMenuItem *)item:(NSString *)title image:(UIImage *)image {
+    CSMenuItem *item = [self item:title];
+    item.image = image;
+    return item;
+}
+
+- (CSMenuItem *)item:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
+    CSMenuItem *item = [self item:title :onClick];
+    item.systemItem = type;
+    return item;
+}
+
+- (BOOL)visible {
+    for (CSMenuItem *item in _items) if (item.visible)return YES;
+    return NO;
+}
+
+- (CSMenuItem *)itemView:(UIView *)view {
+    CSMenuItem *item = [self item:@""];
+    item.view = view;
+    return item;
+}
 @end
