@@ -3,7 +3,8 @@
 // Copyright (c) 2017 renetik_software. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
+@class CSMenuItem;
 
 @interface CSAppDelegate : UIResponder <UIApplicationDelegate>
 

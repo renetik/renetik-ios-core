@@ -16,15 +16,15 @@
     return self;
 }
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action {
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action {
     [self create:title :message];
     [self addButton:button1 :button1Action];
     [self addButton:button2 :button2Action];
     return self;
 }
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action
-        :(NSString *)button3 :(void (^)())button3Action {
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action
+        :(NSString *)button3 :(void (^)(void))button3Action {
     [self create:title :message];
     [self addButton:button1 :button1Action];
     [self addButton:button2 :button2Action];
@@ -32,12 +32,12 @@
     return self;
 }
 
-- (void)addButton:(NSString *)button :(void (^)())buttonAction {
+- (void)addButton:(NSString *)button :(void (^)(void))buttonAction {
     [_alert addButtonWithTitle:button];
     [_actions add:[buttonAction copy]];
 }
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit onCancel:(void (^)())onCancel {
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit onCancel:(void (^)(void))onCancel {
     [self create:title :message];
     __weak typeof(self) _self = self;
     [self addButton:cancelTitle :^{
@@ -48,32 +48,32 @@
     return self;
 }
 
-- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit {
+- (instancetype)create:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit {
     [self create:title :message];
     [self addButton:cancelTitle :[self createHideAction]];
     [self addButton:okTitle :onSubmit];
     return self;
 }
 
-- (void (^)())createHideAction {
+- (void (^)(void))createHideAction {
     return ^{
         [self hide];
     };
 };
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action {
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action {
     return [[self create:title :message :button1 :button1Action :button2 :button2Action] show];
 }
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit {
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit {
     return [[self create:title :message :cancelTitle :okTitle :onSubmit] show];
 }
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)())onSubmit onCancel:(void (^)())onCancel {
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit onCancel:(void (^)(void))onCancel {
     return [[self create:title :message :cancelTitle :okTitle :onSubmit onCancel:onCancel] show];
 }
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)button1 :(void (^)())button1Action :(NSString *)button2 :(void (^)())button2Action {
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)button1 :(void (^)(void))button1Action :(NSString *)button2 :(void (^)(void))button2Action {
     [self create:title :message :cancelTitle :button1 :button1Action];
     [self addButton:button2 :button2Action];
     return [self show];
@@ -85,7 +85,7 @@
     return [self show];
 }
 
-- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)okTitle :(void (^)())onSubmit {
+- (CSAlertView *)show:(NSString *)title :(NSString *)message :(NSString *)okTitle :(void (^)(void))onSubmit {
     [self create:title :message];
     [self addButton:okTitle :onSubmit];
     return [self show];

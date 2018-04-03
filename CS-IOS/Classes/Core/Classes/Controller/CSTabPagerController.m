@@ -54,7 +54,7 @@
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
 
     for (CSMainController *controller in _controllers) {
-        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
         controller.view.size = _scrollView.size;
@@ -87,7 +87,7 @@
     _controllers[_currentIndex].showing = NO;
     _currentIndex = pageIndex;
     _controllers[_currentIndex].showing = YES;
-    [_parentController updateRightBarItemsAndMenu];
+    [_parentController updateBarItemsAndMenu];
 }
 
 - (void)showPage {

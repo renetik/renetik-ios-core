@@ -17,5 +17,19 @@
 
 - (CSMenuItem *)item:(NSString *)name;
 
+- (CSMenuItem *)item:(NSString *)name :(NSString *)subTitle :(void (^)(CSMenuItem *))onClick;
+
+- (CSMenuItem *)item:(NSString *)title :(void (^)(CSMenuItem *))onClick;
+
 - (instancetype)clear;
+
+- (CSMenuItem *)item:(NSString *)title type:(UIBarButtonSystemItem)type;
+
+- (CSMenuItem *)item:(NSString *)title image:(UIImage *)image;
+
+- (CSMenuItem *)item:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
+
+- (BOOL)visible;
+
+- (CSMenuItem *)itemView:(UIView *)view;
 @end

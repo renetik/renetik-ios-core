@@ -116,21 +116,24 @@
     else [self fadeOut];
 }
 
-+ (UIView *)createEmptyWithColor:(UIColor *)color {
-    UIView *backgroundView = [UIView.alloc initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = color;
-    return backgroundView;
++ (instancetype)createEmpty {
+    return [self.class.alloc initWithFrame:CGRectZero];
 }
 
-+ (UIView *)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame {
-    UIView *backgroundView = [UIView.alloc initWithFrame:frame];
-    backgroundView.backgroundColor = color;
-    return backgroundView;
++ (instancetype)createEmptyWithColor:(UIColor *)color {
+    UIView *view = self.createEmpty;
+    view.backgroundColor = color;
+    return view;
 }
 
-+ (UIView *)createEmptyWithFrame:(CGRect)frame {
-    UIView *backgroundView = [UIView.alloc initWithFrame:frame];
-    return backgroundView;
++ (instancetype)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame {
+    UIView *view = [self createEmptyWithFrame:frame];
+    view.backgroundColor = color;
+    return view;
+}
+
++ (instancetype)createEmptyWithFrame:(CGRect)frame {
+    return [self.class.alloc initWithFrame:frame];
 }
 
 - (BOOL)visible {

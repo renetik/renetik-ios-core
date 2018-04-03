@@ -14,17 +14,19 @@
     return self;
 }
 
-- (void)add:(NSDictionary *)dictionary {
+- (instancetype)put:(NSDictionary *)dictionary {
     [self addEntriesFromDictionary:dictionary];
+    return self;
 }
 
-- (void)setBool:(BOOL)value forKey:(NSString *)key {
+- (instancetype)putBool:(BOOL)value forKey:(NSString *)key {
     [self setValue:@(value) forKey:key];
+    return self;
 }
 
-- (void)put:(id)key :(id)value {
-    if (!value) value = [NSNull null];
-    self[key] = value;
+- (instancetype)put:(id)key :(id)value {
+    self[key] = nilToNull(value);
+    return self;
 }
 
 @end

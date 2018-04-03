@@ -19,7 +19,12 @@
     _parent = parent;
     _bar = bar;
     _onTextDidChange = [onTextDidChange copy];
-    bar.delegate = self;
+    _bar.delegate = self;
+    return self;
+}
+
+- (instancetype)construct:(CSMainController *)parent :(void (^)(NSString *))onTextDidChange {
+    [self construct:parent :UISearchBar.createEmpty :onTextDidChange];
     return self;
 }
 
@@ -45,4 +50,7 @@
     return boolToReturn;
 }
 
+- (NSString *)text {
+    return _bar.text;
+}
 @end

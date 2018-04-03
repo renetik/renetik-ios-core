@@ -22,9 +22,15 @@ static int const DAY = HOUR * 24;
 
 void run(void (^block)(void));
 
-id nilToNULL(id object);
+id nilToNull(id object);
+
+id nullToNil(id object);
 
 id stringify(id object);
+
+NSMutableArray *muteArray(NSArray *array);
+
+NSMutableDictionary *muteDict(NSDictionary *array);
 
 void runWith(void (^block)(id), id value);
 

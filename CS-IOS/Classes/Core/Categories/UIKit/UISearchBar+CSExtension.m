@@ -26,14 +26,6 @@
 
 
 - (void)makeTransparent {
-    if (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] == NSOrderedAscending)) {
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), NO, 0.0);
-        UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        self.backgroundImage = blank;
-        self.backgroundColor = [UIColor clearColor];
-    } else {
-        self.barTintColor = [UIColor clearColor];
-    }
+    self.barTintColor = UIColor.clearColor;
 }
 @end

@@ -9,10 +9,10 @@
 
 - (instancetype)construct:(NSDictionary <KeyType, ObjectType> *)dictionary;
 
-- (void)add:(NSDictionary *)dictionary;
+- (instancetype)put:(NSDictionary *)dictionary;
 
-- (void)setBool:(BOOL)value forKey:(NSString *)key;
+- (instancetype)putBool:(BOOL)value forKey:(NSString *)key;
 
-- (void)put:(id)key :(id)value;
+- (instancetype)put:(id)key :(id)value;
 
 @end

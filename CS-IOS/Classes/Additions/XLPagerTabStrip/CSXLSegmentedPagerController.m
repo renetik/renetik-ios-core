@@ -37,7 +37,7 @@
 - (void)updateControllersVisible:(NSUInteger)index {
     for (CSMainController *controller in _controllers)controller.showing = NO;
     _controllers[index].showing = YES;
-    [_parent updateRightBarItemsAndMenu];
+    [_parent updateBarItemsAndMenu];
 }
 
 @end

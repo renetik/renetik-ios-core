@@ -15,9 +15,7 @@
 @property(nonatomic) BOOL showing;
 @property(nonatomic) BOOL appearing;
 @property(nonatomic, readonly) BOOL visible;
-@property(nonatomic, strong) NSMutableArray<CSMenuItem *> *menu;
-@property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *customMenu;
-@property(nonatomic, strong, readonly) CSActionSheet *menuSheet;
+@property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
 @property(nonatomic, strong) CSMainController *parent;
 
 - (instancetype)construct:(CSMainController *)parent;
@@ -26,9 +24,9 @@
 
 - (NSArray<CSMainController *> *)addControllers:(NSArray<CSMainController *> *)controllers;
 
-- (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array;
+- (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuItem *> *)menuItems;
 
-- (void)updateLeftBarItem;
+- (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array;
 
 - (void)viewWillDisappear;
 
@@ -38,19 +36,23 @@
 
 - (void)hideIn:(UIViewController *)parent;
 
-- (CSMenuHeader *)addMenuHeader:(NSString *)title;
+- (CSMenuHeader *)menuHeader:(NSString *)title;
 
-- (CSMenuItem *)addMenuItem:(NSString *)title;
+- (CSMenuItem *)menuItemView:(UIView *)view;
 
-- (CSMenuItem *)addMenuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick;
+- (CSMenuHeader *)menuHeader;
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title;
+- (CSMenuItem *)menuItem:(NSString *)title;
 
-- (CSMenuItem *)addImageMenuItem:(UIImage *)image :(NSString *)title;
+- (CSMenuItem *)menuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick;
 
-- (CSMenuItem *)addSystemMenuItem:(UIBarButtonSystemItem)item :(NSString *)title :(void (^)(CSMenuItem *))onClick;
+- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)item;
 
-- (CSMenuItem *)addMenuItem;
+- (CSMenuItem *)menuItem:(NSString *)title image:(UIImage *)image;
+
+- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
+
+- (CSMenuItem *)menuItem;
 
 - (void)viewDidDisappear;
 
@@ -74,11 +76,11 @@
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
-- (void)onPrepareMenu:(NSMutableArray<CSMenuItem *> *)items;
+- (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)items;
 
 - (UIBarButtonItem *)onPrepareLeftBarItem;
 
-- (void)updateRightBarItemsAndMenu;
+- (void)updateBarItemsAndMenu;
 
-- (void)updateRightBarItemsAndMenu:(BOOL)animated;
+- (void)updateBarItemsAndMenu:(BOOL)animated;
 @end

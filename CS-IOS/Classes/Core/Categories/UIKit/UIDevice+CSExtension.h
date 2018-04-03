@@ -19,10 +19,6 @@
 
 + (float)systemVersion;
 
-+ (BOOL)isIOS8;
-
-+ (BOOL)isIOS7;
-
 + (BOOL)isIOS10;
 
 + (BOOL)isIOS11;

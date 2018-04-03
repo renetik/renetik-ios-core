@@ -105,7 +105,7 @@
     self.currentController.showing = NO;
     _currentIndex = pageIndex;
     self.currentController.showing = YES;
-    [_parentController updateRightBarItemsAndMenu];
+    [_parentController updateBarItemsAndMenu];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

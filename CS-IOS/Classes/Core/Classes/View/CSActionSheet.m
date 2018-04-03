@@ -13,7 +13,7 @@
     NSString *_cancel;
     NSString *_destructiveTitle;
 
-    void (^_onDestructive)();
+    void (^_onDestructive)(void);
 
     NSMutableArray *_titles;
     NSMutableArray *_actions;
@@ -38,13 +38,13 @@
     return self;
 }
 
-- (instancetype)destructive:(NSString *)title :(void (^)())onDestructive {
+- (instancetype)destructive:(NSString *)title :(void (^)(void))onDestructive {
     _destructiveTitle = title;
     _onDestructive = [onDestructive copy];
     return self;
 }
 
-- (instancetype)onDestructive:(void (^)())onDestructive {
+- (instancetype)onDestructive:(void (^)(void))onDestructive {
     _onDestructive = [onDestructive copy];
     return self;
 }
@@ -61,7 +61,7 @@
     return self;
 }
 
-- (instancetype)addAction:(NSString *)title :(void (^)())action {
+- (instancetype)addAction:(NSString *)title :(void (^)(void))action {
     [_titles add:title];
     [_actions add:[action copy]];
     return self;

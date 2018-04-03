@@ -53,7 +53,7 @@
     _currentIndex = index;
     for (CSMainController *controller in _controllers)controller.showing = NO;
     self.currentController.showing = YES;
-    [_parent updateRightBarItemsAndMenu:animated];
+    [_parent updateBarItemsAndMenu:animated];
 }
 
 - (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {

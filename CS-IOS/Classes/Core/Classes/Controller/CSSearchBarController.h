@@ -10,4 +10,7 @@
 
 - (instancetype)construct:(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange;
 
+- (instancetype)construct:(CSMainController *)parent :(void (^)(NSString *))onTextDidChange;
+
+- (NSString *)text;
 @end

@@ -66,7 +66,7 @@
 }
 
 - (void)onResponsesDone {
-    if (_failedResponses.hasItems) [self failed:self];
+    if (_failedResponses.hasItems) [self failed:_failedResponses.first];
     else if (_mainResponse) [self success:_mainResponse.data];
     else [self success:nil];
 }

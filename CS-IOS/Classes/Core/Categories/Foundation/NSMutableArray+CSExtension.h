@@ -9,7 +9,7 @@
 
 - (instancetype)construct:(NSArray<ObjectType> *)array;
 
-- (ObjectType)objectAtIndexedSubscript:(NSUInteger)idx;
+//- (ObjectType)objectAtIndexedSubscript:(NSUInteger)idx;
 
 - (ObjectType)add:(ObjectType)anObject;
 
@@ -28,4 +28,8 @@
 - (instancetype)replaceFromArray:(NSArray *)array;
 
 - (instancetype)reverse;
+
+- (instancetype)removeLast;
+
+- (instancetype)joinBy:(NSString *)string;
 @end

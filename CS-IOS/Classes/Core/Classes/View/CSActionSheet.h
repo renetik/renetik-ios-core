@@ -55,15 +55,15 @@
 
 - (instancetype)cancel:(NSString *)cancel;
 
-- (instancetype)destructive:(NSString *)title :(void (^)())onDestructive;
+- (instancetype)destructive:(NSString *)title :(void (^)(void))onDestructive;
 
-- (instancetype)onDestructive:(void (^)())onDestructive;
+- (instancetype)onDestructive:(void (^)(void))onDestructive;
 
 - (instancetype)actions:(NSArray *)titles :(NSArray *)actions;
 
 - (instancetype)actions:(NSArray *)titles for:(void (^)(NSInteger))action;
 
-- (instancetype)addAction:(NSString *)title :(void (^)())action;
+- (instancetype)addAction:(NSString *)title :(void (^)(void))action;
 
 - (instancetype)showFromBarItem:(UIBarButtonItem *)item;
 
