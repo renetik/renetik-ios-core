@@ -12,13 +12,17 @@ void run(void (^block)(void)) {
 }
 
 id nilToNull(id object) {
-    if (object == nil) return [NSNull null];
+    if (object == nil) return NSNull.null;
     return object;
 }
 
 id nullToNil(id object) {
-    if (object == [NSNull null]) return nil;
+    if (object == NSNull.null) return nil;
     return object;
+}
+
+BOOL is(id object) {
+    return object != nil && object != NSNull.null;
 }
 
 id stringify(id object) {

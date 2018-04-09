@@ -7,19 +7,16 @@
 
 @implementation CSSearchBarController {
     UIViewController *_parent;
-    UISearchBar *_bar;
     BOOL _searchBarShouldBeginEditing;
-
     void (^_onTextDidChange)(NSString *);
 }
 
 - (instancetype)construct:(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange {
     [super construct:parent];
-    [parent addController:self];
     _parent = parent;
-    _bar = bar;
+    _searchBar = bar;
     _onTextDidChange = [onTextDidChange copy];
-    _bar.delegate = self;
+    _searchBar.delegate = self;
     return self;
 }
 
@@ -51,6 +48,6 @@
 }
 
 - (NSString *)text {
-    return _bar.text;
+    return _searchBar.text;
 }
 @end

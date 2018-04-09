@@ -19,7 +19,6 @@
 
 - (instancetype)construct:(CSMainController *)parent :(UICollectionView *)view :(CSResponse *(^)())load :(UIColor *)color {
     [super construct:parent];
-    [parent addController:self];
     _loadBlock = [load copy];
     _collectionView = view;
     _color = color;

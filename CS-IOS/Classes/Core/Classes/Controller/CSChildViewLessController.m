@@ -10,6 +10,14 @@
 
 }
 
+- (instancetype)construct:(CSMainController *)parent {
+    [super construct:parent];
+    invoke(^{[parent addController:self];});
+    self.showing = YES;
+    return self;
+}
+
+
 - (void)loadView {
     [super loadView];
     self.view = UIView.new;

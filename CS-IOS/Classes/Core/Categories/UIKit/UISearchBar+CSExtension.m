@@ -25,7 +25,8 @@
 }
 
 
-- (void)makeTransparent {
+- (void)transparent {
     self.barTintColor = UIColor.clearColor;
+    self.backgroundColor = UIColor.clearColor;
 }
 @end

@@ -67,8 +67,7 @@
     return self;
 }
 
-- (instancetype)joinBy:(NSString *)string {
-    [self componentsJoinedByString:string];
-    return self;
+- (NSString *)joinBy:(NSString *)string {
+    return [self componentsJoinedByString:string];
 }
 @end

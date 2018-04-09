@@ -39,7 +39,6 @@
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
         parent :(UITableView *)table :(NSArray *)data :(BOOL)refreshable :(UIColor *)loadNextColor {
     [super construct:parent];
-    [parent addController:self];
     _parent = parent;
     _filter = (id <CSTableFilterProtocol>) ([_parent conformsToProtocol:@protocol(CSTableFilterProtocol)] ? _parent : nil);
     _table = table;
@@ -79,7 +78,7 @@
 
 - (void)setAutoReload:(BOOL)autoReload {
     _autoReload = autoReload;
-    _reloadWork = [[CSWork.new construct:_autoReload :^{
+    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
         if (self.visible) [self load:YES];
     }] start];
 }
@@ -141,6 +140,7 @@
         [_self.table fadeIn];
     }] onFailed:^(CSResponse *response) {
         _failed = YES;
+        [_table reloadData];
     }];
 }
 
@@ -267,7 +267,7 @@
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    if (self.emptyText || _failed)
+    if (self.emptyText)
         return [NSAttributedString.alloc initWithString:self.emptyText attributes:@{NSFontAttributeName:
                 [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline], NSForegroundColorAttributeName: FlatWhite}];
     return nil;

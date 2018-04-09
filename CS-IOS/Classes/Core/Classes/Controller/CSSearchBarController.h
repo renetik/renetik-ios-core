@@ -8,6 +8,8 @@
 
 @interface CSSearchBarController : CSChildViewLessController <UISearchBarDelegate>
 
+@property(nonatomic, strong) UISearchBar *searchBar;
+
 - (instancetype)construct:(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange;
 
 - (instancetype)construct:(CSMainController *)parent :(void (^)(NSString *))onTextDidChange;
