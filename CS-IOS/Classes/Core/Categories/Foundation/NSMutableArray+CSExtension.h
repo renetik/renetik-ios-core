@@ -31,5 +31,5 @@
 
 - (instancetype)removeLast;
 
-- (instancetype)joinBy:(NSString *)string;
+- (NSString *)joinBy:(NSString *)string;
 @end

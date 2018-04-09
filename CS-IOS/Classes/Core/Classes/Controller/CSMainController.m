@@ -31,10 +31,6 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.isMainController) [self updateBarItemsAndMenu:NO];
@@ -195,7 +191,7 @@
 }
 
 - (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)menu {
-    for (CSMenuHeader *header in _menu) if (header.visible) [menu add:header];
+    for (CSMenuHeader *menuHeader in _menu) if (menuHeader.visible) [menu add:menuHeader];
     for (CSMainController *controller in _controllers) if (controller.showing) [controller onPrepareMenu:menu];
 }
 
@@ -245,6 +241,10 @@
 
 - (CSMenuItem *)menuItem:(NSString *)title image:(UIImage *)image {
     return [self.menuHeader item:title image:image];
+}
+
+- (CSMenuItem *)menuItem:(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick {
+    return [[[self.menuHeader item:title image:image] note:note] setOnClick:onClick];
 }
 
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {

@@ -12,7 +12,6 @@
 
 - (instancetype)construct:(CSMainController *)parent {
     [super construct:parent];
-    [parent addController:self];
     return self;
 }
 

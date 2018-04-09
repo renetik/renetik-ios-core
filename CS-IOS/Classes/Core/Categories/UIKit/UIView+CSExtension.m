@@ -3,8 +3,6 @@
 //
 
 
-#import "MBProgressHUD.h"
-#import "MBProgressHUD+CSExtension.h"
 #import "UIColor+CSExtension.h"
 
 @implementation UIView (CSExtension)
@@ -50,14 +48,10 @@
 
 + (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve {
     switch (curve) {
-        case UIViewAnimationCurveEaseInOut:
-            return UIViewAnimationOptionCurveEaseInOut;
-        case UIViewAnimationCurveEaseIn:
-            return UIViewAnimationOptionCurveEaseIn;
-        case UIViewAnimationCurveEaseOut:
-            return UIViewAnimationOptionCurveEaseOut;
-        case UIViewAnimationCurveLinear:
-            return UIViewAnimationOptionCurveLinear;
+        case UIViewAnimationCurveEaseInOut:return UIViewAnimationOptionCurveEaseInOut;
+        case UIViewAnimationCurveEaseIn:return UIViewAnimationOptionCurveEaseIn;
+        case UIViewAnimationCurveEaseOut:return UIViewAnimationOptionCurveEaseOut;
+        case UIViewAnimationCurveLinear:return UIViewAnimationOptionCurveLinear;
     }
     return UIViewAnimationOptionCurveLinear;
 }
@@ -134,6 +128,10 @@
 
 + (instancetype)createEmptyWithFrame:(CGRect)frame {
     return [self.class.alloc initWithFrame:frame];
+}
+
++ (instancetype)createEmptyWithSize:(NSInteger)width :(NSInteger)height {
+    return [self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)];
 }
 
 - (BOOL)visible {
@@ -424,7 +422,7 @@
     self.top = value;
 }
 
-- (UIView *)matchParent {
+- (instancetype)matchParent {
     [self matchParentWidth];
     [self matchParentHeight];
     [self centerInParent];

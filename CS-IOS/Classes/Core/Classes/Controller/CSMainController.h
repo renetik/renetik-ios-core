@@ -50,6 +50,8 @@
 
 - (CSMenuItem *)menuItem:(NSString *)title image:(UIImage *)image;
 
+- (CSMenuItem *)menuItem:(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick;
+
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem;

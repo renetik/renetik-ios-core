@@ -45,5 +45,5 @@
 @interface UISearchBar (CSExtension)
 - (void)setTextColor:(UIColor *)textColor;
 
-- (void)makeTransparent;
+- (void)transparent;
 @end

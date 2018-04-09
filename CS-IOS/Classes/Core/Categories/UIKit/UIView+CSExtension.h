@@ -42,6 +42,8 @@ static float const CS_FADE_TIME = 0.3;
 
 + (instancetype)createEmptyWithFrame:(CGRect)frame;
 
++ (instancetype)createEmptyWithSize:(NSInteger)width :(NSInteger)height;
+
 - (instancetype)fadeIn;
 
 - (void)fadeBackgroundColorTo:(UIColor *)color;
@@ -127,7 +129,7 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)resizeByTop:(CGFloat)y;
 
-- (UIView *)matchParent;
+- (instancetype)matchParent;
 
 - (UIView *)centerInParent;
 

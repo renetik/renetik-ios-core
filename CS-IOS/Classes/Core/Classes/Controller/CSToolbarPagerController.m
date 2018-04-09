@@ -29,7 +29,6 @@
         :(NSArray<CSMainController <CSToolbarPage> *> *)controllers
         :(UIToolbar *)toolbar :(UIScrollView *)scrollView {
     [super construct:parent];
-    [parent addController:self];
     _parentController = parent;
     _controllers = controllers;
     _toolBar = toolbar;

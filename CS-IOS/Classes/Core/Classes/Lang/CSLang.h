@@ -26,6 +26,8 @@ id nilToNull(id object);
 
 id nullToNil(id object);
 
+BOOL is(id object);
+
 id stringify(id object);
 
 NSMutableArray *muteArray(NSArray *array);

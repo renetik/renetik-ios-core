@@ -18,7 +18,6 @@
 - (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTabProtocol> *> *)controllers
         :(UITabBar *)toolbar :(UIScrollView *)scrollView {
     [super construct:parent];
-    [parent addController:self];
     _parentController = parent;
     _controllers = controllers;
     _tabBar = toolbar;
