@@ -24,13 +24,32 @@
     return [UIBarButtonItem.alloc initWithBarButtonSystemItem:item target:nil action:nil];
 }
 
-+ (UIBarButtonItem *)createSpaceItem:(UIBarButtonSystemItem)item {
-    return [UIBarButtonItem.alloc initWithBarButtonSystemItem:item target:nil action:nil];
++ (UIBarButtonItem *)createFlexSpaceItem {
+    return [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 }
 
 - (void)setTarget:(id)target forAction:(SEL)action {
     self.target = target;
     self.action = action;
 }
+
++ (UIImage *)imageFromSystemBarButton:(UIBarButtonSystemItem)systemItem :(UIColor *) color {
+    UIToolbar *bar = UIToolbar.new;
+    UIBarButtonItem *buttonItem = [UIBarButtonItem createWithItem:systemItem];
+    [bar setItems:@[buttonItem] animated:NO];
+    [bar snapshotViewAfterScreenUpdates:YES];
+    for (UIView *view in [(id) buttonItem view].subviews)
+        if ([view isKindOfClass:UIButton.class]) {
+            UIImage *image = [((UIButton *) view).imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+            [color set];
+            [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+            image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            return image;
+        }
+    return nil;
+}
+
 
 @end

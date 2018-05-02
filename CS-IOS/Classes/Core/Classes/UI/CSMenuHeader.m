@@ -64,7 +64,7 @@
 }
 
 - (BOOL)visible {
-    for (CSMenuItem *item in _items) if (item.visible)return YES;
+    for (CSMenuItem *item in _items) if (item.visible) return YES;
     return NO;
 }
 
@@ -73,4 +73,9 @@
     item.view = view;
     return item;
 }
+
+- (BOOL)isDisplayedAsItem {
+    return [NSString empty:_title] && _items.count == 1;
+}
+
 @end

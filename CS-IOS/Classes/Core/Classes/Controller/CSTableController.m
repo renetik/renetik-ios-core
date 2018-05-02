@@ -317,7 +317,8 @@
 }
 
 - (NSString *)emptyText {
-    if (_failed) return @"Loading of content not successful, click to try again";
+    if (_failed) return @"Loading of list content was not successful, click to try again";
+    if(!_emptyText) return @"No items in list to display at this time";
     return _emptyText;
 }
 

@@ -124,7 +124,6 @@
     return !self.isMainController;
 }
 
-
 - (void)updateBarItemsAndMenu {
     [self updateBarItemsAndMenu:NO];
 }
@@ -136,14 +135,23 @@
     }
     NSMutableArray<CSMenuHeader *> *menu = NSMutableArray.new;
     [self onPrepareMenu:menu];
+    UIBarButtonItem *actionItem = [self createActionBarItem:menu];
     UIBarButtonItem *barMenuItem = [self onCreateMenu:menu];
     NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
     if (barMenuItem) [barItems add:barMenuItem];
-    if (menu.second && menu.count == 2)[barItems add:menu.second.items.first.createBarButton];
-    if (menu.first) [barItems add:menu.first.items.first.createBarButton];
+    if (actionItem) [barItems add:actionItem];
     [self onPrepareRightBarButtonItems:barItems];
     [self.navigationItem setRightBarButtonItems:barItems];
     [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
+}
+
+- (UIBarButtonItem *)createActionBarItem:(NSMutableArray<CSMenuHeader *> *)menu {
+    UIBarButtonItem *actionItem;
+    if (menu.first && menu.first.isDisplayedAsItem) {
+        actionItem = menu.first.items.first.createBarButton;
+        [menu removeObjectAtIndex:0];
+    }
+    return actionItem;
 }
 
 - (CSActionSheet *)menuSheet {
@@ -151,10 +159,10 @@
 }
 
 - (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuHeader *> *)menu {
-    if (menu.count <= 2) return nil;
+    if (menu.empty) return nil;
     self.menuSheet.clear;
-    for (uint i = 1; i < menu.count; ++i) {
-        CSMenuItem *item = menu[i].items.first;
+    for (CSMenuHeader *menuHeader in menu) {
+        CSMenuItem *item = menuHeader.items.first;
         [self.menuSheet addAction:item.title :^{item.action(item);}];
     }
     return [UIBarButtonItem.alloc bk_initWithImage:CSMenuIcon.image style:UIBarButtonItemStylePlain handler:^(id sender) {
@@ -232,7 +240,14 @@
 }
 
 - (CSMenuItem *)menuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick {
-    return [self.menuHeader item:title :onClick];
+    CSMenuItem *item = [self.menuHeader item:title :onClick];
+    return item;
+}
+
+- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description :(void (^)(CSMenuItem *))onClick {
+    CSMenuItem *item = [self.menuHeader item:title :onClick];
+    item.subTitle = description;
+    return item;
 }
 
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)item {
@@ -251,6 +266,12 @@
     return [self.menuHeader item:title type:type :onClick];
 }
 
+- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
+    CSMenuItem *item = [self.menuHeader item:title type:type :onClick];
+    item.subTitle = description;
+    return item;
+}
+
 - (CSMenuItem *)menuItem {
     return [self menuItem:@""];
 }
@@ -258,6 +279,5 @@
 - (BOOL)visible {
     return self.appearing && self.showing;
 }
-
 
 @end

@@ -47,4 +47,6 @@
 
 @interface UIWebView (CSExtension)
 - (UIScrollView *)scrollViewOfWebView;
+
+- (NSURL *)currentURL;
 @end

@@ -4,8 +4,6 @@
 //
 
 
-@class CSMenuItem;
-
 @interface CSAppDelegate : UIResponder <UIApplicationDelegate>
 
 + (instancetype)get;
