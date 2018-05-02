@@ -12,6 +12,7 @@ static NSString *const INVALID_RESPONSE_FROM_SERVER = @"Invalid response from se
 @property(copy, nonatomic) NSString *url;
 @property(copy, nonatomic) NSString *content;
 @property(nonatomic, copy) NSString *message;
+@property(nonatomic) NSInteger errorCode;
 @property(nonatomic) NSDictionary *params;
 @property(nonatomic) NSDictionary *post;
 @property(nonatomic, readonly) BOOL canceled;

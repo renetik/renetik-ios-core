@@ -19,4 +19,9 @@
     return nil;
 }
 
+- (NSURL *)currentURL {
+//    return [NSURL URLWithString:[self stringByEvaluatingJavaScriptFromString:@"window.location"]];
+    return [NSURL URLWithString:self.request.URL.absoluteString];
+}
+
 @end

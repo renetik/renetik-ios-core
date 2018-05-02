@@ -32,4 +32,7 @@
 - (BOOL)visible;
 
 - (CSMenuItem *)itemView:(UIView *)view;
+
+- (BOOL)isDisplayedAsItem;
+
 @end

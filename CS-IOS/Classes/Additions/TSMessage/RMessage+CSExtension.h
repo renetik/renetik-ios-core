@@ -17,4 +17,6 @@
 + (void)showNotificationWithTitle:(NSString *)string;
 
 + (void)showNotificationWithTitle:(NSString *)string type:(RMessageType)type;
+
++ (void)showNotificationWithTitle:(NSString *)title :(NSString *)subtitle type:(RMessageType)type;
 @end

@@ -4,10 +4,8 @@
 //
 
 #import "CSAppDelegate.h"
-#import "CSActionSheet.h"
 
 @implementation CSAppDelegate {
-    CSActionSheet *_menuSheet;
 }
 
 + (instancetype)get {

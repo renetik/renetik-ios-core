@@ -8,6 +8,7 @@
 #import "CSMainController.h"
 #import "CSCocoaLumberjack.h"
 #import "CSLang.h"
+#import "CSAppDelegate.h"
 
 @implementation CSMenuItem {
     BOOL _visible;
@@ -108,4 +109,5 @@
     _subTitle = string;
     return self;
 }
+
 @end

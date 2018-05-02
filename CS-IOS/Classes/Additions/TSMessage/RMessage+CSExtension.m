@@ -89,4 +89,8 @@
 + (void)showNotificationWithTitle:(NSString *)string type:(RMessageType)type {
     [RMessage showNotificationWithTitle:string type:type customTypeName:nil callback:nil];
 }
+
++ (void)showNotificationWithTitle:(NSString *)title :(NSString *)subtitle type:(RMessageType)type {
+    [RMessage showNotificationWithTitle:title subtitle:subtitle type:type customTypeName:nil callback:nil];
+}
 @end

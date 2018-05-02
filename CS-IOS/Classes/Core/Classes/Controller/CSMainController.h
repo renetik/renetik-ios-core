@@ -44,6 +44,8 @@
 
 - (CSMenuItem *)menuItem:(NSString *)title;
 
+- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description :(void (^)(CSMenuItem *))onClick;
+
 - (CSMenuItem *)menuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)item;
@@ -53,6 +55,8 @@
 - (CSMenuItem *)menuItem:(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
+
+- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem;
 
