@@ -2,10 +2,8 @@
 //  Created by Rene Dohan on 11/2/12.
 //
 
-#import <UIKit/UIKit.h>
 #import "CSArgEvent.h"
 #import "CSResponse.h"
-#import "CSCocoaLumberjack.h"
 #import "NSString+CSExtension.h"
 
 @implementation CSResponse {
@@ -19,9 +17,9 @@
 
 - (id)init {
     if (self = [super init]) {
-        _onFailedEvent = [CSArgEvent new];
-        _onSuccessEvent = [CSArgEvent new];
-        _onDoneEvent = [CSArgEvent new];
+        _onFailedEvent = CSArgEvent.new;
+        _onSuccessEvent = CSArgEvent.new;
+        _onDoneEvent = CSArgEvent.new;
     }
     return self;
 }
@@ -53,7 +51,7 @@
 
 - (void)failed:(CSResponse *)response {
     if (_canceled)return;
-    infof(@"Response failed %@", response.message);
+    NSLog(@"Response failed %@", response.message);
     [self onFailedEvent:response];
     [self onDoneEvent];
 }

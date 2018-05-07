@@ -5,7 +5,6 @@
 
 #import "CSCollectionController.h"
 #import "CSResponse.h"
-#import "CSRefreshControl.h"
 
 @implementation CSCollectionController {
     UIView *_loadNextIndicator;
@@ -14,16 +13,10 @@
 }
 
 - (instancetype)from:(UICollectionView *)collectionView :(UIView *)loadNextIndicator :(NSMutableArray *)data {
-    return [self from:collectionView :loadNextIndicator :data :YES];
-}
-
-- (instancetype)from:(UICollectionView *)collectionView :(UIView *)loadNextIndicator :(NSMutableArray *)data :(BOOL)refreshable {
     _collectionView = collectionView;
     _loadNextIndicator = loadNextIndicator;
     _loadNextIndicator.hidden = YES;
     _data = data;
-    if (refreshable)
-        _refreshControl = [CSRefreshControl.new construct:_collectionView :(self) :@selector(onRefreshControlInvoke)];
     return self;
 }
 
@@ -74,7 +67,6 @@
 - (void)onDone {
     _loading = NO;
     [self updateEmpty];
-    [self cancelUserRefresh];
     [_collectionView fadeIn];
 }
 
@@ -130,10 +122,5 @@
     [_collectionView reloadData];
     [self updateEmpty];
 }
-
-- (void)cancelUserRefresh {
-    [_refreshControl endRefreshing];
-}
-
 
 @end

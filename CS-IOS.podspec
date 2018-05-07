@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CS-IOS'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of CS-IOS.'
+  s.version          = '0.2.0'
+  s.summary          = 'Library for rapid development of apps with readable code'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+...
                        DESC
 
   s.homepage         = 'https://github.com/rene-dohan/CS-IOS'
@@ -26,7 +26,7 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
   s.source           = { :git => 'https://github.com/rene-dohan/CS-IOS.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/renetik'
 
   s.ios.deployment_target = '9.0'
 
@@ -37,22 +37,70 @@ TODO: Add long description of the pod here.
     ss.frameworks = 'UIKit'
     ss.dependency 'BlocksKit', '~> 2.2.5'
     ss.dependency 'MBProgressHUD', '~> 1.1.0'
-    ss.dependency 'CocoaLumberjack', '~> 3.4.1'
-    ss.dependency 'MMDrawerController', '~> 0.6.0'
     ss.dependency 'SBJson', '~> 3.1.1'
-    ss.dependency 'ChameleonFramework', '~> 2.1.0'
-    ss.dependency 'MJRefresh', '~> 3.1.15.3'
-    ss.dependency 'DZNEmptyDataSet','~> 1.8.1'
-    ss.dependency 'MZAppearance','~> 1.1.6'
   end
 
-   s.subspec 'WithAdditions' do |ss|
-     ss.source_files = 'CS-IOS/Classes/Additions/**/*'
+   s.subspec 'CocoaLumberjack' do |ss|
+     ss.source_files = 'CS-IOS/Classes/CocoaLumberjack/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'CocoaLumberjack', '~> 3.4.1'
+   end
+
+   s.subspec 'TableController' do |ss|
+     ss.source_files = 'CS-IOS/Classes/TableController/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'CS-IOS/RefreshControl'
+     ss.dependency 'DZNEmptyDataSet','~> 1.8.1'
+     ss.dependency 'ChameleonFramework', '~> 2.1.0'
+   end
+
+   s.subspec 'CollectionController' do |ss|
+     ss.source_files = 'CS-IOS/Classes/CollectionController/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'CS-IOS/RefreshControl'
+     ss.dependency 'DZNEmptyDataSet','~> 1.8.1'
+   end
+
+   s.subspec 'RefreshControl' do |ss|
+     ss.source_files = 'CS-IOS/Classes/RefreshControl/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'ChameleonFramework', '~> 2.1.0'
+     ss.dependency 'MJRefresh', '~> 3.1.15.3'
+   end
+
+   s.subspec 'Pager' do |ss|
+     ss.source_files = 'CS-IOS/Classes/Pager/**/*'
+     ss.dependency 'CS-IOS/Core'
+     ss.dependency 'MZAppearance', '~> 1.1.6'
+   end
+
+   s.subspec 'AFNetworking' do |ss|
+     ss.source_files = 'CS-IOS/Classes/AFNetworking/**/*'
      ss.dependency 'CS-IOS/Core'
      ss.dependency 'AFNetworking', '~> 3.2'
+   end
+
+   s.subspec 'Reachability' do |ss|
+     ss.source_files = 'CS-IOS/Classes/Reachability/**/*'
+     ss.dependency 'CS-IOS/Core'
      ss.dependency 'Reachability', '~> 3.2'
+   end
+
+   s.subspec 'SDWebImage' do |ss|
+     ss.source_files = 'CS-IOS/Classes/SDWebImage/**/*'
+     ss.dependency 'CS-IOS/Core'
      ss.dependency 'SDWebImage', '~> 4.0.0'
+   end
+
+   s.subspec 'RMessage' do |ss|
+     ss.source_files = 'CS-IOS/Classes/RMessage/**/*'
+     ss.dependency 'CS-IOS/Core'
      ss.dependency 'RMessage', '~> 2.2.1'
+   end
+
+   s.subspec 'XLPagerTabStrip' do |ss|
+     ss.source_files = 'CS-IOS/Classes/XLPagerTabStrip/**/*'
+     ss.dependency 'CS-IOS/Core'
      ss.dependency 'XLPagerTabStrip', '~> 3.0.0'
    end
 
@@ -62,17 +110,5 @@ TODO: Add long description of the pod here.
   # s.resource_bundles = {
   #   'CS-IOS' => ['CS-IOS/Assets/*.png']
   # }
-
-  #s.public_header_files = 'CS-IOS/Classes/**/*.h'
-  #s.frameworks = 'UIKit'
-  #s.dependency 'BlocksKit', '~> 2.2.5'
-  #s.dependency 'MBProgressHUD', '~> 1.1.0'
-  #s.dependency 'CocoaLumberjack', '~> 3.4.1'
-  #s.dependency 'MMDrawerController', '~> 0.6.0'
-  #s.dependency 'SBJson', '~> 3.1.1'
-  #s.dependency 'ChameleonFramework'
-  #s.dependency 'MJRefresh', '~> 3.1.15.3'
-  #s.dependency 'DZNEmptyDataSet'
-  #s.dependency 'MZAppearance'
 
 end

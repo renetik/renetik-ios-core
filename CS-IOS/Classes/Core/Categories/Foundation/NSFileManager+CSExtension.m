@@ -7,15 +7,13 @@
 
 
 #import "NSFileManager+CSExtension.h"
-#import "CSLang.h"
-#import "CSCocoaLumberjack.h"
 
 @implementation NSFileManager (CSExtension)
 
 + (long)fileLength:(NSString *)path {
     NSError *attributesError;
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&attributesError];
-    if (attributesError)error(attributesError);
+    NSDictionary *fileAttributes = [NSFileManager.defaultManager attributesOfItemAtPath:path error:&attributesError];
+    if (attributesError)NSLog(attributesError.description);
     NSNumber *fileSizeNumber = fileAttributes[NSFileSize];
     return fileSizeNumber.longValue;
 }

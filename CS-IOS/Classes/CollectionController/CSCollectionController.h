@@ -41,10 +41,6 @@
 #import "NSBundle+CSExtension.h"
 #import "UIApplication+CSExtension.h"
 
-
-@class CSRefreshControl;
-
-
 @interface CSCollectionController : NSObject
 
 @property(nonatomic, strong, readonly) UICollectionView *collectionView;
@@ -59,11 +55,7 @@
 
 @property(nonatomic, copy) BOOL (^onUserRefresh)();
 
-@property(nonatomic, strong) CSRefreshControl *refreshControl;
-
 - (CSCollectionController *)from:(UICollectionView *)collectionView :(UIView *)loadNextIndicator :(NSMutableArray *)data;
-
-- (CSCollectionController *)from:(UICollectionView *)collectionView :(UIView *)loadNextIndicator :(NSMutableArray *)data :(BOOL)refreshable;
 
 - (void)viewWillAppear;
 
@@ -82,8 +74,6 @@
 - (void)removeItem:(id)item;
 
 - (void)removeItemAtIndex:(NSUInteger)i;
-
-- (void)cancelUserRefresh;
 
 - (void)collectionView:(UICollectionView *)view cellForItemAtIndexPath:(NSIndexPath *)path;
 @end
