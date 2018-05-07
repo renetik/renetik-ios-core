@@ -5,7 +5,6 @@
 #import "CSLang.h"
 #import "NSMutableArray+CSExtension.h"
 #import "NSObject+CSExtension.h"
-#import "CSCocoaLumberjack.h"
 
 @implementation NSMutableArray (CSExtension)
 
@@ -32,7 +31,7 @@
 
 - (id)replaceObject:(id)newObject :(id)oldObject {
     NSUInteger oldIndex = [self indexOfObject:oldObject];
-    if (oldIndex == NSNotFound) warnf(@"oldObject on found for replace %@", oldObject);
+    if (oldIndex == NSNotFound) NSLog(@"oldObject on found for replace %@", oldObject);
     else self[oldIndex] = newObject;
     return newObject;
 }

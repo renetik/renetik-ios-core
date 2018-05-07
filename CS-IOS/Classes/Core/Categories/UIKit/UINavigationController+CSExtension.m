@@ -6,8 +6,6 @@
 #import "NSMutableArray+CSExtension.h"
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
-#import "CSCocoaLumberjack.h"
-
 
 @implementation UINavigationController (CSExtension)
 
@@ -34,7 +32,7 @@
             [self popToViewController:controller];
             return;
         }
-    warnf(@"popToViewControllerOfClass not found controller of class %@", viewControllerClass.description);
+    NSLog(@"popToViewControllerOfClass not found controller of class %@", viewControllerClass.description);
 }
 
 - (void)popToViewControllerBefore:(Class)viewControllerClass {
@@ -45,7 +43,7 @@
             return;
         }
     }
-    warnf(@"popToViewControllerBefore not found controller of class %@", viewControllerClass.description);
+    NSLog(@"popToViewControllerBefore not found controller of class %@", viewControllerClass.description);
 }
 
 - (void)pushAsSingle:(UIViewController *)pushingController {

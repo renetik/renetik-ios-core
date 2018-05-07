@@ -6,9 +6,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "CSMenuItem.h"
 #import "CSMainController.h"
-#import "CSCocoaLumberjack.h"
-#import "CSLang.h"
-#import "CSAppDelegate.h"
 
 @implementation CSMenuItem {
     BOOL _visible;
@@ -30,7 +27,6 @@
     self.action = action;
     return self;
 }
-
 
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
     [self construct:parent :title];
@@ -76,7 +72,7 @@
     else if ([_controller.parentViewController isKindOfClass:CSMainController.class])
         [(CSMainController *) _controller.parentViewController updateBarItemsAndMenu];
     else
-        warn(@"CSMainController not found");
+        NSLog(@"CSMainController not found");
 }
 
 - (void)setTitle:(NSString *)title {

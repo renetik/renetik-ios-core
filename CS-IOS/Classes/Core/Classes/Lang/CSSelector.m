@@ -4,8 +4,6 @@
 
 
 #import "CSSelector.h"
-#import "CSLang.h"
-#import "CSCocoaLumberjack.h"
 
 @implementation CSSelector {
 
@@ -25,7 +23,7 @@
 - (id)run {
     if ([self.object respondsToSelector:self.selector])
         return [self.object performSelector:self.selector];
-    error(@"Object expected to contain selector");
+    NSLog(@"Object expected to contain selector");
     return nil;
 }
 

@@ -7,10 +7,8 @@
 #import "CSLang.h"
 #import "NSMutableArray+CSExtension.h"
 #import "NSObject+CSExtension.h"
-#import "NSString+CSExtension.h"
 #import "NSException+CSExtension.h"
 #import "NSDictionary+CSSBJson.h"
-#import "CSCocoaLumberjack.h"
 
 @implementation CSJSONData
 
@@ -106,7 +104,7 @@
 - (id)get:(NSDictionary *)dictionary :(NSString *)key {
     if (![dictionary isKindOfClass:NSMutableDictionary.class]) return nil;
     id value = dictionary[key];
-    if (value == nil) info([@"Key " add:key :@" not found in " :self.className]);
+    if (value == nil) NSLog(@"Key %@ not found in %@", key, self.className);
     if (value == NSNull.null) return nil;
     return value;
 }

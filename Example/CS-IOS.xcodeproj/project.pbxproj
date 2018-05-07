@@ -154,7 +154,6 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				08B8C4960CB15056C909E68A /* [CP] Embed Pods Frameworks */,
-				07651D6225FBF37E62B2489A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,6 +173,11 @@
 				CLASSPREFIX = CS;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "rene-dohan";
+				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 4QNB24D8D8;
+					};
+				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "CS-IOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -208,21 +212,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		07651D6225FBF37E62B2489A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CS-IOS_Example/Pods-CS-IOS_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		08B8C4960CB15056C909E68A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,7 +228,6 @@
 				"${BUILT_PRODUCTS_DIR}/HexColors/HexColors.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
 				"${BUILT_PRODUCTS_DIR}/MZAppearance/MZAppearance.framework",
 				"${BUILT_PRODUCTS_DIR}/PPTopMostController/PPTopMostController.framework",
 				"${BUILT_PRODUCTS_DIR}/RMessage/RMessage.framework",
@@ -259,7 +247,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HexColors.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MZAppearance.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PPTopMostController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMessage.framework",
@@ -405,6 +392,7 @@
 			baseConfigurationReference = 0CF0F6002A670543C057BBBA /* Pods-CS-IOS_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CS-IOS/CS-IOS-Prefix.pch";
 				INFOPLIST_FILE = "CS-IOS/CS-IOS-Info.plist";
@@ -420,6 +408,7 @@
 			baseConfigurationReference = 449D7000F271EBB5FEBC0789 /* Pods-CS-IOS_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CS-IOS/CS-IOS-Prefix.pch";
 				INFOPLIST_FILE = "CS-IOS/CS-IOS-Info.plist";
