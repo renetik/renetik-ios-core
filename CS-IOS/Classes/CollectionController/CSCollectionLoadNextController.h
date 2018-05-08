@@ -8,7 +8,7 @@
 
 @interface CSCollectionLoadNextController : CSChildViewLessController
 
-- (instancetype)construct:(CSMainController *)parent :(UICollectionView *)view :(CSResponse *(^)())load :(UIColor *)color;
+- (instancetype)construct:(CSMainController *)parent :(UICollectionView *)view :(CSResponse *(^)(void))load :(UIColor *)color;
 
 - (void)collectionViewCellForItemAtIndexPath:(NSIndexPath *)path :(NSMutableArray *)data;
 

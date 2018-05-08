@@ -8,7 +8,7 @@
 
 @interface CSEventWeakReferenceItem : NSObject
 
-@property(nonatomic, readonly, weak) void (^block)();
+@property(nonatomic, readonly, weak) void (^block)(void);
 
-- (id)initWithObject:(void (^)())object;
+- (id)initWithObject:(void (^)(void))object;
 @end

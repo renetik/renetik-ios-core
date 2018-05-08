@@ -16,9 +16,9 @@
 
 @property(nonatomic, copy) CSResponse *(^onReload)(BOOL isUserAction);
 
-@property(nonatomic, copy) CSResponse *(^onLoadNext)();
+@property(nonatomic, copy) CSResponse *(^onLoadNext)(void);
 
-@property(nonatomic, copy) BOOL (^onUserRefresh)();
+@property(nonatomic, copy) BOOL (^onUserRefresh)(void);
 
 @property(nonatomic, strong) NSString *searchText;
 

@@ -8,7 +8,7 @@
 
 @interface CSWork : NSObject
 
-- (instancetype)construct:(double)delay :(void (^)())workToInvoke;
+- (instancetype)construct:(double)delay :(void (^)(void))workToInvoke;
 
 @property(nonatomic) int count;
 

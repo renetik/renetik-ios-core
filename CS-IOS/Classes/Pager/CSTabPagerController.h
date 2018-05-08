@@ -8,7 +8,6 @@
 #import "CSChildViewLessController.h"
 
 @class CSMainController;
-@class CSMainController;
 @protocol CSTabPagerTabProtocol;
 
 @interface CSTabPagerController : CSChildViewLessController <UIScrollViewDelegate, UITabBarDelegate>

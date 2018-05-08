@@ -8,7 +8,7 @@
 
 @interface CSDoLaterProcess : NSObject
 
-- (CSDoLaterProcess *)from:(void (^)())method :(NSTimeInterval)delay;
+- (CSDoLaterProcess *)from:(void (^)(void))method :(NSTimeInterval)delay;
 
 - (void)stop;
 

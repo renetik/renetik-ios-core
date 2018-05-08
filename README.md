@@ -18,6 +18,18 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'CS-IOS'
+
+or more specifically:
+pod 'CS-IOS/CocoaLumberjack'
+pod 'CS-IOS/CollectionController'
+pod 'CS-IOS/TableController'
+pod 'CS-IOS/RefreshControl'
+pod 'CS-IOS/Pager'
+pod 'CS-IOS/AFNetworking'
+pod 'CS-IOS/Reachability'
+pod 'CS-IOS/SDWebImage'
+pod 'CS-IOS/RMessage'
+pod 'CS-IOS/XLPagerTabStrip'
 ```
 
 ## Author

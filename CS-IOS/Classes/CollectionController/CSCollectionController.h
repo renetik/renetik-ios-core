@@ -47,13 +47,13 @@
 
 @property(nonatomic, copy) CSResponse *(^onReload)(BOOL userRefresh);
 
-@property(nonatomic, copy) CSResponse *(^onLoadNext)();
+@property(nonatomic, copy) CSResponse *(^onLoadNext)(void);
 
 @property(nonatomic, strong) UIView *emptyLabel;
 
 @property(nonatomic, strong) NSMutableArray *data;
 
-@property(nonatomic, copy) BOOL (^onUserRefresh)();
+@property(nonatomic, copy) BOOL (^onUserRefresh)(void);
 
 - (CSCollectionController *)from:(UICollectionView *)collectionView :(UIView *)loadNextIndicator :(NSMutableArray *)data;
 

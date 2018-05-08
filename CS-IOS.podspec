@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CS-IOS'
-  s.version          = '0.3.0'
+  s.version          = '0.4.0'
   s.summary          = 'Library for rapid development of apps with readable code'
 
 # This description is used to generate tags and improve search results.
@@ -72,6 +72,7 @@ Pod::Spec.new do |s|
      ss.source_files = 'CS-IOS/Classes/Pager/**/*'
      ss.dependency 'CS-IOS/Core'
      ss.dependency 'MZAppearance', '~> 1.1.6'
+     ss.dependency 'ChameleonFramework', '~> 2.1.0'
    end
 
    s.subspec 'AFNetworking' do |ss|
