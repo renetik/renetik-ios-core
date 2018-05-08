@@ -12,7 +12,7 @@
 
 + (void)showBottomSuccess:(UIViewController *)controller title:(NSString *)title duration:(NSTimeInterval)duration canBeDismissed:(BOOL)dismissingEnabled;
 
-+ (void)showBottomMessage:(UIViewController *)controller title:(NSString *)title duration:(NSTimeInterval)duration buttonTitle:(NSString *)buttonTitle buttonCallback:(void (^)())buttonCallback at:(RMessagePosition)messagePosition canBeDismissed:(BOOL)dismissingEnabled;
++ (void)showBottomMessage:(UIViewController *)controller title:(NSString *)title duration:(NSTimeInterval)duration buttonTitle:(NSString *)buttonTitle buttonCallback:(void (^)(void))buttonCallback at:(RMessagePosition)messagePosition canBeDismissed:(BOOL)dismissingEnabled;
 
 + (void)showNotificationWithTitle:(NSString *)string;
 

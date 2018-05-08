@@ -10,9 +10,9 @@
 
 @interface CLGeocoder (CSExtension)
 
-- (CLGeocoder *)addressFromLocation:(CLLocation *)location:(BOOL)addCountryName :(void (^)(NSString *))onAddressReady;
+- (CLGeocoder *)addressFromLocation:(CLLocation *)location :(BOOL)addCountryName :(void (^)(NSString *))onAddressReady;
 
 - (CLGeocoder *)locationFromAddress:(NSString *)address :(void (^)(CLLocation *))onLocationReady;
 
--(CLGeocoder *)addressFromCoordinate:(CLLocationCoordinate2D)coordinate :(BOOL)addCountryName :(void (^)(NSString *))onAddressReady;
+- (CLGeocoder *)addressFromCoordinate:(CLLocationCoordinate2D)coordinate :(BOOL)addCountryName :(void (^)(NSString *))onAddressReady;
 @end

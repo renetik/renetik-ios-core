@@ -12,7 +12,7 @@
 
 - (void)setOnReachable:(NetworkReachable)onReachable;
 
-- (void)setOnChange:(void (^)())onChange;
+- (void)setOnChange:(void (^)(void))onChange;
 
 - (void)setOnUpdate:(void (^)(Reachability *))onChange;
 @end

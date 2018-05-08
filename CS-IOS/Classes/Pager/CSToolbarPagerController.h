@@ -9,7 +9,6 @@
 #import "CSChildViewLessController.h"
 
 @class CSMainController;
-@class CSMainController;
 @protocol CSToolbarPage;
 
 @interface CSToolbarPagerController : CSChildViewLessController <UIScrollViewDelegate, MZAppearance>

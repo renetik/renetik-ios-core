@@ -19,7 +19,7 @@
 
 + (NSString *)loadString:(NSString *)key;
 
-+ (NSString *)loadString:(NSString *)key:(NSString*)defaultValue;
++ (NSString *)loadString:(NSString *)key :(NSString *)defaultValue;
 
 + (NSInteger)loadInteger:(NSString *)key :(NSInteger)defaultValue;
 

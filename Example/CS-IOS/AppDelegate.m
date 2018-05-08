@@ -12,7 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     info(@"Test");
-    CSMenuIcon.image;
+    [CSMenuIcon image];
     return YES;
 }
 
