@@ -4,7 +4,6 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'CS-IOS_Example' do
-  pod 'CS-IOS/Core', :path => '../'
   pod 'CS-IOS/CocoaLumberjack', :path => '../'
   pod 'CS-IOS/CollectionController', :path => '../'
   pod 'CS-IOS/TableController', :path => '../'
@@ -15,5 +14,4 @@ target 'CS-IOS_Example' do
   pod 'CS-IOS/SDWebImage', :path => '../'
   pod 'CS-IOS/RMessage', :path => '../'
   pod 'CS-IOS/XLPagerTabStrip', :path => '../'
-
 end

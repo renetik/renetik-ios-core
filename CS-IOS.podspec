@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CS-IOS'
-  s.version          = '0.4.0'
+  s.version          = '0.5.0'
   s.summary          = 'Library for rapid development of apps with readable code'
 
 # This description is used to generate tags and improve search results.

@@ -12,6 +12,21 @@
     return self;
 }
 
+- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:sel name:name object:nil];
+    return self;
+}
+
+- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:sel name:name object:object];
+    return self;
+}
+
+- (instancetype)removeNotificationObserver {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    return self;
+}
+
 - (CSDoLaterProcess *)doLater:(void (^)(void))method {
     return [[CSDoLaterProcess new] from:method :0.1];
 }
@@ -24,22 +39,10 @@
     return [CSWork.new construct:seconds :method];
 }
 
-- (void)addNotificationCenterObserver:(SEL)sel name:(NSString *)name {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:sel name:name object:nil];
-}
-
-- (void)addNotificationCenterObserver:(SEL)sel name:(NSString *)name for:(id)object {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:sel name:name object:object];
-}
-
 - (BOOL)isKindOfOneOfClass:(NSArray *)classes {
     for (Class aClass in classes)
         if ([self isKindOfClass:aClass])return YES;
     return NO;
-}
-
-- (void)removeNotificationObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 + (NSString *)className {
