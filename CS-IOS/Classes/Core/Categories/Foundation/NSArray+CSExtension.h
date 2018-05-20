@@ -16,6 +16,8 @@
 
 - (ObjectType)at:(NSInteger)index;
 
+- (ObjectType)get:(NSInteger)index;
+
 - (BOOL)empty;
 
 - (BOOL)hasItems;
@@ -31,4 +33,6 @@
 - (NSInteger)size;
 
 - (BOOL)equals:(NSArray *)array;
+
+- (BOOL)set;
 @end

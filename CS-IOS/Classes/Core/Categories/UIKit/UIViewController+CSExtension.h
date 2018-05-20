@@ -38,6 +38,10 @@
 
 - (NSString *)controllerName;
 
+- (instancetype)backButtonWithoutPreviousTitle;
+
+- (instancetype)backButtonTitle:(NSString *)title;
+
 - (BOOL)isControllerOnTop;
 
 @end

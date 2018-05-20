@@ -30,4 +30,8 @@
                                                              error:nil];
 }
 
+- (instancetype)hideIfEmpty {
+    [self setVisible:[NSString set:self.text]];
+    return self;
+}
 @end

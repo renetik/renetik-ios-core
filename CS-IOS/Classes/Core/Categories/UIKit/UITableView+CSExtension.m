@@ -3,7 +3,6 @@
 //
 
 
-#import <UIKit/UIKit.h>
 #import "CSLang.h"
 #import "UIView+CSExtension.h"
 #import "NSObject+CSExtension.h"
@@ -38,13 +37,13 @@
     return [self dequeueReusableCellWithIdentifier:identifier];
 }
 
-- (id)getHeaderFooter:(Class)type {
-    id object = [self dequeueReusableHeaderFooter:[type description]];
+- (UITableViewHeaderFooterView *)getHeaderFooter:(Class)type {
+    UITableViewHeaderFooterView* object = [self dequeueReusableHeaderFooter:[type description]];
     if (!object) object = [type create];
     return object;
 }
 
-- (id)dequeueReusableHeaderFooter:(NSString *)identifier {
+- (UITableViewHeaderFooterView *)dequeueReusableHeaderFooter:(NSString *)identifier {
     return [self dequeueReusableHeaderFooterViewWithIdentifier:identifier];
 }
 

@@ -14,4 +14,8 @@
     if (value)return @(value.intValue);
     return nil;
 }
+
+- (BOOL)set {
+    return self.floatValue > 0;
+}
 @end

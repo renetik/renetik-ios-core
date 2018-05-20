@@ -28,6 +28,10 @@
     return index < self.count ? nullToNil(self[(NSUInteger) index]) : nil;
 }
 
+- (id)get:(NSInteger)index {
+    return [self at:index];
+}
+
 - (BOOL)empty {
     return self.count == 0;
 }
@@ -62,4 +66,7 @@
     return YES;
 }
 
+- (BOOL)set {
+    return self.size > 0;
+}
 @end

@@ -42,7 +42,7 @@ static float const CS_FADE_TIME = 0.3;
 
 + (instancetype)createEmptyWithFrame:(CGRect)frame;
 
-+ (instancetype)createEmptyWithSize:(NSInteger)width :(NSInteger)height;
++ (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height;
 
 - (instancetype)fadeIn;
 

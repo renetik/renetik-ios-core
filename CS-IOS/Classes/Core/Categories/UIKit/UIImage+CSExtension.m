@@ -1,9 +1,8 @@
 //
 //  Created by Rene Dohan on 10/14/12.
 //
-#import "CSLang.h"
-#import "UINavigationController+CSExtension.h"
 
+#import "UIImage+CSExtension.h"
 
 @implementation UIImage (CSExtension)
 
@@ -12,7 +11,7 @@
     CGImageRef imgRef = self.CGImage;
     CGFloat width = CGImageGetWidth(imgRef);
     CGFloat height = CGImageGetHeight(imgRef);
-    CGAffineTransform transform = CGAffineTransformIdentity;
+    CGAffineTransform transform;
     CGRect bounds = CGRectMake(0, 0, width, height);
     if (width > maxResolution || height > maxResolution) {
         CGFloat ratio = width / height;
@@ -37,7 +36,7 @@
 
         case UIImageOrientationUpMirrored: //EXIF = 2
             transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
-            transform = CGAffineTransformScale(transform, -1.0, 1.0);
+            transform = CGAffineTransformScale(transform, -1.0f, 1.0);
             break;
 
         case UIImageOrientationDown: //EXIF = 3
@@ -47,7 +46,7 @@
 
         case UIImageOrientationDownMirrored: //EXIF = 4
             transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
-            transform = CGAffineTransformScale(transform, 1.0, -1.0);
+            transform = CGAffineTransformScale(transform, 1.0, -1.0f);
             break;
 
         case UIImageOrientationLeftMirrored: //EXIF = 5
@@ -55,7 +54,7 @@
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
             transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
-            transform = CGAffineTransformScale(transform, -1.0, 1.0);
+            transform = CGAffineTransformScale(transform, -1.0f, 1.0);
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
 
@@ -71,7 +70,7 @@
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
-            transform = CGAffineTransformMakeScale(-1.0, 1.0);
+            transform = CGAffineTransformMakeScale(-1.0f, 1.0);
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
@@ -83,8 +82,7 @@
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
-        default:
-            [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
+        default:[NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
 
     }
 

@@ -23,8 +23,13 @@
 }
 
 - (void)sizeHeightToFit {
-    UIEdgeInsets inset = self.contentInset;
-    self.height = self.contentSize.height + inset.top + inset.bottom;
+//    UIEdgeInsets inset = self.contentInset;
+//    self.height = self.contentSize.height + inset.top + inset.bottom;
+    CGFloat fixedWidth = self.frame.size.width;
+    CGSize newSize = [self sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = self.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    self.frame = newFrame;
 }
 
 - (long)currentPageIndexFrom:(NSUInteger)from {
@@ -37,5 +42,10 @@
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     return self;
+}
+
+- (void)addContentView:(UIView *)view {
+    [self addView:view];
+    self.contentSize = view.frame.size;
 }
 @end

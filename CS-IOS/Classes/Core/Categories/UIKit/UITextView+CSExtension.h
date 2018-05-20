@@ -10,4 +10,8 @@
 
 
 - (void)setHTMLWithViewFontSize:(NSString *)string;
+
++ (void)hideTextInsets:(NSArray<UITextView *> *)textViews;
+
++ (void)asLabel:(NSArray<UITextView *> *)textViews;
 @end
