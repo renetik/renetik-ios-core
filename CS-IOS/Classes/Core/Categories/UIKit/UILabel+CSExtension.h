@@ -48,4 +48,6 @@
 - (instancetype)setFontSize:(CGFloat)size;
 
 - (void)setHTMLFromString:(NSString *)string;
+
+- (instancetype)hideIfEmpty;
 @end

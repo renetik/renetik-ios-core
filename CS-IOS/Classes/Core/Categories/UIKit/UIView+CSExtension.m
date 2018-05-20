@@ -76,7 +76,8 @@
 + (NSString *)NIBName {
     NSString *className = NSStringFromClass(self.class);
     if ([className contains:@"."]) className = [className split:@"."].second;
-    return [className replaceLast:@"View" :@""];
+//    return [className replaceLast:@"View" :@""];
+    return className;
 }
 
 - (instancetype)fadeIn {
@@ -130,7 +131,7 @@
     return [self.class.alloc initWithFrame:frame];
 }
 
-+ (instancetype)createEmptyWithSize:(NSInteger)width :(NSInteger)height {
++ (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height {
     return [self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)];
 }
 
@@ -340,7 +341,7 @@
 }
 
 - (UIView *)setView:(UIView *)view :(NSInteger)index {
-    if (self.subviews[(NSUInteger) index])[self.subviews[(NSUInteger) index] removeFromSuperview];
+    if ([self.subviews at:index])[[self.subviews at:index] removeFromSuperview];
     [self insertSubview:view atIndex:index];
     return view;
 }

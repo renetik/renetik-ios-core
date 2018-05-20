@@ -62,7 +62,9 @@
 
 - (NSString *)clearLast:(NSInteger)count;
 
-+ (BOOL)empty:(NSString *)text;
++ (BOOL)empty:(NSString *)string;
+
++ (BOOL)set:(NSString *)string;
 
 - (NSString *)replaceLast:(NSString *)string :(NSString *)replacement;
 

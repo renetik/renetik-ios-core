@@ -12,4 +12,16 @@
                                               documentAttributes:nil error:nil];
 }
 
++ (void)hideTextInsets:(NSArray<UITextView *> *)textViews {
+    for (UITextView *view in textViews) view.textContainerInset = UIEdgeInsetsZero;
+}
+
++ (void)asLabel:(NSArray<UITextView *> *)textViews {
+    for (UITextView *view in textViews){
+        view.textContainerInset = UIEdgeInsetsZero;
+        view.editable = NO;
+        view.scrollEnabled = NO;
+    }
+}
+
 @end

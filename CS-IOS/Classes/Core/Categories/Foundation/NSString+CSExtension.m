@@ -177,8 +177,12 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
 }
 
-+ (BOOL)empty:(NSString *)text {
-    return text == nil || text.empty;
++ (BOOL)empty:(NSString *)string {
+    return string == nil || string.empty;
+}
+
++ (BOOL)set:(NSString *)string {
+    return ![self empty:string];
 }
 
 - (int)indexOf:(NSString *)string {

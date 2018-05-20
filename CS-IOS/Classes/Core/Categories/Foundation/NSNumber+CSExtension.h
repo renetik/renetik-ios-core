@@ -9,4 +9,6 @@
 
 @interface NSNumber (CSExtension)
 + (NSNumber *)numberWithString:(NSString *)value;
+
+- (BOOL)set;
 @end

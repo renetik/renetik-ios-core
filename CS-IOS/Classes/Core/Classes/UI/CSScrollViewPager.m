@@ -2,25 +2,31 @@
 //  Created by Rene Dohan on 1/11/13.
 //
 
-
 #import "CSScrollViewPager.h"
+@import BlocksKit;
 
 @implementation CSScrollViewPager {
     UIPageControl *_pageControl;
     UIScrollView *_scrollView;
     BOOL _pageControlUsed;
+    UIView *(^_createContentView)();
 }
 
-- (CSScrollViewPager *)with:(UIPageControl *)control :(UIScrollView *)scrollView {
-    _pageControl = control;
+- (void)construct:(CSMainController *)parent :(UIPageControl *)pageControl :(UIScrollView *)scrollView :(NSUInteger)count :(UIView *(^)())createContentView {
+    [super construct:parent];
+    _pageControl = pageControl;
+    _pageControl.numberOfPages = count;
     _scrollView = scrollView;
-    [_pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
-    return self;
+    _scrollView.delegate = self;
+    _scrollView.pagingEnabled = YES;
+    [_pageControl bk_addEventHandler:^(id sender) {[self changePage];} forControlEvents:UIControlEventValueChanged];
+    _createContentView = [createContentView copy];
 }
 
-- (CSScrollViewPager *)withScrollViewDelegate:(UIPageControl *)control :(UIScrollView *)scrollView {
-    scrollView.delegate = self;
-    return [self with:control :scrollView];
+- (void)onViewWillAppear {
+    [_scrollView clearSubViews];
+    [_scrollView addContentView:_createContentView()];
+    [self showPage:_pageControl.currentPage];
 }
 
 - (void)changePage {
@@ -40,4 +46,11 @@
 - (void)showPage:(NSInteger)index {
     [_scrollView scrollToPage:index of:_pageControl.numberOfPages];
 }
+
+- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
+    [_scrollView clearSubViews];
+    [_scrollView addContentView:_createContentView()];
+    [self showPage:_pageControl.currentPage];
+}
+
 @end

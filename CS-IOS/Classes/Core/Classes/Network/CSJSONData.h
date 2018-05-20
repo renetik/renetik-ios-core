@@ -19,6 +19,8 @@
 
 - (BOOL)isEmpty;
 
+- (BOOL)set;
+
 - (id)proxyForJson;
 
 - (void)clear;

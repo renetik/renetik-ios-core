@@ -11,6 +11,16 @@
     return [[self.class description] replaceLast:@"Controller" :@""];
 }
 
+- (instancetype)backButtonWithoutPreviousTitle {
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem createWithTitle:@"" :(UIBarButtonItemStylePlain) :nil :nil];
+    return self;
+}
+
+- (instancetype)backButtonTitle:(NSString *)title {
+    self.navigationItem.backBarButtonItem.title = title;
+    return self;
+}
+
 - (BOOL)isControllerOnTop {
     return self.navigationController.last == self;
 }
@@ -50,8 +60,8 @@
 
 + (instancetype)create {
     NSString *className = NSStringFromClass(self.class);
-    NSString *viewName = [className stringByReplacingOccurrencesOfString:@"Controller" withString:@""];
-    return [[self alloc] initWithNibName:viewName bundle:nil];
+//    NSString *viewName = [className stringByReplacingOccurrencesOfString:@"Controller" withString:@""];
+    return [[self alloc] initWithNibName:className bundle:nil];
 }
 
 + (instancetype)create:(NSString *)nib {

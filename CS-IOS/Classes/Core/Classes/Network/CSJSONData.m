@@ -130,6 +130,8 @@
     return _data.count == 0;
 }
 
+- (BOOL)set {return !self.isEmpty;}
+
 - (id)JSONString {
     return _data.JSONString;
 }
