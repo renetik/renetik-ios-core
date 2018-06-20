@@ -21,6 +21,7 @@
     BOOL _failed;
     CSWork *_reloadWork;
     id <CSTableFilterProtocol> _filter;
+    NSString *_failedMessage;
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table refreshable:(BOOL)refreshable {
@@ -140,6 +141,7 @@
         [_self.table fadeIn];
     }] onFailed:^(CSResponse *response) {
         _failed = YES;
+        _failedMessage = response.message;
         [_table reloadData];
     }];
 }
@@ -162,22 +164,11 @@
 }
 
 - (NSArray *)filterData:(NSArray *)toFilter {
-    return [self filterByFilter:[self filterBySearch:toFilter]];
-}
-
-- (NSArray *)filterBySearch:(NSArray *)toFilter {
-    if (_searchText.set) {
-        NSMutableArray *filtered = NSMutableArray.new;
-        for (id item in toFilter)
-            if ([[item description] containsNoCase:_searchText]) [filtered add:item];
-        return filtered;
-    }
-    return toFilter;
+    return [self filterByFilter:[toFilter filterBySearch:_searchText]];
 }
 
 - (NSArray *)filterByFilter:(NSArray *)toFilter {
-    if ([_filter respondsToSelector:@selector(filterData:)])
-        return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
+    if ([_filter respondsToSelector:@selector(filterData:)]) return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
     return toFilter;
 }
 
@@ -269,7 +260,7 @@
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     if (self.emptyText)
         return [NSAttributedString.alloc initWithString:self.emptyText attributes:@{NSFontAttributeName:
-                [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline], NSForegroundColorAttributeName: FlatWhite}];
+                [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline], NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES]}];
     return nil;
 }
 
@@ -313,12 +304,12 @@
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
-    return 130;
+    return 100;
 }
 
 - (NSString *)emptyText {
-    if (_failed) return @"Loading of list content was not successful, click to try again";
-    if(!_emptyText) return @"No items in list to display at this time";
+    if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
+    if (!_emptyText) return @"No items in list to display at this time";
     return _emptyText;
 }
 

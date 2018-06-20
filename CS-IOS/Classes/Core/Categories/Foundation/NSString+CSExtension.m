@@ -169,6 +169,18 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [self isEqualToString:aString];
 }
 
+- (BOOL)equalsOr:(NSArray<NSString *> *)array {
+    for (NSString *string in array)
+        if ([self equals:string]) return YES;
+    return NO;
+}
+
+- (BOOL)equalsAnd:(NSArray<NSString *> *)array {
+    for (NSString *string in array)
+        if (![self equals:string]) return NO;
+    return YES;
+}
+
 + (NSString *)fromFile:(NSString *)path {
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }

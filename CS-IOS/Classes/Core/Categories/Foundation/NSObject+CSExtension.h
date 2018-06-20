@@ -30,4 +30,6 @@
 
 + (NSString *)className;
 
++ (NSArray<NSString *> *)asStrings:(NSArray<NSObject*> *)names;
+
 @end

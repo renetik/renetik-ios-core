@@ -15,6 +15,7 @@
     [super construct:parent];
     _parent = parent;
     _searchBar = bar;
+    _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _onTextDidChange = [onTextDidChange copy];
     _searchBar.delegate = self;
     return self;

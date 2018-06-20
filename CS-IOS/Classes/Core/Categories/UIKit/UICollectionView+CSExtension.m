@@ -4,7 +4,10 @@
 //
 
 #import "UICollectionView+CSExtension.h"
-
+#import "NSObject+CSExtension.h"
+#import "NSArray+CSExtension.h"
+#import "UIView+CSExtension.h"
+#import "UINib+CSExtension.h"
 
 @implementation UICollectionView (CSExtension)
 

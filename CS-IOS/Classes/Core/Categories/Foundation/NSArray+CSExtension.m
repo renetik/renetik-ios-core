@@ -3,6 +3,8 @@
 //
 
 #import "CSLang.h"
+#import "NSString+CSExtension.h"
+#import "NSMutableArray+CSExtension.h"
 
 @implementation NSArray (CSExtension)
 
@@ -69,4 +71,14 @@
 - (BOOL)set {
     return self.size > 0;
 }
+
+- (NSArray *)filterBySearch:(NSString *)searchText {
+    if (searchText.set) {
+        NSMutableArray *filtered = NSMutableArray.new;
+        for (id item in self) if ([[item description] containsNoCase:searchText]) [filtered add:item];
+        return filtered;
+    }
+    return self;
+}
+
 @end

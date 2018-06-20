@@ -5,9 +5,7 @@
 #import <Foundation/Foundation.h>
 #import "CSResponse.h"
 
-@interface CSConcurrentResponse : CSResponse
-
-@property(nonatomic, strong) NSMutableArray *responses;
+@interface CSConcurrentResponse : CSResponse<NSMutableArray*>
 
 - (instancetype)construct:(NSArray *)responses;
 

@@ -66,4 +66,9 @@
 - (CSMainController <XLPagerTabStripChildItem> *)currentController {
     return _controllers[(NSUInteger) _currentIndex];
 }
+
+- (NSInteger)selectedIndex {
+    return _currentIndex;
+}
+
 @end

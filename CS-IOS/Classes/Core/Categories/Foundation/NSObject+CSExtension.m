@@ -4,12 +4,22 @@
 
 #import "CSWork.h"
 #import "CSDoLaterProcess.h"
+#import "BlocksKit.h"
 
 
 @implementation NSObject (CSExtension)
 
 - (instancetype)construct {
     return self;
+}
+
+- (instancetype)setObject:(const void *)key :(id)value {
+    [self bk_associateValue:value withKey:key];
+    return self;
+}
+
+- (id)getObject:(const void *)key {
+    return [self bk_associatedValueForKey:key];
 }
 
 - (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name {
@@ -28,20 +38,19 @@
 }
 
 - (CSDoLaterProcess *)doLater:(void (^)(void))method {
-    return [[CSDoLaterProcess new] from:method :0.1];
+    return [CSDoLaterProcess.new from:method :0.1];
 }
 
 - (CSDoLaterProcess *)doLater:(double)seconds :(void (^)(void))method {
-    return [[CSDoLaterProcess new] from:method :seconds];
+    return [CSDoLaterProcess.new from:method :seconds];
 }
 
 - (CSWork *)schedule:(double)seconds :(void (^)(void))method {
     return [CSWork.new construct:seconds :method];
 }
 
-- (BOOL)isKindOfOneOfClass:(NSArray *)classes {
-    for (Class aClass in classes)
-        if ([self isKindOfClass:aClass])return YES;
+- (BOOL)isKindOfOneOfClass:(NSArray<Class> *)classes {
+    for (Class aClass in classes) if ([self isKindOfClass:aClass])return YES;
     return NO;
 }
 
@@ -52,5 +61,12 @@
 - (NSString *)className {
     return [self.class description];
 }
+
++ (NSArray<NSString *> *)asStrings:(NSArray<NSObject *> *)names {
+    NSMutableArray<NSString *> *strings = NSMutableArray.new;
+    for (NSObject *object in names)[strings addObject:object.description];
+    return strings;
+}
+
 
 @end

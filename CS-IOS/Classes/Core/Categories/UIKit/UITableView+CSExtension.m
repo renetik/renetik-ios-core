@@ -12,6 +12,12 @@
 
 @implementation UITableView (CSExtension)
 
+- (instancetype)setup:(id <UITableViewDelegate, UITableViewDataSource>)parent {
+    self.delegate = parent;
+    self.dataSource = parent;
+    return self;
+}
+
 - (instancetype)setup:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource {
     self.delegate = delegate;
     self.dataSource = dataSource;
@@ -38,7 +44,7 @@
 }
 
 - (UITableViewHeaderFooterView *)getHeaderFooter:(Class)type {
-    UITableViewHeaderFooterView* object = [self dequeueReusableHeaderFooter:[type description]];
+    UITableViewHeaderFooterView *object = [self dequeueReusableHeaderFooter:[type description]];
     if (!object) object = [type create];
     return object;
 }
@@ -47,8 +53,9 @@
     return [self dequeueReusableHeaderFooterViewWithIdentifier:identifier];
 }
 
-- (void)hideEmptyCellSplitterBySettingEmptyFooter {
+- (instancetype)hideEmptyCellSplitterBySettingEmptyFooter {
     [self setTableFooterView:[UIView.alloc initWithFrame:CGRectMake(0, 0, 0, 0.1)]];
+    return self;
 }
 
 - (void)toggleEditingAnimated:(BOOL)animated {

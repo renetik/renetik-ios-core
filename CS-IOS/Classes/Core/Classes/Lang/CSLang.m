@@ -4,6 +4,7 @@
 #import "MBProgressHUD+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "NSMutableDictionary+CSExtension.h"
+#import "CSName.h"
 
 @implementation CSLang
 
