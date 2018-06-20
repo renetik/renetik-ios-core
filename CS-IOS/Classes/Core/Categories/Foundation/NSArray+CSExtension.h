@@ -35,4 +35,6 @@
 - (BOOL)equals:(NSArray *)array;
 
 - (BOOL)set;
+
+- (NSArray *)filterBySearch:(NSString *)searchText;
 @end

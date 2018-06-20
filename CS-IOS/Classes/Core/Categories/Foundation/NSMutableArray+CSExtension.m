@@ -29,6 +29,12 @@
     return anObject;
 }
 
+- (id)set:(id)anObject :(NSUInteger)index {
+    if (self.count >= index + 1) self[index] = anObject;
+    else [self addObject:anObject];
+    return anObject;
+}
+
 - (id)replaceObject:(id)newObject :(id)oldObject {
     NSUInteger oldIndex = [self indexOfObject:oldObject];
     if (oldIndex == NSNotFound) NSLog(@"oldObject on found for replace %@", oldObject);

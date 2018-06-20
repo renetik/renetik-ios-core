@@ -135,23 +135,31 @@
     }
     NSMutableArray<CSMenuHeader *> *menu = NSMutableArray.new;
     [self onPrepareMenu:menu];
-    UIBarButtonItem *actionItem = [self createActionBarItem:menu];
+    NSArray<UIBarButtonItem *> *actionItems = [self createActionBarItems:menu];
     UIBarButtonItem *barMenuItem = [self onCreateMenu:menu];
     NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
     if (barMenuItem) [barItems add:barMenuItem];
-    if (actionItem) [barItems add:actionItem];
+    [barItems addArray:actionItems];
     [self onPrepareRightBarButtonItems:barItems];
     [self.navigationItem setRightBarButtonItems:barItems];
     [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
 }
 
-- (UIBarButtonItem *)createActionBarItem:(NSMutableArray<CSMenuHeader *> *)menu {
-    UIBarButtonItem *actionItem;
+- (NSArray<UIBarButtonItem *> *)createActionBarItems:(NSMutableArray<CSMenuHeader *> *)menu {
+    NSMutableArray<UIBarButtonItem *> *array = NSMutableArray.new;
     if (menu.first && menu.first.isDisplayedAsItem) {
-        actionItem = menu.first.items.first.createBarButton;
+        [array add:menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex:0];
     }
-    return actionItem;
+    if (menu.first && menu.first.isDisplayedAsItem) {
+        [array add:menu.first.items.first.createBarButton];
+        [menu removeObjectAtIndex:0];
+    }
+    if (menu.count == 1 && menu.first.isDisplayedAsItem) {
+        [array add:menu.first.items.first.createBarButton];
+        [menu removeObjectAtIndex:0];
+    }
+    return array.reverse;
 }
 
 - (CSActionSheet *)menuSheet {

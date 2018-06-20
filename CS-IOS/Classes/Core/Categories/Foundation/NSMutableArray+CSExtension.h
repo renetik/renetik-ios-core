@@ -17,6 +17,8 @@
 
 - (ObjectType)add:(ObjectType)anObject :(NSUInteger)index;
 
+- (id)set:(id)anObject :(NSUInteger)index;
+
 - (ObjectType)replaceObject:(ObjectType)newObject :(ObjectType)oldObject;
 
 - (instancetype)addArray:(NSArray *)array;

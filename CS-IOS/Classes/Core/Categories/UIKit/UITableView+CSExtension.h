@@ -7,6 +7,8 @@
 
 @interface UITableView (CSExtension)
 
+- (instancetype)setup:(id <UITableViewDelegate, UITableViewDataSource>)parent;
+
 - (instancetype)setup:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
 
 - (void)deselectSelectedRow;
@@ -17,7 +19,7 @@
 
 - (id)dequeueReusableCell:(NSString *)identifier;
 
-- (void)hideEmptyCellSplitterBySettingEmptyFooter;
+- (instancetype)hideEmptyCellSplitterBySettingEmptyFooter;
 
 - (void)toggleEditingAnimated:(BOOL)animated;
 

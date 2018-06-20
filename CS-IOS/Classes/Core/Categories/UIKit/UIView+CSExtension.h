@@ -12,6 +12,8 @@ static float const CS_FADE_TIME = 0.3;
 
 + (void)hide:(NSArray<UIView *> *)array;
 
+- (UIButton *)addFloatingButton:(UIImage *)image :(void (^)(UIButton *))onClick;
+
 - (instancetype)clone;
 
 - (void)resizeAutoResizingViewsFonts:(float)multiply;
@@ -82,12 +84,17 @@ static float const CS_FADE_TIME = 0.3;
 
 - (id)getView:(int)tag;
 
-@property float left;
-@property float top;
+@property(readonly) float top;
 @property float absTop;
 @property(readonly) float absBottom;
 
 - (float)x;
+
+- (instancetype)setLeft:(float)value;
+
+- (float)left;
+
+- (instancetype)setTop:(float)value;
 
 - (float)y;
 
@@ -115,6 +122,8 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)addView:(UIView *)view;
 
+- (instancetype)addViews:(NSArray<UIView *> *)views;
+
 - (UIView *)addView:(UIView *)view :(NSInteger)index;
 
 - (UIView *)setView:(UIView *)view :(NSInteger)index;
@@ -131,13 +140,19 @@ static float const CS_FADE_TIME = 0.3;
 
 - (instancetype)matchParent;
 
+- (instancetype)autoResizingWidthHeight;
+
+- (instancetype)autoResizingWidth;
+
+- (instancetype)autoResizingHeight;
+
 - (UIView *)centerInParent;
 
 - (instancetype)matchParentHeight;
 
-- (instancetype)flexibleHeight;
-
 - (instancetype)matchParentWidth;
+
+- (instancetype)matchParentWidthInset:(int)inset;
 
 - (UIView *)addViewHorizontalSingleLineLayout:(UIView *)view;
 
@@ -149,7 +164,12 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)addViewVerticalLayout:(UIView *)view;
 
+- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset;
+
+- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view;
+
 - (UIView *)addViewUnderLastFilingParent:(UIView *)view;
 
 - (void)removeSubviewsOfClass:(Class)pClass;
+
 @end

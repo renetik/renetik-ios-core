@@ -5,16 +5,16 @@
 #import "NSObject+CSExtension.h"
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
-#import "CSSharePhotoButtonsController.h"
+#import "CSImagePickerController.h"
 #import "CSActionSheet.h"
-#import "CSSharePhotoButtonsListener.h"
+#import "CSImagePickerListener.h"
 
-@implementation CSSharePhotoButtonsController {
+@implementation CSImagePickerController {
     CSActionSheet *_actionSheet;
-    UIViewController <CSSharePhotoButtonsListener> *_parent;
+    UIViewController <CSImagePickerListener> *_parent;
 }
 
-- (id)initWithButtons:(UIViewController <CSSharePhotoButtonsListener> *)parentController {
+- (id)initWithButtons:(UIViewController <CSImagePickerListener> *)parentController {
     if (self = [super init]) _parent = parentController;
     return self;
 }

@@ -11,6 +11,15 @@
     for (UIView *view in array)[view hide];
 }
 
+- (UIButton *)addFloatingButton:(UIImage *)image :(void (^)(UIButton *))onClick {
+    var button = [UIButton createWithFrame:CGRectMake(self.width - (50 + 15), self.height - (50 + 15), 50, 50)
+                                     image:image contentMode:UIViewContentModeScaleAspectFit];
+    button.layer.cornerRadius = button.frame.size.width / 2;
+    button.showsTouchWhenHighlighted = YES;
+    [self addView:[button setTouchDown:onClick]];
+    return button;
+}
+
 - (instancetype)clone {
     return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self]];
 }
@@ -229,10 +238,11 @@
     return self;
 }
 
-- (void)setLeft:(float)value {
+- (instancetype)setLeft:(float)value {
     CGRect frame = self.frame;
     frame.origin.x = value;
     self.frame = frame;
+    return self;
 }
 
 - (void)setRight:(float)right {
@@ -277,10 +287,11 @@
     return self.frame.origin.y;
 }
 
-- (void)setTop:(float)value {
+- (instancetype)setTop:(float)value {
     CGRect frame = self.frame;
     frame.origin.y = value;
     self.frame = frame;
+    return self;
 }
 
 - (float)y {
@@ -333,6 +344,11 @@
 - (UIView *)addView:(UIView *)view {
     [self addSubview:view];
     return view;
+}
+
+- (instancetype)addViews:(NSArray<UIView *> *)views {
+    for (UIView *view in views) [self addSubview:view];
+    return self;
 }
 
 - (UIView *)addView:(UIView *)view :(NSInteger)index {
@@ -427,7 +443,22 @@
     [self matchParentWidth];
     [self matchParentHeight];
     [self centerInParent];
+    [self autoResizingWidthHeight];
+    return self;
+}
+
+- (instancetype)autoResizingWidthHeight {
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    return self;
+}
+
+- (instancetype)autoResizingWidth {
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    return self;
+}
+
+- (instancetype)autoResizingHeight {
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     return self;
 }
 
@@ -437,20 +468,17 @@
 }
 
 - (instancetype)matchParentHeight {
-    self.height = self.superview.height;
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    return self;
-}
-
-- (instancetype)flexibleHeight {
-    self.height = self.superview.height;
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    return self;
+    return [self.autoResizingHeight setHeight:self.superview.height];
 }
 
 - (instancetype)matchParentWidth {
-    self.width = self.superview.width;
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    return [self.autoResizingWidth setWidth:self.superview.width];
+}
+
+- (instancetype)matchParentWidthInset:(int)inset {
+    self.width = self.superview.width - inset * 2;
+    self.left = inset;
+    [self autoResizingWidth];
     return self;
 }
 
@@ -508,6 +536,28 @@
             view.left = lastSubview.right;
             view.top = 0;
         }
+    } else {
+        view.left = 0;
+        view.top = 0;
+    }
+    return [self addView:view];
+}
+
+- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset {
+    UIView *lastSubview = self.subviews.last;
+    if (lastSubview) {
+        view.top = lastSubview.bottom + offset;
+    } else {
+        view.top = offset;
+    }
+    return [self addView:view];
+}
+
+- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view {
+    UIView *lastSubview = self.subviews.last;
+    if (lastSubview) {
+        view.left = lastSubview.left;
+        view.top = lastSubview.bottom;
     } else {
         view.left = 0;
         view.top = 0;

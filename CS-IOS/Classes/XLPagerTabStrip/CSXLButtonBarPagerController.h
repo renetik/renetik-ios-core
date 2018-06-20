@@ -16,4 +16,6 @@
 - (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers;
 
 - (CSMainController <XLPagerTabStripChildItem> *)currentController;
+
+- (NSInteger)selectedIndex;
 @end

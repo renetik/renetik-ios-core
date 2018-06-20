@@ -76,6 +76,10 @@
 
 - (BOOL)equals:(NSString *)aString;
 
+- (BOOL)equalsOr:(NSArray<NSString *> *)array;
+
+- (BOOL)equalsAnd:(NSArray<NSString *> *)array;
+
 - (BOOL)contains:(NSString *)string;
 
 - (NSArray<NSString *> *)split:(NSString *)string;

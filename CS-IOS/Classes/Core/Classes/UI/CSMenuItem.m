@@ -80,6 +80,11 @@
     [self updateMenu];
 }
 
+- (void)setSystemItem:(UIBarButtonSystemItem)systemItem {
+    _systemItem = systemItem;
+    [self updateMenu];
+}
+
 - (UIBarButtonItem *)createBarButton {
     if (self.systemItem) return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem:self.systemItem handler:self.createAction];
     else if (self.image) return [UIBarButtonItem.alloc bk_initWithImage:self.image style:(UIBarButtonItemStylePlain) handler:self.createAction];
@@ -104,6 +109,11 @@
 - (instancetype)note:(NSString *)string {
     _subTitle = string;
     return self;
+}
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self updateMenu];
 }
 
 @end

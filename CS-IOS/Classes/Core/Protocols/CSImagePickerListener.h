@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol CSSharePhotoButtonsListener <NSObject>
+@protocol CSImagePickerListener <NSObject>
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)data;
 
