@@ -25,6 +25,8 @@
 
 - (instancetype)construct {
     [super construct];
+    _onViewWillAppearFirstTime = NO;
+    _onViewDidAppearFirstTime = NO;
     _menu = NSMutableArray.new;
     _showing = NO;
     _controllers = NSMutableArray.new;
@@ -243,6 +245,10 @@
     return [self menuHeader:@""];
 }
 
+- (CSMenuItem *)menuItem {
+    return [self menuItem:@""];
+}
+
 - (CSMenuItem *)menuItem:(NSString *)title {
     return [self.menuHeader item:title];
 }
@@ -278,10 +284,6 @@
     CSMenuItem *item = [self.menuHeader item:title type:type :onClick];
     item.subTitle = description;
     return item;
-}
-
-- (CSMenuItem *)menuItem {
-    return [self menuItem:@""];
 }
 
 - (BOOL)visible {

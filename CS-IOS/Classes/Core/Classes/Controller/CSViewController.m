@@ -10,6 +10,12 @@
     BOOL _didLayoutSubviews;
 }
 
+- (instancetype)construct {
+    [super construct];
+    _didLayoutSubviews = NO;
+    return self;
+}
+
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];

@@ -11,6 +11,8 @@
 
 - (void)setHTMLWithViewFontSize:(NSString *)string;
 
+- (instancetype)scrollToCursorPosition;
+
 + (void)hideTextInsets:(NSArray<UITextView *> *)textViews;
 
 + (void)asLabel:(NSArray<UITextView *> *)textViews;

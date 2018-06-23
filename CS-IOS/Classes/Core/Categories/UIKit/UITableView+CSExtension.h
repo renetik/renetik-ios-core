@@ -11,6 +11,10 @@
 
 - (instancetype)setup:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
 
+- (instancetype)setHeader:(UIView *)header;
+
+- (UIView *)setFooter:(UIView *)header;
+
 - (void)deselectSelectedRow;
 
 - (void)deselectSelectedRows:(BOOL)animated;

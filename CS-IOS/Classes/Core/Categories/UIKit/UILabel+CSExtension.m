@@ -18,16 +18,18 @@
     return self;
 }
 
-- (void)setHTMLFromString:(NSString *)string {
+- (instancetype)setFontStyle:(UIFontTextStyle)style {
+    self.font = [UIFont preferredFontForTextStyle:style];
+    return self;
+}
 
-    string = [string stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}</style>",
-                                                                        self.font.fontName,
-                                                                        self.font.pointSize]];
-    self.attributedText = [[NSAttributedString alloc] initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
-                                                           options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                                                   NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
-                                                documentAttributes:nil
-                                                             error:nil];
+- (void)setHTMLFromString:(NSString *)string {
+    string = [string stringByAppendingString:[NSString stringWithFormat:
+            @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize]];
+    self.attributedText = [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
+                                                         options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                                 NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+                                              documentAttributes:nil error:nil];
 }
 
 - (instancetype)hideIfEmpty {

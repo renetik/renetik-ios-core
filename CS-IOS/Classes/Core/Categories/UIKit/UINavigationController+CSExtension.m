@@ -22,6 +22,29 @@
     return controller;
 }
 
+
+- (UIViewController *)pushFromTop:(UIViewController *)controller {
+    CATransition* transition = CATransition.animation;
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromBottom; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self pushViewController:controller animated:NO];
+    return controller;
+}
+
+- (UIViewController *)pushFromBottom:(UIViewController *)controller {
+    CATransition* transition = CATransition.animation;
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromTop; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self pushViewController:controller animated:NO];
+    return controller;
+}
+
 - (NSArray *)popToViewController:(UIViewController *)viewController {
     return [self popToViewController:viewController animated:YES];
 }

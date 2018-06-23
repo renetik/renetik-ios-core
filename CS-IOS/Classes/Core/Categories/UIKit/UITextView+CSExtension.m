@@ -1,4 +1,5 @@
 #import "UITextView+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UITextView (CSExtension)
 
@@ -22,6 +23,11 @@
         view.editable = NO;
         view.scrollEnabled = NO;
     }
+}
+
+-(instancetype) scrollToCursorPosition {
+    doLater(^{[self scrollRectToVisible:[self caretRectForPosition:self.selectedTextRange.start] animated:YES];}, 0.1);
+    return self;
 }
 
 @end
