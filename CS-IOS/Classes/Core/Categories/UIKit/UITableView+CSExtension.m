@@ -24,6 +24,16 @@
     return self;
 }
 
+- (instancetype)setHeader:(UIView*)header {
+    self.tableHeaderView = header;
+    return self;
+}
+
+- (UIView *)setFooter:(UIView*)header {
+    self.tableFooterView = header;
+    return header;
+}
+
 - (void)deselectSelectedRow {
     [self deselectRowAtIndexPath:self.indexPathForSelectedRow animated:YES];
 }

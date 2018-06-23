@@ -50,6 +50,10 @@
 
 - (UIViewController *)push:(UIViewController *)controller;
 
+- (UIViewController *)pushFromTop:(UIViewController *)controller;
+
+- (UIViewController *)pushFromBottom:(UIViewController *)controller;
+
 - (NSArray *)popToViewController:(UIViewController *)viewController;
 
 - (void)popToViewControllerOfClass:(Class)viewControllerClass;

@@ -46,6 +46,10 @@ static float const CS_FADE_TIME = 0.3;
 
 + (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height;
 
++ (instancetype)createEmptyWithRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
+
++ (instancetype)createEmptyWithHeight:(CGFloat)height;
+
 - (instancetype)fadeIn;
 
 - (void)fadeBackgroundColorTo:(UIColor *)color;
@@ -58,7 +62,7 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)setBottom:(float)bottom;
 
-- (void)setRightToWidth:(float)right;
+- (instancetype)setRightToWidth:(float)right;
 
 - (void)setBottomToHeight:(float)bottom;
 
@@ -69,6 +73,8 @@ static float const CS_FADE_TIME = 0.3;
 - (UIView *)setWidthToLeft:(float)width;
 
 - (void)setTopToHeight:(float)top;
+
+- (instancetype)setColor:(UIColor *)color;
 
 - (void)fadeOut;
 
@@ -146,7 +152,25 @@ static float const CS_FADE_TIME = 0.3;
 
 - (instancetype)autoResizingHeight;
 
+- (instancetype)flexibleBottom;
+
+- (instancetype)flexibleTop;
+
+- (instancetype)flexibleLeft;
+
+- (instancetype)flexibleRight;
+
+- (instancetype)autoResizingRightAndBottom;
+
+- (instancetype)autoResizingLeftAndBottom;
+
+- (instancetype)autoResizingRightAndTop;
+
+- (instancetype)autoResizingLeftAndTop;
+
 - (UIView *)centerInParent;
+
+- (instancetype)centerInParentVertical;
 
 - (instancetype)matchParentHeight;
 
@@ -167,6 +191,8 @@ static float const CS_FADE_TIME = 0.3;
 - (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset;
 
 - (UIView *)addViewVerticalSingleLineLayout:(UIView *)view;
+
+- (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height;
 
 - (UIView *)addViewUnderLastFilingParent:(UIView *)view;
 

@@ -47,6 +47,8 @@
 
 - (instancetype)setFontSize:(CGFloat)size;
 
+- (instancetype)setFontStyle:(UIFontTextStyle)style;
+
 - (void)setHTMLFromString:(NSString *)string;
 
 - (instancetype)hideIfEmpty;

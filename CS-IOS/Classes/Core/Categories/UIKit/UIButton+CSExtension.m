@@ -18,7 +18,7 @@
 + (UIButton *)createWithFrame:(CGRect)rect image:(UIImage *)image contentMode:(UIViewContentMode)mode {
     UIButton *button = [UIButton.alloc initWithFrame:rect];
     button.imageView.contentMode = mode;
-    button.image = image;
+    button.picture = image;
     return button;
 }
 
@@ -38,8 +38,9 @@
     return [self titleForState:UIControlStateNormal];
 }
 
-- (void)setImage:(UIImage *)image {
+- (instancetype)setPicture:(UIImage *)image {
     [self setImage:image forState:UIControlStateNormal];
+    return self;
 }
 
 - (void)setBackgroundImage:(UIImage *)image {

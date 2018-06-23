@@ -104,6 +104,11 @@
     self.backgroundColor = color;
 }
 
+- (instancetype)setColor:(UIColor *)color {
+    self.backgroundColor = color;
+    return self;
+}
+
 - (void)fadeOut {
     if (!self.hidden) [self fadeOut:CS_FADE_TIME];
 }
@@ -142,6 +147,14 @@
 
 + (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height {
     return [self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)];
+}
+
++ (instancetype)createEmptyWithRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height {
+    return [self.class.alloc initWithFrame:CGRectMake(left, top, width, height)];
+}
+
++ (instancetype)createEmptyWithHeight:(CGFloat)height {
+    return [self.class.alloc initWithFrame:CGRectMake(0, 0, 1, height)];
 }
 
 - (BOOL)visible {
@@ -253,8 +266,9 @@
     self.top = bottom - self.height;
 }
 
-- (void)setRightToWidth:(float)right {
+- (instancetype)setRightToWidth:(float)right {
     self.width = right - self.left;
+    return self;
 }
 
 - (void)setBottomToHeight:(float)bottom {
@@ -443,27 +457,71 @@
     [self matchParentWidth];
     [self matchParentHeight];
     [self centerInParent];
-    [self autoResizingWidthHeight];
     return self;
 }
 
 - (instancetype)autoResizingWidthHeight {
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     return self;
 }
 
 - (instancetype)autoResizingWidth {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleWidth;
     return self;
 }
 
 - (instancetype)autoResizingHeight {
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleHeight;
+    return self;
+}
+
+- (instancetype)flexibleBottom {
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleBottomMargin;
+    return self;
+}
+
+- (instancetype)flexibleTop {
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleTopMargin;
+    return self;
+}
+
+- (instancetype)flexibleLeft {
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleLeftMargin;
+    return self;
+}
+
+- (instancetype)flexibleRight {
+    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleRightMargin;
+    return self;
+}
+
+- (instancetype)autoResizingRightAndBottom {
+    self.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    return self;
+}
+
+- (instancetype)autoResizingLeftAndBottom {
+    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    return self;
+}
+
+- (instancetype)autoResizingRightAndTop {
+    self.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    return self;
+}
+
+- (instancetype)autoResizingLeftAndTop {
+    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     return self;
 }
 
 - (UIView *)centerInParent {
     self.center = CGPointMake(self.superview.width / 2, self.superview.height / 2);
+    return self;
+}
+
+- (instancetype)centerInParentVertical {
+    self.center = CGPointMake(self.center.x, self.superview.height / 2);
     return self;
 }
 
@@ -563,6 +621,10 @@
         view.top = 0;
     }
     return [self addView:view];
+}
+
+- (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height {
+    return [self addView:[UIView createEmptyWithRect:0 :offset - height :self.width :height]];
 }
 
 @end

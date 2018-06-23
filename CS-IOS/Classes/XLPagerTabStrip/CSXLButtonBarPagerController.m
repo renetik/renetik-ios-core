@@ -45,8 +45,7 @@
 
 - (void)pagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController updateIndicatorFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex withProgressPercentage:(CGFloat)progressPercentage indexWasChanged:(BOOL)indexWasChanged {
     [super pagerTabStripViewController:pagerTabStripViewController updateIndicatorFromIndex:fromIndex toIndex:toIndex withProgressPercentage:progressPercentage indexWasChanged:indexWasChanged];
-    if (indexWasChanged)
-        [self updateControllersVisible:toIndex :NO];
+    if (progressPercentage == 1) [self updateControllersVisible:toIndex :NO];
 }
 
 - (void)updateControllersVisible:(NSInteger)index :(BOOL)animated {
