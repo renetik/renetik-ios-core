@@ -15,6 +15,8 @@ static int const DAY = HOUR * 24;
 #endif
 
 #define let __auto_type const
+#define wlet __weak __auto_type const
+
 #define val __auto_type const
 #define var __auto_type
 #define wvar __weak __auto_type
