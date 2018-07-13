@@ -37,9 +37,14 @@ Pod::Spec.new do |s|
     ss.frameworks = 'UIKit'
     ss.dependency 'BlocksKit', '~> 2.2.5'
     ss.dependency 'MBProgressHUD', '~> 1.1.0'
-    ss.dependency 'SBJson', '~> 3.1.1'
   end
 
+  s.subspec 'SBJson' do |ss|
+      ss.source_files = 'CS-IOS/Classes/SBJson/**/*'
+      ss.dependency 'CS-IOS/Core'
+      ss.dependency 'SBJson', '~> 3.1.1'
+  end
+  
    s.subspec 'CocoaLumberjack' do |ss|
      ss.source_files = 'CS-IOS/Classes/CocoaLumberjack/**/*'
      ss.dependency 'CS-IOS/Core'

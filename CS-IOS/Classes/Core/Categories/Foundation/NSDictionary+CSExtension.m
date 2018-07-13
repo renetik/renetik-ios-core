@@ -2,9 +2,9 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
-
 #import "NSDictionary+CSExtension.h"
 #import "CSLang.h"
+#import "CSCocoaLumberjack.h"
 
 @implementation NSDictionary (CSExtension)
 
@@ -40,6 +40,13 @@
 
 - (BOOL)contains:(NSString *)key {
     return self[key] != nil;
+}
+
+- (NSString *)jsonString{
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    warn(error);
+    return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 @end

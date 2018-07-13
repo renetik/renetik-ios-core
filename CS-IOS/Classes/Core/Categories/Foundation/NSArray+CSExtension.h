@@ -39,4 +39,6 @@
 - (BOOL)set;
 
 - (NSArray *)filterBySearch:(NSString *)searchText;
+
+- (NSString *)jsonString;
 @end

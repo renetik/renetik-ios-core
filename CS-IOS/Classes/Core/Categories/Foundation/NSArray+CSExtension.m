@@ -5,6 +5,7 @@
 #import "CSLang.h"
 #import "NSString+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
+#import "CSCocoaLumberjack.h"
 
 @implementation NSArray (CSExtension)
 
@@ -87,6 +88,13 @@
         return filtered;
     }
     return self;
+}
+
+- (NSString *)jsonString{
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    warn(error);
+    return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 @end
