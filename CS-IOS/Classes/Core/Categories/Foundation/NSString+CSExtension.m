@@ -185,8 +185,10 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-- (id)JSONObject {
-    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+- (id)jsonValue {
+    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding]
+                                           options:NSJSONReadingMutableContainers | NSJSONReadingAllowFragments
+                                             error:nil];
 }
 
 + (BOOL)empty:(NSString *)string {

@@ -13,9 +13,7 @@
 @property(nonatomic, copy) NSString *childDataKey;
 @property(nonatomic, readonly) NSMutableDictionary *data;
 
-- (instancetype)initWithObject:(NSMutableDictionary *)dictionary;
-
-- (instancetype)load:(NSMutableDictionary *)data;
+- (instancetype)load:(id)value;
 
 - (BOOL)isEmpty;
 

@@ -44,7 +44,7 @@
 
 + (NSString *)fromFile:(NSString *)path;
 
-- (id)JSONObject;
+- (id)jsonValue;
 
 - (uint)uintValue;
 
