@@ -6,9 +6,9 @@
 #import "CSJSONData.h"
 #import "CSLang.h"
 #import "NSMutableArray+CSExtension.h"
+#import "NSDictionary+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "NSException+CSExtension.h"
-#import "NSDictionary+CSSBJson.h"
 
 @implementation CSJSONData
 
@@ -123,7 +123,7 @@
 - (BOOL)set {return !self.isEmpty;}
 
 - (id)JSONString {
-    return _data.JSONString;
+    return _data.jsonString;
 }
 
 - (CSJSONData *)getData:(NSString *)key {

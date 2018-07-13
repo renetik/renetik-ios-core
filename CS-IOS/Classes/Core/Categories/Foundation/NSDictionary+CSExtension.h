@@ -2,7 +2,6 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
-
 #import <Foundation/Foundation.h>
 
 @interface NSDictionary (CSExtension)
@@ -20,5 +19,7 @@
 - (id)get:(NSString *)key;
 
 - (BOOL)contains:(NSString *)key;
+
+- (NSString*) jsonString;
 
 @end
