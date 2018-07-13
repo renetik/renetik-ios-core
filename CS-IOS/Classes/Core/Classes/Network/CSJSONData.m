@@ -12,25 +12,15 @@
 
 @implementation CSJSONData
 
-- (instancetype)initWithObject:(NSMutableDictionary *)dictionary {
-    if (self = [super init]) {
-        _data = dictionary;
-    }
-    return self;
-}
-
 - (instancetype)init {
-    if (self = [super init]) {
-        _data = NSMutableDictionary.new;
-    }
+    if (self = [super init]) _data = NSMutableDictionary.new;
     return self;
 }
 
-- (instancetype)load:(NSMutableDictionary *)data {
-    if (data && [data isKindOfClass:NSMutableDictionary.class]) {
-        _data = data;
-        return self;
-    } else return nil;
+- (instancetype)load:(id) value {
+    if (value && [value isKindOfClass:NSMutableDictionary.class]) _data = value;
+    else _data = nil;
+    return self;
 }
 
 - (instancetype)load:(CSJSONData *)data key:(NSString *)id {
@@ -127,7 +117,7 @@
 }
 
 - (BOOL)isEmpty {
-    return _data.count == 0;
+    return !_data || _data.count == 0;
 }
 
 - (BOOL)set {return !self.isEmpty;}
@@ -138,7 +128,7 @@
 
 - (CSJSONData *)getData:(NSString *)key {
     var dictionary = [self getDictionary:key];
-    return dictionary ? [CSJSONData.alloc initWithObject:dictionary] : nil;
+    return dictionary ? [CSJSONData.new load:dictionary] : nil;
 }
 
 - (NSMutableArray *)sort:(NSMutableArray<CSJSONData *> *)array :(NSComparator)comparator {

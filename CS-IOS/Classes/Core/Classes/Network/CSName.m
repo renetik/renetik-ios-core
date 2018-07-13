@@ -10,6 +10,17 @@
 
 @implementation CSName
 
+- (instancetype)construct:(NSString *)name :(NSString *)id {
+    [super construct];
+    self.name = name;
+    self.id = id;
+    return self;
+}
+
+- (instancetype)construct:(NSString *)name {
+    return [self construct:name :@""];
+}
+
 - (NSString *)name {
     return [self getString:@"name"];
 }
@@ -30,16 +41,6 @@
     return self.name;
 }
 
-- (instancetype)construct:(NSString *)name :(NSString *)id {
-    [super construct];
-    self.name = name;
-    self.id = id;
-    return self;
-}
-
-- (instancetype)construct:(NSString *)name {
-    return [self construct:name :@""];
-}
 
 + (instancetype)create:(NSString *)name :(NSString *)id {
     return [[self.class.alloc init] construct:name :id];
