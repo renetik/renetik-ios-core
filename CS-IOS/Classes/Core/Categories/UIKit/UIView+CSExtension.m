@@ -15,9 +15,9 @@
 - (UIButton *)addFloatingButton:(UIImage *)image :(void (^)(UIButton *))onClick {
     var button = [UIButton createWithFrame:CGRectMake(self.width - (50 + 15), self.height - (50 + 15), 50, 50)
                                      image:image contentMode:UIViewContentModeScaleAspectFit];
-    button.layer.cornerRadius = button.frame.size.width / 2;
+    button.layer.cornerRadius = button.width / 2;
     button.showsTouchWhenHighlighted = YES;
-    [self addView:[button addTouchDown:onClick]];
+    [self addView:[button addTouchUp:onClick]];
     return button;
 }
 
@@ -25,11 +25,11 @@
     return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self]];
 }
 
-- (void)resizeAutoResizingViewsFonts:(float)multiply {
+- (void)resizeAutoResizingViewsFonts:(CGFloat)multiply {
     [self resizeAutoResizingViewsFonts:(self) :multiply];
 }
 
-- (void)resizeAutoResizingViewsFonts:(UIView *)view :(float)multiply {
+- (void)resizeAutoResizingViewsFonts:(UIView *)view :(CGFloat)multiply {
     for (id subview in view.subviews) {
         if ([subview isKindOfClass:UIView.class]) {
             [self resizeAutoResizingViewsFonts:((UIView *) subview) :multiply];
@@ -58,10 +58,14 @@
 
 + (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve {
     switch (curve) {
-        case UIViewAnimationCurveEaseInOut:return UIViewAnimationOptionCurveEaseInOut;
-        case UIViewAnimationCurveEaseIn:return UIViewAnimationOptionCurveEaseIn;
-        case UIViewAnimationCurveEaseOut:return UIViewAnimationOptionCurveEaseOut;
-        case UIViewAnimationCurveLinear:return UIViewAnimationOptionCurveLinear;
+        case UIViewAnimationCurveEaseInOut:
+            return UIViewAnimationOptionCurveEaseInOut;
+        case UIViewAnimationCurveEaseIn:
+            return UIViewAnimationOptionCurveEaseIn;
+        case UIViewAnimationCurveEaseOut:
+            return UIViewAnimationOptionCurveEaseOut;
+        case UIViewAnimationCurveLinear:
+            return UIViewAnimationOptionCurveLinear;
     }
     return UIViewAnimationOptionCurveLinear;
 }
@@ -232,56 +236,56 @@
                      }];
 }
 
-- (instancetype)setHeight:(float)height {
+- (instancetype)setHeight:(CGFloat)height {
     CGRect frame = self.frame;
     frame.size.height = height;
     self.frame = frame;
     return self;
 }
 
-- (instancetype)setWidth:(float)width {
+- (instancetype)setWidth:(CGFloat)width {
     CGRect frame = self.frame;
     frame.size.width = width;
     self.frame = frame;
     return self;
 }
 
-- (UIView *)setWidthToLeft:(float)width {
+- (UIView *)setWidthToLeft:(CGFloat)width {
     self.left = self.left - (width - self.width);
     self.width = width;
     return self;
 }
 
-- (instancetype)setLeft:(float)value {
+- (instancetype)setLeft:(CGFloat)value {
     CGRect frame = self.frame;
     frame.origin.x = value;
     self.frame = frame;
     return self;
 }
 
-- (void)setRight:(float)right {
+- (void)setRight:(CGFloat)right {
     self.left = right - self.width;
 }
 
-- (void)setBottom:(float)bottom {
+- (void)setBottom:(CGFloat)bottom {
     self.top = bottom - self.height;
 }
 
-- (instancetype)setRightToWidth:(float)right {
+- (instancetype)setRightToWidth:(CGFloat)right {
     self.width = right - self.left;
     return self;
 }
 
-- (void)setBottomToHeight:(float)bottom {
+- (void)setBottomToHeight:(CGFloat)bottom {
     self.height = bottom - self.top;
 }
 
-- (void)setTopToHeight:(float)top {
+- (void)setTopToHeight:(CGFloat)top {
     self.height = self.bottom - top;
     self.top = top;
 }
 
-- (float)height {
+- (CGFloat)height {
     return self.frame.size.height;
 }
 
@@ -293,27 +297,42 @@
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
 }
 
+- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top  {
+    self.position = CGPointMake(left , top);
+    return self;
+}
+
+- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height {
+    self.frame = CGRectMake(left, top, width, height);
+    return self;
+}
+
+- (instancetype)setWidth:(CGFloat)width height:(CGFloat)height {
+    self.size = CGSizeMake(width, height);
+    return self;
+}
+
 - (void)setPosition:(CGPoint)position {
     self.left = position.x;
     self.top = position.y;
 }
 
-- (float)top {
+- (CGFloat)top {
     return self.frame.origin.y;
 }
 
-- (instancetype)setTop:(float)value {
+- (instancetype)setTop:(CGFloat)value {
     CGRect frame = self.frame;
     frame.origin.y = value;
     self.frame = frame;
     return self;
 }
 
-- (float)y {
+- (CGFloat)y {
     return self.frame.origin.y;
 }
 
-- (float)absTop {
+- (CGFloat)absTop {
     return [self convertPoint:CGPointMake(0, self.top) toView:nil].y;
 }
 
@@ -321,27 +340,27 @@
     self.top = [self convertPoint:CGPointMake(0, value) fromView:nil].y;
 }
 
-- (float)left {
+- (CGFloat)left {
     return self.frame.origin.x;
 }
 
-- (float)x {
+- (CGFloat)x {
     return self.frame.origin.x;
 }
 
-- (float)right {
+- (CGFloat)right {
     return self.left + self.width;
 }
 
-- (float)bottom {
+- (CGFloat)bottom {
     return self.top + self.height;
 }
 
-- (float)absBottom {
+- (CGFloat)absBottom {
     return [self convertPoint:CGPointMake(0, self.bottom) toView:nil].y;
 }
 
-- (float)width {
+- (CGFloat)width {
     return self.frame.size.width;
 }
 
@@ -633,4 +652,9 @@
     return self;
 }
 
+- (UIScrollView *)wrapInVerticalScrollView {
+    val scrollView = [UIScrollView createEmptyWithSize:self.width :self.height];
+    [[scrollView addView:self] matchParent];
+    return scrollView;
+}
 @end

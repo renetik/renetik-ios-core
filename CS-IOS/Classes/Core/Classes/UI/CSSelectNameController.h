@@ -17,8 +17,11 @@
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected :(NSString *)clearTitle;
 
-- (instancetype)setData:(NSArray<CSName *> *)names;
+- (instancetype)constructByStrings:(NSArray<NSString *> *)strings :(void (^)(NSNumber *))onSelected :(NSString *)clearTitle;
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected :(void (^)(CSName *))onDelete :(NSString *)deleteTitle;
+
+- (instancetype)setData:(NSArray<CSName *> *)names;
+
 
 @end

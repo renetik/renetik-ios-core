@@ -15,10 +15,9 @@
 
 + (CSName *)findByName:(NSArray<CSName *> *)names :(NSString *)nameToFind;
 
-- (instancetype)construct:(NSString *)name :(NSString *)id;
-
-- (instancetype)construct:(NSString *)name;
+- (instancetype)construct:(NSString *)name id:(NSString *)id;
 
 + (instancetype)create:(NSString *)name :(NSString *)id;
 
++ (NSMutableArray<CSName *> *)createNamesFromStrings:(NSArray<NSString *> *)strings;
 @end

@@ -8,5 +8,7 @@
 @interface UISegmentedControl (CSExtension)
 - (NSString *)selectedTitle;
 
++ (int)DEFAULT_HEIGHT;
+
 - (NSInteger)selectedIndex;
 @end

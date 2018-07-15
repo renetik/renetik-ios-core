@@ -16,7 +16,7 @@ static float const CS_FADE_TIME = 0.3;
 
 - (instancetype)clone;
 
-- (void)resizeAutoResizingViewsFonts:(float)multiply;
+- (void)resizeAutoResizingViewsFonts:(CGFloat)multiply;
 
 + (UIView *)findFirstResponder:(UIView *)view;
 
@@ -58,21 +58,21 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (void)setRight:(float)right;
+- (void)setRight:(CGFloat)right;
 
-- (void)setBottom:(float)bottom;
+- (void)setBottom:(CGFloat)bottom;
 
-- (instancetype)setRightToWidth:(float)right;
+- (instancetype)setRightToWidth:(CGFloat)right;
 
-- (void)setBottomToHeight:(float)bottom;
+- (void)setBottomToHeight:(CGFloat)bottom;
 
-- (instancetype)setHeight:(float)height;
+- (instancetype)setHeight:(CGFloat)height;
 
-- (instancetype)setWidth:(float)width;
+- (instancetype)setWidth:(CGFloat)width;
 
-- (UIView *)setWidthToLeft:(float)width;
+- (UIView *)setWidthToLeft:(CGFloat)width;
 
-- (void)setTopToHeight:(float)top;
+- (void)setTopToHeight:(CGFloat)top;
 
 - (instancetype)setColor:(UIColor *)color;
 
@@ -90,33 +90,39 @@ static float const CS_FADE_TIME = 0.3;
 
 - (id)getView:(int)tag;
 
-@property(readonly) float top;
-@property float absTop;
-@property(readonly) float absBottom;
+@property(readonly) CGFloat top;
+@property CGFloat absTop;
+@property(readonly) CGFloat absBottom;
 
-- (float)x;
+- (CGFloat)x;
 
-- (instancetype)setLeft:(float)value;
+- (instancetype)setLeft:(CGFloat)value;
 
-- (float)left;
+- (CGFloat)left;
 
-- (instancetype)setTop:(float)value;
+- (instancetype)setTop:(CGFloat)value;
 
-- (float)y;
+- (CGFloat)y;
 
-- (float)height;
+- (CGFloat)height;
 
 - (CGSize)size;
 
 - (void)setSize:(CGSize)size;
 
+- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top;
+
+- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height;
+
+- (instancetype)setWidth:(CGFloat)width height:(CGFloat)height;
+
 - (void)setPosition:(CGPoint)position;
 
-- (float)right;
+- (CGFloat)right;
 
-- (float)bottom;
+- (CGFloat)bottom;
 
-- (float)width;
+- (CGFloat)width;
 
 - (instancetype)clearSubViews;
 
@@ -200,4 +206,5 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)removeSubviewsOfClass:(Class)pClass;
 
+- (UIScrollView *)wrapInVerticalScrollView;
 @end

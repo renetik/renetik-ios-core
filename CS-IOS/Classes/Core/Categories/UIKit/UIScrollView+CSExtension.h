@@ -18,5 +18,7 @@
 
 - (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation;
 
-- (void)addContentView:(UIView *)view;
+- (instancetype)setContent:(UIView *)view;
+
+- (UIView *)content;
 @end
