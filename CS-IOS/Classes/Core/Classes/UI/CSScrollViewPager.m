@@ -12,7 +12,7 @@
     UIView *(^_createContentView)();
 }
 
-- (void)construct:(CSMainController *)parent :(UIPageControl *)pageControl :(UIScrollView *)scrollView :(NSUInteger)count :(UIView *(^)())createContentView {
+- (void)construct:(CSMainController *)parent :(UIPageControl *)pageControl :(UIScrollView *)scrollView :(NSUInteger)count :(UIView *(^)(void))createContentView {
     [super construct:parent];
     _pageControl = pageControl;
     _pageControl.numberOfPages = count;
@@ -25,7 +25,7 @@
 
 - (void)onViewWillAppear {
     [_scrollView clearSubViews];
-    [_scrollView addContentView:_createContentView()];
+    [_scrollView setContent:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }
 
@@ -49,7 +49,7 @@
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
     [_scrollView clearSubViews];
-    [_scrollView addContentView:_createContentView()];
+    [_scrollView setContent:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }
 

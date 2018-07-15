@@ -49,11 +49,11 @@ static NSString *const INVALID_RESPONSE_FROM_SERVER = @"Invalid response from se
 
 - (instancetype)onFailed:(void (^)(CSResponse *))block;
 
+- (instancetype)setProgress:(double)completed;
+
 - (void)reset;
 
 - (instancetype)fromCacheIfPossible:(BOOL)force;
-
-- (instancetype)setProgress:(double)completed;
 
 - (instancetype)reload:(BOOL)reload;
 

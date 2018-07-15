@@ -39,14 +39,10 @@
     return self;
 }
 
-- (void)onClearClick {
-    [self.navigationController popViewController];
-    runWith(_onSelected, _selectedRow = nil);
-}
-
-- (instancetype)setData:(NSArray<CSName *> *)names {
-    _names = names;
-    [_table reloadData];
+- (instancetype)constructByStrings:(NSArray<NSString *> *)strings :(void (^)(NSNumber *))onSelected :(NSString *)clearTitle {
+    [self constructByNames:[CSName createNamesFromStrings:strings] :^(CSName *name) {
+        runWith(onSelected, name ? @(name.index) : nil);
+    } :clearTitle];
     return self;
 }
 
@@ -73,6 +69,17 @@
     [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[self onFilterData:searchText];}];
     [_table reloadData];
     _table.allowsMultipleSelectionDuringEditing = NO;
+}
+
+- (void)onClearClick {
+    [self.navigationController popViewController];
+    runWith(_onSelected, _selectedRow = nil);
+}
+
+- (instancetype)setData:(NSArray<CSName *> *)names {
+    _names = names;
+    [_table reloadData];
+    return self;
 }
 
 - (void)onFilterData:(NSString *)searchText {

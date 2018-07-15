@@ -23,8 +23,6 @@
 }
 
 - (void)sizeHeightToFit {
-//    UIEdgeInsets inset = self.contentInset;
-//    self.height = self.contentSize.height + inset.top + inset.bottom;
     CGFloat fixedWidth = self.frame.size.width;
     CGSize newSize = [self sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGRect newFrame = self.frame;
@@ -37,15 +35,20 @@
 }
 
 - (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation {
-    if (@available(iOS 11, *)){
+    if (@available(iOS 11, *)) {
         self.contentInset = UIEdgeInsetsMake(navigation.navigationBar.bottom, 0, 0, 0);
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     return self;
 }
 
-- (void)addContentView:(UIView *)view {
+- (instancetype)setContent:(UIView *)view {
     [self addView:view];
     self.contentSize = view.frame.size;
+    return self;
+}
+
+- (UIView *)content {
+    return self.subviews.firstObject;
 }
 @end

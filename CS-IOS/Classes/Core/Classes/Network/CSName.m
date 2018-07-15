@@ -7,18 +7,27 @@
 #import "NSString+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "NSObject+CSExtension.h"
+#import "CSLang.h"
 
 @implementation CSName
 
-- (instancetype)construct:(NSString *)name :(NSString *)id {
+
++ (instancetype)create:(NSString *)name :(NSString *)id {
+    return [[self.class.alloc init] construct:name id:id];
+}
+
++ (NSMutableArray<CSName *> *)createNamesFromStrings:(NSArray<NSString *> *)strings {
+    NSMutableArray<CSName *> *names = NSMutableArray.new;
+    var index = 0;
+    for (NSString *string in strings) [names add:[CSName create:string :nil]].index = index++;
+    return names;
+}
+
+- (instancetype)construct:(NSString *)name id:(NSString *)id {
     [super construct];
     self.name = name;
     self.id = id;
     return self;
-}
-
-- (instancetype)construct:(NSString *)name {
-    return [self construct:name :@""];
 }
 
 - (NSString *)name {
@@ -39,11 +48,6 @@
 
 - (NSString *)description {
     return self.name;
-}
-
-
-+ (instancetype)create:(NSString *)name :(NSString *)id {
-    return [[self.class.alloc init] construct:name :id];
 }
 
 - (BOOL)isEqual:(id)object {

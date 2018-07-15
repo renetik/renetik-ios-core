@@ -8,18 +8,18 @@
 
 @interface CSJSONData : NSObject
 
-@property NSUInteger index;
+@property NSInteger index;
 @property NSString *key;
 @property(nonatomic, copy) NSString *childDataKey;
 @property(nonatomic, readonly) NSMutableDictionary *data;
 
-- (instancetype)load:(id)value;
+- (instancetype)constructByString:(NSString *)value;
+
+- (instancetype)construct:(NSDictionary *)value;
 
 - (BOOL)isEmpty;
 
 - (BOOL)set;
-
-- (id)proxyForJson;
 
 - (void)clear;
 
@@ -53,7 +53,7 @@
 
 - (void)put:(NSMutableDictionary *)dictionary :(NSString *)key :(id)value;
 
-- (instancetype)load:(CSJSONData *)data key:(NSString *)id1;
+- (instancetype)construct:(CSJSONData *)data key:(NSString *)id1;
 
 - (id)JSONString;
 
@@ -61,7 +61,7 @@
 
 - (NSMutableArray *)sort:(NSMutableArray<CSJSONData *> *)array :(NSComparator)comparator;
 
-- (NSArray *)reIndex:(NSArray<CSJSONData *> *)array;
++ (NSArray *)reIndex:(NSArray<CSJSONData *> *)array;
 
 - (NSMutableArray *)createArray:(Class)type key:(NSString *)arrayKey;
 

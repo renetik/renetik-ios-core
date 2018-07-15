@@ -3,10 +3,10 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import SDWebImage;
+
 #import "UIImageView+CSSDWebImage.h"
-#import <SDWebImage/UIView+WebCache.h>
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "CSLang.h"
 
 @implementation UIImageView (CSSDWebImage)

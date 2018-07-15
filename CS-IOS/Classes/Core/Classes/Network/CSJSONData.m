@@ -3,28 +3,52 @@
 // Copyright (c) 2016 renetik_software. All rights reserved.
 //
 
+#import "CSCocoaLumberjack.h"
 #import "CSJSONData.h"
 #import "CSLang.h"
-#import "NSMutableArray+CSExtension.h"
 #import "NSDictionary+CSExtension.h"
-#import "NSObject+CSExtension.h"
 #import "NSException+CSExtension.h"
+#import "NSMutableArray+CSExtension.h"
+#import "NSMutableDictionary+CSExtension.h"
+#import "NSObject+CSExtension.h"
+#import "NSString+CSExtension.h"
+#import "CSName.h"
 
 @implementation CSJSONData
 
++ (NSArray *)reIndex:(NSArray<CSJSONData *> *)array {
+    var index = 0;
+    for (CSJSONData *data in array)data.index = index++;
+    return array;
+}
+
 - (instancetype)init {
-    if (self = [super init]) _data = NSMutableDictionary.new;
+    if (self == super.init) _data = NSMutableDictionary.new;
     return self;
 }
 
-- (instancetype)load:(id) value {
-    if (value && [value isKindOfClass:NSMutableDictionary.class]) _data = value;
-    else _data = nil;
+- (instancetype)construct:(NSDictionary *)value {
+    if ([value isKindOfClass:NSMutableDictionary.class])
+        _data = (NSMutableDictionary *) value;
+    else if ([value isKindOfClass:NSDictionary.class])
+        _data = [NSMutableDictionary.new construct:value];
+    else {
+        errorf(@"value %@ is not dictionary", value);
+        _data = NSMutableDictionary.new;
+    }
     return self;
 }
 
-- (instancetype)load:(CSJSONData *)data key:(NSString *)id {
-    return [self load:[data getDictionary:id]];
+- (instancetype)construct:(CSJSONData *)data key:(NSString *)id {
+    return [self construct:[data getDictionary:id]];
+}
+
+- (instancetype)constructByString:(NSString *)value {
+    [self construct];
+    id jsonValue = value.jsonValue;
+    if ([jsonValue isKindOfClass:NSDictionary.class])
+        [self construct:jsonValue];
+    return self;
 }
 
 - (id)objectForKeyedSubscript:(NSString *)key {
@@ -39,7 +63,7 @@
 - (void)put:(NSString *)key :(id)value {
     NSMutableDictionary *data = _childDataKey ? _data[_childDataKey] : _data;
     if (![data isKindOfClass:NSMutableDictionary.class])
-        @throw [NSException exceptionWithName:@"Expected NSMutableDictionary"];
+        [NSException exceptionWithName:@"Expected NSMutableDictionary"];
     data[key] = value ? value : NSNull.null;
 }
 
@@ -49,7 +73,8 @@
 
 - (NSString *)getString:(NSString *)key {
     id value = [self get:key];
-    if (value) return stringify(value);
+    if (value)
+        return stringify(value);
     return nil;
 }
 
@@ -62,7 +87,8 @@
 }
 
 - (NSNumber *)getIntegerNumber:(NSString *)key {
-    if (![self isSet:key]) return nil;
+    if (![self isSet:key])
+        return nil;
     return @([self getInteger:key]);
 }
 
@@ -71,7 +97,8 @@
 }
 
 - (NSNumber *)getDoubleNumber:(NSString *)key {
-    if (![self isSet:key]) return nil;
+    if (![self isSet:key])
+        return nil;
     return @([self getDouble:key]);
 }
 
@@ -81,35 +108,37 @@
 
 - (NSMutableDictionary *)getDictionary:(NSString *)key {
     id value = [self get:key];
-    if (!value || [value isKindOfClass:NSMutableDictionary.class]) return value;
+    if (!value || [value isKindOfClass:NSMutableDictionary.class])
+        return value;
     return nil;
 }
 
 - (NSMutableArray *)getArray:(NSString *)key {
     id value = [self get:key];
-    if (!value || [value isKindOfClass:NSMutableArray.class]) return value;
+    if (!value || [value isKindOfClass:NSMutableArray.class])
+        return value;
     return nil;
 }
 
 - (id)get:(NSDictionary *)dictionary :(NSString *)key {
-    if (![dictionary isKindOfClass:NSMutableDictionary.class]) return nil;
+    if (![dictionary isKindOfClass:NSMutableDictionary.class])
+        return nil;
     id value = dictionary[key];
     if (value == nil) NSLog(@"Key %@ not found in %@", key, self.className);
     if (value == NSNull.null) return nil;
     return value;
 }
 
-- (void)put:(NSMutableDictionary *)dictionary :(NSString *)key :(id)value {
-    if (value == nil) dictionary[key] = NSNull.null;
-    else dictionary[key] = value;
+- (void)put:(NSMutableDictionary *)dictionary :(NSString *)key
+        :(id)value {
+    if (value == nil)
+        dictionary[key] = NSNull.null;
+    else
+        dictionary[key] = value;
 }
 
 - (NSString *)description {
     return _data.description;
-}
-
-- (id)proxyForJson {
-    return _data;
 }
 
 - (void)clear {
@@ -120,7 +149,9 @@
     return !_data || _data.count == 0;
 }
 
-- (BOOL)set {return !self.isEmpty;}
+- (BOOL)set {
+    return !self.isEmpty;
+}
 
 - (id)JSONString {
     return _data.jsonString;
@@ -128,17 +159,11 @@
 
 - (CSJSONData *)getData:(NSString *)key {
     var dictionary = [self getDictionary:key];
-    return dictionary ? [CSJSONData.new load:dictionary] : nil;
+    return dictionary ? [CSJSONData.new construct:dictionary] : nil;
 }
 
 - (NSMutableArray *)sort:(NSMutableArray<CSJSONData *> *)array :(NSComparator)comparator {
-    return [NSMutableArray.new construct:[self reIndex:[array sortedArrayUsingComparator:comparator]]];
-}
-
-- (NSArray *)reIndex:(NSArray<CSJSONData *> *)array {
-    uint index = 0;
-    for (CSJSONData *data in array) data.index = index++;
-    return array;
+    return [NSMutableArray.new construct:[CSName reIndex:[array sortedArrayUsingComparator:comparator]]];
 }
 
 - (NSMutableArray *)createArray:(Class)type key:(NSString *)arrayKey {
@@ -150,7 +175,8 @@
 }
 
 - (NSMutableArray *)createArrayOfArray:(Class)type :(NSArray<NSArray<NSDictionary *> *> *)jsonArray {
-    if (!jsonArray) return nil;
+    if (!jsonArray)
+        return nil;
     NSMutableArray<NSMutableArray<CSJSONData *> *> *dataArray = NSMutableArray.new;
     for (NSArray<NSMutableDictionary *> *arrayOfDictionaries in jsonArray)
         [dataArray add:[self createArray:type :arrayOfDictionaries]];
@@ -158,11 +184,12 @@
 }
 
 - (NSMutableArray *)createArray:(Class)type :(NSArray<NSMutableDictionary *> *)arrayOfDictionaries {
-    if (!arrayOfDictionaries) return nil;
+    if (!arrayOfDictionaries)
+        return nil;
     NSMutableArray<CSJSONData *> *array = NSMutableArray.new;
     uint count = 0;
     for (NSMutableDictionary *value in arrayOfDictionaries)
-        [array add:[[type.new construct] load:value]].index = count++;
+        [array add:[type.new construct:value]].index = count++;
     return array;
 }
 
@@ -170,12 +197,14 @@
     return [self createArray:type dictionaryOfDictionaries:[self getDictionary:dictionaryId]];
 }
 
-- (NSMutableArray *)createArray:(Class)type dictionaryOfDictionaries:(NSDictionary<NSString *, NSMutableDictionary *> *)dictionaryOfDictionaries {
-    if (!dictionaryOfDictionaries) return nil;
+- (NSMutableArray *)createArray:(Class)type
+       dictionaryOfDictionaries:(NSDictionary<NSString *, NSMutableDictionary *> *)dictionaryOfDictionaries {
+    if (!dictionaryOfDictionaries)
+        return nil;
     NSMutableArray<CSJSONData *> *array = NSMutableArray.new;
     uint count = 0;
     for (NSString *key in dictionaryOfDictionaries) {
-        CSJSONData *data = [array add:[[type.new construct] load:dictionaryOfDictionaries[key]]];
+        CSJSONData *data = [array add:[type.new construct:dictionaryOfDictionaries[key]]];
         data.key = key;
         data.index = count++;
     }
