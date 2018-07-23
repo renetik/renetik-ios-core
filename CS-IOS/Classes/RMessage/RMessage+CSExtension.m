@@ -93,4 +93,23 @@
 + (void)showNotificationWithTitle:(NSString *)title :(NSString *)subtitle type:(RMessageType)type {
     [RMessage showNotificationWithTitle:title subtitle:subtitle type:type customTypeName:nil callback:nil];
 }
+
++ (void)showTopNotificationWithTitle:(NSString *)title isDismisable:(BOOL)dismissingEnabled {
+    [RMessage showNotificationWithTitle:title subtitle:nil iconImage:nil
+                                   type:RMessageTypeNormal customTypeName:nil
+                               duration:dismissingEnabled ? RMessageDurationAutomatic : RMessageDurationEndless
+                               callback:nil buttonTitle:nil buttonCallback:nil
+                             atPosition:RMessagePositionNavBarOverlay
+                   canBeDismissedByUser:dismissingEnabled];
+}
+
++ (void)showTopNotificationWithTitle:(NSString *)title isDismisable:(BOOL)dismissingEnabled
+                                icon:(UIImage *)iconImage {
+    [RMessage showNotificationWithTitle:title subtitle:nil iconImage:iconImage
+                                   type:RMessageTypeNormal customTypeName:nil
+                               duration:dismissingEnabled ? RMessageDurationAutomatic : RMessageDurationEndless
+                               callback:nil buttonTitle:nil buttonCallback:nil atPosition:RMessagePositionNavBarOverlay
+                   canBeDismissedByUser:dismissingEnabled];
+}
+
 @end

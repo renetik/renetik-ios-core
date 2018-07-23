@@ -9,6 +9,7 @@
 #import "CSActionSheet.h"
 #import "CSMenuHeader.h"
 #import "CSMenuIcon.h"
+#import "UIView+CSDimension.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_controllers;

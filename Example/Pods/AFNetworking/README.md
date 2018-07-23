@@ -182,7 +182,7 @@ uploadTask = [manager
                   // This is not called back on the main queue.
                   // You are responsible for dispatching to the main queue for UI updates
                   dispatch_async(dispatch_get_main_queue(), ^{
-                      //Update the progress view
+                      //Update the progress content
                       [progressView setProgress:uploadProgress.fractionCompleted];
                   });
               }

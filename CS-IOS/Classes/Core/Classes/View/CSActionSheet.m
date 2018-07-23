@@ -83,7 +83,7 @@
     _visible = NO;
     if (_onDestructive && buttonIndex == actionSheet.destructiveButtonIndex)run(_onDestructive);
     if (buttonIndex == actionSheet.cancelButtonIndex) return;
-    else if (_actions) run(_actions[(NSUInteger) buttonIndex]);
+    else if ([_actions at:buttonIndex]) run([_actions at:buttonIndex]);
     else if (_singleAction)_singleAction(buttonIndex);
 }
 

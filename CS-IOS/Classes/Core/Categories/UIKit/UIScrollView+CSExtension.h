@@ -1,10 +1,17 @@
-//
 //  Created by Rene Dohan on 1/13/13.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface UIScrollView (CSExtension)
+
++ (instancetype)contentVertical:(UIView *)view;
+
++ (instancetype)contentHorizontal:(UIView *)view;
+
+- (UIView *)contentVertical:(UIView *)view;
+
+- (UIView *)contentHorizontal:(UIView *)view;
 
 - (void)scrollToPage:(NSInteger)toIndex of:(NSInteger)ofCount;
 
@@ -18,7 +25,6 @@
 
 - (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation;
 
-- (instancetype)setContent:(UIView *)view;
+- (void)setContentVertical:(UIView *)view;
 
-- (UIView *)content;
 @end

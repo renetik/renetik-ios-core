@@ -31,7 +31,7 @@
     return [self containsObject:anObject];
 }
 
-- (NSUInteger)indexOf:(id)anObject {
+- (NSInteger)indexOf:(id)anObject {
     return [self indexOfObject:anObject];
 }
 

@@ -280,7 +280,7 @@ self.view.backgroundColor = FlatGreen;
 ```
 ######Swift
 ``` swift
-view.backgroundColor = FlatGreen()
+content.backgroundColor = FlatGreen()
 ```
 
 ####Random Colors

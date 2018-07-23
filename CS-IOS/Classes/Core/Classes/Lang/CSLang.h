@@ -39,7 +39,7 @@ NSMutableDictionary *muteDict(NSDictionary *array);
 
 void runWith(void (^block)(id), id value);
 
-void doLater(void (^block)(void), NSTimeInterval delay);
+void doLater(NSTimeInterval delay, void (^block)(void));
 
 void invoke(void (^block)(void));
 

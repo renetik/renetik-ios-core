@@ -10,11 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iN0-l3-epB" userLabel="RMessageView" customClass="RMessageView">
+        <content clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="iN0-l3-epB" userLabel="RMessageView" customClass="RMessageView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
+                <content contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
                     <rect key="frame" x="15" y="10" width="290" height="46"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
@@ -41,7 +41,7 @@
                         <constraint firstItem="86Q-SR-N4H" firstAttribute="top" secondItem="bJU-tq-cfR" secondAttribute="bottom" constant="5" id="sUB-xD-36O"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="centerX" secondItem="49I-AE-5sP" secondAttribute="centerX" id="zDP-3J-CNu"/>
                     </constraints>
-                </view>
+                </content>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="49I-AE-5sP" secondAttribute="bottom" priority="249" constant="10" id="4wR-Nf-WWj"/>
@@ -70,6 +70,6 @@
                 <outlet property="titleSubtitleVerticalSpacingConstraint" destination="sUB-xD-36O" id="cv1-Ql-IMe"/>
             </connections>
             <point key="canvasLocation" x="337" y="450"/>
-        </view>
+        </content>
     </objects>
 </document>

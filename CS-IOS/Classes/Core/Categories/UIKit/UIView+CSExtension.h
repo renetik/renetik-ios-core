@@ -10,15 +10,19 @@ static float const CS_FADE_TIME = 0.3;
 
 @interface UIView (CSExtension)
 
-+ (void)hide:(NSArray<UIView *> *)array;
+- (instancetype)contentMode:(UIViewContentMode)contentMode;
 
-- (UIButton *)addFloatingButton:(UIImage *)image :(void (^)(UIButton *))onClick;
+- (instancetype)clipsToBounds:(BOOL)clipsToBounds;
+
++ (void)animate:(NSTimeInterval)duration :(void (^)(void))animations;
+
++ (instancetype)wrap:(UIView *)view;
+
++ (instancetype)wrap:(UIView *)view withPadding:(int)padding;
+
+- (instancetype)asCircular;
 
 - (instancetype)clone;
-
-- (void)resizeAutoResizingViewsFonts:(CGFloat)multiply;
-
-+ (UIView *)findFirstResponder:(UIView *)view;
 
 + (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve;
 
@@ -38,17 +42,17 @@ static float const CS_FADE_TIME = 0.3;
 
 + (instancetype)createEmpty;
 
-+ (instancetype)createEmptyWithColor:(UIColor *)color;
++ (instancetype)withColor:(UIColor *)color;
 
-+ (instancetype)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame;
++ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame;
 
-+ (instancetype)createEmptyWithFrame:(CGRect)frame;
++ (instancetype)withFrame:(CGRect)frame;
 
-+ (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height;
++ (instancetype)withSize:(CGFloat)width :(CGFloat)height;
 
-+ (instancetype)createEmptyWithRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
++ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
 
-+ (instancetype)createEmptyWithHeight:(CGFloat)height;
++ (instancetype)withHeight:(CGFloat)height;
 
 - (instancetype)fadeIn;
 
@@ -58,23 +62,11 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (void)setRight:(CGFloat)right;
-
-- (void)setBottom:(CGFloat)bottom;
-
-- (instancetype)setRightToWidth:(CGFloat)right;
-
-- (void)setBottomToHeight:(CGFloat)bottom;
-
-- (instancetype)setHeight:(CGFloat)height;
-
-- (instancetype)setWidth:(CGFloat)width;
-
-- (UIView *)setWidthToLeft:(CGFloat)width;
-
-- (void)setTopToHeight:(CGFloat)top;
-
 - (instancetype)setColor:(UIColor *)color;
+
+- (instancetype)color:(UIColor *)color;
+
+- (UIColor *)color;
 
 - (void)fadeOut;
 
@@ -90,99 +82,27 @@ static float const CS_FADE_TIME = 0.3;
 
 - (id)getView:(int)tag;
 
-@property(readonly) CGFloat top;
-@property CGFloat absTop;
-@property(readonly) CGFloat absBottom;
-
-- (CGFloat)x;
-
-- (instancetype)setLeft:(CGFloat)value;
-
-- (CGFloat)left;
-
-- (instancetype)setTop:(CGFloat)value;
-
-- (CGFloat)y;
-
-- (CGFloat)height;
-
-- (CGSize)size;
-
-- (void)setSize:(CGSize)size;
-
-- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top;
-
-- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height;
-
-- (instancetype)setWidth:(CGFloat)width height:(CGFloat)height;
-
-- (void)setPosition:(CGPoint)position;
-
-- (CGFloat)right;
-
-- (CGFloat)bottom;
-
-- (CGFloat)width;
-
 - (instancetype)clearSubViews;
 
 - (instancetype)show;
 
 - (instancetype)hide;
 
-- (UIView *)addViewUnderLast:(UIView *)view;
+- (UIView *)addUnderLast:(UIView *)view;
 
-- (UIView *)addView:(UIView *)view;
+- (UIView *)add:(UIView *)view;
 
 - (instancetype)addViews:(NSArray<UIView *> *)views;
 
-- (UIView *)addView:(UIView *)view :(NSInteger)index;
+- (UIView *)insertView:(UIView *)view :(NSInteger)index;
 
 - (UIView *)setView:(UIView *)view :(NSInteger)index;
 
-- (UIView *)positionViewUnderLast:(UIView *)view;
+- (UIView *)positionUnderLast:(UIView *)view;
 
-- (UIView *)addViewNextLast:(UIView *)view;
-
-- (UIView *)addViewNextLastFilingParent:(UIView *)view;
+- (UIView *)addNextLast:(UIView *)view;
 
 - (UIView *)positionViewNextLast:(UIView *)view;
-
-- (void)resizeByTop:(CGFloat)y;
-
-- (instancetype)matchParent;
-
-- (instancetype)autoResizingWidthHeight;
-
-- (instancetype)autoResizingWidth;
-
-- (instancetype)autoResizingHeight;
-
-- (instancetype)flexibleBottom;
-
-- (instancetype)flexibleTop;
-
-- (instancetype)flexibleLeft;
-
-- (instancetype)flexibleRight;
-
-- (instancetype)autoResizingRightAndBottom;
-
-- (instancetype)autoResizingLeftAndBottom;
-
-- (instancetype)autoResizingRightAndTop;
-
-- (instancetype)autoResizingLeftAndTop;
-
-- (UIView *)centerInParent;
-
-- (instancetype)centerInParentVertical;
-
-- (instancetype)matchParentHeight;
-
-- (instancetype)matchParentWidth;
-
-- (instancetype)matchParentWidthInset:(int)inset;
 
 - (UIView *)addViewHorizontalSingleLineLayout:(UIView *)view;
 
@@ -202,9 +122,15 @@ static float const CS_FADE_TIME = 0.3;
 
 - (instancetype)onTap:(void (^)(void))block;
 
-- (UIView *)addViewUnderLastFilingParent:(UIView *)view;
+- (void)setOnTap:(void (^)(void))block;
 
-- (void)removeSubviewsOfClass:(Class)pClass;
+- (BOOL)isVisibleToUser;
 
-- (UIScrollView *)wrapInVerticalScrollView;
+- (UIView *)content:(UIView *)view;
+
+- (void)setContent:(UIView *)view;
+
+- (UIView *)content;
+
+- (instancetype)sizeFit;
 @end

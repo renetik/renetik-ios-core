@@ -3,7 +3,7 @@
 
 @implementation UITextView (CSExtension)
 
-- (void)setHTMLWithViewFontSize:(NSString *)string {
+- (void)setHtmlWithViewFontSize:(NSString *)string {
     string = [string stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx;}</style>",
                                                                         self.font.fontName,
                                                                         self.font.pointSize]];
@@ -17,16 +17,18 @@
     for (UITextView *view in textViews) view.textContainerInset = UIEdgeInsetsZero;
 }
 
-+ (void)asLabel:(NSArray<UITextView *> *)textViews {
-    for (UITextView *view in textViews){
-        view.textContainerInset = UIEdgeInsetsZero;
-        view.editable = NO;
-        view.scrollEnabled = NO;
-    }
+- (instancetype)asLabel {
+    self.textContainerInset = UIEdgeInsetsZero;
+    self.contentInset = UIEdgeInsetsZero;
+    self.editable = NO;
+    self.scrollEnabled = NO;
+    return self;
 }
 
--(instancetype) scrollToCursorPosition {
-    doLater(^{[self scrollRectToVisible:[self caretRectForPosition:self.selectedTextRange.start] animated:YES];}, 0.1);
+- (instancetype)scrollToCursorPosition {
+    doLater(0.1, ^{
+        [self scrollRectToVisible:[self caretRectForPosition:self.selectedTextRange.start] animated:YES];
+    });
     return self;
 }
 

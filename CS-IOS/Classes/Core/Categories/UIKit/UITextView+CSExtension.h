@@ -9,11 +9,12 @@
 @interface UITextView (CSExtension)
 
 
-- (void)setHTMLWithViewFontSize:(NSString *)string;
+- (void)setHtmlWithViewFontSize:(NSString *)string;
 
 - (instancetype)scrollToCursorPosition;
 
+- (instancetype)asLabel;
+
 + (void)hideTextInsets:(NSArray<UITextView *> *)textViews;
 
-+ (void)asLabel:(NSArray<UITextView *> *)textViews;
 @end

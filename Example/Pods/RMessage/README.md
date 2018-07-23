@@ -11,7 +11,7 @@ RMessage
 Welcome to RMessage! RMessage is a reworking of the original [TSMessages](https://github.com/KrauseFx/TSMessages) library  developed by Felix Krause (@KrauseFx). It modernizes/refactors a lot of the old code to be a lot cleaner, simpler to understand and more Objective-C idiomatic. Here are some of the changes:
 
 * Uses Autolayout instead of error prone spring/struts frame setting :).
-* Various bugs have been fixed with regards to positioning of the notification view - For example: The view sizes itself properly under the status bar now allowing the status bar to show.
+* Various bugs have been fixed with regards to positioning of the notification view - For example: The content sizes itself properly under the status bar now allowing the status bar to show.
 * Lots of Code Cleanup:
   * Code base much cleaner and easier to understand by removing confusing patterns and duplication.
   * Methods have been kept down to small LOC though with room for improvement.

@@ -3,8 +3,7 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <ChameleonFramework/ChameleonMacros.h>
+@import ChameleonFramework;
 #import "CSLang.h"
 #import "NSArray+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
@@ -14,6 +13,8 @@
 #import "UINavigationController+CSExtension.h"
 #import "CSToolbarPagerController.h"
 #import "CSToolbarPage.h"
+#import "UIView+CSPosition.h"
+#import "UIView+CSDimension.h"
 
 @implementation CSToolbarPagerController {
     CSMainController *_parentController;
@@ -37,8 +38,8 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollsToTop = NO;
     _scrollView.directionalLockEnabled = YES;
-    _contentView = [UIView createEmptyWithColor:UIColor.clearColor frame:_scrollView.bounds];
-    [[_scrollView addView:_contentView] matchParent];
+    _contentView = [UIView withColor:UIColor.clearColor frame:_scrollView.bounds];
+    [[_scrollView add:_contentView] matchParent];
     return self;
 }
 
@@ -69,7 +70,7 @@
     for (CSMainController *controller in _controllers) {
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
-        controller.view.size = _scrollView.size;
+        [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
     }
     [self selectButton:_currentIndex];
 }

@@ -11,5 +11,5 @@
 
 - (void)setSelectedBackgroundColor:(UIColor *)color;
 
-- (UIView *)view;
+- (UIView *)content;
 @end

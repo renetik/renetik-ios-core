@@ -6,7 +6,6 @@
 
 @implementation UIImage (CSExtension)
 
-
 - (UIImage *)scaleAndRotateFromCamera:(int)maxResolution {
     CGImageRef imgRef = self.CGImage;
     CGFloat width = CGImageGetWidth(imgRef);

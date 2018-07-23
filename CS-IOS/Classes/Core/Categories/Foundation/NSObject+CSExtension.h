@@ -12,6 +12,12 @@
 
 - (instancetype)construct;
 
+- (id)as:(Protocol *)aProtocol;
+
+- (instancetype)setObject:(const void *)key :(id)value;
+
+- (id)getObject:(const void *)key;
+
 - (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name;
 
 - (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;

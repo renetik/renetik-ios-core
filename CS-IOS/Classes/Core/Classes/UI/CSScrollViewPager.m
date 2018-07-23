@@ -25,7 +25,7 @@
 
 - (void)onViewWillAppear {
     [_scrollView clearSubViews];
-    [_scrollView setContent:_createContentView()];
+    [_scrollView content:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }
 
@@ -49,7 +49,7 @@
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
     [_scrollView clearSubViews];
-    [_scrollView setContent:_createContentView()];
+    [_scrollView content:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }
 

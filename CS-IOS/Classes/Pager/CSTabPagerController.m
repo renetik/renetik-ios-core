@@ -5,6 +5,8 @@
 
 #import "CSTabPagerController.h"
 #import "CSTabPagerTabProtocol.h"
+#import "UIView+CSPosition.h"
+#import "UIView+CSDimension.h"
 
 @implementation CSTabPagerController {
     NSArray<CSMainController <CSTabPagerTabProtocol> *> *_controllers;
@@ -27,8 +29,8 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollsToTop = NO;
     _scrollView.directionalLockEnabled = YES;
-    _contentView = [UIView createEmptyWithColor:UIColor.clearColor frame:_scrollView.bounds];
-    [[_scrollView addView:_contentView] matchParent];
+    _contentView = [UIView withColor:UIColor.clearColor frame:_scrollView.bounds];
+    [[_scrollView add:_contentView] matchParent];
     return self;
 }
 
@@ -53,11 +55,9 @@
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
 
     for (CSMainController *controller in _controllers) {
-//        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
-        controller.view.size = _scrollView.size;
-        [controller.view setNeedsUpdateConstraints];
+        [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
     }
     [self selectTab:_currentIndex];
 }
@@ -106,10 +106,10 @@
 - (void)updateAppearance {
     if (UIDevice.isPortrait) {
         [_tabBar show];
-        [_scrollView setBottomToHeight:_tabBar.top];
+        [_scrollView bottomToHeight:_tabBar.top];
     } else {
         [_tabBar hide];
-        [_scrollView setBottomToHeight:_tabBar.bottom];
+        [_scrollView bottomToHeight:_tabBar.bottom];
     }
 }
 

@@ -2,55 +2,66 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
+@import BlocksKit;
 
 #import "UIColor+CSExtension.h"
-#import "BlocksKit+UIKit.h"
+#import "UIView+CSDimension.h"
+#import "UIView+CSPosition.h"
+#import "CSCocoaLumberjack.h"
 
 @implementation UIView (CSExtension)
 
-+ (void)hide:(NSArray<UIView *> *)array {
-    for (UIView *view in array)[view hide];
+- (instancetype)contentMode:(UIViewContentMode)contentMode {
+    self.contentMode = contentMode;
+    return self;
 }
 
-- (UIButton *)addFloatingButton:(UIImage *)image :(void (^)(UIButton *))onClick {
-    var button = [UIButton createWithFrame:CGRectMake(self.width - (50 + 15), self.height - (50 + 15), 50, 50)
-                                     image:image contentMode:UIViewContentModeScaleAspectFit];
-    button.layer.cornerRadius = button.width / 2;
-    button.showsTouchWhenHighlighted = YES;
-    [self addView:[button addTouchUp:onClick]];
-    return button;
+- (instancetype)clipsToBounds:(BOOL)clipsToBounds {
+    self.clipsToBounds = clipsToBounds;
+    return self;
+}
+
++ (void)animate:(NSTimeInterval)duration :(void (^)(void))animations {
+    [UIView animateWithDuration:duration animations:animations];
+}
+
++ (instancetype)wrap:(UIView *)view {
+    UIView *container = [self withFrame:view.frame];
+    [container add:view].matchParent;
+    return [self finishWrap:view container:container];
+}
+
++ (UIView *)finishWrap:(UIView *)view container:(UIView *)container {
+    val center = view.center;
+    val superview = view.superview;
+    val autoSize = view.autoresizingMask;
+    [[superview add:container] center:center].autoresizingMask = autoSize;
+    container.color = view.color;
+    view.color = UIColor.clearColor;
+    return container;
+}
+
++ (instancetype)wrap:(UIView *)view withPadding:(int)padding {
+    val container = [self withSize:view.width + padding * 2 :view.height + padding * 2];
+    [[container add:view] matchParentWithMargin:padding];
+    return [self finishWrap:view container:container];
+}
+
+- (instancetype)asCircular {
+    self.layer.cornerRadius = self.width / 2;
+    self.clipsToBounds = YES;
+    return self;
 }
 
 - (instancetype)clone {
     return [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self]];
 }
 
-- (void)resizeAutoResizingViewsFonts:(CGFloat)multiply {
-    [self resizeAutoResizingViewsFonts:(self) :multiply];
-}
-
-- (void)resizeAutoResizingViewsFonts:(UIView *)view :(CGFloat)multiply {
-    for (id subview in view.subviews) {
-        if ([subview isKindOfClass:UIView.class]) {
-            [self resizeAutoResizingViewsFonts:((UIView *) subview) :multiply];
-            if ([subview isKindOfClass:UILabel.class]) {
-                UILabel *label = (UILabel *) subview;
-                if (label.autoresizingMask & UIViewAutoresizingFlexibleWidth && label.autoresizingMask & UIViewAutoresizingFlexibleHeight)
-                    label.font = [label.font fontWithSize:label.font.pointSize * multiply];
-            }
-            if ([subview isKindOfClass:UIButton.class]) {
-                UIButton *button = (UIButton *) subview;
-                if (button.autoresizingMask & UIViewAutoresizingFlexibleWidth && button.autoresizingMask & UIViewAutoresizingFlexibleHeight)
-                    button.titleLabel.font = [button.titleLabel.font fontWithSize:button.titleLabel.font.pointSize * multiply];
-            }
-        }
-    }
-}
-
-+ (UIView *)findFirstResponder:(UIView *)view {
-    for (UIView *childView in view.subviews) {
-        if ([childView respondsToSelector:@selector(isFirstResponder)] && [childView isFirstResponder]) return childView;
-        UIView *result = [self findFirstResponder:childView];
+- (UIView *)firstResponder {
+    for (UIView *view in self.subviews) {
+        if ([view respondsToSelector:@selector(isFirstResponder)] && [view isFirstResponder])
+            return view;
+        UIView *result = view.firstResponder;
         if (result) return result;
     }
     return nil;
@@ -70,12 +81,10 @@
     return UIViewAnimationOptionCurveLinear;
 }
 
-- (UIView *)firstResponder {
-    return [UIView findFirstResponder:self];
-}
-
-+ (instancetype)create:(NSObject *)owner :(NSString *)IBName {
-    return [NSBundle.mainBundle loadNibNamed:IBName owner:owner options:nil][0];
++ (instancetype)create:(NSObject *)owner :(NSString *)xibName {
+    if (![NSBundle.mainBundle pathForResource:xibName ofType:@"nib"])
+        return self.createEmpty;
+    return [NSBundle.mainBundle loadNibNamed:xibName owner:owner options:nil][0];
 }
 
 + (instancetype)create:(NSString *)IBName {
@@ -90,7 +99,6 @@
 + (NSString *)NIBName {
     NSString *className = NSStringFromClass(self.class);
     if ([className contains:@"."]) className = [className split:@"."].second;
-//    return [className replaceLast:@"View" :@""];
     return className;
 }
 
@@ -114,6 +122,15 @@
     return self;
 }
 
+- (instancetype)color:(UIColor *)color {
+    self.backgroundColor = color;
+    return self;
+}
+
+- (UIColor *)color {
+    return self.backgroundColor;
+}
+
 - (void)fadeOut {
     if (!self.hidden) [self fadeOut:CS_FADE_TIME];
 }
@@ -131,35 +148,35 @@
 }
 
 + (instancetype)createEmpty {
-    return [self.class.alloc initWithFrame:CGRectZero];
+    return [[self.class.alloc initWithFrame:CGRectZero] construct];
 }
 
-+ (instancetype)createEmptyWithColor:(UIColor *)color {
++ (instancetype)withColor:(UIColor *)color {
     UIView *view = self.createEmpty;
     view.backgroundColor = color;
     return view;
 }
 
-+ (instancetype)createEmptyWithColor:(UIColor *)color frame:(CGRect)frame {
-    UIView *view = [self createEmptyWithFrame:frame];
++ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame {
+    UIView *view = [self withFrame:frame];
     view.backgroundColor = color;
     return view;
 }
 
-+ (instancetype)createEmptyWithFrame:(CGRect)frame {
-    return [self.class.alloc initWithFrame:frame];
++ (instancetype)withFrame:(CGRect)frame {
+    return [[self.class.alloc initWithFrame:frame] construct];
 }
 
-+ (instancetype)createEmptyWithSize:(CGFloat)width :(CGFloat)height {
-    return [self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)];
++ (instancetype)withSize:(CGFloat)width :(CGFloat)height {
+    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)] construct];
 }
 
-+ (instancetype)createEmptyWithRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height {
-    return [self.class.alloc initWithFrame:CGRectMake(left, top, width, height)];
++ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height {
+    return [[self.class.alloc initWithFrame:CGRectMake(left, top, width, height)] construct];
 }
 
-+ (instancetype)createEmptyWithHeight:(CGFloat)height {
-    return [self.class.alloc initWithFrame:CGRectMake(0, 0, 1, height)];
++ (instancetype)withHeight:(CGFloat)height {
+    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, 1, height)] construct];
 }
 
 - (BOOL)visible {
@@ -236,146 +253,18 @@
                      }];
 }
 
-- (instancetype)setHeight:(CGFloat)height {
-    CGRect frame = self.frame;
-    frame.size.height = height;
-    self.frame = frame;
-    return self;
-}
-
-- (instancetype)setWidth:(CGFloat)width {
-    CGRect frame = self.frame;
-    frame.size.width = width;
-    self.frame = frame;
-    return self;
-}
-
-- (UIView *)setWidthToLeft:(CGFloat)width {
-    self.left = self.left - (width - self.width);
-    self.width = width;
-    return self;
-}
-
-- (instancetype)setLeft:(CGFloat)value {
-    CGRect frame = self.frame;
-    frame.origin.x = value;
-    self.frame = frame;
-    return self;
-}
-
-- (void)setRight:(CGFloat)right {
-    self.left = right - self.width;
-}
-
-- (void)setBottom:(CGFloat)bottom {
-    self.top = bottom - self.height;
-}
-
-- (instancetype)setRightToWidth:(CGFloat)right {
-    self.width = right - self.left;
-    return self;
-}
-
-- (void)setBottomToHeight:(CGFloat)bottom {
-    self.height = bottom - self.top;
-}
-
-- (void)setTopToHeight:(CGFloat)top {
-    self.height = self.bottom - top;
-    self.top = top;
-}
-
-- (CGFloat)height {
-    return self.frame.size.height;
-}
-
-- (CGSize)size {
-    return self.frame.size;
-}
-
-- (void)setSize:(CGSize)size {
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
-}
-
-- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top  {
-    self.position = CGPointMake(left , top);
-    return self;
-}
-
-- (instancetype)setLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height {
-    self.frame = CGRectMake(left, top, width, height);
-    return self;
-}
-
-- (instancetype)setWidth:(CGFloat)width height:(CGFloat)height {
-    self.size = CGSizeMake(width, height);
-    return self;
-}
-
-- (void)setPosition:(CGPoint)position {
-    self.left = position.x;
-    self.top = position.y;
-}
-
-- (CGFloat)top {
-    return self.frame.origin.y;
-}
-
-- (instancetype)setTop:(CGFloat)value {
-    CGRect frame = self.frame;
-    frame.origin.y = value;
-    self.frame = frame;
-    return self;
-}
-
-- (CGFloat)y {
-    return self.frame.origin.y;
-}
-
-- (CGFloat)absTop {
-    return [self convertPoint:CGPointMake(0, self.top) toView:nil].y;
-}
-
-- (void)setAbsTop:(float)value {
-    self.top = [self convertPoint:CGPointMake(0, value) fromView:nil].y;
-}
-
-- (CGFloat)left {
-    return self.frame.origin.x;
-}
-
-- (CGFloat)x {
-    return self.frame.origin.x;
-}
-
-- (CGFloat)right {
-    return self.left + self.width;
-}
-
-- (CGFloat)bottom {
-    return self.top + self.height;
-}
-
-- (CGFloat)absBottom {
-    return [self convertPoint:CGPointMake(0, self.bottom) toView:nil].y;
-}
-
-- (CGFloat)width {
-    return self.frame.size.width;
-}
-
 - (instancetype)clearSubViews {
     for (UIView *view in self.subviews) [view removeFromSuperview];
     return self;
 }
 
-- (UIView *)addViewUnderLast:(UIView *)view {
-    [self positionViewUnderLast:view];
-    [self addSubview:view];
+- (UIView *)addUnderLast:(UIView *)view {
+    [self positionUnderLast:view];
+    [self add:view];
     return view;
 }
 
-- (UIView *)addView:(UIView *)view {
+- (UIView *)add:(UIView *)view {
     [self addSubview:view];
     return view;
 }
@@ -385,7 +274,7 @@
     return self;
 }
 
-- (UIView *)addView:(UIView *)view :(NSInteger)index {
+- (UIView *)insertView:(UIView *)view :(NSInteger)index {
     [self insertSubview:view atIndex:index];
     return view;
 }
@@ -396,10 +285,9 @@
     return view;
 }
 
-- (UIView *)positionViewUnderLast:(UIView *)view {
+- (UIView *)positionUnderLast:(UIView *)view {
     UIView *lastSubviewOfClass = self.subviews.last;
-    if (lastSubviewOfClass) view.top = lastSubviewOfClass.bottom;
-    else view.top = 0;
+    [view top:lastSubviewOfClass ? lastSubviewOfClass.bottom : 0];
     return view;
 }
 
@@ -411,50 +299,15 @@
     return nil;
 }
 
-- (UIView *)addViewNextLast:(UIView *)view {
+- (UIView *)addNextLast:(UIView *)view {
     [self positionViewNextLast:view];
     [self addSubview:view];
     return view;
-}
-
-- (UIView *)addViewNextLastFilingParent:(UIView *)view {
-    [self positionViewNextLast:view];
-    [self addSubview:view];
-    if (view.left == 0) {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
-    } else if (view.right == self.width) {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin;
-    } else {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth |
-                UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    }
-    return view;
-}
-
-- (UIView *)addViewUnderLastFilingParent:(UIView *)view {
-    [self positionViewUnderLast:view];
-    [self addSubview:view];
-    if (view.top == 0) {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    } else if (view.bottom == self.height) {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    } else {
-        view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth |
-                UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    }
-    return view;
-}
-
-- (void)removeSubviewsOfClass:(Class)pClass {
-    for (UIView *subview in self.subviews) {
-        if ([subview isKindOfClass:pClass])[subview removeFromSuperview];
-    }
 }
 
 - (UIView *)positionViewNextLast:(UIView *)view {
     UIView *lastSubview = self.subviews.last;
-    if (lastSubview) view.left = lastSubview.right;
-    else view.left = 0;
+    [view left:lastSubview ? lastSubview.right : 0];
     return view;
 }
 
@@ -468,98 +321,6 @@
     return self;
 }
 
-- (void)resizeByTop:(CGFloat)value {
-    self.height -= value - self.top;
-    self.top = value;
-}
-
-- (instancetype)matchParent {
-    [self matchParentWidth];
-    [self matchParentHeight];
-    [self centerInParent];
-    return self;
-}
-
-- (instancetype)autoResizingWidthHeight {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    return self;
-}
-
-- (instancetype)autoResizingWidth {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleWidth;
-    return self;
-}
-
-- (instancetype)autoResizingHeight {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleHeight;
-    return self;
-}
-
-- (instancetype)flexibleBottom {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleBottomMargin;
-    return self;
-}
-
-- (instancetype)flexibleTop {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleTopMargin;
-    return self;
-}
-
-- (instancetype)flexibleLeft {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleLeftMargin;
-    return self;
-}
-
-- (instancetype)flexibleRight {
-    self.autoresizingMask = self.autoresizingMask | UIViewAutoresizingFlexibleRightMargin;
-    return self;
-}
-
-- (instancetype)autoResizingRightAndBottom {
-    self.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    return self;
-}
-
-- (instancetype)autoResizingLeftAndBottom {
-    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    return self;
-}
-
-- (instancetype)autoResizingRightAndTop {
-    self.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    return self;
-}
-
-- (instancetype)autoResizingLeftAndTop {
-    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    return self;
-}
-
-- (UIView *)centerInParent {
-    self.center = CGPointMake(self.superview.width / 2, self.superview.height / 2);
-    return self;
-}
-
-- (instancetype)centerInParentVertical {
-    self.center = CGPointMake(self.center.x, self.superview.height / 2);
-    return self;
-}
-
-- (instancetype)matchParentHeight {
-    return [self.autoResizingHeight setHeight:self.superview.height];
-}
-
-- (instancetype)matchParentWidth {
-    return [self.autoResizingWidth setWidth:self.superview.width];
-}
-
-- (instancetype)matchParentWidthInset:(int)inset {
-    self.width = self.superview.width - inset * 2;
-    self.left = inset;
-    [self autoResizingWidth];
-    return self;
-}
-
 - (UIView *)addViewHorizontalSingleLineLayout:(UIView *)view {
     view.height = self.height;
     return [self addViewHorizontalLayout:view];
@@ -569,17 +330,17 @@
     UIView *lastSubview = self.subviews.last;
     if (lastSubview) {
         if (lastSubview.right + view.width <= self.width) {
-            view.left = lastSubview.right;
-            view.top = lastSubview.top;
+            [view left:lastSubview.right];
+            [view top:lastSubview.top];
         } else {
-            view.left = 0;
-            view.top = lastSubview.bottom;
+            [view left:0];
+            [view top:lastSubview.bottom];
         }
     } else {
-        view.left = 0;
-        view.top = 0;
+        [view left:0];
+        [view top:0];
     }
-    return [self addView:view];
+    return [self add:view];
 }
 
 - (UIView *)addViewHorizontalSingleLineReverseLayout:(UIView *)view {
@@ -591,60 +352,51 @@
     UIView *lastSubview = self.subviews.last;
     if (lastSubview) {
         if (lastSubview.left - view.width >= 0) {
-            view.bottom = lastSubview.bottom;
-            view.right = lastSubview.left;
+            [view fromBottom:lastSubview.bottom];
+            [view fromRight:lastSubview.left];
         } else {
-            view.bottom = lastSubview.top;
-            view.right = self.width;
+            [view fromBottom:lastSubview.top];
+            [view fromRight:self.width];
         }
     } else {
-        view.bottom = self.height;
-        view.right = self.width;
+        [view fromBottom:self.height];
+        [view fromRight:self.width];
     }
-    return [self addView:view];
+    return [self add:view];
 }
 
 - (UIView *)addViewVerticalLayout:(UIView *)view {
     UIView *lastSubview = self.subviews.last;
     if (lastSubview) {
         if (lastSubview.bottom + view.height <= self.height) {
-            view.left = lastSubview.left;
-            view.top = lastSubview.bottom;
+            [view left:lastSubview.left];
+            [view top:lastSubview.bottom];
         } else {
-            view.left = lastSubview.right;
-            view.top = 0;
+            [view left:lastSubview.right];
+            [view top:0];
         }
     } else {
-        view.left = 0;
-        view.top = 0;
+        [view left:0];
+        [view top:0];
     }
-    return [self addView:view];
+    return [self add:view];
 }
 
 - (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset {
-    UIView *lastSubview = self.subviews.last;
-    if (lastSubview) {
-        view.top = lastSubview.bottom + offset;
-    } else {
-        view.top = offset;
-    }
-    return [self addView:view];
+    val lastSubview = self.subviews.last;
+    [view top:lastSubview ? lastSubview.bottom + offset : offset];
+    return [self add:view];
 }
 
 - (UIView *)addViewVerticalSingleLineLayout:(UIView *)view {
-    UIView *lastSubview = self.subviews.last;
-    if (lastSubview) {
-        view.left = lastSubview.left;
-        view.top = lastSubview.bottom;
-    } else {
-        view.left = 0;
-        view.top = 0;
-    }
-    return [self addView:view];
+    val lastSubview = self.subviews.last;
+    if (lastSubview) [view left:lastSubview.left top:lastSubview.bottom];
+    else [view left:0 top:0];
+    return [self add:view];
 }
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height {
-    return [self addView:[UIView createEmptyWithRect:0 :offset - height :self.width :height]];
+    return [self add:[UIView withRect:0 :offset - height :self.width :height]];
 }
 
 - (instancetype)onTap:(void (^)(void))block {
@@ -652,9 +404,28 @@
     return self;
 }
 
-- (UIScrollView *)wrapInVerticalScrollView {
-    val scrollView = [UIScrollView createEmptyWithSize:self.width :self.height];
-    [[scrollView addView:self] matchParent];
-    return scrollView;
+- (void)setOnTap:(void (^)(void))block {
+    [self onTap:block];
+}
+
+- (BOOL)isVisibleToUser {
+    infof(@"%@ %@ %@", self.window, @(self.hidden), @(self.alpha));
+    return self.window && !self.hidden && self.alpha > 0;
+}
+
+- (UIView *)content:(UIView *)view {
+    [self insertView:view :0];
+    return view;
+}
+
+- (void)setContent:(UIView *)view {
+    [self content:view];
+}
+
+- (UIView *)content {return self.subviews.firstObject;}
+
+- (instancetype)sizeFit {
+    [self sizeToFit];
+    return self;
 }
 @end

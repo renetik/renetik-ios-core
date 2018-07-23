@@ -33,6 +33,8 @@ static NSString *const INVALID_RESPONSE_FROM_SERVER = @"Invalid response from se
 
 - (void)cancel;
 
+- (NSString *)requestCancelledMessage;
+
 - (CSResponse *)failIfFail:(CSResponse *)request;
 
 - (CSResponse *)connect:(CSResponse *)response;

@@ -12,6 +12,8 @@
 @property(nonatomic, strong) UITableView *table;
 @property(nonatomic, strong) UISearchBar *search;
 @property(nonatomic, strong) CSName *selectedRow;
+@property(nonatomic, strong) UIColor *primaryColor;
+@property(nonatomic, strong) UIColor *secondaryColor;
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected;
 

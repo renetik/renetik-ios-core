@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="XLButtonBarViewCell">
+        <content contentMode="scaleToFill" id="iN0-l3-epB" customClass="XLButtonBarViewCell">
             <rect key="frame" x="0.0" y="0.0" width="81" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -28,6 +28,6 @@
                 <outlet property="label" destination="4bA-d3-zGi" id="Ckx-bG-ZhP"/>
             </connections>
             <point key="canvasLocation" x="471.5" y="429"/>
-        </view>
+        </content>
     </objects>
 </document>

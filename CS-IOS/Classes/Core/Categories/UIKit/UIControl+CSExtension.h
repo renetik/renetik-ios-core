@@ -52,7 +52,7 @@ static char UIButtonBlockKey;
 
 - (instancetype)addTouchCancel:(id)target :(SEL)action;
 
-- (instancetype)addTouchUp:(void (^)(id sender))handler;
+- (instancetype)onTouchUp:(void (^)(id sender))handler;
 
 - (instancetype)addTouchDown:(void (^)(id sender))handler;
 

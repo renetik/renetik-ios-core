@@ -43,16 +43,16 @@ void runWith(void (^block)(id), id value) {
     if (block)block(value);
 }
 
-void doLater(void (^block)(void), NSTimeInterval delay) {
+void doLater(NSTimeInterval delay, void (^block)(void)) {
     if (!block)return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delay * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }
 
 void doLaterWith(void (^block)(id), id value, NSTimeInterval delay) {
     if (!block)return;
-    doLater(^{
-        runWith(block, value);
-    }, delay);
+    doLater(delay, ^{
+            runWith(block, value);
+        });
 }
 
 void invoke(void (^block)(void)) {

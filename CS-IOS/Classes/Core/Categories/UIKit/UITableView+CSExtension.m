@@ -8,28 +8,30 @@
 #import "NSObject+CSExtension.h"
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
-
+#import "UIView+CSDimension.h"
 
 @implementation UITableView (CSExtension)
 
-- (instancetype)setup:(id <UITableViewDelegate, UITableViewDataSource>)parent {
+- (instancetype)setupTable:(id <UITableViewDelegate, UITableViewDataSource>)parent {
     self.delegate = parent;
     self.dataSource = parent;
+    [self reloadData];
     return self;
 }
 
-- (instancetype)setup:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource {
+- (instancetype)setupTable:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource {
     self.delegate = delegate;
     self.dataSource = dataSource;
+    [self reloadData];
     return self;
 }
 
-- (instancetype)setHeader:(UIView*)header {
+- (instancetype)setHeader:(UIView *)header {
     self.tableHeaderView = header;
     return self;
 }
 
-- (UIView *)setFooter:(UIView*)header {
+- (UIView *)setFooter:(UIView *)header {
     self.tableFooterView = header;
     return header;
 }
@@ -44,7 +46,7 @@
 }
 
 - (UITableViewCell *)getCell:(Class)type {
-    id object = [self dequeueReusableCell:[type description]];
+    var object = [self dequeueReusableCell:[type description]];
     if (!object) object = [type create];
     return object;
 }
@@ -54,7 +56,7 @@
 }
 
 - (UITableViewHeaderFooterView *)getHeaderFooter:(Class)type {
-    UITableViewHeaderFooterView *object = [self dequeueReusableHeaderFooter:[type description]];
+    var object = [self dequeueReusableHeaderFooter:[type description]];
     if (!object) object = [type create];
     return object;
 }
@@ -68,32 +70,28 @@
     return self;
 }
 
-- (void)toggleEditingAnimated:(BOOL)animated {
+- (instancetype)toggleEditingAnimated:(BOOL)animated {
     [self setEditing:!self.isEditing animated:animated];
+    return self;
 }
 
-- (UITableViewCell *)getCellForView:(Class)viewClass {
-    UITableViewCell *cell = [self dequeueReusableCell:[viewClass className]];
-    if (!cell)
-        cell = [self createCell:viewClass];
-    return cell;
+- (instancetype)toggleEditing {
+    [self setEditing:!self.isEditing animated:YES];
+    return self;
 }
 
-- (UITableViewCell *)createCellForView:(Class)viewClass :(void (^)(UITableViewCell *))onCreate {
-    UITableViewCell *cell = [self dequeueReusableCell:[viewClass className]];
-    if (!cell) {
-        cell = [self createCell:viewClass];
-        invokeWith(onCreate, cell);
-    }
+- (UITableViewCell *)cellView:(Class)viewClass :(void (^)(UITableViewCell *))onCreate {
+    var cell = [self dequeueReusableCell:[viewClass className]];
+    if (!cell) invokeWith(onCreate, cell = [self createCell:viewClass]);
     return cell;
 }
 
 - (UITableViewCell *)createCell:(Class)viewClass {
-    UITableViewCell *cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[viewClass className]];
+    val cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[viewClass className]];
     UIView *view = [viewClass.create construct];
-    cell.size = CGSizeMake(self.width, self.rowHeight = view.height);
+    [cell size:CGSizeMake(self.width, self.rowHeight = view.height)];
     [cell.contentView matchParent];
-    [cell.contentView addView:view].matchParent;
+    [cell.contentView add:view].matchParent;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     return cell;
 }
@@ -103,7 +101,7 @@
 }
 
 - (UITableViewCell *)getCellWithStyle:(NSString *const)id :(enum UITableViewCellStyle)style :(void (^)(UITableViewCell *cell))onCreate {
-    UITableViewCell *cell = [self dequeueReusableCell:id];
+    var cell = [self dequeueReusableCell:id];
     if (!cell) runWith(onCreate, cell = [UITableViewCell.alloc initWithStyle:style reuseIdentifier:id]);
     return cell;
 }

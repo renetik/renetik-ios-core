@@ -7,7 +7,7 @@
 
 @interface UICollectionView (CSExtension)
 
-- (instancetype)setup:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
+- (instancetype)setupCollection:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
 
 - (__kindof UICollectionViewCell *)dequeueCell:(NSString *)identifier :(NSIndexPath *)path;
 

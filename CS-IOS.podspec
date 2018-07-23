@@ -95,7 +95,7 @@ Pod::Spec.new do |s|
    s.subspec 'SDWebImage' do |ss|
      ss.source_files = 'CS-IOS/Classes/SDWebImage/**/*'
      ss.dependency 'CS-IOS/Core'
-     ss.dependency 'SDWebImage', '~> 4.0'
+     ss.dependency 'SDWebImage', '~> 5.0.0-beta'
    end
 
    s.subspec 'RMessage' do |ss|
@@ -116,5 +116,12 @@ Pod::Spec.new do |s|
   # s.resource_bundles = {
   #   'CS-IOS' => ['CS-IOS/Assets/*.png']
   # }
+
+  s.test_spec 'Tests' do |ts|
+    ts.source_files = 'CS-IOS/Tests/**/*.{h,m,swift}'
+    ts.frameworks = 'XCTest'
+    ts.dependency 'Quick'
+    ts.dependency 'Nimble'
+  end
 
 end

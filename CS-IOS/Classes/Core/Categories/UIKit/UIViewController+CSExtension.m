@@ -85,7 +85,7 @@
 }
 
 - (UIViewController *)addControllerUnder:(UIViewController *)controller {
-    [self.view positionViewUnderLast:controller.view];
+    [self.view positionUnderLast:controller.view];
     [self addController:controller :self.view];
     return controller;
 }

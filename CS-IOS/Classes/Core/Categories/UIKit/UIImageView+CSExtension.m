@@ -14,8 +14,15 @@
     return self;
 }
 
+- (instancetype)image:(UIImage *)image {
+    self.image = image;
+    return self;
+}
+
 - (void)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight {
     self.image = [self.image stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
 }
+
+
 
 @end
