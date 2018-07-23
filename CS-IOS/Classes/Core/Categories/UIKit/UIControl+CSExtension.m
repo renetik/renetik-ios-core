@@ -25,7 +25,7 @@
     return self;
 }
 
-- (instancetype)addTouchUp:(void (^)(id sender))handler {
+- (instancetype)onTouchUp:(void (^)(id sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     return self;
 }

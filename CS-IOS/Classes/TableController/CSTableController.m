@@ -2,13 +2,24 @@
 //  Created by Rene Dohan on 1/11/13.
 //
 
-#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
-#import <ChameleonFramework/ChameleonMacros.h>
+@import DZNEmptyDataSet;
+@import ChameleonFramework;
+@import BlocksKit;
+
 #import "CSTableController.h"
 #import "CSResponse.h"
 #import "CSRefreshControl.h"
 #import "CSWork.h"
 #import "CSTableFilterProtocol.h"
+#import "UIView+CSPosition.h"
+#import "UIView+CSDimension.h"
+
+@interface CSTableController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@property(nonatomic) BOOL loading;
+@property(nonatomic) BOOL failed;
+@property(nonatomic, copy) NSString *failedMessage;
+@property(nonatomic, strong) CSRefreshControl *refreshControl;
+@end
 
 @implementation CSTableController {
     UIViewController <CSViewControllerProtocol> *_parent;
@@ -17,11 +28,8 @@
     NSMutableArray *_filteredData;
     NSMutableArray *_data;
     UIColor *_loadNextColor;
-    CSRefreshControl *_refreshControl;
-    BOOL _failed;
     CSWork *_reloadWork;
     id <CSTableFilterProtocol> _filter;
-    NSString *_failedMessage;
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table refreshable:(BOOL)refreshable {
@@ -41,58 +49,88 @@
         parent :(UITableView *)table :(NSArray *)data :(BOOL)refreshable :(UIColor *)loadNextColor {
     [super construct:parent];
     _parent = parent;
-    _filter = (id <CSTableFilterProtocol>) ([_parent conformsToProtocol:@protocol(CSTableFilterProtocol)] ? _parent : nil);
-    _table = table;
-    _table.delegate = parent;
-    _table.dataSource = parent;
-    _table.emptyDataSetSource = self;
-    _table.emptyDataSetDelegate = self;
-    [_table hide];
+    _filter = [_parent as:@protocol(CSTableFilterProtocol)];
+    [self initializeTable:parent table:table];
     _filteredData = NSMutableArray.new;
-    _data = [NSMutableArray arrayWithArray:data];
+    _data = muteArray(data);
     _loadNextColor = loadNextColor;
-    if (refreshable)
-        _refreshControl = [CSRefreshControl.new construct:_table :(self) :@selector(csTableControllerOnRefreshUserAction)];
-    _table.backgroundView = [UIView createEmptyWithColor:UIColor.clearColor];
-    [_table.backgroundView addGestureRecognizer:[UITapGestureRecognizer.alloc initWithTarget:self action:@selector(csTableControllerOnBackTapUserAction)]];
+    if (refreshable) _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl];}];
     return self;
 }
 
-- (void)csTableControllerOnBackTapUserAction {
-    [self reload];
+- (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent table:(UITableView *)table {
+    _table = [table setupTable:parent].hide;
+    _table.emptyDataSetSource = self;
+    _table.emptyDataSetDelegate = self;
+    _table.backgroundView = [UIView withColor:UIColor.clearColor];
+    [UITapGestureRecognizer.alloc bk_initWithHandler:
+            ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {[self reload];}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reloadData];
-}
-
-- (void)reloadData {
     [_table reloadData];
-    if ([_filter respondsToSelector:@selector(onReloadDone:)])[_filter onReloadDone:self];
 }
 
-- (void)onViewWillAppearFromPresentedController {
-    [super onViewWillAppearFromPresentedController];
-    if (self.autoReload)[_reloadWork run];
-}
+- (CSResponse *)reload {return [self reload:NO];}
 
-- (void)setAutoReload:(BOOL)autoReload {
-    _autoReload = autoReload;
-    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
-        if (self.visible) [self load:YES];
-    }] start];
+- (CSResponse *)reload:(BOOL)refreshControl {
+    if (_loading) [_loadResponse cancel];
+    _noNext = NO;
+    _pageIndex = -1;
+    _loading = YES;
+    _loadResponse = self.onLoad(_pageIndex + 1);
+    if (!refreshControl) [_parent showProgress:_loadResponse];
+    wvar _self = self;
+    return [[_loadResponse onFailed:^(CSResponse *response) {
+        _self.failed = YES;
+        _self.failedMessage = response.message;
+        [_table reloadData];
+    }] onDone:^(id data) {
+        if (refreshControl) [_self.refreshControl endRefreshing];
+        _self.loading = NO;
+        [_self.table fadeIn];
+    }];
 }
 
 - (void)loadNext {
     if (_loading)return;
     _loading = YES;
     [self showLoadNextIndicator];
-    __weak typeof(self) _self = self;
-    [_onLoadNext() onDone:^(id data) {
+    wvar _self = self;
+    [self.onLoad(_pageIndex + 1) onDone:^(id data) {
         _self.loading = NO;
         [_self.loadNextView removeFromSuperview];
     }];
+}
+
+- (instancetype)onLoadSuccess:(NSArray *)array {
+    if (_pageIndex == -1) {
+        [_data replaceFromArray:array];
+        _noNext = array.empty;
+        [self filterDataAndReload];
+    } else {
+        if ((_noNext = array.empty))return self;
+        [_data addArray:array];
+        val filteredData = [self filterData:array];
+
+        val paths = NSMutableArray.new;
+        for (int index = 0; index < filteredData.count; index++)
+            [paths add:[NSIndexPath indexPathForRow:index + _filteredData.count inSection:0]];
+
+        [_filteredData addArray:filteredData];
+        [_table beginUpdates];
+        [_table insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_table endUpdates];
+    }
+    _pageIndex += 1;
+    _failed = NO;
+    return self;
+}
+
+- (void)onViewWillAppearFromPresentedController {
+    [super onViewWillAppearFromPresentedController];
+    if (self.autoReload)[_reloadWork run];
 }
 
 - (void)showLoadNextIndicator {
@@ -107,8 +145,7 @@
 }
 
 - (BOOL)shouldLoadNext:(NSIndexPath *)path {
-    if (_loading)return NO;
-    if (!_onLoadNext)return NO;
+    if (_loading) return NO;
     return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - 5);
 }
 
@@ -116,34 +153,10 @@
     if ([self shouldLoadNext:indexPath]) [self loadNext];
 }
 
-- (void)csTableControllerOnRefreshUserAction {
+- (void)onRefreshControl {
     if (self.onUserRefresh) {
-        if (self.onUserRefresh())[self load:YES];
-    } else [self load:YES];
-}
-
-- (CSResponse *)reload {
-    return [self load:NO];
-}
-
-- (CSResponse *)load:(BOOL)isUserAction {
-    if (_loading) [_loadResponse cancel];
-    __weak typeof(self) _self = self;
-    _noNext = NO;
-    _loading = YES;
-    _loadResponse = self.onReload(isUserAction);
-    if (!isUserAction) [_parent showProgress:_loadResponse];
-    return [[[_loadResponse onSuccess:^(id o) {
-        _failed = NO;
-    }] onDone:^(id data) {
-        if (isUserAction) [_self cancelUserRefresh];
-        _self.loading = NO;
-        [_self.table fadeIn];
-    }] onFailed:^(CSResponse *response) {
-        _failed = YES;
-        _failedMessage = response.message;
-        [_table reloadData];
-    }];
+        if (self.onUserRefresh())[self reload:YES];
+    } else [self reload:YES];
 }
 
 - (void)setSearchText:(NSString *)text {
@@ -151,54 +164,20 @@
     [self filterDataAndReload];
 }
 
-- (void)onReloadSuccess:(NSArray *)array {
-    [_data replaceFromArray:array];
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    _noNext = array.count == 0;
-    [self reloadData];
-}
-
-- (void)filterDataAndReload {
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    [self reloadData];
-}
-
-- (NSArray *)filterData:(NSArray *)toFilter {
-    return [self filterByFilter:[toFilter filterBySearch:_searchText]];
-}
+- (NSArray *)filterData:(NSArray *)toFilter {return [self filterByFilter:[toFilter filterBySearch:_searchText]];}
 
 - (NSArray *)filterByFilter:(NSArray *)toFilter {
     if ([_filter respondsToSelector:@selector(filterData:)]) return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
     return toFilter;
 }
 
-- (void)onLoadNextSuccess:(NSArray *)array {
-    _noNext = array.count == 0;
-    if (_noNext)return;
-
-    [_data addObjectsFromArray:array];
-    NSArray *filteredData = [self filterData:array];
-
-    NSMutableArray *indexPaths = NSMutableArray.new;
-    for (int i = 0; i < filteredData.count; i++) [indexPaths addObject:[NSIndexPath indexPathForRow:i + _filteredData.count inSection:0]];
-
-    [_filteredData addObjectsFromArray:filteredData];
-    [_table beginUpdates];
-    [_table insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [_table endUpdates];
-}
-
 - (void)onLoadNextSectionsSuccess:(NSArray *)array {
-    _noNext = array.count == 0;
-    if (_noNext)return;
-
-    [_data addObjectsFromArray:array];
-    NSArray *filteredData = [self filterData:array];
-
-    NSMutableIndexSet *indexes = NSMutableIndexSet.new;
+    if ((_noNext = array.empty))return;
+    [_data addArray:array];
+    val filteredData = [self filterData:array];
+    val indexes = NSMutableIndexSet.new;
     for (int section = 0; section < filteredData.count; section++) [indexes addIndex:section + _filteredData.count];
-
-    [_filteredData addObjectsFromArray:filteredData];
+    [_filteredData addArray:filteredData];
     [_table beginUpdates];
     [_table insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
     [_table endUpdates];
@@ -206,56 +185,27 @@
 
 - (void)addItem:(id)item {
     [_data addObject:item];
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    [self reloadData];
+    [self filterDataAndReload];
 }
 
 - (void)insertItem:(id)item :(int)index {
     [_data insertObject:item atIndex:(uint) index];
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    [self reloadData];
+    [self filterDataAndReload];
 }
 
 - (void)removeItem:(id)item {
     [_data removeObject:item];
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    [self reloadData];
+    [self filterDataAndReload];
 }
 
 - (void)removeItemAtIndex:(NSUInteger)index {
     [_data removeObjectAtIndex:index];
-    [_filteredData replaceFromArray:[self filterData:_data]];
-    [self reloadData];
+    [self filterDataAndReload];
 }
 
-- (void)cancelUserRefresh {
-    [_refreshControl endRefreshing];
-}
+- (id)dataFor:(NSIndexPath *)path {return _filteredData[path.index];}
 
-- (CSTableController *)onReload:(CSResponse *(^)(BOOL))pFunction {
-    self.onReload = pFunction;
-    return self;
-}
-
-- (id)dataFor:(NSIndexPath *)path {
-    return _filteredData[path.index];
-}
-
-- (NSUInteger)dataCount {
-    return _filteredData.count;
-}
-
-- (id)lastData {
-    return _filteredData.last;
-}
-
-- (id)dataForRow:(NSInteger)row {
-    return _filteredData[(NSUInteger) row];
-}
-
-- (id <NSFastEnumeration>)data {
-    return _data;
-}
+- (NSArray *)data {return _filteredData;}
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     if (self.emptyText)
@@ -287,30 +237,33 @@
     return animation;
 }
 
-- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {
-    return YES;
-}
+- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {return YES;}
 
-- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {
-    return [UIColor clearColor];
-}
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {return [UIColor clearColor];}
 
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
-    [self reload];
-}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {[self reload];}
 
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {
-    [self reload];
-}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {[self reload];}
 
-- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
-    return 100;
-}
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {return 100;}
 
 - (NSString *)emptyText {
     if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
     if (!_emptyText) return @"No items in list to display at this time";
     return _emptyText;
+}
+
+- (void)setAutoReload:(BOOL)autoReload {
+    _autoReload = autoReload;
+    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
+        if (self.visible) [self reload:YES];
+    }] start];
+}
+
+- (void)filterDataAndReload {
+    [_filteredData replaceFromArray:[self filterData:_data]];
+    [_table reloadData];
+    if ([_filter respondsToSelector:@selector(onReloadDone:)])[_filter onReloadDone:self];
 }
 
 @end

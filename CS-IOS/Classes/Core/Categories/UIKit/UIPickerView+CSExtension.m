@@ -1,10 +1,9 @@
 //
 //  Created by Rene Dohan on 10/22/12.
 //
-#import "CSLang.h"
-#import "UIView+CSExtension.h"
-#import "UIPickerView+CSExtension.h"
 
+#import "UIPickerView+CSExtension.h"
+#import "UIView+CSDimension.h"
 
 @implementation UIPickerView (CSExtension)
 

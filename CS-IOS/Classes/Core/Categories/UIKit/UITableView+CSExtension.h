@@ -7,9 +7,9 @@
 
 @interface UITableView (CSExtension)
 
-- (instancetype)setup:(id <UITableViewDelegate, UITableViewDataSource>)parent;
+- (instancetype)setupTable:(id <UITableViewDelegate, UITableViewDataSource>)parent;
 
-- (instancetype)setup:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
+- (instancetype)setupTable:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
 
 - (instancetype)setHeader:(UIView *)header;
 
@@ -25,11 +25,11 @@
 
 - (instancetype)hideEmptyCellSplitterBySettingEmptyFooter;
 
-- (void)toggleEditingAnimated:(BOOL)animated;
+- (instancetype)toggleEditingAnimated:(BOOL)animated;
 
-- (UITableViewCell *)getCellForView:(Class)viewClass;
+- (instancetype)toggleEditing;
 
-- (UITableViewCell *)createCellForView:(Class)viewClass :(void (^)(UITableViewCell *))onCreate;
+- (UITableViewCell *)cellView:(Class)viewClass :(void (^)(UITableViewCell *))onCreate;
 
 - (UITableViewCell *)getCellWithStyle:(NSString *)string :(UITableViewCellStyle)style;
 

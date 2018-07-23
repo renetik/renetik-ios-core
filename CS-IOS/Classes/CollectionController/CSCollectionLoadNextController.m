@@ -5,7 +5,8 @@
 
 #import "CSCollectionLoadNextController.h"
 #import "CSResponse.h"
-
+#import "UIView+CSPosition.h"
+#import "UIView+CSDimension.h"
 
 @implementation CSCollectionLoadNextController {
     UICollectionView *_collectionView;

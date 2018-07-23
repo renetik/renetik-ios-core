@@ -8,13 +8,14 @@
 #import "NSArray+CSExtension.h"
 #import "UIView+CSExtension.h"
 #import "UINib+CSExtension.h"
+#import "UIView+CSDimension.h"
 
 @implementation UICollectionView (CSExtension)
 
 static NSString *const EMPTY_CELL = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 
-- (instancetype)setup:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
+- (instancetype)setupCollection:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
     [super construct];
     self.delegate = parent;
     self.dataSource = parent;
@@ -43,7 +44,7 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     UICollectionViewCell *cell = [self dequeEmptyCell:path];
     if (!cell.contentView.subviews.first) {
         UIView *view = [viewClass.create construct];
-//    self.rowHeight = view.height;
+//    self.rowHeight = content.height;
         [cell.contentView addSubview:view];
         [cell.contentView.subviews.first matchParent];
     }

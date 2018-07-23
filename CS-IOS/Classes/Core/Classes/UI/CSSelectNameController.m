@@ -51,24 +51,21 @@
     _onDelete = [onDelete copy];
     _deleteTitle = deleteTitle;
     [[self menuItem:nil type:UIBarButtonSystemItemEdit] onClick:^(CSMenuItem *item) {
-        [_table setEditing:!_table.editing animated:YES];
-        item.systemItem = _table.editing ? UIBarButtonSystemItemCancel : UIBarButtonSystemItemEdit;
+        item.systemItem = _table.toggleEditing.editing ? UIBarButtonSystemItemCancel : UIBarButtonSystemItemEdit;
     }];
     return self;
 }
 
 - (void)loadView {
-    self.view = _table = [UITableView createEmptyWithSize:100 :100].autoResizingWidthHeight;
-    _table.tableHeaderView = _search = [UISearchBar createEmptyWithSize:100 :40];
-    [_table hideEmptyCellSplitterBySettingEmptyFooter];
+    self.view = _table = [UITableView withSize:100 :100];
+    _table.tableHeaderView = _search = [UISearchBar withSize:100 :40];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_table setup:self];
+    [[_table setupTable:self] hideEmptyCellSplitterBySettingEmptyFooter].allowsMultipleSelectionDuringEditing = NO;
     [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[self onFilterData:searchText];}];
-    [_table reloadData];
-    _table.allowsMultipleSelectionDuringEditing = NO;
+    _search.tintColor = self.secondaryColor;
 }
 
 - (void)onClearClick {
@@ -89,6 +86,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)path {
     UITableViewCell *cell = [tableView getCellWithStyle:@"Cell" :UITableViewCellStyleDefault];
+    cell.textLabel.textColor = self.secondaryColor;
     cell.textLabel.text = [_filteredData at:path.index].name;
     return cell;
 }
@@ -107,7 +105,7 @@
     if (_onDelete) {
         let delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:_deleteTitle handler
         :^(UITableViewRowAction *action, NSIndexPath *indexPath) {[self onDeleteAction:path];}];
-        delete.backgroundColor = FlatRed;
+        delete.backgroundColor = self.primaryColor;
         return @[delete];
     }
     return nil;

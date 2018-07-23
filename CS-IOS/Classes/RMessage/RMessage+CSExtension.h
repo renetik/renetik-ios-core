@@ -19,4 +19,8 @@
 + (void)showNotificationWithTitle:(NSString *)string type:(RMessageType)type;
 
 + (void)showNotificationWithTitle:(NSString *)title :(NSString *)subtitle type:(RMessageType)type;
+
++ (void)showTopNotificationWithTitle:(NSString *)title isDismisable:(BOOL)dismissingEnabled;
+
++ (void)showTopNotificationWithTitle:(NSString *)title isDismisable:(BOOL)dismissingEnabled icon:(UIImage *)iconImage;
 @end

@@ -6,9 +6,7 @@
 #import "CSChildViewLessController.h"
 
 
-@implementation CSChildViewLessController {
-
-}
+@implementation CSChildViewLessController
 
 - (instancetype)construct:(CSMainController *)parent {
     [super construct:parent];
@@ -16,7 +14,6 @@
     self.showing = YES;
     return self;
 }
-
 
 - (void)loadView {
     [super loadView];

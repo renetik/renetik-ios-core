@@ -49,7 +49,15 @@
 
 - (instancetype)setFontStyle:(UIFontTextStyle)style;
 
-- (void)setHTMLFromString:(NSString *)string;
+- (instancetype)setHTMLFromString:(NSString *)string;
 
 - (instancetype)hideIfEmpty;
+
+- (instancetype)sizeToLines:(int)numberOfLines;
+
+- (instancetype)sizeFit:(NSString *)value;
+
+- (instancetype)text:(NSString *)string;
+
+- (instancetype)textAlign:(enum NSTextAlignment)alignment;
 @end

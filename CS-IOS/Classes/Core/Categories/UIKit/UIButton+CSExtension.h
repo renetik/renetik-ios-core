@@ -10,7 +10,7 @@
 
 - (void)stretchableBackgroundImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
 
-+ (UIButton *)createWithFrame:(CGRect)rect image:(UIImage *)image contentMode:(UIViewContentMode)mode;
++ (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick;
 
 - (void)setTitleColor:(UIColor *)color;
 
@@ -18,7 +18,9 @@
 
 - (NSString *)title;
 
-- (instancetype)setPicture:(UIImage *)image;
+- (instancetype)picture:(UIImage *)image;
+
+- (void)setPicture:(UIImage *)image;
 
 - (void)setBackgroundImage:(UIImage *)image;
 @end

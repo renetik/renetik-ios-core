@@ -10,37 +10,35 @@
 
 @class CSResponse;
 
-@interface CSTableController<__covariant ObjectType> : CSChildViewLessController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface CSTableController<__covariant ObjectType> : CSChildViewLessController
 
-@property(nonatomic, strong, readonly) UITableView *table;
+@property(readonly, nonatomic) UITableView *table;
 
-@property(nonatomic, copy) CSResponse *(^onReload)(BOOL isUserAction);
+@property(nonatomic) CSResponse *(^onLoad)(int);
 
-@property(nonatomic, copy) CSResponse *(^onLoadNext)(void);
+@property(nonatomic) BOOL (^onUserRefresh)(void);
 
-@property(nonatomic, copy) BOOL (^onUserRefresh)(void);
+@property(nonatomic) NSString *searchText;
 
-@property(nonatomic, strong) NSString *searchText;
+@property(nonatomic) NSString *emptyText;
 
-@property(nonatomic, copy) BOOL (^shouldLoadNext)(NSIndexPath *);
+@property(nonatomic) NSString *emptyDescription;
 
-@property(nonatomic, copy) NSString *emptyText;
+@property(nonatomic) BOOL (^shouldLoadNext)(NSIndexPath *);
 
-@property(nonatomic, copy) NSString *emptyDescription;
-
-@property(nonatomic) BOOL loading;
-
-@property(nonatomic, strong) UIView *loadNextView;
+@property(nonatomic) UIView *loadNextView;
 
 @property(nonatomic) BOOL autoReload;
 
-- (void)insertItem:(id)item :(int)index;
+@property(nonatomic) int pageIndex;
 
-- (void)onReloadSuccess:(NSArray<ObjectType> *)array;
+@property(nonatomic, readonly) NSArray<ObjectType>* data;
+
+- (void)insertItem:(id)item :(int)index;
 
 - (void)filterDataAndReload;
 
-- (void)onLoadNextSuccess:(NSArray<ObjectType> *)array;
+- (instancetype)onLoadSuccess:(NSArray *)array;
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
@@ -54,24 +52,12 @@
 
 - (CSResponse *)reload;
 
-- (void)addItem:(id)dog;
+- (void)addItem:(ObjectType)item;
 
-- (void)removeItem:(id)item;
+- (void)removeItem:(ObjectType)item;
 
-- (void)removeItemAtIndex:(NSUInteger)i;
-
-- (void)cancelUserRefresh;
-
-- (CSTableController *)onReload:(CSResponse *(^)(BOOL))pFunction;
+- (void)removeItemAtIndex:(NSUInteger)index;
 
 - (ObjectType)dataFor:(NSIndexPath *)path;
-
-- (NSUInteger)dataCount;
-
-- (ObjectType)lastData;
-
-- (ObjectType)dataForRow:(NSInteger)row;
-
-- (id <NSFastEnumeration>)data;
 
 @end

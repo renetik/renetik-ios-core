@@ -3,8 +3,11 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "CSLang.h"
 #import "UIButton+CSExtension.h"
+#import "UIControl+CSExtension.h"
+#import "UIView+CSDimension.h"
+#import "UIView+CSPosition.h"
+#import "UIView+CSAutoResizing.h"
 
 @implementation UIButton (CSExtension)
 
@@ -13,13 +16,6 @@
     [self setBackgroundImage:[[self backgroundImageForState:UIControlStateSelected] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateSelected];
     [self setBackgroundImage:[[self backgroundImageForState:UIControlStateDisabled] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateDisabled];
     [self setBackgroundImage:[[self backgroundImageForState:UIControlStateHighlighted] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateHighlighted];
-}
-
-+ (UIButton *)createWithFrame:(CGRect)rect image:(UIImage *)image contentMode:(UIViewContentMode)mode {
-    UIButton *button = [UIButton.alloc initWithFrame:rect];
-    button.imageView.contentMode = mode;
-    button.picture = image;
-    return button;
 }
 
 - (void)setTitleColor:(UIColor *)color {
@@ -38,12 +34,23 @@
     return [self titleForState:UIControlStateNormal];
 }
 
-- (instancetype)setPicture:(UIImage *)image {
+- (instancetype)picture:(UIImage *)image {
     [self setImage:image forState:UIControlStateNormal];
     return self;
 }
 
+- (void)setPicture:(UIImage *)image {
+    [self picture:image];
+}
+
 - (void)setBackgroundImage:(UIImage *)image {
     [self setBackgroundImage:image forState:UIControlStateNormal];
+}
+
++ (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
+    UIButton *button =  [[[self.class.alloc init] construct] width:50 height:50];
+    [view add:[[button picture:image] onTouchUp:onClick]].contentMode = UIViewContentModeScaleAspectFit;
+    [[button fromRight:25] fromBottom:25].flexibleLeft.flexibleTop.asCircular;
+    return button;
 }
 @end

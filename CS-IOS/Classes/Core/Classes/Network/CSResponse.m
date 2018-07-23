@@ -63,7 +63,11 @@
 
 - (void)cancel {
     _canceled = YES;
-    [self onDoneEvent];
+    [self failedWithMessage:[self requestCancelledMessage]];
+}
+
+- (NSString *)requestCancelledMessage {
+    return @"Request cancelled.";
 }
 
 - (CSResponse *)failIfFail:(CSResponse *)response {

@@ -23,17 +23,55 @@
     return self;
 }
 
-- (void)setHTMLFromString:(NSString *)string {
+- (instancetype)setHTMLFromString:(NSString *)string {
     string = [string stringByAppendingString:[NSString stringWithFormat:
             @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize]];
     self.attributedText = [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
                                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                                                  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
                                               documentAttributes:nil error:nil];
+    return self;
 }
 
 - (instancetype)hideIfEmpty {
     [self setVisible:[NSString set:self.text]];
+    return self;
+}
+
+- (instancetype)sizeToLines:(int)numberOfLines {
+    var currentText = self.text;
+    self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk";
+    self.numberOfLines = numberOfLines;
+    [self sizeToFit];
+    self.text = currentText;
+    return self;
+}
+
+
+- (instancetype)sizeFit:(NSString *)value {
+    var current = self.text;
+    return [[self text:value].sizeFit text:current];
+}
+
+- (instancetype)text:(NSString *)string {
+    self.text = string;
+    return self;
+}
+
+- (instancetype)textAlign:(enum NSTextAlignment)alignment {
+    self.textAlignment = alignment;
     return self;
 }
 @end

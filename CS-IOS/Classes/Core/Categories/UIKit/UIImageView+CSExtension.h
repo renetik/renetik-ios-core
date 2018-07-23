@@ -10,6 +10,8 @@
 
 - (void)resizableImageWithCapInsets:(UIEdgeInsets)insets;
 
+- (instancetype)image:(UIImage *)image;
+
 - (void)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
 
 @end

@@ -10,14 +10,14 @@
 
 
 - (void)setBackgroundViewColor:(UIColor *)color {
-    self.backgroundView = [UIView createEmptyWithColor:color];
+    self.backgroundView = [UIView withColor:color];
 }
 
 - (void)setSelectedBackgroundColor:(UIColor *)color {
-    self.selectedBackgroundView = [UIView createEmptyWithColor:color];;
+    self.selectedBackgroundView = [UIView withColor:color];;
 }
 
-- (UIView *)view {
+- (UIView *)content {
     return self.contentView.subviews[0];
 }
 @end

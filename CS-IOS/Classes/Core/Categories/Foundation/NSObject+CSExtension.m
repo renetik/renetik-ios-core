@@ -13,6 +13,10 @@
     return self;
 }
 
+- (id)as:(Protocol *)aProtocol {
+    return [self.class conformsToProtocol:aProtocol] ? self : nil;
+}
+
 - (instancetype)setObject:(const void *)key :(id)value {
     [self bk_associateValue:value withKey:key];
     return self;

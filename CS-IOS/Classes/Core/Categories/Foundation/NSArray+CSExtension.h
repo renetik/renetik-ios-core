@@ -14,7 +14,7 @@
 
 - (BOOL)contains:(id)anObject;
 
-- (NSUInteger)indexOf:(id)anObject;
+- (NSInteger)indexOf:(id)anObject;
 
 - (ObjectType)at:(NSInteger)index;
 

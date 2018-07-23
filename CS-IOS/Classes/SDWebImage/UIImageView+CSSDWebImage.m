@@ -11,14 +11,13 @@
 
 @implementation UIImageView (CSSDWebImage)
 
-- (UIImageView *)setCSImageNSURL:(NSURL *)url {
-    return [self setCSImageURL:url.absoluteString onSuccess:nil];
+- (UIImageView *)setImageNSURL:(NSURL *)url {
+    return [self imageURL:url.absoluteString onSuccess:nil];
 }
 
-- (UIImageView *)setCSImageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess {
+- (UIImageView *)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess {
     __weak typeof(self) _self = self;
-    [self sd_setShowActivityIndicatorView:YES];
-    [self sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.sd_imageIndicator = SDWebImageProgressIndicator.barIndicator;
     [self sd_setImageWithURL:[NSURL URLWithString:url]
             placeholderImage:nil options:SDWebImageRetryFailed progress:nil
                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -27,9 +26,8 @@
     return self;
 }
 
-- (UIImageView *)setCSImageURL:(NSString *)url {
-    [self setCSImageURL:url onSuccess:nil];
-    return self;
+- (UIImageView *)setImageURL:(NSString *)url {
+    return [self imageURL:url onSuccess:nil];
 }
 
 @end
