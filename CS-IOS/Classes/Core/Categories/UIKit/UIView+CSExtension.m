@@ -27,24 +27,32 @@
 
 + (instancetype)wrap:(UIView *)view {
     UIView *container = [self withFrame:view.frame];
-    [container add:view].matchParent;
-    return [self finishWrap:view container:container];
-}
-
-+ (UIView *)finishWrap:(UIView *)view container:(UIView *)container {
     val center = view.center;
     val superview = view.superview;
     val autoSize = view.autoresizingMask;
+    [container add:view].matchParent;
     [[superview add:container] center:center].autoresizingMask = autoSize;
     container.color = view.color;
     view.color = UIColor.clearColor;
     return container;
 }
 
++ (instancetype)withContent:(UIView *)view {
+    UIView *container = [self withFrame:view.frame];
+    [container content:view];
+    return container;
+}
+
 + (instancetype)wrap:(UIView *)view withPadding:(int)padding {
-    val container = [self withSize:view.width + padding * 2 :view.height + padding * 2];
+    UIView *container = [self withSize:view.width + padding * 2 :view.height + padding * 2];
+    val center = view.center;
+    val superview = view.superview;
+    val autoSize = view.autoresizingMask;
     [[container add:view] matchParentWithMargin:padding];
-    return [self finishWrap:view container:container];
+    [[superview add:container] center:center].autoresizingMask = autoSize;
+    container.color = view.color;
+    view.color = UIColor.clearColor;
+    return container;
 }
 
 - (instancetype)asCircular {
@@ -424,8 +432,4 @@
 
 - (UIView *)content {return self.subviews.firstObject;}
 
-- (instancetype)sizeFit {
-    [self sizeToFit];
-    return self;
-}
 @end

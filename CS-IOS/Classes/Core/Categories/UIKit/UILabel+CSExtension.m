@@ -4,6 +4,7 @@
 //
 
 #import "UILabel+CSExtension.h"
+#import "UIView+CSDimension.h"
 
 
 @implementation UILabel (CSExtension)

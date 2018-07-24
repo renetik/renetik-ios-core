@@ -26,7 +26,11 @@
     return self;
 }
 
-- (UIImageView *)setImageURL:(NSString *)url {
+- (void)setImageURL:(NSString *)url {
+    [self imageURL:url onSuccess:nil];
+}
+
+- (UIImageView *)imageURL:(NSString *)url {
     return [self imageURL:url onSuccess:nil];
 }
 

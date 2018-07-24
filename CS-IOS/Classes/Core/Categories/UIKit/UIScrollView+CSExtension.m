@@ -59,13 +59,13 @@
 
 - (UIView *)contentVertical:(UIView *)view {
     [self insertView:view :0].matchParentWidth;
-    self.contentSize = CGSizeMake(0, view.height);
+    self.updateContentVerticalHeight;
     return view;
 }
 
 - (UIView *)contentHorizontal:(UIView *)view {
     [self insertView:view :0].matchParentHeight;
-    self.contentSize = CGSizeMake(view.width, 0);
+    self.updateContentHorizontalWidth;
     return view;
 }
 
@@ -83,5 +83,15 @@
     val scrollView = [self withSize:view.width :view.height];
     [[scrollView contentHorizontal:view] left:0].matchParentHeight;
     return scrollView;
+}
+
+- (instancetype)updateContentVerticalHeight {
+    self.contentSize = CGSizeMake(0, self.content.bottom);
+    return self;
+}
+
+- (instancetype)updateContentHorizontalWidth {
+    self.contentSize = CGSizeMake(self.content.right, 0);
+    return self;
 }
 @end

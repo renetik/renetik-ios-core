@@ -18,6 +18,8 @@ static float const CS_FADE_TIME = 0.3;
 
 + (instancetype)wrap:(UIView *)view;
 
++ (instancetype)withContent:(UIView *)view;
+
 + (instancetype)wrap:(UIView *)view withPadding:(int)padding;
 
 - (instancetype)asCircular;
@@ -132,5 +134,4 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)content;
 
-- (instancetype)sizeFit;
 @end
