@@ -11,9 +11,9 @@
 
 - (instancetype)setupTable:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
 
-- (instancetype)setHeader:(UIView *)header;
+- (UIView*)setHeader:(UIView *)view;
 
-- (UIView *)setFooter:(UIView *)header;
+- (UIView *)setFooter:(UIView *)view;
 
 - (void)deselectSelectedRow;
 

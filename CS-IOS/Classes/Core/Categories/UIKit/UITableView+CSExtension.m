@@ -26,14 +26,14 @@
     return self;
 }
 
-- (instancetype)setHeader:(UIView *)header {
-    self.tableHeaderView = header;
-    return self;
+- (UIView*)setHeader:(UIView *)view {
+    self.tableHeaderView = view;
+    return view;
 }
 
-- (UIView *)setFooter:(UIView *)header {
-    self.tableFooterView = header;
-    return header;
+- (UIView *)setFooter:(UIView *)view {
+    self.tableFooterView = view;
+    return view;
 }
 
 - (void)deselectSelectedRow {

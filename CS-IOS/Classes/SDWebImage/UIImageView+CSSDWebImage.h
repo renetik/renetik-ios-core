@@ -11,6 +11,7 @@
 
 - (UIImageView *)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess;
 
-- (UIImageView *)setImageURL:(NSString *)url;
+- (void)setImageURL:(NSString *)url;
 
+- (UIImageView *)imageURL:(NSString *)url;
 @end

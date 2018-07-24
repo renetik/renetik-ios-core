@@ -42,4 +42,12 @@
 - (instancetype)addWidth:(int)value;
 
 - (instancetype)addHeight:(int)value;
+
+- (instancetype)sizeFit;
+
+- (instancetype)fitSubviews;
+
+- (CGSize)calculateSizeFromSubviews;
+
+- (instancetype)contentPadding:(int)value;
 @end

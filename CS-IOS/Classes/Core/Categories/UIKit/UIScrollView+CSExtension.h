@@ -27,4 +27,7 @@
 
 - (void)setContentVertical:(UIView *)view;
 
+- (instancetype)updateContentVerticalHeight;
+
+- (instancetype)updateContentHorizontalWidth;
 @end

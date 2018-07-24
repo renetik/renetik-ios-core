@@ -5,6 +5,8 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSAutoResizing.h"
+#import "UIView+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UIView (CSDimension)
 
@@ -97,6 +99,27 @@
 
 - (instancetype)addHeight:(int)value {
     self.height += value;
+    return self;
+}
+
+- (instancetype)sizeFit {
+    [self sizeToFit];
+    return self;
+}
+
+- (instancetype)fitSubviews {
+    return [self size:self.calculateSizeFromSubviews];
+}
+
+- (CGSize)calculateSizeFromSubviews {
+    var rect = CGRectZero;
+    for (UIView *view in self.subviews) rect = CGRectUnion(rect, view.frame);
+    return rect.size;
+}
+
+- (instancetype)contentPadding:(int)value {
+    [self.content left:value top:value];
+    [[self addWidth:value * 2] addHeight:value * 2];
     return self;
 }
 @end
