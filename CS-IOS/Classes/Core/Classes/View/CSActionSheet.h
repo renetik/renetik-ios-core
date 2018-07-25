@@ -71,8 +71,6 @@
 
 - (void)hide;
 
-- (CSActionSheet *)showFromCell:(UITableViewCell *)cell;
-
 - (CSActionSheet *)showInView:(UIView *)view;
 
 - (CSActionSheet *)clear;

@@ -11,6 +11,11 @@
 
 @implementation UIView (CSExtension)
 
+- (instancetype)construct {
+    super.construct;
+    return self;
+}
+
 - (instancetype)contentMode:(UIViewContentMode)contentMode {
     self.contentMode = contentMode;
     return self;

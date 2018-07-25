@@ -48,6 +48,8 @@
 
 - (uint)uintValue;
 
+- (NSUInteger)size;
+
 + (NSString *)randomStringOfLength:(int)len;
 
 + (NSString *)format:(NSString *)format :(NSObject *)argument;
@@ -93,4 +95,6 @@
 - (int)indexOf:(NSString *)string;
 
 - (uint)countString:(NSString *)string;
+
+- (BOOL)startsWith:(NSString *)str;
 @end

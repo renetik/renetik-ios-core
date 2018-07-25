@@ -10,6 +10,11 @@
 
 }
 
+- (void)layoutSubviews {
+    super.layoutSubviews;
+    runWith(self.onLayoutSubviews, self);
+}
+
 - (NSString *)reuseIdentifier {
     if (super.reuseIdentifier)return super.reuseIdentifier;
     return self.class.description;

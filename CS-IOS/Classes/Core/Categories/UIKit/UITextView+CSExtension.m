@@ -32,4 +32,13 @@
     return self;
 }
 
+- (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes {
+    self.dataDetectorTypes = dataDetectorTypes;
+    return self;
+}
+
+- (instancetype)text:(NSString *)text {
+    self.text =text;
+    return self;
+}
 @end

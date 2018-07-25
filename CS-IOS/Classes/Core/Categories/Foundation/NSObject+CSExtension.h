@@ -10,6 +10,8 @@
 
 @interface NSObject (CSExtension)
 
++ (instancetype)construct;
+
 - (instancetype)construct;
 
 - (id)as:(Protocol *)aProtocol;

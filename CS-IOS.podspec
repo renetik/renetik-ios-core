@@ -98,8 +98,8 @@ Pod::Spec.new do |s|
      ss.dependency 'SDWebImage', '~> 5.0.0-beta'
    end
 
-   s.subspec 'RMessage' do |ss|
-     ss.source_files = 'CS-IOS/Classes/RMessage/**/*'
+   s.subspec 'CSMessage' do |ss|
+     ss.source_files = 'CS-IOS/Classes/CSMessage/**/*'
      ss.dependency 'CS-IOS/Core'
      ss.dependency 'RMessage', '~> 2.2'
    end

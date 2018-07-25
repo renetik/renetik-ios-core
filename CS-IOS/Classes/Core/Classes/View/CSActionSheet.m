@@ -97,18 +97,13 @@
 - (instancetype)showFromRect:(CGRect)rect inView:(UIView *)view {
     [self create];
     if ([UIDevice iPad]) [_sheet showFromRect:rect inView:view animated:YES];
-    else [_sheet showInView:UIApplication.sharedApplication.delegate.window];
+    else
+        [_sheet showInView:UIApplication.sharedApplication.delegate.window];
     return self;
 }
 
 - (void)hide {
     [_sheet dismissWithClickedButtonIndex:_titles.count animated:YES];
-}
-
-- (CSActionSheet *)showFromCell:(UITableViewCell *)cell {
-    [self create];
-    [_sheet showInView:cell];
-    return self;
 }
 
 - (CSActionSheet *)showInView:(UIView *)view {

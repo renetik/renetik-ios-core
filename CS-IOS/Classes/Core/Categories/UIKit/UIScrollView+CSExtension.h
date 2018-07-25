@@ -19,7 +19,7 @@
 
 - (void)scrollToBottom;
 
-- (void)sizeHeightToFit;
+- (instancetype)sizeHeightToFit;
 
 - (long)currentPageIndexFrom:(NSUInteger)from;
 
@@ -27,7 +27,7 @@
 
 - (void)setContentVertical:(UIView *)view;
 
-- (instancetype)updateContentVerticalHeight;
+- (instancetype)updateContentSizeVertical;
 
-- (instancetype)updateContentHorizontalWidth;
+- (instancetype)updateContentSizeHorizontal;
 @end

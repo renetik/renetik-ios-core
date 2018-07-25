@@ -43,4 +43,9 @@
 
 
 @interface CSTableViewCell : UITableViewCell
+
+@property(nonatomic, copy) void (^onLayoutSubviews)(UITableViewCell *);
+
+- (void)layoutSubviews;
+
 @end

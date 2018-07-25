@@ -13,6 +13,10 @@
 
 - (instancetype)scrollToCursorPosition;
 
+- (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
+
+- (instancetype)text:(NSString *)text;
+
 - (instancetype)asLabel;
 
 + (void)hideTextInsets:(NSArray<UITextView *> *)textViews;

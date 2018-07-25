@@ -4,7 +4,6 @@
 //
 
 #import "CSSelectNameController.h"
-#import "ChameleonMacros.h"
 #import "CSMenuItem.h"
 #import "CSSearchBarController.h"
 
@@ -31,10 +30,7 @@
 }
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected :(NSString *)clearTitle {
-    [super construct];
-    _names = names;
-    _onSelected = [onSelected copy];
-    _filteredData = [NSArray arrayWithArray:_names];
+    [self constructByNames:names :onSelected];
     [self menuItem:clearTitle :^(CSMenuItem *item) {[self onClearClick];}];
     return self;
 }
@@ -64,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[_table setupTable:self] hideEmptyCellSplitterBySettingEmptyFooter].allowsMultipleSelectionDuringEditing = NO;
+    _table.allowsSelection = !_onDelete;
     [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[self onFilterData:searchText];}];
     _search.tintColor = self.secondaryColor;
 }
