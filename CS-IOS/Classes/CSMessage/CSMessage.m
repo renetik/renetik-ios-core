@@ -37,6 +37,11 @@
     return self;
 }
 
+- (instancetype)type:(RMessageType) type {
+    self.type = type;
+    return self;
+}
+
 - (instancetype)navBar {
     self.position = RMessagePositionNavBarOverlay;
     return self;

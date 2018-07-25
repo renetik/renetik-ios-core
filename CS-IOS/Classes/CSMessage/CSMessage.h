@@ -12,6 +12,8 @@
 
 - (instancetype)top;
 
+- (instancetype)type:(RMessageType)type;
+
 - (instancetype)navBar;
 
 - (instancetype)title:(NSString *)title;
