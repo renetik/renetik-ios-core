@@ -31,12 +31,13 @@
     [self setContentOffset:CGPointMake(0, self.contentSize.height - self.bounds.size.height) animated:YES];
 }
 
-- (void)sizeHeightToFit {
+- (instancetype)sizeHeightToFit {
     CGFloat fixedWidth = self.frame.size.width;
     CGSize newSize = [self sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGRect newFrame = self.frame;
     newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
     self.frame = newFrame;
+    return self;
 }
 
 - (long)currentPageIndexFrom:(NSUInteger)from {
@@ -59,13 +60,13 @@
 
 - (UIView *)contentVertical:(UIView *)view {
     [self insertView:view :0].matchParentWidth;
-    self.updateContentVerticalHeight;
+    self.updateContentSizeVertical;
     return view;
 }
 
 - (UIView *)contentHorizontal:(UIView *)view {
     [self insertView:view :0].matchParentHeight;
-    self.updateContentHorizontalWidth;
+    self.updateContentSizeHorizontal;
     return view;
 }
 
@@ -85,12 +86,12 @@
     return scrollView;
 }
 
-- (instancetype)updateContentVerticalHeight {
+- (instancetype)updateContentSizeVertical {
     self.contentSize = CGSizeMake(0, self.content.bottom);
     return self;
 }
 
-- (instancetype)updateContentHorizontalWidth {
+- (instancetype)updateContentSizeHorizontal {
     self.contentSize = CGSizeMake(self.content.right, 0);
     return self;
 }

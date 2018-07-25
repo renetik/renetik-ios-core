@@ -117,9 +117,16 @@
     return rect.size;
 }
 
-- (instancetype)contentPadding:(int)value {
-    [self.content left:value top:value];
-    [[self addWidth:value * 2] addHeight:value * 2];
+- (instancetype)contentPadding:(int)padding {
+    [self.content left:padding top:padding];
+    [[self addWidth:padding * 2] addHeight:padding * 2];
+    return self;
+}
+
+- (instancetype)addMargin:(int)margin {
+    self.left -= margin;
+    self.top -= margin;
+    [[self addWidth:margin * 2] addHeight:margin * 2];
     return self;
 }
 @end

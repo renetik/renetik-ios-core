@@ -49,5 +49,7 @@
 
 - (CGSize)calculateSizeFromSubviews;
 
-- (instancetype)contentPadding:(int)value;
+- (instancetype)contentPadding:(int)padding;
+
+- (instancetype)addMargin:(int)margin;
 @end

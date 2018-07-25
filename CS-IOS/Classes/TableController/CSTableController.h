@@ -38,7 +38,7 @@
 
 - (void)filterDataAndReload;
 
-- (instancetype)onLoadSuccess:(NSArray *)array;
+- (instancetype)onLoadSuccess:(NSArray<ObjectType> *)array;
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 

@@ -12,6 +12,10 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return (uint) self.integerValue;
 }
 
+- (NSUInteger)size {
+    return self.length;
+}
+
 + (NSString *)randomStringOfLength:(int)len {
     NSMutableString *randomString = [NSMutableString stringWithCapacity:(NSUInteger) len];
     for (int i = 0; i < len; i++) {
@@ -205,6 +209,11 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 
 - (uint)countString:(NSString *)string {
     return [self split:string].count - 1;
+}
+
+- (BOOL)startsWith:(NSString *)str {
+    if (!str)return NO;
+    return [self hasPrefix:str];
 }
 
 @end

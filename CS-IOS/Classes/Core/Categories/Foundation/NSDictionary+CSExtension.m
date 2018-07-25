@@ -34,15 +34,11 @@
     return dictionary;
 }
 
-- (id)get:(NSString *)key {
-    return nullToNil(self[key]);
-}
+- (id)get:(NSString *)key {return nullToNil(self[key]);}
 
-- (BOOL)contains:(NSString *)key {
-    return self[key] != nil;
-}
+- (BOOL)contains:(NSString *)key {return self[key] != nil;}
 
-- (NSString *)jsonString{
+- (NSString *)jsonString {
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     warn(error);

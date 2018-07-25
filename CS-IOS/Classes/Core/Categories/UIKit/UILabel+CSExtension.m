@@ -9,17 +9,22 @@
 
 @implementation UILabel (CSExtension)
 
-- (instancetype)setString:(NSString *)text {
-    [self setText:text];
-    return self;
-}
-
 - (instancetype)setFontSize:(CGFloat)size {
     self.font = [self.font fontWithSize:size];
     return self;
 }
 
+- (instancetype)fontSize:(CGFloat)size {
+    self.font = [self.font fontWithSize:size];
+    return self;
+}
+
 - (instancetype)setFontStyle:(UIFontTextStyle)style {
+    self.font = [UIFont preferredFontForTextStyle:style];
+    return self;
+}
+
+- (instancetype)fontStyle:(UIFontTextStyle)style {
     self.font = [UIFont preferredFontForTextStyle:style];
     return self;
 }

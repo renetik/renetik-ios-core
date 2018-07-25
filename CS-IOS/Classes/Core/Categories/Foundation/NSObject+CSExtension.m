@@ -13,6 +13,10 @@
     return self;
 }
 
++ (instancetype)construct {
+    return [self.class.new construct];
+}
+
 - (id)as:(Protocol *)aProtocol {
     return [self.class conformsToProtocol:aProtocol] ? self : nil;
 }

@@ -34,7 +34,7 @@
         return;
     }
     [self createSheet:sender];
-    [_actionSheet showFromRect:sender.bounds inView:sender.superview];
+    [_actionSheet showFromRect:sender.frame inView:sender.superview];
 }
 
 - (void)createSheet:(id)sender {

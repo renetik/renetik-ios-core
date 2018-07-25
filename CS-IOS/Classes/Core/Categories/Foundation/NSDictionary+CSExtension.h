@@ -20,6 +20,6 @@
 
 - (BOOL)contains:(NSString *)key;
 
-- (NSString*) jsonString;
+- (NSString *)jsonString;
 
 @end

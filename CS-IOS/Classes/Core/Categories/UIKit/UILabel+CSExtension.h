@@ -43,11 +43,14 @@
 
 
 @interface UILabel (CSExtension)
-- (instancetype)setString:(NSString *)text;
 
 - (instancetype)setFontSize:(CGFloat)size;
 
+- (instancetype)fontSize:(CGFloat)size;
+
 - (instancetype)setFontStyle:(UIFontTextStyle)style;
+
+- (instancetype)fontStyle:(UIFontTextStyle)style;
 
 - (instancetype)setHTMLFromString:(NSString *)string;
 
