@@ -62,7 +62,6 @@
     [[_table setupTable:self] hideEmptyCellSplitterBySettingEmptyFooter].allowsMultipleSelectionDuringEditing = NO;
     _table.allowsSelection = !_onDelete;
     [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[self onFilterData:searchText];}];
-    _search.tintColor = self.secondaryColor;
 }
 
 - (void)onClearClick {

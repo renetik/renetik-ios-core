@@ -9,13 +9,17 @@
 #import "CSActionSheet.h"
 #import "CSMenuHeader.h"
 #import "CSMenuIcon.h"
-#import "UIView+CSDimension.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_controllers;
     CSActionSheet *_menuSheet;
-    BOOL _onViewWillAppearFirstTime;
-    BOOL _onViewDidAppearFirstTime;
+}
+
+- (instancetype)construct {
+    [super construct];
+    _menu = NSMutableArray.new;
+    _controllers = NSMutableArray.new;
+    return self;
 }
 
 - (instancetype)construct:(CSMainController *)parent {
@@ -24,99 +28,26 @@
     return self;
 }
 
-- (instancetype)construct {
-    [super construct];
-    _onViewWillAppearFirstTime = NO;
-    _onViewDidAppearFirstTime = NO;
-    _menu = NSMutableArray.new;
-    _showing = NO;
-    _controllers = NSMutableArray.new;
-    return self;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.isMainController) [self updateBarItemsAndMenu:NO];
-    [self onViewWillAppear];
-    if (!_onViewWillAppearFirstTime) {
-        _onViewWillAppearFirstTime = YES;
-        [self onViewWillAppearFirstTime];
-    } else [self onViewWillAppearFromPresentedController];
-}
-
-- (void)onViewWillAppear {
-}
-
-- (void)onViewWillAppearFirstTime {
-}
-
-- (void)onViewWillAppearFromPresentedController {
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.appearing = YES;
-    [self onViewDidAppear];
-    if (!_onViewDidAppearFirstTime) {
-        _onViewDidAppearFirstTime = YES;
-        [self onViewDidAppearFirstTime];
-    } else [self onViewDidAppearFromPresentedController];
-}
-
-- (void)onViewDidAppear {
-}
-
-- (void)onViewDidAppearFirstTime {
-}
-
-- (void)onViewDidAppearFromPresentedController {
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:nil completion:^(id <UIViewControllerTransitionCoordinatorContext> context) {
-        [self onViewWillTransitionToSizeCompletion:size :context];
-    }];
-}
-
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.menuSheet) [self.menuSheet hide];
-    [self viewWillDisappear];
     if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound && self.isMainController)
         [self onViewDismissing];
-    else if (self.isMovingFromParentViewController)
-        [self onViewDismissing];
-}
-
-- (void)viewWillDisappear {
 }
 
 - (void)onViewDismissing {
-    [self removeNotificationObserver];
+    [super onViewDismissing];
     for (CSMainController *controller in _controllers)
         [controller onViewDismissing];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.appearing = NO;
-    [self viewDidDisappear];
-}
-
-- (void)viewDidDisappear {
-}
-
-- (void)setShowing:(BOOL)showing {
-    _showing = showing;
-    if (showing) [self onViewShowing];
-}
-
-- (void)onViewShowing {
 }
 
 - (BOOL)isMainController {
@@ -219,19 +150,29 @@
     return nil;
 }
 
-- (void)showIn:(CSMainController *)parent {
+- (instancetype)showIn:(CSMainController *)parent {
+    CATransition *transition = CATransition.animation;
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;
+    transition.subtype = kCATransitionFromBottom;
+    [self.view.layer addAnimation:transition forKey:nil];
     [parent addController:self];
-    [self.view matchParent];
-    [self.view hide];
-    [self.view fadeIn];
+    self.view.hide.show;
     self.showing = YES;
+    return self;
 }
 
 - (void)hideIn:(UIViewController *)parent {
-    [self.view fadeOut:CS_FADE_TIME :^{
-        [parent removeController:self];
-    }];
+    CATransition *transition = CATransition.animation;
+    transition.duration = 0.7;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromTop;
+    [self.view.layer addAnimation:transition forKey:nil];
+    self.view.hide;
     self.showing = NO;
+    doLater(0.7,^{[parent removeController:self];});
 }
 
 - (CSMenuHeader *)menuHeader:(NSString *)title {
@@ -287,8 +228,5 @@
     return item;
 }
 
-- (BOOL)visible {
-    return self.appearing && self.showing;
-}
 
 @end

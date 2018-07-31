@@ -37,8 +37,8 @@
     val autoSize = view.autoresizingMask;
     [container add:view].matchParent;
     [[superview add:container] center:center].autoresizingMask = autoSize;
-    container.color = view.color;
-    view.color = UIColor.clearColor;
+    container.backgroundColor = view.backgroundColor;
+    view.backgroundColor = UIColor.clearColor;
     return container;
 }
 
@@ -55,8 +55,8 @@
     val autoSize = view.autoresizingMask;
     [[container add:view] matchParentWithMargin:padding];
     [[superview add:container] center:center].autoresizingMask = autoSize;
-    container.color = view.color;
-    view.color = UIColor.clearColor;
+    container.backgroundColor = view.backgroundColor;
+    view.backgroundColor = UIColor.clearColor;
     return container;
 }
 
@@ -130,18 +130,22 @@
     self.backgroundColor = color;
 }
 
-- (instancetype)setColor:(UIColor *)color {
+- (void)setBackColor:(UIColor *)color {
+    self.backgroundColor = color;
+}
+
+- (instancetype)backColor:(UIColor *)color {
     self.backgroundColor = color;
     return self;
 }
 
-- (instancetype)color:(UIColor *)color {
-    self.backgroundColor = color;
-    return self;
-}
-
-- (UIColor *)color {
+- (UIColor*)backColor {
     return self.backgroundColor;
+}
+
+- (instancetype)tintColor:(UIColor *)color {
+    self.tintColor = color;
+    return self;
 }
 
 - (void)fadeOut {
@@ -412,14 +416,13 @@
     return [self add:[UIView withRect:0 :offset - height :self.width :height]];
 }
 
-- (instancetype)onTap:(void (^)(void))block {
-    [self bk_whenTapped:block];
+- (instancetype)onTap:(void (^)(id))block {
+    self.userInteractionEnabled = YES;
+    [self bk_whenTapped:^{block(self);}];
     return self;
 }
 
-- (void)setOnTap:(void (^)(void))block {
-    [self onTap:block];
-}
+- (void)setOnTap:(void (^)(id))block {[self onTap:block];}
 
 - (BOOL)isVisibleToUser {
     infof(@"%@ %@ %@", self.window, @(self.hidden), @(self.alpha));
@@ -436,5 +439,19 @@
 }
 
 - (UIView *)content {return self.subviews.firstObject;}
+
+- (instancetype)aspectFit {
+    self.contentMode = UIViewContentModeScaleAspectFit;
+    return self;
+}
+
+- (instancetype)aspectFill {
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    return self;
+}
+
+- (instancetype)addBottomSeparator:(CGFloat)height {
+    return [[[[self add:UIView.construct] height:height] fromBottom:0].matchParentWidth backColor:UIColor.darkGrayColor];
+}
 
 @end

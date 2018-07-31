@@ -15,6 +15,12 @@
 static NSString *const EMPTY_CELL = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 
+- (instancetype)construct {
+    super.construct;
+    self.backColor = UIColor.clearColor;
+    return self;
+}
+
 - (instancetype)setupCollection:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
     [super construct];
     self.delegate = parent;

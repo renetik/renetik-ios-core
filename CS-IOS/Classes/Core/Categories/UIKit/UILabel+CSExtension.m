@@ -19,9 +19,8 @@
     return self;
 }
 
-- (instancetype)setFontStyle:(UIFontTextStyle)style {
+- (void)setFontStyle:(UIFontTextStyle)style {
     self.font = [UIFont preferredFontForTextStyle:style];
-    return self;
 }
 
 - (instancetype)fontStyle:(UIFontTextStyle)style {
@@ -29,15 +28,26 @@
     return self;
 }
 
+- (instancetype)font:(UIFont *)font {
+    self.font = font;
+    return self;
+}
+
+- (instancetype)textColor:(UIColor *)textColor {
+    self.textColor = textColor;
+    return self;
+}
+
 - (instancetype)setHTMLFromString:(NSString *)string {
-    string = [string stringByAppendingString:[NSString stringWithFormat:
-            @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize]];
+    string = [string add:stringf(
+            @"<style>body{font-family: '%@'; font-size:%fpx;}</style>",self.font.fontName, self.font.pointSize)];
     self.attributedText = [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
                                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                                                  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
                                               documentAttributes:nil error:nil];
     return self;
 }
+
 
 - (instancetype)hideIfEmpty {
     [self setVisible:[NSString set:self.text]];

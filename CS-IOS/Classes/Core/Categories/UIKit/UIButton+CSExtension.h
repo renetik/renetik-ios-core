@@ -18,9 +18,9 @@
 
 - (NSString *)title;
 
-- (instancetype)picture:(UIImage *)image;
+- (instancetype)image:(UIImage *)image;
 
-- (void)setPicture:(UIImage *)image;
+- (void)setImage:(UIImage *)image;
 
 - (void)setBackgroundImage:(UIImage *)image;
 @end

@@ -81,7 +81,8 @@
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
-        default:[NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
+        default:
+            [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
 
     }
 
@@ -149,6 +150,10 @@
     [filter setValue:coreImage forKey:kCIInputImageKey];
     CIImage *result = [filter valueForKey:kCIOutputImageKey];
     return [UIImage imageWithCIImage:result];
+}
+
+- (UIImage*)template {
+    return [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 @end

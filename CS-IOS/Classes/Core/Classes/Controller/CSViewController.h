@@ -44,8 +44,33 @@
 
 @interface CSViewController : UIViewController
 
-@property(nonatomic) BOOL isActive;
+@property(nonatomic) BOOL showing;
+@property(nonatomic) BOOL appearing;
+@property(nonatomic, readonly) BOOL visible;
+
+- (void)onViewDidLoad;
 
 - (void)onInitialViewDidLayoutSubviews;
 
+- (void)onViewWillAppear;
+
+- (void)onViewWillAppearFirstTime;
+
+- (void)onViewWillAppearFromPresentedController;
+
+- (void)onViewDidAppear;
+
+- (void)onViewDidAppearFirstTime;
+
+- (void)onViewDidAppearFromPresentedController;
+
+- (void)viewWillDisappear;
+
+- (void)onViewDismissing;
+
+- (void)viewDidDisappear;
+
+- (void)onViewShowing;
+
+- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 @end

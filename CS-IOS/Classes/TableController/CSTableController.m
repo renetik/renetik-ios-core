@@ -30,6 +30,7 @@
     UIColor *_loadNextColor;
     CSWork *_reloadWork;
     id <CSTableFilterProtocol> _filter;
+    BOOL _autoReload;
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table refreshable:(BOOL)refreshable {
@@ -67,9 +68,9 @@
             ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {[self reload];}];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [_table reloadData];
+- (void)onViewDidAppearFromPresentedController {
+    super.onViewDidAppearFromPresentedController;
+    if (_autoReload)[_reloadWork run];
 }
 
 - (CSResponse *)reload {return [self reload:NO];}
@@ -128,20 +129,14 @@
     return self;
 }
 
-- (void)onViewWillAppearFromPresentedController {
-    [super onViewWillAppearFromPresentedController];
-    if (self.autoReload)[_reloadWork run];
-}
-
 - (void)showLoadNextIndicator {
     if (!_loadNextView) {
         UIActivityIndicatorView *loadingNextView = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        loadingNextView.color = (_loadNextColor) ? _loadNextColor : UIColor.blackColor;
+        if(_loadNextColor)loadingNextView.color = _loadNextColor;
         [loadingNextView startAnimating];
         _loadNextView = loadingNextView;
     }
-    _loadNextView.center = CGPointMake(_table.center.x, _table.bottom - _loadNextView.height / 2);
-    [_table.superview addSubview:_loadNextView];
+    [[_table.superview add:_loadNextView] fromBottom:5].centerInParentHorizontal;
 }
 
 - (BOOL)shouldLoadNext:(NSIndexPath *)path {
@@ -209,8 +204,9 @@
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     if (self.emptyText)
-        return [NSAttributedString.alloc initWithString:self.emptyText attributes:@{NSFontAttributeName:
-                [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline], NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES]}];
+        return [self.emptyText attributed:@{
+                NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
+                NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES]}];
     return nil;
 }
 
@@ -219,7 +215,7 @@
         NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         paragraph.alignment = NSTextAlignmentCenter;
-        return [NSAttributedString.alloc initWithString:self.emptyDescription attributes:@{
+        return [self.emptyDescription attributed:@{
                 NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline],
                 NSForegroundColorAttributeName: FlatWhiteDark,
                 NSParagraphStyleAttributeName: paragraph}];
@@ -237,6 +233,14 @@
     return animation;
 }
 
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return self.reloadImage.template;
+}
+
+- (UIColor *)imageTintColorForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES];
+}
+
 - (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {return YES;}
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {return [UIColor clearColor];}
@@ -249,15 +253,15 @@
 
 - (NSString *)emptyText {
     if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
-    if (!_emptyText) return @"No items in list to display at this time";
-    return _emptyText;
+    return _emptyText ? _emptyText : @"No items in list to display at this time";
 }
 
-- (void)setAutoReload:(BOOL)autoReload {
+- (instancetype)autoReload:(BOOL)autoReload {
     _autoReload = autoReload;
     _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
         if (self.visible) [self reload:YES];
     }] start];
+    return self;
 }
 
 - (void)filterDataAndReload {

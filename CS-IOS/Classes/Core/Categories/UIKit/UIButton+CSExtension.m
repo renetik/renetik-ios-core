@@ -34,13 +34,13 @@
     return [self titleForState:UIControlStateNormal];
 }
 
-- (instancetype)picture:(UIImage *)image {
+- (instancetype)image:(UIImage *)image {
     [self setImage:image forState:UIControlStateNormal];
     return self;
 }
 
-- (void)setPicture:(UIImage *)image {
-    [self picture:image];
+- (void)setImage:(UIImage *)image {
+    [self image:image];
 }
 
 - (void)setBackgroundImage:(UIImage *)image {
@@ -49,7 +49,7 @@
 
 + (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
     UIButton *button = [[self.class.alloc init] construct];
-    [view add:[[button picture:image] onTouchUp:onClick]].contentMode = UIViewContentModeScaleAspectFit;
+    [view add:[[button image:image] onTouchUp:onClick]].contentMode = UIViewContentModeScaleAspectFit;
     [[button.sizeFit fromRight:25] fromBottom:25].flexibleLeft.flexibleTop;
     return button;
 }

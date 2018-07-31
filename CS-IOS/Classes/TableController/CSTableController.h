@@ -2,7 +2,6 @@
 //  Created by Rene Dohan on 1/11/13.
 //
 
-
 #import <UIKit/UIKit.h>
 #import "CSViewController.h"
 #import "CSChildViewLessController.h"
@@ -28,13 +27,15 @@
 
 @property(nonatomic) UIView *loadNextView;
 
-@property(nonatomic) BOOL autoReload;
-
 @property(nonatomic) int pageIndex;
 
-@property(nonatomic, readonly) NSArray<ObjectType>* data;
+@property(nonatomic, readonly) NSArray<ObjectType> *data;
+
+@property(nonatomic, strong) UIImage *reloadImage;
 
 - (void)insertItem:(id)item :(int)index;
+
+- (instancetype)autoReload:(BOOL)autoReload;
 
 - (void)filterDataAndReload;
 

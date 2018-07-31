@@ -9,18 +9,12 @@
 
 - (instancetype)construct {
     super.construct;
-    self.clipsToBounds = YES;
-    [self contentMode:UIViewContentModeScaleAspectFit];
+    self.aspectFit.clipsToBounds = YES;
     return self;
 }
 
 - (void)resizableImageWithCapInsets:(UIEdgeInsets)insets {
     self.image = [self.image resizableImageWithCapInsets:insets];
-}
-
-- (instancetype)setPicture:(UIImage *)image {
-    self.image = image;
-    return self;
 }
 
 - (instancetype)image:(UIImage *)image {

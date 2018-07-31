@@ -97,4 +97,6 @@
 - (uint)countString:(NSString *)string;
 
 - (BOOL)startsWith:(NSString *)str;
+
+- (NSAttributedString *)attributed:(NSDictionary *)dictionary;
 @end

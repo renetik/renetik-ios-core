@@ -12,9 +12,6 @@
 
 @interface CSMainController : CSViewController
 
-@property(nonatomic) BOOL showing;
-@property(nonatomic) BOOL appearing;
-@property(nonatomic, readonly) BOOL visible;
 @property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
 @property(nonatomic, strong) CSMainController *parent;
 
@@ -28,11 +25,7 @@
 
 - (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array;
 
-- (void)viewWillDisappear;
-
-- (void)onViewDismissing;
-
-- (void)showIn:(CSMainController *)parent;
+- (instancetype)showIn:(CSMainController *)parent;
 
 - (void)hideIn:(UIViewController *)parent;
 
@@ -60,27 +53,9 @@
 
 - (CSMenuItem *)menuItem;
 
-- (void)viewDidDisappear;
-
-- (void)onViewShowing;
-
 - (BOOL)isMainController;
 
 - (BOOL)isChildController;
-
-- (void)onViewWillAppear;
-
-- (void)onViewWillAppearFirstTime;
-
-- (void)onViewWillAppearFromPresentedController;
-
-- (void)onViewDidAppearFirstTime;
-
-- (void)onViewDidAppear;
-
-- (void)onViewDidAppearFromPresentedController;
-
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
 - (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)items;
 

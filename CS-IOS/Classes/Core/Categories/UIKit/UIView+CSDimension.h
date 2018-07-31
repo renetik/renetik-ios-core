@@ -9,6 +9,8 @@
 
 - (instancetype)size:(CGSize)size;
 
+- (instancetype)setSize:(CGSize)size;
+
 - (CGFloat)width;
 
 - (instancetype)width:(CGFloat)width height:(CGFloat)height;
@@ -44,6 +46,8 @@
 - (instancetype)addHeight:(int)value;
 
 - (instancetype)sizeFit;
+
+- (instancetype)sizeFitHeight;
 
 - (instancetype)fitSubviews;
 

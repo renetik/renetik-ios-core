@@ -9,4 +9,6 @@
 - (instancetype)setLeftInsetByLeftView:(int)width;
 
 - (instancetype)clear;
+
+- (instancetype)togglePasswordVisibility;
 @end

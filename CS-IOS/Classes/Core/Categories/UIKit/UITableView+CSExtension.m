@@ -2,6 +2,7 @@
 //  Created by Rene Dohan on 6/11/12.
 //
 
+@import ChameleonFramework;
 
 #import "CSLang.h"
 #import "UIView+CSExtension.h"
@@ -11,6 +12,12 @@
 #import "UIView+CSDimension.h"
 
 @implementation UITableView (CSExtension)
+
+- (instancetype)construct {
+    super.construct;
+    self.backColor = ClearColor;
+    return self;
+}
 
 - (instancetype)setupTable:(id <UITableViewDelegate, UITableViewDataSource>)parent {
     self.delegate = parent;

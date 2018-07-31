@@ -48,9 +48,13 @@
 
 - (instancetype)fontSize:(CGFloat)size;
 
-- (instancetype)setFontStyle:(UIFontTextStyle)style;
+- (void)setFontStyle:(UIFontTextStyle)style;
 
 - (instancetype)fontStyle:(UIFontTextStyle)style;
+
+- (instancetype)font:(UIFont *)font;
+
+- (instancetype)textColor:(UIColor *)textColor;
 
 - (instancetype)setHTMLFromString:(NSString *)string;
 
