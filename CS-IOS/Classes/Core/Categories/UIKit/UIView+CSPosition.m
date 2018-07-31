@@ -196,4 +196,14 @@
     return self;
 }
 
+- (instancetype)addTop:(int)value {
+    self.top += value;
+    return self;
+}
+
+- (instancetype)addLeft:(int)value {
+    self.left += value;
+    return self;
+}
+
 @end

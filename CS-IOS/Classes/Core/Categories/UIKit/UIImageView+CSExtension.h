@@ -6,8 +6,6 @@
 
 @interface UIImageView (CSExtension)
 
-- (instancetype)setPicture:(UIImage *)image;
-
 - (void)resizableImageWithCapInsets:(UIEdgeInsets)insets;
 
 - (instancetype)image:(UIImage *)image;

@@ -52,11 +52,12 @@ Pod::Spec.new do |s|
    end
 
    s.subspec 'TableController' do |ss|
-     ss.source_files = 'CS-IOS/Classes/TableController/**/*'
+     ss.source_files = 'CS-IOS/Classes/TableController/*'
      ss.dependency 'CS-IOS/Core'
      ss.dependency 'CS-IOS/RefreshControl'
      ss.dependency 'DZNEmptyDataSet','~> 1.8'
      ss.dependency 'ChameleonFramework', '~> 2.1'
+     ss.resources = 'CS-IOS/Classes/TableController/TableController.bundle'
    end
 
    s.subspec 'CollectionController' do |ss|

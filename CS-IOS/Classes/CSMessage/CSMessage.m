@@ -20,7 +20,7 @@
     if (self = super.init) {
         self.position = RMessagePositionTop;
         self.dismissable = YES;
-        self.type = RMessageTypeNormal;
+        self.type = RMessageTypeSuccess;
         self.duration = RMessageDurationAutomatic;
     }
     return self;

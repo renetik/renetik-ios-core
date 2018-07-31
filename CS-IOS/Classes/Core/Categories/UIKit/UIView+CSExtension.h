@@ -64,11 +64,13 @@ static float const CS_FADE_TIME = 0.3;
 
 - (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (instancetype)setColor:(UIColor *)color;
+- (void)setBackColor:(UIColor *)color;
 
-- (instancetype)color:(UIColor *)color;
+- (instancetype)backColor:(UIColor *)color;
 
-- (UIColor *)color;
+- (UIColor *)backColor;
+
+- (instancetype)tintColor:(UIColor *)color;
 
 - (void)fadeOut;
 
@@ -122,9 +124,9 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height;
 
-- (instancetype)onTap:(void (^)(void))block;
+- (instancetype)onTap:(void (^)(id))block;
 
-- (void)setOnTap:(void (^)(void))block;
+- (void)setOnTap:(void (^)(id))block;
 
 - (BOOL)isVisibleToUser;
 
@@ -134,4 +136,9 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)content;
 
+- (instancetype)aspectFit;
+
+- (instancetype)aspectFill;
+
+- (instancetype)addBottomSeparator:(CGFloat)height;
 @end

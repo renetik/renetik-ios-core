@@ -15,6 +15,11 @@
 }
 
 - (instancetype)size:(CGSize)size {
+    self.size = size;
+    return self;
+}
+
+- (instancetype)setSize:(CGSize)size {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
     return self;
 }
@@ -105,6 +110,11 @@
 - (instancetype)sizeFit {
     [self sizeToFit];
     return self;
+}
+
+- (instancetype)sizeFitHeight {
+    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    return [self size:CGSizeMake(fmaxf(newSize.width, self.width), newSize.height)];
 }
 
 - (instancetype)fitSubviews {

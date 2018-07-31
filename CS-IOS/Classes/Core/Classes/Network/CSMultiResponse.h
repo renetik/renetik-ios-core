@@ -8,7 +8,7 @@
 
 @interface CSMultiResponse : CSResponse
 
-- (CSResponse *)construct:(CSResponse *)request;
+- (instancetype)construct:(CSResponse *)request;
 
 - (CSResponse *)add:(CSResponse *)response;
 

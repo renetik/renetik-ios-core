@@ -14,6 +14,7 @@
 @property(nonatomic, strong) CSName *selectedRow;
 @property(nonatomic, strong) UIColor *primaryColor;
 @property(nonatomic, strong) UIColor *secondaryColor;
+@property(nonatomic, strong) UIColor *backgroundColor;
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected;
 

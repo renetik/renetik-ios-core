@@ -9,6 +9,18 @@
 
 @implementation UIScrollView (CSExtension)
 
++ (instancetype)contentVertical:(UIView *)view {
+    val scrollView = [self withSize:view.width :view.height];
+    [[scrollView contentVertical:view] top:0].matchParentWidth;
+    return scrollView;
+}
+
++ (instancetype)contentHorizontal:(UIView *)view {
+    val scrollView = [self withSize:view.width :view.height];
+    [[scrollView contentHorizontal:view] left:0].matchParentHeight;
+    return scrollView;
+}
+
 - (void)scrollToPage:(NSInteger)toIndex of:(NSInteger)ofCount {
     CGFloat pageWidth = self.contentSize.width / ofCount;
     CGFloat x = toIndex * pageWidth;
@@ -31,25 +43,8 @@
     [self setContentOffset:CGPointMake(0, self.contentSize.height - self.bounds.size.height) animated:YES];
 }
 
-- (instancetype)sizeHeightToFit {
-    CGFloat fixedWidth = self.frame.size.width;
-    CGSize newSize = [self sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
-    CGRect newFrame = self.frame;
-    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
-    self.frame = newFrame;
-    return self;
-}
-
 - (long)currentPageIndexFrom:(NSUInteger)from {
     return lround(self.contentOffset.x / (self.contentSize.width / from));
-}
-
-- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation {
-    if (@available(iOS 11, *)) {
-        self.contentInset = UIEdgeInsetsMake(navigation.navigationBar.bottom, 0, 0, 0);
-        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    return self;
 }
 
 - (UIView *)content:(UIView *)view {
@@ -74,16 +69,14 @@
     [self contentVertical:view];
 }
 
-+ (instancetype)contentVertical:(UIView *)view {
-    val scrollView = [self withSize:view.width :view.height];
-    [[scrollView contentVertical:view] top:0].matchParentWidth;
-    return scrollView;
+- (instancetype)contentVerticalSize:(CGFloat )size {
+    [[self contentSizeVertical:size].content height:size];
+    return self;
 }
 
-+ (instancetype)contentHorizontal:(UIView *)view {
-    val scrollView = [self withSize:view.width :view.height];
-    [[scrollView contentHorizontal:view] left:0].matchParentHeight;
-    return scrollView;
+- (instancetype)contentSizeVertical:(CGFloat )size {
+    self.contentSize = CGSizeMake(0, size);
+    return self;
 }
 
 - (instancetype)updateContentSizeVertical {
@@ -93,6 +86,12 @@
 
 - (instancetype)updateContentSizeHorizontal {
     self.contentSize = CGSizeMake(self.content.right, 0);
+    return self;
+}
+
+- (instancetype)contentInset:(UIEdgeInsets)contentInset {
+    self.contentInset = contentInset;
+    if (@available(iOS 11, *)) self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     return self;
 }
 @end

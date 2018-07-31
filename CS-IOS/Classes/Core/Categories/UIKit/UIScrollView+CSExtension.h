@@ -19,15 +19,17 @@
 
 - (void)scrollToBottom;
 
-- (instancetype)sizeHeightToFit;
-
 - (long)currentPageIndexFrom:(NSUInteger)from;
 
-- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation;
-
 - (void)setContentVertical:(UIView *)view;
+
+- (instancetype)contentVerticalSize:(CGFloat)size;
+
+- (instancetype)contentSizeVertical:(CGFloat)size;
 
 - (instancetype)updateContentSizeVertical;
 
 - (instancetype)updateContentSizeHorizontal;
+
+- (instancetype)contentInset:(UIEdgeInsets)contentInset;
 @end

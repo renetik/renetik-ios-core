@@ -86,4 +86,8 @@
 - (instancetype)centerInParentVertical;
 
 - (instancetype)centerInParentHorizontal;
+
+- (instancetype)addTop:(int)value;
+
+- (instancetype)addLeft:(int)value;
 @end

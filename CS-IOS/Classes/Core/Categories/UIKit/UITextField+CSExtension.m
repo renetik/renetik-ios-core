@@ -5,6 +5,7 @@
 
 #import "UITextField+CSExtension.h"
 #import "UIView+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UITextField (CSExtension)
 
@@ -22,6 +23,16 @@
 
 - (instancetype)clear {
     [self setText:@""];
+    return self;
+}
+
+- (instancetype)togglePasswordVisibility {
+    self.secureTextEntry = !self.isSecureTextEntry;
+    let existingText = self.text;
+    if (self.isSecureTextEntry) {
+        self.deleteBackward;
+        self.text = existingText;
+    }
     return self;
 }
 

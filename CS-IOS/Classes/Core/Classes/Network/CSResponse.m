@@ -25,7 +25,7 @@
 }
 
 - (void)success:(id)data {
-    if (_canceled)return;
+    if (_canceled) return;
     _data = data;
     [self onSuccessEvent];
     [self onDoneEvent];
@@ -50,25 +50,19 @@
 }
 
 - (void)failed:(CSResponse *)response {
-    if (_canceled)return;
+    if (_canceled) return;
+    _failed = YES;
     NSLog(@"Response failed %@", response.message);
-    [self onFailedEvent:response];
+    [_onFailedEvent run:response];
     [self onDoneEvent];
 }
 
-- (void)onFailedEvent:(CSResponse *)response {
-    _failed = YES;
-    [_onFailedEvent run:response];
-}
-
 - (void)cancel {
+    [self failedWithMessage:self.requestCancelledMessage];
     _canceled = YES;
-    [self failedWithMessage:[self requestCancelledMessage]];
 }
 
-- (NSString *)requestCancelledMessage {
-    return @"Request cancelled.";
-}
+- (NSString *)requestCancelledMessage {return @"Request cancelled.";}
 
 - (CSResponse *)failIfFail:(CSResponse *)response {
     return [response onFailed:^(CSResponse *_response) {
@@ -94,6 +88,7 @@
 }
 
 - (instancetype)failedWithMessage:(NSString *)message {
+    if (_canceled) return self;
     self.message = message;
     [self failed:self];
     return self;
