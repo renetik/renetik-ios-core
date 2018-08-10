@@ -35,7 +35,7 @@
 
 - (void)insertItem:(id)item :(int)index;
 
-- (instancetype)autoReload:(BOOL)autoReload;
+- (instancetype)autoReload;
 
 - (void)filterDataAndReload;
 
@@ -43,11 +43,11 @@
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table refreshable:(BOOL)refreshable;
-
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
+
+- (instancetype)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;
 

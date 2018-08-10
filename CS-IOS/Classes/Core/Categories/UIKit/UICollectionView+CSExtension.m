@@ -14,6 +14,7 @@
 
 static NSString *const EMPTY_CELL = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
+static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 
 - (instancetype)construct {
     super.construct;
@@ -25,7 +26,7 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     [super construct];
     self.delegate = parent;
     self.dataSource = parent;
-    [self registerEmptyForCell];
+    [self registerEmptyCell];
     [self reloadData];
     return self;
 }
@@ -38,36 +39,34 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     return [self dequeueReusableCellWithReuseIdentifier:[identifier description] forIndexPath:path];
 }
 
-- (void)registerEmptyForCell {
+- (instancetype)registerEmptyCell {
     [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:EMPTY_CELL];
+    return self;
 }
 
-- (void)registerEmptyViewForHeader {
+- (instancetype)registerEmptyCell:(Class)cellClass {
+    [self registerClass:cellClass forCellWithReuseIdentifier:EMPTY_CELL];
+    return self;
+}
+
+- (instancetype)registerEmptyHeader {
     [self registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:EMPTY_HEADER];
+    return self;
 }
 
-- (UICollectionViewCell *)createCell:(Class)viewClass :(NSIndexPath *)path {
-    UICollectionViewCell *cell = [self dequeEmptyCell:path];
-    if (!cell.contentView.subviews.first) {
-        UIView *view = [viewClass.create construct];
-//    self.rowHeight = content.height;
-        [cell.contentView addSubview:view];
-        [cell.contentView.subviews.first matchParent];
+- (UICollectionViewCell *)emptyCell:(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
+    var cell = [self dequeueCell:EMPTY_CELL :path];
+    if (![cell.contentView.subviews.last getObject:uiCollectionViewCellContent]){
+        [cell.contentView add:[[viewClass.create construct]
+                setObject:uiCollectionViewCellContent :@(YES)]].matchParent;
+        invokeWith(onCreate,cell);
     }
     return cell;
-}
-
-- (UICollectionViewCell *)dequeEmptyCell:(NSIndexPath *)path {
-    return [self dequeueCell:EMPTY_CELL :path];
 }
 
 - (UICollectionReusableView *)dequeEmptyHeader:(NSIndexPath *)path {
     return [self dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                     withReuseIdentifier:EMPTY_HEADER forIndexPath:path];
-}
-
-- (void)registerNibForCell:(Class)pClass {
-    [self registerNib:[UINib nibWithName:pClass.NIBName] forCellWithReuseIdentifier:[pClass description]];
 }
 
 

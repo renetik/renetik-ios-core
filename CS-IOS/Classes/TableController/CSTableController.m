@@ -33,29 +33,29 @@
     BOOL _autoReload;
 }
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table refreshable:(BOOL)refreshable {
-    return [self construct:parent :table :NSMutableArray.new :refreshable :nil];
-}
-
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table {
-    return [self construct:parent :table :NSMutableArray.new :YES :nil];
+    return [self construct:parent :table :NSMutableArray.new];
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
         parent :(UITableView *)table :(NSArray *)data {
-    return [self construct:parent :table :data :YES :nil];
-}
-
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
-        parent :(UITableView *)table :(NSArray *)data :(BOOL)refreshable :(UIColor *)loadNextColor {
     [super construct:parent];
     _parent = parent;
     _filter = [_parent as:@protocol(CSTableFilterProtocol)];
     [self initializeTable:parent table:table];
     _filteredData = NSMutableArray.new;
     _data = muteArray(data);
-    _loadNextColor = loadNextColor;
-    if (refreshable) _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl];}];
+    return self;
+}
+
+- (instancetype)refreshable {
+    _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl];}];
+    return self;
+}
+
+- (instancetype)autoReload {
+    _autoReload = YES;
+    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{if (self.visible) [self reload:YES];}] start];
     return self;
 }
 
@@ -71,6 +71,10 @@
 - (void)onViewDidAppearFromPresentedController {
     super.onViewDidAppearFromPresentedController;
     if (_autoReload)[_reloadWork run];
+}
+
+- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
+    [_table reloadData];
 }
 
 - (CSResponse *)reload {return [self reload:NO];}
@@ -132,7 +136,7 @@
 - (void)showLoadNextIndicator {
     if (!_loadNextView) {
         UIActivityIndicatorView *loadingNextView = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        if(_loadNextColor)loadingNextView.color = _loadNextColor;
+        if (_loadNextColor)loadingNextView.color = _loadNextColor;
         [loadingNextView startAnimating];
         _loadNextView = loadingNextView;
     }
@@ -254,14 +258,6 @@
 - (NSString *)emptyText {
     if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
     return _emptyText ? _emptyText : @"No items in list to display at this time";
-}
-
-- (instancetype)autoReload:(BOOL)autoReload {
-    _autoReload = autoReload;
-    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
-        if (self.visible) [self reload:YES];
-    }] start];
-    return self;
 }
 
 - (void)filterDataAndReload {

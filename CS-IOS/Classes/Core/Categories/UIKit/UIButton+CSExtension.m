@@ -49,8 +49,8 @@
 
 + (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
     UIButton *button = [[self.class.alloc init] construct];
-    [view add:[[button image:image] onTouchUp:onClick]].contentMode = UIViewContentModeScaleAspectFit;
-    [[button.sizeFit fromRight:25] fromBottom:25].flexibleLeft.flexibleTop;
-    return button;
+    [view add:[button.sizeFit onTouchUp:onClick]];
+    [button image:image].imageView.aspectFit;
+    return [[button fromRight:25] fromBottom:25].flexibleLeft.flexibleTop;
 }
 @end

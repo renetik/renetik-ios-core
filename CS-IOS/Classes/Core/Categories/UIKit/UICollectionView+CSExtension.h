@@ -13,16 +13,14 @@
 
 - (__kindof UICollectionViewCell *)dequeueCellForView:(Class)identifier :(NSIndexPath *)path;
 
-- (void)registerEmptyForCell;
+- (instancetype)registerEmptyCell;
 
-- (void)registerEmptyViewForHeader;
+- (instancetype)registerEmptyCell:(Class)cellClass;
 
-- (UICollectionViewCell *)createCell:(Class)viewClass :(NSIndexPath *)path;
+- (instancetype)registerEmptyHeader;
 
-- (__kindof UICollectionViewCell *)dequeEmptyCell:(NSIndexPath *)path;
+- (UICollectionViewCell *)emptyCell:(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate;
 
 - (__kindof UICollectionReusableView *)dequeEmptyHeader:(NSIndexPath *)path;
-
-- (void)registerNibForCell:(Class)pClass;
 
 @end
