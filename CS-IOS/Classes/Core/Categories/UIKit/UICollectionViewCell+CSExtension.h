@@ -7,5 +7,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UICollectionViewCell (CSExtension)
-- (UIView *)view;
+- (UIView *)content;
 @end

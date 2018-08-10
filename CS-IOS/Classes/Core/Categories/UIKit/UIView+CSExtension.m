@@ -430,8 +430,7 @@
 }
 
 - (UIView *)content:(UIView *)view {
-    [self insertView:view :0];
-    return view;
+    return [self setView:view :0];
 }
 
 - (void)setContent:(UIView *)view {

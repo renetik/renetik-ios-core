@@ -91,4 +91,8 @@ NSString *format4(NSString *format, NSObject *argument, NSObject *argument2, NSO
     return [NSString format:format :argument :argument2 :argument3 :argument4];
 }
 
+UIEdgeInsets UIEdgeInsetMake(CGFloat inset) {
+    return (UIEdgeInsets) {inset, inset, inset, inset};
+}
+
 @end
