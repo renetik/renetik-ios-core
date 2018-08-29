@@ -92,7 +92,7 @@
 
 - (NSString *)jsonString{
     NSError *error;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:nil error:&error];
     warn(error);
     return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
