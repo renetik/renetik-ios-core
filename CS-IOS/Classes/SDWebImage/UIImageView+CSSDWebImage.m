@@ -17,7 +17,7 @@
 
 - (UIImageView *)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess {
     __weak typeof(self) _self = self;
-    self.sd_imageIndicator = SDWebImageProgressIndicator.barIndicator;
+    self.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
     [self sd_setImageWithURL:[NSURL URLWithString:url]
             placeholderImage:nil options:SDWebImageRetryFailed progress:nil
                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
