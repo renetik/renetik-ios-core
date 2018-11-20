@@ -16,6 +16,8 @@
 
 - (instancetype)fixedRight;
 
+- (instancetype)fixedLeft;
+
 - (instancetype)fixedBottom;
 
 - (instancetype)fixedTop;
