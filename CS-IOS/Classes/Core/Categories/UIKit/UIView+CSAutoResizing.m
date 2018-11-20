@@ -46,6 +46,11 @@
     return self;
 }
 
+- (instancetype)fixedLeft {
+    self.autoresizingMask &= ~UIViewAutoresizingFlexibleLeftMargin;
+    return self;
+}
+
 - (instancetype)fixedBottom {
     self.autoresizingMask &= ~UIViewAutoresizingFlexibleBottomMargin;
     return self;
