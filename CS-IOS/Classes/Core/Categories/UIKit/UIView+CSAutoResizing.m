@@ -3,6 +3,7 @@
 //
 
 #import "UIView+CSAutoResizing.h"
+#import "CSCocoaLumberjack.h"
 
 @implementation UIView (CSAutoResizing)
 

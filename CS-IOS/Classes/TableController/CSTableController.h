@@ -13,7 +13,7 @@
 
 @property(readonly, nonatomic) UITableView *table;
 
-@property(nonatomic) CSResponse *(^onLoad)(int);
+@property(nonatomic) CSResponse * _Nonnull(^onLoad)(NSInteger);
 
 @property(nonatomic) BOOL (^onUserRefresh)(void);
 
@@ -27,27 +27,27 @@
 
 @property(nonatomic) UIView *loadNextView;
 
-@property(nonatomic) int pageIndex;
+@property(nonatomic) NSInteger pageIndex;
 
 @property(nonatomic, readonly) NSArray<ObjectType> *data;
 
 @property(nonatomic, strong) UIImage *reloadImage;
 
-- (void)insertItem:(id)item :(int)index;
+- (void)insertItem:(id)item :(NSInteger)index;
 
-- (instancetype)autoReload;
+- (instancetype _Nonnull)autoReload;
 
 - (void)filterDataAndReload;
 
-- (instancetype)onLoadSuccess:(NSArray<ObjectType> *)array;
+- (instancetype _Nonnull)onLoadSuccess:(NSArray<ObjectType> *)array;
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
+- (instancetype _Nonnull)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
+- (instancetype _Nonnull)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
 
-- (instancetype)refreshable;
+- (instancetype _Nonnull)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
