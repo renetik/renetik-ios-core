@@ -10,33 +10,33 @@
 
 @interface NSObject (CSExtension)
 
-+ (instancetype)construct;
++ (instancetype _Nonnull)construct;
 
-- (instancetype)construct;
+- (instancetype _Nonnull)construct;
 
 - (id)as:(Protocol *)aProtocol;
 
-- (instancetype)setObject:(const void *)key :(id)value;
+- (instancetype _Nonnull)setObject:(const void *)key :(id)value;
 
 - (id)getObject:(const void *)key;
 
-- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name;
+- (instancetype _Nonnull)addNotificationObserver:(SEL)sel name:(NSString *)name;
 
-- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;
+- (instancetype _Nonnull)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;
 
-- (instancetype)removeNotificationObserver;
+- (instancetype _Nonnull)removeNotificationObserver;
 
-- (CSDoLaterProcess *)doLater:(void (^)(void))method;
+- (CSDoLaterProcess *_Nonnull)doLater:(void (^)(void))method;
 
-- (CSDoLaterProcess *)doLater:(double)seconds :(void (^)(void))method;
+- (CSDoLaterProcess *_Nonnull)doLater:(double)seconds :(void (^)(void))method;
 
-- (CSWork *)schedule:(double)seconds :(void (^)(void))method;
+- (CSWork *_Nonnull)schedule:(double)seconds :(void (^)(void))method;
 
 - (BOOL)isKindOfOneOfClass:(NSArray *)classes;
 
-- (NSString *)className;
+- (NSString *_Nonnull)className;
 
-+ (NSString *)className;
++ (NSString *_Nonnull)className;
 
 
 @end
