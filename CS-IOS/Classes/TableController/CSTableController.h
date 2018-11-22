@@ -3,17 +3,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "CSViewController.h"
 #import "CSChildViewLessController.h"
-#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 @class CSResponse;
+
+@protocol CSListData;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CSTableController<__covariant ObjectType> : CSChildViewLessController
 
 @property(readonly, nonatomic) UITableView *table;
 
-@property(nonatomic) CSResponse * _Nonnull(^onLoad)(NSInteger);
+@property(nonatomic) CSResponse <CSListData> *(^onLoadList)(NSInteger);
+
+@property(nonatomic) CSResponse *(^onLoad)(NSInteger);
 
 @property(nonatomic) BOOL (^onUserRefresh)(void);
 
@@ -35,19 +41,19 @@
 
 - (void)insertItem:(id)item :(NSInteger)index;
 
-- (instancetype _Nonnull)autoReload;
+- (instancetype)autoReload;
 
 - (void)filterDataAndReload;
 
-- (instancetype _Nonnull)onLoadSuccess:(NSArray<ObjectType> *)array;
+- (instancetype)onLoadSuccess:(NSArray<ObjectType> *)array;
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
-- (instancetype _Nonnull)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
 
-- (instancetype _Nonnull)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
 
-- (instancetype _Nonnull)refreshable;
+- (instancetype)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -62,3 +68,5 @@
 - (ObjectType)dataFor:(NSIndexPath *)path;
 
 @end
+
+NS_ASSUME_NONNULL_END

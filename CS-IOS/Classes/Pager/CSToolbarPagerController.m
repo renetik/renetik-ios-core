@@ -63,13 +63,13 @@
 
 - (void)reload:(nonnull NSArray<CSMainController <CSToolbarPage> *> *)controllers {
     if (controllers.empty) return;
-    for (UIViewController *controller in _controllers) [_parentController removeController:controller];
+    for (UIViewController *controller in _controllers) [_parentController dismissChildController:controller];
     _controllers = controllers;
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
     for (CSMainController *controller in _controllers) {
         [_contentView positionViewNextLast:controller.view];
-        [_parentController addController:controller :_contentView];
+        [_parentController showChildController:controller :_contentView];
         [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
     }
     [self selectButton:_currentIndex];

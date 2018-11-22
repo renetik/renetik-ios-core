@@ -14,27 +14,27 @@
 
 + (instancetype)create:(NSString *)nib;
 
+- (UIViewController *)dismissChildController:(UIViewController *)controller;
+
 - (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
 
 - (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
 
 - (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller;
 
-- (UIViewController *)addControllerUnder:(UIViewController *)controller;
+- (UIViewController *)showChildControllerUnderLast:(UIViewController *)controller;
 
-- (UIViewController *)addControllerNext:(UIViewController *)controller :(UIView *)view;
+- (UIViewController *)showChildControllerNextLast:(UIViewController *)controller :(UIView *)view;
 
-- (UIViewController *)addController:(UIViewController *)controller;
+- (UIViewController *)showChildController:(UIViewController *)controller;
 
-- (UIViewController *)addController:(UIViewController *)controller :(UIView *)view;
+- (UIViewController *)showChildController:(UIViewController *)controller :(UIView *)view;
 
-- (UIViewController *)addControllerWithoutView:(UIViewController *)controller;
+- (UIViewController *)addChildController:(UIViewController *)controller;
 
-- (void)presentViewController:(UIViewController *)modalViewController;
+- (void)presentController:(UIViewController *)modalViewController;
 
-- (void)dismissViewController;
-
-- (UIViewController *)removeController:(UIViewController *)controller;
+- (void)dismissController;
 
 - (NSString *)controllerName;
 

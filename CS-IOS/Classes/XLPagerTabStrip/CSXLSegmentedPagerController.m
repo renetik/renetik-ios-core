@@ -16,7 +16,7 @@
     [super construct];
     _parent = parent;
     _controllers = controllers;
-    [parent addControllers:_controllers];
+    [parent addChildMainControllers:_controllers];
     return self;
 }
 

@@ -9,7 +9,7 @@
 #import "UIView+CSDimension.h"
 
 @implementation CSTabPagerController {
-    NSArray<CSMainController <CSTabPagerTabProtocol> *> *_controllers;
+    NSArray<CSMainController <CSTabPagerTabProtocol> *> *_childMainControllers;
     CSMainController *_parentController;
     UITabBar *_tabBar;
     UIScrollView *_scrollView;
@@ -21,7 +21,7 @@
         :(UITabBar *)toolbar :(UIScrollView *)scrollView {
     [super construct:parent];
     _parentController = parent;
-    _controllers = controllers;
+    _childMainControllers = controllers;
     _tabBar = toolbar;
     _tabBar.delegate = self;
     _scrollView = scrollView;
@@ -37,26 +37,26 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     invoke(^{
-        [self reload:_controllers];
+        [self reload:_childMainControllers];
     });
     [self updateAppearance];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)view {
-    [self onPageChange:(NSUInteger) lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _controllers.count))];
+    [self onPageChange:(NSUInteger) lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _childMainControllers.count))];
     [self showSelectEffect];
 }
 
 - (void)reload:(nonnull NSArray *)controllers {
     if (controllers.empty) return;
-    for (UIViewController *controller in _controllers) [_parentController removeController:controller];
-    _controllers = controllers;
+    for (UIViewController *controller in _childMainControllers) [_parentController dismissChildController:controller];
+    _childMainControllers = controllers;
     [self loadBar];
-    _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
+    _scrollView.contentSize = CGSizeMake(_contentView.width = _childMainControllers.count * _scrollView.width, 0);
 
-    for (CSMainController *controller in _controllers) {
+    for (CSMainController *controller in _childMainControllers) {
         [_contentView positionViewNextLast:controller.view];
-        [_parentController addController:controller :_contentView];
+        [_parentController showChildController:controller :_contentView];
         [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
     }
     [self selectTab:_currentIndex];
@@ -64,7 +64,7 @@
 
 - (void)loadBar {
     NSMutableArray *items = NSMutableArray.new;
-    for (CSMainController <CSTabPagerTabProtocol> *controller in _controllers) {
+    for (CSMainController <CSTabPagerTabProtocol> *controller in _childMainControllers) {
         UITabBarItem *item = [controller tabItem];
         [items add:item];
     }
@@ -83,14 +83,14 @@
 }
 
 - (void)onPageChange:(NSUInteger)pageIndex {
-    _controllers[_currentIndex].showing = NO;
+    _childMainControllers[_currentIndex].showing = NO;
     _currentIndex = pageIndex;
-    _controllers[_currentIndex].showing = YES;
+    _childMainControllers[_currentIndex].showing = YES;
     [_parentController updateBarItemsAndMenu];
 }
 
 - (void)showPage {
-    [_scrollView scrollToPage:_currentIndex of:_controllers.count];
+    [_scrollView scrollToPage:_currentIndex of:_childMainControllers.count];
 }
 
 - (void)showSelectEffect {
@@ -99,7 +99,7 @@
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
     [super onViewWillTransitionToSizeCompletion:size :context];
-    [self reload:_controllers];
+    [self reload:_childMainControllers];
     [self updateAppearance];
 }
 
