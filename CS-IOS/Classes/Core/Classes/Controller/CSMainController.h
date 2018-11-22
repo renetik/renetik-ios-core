@@ -15,11 +15,9 @@
 @property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
 @property(nonatomic, strong) CSMainController *parent;
 
-- (instancetype)construct:(CSMainController *)parent;
+- (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers;
 
-- (NSArray<CSMainController *> *)setControllers:(NSArray<CSMainController *> *)controllers;
-
-- (NSArray<CSMainController *> *)addControllers:(NSArray<CSMainController *> *)controllers;
+- (NSArray<CSMainController *> *)addChildMainControllers:(NSArray<CSMainController *> *)controllers;
 
 - (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuItem *> *)menuItems;
 
@@ -52,6 +50,8 @@
 - (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem;
+
+- (instancetype)construct;
 
 - (BOOL)isMainController;
 

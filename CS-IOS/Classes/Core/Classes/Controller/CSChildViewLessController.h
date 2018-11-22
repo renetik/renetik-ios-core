@@ -8,4 +8,5 @@
 #import "CSMainController.h"
 
 @interface CSChildViewLessController : CSMainController
+- (instancetype)construct:(CSMainController *)parent;
 @end

@@ -11,20 +11,14 @@
 #import "CSMenuIcon.h"
 
 @implementation CSMainController {
-    NSMutableArray<CSMainController *> *_controllers;
+    NSMutableArray<CSMainController *> *_childMainControllers;
     CSActionSheet *_menuSheet;
 }
 
 - (instancetype)construct {
     [super construct];
     _menu = NSMutableArray.new;
-    _controllers = NSMutableArray.new;
-    return self;
-}
-
-- (instancetype)construct:(CSMainController *)parent {
-    [self construct];
-    _parent = parent;
+    _childMainControllers = NSMutableArray.new;
     return self;
 }
 
@@ -46,7 +40,7 @@
 
 - (void)onViewDismissing {
     [super onViewDismissing];
-    for (CSMainController *controller in _controllers)
+    for (CSMainController *controller in _childMainControllers)
         [controller onViewDismissing];
 }
 
@@ -105,7 +99,9 @@
     self.menuSheet.clear;
     for (CSMenuHeader *menuHeader in menu) {
         CSMenuItem *item = menuHeader.items.first;
-        [self.menuSheet addAction:item.title :^{item.action(item);}];
+        [self.menuSheet addAction:item.title :^{
+            item.action(item);
+        }];
     }
     return [UIBarButtonItem.alloc bk_initWithImage:CSMenuIcon.image style:UIBarButtonItemStylePlain handler:^(id sender) {
         if (_menuSheet.visible)[_menuSheet hide];
@@ -119,34 +115,38 @@
 - (void)addChildViewController:(UIViewController *)childController {
     [super addChildViewController:childController];
     if ([childController isKindOfClass:CSMainController.class])
-        [_controllers addObject:(CSMainController *) childController];
+        [self addChildMainController:(CSMainController *) childController];
 }
 
-- (UIViewController *)removeController:(UIViewController *)controller {
-    [super removeController:controller];
-    if ([controller isKindOfClass:CSMainController.class])
-        [_controllers remove:(CSMainController *) controller];
+- (void)addChildMainController:(CSMainController *)childController {
+    [_childMainControllers add:childController];
+    childController.parent = self;
+}
+
+- (UIViewController *)dismissChildController:(UIViewController *)controller {
+    [super dismissChildController:controller];
+    if ([controller isKindOfClass:CSMainController.class])[_childMainControllers remove:controller];
     return controller;
 }
 
-- (NSArray<CSMainController *> *)setControllers:(NSArray<CSMainController *> *)controllers {
-    [_controllers removeAllObjects];
-    [self addControllers:controllers];
+- (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers {
+    [_childMainControllers removeAllObjects];
+    [self addChildMainControllers:controllers];
     return controllers;
 }
 
-- (NSArray<CSMainController *> *)addControllers:(NSArray<CSMainController *> *)controllers {
-    [_controllers addObjectsFromArray:controllers];
+- (NSArray<CSMainController *> *)addChildMainControllers:(NSArray<CSMainController *> *)controllers {
+    for (CSMainController *controller in controllers)[self addChildMainController:controller];
     return controllers;
 }
 
 - (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)menu {
     for (CSMenuHeader *menuHeader in _menu) if (menuHeader.visible) [menu add:menuHeader];
-    for (CSMainController *controller in _controllers) if (controller.showing) [controller onPrepareMenu:menu];
+    for (CSMainController *controller in _childMainControllers) if (controller.showing) [controller onPrepareMenu:menu];
 }
 
 - (UIBarButtonItem *)onPrepareLeftBarItem {
-    for (CSMainController *controller in _controllers) if (controller.showing) return controller.onPrepareLeftBarItem;
+    for (CSMainController *controller in _childMainControllers) if (controller.showing) return controller.onPrepareLeftBarItem;
     return nil;
 }
 
@@ -157,8 +157,7 @@
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromBottom;
     [self.view.layer addAnimation:transition forKey:nil];
-    [parent addController:self];
-    self.view.hide.show;
+    [parent showChildController:self];
     self.showing = YES;
     return self;
 }
@@ -172,7 +171,9 @@
     [self.view.layer addAnimation:transition forKey:nil];
     self.view.hide;
     self.showing = NO;
-    doLater(0.7,^{[parent removeController:self];});
+    doLater(0.7, ^{
+        [parent dismissChildController:self];
+    });
 }
 
 - (CSMenuHeader *)menuHeader:(NSString *)title {

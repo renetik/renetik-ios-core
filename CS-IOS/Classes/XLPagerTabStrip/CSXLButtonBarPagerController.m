@@ -16,7 +16,8 @@
     [super construct];
     _parent = parent;
     _controllers = controllers;
-    [_parent addControllers:_controllers];
+    [_parent showChildController:self];
+    [_parent addChildMainControllers:_controllers];
     return self;
 }
 
@@ -57,7 +58,7 @@
 
 - (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {
     _controllers = controllers;
-    [_parent addControllers:_controllers];
+    [_parent addChildMainControllers:_controllers];
     [self reloadPagerTabStripView];
     [self updateControllersVisible:self.currentIndex :NO];
 }

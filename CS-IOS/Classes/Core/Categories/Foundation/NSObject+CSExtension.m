@@ -9,12 +9,12 @@
 
 @implementation NSObject (CSExtension)
 
-- (instancetype)construct {
-    return self;
-}
-
 + (instancetype)construct {
     return [self.class.new construct];
+}
+
+- (instancetype)construct {
+    return self;
 }
 
 - (id)as:(Protocol *)aProtocol {

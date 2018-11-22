@@ -63,7 +63,7 @@
         picker.delegate = self;
         picker.allowsEditing = YES;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [_parent presentViewController:picker];
+        [_parent presentController:picker];
     } else showMessage(@"Camera not available");
 }
 
@@ -73,7 +73,7 @@
 }
 
 - (void)dismiss {
-    if (!_popover) [_parent dismissViewController];
+    if (!_popover) [_parent dismissController];
     else [_popover dismissPopoverAnimated:YES];
 }
 

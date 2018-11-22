@@ -9,8 +9,9 @@
 @implementation CSChildViewLessController
 
 - (instancetype)construct:(CSMainController *)parent {
-    [super construct:parent];
-    invoke(^{[parent addController:self];});
+    [super construct];
+    invoke(^{
+        [parent showChildController:self];});
     self.showing = YES;
     return self;
 }

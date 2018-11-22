@@ -13,6 +13,9 @@
 #import "CSTableFilterProtocol.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
+#import "CSListData.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CSTableController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property(nonatomic) BOOL loading;
@@ -49,23 +52,31 @@
 }
 
 - (instancetype)refreshable {
-    _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl];}];
+    _refreshControl = [CSRefreshControl.new construct:_table :^{
+        [self onRefreshControl];
+    }];
     return self;
 }
 
 - (instancetype)autoReload {
     _autoReload = YES;
-    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{if (self.visible) [self reload:YES];}] start];
+    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
+        if (self.visible) [self reload:YES];
+    }] start];
     return self;
 }
 
 - (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent table:(UITableView *)table {
-    _table = [table setupTable:parent].hide;
+    _table = table.hide;
+    _table.delegate = parent;
+    _table.dataSource = parent;
     _table.emptyDataSetSource = self;
     _table.emptyDataSetDelegate = self;
     _table.backgroundView = [UIView withColor:UIColor.clearColor];
     [UITapGestureRecognizer.alloc bk_initWithHandler:
-            ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {[self reload];}];
+            ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+                [self reload];
+            }];
 }
 
 - (void)onViewDidAppearFromPresentedController {
@@ -77,16 +88,18 @@
     [_table reloadData];
 }
 
-- (CSResponse *)reload {return [self reload:NO];}
+- (CSResponse *)reload {
+    return [self reload:NO];
+}
 
 - (CSResponse *)reload:(BOOL)refreshControl {
+    wvar _self = self;
     if (_loading) [_loadResponse cancel];
     _noNext = NO;
     _pageIndex = -1;
     _loading = YES;
-    _loadResponse = self.onLoad(_pageIndex + 1);
+    _loadResponse = [self createLoadResponse];
     if (!refreshControl) [_parent showProgress:_loadResponse];
-    wvar _self = self;
     return [[_loadResponse onFailed:^(CSResponse *response) {
         _self.failed = YES;
         _self.failedMessage = response.message;
@@ -103,10 +116,19 @@
     _loading = YES;
     [self showLoadNextIndicator];
     wvar _self = self;
-    [self.onLoad(_pageIndex + 1) onDone:^(id data) {
+    [self.createLoadResponse onDone:^(id data) {
         _self.loading = NO;
         [_self.loadNextView removeFromSuperview];
     }];
+}
+
+- (CSResponse *)createLoadResponse {
+    wvar _self = self;
+    if (self.onLoadList)
+        return [(self.onLoadList(_pageIndex + 1)) onSuccess:^(NSObject <CSListData> *data) {
+            [_self onLoadSuccess:data.list];
+        }];
+    else return self.onLoad(_pageIndex + 1);
 }
 
 - (instancetype)onLoadSuccess:(NSArray *)array {
@@ -163,7 +185,9 @@
     [self filterDataAndReload];
 }
 
-- (NSArray *)filterData:(NSArray *)toFilter {return [self filterByFilter:[toFilter filterBySearch:_searchText]];}
+- (NSArray *)filterData:(NSArray *)toFilter {
+    return [self filterByFilter:[toFilter filterBySearch:_searchText]];
+}
 
 - (NSArray *)filterByFilter:(NSArray *)toFilter {
     if ([_filter respondsToSelector:@selector(filterData:)]) return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
@@ -202,9 +226,13 @@
     [self filterDataAndReload];
 }
 
-- (id)dataFor:(NSIndexPath *)path {return _filteredData[path.index];}
+- (id)dataFor:(NSIndexPath *)path {
+    return _filteredData[path.index];
+}
 
-- (NSArray *)data {return _filteredData;}
+- (NSArray *)data {
+    return _filteredData;
+}
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     if (self.emptyText)
@@ -245,15 +273,25 @@
     return [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES];
 }
 
-- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {return YES;}
+- (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {
+    return YES;
+}
 
-- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {return [UIColor clearColor];}
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {
+    return [UIColor clearColor];
+}
 
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {[self reload];}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
+    [self reload];
+}
 
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {[self reload];}
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {
+    [self reload];
+}
 
-- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {return 100;}
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return 100;
+}
 
 - (NSString *)emptyText {
     if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
@@ -267,3 +305,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

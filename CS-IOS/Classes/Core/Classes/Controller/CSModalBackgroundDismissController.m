@@ -36,7 +36,7 @@
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
             location = CGPointMake(location.y, location.x);
         if (![self.parent.view pointInside:[self.parent.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
-            if (self.parent.view) [self dismissViewController];
+            if (self.parent.view) [self dismissController];
         }
     }
 }
