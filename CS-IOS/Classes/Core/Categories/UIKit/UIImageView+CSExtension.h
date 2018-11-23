@@ -4,6 +4,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (CSExtension)
 
 - (void)resizableImageWithCapInsets:(UIEdgeInsets)insets;
@@ -13,3 +14,4 @@
 - (void)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
 
 @end
+NS_ASSUME_NONNULL_END
