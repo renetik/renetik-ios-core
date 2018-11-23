@@ -15,7 +15,7 @@
 
 - (instancetype)constructByString:(NSString *)value;
 
-- (instancetype)construct:(NSDictionary *)value;
+- (instancetype)construct:(nonnull NSDictionary *)value;
 
 - (BOOL)isEmpty;
 

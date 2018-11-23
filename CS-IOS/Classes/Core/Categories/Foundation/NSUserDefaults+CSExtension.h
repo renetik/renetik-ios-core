@@ -11,9 +11,9 @@
 
 + (void)clear:(NSString *)key;
 
-+ (id)load:(NSString *)key;
++ (id)loadObject:(NSString *)key;
 
-+ (id)load:(NSString *)key :(id)defaultValue;
++ (id)loadObject:(NSString *)key :(id)defaultValue;
 
 + (NSInteger)loadInteger:(NSString *)key;
 

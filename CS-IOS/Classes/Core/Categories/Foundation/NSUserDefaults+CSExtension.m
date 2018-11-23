@@ -15,12 +15,12 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
 }
 
-+ (id)load:(NSString *)key {
++ (id)loadObject:(NSString *)key {
     return [[NSUserDefaults standardUserDefaults] objectForKey:key];
 }
 
-+ (id)load:(NSString *)key :(id)defaultValue {
-    id value = [NSUserDefaults load:key];
++ (id)loadObject:(NSString *)key :(id)defaultValue {
+    id value = [NSUserDefaults loadObject:key];
     return !value ? defaultValue : value;
 }
 
