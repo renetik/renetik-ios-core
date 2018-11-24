@@ -13,9 +13,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CSTableController<__covariant ObjectType> : CSChildViewLessController
+@interface CSTableController<__covariant ObjectType> : CSViewController
 
 @property(readonly, nonatomic) UITableView *table;
+
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent;
+
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(NSArray *)data;
 
 @property(nonatomic) CSResponse <CSListData> *(^onLoadList)(NSInteger);
 
@@ -49,9 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table;
-
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table :(NSArray *)data;
 
 - (instancetype)refreshable;
 

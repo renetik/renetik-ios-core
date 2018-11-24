@@ -8,35 +8,35 @@
 @class CSWork;
 @class CSDoLaterProcess;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (CSExtension)
 
-+ (instancetype _Nonnull)construct;
++ (instancetype )construct;
 
-- (instancetype _Nonnull)construct;
+- (instancetype )construct;
 
 - (id)as:(Protocol *)aProtocol;
 
-- (instancetype _Nonnull)setObject:(const void *)key :(id)value;
+- (instancetype )setObject:(const void *)key :(id)value;
 
 - (id)getObject:(const void *)key;
 
-- (instancetype _Nonnull)addNotificationObserver:(SEL)sel name:(NSString *)name;
+- (instancetype )addNotificationObserver:(SEL)sel name:(NSString *)name;
 
-- (instancetype _Nonnull)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;
+- (instancetype )addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;
 
-- (instancetype _Nonnull)removeNotificationObserver;
+- (instancetype )removeNotificationObserver;
 
-- (CSDoLaterProcess *_Nonnull)doLater:(void (^)(void))method;
+- (CSDoLaterProcess *)doLater:(void (^)(void))method;
 
-- (CSDoLaterProcess *_Nonnull)doLater:(double)seconds :(void (^)(void))method;
+- (CSDoLaterProcess *)doLater:(double)seconds :(void (^)(void))method;
 
-- (CSWork *_Nonnull)schedule:(double)seconds :(void (^)(void))method;
+- (CSWork *)schedule:(double)seconds :(void (^)(void))method;
 
 - (BOOL)isKindOfOneOfClass:(NSArray *)classes;
 
-- (NSString *_Nonnull)className;
+- (NSString *)className;
 
-+ (NSString *_Nonnull)className;
-
-
++ (NSString *)className;
 @end
+NS_ASSUME_NONNULL_END

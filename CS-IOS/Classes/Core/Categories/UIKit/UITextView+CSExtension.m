@@ -6,11 +6,11 @@
 
 @implementation UITextView (CSExtension)
 
-- (instancetype)construct {
-    super.construct;
-    [self backColor:UIColor.clearColor];
-    return self;
-}
+//- (instancetype)construct {
+//    super.construct;
+//    [self backColor:UIColor.clearColor];
+//    return self;
+//}
 
 - (instancetype)setHTMLFromString:(NSString *)string {
     string = [string add:stringf(

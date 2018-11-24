@@ -140,5 +140,5 @@ static float const CS_FADE_TIME = 0.3;
 
 - (instancetype)aspectFill;
 
-- (instancetype)addBottomSeparator:(CGFloat)height;
+- (UIView *)addBottomSeparator:(CGFloat)height;
 @end

@@ -35,6 +35,8 @@
 
 - (instancetype)rightToWidth:(CGFloat)right;
 
+- (instancetype)leftToWidth:(CGFloat)left;
+
 - (instancetype)fromRightToWidth:(CGFloat)lengthFromRight;
 
 - (instancetype)fromBottomToHeight:(CGFloat)lengthFromBottom;

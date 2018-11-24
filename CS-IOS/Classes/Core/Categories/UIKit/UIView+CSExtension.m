@@ -5,6 +5,7 @@
 @import BlocksKit;
 
 #import "UIColor+CSExtension.h"
+#import "UIView+CSAutoResizing.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
 #import "CSCocoaLumberjack.h"
@@ -449,8 +450,9 @@
     return self;
 }
 
-- (instancetype)addBottomSeparator:(CGFloat)height {
-    return [[[[self add:UIView.construct] height:height] fromBottom:0].matchParentWidth backColor:UIColor.darkGrayColor];
+- (UIView*)addBottomSeparator:(CGFloat)height {
+    return [[[[self add:UIView.construct] height:height] fromBottom:0]
+            .matchParentWidth.flexibleTop.fixedBottom backColor:UIColor.darkGrayColor];
 }
 
 @end

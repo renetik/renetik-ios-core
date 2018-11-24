@@ -41,9 +41,9 @@
 
 - (instancetype)matchParentWithMargin:(CGFloat)margin;
 
-- (instancetype)addWidth:(int)value;
+- (instancetype)addWidth:(CGFloat)value;
 
-- (instancetype)addHeight:(int)value;
+- (instancetype)addHeight:(CGFloat)value;
 
 - (instancetype)sizeFit;
 
@@ -53,7 +53,11 @@
 
 - (CGSize)calculateSizeFromSubviews;
 
-- (instancetype)contentPadding:(int)padding;
+- (instancetype)contentPadding:(CGFloat)padding;
 
-- (instancetype)addMargin:(int)margin;
+- (instancetype)contentPaddingVertical:(CGFloat)padding;
+
+- (instancetype)contentPaddingHorizontal:(CGFloat)padding;
+
+- (instancetype)addMargin:(CGFloat)margin;
 @end

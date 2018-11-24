@@ -17,8 +17,18 @@
     return self;
 }
 
+- (instancetype)fixedWidth {
+    self.autoresizingMask &= ~UIViewAutoresizingFlexibleWidth;
+    return self;
+}
+
 - (instancetype)flexibleHeight {
     self.autoresizingMask |= UIViewAutoresizingFlexibleHeight;
+    return self;
+}
+
+- (instancetype)fixedHeight {
+    self.autoresizingMask &= ~UIViewAutoresizingFlexibleHeight;
     return self;
 }
 

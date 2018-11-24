@@ -18,4 +18,5 @@
 - (CSMainController <XLPagerTabStripChildItem> *)currentController;
 
 - (NSInteger)selectedIndex;
+
 @end

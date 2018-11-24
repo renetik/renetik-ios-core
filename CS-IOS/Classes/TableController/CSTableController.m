@@ -36,19 +36,25 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL _autoReload;
 }
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UITableView *)table {
-    return [self construct:parent :table :NSMutableArray.new];
+- (void)loadView {
+    self.view = _table = UITableView.new;
+    [_table backColor:UIColor.clearColor];
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
-        parent :(UITableView *)table :(NSArray *)data {
-    [super construct:parent];
+        parent :(NSArray *)data {
+    [super construct];
     _parent = parent;
     _filter = [_parent as:@protocol(CSTableFilterProtocol)];
-    [self initializeTable:parent table:table];
     _filteredData = NSMutableArray.new;
     _data = muteArray(data);
+    [parent showChildController:self];
+    [self initializeTable:parent];
     return self;
+}
+
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
+    return [self construct:parent :NSMutableArray.new];
 }
 
 - (instancetype)refreshable {
@@ -66,8 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent table:(UITableView *)table {
-    _table = table.hide;
+- (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
+    _table.hide;
     _table.delegate = parent;
     _table.dataSource = parent;
     _table.emptyDataSetSource = self;

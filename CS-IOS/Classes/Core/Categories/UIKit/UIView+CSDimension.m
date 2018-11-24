@@ -97,12 +97,12 @@
     return [self height:self.superview.height].centerInParentVertical.flexibleHeight;
 }
 
-- (instancetype)addWidth:(int)value {
+- (instancetype)addWidth:(CGFloat)value {
     self.width += value;
     return self;
 }
 
-- (instancetype)addHeight:(int)value {
+- (instancetype)addHeight:(CGFloat)value {
     self.height += value;
     return self;
 }
@@ -127,13 +127,25 @@
     return rect.size;
 }
 
-- (instancetype)contentPadding:(int)padding {
+- (instancetype)contentPadding:(CGFloat)padding {
     [self.content left:padding top:padding];
     [[self addWidth:padding * 2] addHeight:padding * 2];
     return self;
 }
 
-- (instancetype)addMargin:(int)margin {
+- (instancetype)contentPaddingVertical:(CGFloat)padding {
+    [self.content top:padding];
+    [self addHeight:padding * 2];
+    return self;
+}
+
+- (instancetype)contentPaddingHorizontal:(CGFloat)padding {
+    [self.content left:padding];
+    [self addWidth:padding * 2];
+    return self;
+}
+
+- (instancetype)addMargin:(CGFloat)margin {
     self.left -= margin;
     self.top -= margin;
     [[self addWidth:margin * 2] addHeight:margin * 2];
