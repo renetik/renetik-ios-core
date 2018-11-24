@@ -54,7 +54,7 @@
     return self;
 }
 
-- (instancetype)sizeToLines:(int)numberOfLines {
+- (instancetype)sizeHeightToLines:(int)numberOfLines {
     var currentText = self.text;
     self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
                 " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "

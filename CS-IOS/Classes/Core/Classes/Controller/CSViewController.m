@@ -11,6 +11,10 @@
     BOOL _onViewDidAppearFirstTime;
 }
 
+-(void)loadView {
+    self.view = UIView.new;
+}
+
 - (instancetype)construct {
     super.construct;
     _didLayoutSubviews = NO;

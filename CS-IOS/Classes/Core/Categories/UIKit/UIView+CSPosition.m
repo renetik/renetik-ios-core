@@ -75,6 +75,12 @@
     return self;
 }
 
+- (instancetype)leftToWidth:(CGFloat)left {
+    self.width = self.right - left;
+    [self left:left];
+    return self;
+}
+
 - (instancetype)fromRightToWidth:(CGFloat)lengthFromRight {
     val right = self.superview.width - lengthFromRight;
     return [self rightToWidth:right];

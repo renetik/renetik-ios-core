@@ -5,33 +5,35 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UITableView (CSExtension)
 
-- (instancetype _Nonnull)setupTable:(id <UITableViewDelegate, UITableViewDataSource>)parent;
+- (instancetype )setupTable:(id <UITableViewDelegate, UITableViewDataSource>)parent;
 
-- (instancetype _Nonnull)setupTable:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
+- (instancetype )setupTable:(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
 
-- (UIView * _Nonnull)setHeader:(UIView * _Nonnull)view;
+- (UIView * )setHeader:(UIView * )view;
 
-- (UIView * _Nonnull)setFooter:(UIView * _Nonnull)view;
+- (UIView * )setFooter:(UIView * )view;
 
 - (void)deselectSelectedRow;
 
 - (void)deselectSelectedRows:(BOOL)animated;
 
-- (UITableViewCell *_Nonnull)getCell:(Class)clazz;
+- (UITableViewCell *)getCell:(Class)clazz;
 
 - (id)dequeueReusableCell:(NSString *)identifier;
 
-- (instancetype _Nonnull)hideEmptyCellSplitterBySettingEmptyFooter;
+- (instancetype )hideEmptyCellSplitterBySettingEmptyFooter;
 
-- (instancetype _Nonnull)toggleEditingAnimated:(BOOL)animated;
+- (instancetype )toggleEditingAnimated:(BOOL)animated;
 
-- (instancetype _Nonnull)toggleEditing;
+- (instancetype )toggleEditing;
 
-- (UITableViewCell *_Nonnull)cellView:(Class)viewClass :(void (^)(UITableViewCell *_Nonnull))onCreate;
+- (UITableViewCell *)cellView:(Class)viewClass :(void (^)(UITableViewCell *))onCreate;
 
-- (UITableViewCell *_Nonnull)getCellWithStyle:(NSString *)string :(UITableViewCellStyle)style;
+- (UITableViewCell *)getCellWithStyle:(NSString *)string :(UITableViewCellStyle)style;
 
-- (UITableViewCell *_Nonnull)getCellWithStyle:(NSString *const)id :(enum UITableViewCellStyle)style :(void (^)(UITableViewCell *_Nonnull cell))onCreate;
+- (UITableViewCell *)getCellWithStyle:(NSString *const)id :(enum UITableViewCellStyle)style :(void (^)(UITableViewCell * cell))onCreate;
 @end
+NS_ASSUME_NONNULL_END

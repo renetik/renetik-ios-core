@@ -10,7 +10,11 @@
 
 - (instancetype)flexibleWidth;
 
+- (instancetype)fixedWidth;
+
 - (instancetype)flexibleHeight;
+
+- (instancetype)fixedHeight;
 
 - (instancetype)flexibleBottom;
 

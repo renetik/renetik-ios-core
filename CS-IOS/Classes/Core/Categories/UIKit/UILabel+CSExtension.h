@@ -60,7 +60,7 @@
 
 - (instancetype)hideIfEmpty;
 
-- (instancetype)sizeToLines:(int)numberOfLines;
+- (instancetype)sizeHeightToLines:(int)numberOfLines;
 
 - (instancetype)sizeFit:(NSString *)value;
 

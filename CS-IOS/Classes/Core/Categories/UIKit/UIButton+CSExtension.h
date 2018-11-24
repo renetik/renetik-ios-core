@@ -6,6 +6,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UIButton (CSExtension)
 
 - (void)stretchableBackgroundImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
@@ -24,3 +25,4 @@
 
 - (void)setBackgroundImage:(UIImage *)image;
 @end
+NS_ASSUME_NONNULL_END
