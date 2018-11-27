@@ -4,11 +4,3 @@
 //
 
 #import "CSCocoaLumberjack.h"
-
-//
-//@implementation CSCocoaLumberjack
-//@end
-
-void info(NSObject *object) {
-    DDLogInfo(@"%@", object);
-}

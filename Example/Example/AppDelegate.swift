@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Renetik_iOS
+import Renetik
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        CSMenuIcon.image()  //Calling Renetik IOS function to test it's here
         info("test" as NSString)
-
         return true
     }
 

@@ -2,7 +2,7 @@
 //  Created by Rene Dohan on 5/9/12.
 //
 
-@import CS_IOS;
+@import Renetik-iOS;
 @import Quick;
 @import Nimble;
 @import XCTest;

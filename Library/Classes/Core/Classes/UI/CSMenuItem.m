@@ -39,11 +39,6 @@
     return self;
 }
 
-- (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick {
-    self.action = onClick;
-    return self;
-}
-
 - (void)hide {
     self.visible = NO;
 }

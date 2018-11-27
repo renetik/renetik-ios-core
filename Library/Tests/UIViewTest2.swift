@@ -3,7 +3,7 @@
 //import Quick
 //import Nimble
 //import XCTest
-//import CS_IOS
+//import Renetik-iOS
 //
 //class UIViewTest: XCTestCase {
 //    func testRight() {
