@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import Renetik
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        CSMessage().title("Some message test").show(self)
     }
-
 
 }
 

@@ -33,7 +33,7 @@
 		A7592F6821AC7DAA00A84BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7592F6A21AC7DAA00A84BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A78F772221AC5C0700907BB8 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C81A2941B57F66204F481D1F /* Renetik-iOS.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.podspec; name = "Renetik-iOS.podspec"; path = "../Renetik-iOS.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C81A2941B57F66204F481D1F /* Renetik.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Renetik.podspec; path = ../Renetik.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D4F186C325F89932CF708A85 /* Pods_Example_for_Renetik_IOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_for_Renetik_IOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3BA55CA4696FC70BD74A081 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +85,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				C81A2941B57F66204F481D1F /* Renetik-iOS.podspec */,
+				C81A2941B57F66204F481D1F /* Renetik.podspec */,
 				E3BA55CA4696FC70BD74A081 /* README.md */,
 				628D4D0878077106FFC172A0 /* LICENSE */,
 			);
@@ -231,7 +231,7 @@
 				"${BUILT_PRODUCTS_DIR}/PPTopMostController/PPTopMostController.framework",
 				"${BUILT_PRODUCTS_DIR}/RMessage/RMessage.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/Renetik-iOS/Renetik_iOS.framework",
+				"${BUILT_PRODUCTS_DIR}/Renetik/Renetik.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
 			);
@@ -251,7 +251,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PPTopMostController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMessage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Renetik_iOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Renetik.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
 			);

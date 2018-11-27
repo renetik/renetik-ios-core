@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'Renetik-iOS'
+  s.name             = 'Renetik'
   s.version          = '0.7.0'
   s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure'
 
@@ -42,20 +42,20 @@ created out of passion to code my way and to improve readability of my codebase.
 
   s.subspec 'SBJson' do |ss|
       ss.source_files = 'Library/Classes/SBJson/**/*'
-      ss.dependency 'Renetik-iOS/Core'
+      ss.dependency 'Renetik/Core'
       ss.dependency 'SBJson', '~> 3.1.1'
   end
   
    s.subspec 'CocoaLumberjack' do |ss|
      ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'CocoaLumberjack', '~> 3.4'
    end
 
    s.subspec 'TableController' do |ss|
      ss.source_files = 'Library/Classes/TableController/*'
-     ss.dependency 'Renetik-iOS/Core'
-     ss.dependency 'Renetik-iOS/RefreshControl'
+     ss.dependency 'Renetik/Core'
+     ss.dependency 'Renetik/RefreshControl'
      ss.dependency 'DZNEmptyDataSet','~> 1.8'
      ss.dependency 'ChameleonFramework', '~> 2.1'
      ss.resources = 'Library/Classes/TableController/TableController.bundle'
@@ -63,52 +63,52 @@ created out of passion to code my way and to improve readability of my codebase.
 
    s.subspec 'CollectionController' do |ss|
      ss.source_files = 'Library/Classes/CollectionController/**/*'
-     ss.dependency 'Renetik-iOS/Core'
-     ss.dependency 'Renetik-iOS/RefreshControl'
+     ss.dependency 'Renetik/Core'
+     ss.dependency 'Renetik/RefreshControl'
      ss.dependency 'DZNEmptyDataSet','~> 1.8'
    end
 
    s.subspec 'RefreshControl' do |ss|
      ss.source_files = 'Library/Classes/RefreshControl/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'ChameleonFramework', '~> 2.1'
      ss.dependency 'MJRefresh', '~> 3.1'
    end
 
    s.subspec 'Pager' do |ss|
      ss.source_files = 'Library/Classes/Pager/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'MZAppearance', '~> 1.1'
      ss.dependency 'ChameleonFramework', '~> 2.1'
    end
 
    s.subspec 'AFNetworking' do |ss|
      ss.source_files = 'Library/Classes/AFNetworking/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'AFNetworking', '~> 3.0'
    end
 
    s.subspec 'Reachability' do |ss|
      ss.source_files = 'Library/Classes/Reachability/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'Reachability', '~> 3.0'
    end
 
    s.subspec 'SDWebImage' do |ss|
      ss.source_files = 'Library/Classes/SDWebImage/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'SDWebImage', '~> 5.0.0-beta'
    end
 
    s.subspec 'CSMessage' do |ss|
      ss.source_files = 'Library/Classes/CSMessage/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'RMessage', '~> 2.2'
    end
 
    s.subspec 'XLPagerTabStrip' do |ss|
      ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
-     ss.dependency 'Renetik-iOS/Core'
+     ss.dependency 'Renetik/Core'
      ss.dependency 'XLPagerTabStrip', '~> 3.0'
    end
 
@@ -116,7 +116,7 @@ created out of passion to code my way and to improve readability of my codebase.
   #s.module_map = 'module.modulemap'
   
   # s.resource_bundles = {
-  #   'Renetik-iOS' => ['Library/Assets/*.png']
+  #   'Renetik' => ['Library/Assets/*.png']
   # }
 
   s.test_spec 'Tests' do |ts|

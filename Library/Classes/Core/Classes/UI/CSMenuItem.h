@@ -7,6 +7,7 @@
 
 @class CSMainController;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CSMenuItem : NSObject
 
 @property(nonatomic, copy) NSString *title;
@@ -39,8 +40,6 @@
 
 - (instancetype)onClick:(void (^)(CSMenuItem *))onClick;
 
-- (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick;
-
 - (void)hide;
 
 - (void)show;
@@ -57,3 +56,4 @@
 
 - (instancetype)note:(NSString *)string;
 @end
+NS_ASSUME_NONNULL_END

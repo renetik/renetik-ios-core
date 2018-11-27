@@ -2,8 +2,6 @@
 // Created by Rene Dohan on 24/07/18.
 //
 
-#import "Renetik-iOS-umbrella.h"
-
 @import RMessage;
 
 @interface CSMessage : NSObject

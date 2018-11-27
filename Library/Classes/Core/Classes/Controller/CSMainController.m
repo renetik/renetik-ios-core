@@ -215,8 +215,12 @@
     return [self.menuHeader item:title image:image];
 }
 
+- (CSMenuItem *)menuItemImage:(UIImage *)image {
+    return [self menuItem:@"" image:image];
+}
+
 - (CSMenuItem *)menuItem:(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick {
-    return [[[self.menuHeader item:title image:image] note:note] setOnClick:onClick];
+    return [[[self.menuHeader item:title image:image] note:note] onClick:onClick];
 }
 
 - (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
