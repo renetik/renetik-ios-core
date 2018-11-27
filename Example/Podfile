@@ -1,17 +1,19 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, "9.0"
+platform :ios, "10.0"
 inhibit_all_warnings!
 use_frameworks!
 
-target 'CS-IOS_Example' do
-  pod 'CS-IOS/CocoaLumberjack', :path => '../'
-  pod 'CS-IOS/CollectionController', :path => '../'
-  pod 'CS-IOS/TableController', :path => '../'
-  pod 'CS-IOS/RefreshControl', :path => '../'
-  pod 'CS-IOS/Pager', :path => '../'
-  pod 'CS-IOS/AFNetworking', :path => '../'
-  pod 'CS-IOS/Reachability', :path => '../'
-  pod 'CS-IOS/SDWebImage', :path => '../'
-  pod 'CS-IOS/RMessage', :path => '../'
-  pod 'CS-IOS/XLPagerTabStrip', :path => '../'
+target 'Example' do
+  pod 'Renetik-iOS/CocoaLumberjack', :path => '../'
+  pod 'Renetik-iOS/CollectionController', :path => '../'
+  pod 'Renetik-iOS/TableController', :path => '../'
+  pod 'Renetik-iOS/RefreshControl', :path => '../'
+  pod 'Renetik-iOS/Pager', :path => '../'
+  pod 'Renetik-iOS/AFNetworking', :path => '../'
+  pod 'Renetik-iOS/Reachability', :path => '../'
+  pod 'Renetik-iOS/SDWebImage', :path => '../'
+  pod 'Renetik-iOS/CSMessage', :path => '../'
+  pod 'Renetik-iOS/XLPagerTabStrip', :path => '../'
+  pod 'XLPagerTabStrip', :git => 'https://github.com/xmartlabs/XLPagerTabStrip', :branch => 'obj-c'
+  pod 'Renetik-iOS', :testspecs => ['Tests'],:path => '../'
 end

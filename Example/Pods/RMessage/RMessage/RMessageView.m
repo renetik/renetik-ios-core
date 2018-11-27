@@ -27,7 +27,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleVerticalSpacingConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewTrailingConstraint;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewTopConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *titleSubtitleContainerViewLayoutGuideConstraint;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleLabelLeadingConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleLabelTrailingConstraint;
@@ -40,7 +40,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, strong) UIImage *iconImage;
 
 /** Contains the appropriate design dictionary for the specified message view type */
-@property (nonatomic, strong) NSDictionary *messageViewDesignDictionary;
+@property (nonatomic, strong) NSDictionary *designDictionary;
 
 /** The displayed title of this message */
 @property (nonatomic, strong) NSString *title;
@@ -74,6 +74,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, strong) NSLayoutConstraint *topToVCFinalConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *topToVCStartingConstraint;
 
+@property (nonatomic, assign) CGFloat viewCornerRadius;
 @property (nonatomic, assign) CGFloat iconRelativeCornerRadius;
 @property (nonatomic, assign) RMessageType messageType;
 @property (nonatomic, copy) NSString *customTypeName;
@@ -84,6 +85,15 @@ static NSMutableDictionary *globalDesignDictionary;
 /** The existence of this property is strictly to handle a UIAppearance bug where methods are
  called multiple times when they need not be. See: http://www.openradar.me/28827675 */
 @property (nonatomic, assign) BOOL labelsHaveBeenSizedToFit;
+
+@property (nonatomic, assign) BOOL disableSpringAnimationPadding;
+
+/* The amount of vertical padding / height to add to RMessage's height so as to perform a spring animation without
+   visually showing an empty gap due to the spring animation overbounce. This value changes dynamically due to
+   iOS changing the overbounce dynamically according to view size. */
+@property (nonatomic, assign) CGFloat springAnimationPadding;
+
+@property (nonatomic, assign) BOOL springAnimationPaddingCalculated;
 
 @end
 
@@ -128,11 +138,6 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 }
 
-+ (BOOL)isNavigationBarHiddenForNavigationController:(UINavigationController *)navController
-{
-  return (navController.navigationBarHidden || navController.navigationBar.isHidden);
-}
-
 + (UIViewController *)defaultViewController
 {
   UIViewController *viewController = [UIViewController topMostController];
@@ -140,30 +145,6 @@ static NSMutableDictionary *globalDesignDictionary;
     viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
   }
   return viewController;
-}
-
-/**
- Method which determines if viewController edges extend under top bars
- (navigation bars for example). There are various scenarios and even iOS bugs in which view
- controllers that ask to present under top bars don't truly do but this method hopes to properly
- catch all these bugs and scenarios and let its caller know.
- @return YES if viewController
- */
-+ (BOOL)viewControllerEdgesExtendUnderTopBars:(UIViewController *)viewController
-{
-  if (viewController.edgesForExtendedLayout != UIRectEdgeTop &&
-      viewController.edgesForExtendedLayout != UIRectEdgeAll) {
-    return NO;
-  }
-
-  /* When a table view controller asks to extend under top bars, if the navigation bar is
-   translucent iOS will not extend the edges of the table view controller under the top bars. */
-  if ([viewController isKindOfClass:[UITableViewController class]] &&
-      !viewController.navigationController.navigationBar.translucent) {
-    return NO;
-  }
-
-  return YES;
 }
 
 + (UIColor *)colorForString:(NSString *)string
@@ -189,14 +170,18 @@ static NSMutableDictionary *globalDesignDictionary;
 + (UIImage *)bundledImageNamed:(NSString *)name
 {
   NSString *imagePath = [[NSBundle bundleForClass:[self class]] pathForResource:name ofType:nil];
-  return [[UIImage alloc] initWithContentsOfFile:imagePath];
+  UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+  if (!image) {
+    image = [UIImage imageNamed:name];
+  }
+  return image;
 }
 
 + (void)activateConstraints:(NSArray *)constraints inSuperview:(UIView *)superview
 {
   if (!constraints || !superview) return;
   if (@available(iOS 8.0, *)) {
-    for (NSLayoutConstraint *constraint in constraints) constraint.active = YES;
+    [NSLayoutConstraint activateConstraints:constraints];
   } else {
     [superview addConstraints:constraints];
   }
@@ -206,7 +191,7 @@ static NSMutableDictionary *globalDesignDictionary;
 {
   if (!constraints || !superview) return;
   if (@available(iOS 8.0, *)) {
-    for (NSLayoutConstraint *constraint in constraints) constraint.active = NO;
+    [NSLayoutConstraint deactivateConstraints:constraints];
   } else {
     [superview removeConstraints:constraints];
   }
@@ -303,12 +288,12 @@ static NSMutableDictionary *globalDesignDictionary;
     _dismissCompletionCallback = dismissCompletionCallback;
     _titleSubtitleLabelsSizeToFit = NO;
     _dismissingEnabled = dismissingEnabled;
+    _springAnimationPadding = 5.f;
 
     NSError *designError = [self setupDesignDictionariesWithMessageType:_messageType customTypeName:customTypeName];
     if (designError) return nil;
 
     [self setupDesign];
-    [self setupLayout];
     [self setupGestureRecognizers];
   }
   return self;
@@ -447,8 +432,8 @@ static NSMutableDictionary *globalDesignDictionary;
     break;
   }
 
-  _messageViewDesignDictionary = globalDesignDictionary[messageTypeDesignString];
-  if (!_messageViewDesignDictionary) {
+  _designDictionary = globalDesignDictionary[messageTypeDesignString];
+  if (!_designDictionary) {
     return
       [NSError errorWithDomain:[NSBundle bundleForClass:[self class]].bundleIdentifier
                           code:0
@@ -463,6 +448,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupDesign
 {
+  [self setupView];
   [self setupDesignDefaults];
   [self setupImagesAndBackground];
   [self setupLabels];
@@ -474,13 +460,17 @@ static NSMutableDictionary *globalDesignDictionary;
   self.translatesAutoresizingMaskIntoConstraints = NO;
   if (!_title || !_subtitle) self.titleSubtitleVerticalSpacingConstraint.constant = 0;
 
+  [self calculateSpringAnimationPadding];
+  [self setupTitleSubtitleContainerViewLayoutGuideConstraint];
+  [self setupFinalAnimationConstraints];
+
   // Add RMessage to superview and prepare the ending constraints
-  [self layoutMessageForPresentation];
+  if (!self.superview) [self.viewController.view addSubview:self];
 
   // Prepare the starting y position constraints
   [self setupStartingAnimationConstraints];
-  [self setupFinalAnimationConstraints];
 
+  NSAssert(self.superview != nil, @"instance must have a superview by this point");
   NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                        attribute:NSLayoutAttributeCenterX
                                                                        relatedBy:NSLayoutRelationEqual
@@ -501,17 +491,39 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                            toItem:self.superview
                                                                         attribute:NSLayoutAttributeTrailing
                                                                        multiplier:1.f
-                                                                         constant:0.f];
+                                                                        constant:0.f];
   [[self class]
-    activateConstraints:@[centerXConstraint, leadingConstraint, trailingConstraint, self.topToVCLayoutConstraint]
+    activateConstraints:@[centerXConstraint, leadingConstraint, trailingConstraint,
+                          self.titleSubtitleContainerViewLayoutGuideConstraint, self.topToVCLayoutConstraint]
             inSuperview:self.superview];
   if (self.shouldBlurBackground) {
-    if (@available(iOS 8.0, *)) {
-      [self setupBlurBackground];
-    }
+    [self setupBlurBackground];
   }
 }
 
+- (void)setupTitleSubtitleContainerViewLayoutGuideConstraint {
+  // Install a constraint that guarantees the title subtitle container view is properly spaced from the top layout guide
+  // when animating from top or the bottom layout guide when animating from bottom
+  if (self.messagePosition != RMessagePositionBottom) {
+    self.titleSubtitleContainerViewLayoutGuideConstraint = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
+                                                                                        attribute:NSLayoutAttributeTop
+                                                                                        relatedBy:NSLayoutRelationEqual
+                                                                                           toItem:self.viewController.topLayoutGuide
+                                                                                        attribute:NSLayoutAttributeBottom
+                                                                                       multiplier:1.f
+                                                                                         constant:10.f];
+
+  } else {
+    self.titleSubtitleContainerViewLayoutGuideConstraint = [NSLayoutConstraint constraintWithItem:self.titleSubtitleContainerView
+                                                                                        attribute:NSLayoutAttributeBottom
+                                                                                        relatedBy:NSLayoutRelationEqual
+                                                                                           toItem:self.viewController.bottomLayoutGuide
+                                                                                        attribute:NSLayoutAttributeTop
+                                                                                       multiplier:1.f
+                                                                                         constant:-10.f];
+  }
+  self.titleSubtitleContainerViewLayoutGuideConstraint.priority = 749;
+}
 - (void)setupBackgroundImageViewWithImage:(UIImage *)image
 {
   _backgroundImageView = [[UIImageView alloc] initWithImage:image];
@@ -536,33 +548,35 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupBlurBackground
 {
-  UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-  UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-  blurView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self insertSubview:blurView atIndex:0];
-  NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[blurBackgroundView]-0-|"
-                                                                  options:0
-                                                                  metrics:nil
-                                                                    views:@{
-                                                                      @"blurBackgroundView": blurView
-                                                                    }];
-  NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[blurBackgroundView]-0-|"
-                                                                  options:0
-                                                                  metrics:nil
-                                                                    views:@{
-                                                                      @"blurBackgroundView": blurView
-                                                                    }];
-  [[self class] activateConstraints:hConstraints inSuperview:self];
-  [[self class] activateConstraints:vConstraints inSuperview:self];
+  if (@available(iOS 8.0, *)) {
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self insertSubview:blurView atIndex:0];
+    NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[blurBackgroundView]-0-|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{
+                                                                              @"blurBackgroundView": blurView
+                                                                              }];
+    NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[blurBackgroundView]-0-|"
+                                                                    options:0
+                                                                    metrics:nil
+                                                                      views:@{
+                                                                              @"blurBackgroundView": blurView
+                                                                              }];
+    [[self class] activateConstraints:hConstraints inSuperview:self];
+    [[self class] activateConstraints:vConstraints inSuperview:self];
+  }
 }
 
-- (void)setupTitleSubtitleLabelsLayoutWidth
+- (void)setupTitleSubtitleLabelsLayoutWidthWithSuperview:(nonnull UIView *)superview
 {
   CGFloat accessoryViewsAndPadding = 0.f;
   if (_iconImage) accessoryViewsAndPadding = _iconImage.size.width + 15.f;
   if (_button) accessoryViewsAndPadding += _button.bounds.size.width + 15.f;
 
-  CGFloat preferredLayoutWidth = self.superview.bounds.size.width - accessoryViewsAndPadding - 30.f;
+  CGFloat preferredLayoutWidth = superview.bounds.size.width - accessoryViewsAndPadding - 30.f;
 
   if (_titleSubtitleLabelsSizeToFit) {
     // Get the biggest occupied width of the two strings, set the max preferred layout width to that of the longest label
@@ -586,7 +600,6 @@ static NSMutableDictionary *globalDesignDictionary;
   if (_button.superview) [_button removeFromSuperview];
   _button = button;
   [self setupButtonConstraints];
-  [self setupFinalAnimationConstraints];
 }
 
 - (void)executeMessageViewButtonCallBack
@@ -611,7 +624,12 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self.iconRelativeCornerRadius > 0) {
     self.iconImageView.layer.cornerRadius = self.iconRelativeCornerRadius * self.iconImageView.bounds.size.width;
   }
-  [self setupTitleSubtitleLabelsLayoutWidth];
+
+  if (self.viewCornerRadius >= 0) {
+    self.layer.cornerRadius = self.viewCornerRadius;
+  }
+
+  [self setupTitleSubtitleLabelsLayoutWidthWithSuperview: self.superview];
 }
 
 - (void)setupDesignDefaults
@@ -642,39 +660,46 @@ static NSMutableDictionary *globalDesignDictionary;
   _iconImageView.clipsToBounds = NO;
 }
 
+- (void)setupView
+{
+  if (_designDictionary[@"cornerRadius"] && [_designDictionary[@"cornerRadius"] isKindOfClass:[NSNumber class]]) {
+    self.viewCornerRadius = [_designDictionary[@"cornerRadius"] floatValue];
+    if (self.viewCornerRadius > 0) {
+      self.clipsToBounds = YES;
+    }
+  }
+}
+
 - (void)setupImagesAndBackground
 {
   UIColor *backgroundColor;
-  if (_messageViewDesignDictionary[@"backgroundColor"] && _messageViewDesignDictionary[@"backgroundColorAlpha"]) {
-    backgroundColor = [[self class] colorForString:_messageViewDesignDictionary[@"backgroundColor"]
-                                     alpha:[_messageViewDesignDictionary[@"backgroundColorAlpha"] floatValue]];
-  } else if (_messageViewDesignDictionary[@"backgroundColor"]) {
-    backgroundColor = [[self class] colorForString:_messageViewDesignDictionary[@"backgroundColor"]];
+  if (_designDictionary[@"backgroundColor"] && _designDictionary[@"backgroundColorAlpha"]) {
+    backgroundColor = [[self class] colorForString:_designDictionary[@"backgroundColor"]
+                                     alpha:[_designDictionary[@"backgroundColorAlpha"] floatValue]];
+  } else if (_designDictionary[@"backgroundColor"]) {
+    backgroundColor = [[self class] colorForString:_designDictionary[@"backgroundColor"]];
   }
 
   if (backgroundColor) self.backgroundColor = backgroundColor;
-  if (_messageViewDesignDictionary[@"opacity"]) {
-    self.messageOpacity = [_messageViewDesignDictionary[@"opacity"] floatValue];
+  if (_designDictionary[@"opacity"]) {
+    self.messageOpacity = [_designDictionary[@"opacity"] floatValue];
   }
 
-  if ([_messageViewDesignDictionary[@"blurBackground"] floatValue] == 1) {
+  if ([_designDictionary[@"blurBackground"] floatValue] == 1) {
     _shouldBlurBackground = YES;
     /* As per apple docs when using UIVisualEffectView and blurring the superview of the blur view
     must have an opacity of 1.f */
     self.messageOpacity = 1.f;
   }
 
-  if (!_iconImage && ([_messageViewDesignDictionary[@"iconImage"] length] > 0)) {
-    _iconImage = [[self class] bundledImageNamed:_messageViewDesignDictionary[@"iconImage"]];
-    if (!_iconImage) {
-      _iconImage = [UIImage imageNamed:_messageViewDesignDictionary[@"iconImage"]];
-    }
+  if (!_iconImage && ([_designDictionary[@"iconImage"] length] > 0)) {
+    _iconImage = [[self class] bundledImageNamed:_designDictionary[@"iconImage"]];
   }
 
   if (_iconImage) {
     _iconImageView = [[UIImageView alloc] initWithImage:_iconImage];
-    if (_messageViewDesignDictionary[@"iconImageRelativeCornerRadius"]) {
-      self.iconRelativeCornerRadius = [_messageViewDesignDictionary[@"iconImageRelativeCornerRadius"] floatValue];
+    if (_designDictionary[@"iconImageRelativeCornerRadius"]) {
+      self.iconRelativeCornerRadius = [_designDictionary[@"iconImageRelativeCornerRadius"] floatValue];
       _iconImageView.clipsToBounds = YES;
     } else {
       self.iconRelativeCornerRadius = 0.f;
@@ -684,7 +709,7 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 
   UIImage *backgroundImage =
-    [[self class] bundledImageNamed:_messageViewDesignDictionary[@"backgroundImage"]];
+    [[self class] bundledImageNamed:_designDictionary[@"backgroundImage"]];
   if (backgroundImage) {
     backgroundImage = [backgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)
                                                       resizingMode:UIImageResizingModeStretch];
@@ -701,24 +726,24 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupTitleLabel
 {
-  CGFloat titleFontSize = [_messageViewDesignDictionary[@"titleFontSize"] floatValue];
-  NSString *titleFontName = _messageViewDesignDictionary[@"titleFontName"];
+  CGFloat titleFontSize = [_designDictionary[@"titleFontSize"] floatValue];
+  NSString *titleFontName = _designDictionary[@"titleFontName"];
   if (titleFontName) {
     _titleLabel.font = [UIFont fontWithName:titleFontName size:titleFontSize];
   } else if (titleFontSize) {
     _titleLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
   }
 
-  self.titleLabel.textAlignment = [self textAlignmentForString:_messageViewDesignDictionary[@"titleTextAlignment"]];
+  self.titleLabel.textAlignment = [self textAlignmentForString:_designDictionary[@"titleTextAlignment"]];
 
-  UIColor *titleTextColor = [[self class] colorForString:_messageViewDesignDictionary[@"titleTextColor"]];
+  UIColor *titleTextColor = [[self class] colorForString:_designDictionary[@"titleTextColor"]];
   _titleLabel.text = _title ? _title : @"";
   if (titleTextColor) _titleLabel.textColor = titleTextColor;
 
-  UIColor *titleShadowColor = [[self class] colorForString:_messageViewDesignDictionary[@"titleShadowColor"]];
+  UIColor *titleShadowColor = [[self class] colorForString:_designDictionary[@"titleShadowColor"]];
   if (titleShadowColor) _titleLabel.shadowColor = titleShadowColor;
-  id titleShadowOffsetX = _messageViewDesignDictionary[@"titleShadowOffsetX"];
-  id titleShadowOffsetY = _messageViewDesignDictionary[@"titleShadowOffsetY"];
+  id titleShadowOffsetX = _designDictionary[@"titleShadowOffsetX"];
+  id titleShadowOffsetY = _designDictionary[@"titleShadowOffsetY"];
   if (titleShadowOffsetX && titleShadowOffsetY) {
     _titleLabel.shadowOffset = CGSizeMake([titleShadowOffsetX floatValue], [titleShadowOffsetY floatValue]);
   }
@@ -726,15 +751,15 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupSubTitleLabel
 {
-  id subTitleFontSizeValue = _messageViewDesignDictionary[@"subTitleFontSize"];
+  id subTitleFontSizeValue = _designDictionary[@"subTitleFontSize"];
   if (!subTitleFontSizeValue) {
-    subTitleFontSizeValue = _messageViewDesignDictionary[@"subtitleFontSize"];
+    subTitleFontSizeValue = _designDictionary[@"subtitleFontSize"];
   }
 
   CGFloat subTitleFontSize = [subTitleFontSizeValue floatValue];
-  NSString *subTitleFontName = _messageViewDesignDictionary[@"subTitleFontName"];
+  NSString *subTitleFontName = _designDictionary[@"subTitleFontName"];
   if (!subTitleFontName) {
-    subTitleFontName = _messageViewDesignDictionary[@"subtitleFontName"];
+    subTitleFontName = _designDictionary[@"subtitleFontName"];
   }
 
   if (subTitleFontName) {
@@ -744,11 +769,11 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 
   self.subtitleLabel.textAlignment =
-    [self textAlignmentForString:_messageViewDesignDictionary[@"subtitleTextAlignment"]];
+    [self textAlignmentForString:_designDictionary[@"subtitleTextAlignment"]];
 
-  UIColor *subTitleTextColor = [[self class] colorForString:_messageViewDesignDictionary[@"subTitleTextColor"]];
+  UIColor *subTitleTextColor = [[self class] colorForString:_designDictionary[@"subTitleTextColor"]];
   if (!subTitleTextColor) {
-    subTitleTextColor = [[self class] colorForString:_messageViewDesignDictionary[@"subtitleTextColor"]];
+    subTitleTextColor = [[self class] colorForString:_designDictionary[@"subtitleTextColor"]];
   }
   if (!subTitleTextColor) {
     subTitleTextColor = _titleLabel.textColor;
@@ -757,19 +782,19 @@ static NSMutableDictionary *globalDesignDictionary;
   _subtitleLabel.text = _subtitle ? _subtitle : @"";
   if (subTitleTextColor) _subtitleLabel.textColor = subTitleTextColor;
 
-  UIColor *subTitleShadowColor = [[self class] colorForString:_messageViewDesignDictionary[@"subTitleShadowColor"]];
+  UIColor *subTitleShadowColor = [[self class] colorForString:_designDictionary[@"subTitleShadowColor"]];
   if (!subTitleShadowColor) {
-    subTitleShadowColor = [[self class] colorForString:_messageViewDesignDictionary[@"subtitleShadowColor"]];
+    subTitleShadowColor = [[self class] colorForString:_designDictionary[@"subtitleShadowColor"]];
   }
 
   if (subTitleShadowColor) _subtitleLabel.shadowColor = subTitleShadowColor;
-  id subTitleShadowOffsetX = _messageViewDesignDictionary[@"subTitleShadowOffsetX"];
-  id subTitleShadowOffsetY = _messageViewDesignDictionary[@"subTitleShadowOffsetY"];
+  id subTitleShadowOffsetX = _designDictionary[@"subTitleShadowOffsetX"];
+  id subTitleShadowOffsetY = _designDictionary[@"subTitleShadowOffsetY"];
   if (!subTitleShadowOffsetX) {
-    subTitleShadowOffsetX = _messageViewDesignDictionary[@"subtitleShadowOffsetX"];
+    subTitleShadowOffsetX = _designDictionary[@"subtitleShadowOffsetX"];
   }
   if (!subTitleShadowOffsetY) {
-    subTitleShadowOffsetY = _messageViewDesignDictionary[@"subtitleShadowOffsetY"];
+    subTitleShadowOffsetY = _designDictionary[@"subtitleShadowOffsetY"];
   }
   if (subTitleShadowOffsetX && subTitleShadowOffsetY) {
     _subtitleLabel.shadowOffset = CGSizeMake([subTitleShadowOffsetX floatValue], [subTitleShadowOffsetY floatValue]);
@@ -823,15 +848,15 @@ static NSMutableDictionary *globalDesignDictionary;
 - (void)setupButton
 {
   if (!_button) return;
-  CGFloat buttonTitleFontSize = [_messageViewDesignDictionary[@"buttonTitleFontSize"] floatValue];
-  NSString *buttonTitleFontName = _messageViewDesignDictionary[@"buttonTitleFontName"];
+  CGFloat buttonTitleFontSize = [_designDictionary[@"buttonTitleFontSize"] floatValue];
+  NSString *buttonTitleFontName = _designDictionary[@"buttonTitleFontName"];
   if (buttonTitleFontName) {
     _button.titleLabel.font = [UIFont fontWithName:buttonTitleFontName size:buttonTitleFontSize];
   } else if (buttonTitleFontSize) {
     _button.titleLabel.font = [UIFont boldSystemFontOfSize:buttonTitleFontSize];
   }
 
-  UIImage *buttonResizeableBackgroundImage = [[self class] bundledImageNamed:_messageViewDesignDictionary[@"buttonResizeableBackgroundImage"]];
+  UIImage *buttonResizeableBackgroundImage = [[self class] bundledImageNamed:_designDictionary[@"buttonResizeableBackgroundImage"]];
   if (!buttonResizeableBackgroundImage) {
     buttonResizeableBackgroundImage = [[self class] bundledImageNamed:@"NotificationButtonBackground.png"];
   }
@@ -842,22 +867,22 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 
   [_button setTitle:_buttonTitle forState:UIControlStateNormal];
-  UIColor *buttonTitleTextColor = [[self class] colorForString:_messageViewDesignDictionary[@"buttonTitleTextColor"]];
+  UIColor *buttonTitleTextColor = [[self class] colorForString:_designDictionary[@"buttonTitleTextColor"]];
   if (buttonTitleTextColor) {
     [_button setTitleColor:buttonTitleTextColor forState:UIControlStateNormal];
   }
 
-  UIColor *buttonTitleShadowColor = [[self class] colorForString:_messageViewDesignDictionary[@"buttonTitleShadowColor"]];
+  UIColor *buttonTitleShadowColor = [[self class] colorForString:_designDictionary[@"buttonTitleShadowColor"]];
   if (buttonTitleShadowColor) {
     [_button setTitleShadowColor:buttonTitleShadowColor forState:UIControlStateNormal];
   }
 
   CGSize buttonTitleShadowOffset = CGSizeZero;
-  if (_messageViewDesignDictionary[@"buttonTitleShadowOffsetX"]) {
-    buttonTitleShadowOffset.width = [_messageViewDesignDictionary[@"buttonTitleShadowOffsetX"] floatValue];
+  if (_designDictionary[@"buttonTitleShadowOffsetX"]) {
+    buttonTitleShadowOffset.width = [_designDictionary[@"buttonTitleShadowOffsetX"] floatValue];
   }
-  if (_messageViewDesignDictionary[@"buttonTitleShadowOffsetY"]) {
-    buttonTitleShadowOffset.height = [_messageViewDesignDictionary[@"buttonTitleShadowOffsetY"] floatValue];
+  if (_designDictionary[@"buttonTitleShadowOffsetY"]) {
+    buttonTitleShadowOffset.height = [_designDictionary[@"buttonTitleShadowOffsetY"] floatValue];
   }
   if (buttonTitleShadowOffset.width != 0 || buttonTitleShadowOffset.height != 0) {
     _button.titleLabel.shadowOffset = buttonTitleShadowOffset;
@@ -920,6 +945,12 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupIconImageView
 {
+  if (_designDictionary[@"iconImageTintColor"] &&
+      [_designDictionary[@"iconImageTintColor"] isKindOfClass:[NSString class]]) {
+    self.iconImageView.tintColor = [[self class]
+                                    colorForString:_designDictionary[@"iconImageTintColor"]];
+  }
+
   self.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -944,6 +975,13 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                      attribute:NSLayoutAttributeLeading
                                                                     multiplier:1.f
                                                                       constant:-15.f];
+  NSLayoutConstraint *imgViewTop = [NSLayoutConstraint constraintWithItem:self.iconImageView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.f
+                                                                    constant:10.f];
   NSLayoutConstraint *imgViewBottom = [NSLayoutConstraint constraintWithItem:self.iconImageView
                                                                    attribute:NSLayoutAttributeBottom
                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
@@ -952,7 +990,8 @@ static NSMutableDictionary *globalDesignDictionary;
                                                                   multiplier:1.f
                                                                     constant:-10.f];
   [self addSubview:self.iconImageView];
-  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewBottom] inSuperview:self];
+  [[self class] activateConstraints:@[imgViewCenterY, imgViewLeading, imgViewTrailing, imgViewTop, imgViewBottom]
+                        inSuperview:self];
 }
 
 - (void)setupGestureRecognizers
@@ -1008,37 +1047,34 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 }
 
-- (void)layoutMessageForPresentation
+- (void)calculateSpringAnimationPadding
 {
-  _titleSubtitleContainerViewTopConstraint.constant = 10.f;
-  CGFloat statusBarHeight = statusBarHeight = [self.viewController prefersStatusBarHidden] ? 0.f : ([UIApplication sharedApplication].statusBarFrame.size.height);
-
-  UINavigationController *messageNavigationController = [self rootNavigationController];
-
-  if (self.messagePosition != RMessagePositionBottom) {
-    if (messageNavigationController) {
-      BOOL messageNavigationBarHidden =
-      [[self class] isNavigationBarHiddenForNavigationController:messageNavigationController];
-
-      if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
-        // Present from below nav bar when presenting from the top and navigation bar is present
-        [messageNavigationController.view insertSubview:self belowSubview:messageNavigationController.navigationBar];
-      } else {
-        /* Navigation bar hidden or being asked to present as nav bar overlay, so present above status bar and/or
-         navigation bar */
-        self.titleSubtitleContainerViewTopConstraint.constant = 10.f + statusBarHeight;
-      }
-    } else {
-      self.titleSubtitleContainerViewTopConstraint.constant = 10.f + statusBarHeight;
-    }
+  if (_designDictionary[@"disableSpringAnimationPadding"] &&
+      [_designDictionary[@"disableSpringAnimationPadding"] isKindOfClass:[NSNumber class]]) {
+    self.disableSpringAnimationPadding = [_designDictionary[@"disableSpringAnimationPadding"] boolValue];
   }
 
-  if (!self.superview) [self.viewController.view addSubview:self];
+  if (self.disableSpringAnimationPadding) {
+    self.springAnimationPadding = 0.f;
+    self.springAnimationPaddingCalculated = YES;
+    return;
+  }
+
+  // Pass in the expected superview since we don't have one yet
+  // Allow the labels to size themselves by telling them their layout width
+  [self setupTitleSubtitleLabelsLayoutWidthWithSuperview: self.viewController.view];
+
+  // Tell the view to relayout
+  [self layoutIfNeeded];
+  // Base the spring animation padding on an estimated height considering we need the spring animation padding itself
+  // to truly calculate the height of the view.
+  self.springAnimationPadding = ceilf(self.bounds.size.height / 120) * 5;
+  self.springAnimationPaddingCalculated = YES;
 }
 
 - (void)setupStartingAnimationConstraints
 {
-  [self layoutIfNeeded];
+  NSAssert(self.superview != nil, @"instance must have a superview by this point");
   if (self.messagePosition != RMessagePositionBottom) {
     self.topToVCLayoutConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                 attribute:NSLayoutAttributeBottom
@@ -1061,44 +1097,37 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupFinalAnimationConstraints
 {
-  [self layoutIfNeeded];
+  NSAssert(self.springAnimationPaddingCalculated, @"spring animation padding must have been calculated by now!");
+  id<UILayoutSupport> layoutGuide = nil;
+  NSLayoutAttribute viewAttribute = 0;
+  NSLayoutAttribute layoutGuideAttribute = 0;
+  CGFloat springAnimationPadding = 0;
 
-  UINavigationController *messageNavigationController = [self rootNavigationController];
-
-  if (messageNavigationController) {
-    BOOL messageNavigationBarHidden =
-    [[self class] isNavigationBarHiddenForNavigationController:messageNavigationController];
-
-    if (self.messagePosition != RMessagePositionBottom) {
-      if (!messageNavigationBarHidden && self.messagePosition == RMessagePositionTop) {
-        self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:messageNavigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.f constant:0.f];
-      } else {
-        /* Navigation bar hidden or being asked to present as nav bar overlay, so present above status bar and/or
-         navigation bar */
-        self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem: self.superview attribute:NSLayoutAttributeTop multiplier:1.f constant:0.f];
-      }
-      self.topToVCFinalConstraint.constant = [self customVerticalOffset];
-    } else {
-      CGFloat offset = -[self customVerticalOffset];
-      if (!messageNavigationController.isToolbarHidden) {
-        // If tool bar present animate above toolbar
-        offset -= messageNavigationController.toolbar.bounds.size.height;
-      }
-      self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.f constant:0.f];
-      self.topToVCFinalConstraint.constant = offset;
-    }
+  if (self.messagePosition == RMessagePositionBottom) {
+    viewAttribute = NSLayoutAttributeBottom;
+    layoutGuide = self.viewController.bottomLayoutGuide;
+    layoutGuideAttribute = NSLayoutAttributeBottom;
+    springAnimationPadding = self.springAnimationPadding;
   } else {
-    if (self.messagePosition == RMessagePositionBottom) {
-      self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.f constant:0.f];
-    } else {
-      self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.f constant:0.f];
-    }
-    self.topToVCFinalConstraint.constant = - [self customVerticalOffset];
+    viewAttribute = NSLayoutAttributeTop;
+    layoutGuide = self.viewController.topLayoutGuide;
+    layoutGuideAttribute = NSLayoutAttributeTop;
+    springAnimationPadding = -self.springAnimationPadding;
   }
+
+  self.topToVCFinalConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                             attribute:viewAttribute
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:layoutGuide
+                                                             attribute:layoutGuideAttribute
+                                                            multiplier:1.f
+                                                              constant:springAnimationPadding];
+  self.topToVCFinalConstraint.constant += [self customVerticalOffset];
 }
 
 - (void)animateMessage
 {
+  [self setupLayout];
   [self.superview layoutIfNeeded];
   dispatch_async(dispatch_get_main_queue(), ^{
     if (!self.shouldBlurBackground) self.alpha = 0.f;
@@ -1164,16 +1193,6 @@ static NSMutableDictionary *globalDesignDictionary;
 
 #pragma mark - Misc methods
 
-- (UINavigationController *)rootNavigationController
-{
-  if ([self.viewController isKindOfClass:[UINavigationController class]]) {
-    return (UINavigationController *)self.viewController;
-  } else if ([self.viewController.parentViewController isKindOfClass:[UINavigationController class]]) {
-    return (UINavigationController *)self.viewController.parentViewController;
-  }
-  return nil;
-}
-
 - (void)buttonTapped
 {
   if (self.buttonCallback) self.buttonCallback();
@@ -1181,11 +1200,13 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)interfaceDidRotate
 {
-  if (self.isPresenting) [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:self];
-
-  // On completion of UI rotation recalculate positioning
-  [self layoutMessageForPresentation];
-  [self setupFinalAnimationConstraints];
+  if (self.isPresenting && self.dismissingEnabled) {
+    // Cancel the previous dismissal restart dismissal clock
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:self];
+      [self performSelector:@selector(dismiss) withObject:self afterDelay:self.duration];
+    });
+  }
 }
 
 /**

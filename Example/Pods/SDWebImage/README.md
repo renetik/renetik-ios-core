@@ -7,8 +7,6 @@
 [![Pod Version](http://img.shields.io/cocoapods/v/SDWebImage.svg?style=flat)](http://cocoadocs.org/docsets/SDWebImage/)
 [![Pod Platform](http://img.shields.io/cocoapods/p/SDWebImage.svg?style=flat)](http://cocoadocs.org/docsets/SDWebImage/)
 [![Pod License](http://img.shields.io/cocoapods/l/SDWebImage.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Dependency Status](https://www.versioneye.com/objective-c/sdwebimage/badge.svg?style=flat)](https://www.versioneye.com/objective-c/sdwebimage)
-[![Reference Status](https://www.versioneye.com/objective-c/sdwebimage/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/sdwebimage/references)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/rs/SDWebImage)
 [![codecov](https://codecov.io/gh/rs/SDWebImage/branch/master/graph/badge.svg)](https://codecov.io/gh/rs/SDWebImage)
 
@@ -20,6 +18,11 @@ This library provides an async image downloader with cache support. For convenie
 - [x] An asynchronous image downloader
 - [x] An asynchronous memory + disk image caching with automatic cache expiration handling
 - [x] A background image decompression
+- [x] Improved [support for animated images](https://github.com/rs/SDWebImage/wiki/Advanced-Usage#animated-image-50)
+- [x] [Customizable and composable transformations](https://github.com/rs/SDWebImage/wiki/Advanced-Usage#transformer-50) can be applied to the images right after download
+- [x] [Custom cache control](https://github.com/rs/SDWebImage/wiki/Advanced-Usage#custom-cache-50)
+- [x] Expand the image loading capabilites by adding your [own custom loaders](https://github.com/rs/SDWebImage/wiki/Advanced-Usage#custom-loader-50) or using prebuilt loaders like [FLAnimatedImage plugin](https://github.com/SDWebImage/SDWebImageFLPlugin) or [Photos Library plugin](https://github.com/SDWebImage/SDWebImagePhotosPlugin)
+- [x] [Loading indicators](https://github.com/rs/SDWebImage/wiki/How-to-use#use-view-indicator-50)
 - [x] A guarantee that the same URL won't be downloaded several times
 - [x] A guarantee that bogus URLs won't be retried again and again
 - [x] A guarantee that main thread will never be blocked
@@ -33,26 +36,30 @@ This library provides an async image downloader with cache support. For convenie
 
 ## Requirements
 
-- iOS 7.0 or later
+- iOS 8.0 or later
 - tvOS 9.0 or later
 - watchOS 2.0 or later
-- OS X 10.8 or later
-- Xcode 7.3 or later
+- macOS 10.10 or later
+- Xcode 9.0 or later
 
 #### Backwards compatibility
 
-- For iOS 5 and 6, use [any 3.x version up to 3.7.6](https://github.com/rs/SDWebImage/tree/3.7.6)
+- For iOS 7, macOS 10.9 or Xcode < 8, use [any 4.x version up to 4.3.3](https://github.com/rs/SDWebImage/releases/tag/4.3.3)
+- For macOS 10.8, use [any 4.x version up to 4.3.0](https://github.com/rs/SDWebImage/releases/tag/4.3.0)
+- For iOS 5 and 6, use [any 3.x version up to 3.7.6](https://github.com/rs/SDWebImage/tag/3.7.6)
 - For iOS < 5.0, please use the last [2.0 version](https://github.com/rs/SDWebImage/tree/2.0-compat).
 
 ## Getting Started
 
 - Read this Readme doc
 - Read the [How to use section](https://github.com/rs/SDWebImage#how-to-use)
-- Read the [documentation @ CocoaDocs](http://cocoadocs.org/docsets/SDWebImage/)
-- Read [How is SDWebImage better than X?](https://github.com/rs/SDWebImage/wiki/How-is-SDWebImage-better-than-X%3F)
+- Read the [Documentation @ CocoaDocs](http://cocoadocs.org/docsets/SDWebImage/)
 - Try the example by downloading the project from Github or even easier using CocoaPods try `pod try SDWebImage`
-- Get to the [installation steps](https://github.com/rs/SDWebImage#installation)
+- Read the [Installation Guide](https://github.com/rs/SDWebImage/wiki/Installation-Guide)
+- Read the [SDWebImage 5.0 Migration Guide](Docs/SDWebImage-5.0-Migration-guide.md) to get an idea of the changes from 4.x to 5.x
 - Read the [SDWebImage 4.0 Migration Guide](Docs/SDWebImage-4.0-Migration-guide.md) to get an idea of the changes from 3.x to 4.x
+- Read the [Common Problems](https://github.com/rs/SDWebImage/wiki/Common-Problems) to find the solution for common problems 
+- Go to the [Wiki Page](https://github.com/rs/SDWebImage/wiki) for more information such as [Advanced Usage](https://github.com/rs/SDWebImage/wiki/Advanced-Usage)
 
 ## Who Uses It
 - Find out [who uses SDWebImage](https://github.com/rs/SDWebImage/wiki/Who-Uses-SDWebImage) and add your app to the list.
@@ -65,23 +72,21 @@ This library provides an async image downloader with cache support. For convenie
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
 
-## Installation
-
 ## How To Use
 
-```objective-c
-Objective-C:
+* Objective-C
 
+```objective-c
 #import <SDWebImage/UIImageView+WebCache.h>
 ...
 [imageView sd_setImageWithURL:[NSURL URLWithString:@"http://www.domain.com/path/to/image.jpg"]
              placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
 ```
 
-```swift
-Swift:
+* Swift
 
-@import SDWebImage
+```swift
+import SDWebImage
 
 imageView.sd_setImage(with: URL(string: "http://www.domain.com/path/to/image.jpg"), placeholderImage: UIImage(named: "placeholder.png"))
 ```
@@ -90,51 +95,13 @@ imageView.sd_setImage(with: URL(string: "http://www.domain.com/path/to/image.jpg
 
 ## Animated Images (GIF) support
 
-- Starting with the 4.0 version, we rely on [FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage) to take care of our animated images. 
-- To use it, simply make sure you use `FLAnimatedImageView` instead of `UIImageView`.
-- **Note**: there is a backwards compatible feature, so if you are still trying to load a GIF into a `UIImageView`, it will only show the 1st frame as a static image.
-- **Important**: FLAnimatedImage only works on the iOS platform, so for all the other platforms (OS X, tvOS, watchOS) we will fallback to the backwards compatibility feature described above 
+In 5.0, we introduced a brand new mechanism for supporting animated images. This includes animated image loading, rendering, decoding, and also supports customizations (for advanced users).
+This animated image solution is available for `iOS`/`tvOS`/`macOS`. The `SDAnimatedImage` is subclass of `UIImage/NSImage`, and `SDAnimatedImageView` is subclass of `UIImageView/NSImageView`, to make them compatible with the common frameworks APIs. See [Animated Image](https://github.com/rs/SDWebImage/wiki/Advanced-Usage#animated-image-50) for more detailed information.
 
-Common Problems
----------------
+#### FLAnimatedImage integration has its own dedicated repo
+In order to clean up things and make our core project do less things, we decided that the `FLAnimatedImage` integration does not belong here. From 5.0, this will still be available, but under a dedicated repo [SDWebImageFLPlugin](https://github.com/SDWebImage/SDWebImageFLPlugin).
 
-### Using dynamic image size with UITableViewCell
-
-UITableView determines the size of the image by the first image set for a cell. If your remote images
-don't have the same size as your placeholder image, you may experience strange anamorphic scaling issue.
-The following article gives a way to workaround this issue:
-
-[http://www.wrichards.com/blog/2011/11/sdwebimage-fixed-width-cell-images/](http://www.wrichards.com/blog/2011/11/sdwebimage-fixed-width-cell-images/)
-
-
-### Handle image refresh
-
-SDWebImage does very aggressive caching by default. It ignores all kind of caching control header returned by the HTTP server and cache the returned images with no time restriction. It implies your images URLs are static URLs pointing to images that never change. If the pointed image happen to change, some parts of the URL should change accordingly.
-
-If you don't control the image server you're using, you may not be able to change the URL when its content is updated. This is the case for Facebook avatar URLs for instance. In such case, you may use the `SDWebImageRefreshCached` flag. This will slightly degrade the performance but will respect the HTTP caching control headers:
-
-``` objective-c
-[imageView sd_setImageWithURL:[NSURL URLWithString:@"https://graph.facebook.com/olivier.poitrey/picture"]
-             placeholderImage:[UIImage imageNamed:@"avatar-placeholder.png"]
-                      options:SDWebImageRefreshCached];
-```
-
-### Add a progress indicator
-
-Add these before you call ```sd_setImageWithURL```
-
-``` objective-c
-[imageView setShowActivityIndicatorView:YES];
-[imageView setIndicatorStyle:UIActivityIndicatorViewStyleGray];
-```
-
-``` swift
-imageView.setShowActivityIndicatorView(true)
-imageView.setIndicatorStyle(.Gray)
-```
-
-Installation
-------------
+## Installation
 
 There are three ways to use SDWebImage in your project:
 - using CocoaPods
@@ -148,7 +115,7 @@ There are three ways to use SDWebImage in your project:
 #### Podfile
 ```
 platform :ios, '7.0'
-pod 'SDWebImage', '~>3.8'
+pod 'SDWebImage', '~> 4.0'
 ```
 
 If you are using Swift, be sure to add `use_frameworks!` and set your target to iOS 8+:
@@ -199,6 +166,9 @@ community can help you solve it.
 ## Collaborators
 - [Konstantinos K.](https://github.com/mythodeia)
 - [Bogdan Poplauschi](https://github.com/bpoplauschi)
+- [Chester Liu](https://github.com/skyline75489)
+- [DreamPiggy](https://github.com/dreampiggy)
+- [Wu Zhong](https://github.com/zhongwuzw)
 
 ## Licenses
 
@@ -206,10 +176,28 @@ All source code is licensed under the [MIT License](https://raw.github.com/rs/SD
 
 ## Architecture
 
+#### High Level Diagram
 <p align="center" >
-    <img src="Docs/SDWebImageClassDiagram.png" title="SDWebImage class diagram">
+    <img src="Docs/Diagrams/SDWebImageHighLevelDiagram.jpeg" title="SDWebImage high level diagram">
 </p>
 
+#### Overall Class Diagram
 <p align="center" >
-    <img src="Docs/SDWebImageSequenceDiagram.png" title="SDWebImage sequence diagram">
+    <img src="Docs/Diagrams/SDWebImageClassDiagram.png" title="SDWebImage overall class diagram">
 </p>
+
+#### Top Level API Diagram
+<p align="center" >
+    <img src="Docs/Diagrams/SDWebImageTopLevelClassDiagram.png" title="SDWebImage top level API diagram">
+</p>
+
+#### Main Sequence Diagram
+<p align="center" >
+    <img src="Docs/Diagrams/SDWebImageSequenceDiagram.png" title="SDWebImage sequence diagram">
+</p>
+
+#### More detailed diagrams
+- [Manager API Diagram](Docs/Diagrams/SDWebImageManagerClassDiagram.png)
+- [Coders API Diagram](Docs/Diagrams/SDWebImageCodersClassDiagram.png)
+- [Loader API Diagram](Docs/Diagrams/SDWebImageLoaderClassDiagram.png)
+- [Cache API Diagram](Docs/Diagrams/SDWebImageCacheClassDiagram.png)
