@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CS-IOS.xcodeproj">
+      location = "group:/Users/rene/Documents/Development/Motorkari/Motorkari/renetik-ios/Example/Renetik-iOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
