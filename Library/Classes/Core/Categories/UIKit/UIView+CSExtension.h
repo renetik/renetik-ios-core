@@ -8,7 +8,10 @@
 
 static float const CS_FADE_TIME = 0.3;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UIView (CSExtension)
+
+- (instancetype)construct;
 
 - (instancetype)contentMode:(UIViewContentMode)contentMode;
 
@@ -118,9 +121,9 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)addViewVerticalLayout:(UIView *)view;
 
-- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset;
+- (UIView *)addVerticalLine:(UIView *)view offset:(int)offset;
 
-- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view;
+- (UIView *)addVerticalLine:(UIView *)view;
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height;
 
@@ -142,3 +145,4 @@ static float const CS_FADE_TIME = 0.3;
 
 - (UIView *)addBottomSeparator:(CGFloat)height;
 @end
+NS_ASSUME_NONNULL_END

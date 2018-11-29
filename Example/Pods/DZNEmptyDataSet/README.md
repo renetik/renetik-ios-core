@@ -238,7 +238,7 @@ Asks for image view animation permission (Default is NO) :
 
 Notifies when the dataset view was tapped:
 ```objc
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)content
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view
 {
     // Do something
 }

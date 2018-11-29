@@ -5,6 +5,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UIView (CSLayout)
 
 - (instancetype)left:(CGFloat)value;
@@ -54,3 +55,4 @@
 - (instancetype)matchParentHeight;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -48,13 +48,21 @@
 @property(nonatomic) BOOL appearing;
 @property(nonatomic, readonly) BOOL visible;
 
-- (void)onViewDidLoad;
+- (instancetype)construct;
 
-- (void)onInitialViewDidLayoutSubviews;
+- (void)onViewDidLoad;
 
 - (void)onViewWillAppear;
 
 - (void)onViewWillAppearFirstTime;
+
+- (void)onInitialViewDidLayoutSubviews;
+
+- (void)onCreateLayout;
+
+- (void)onLayoutCreated;
+
+- (void)onUpdateLayout;
 
 - (void)onViewWillAppearFromPresentedController;
 

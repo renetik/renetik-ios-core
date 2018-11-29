@@ -104,7 +104,7 @@ Keep in mind that UI updates, inclining calls to MBProgressHUD should always be 
 If you need to run your long-running task in the main thread, you should perform it with a slight delay, so UIKit will have enough time to update the UI (i.e., draw the HUD) before you block the main thread with your task.
 
 ```objective-c
-[MBProgressHUD showHUDAddedTo:self.content animated:YES];
+[MBProgressHUD showHUDAddedTo:self.view animated:YES];
 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 	// Do something...

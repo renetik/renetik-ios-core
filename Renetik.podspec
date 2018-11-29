@@ -32,6 +32,8 @@ created out of passion to code my way and to improve readability of my codebase.
   s.ios.deployment_target = '10.0'
 
   s.default_subspecs = 'Core'
+  
+#  s.xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => 'Library/Renetik-Bridging-Header.h' }
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Library/Classes/Core/**/*'

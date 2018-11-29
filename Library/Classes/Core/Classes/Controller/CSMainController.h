@@ -13,7 +13,10 @@
 @interface CSMainController : CSViewController
 
 @property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
+
 @property(nonatomic, strong) CSMainController *parent;
+
+- (instancetype)construct;
 
 - (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers;
 
@@ -52,8 +55,6 @@
 - (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
 
 - (CSMenuItem *)menuItem;
-
-- (instancetype)construct;
 
 - (BOOL)isMainController;
 

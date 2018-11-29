@@ -6,6 +6,7 @@
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
+#import "UIView+CSAutoResizing.h"
 #import "CSLang.h"
 
 @implementation UIScrollView (CSExtension)
@@ -49,19 +50,19 @@
 }
 
 - (UIView *)content:(UIView *)view {
-    [self insertView:view :0];
+    [super content:view];
     self.contentSize = view.size;
     return view;
 }
 
 - (UIView *)contentVertical:(UIView *)view {
-    [self insertView:view :0].matchParentWidth;
+    [super content:view].matchParentWidth.fixedTop;
     self.updateContentSizeVertical;
     return view;
 }
 
 - (UIView *)contentHorizontal:(UIView *)view {
-    [self insertView:view :0].matchParentHeight;
+    [super content:view].matchParentHeight.fixedLeft;
     self.updateContentSizeHorizontal;
     return view;
 }
@@ -81,11 +82,18 @@
 }
 
 - (instancetype)updateContentSizeVertical {
+    return [self updateContentSizeVerticalWithPadding:0];
+}
+
+- (instancetype)updateContentSizeVerticalWithPadding:(NSInteger) padding {
+    self.content.height = self.content.subviews.lastObject.bottom + padding;
+    if (self.content.height < self.height) self.content.height = self.height;
     self.contentSize = CGSizeMake(0, self.content.bottom);
     return self;
 }
 
 - (instancetype)updateContentSizeHorizontal {
+    self.content.width = self.content.subviews.lastObject.right;
     self.contentSize = CGSizeMake(self.content.right, 0);
     return self;
 }

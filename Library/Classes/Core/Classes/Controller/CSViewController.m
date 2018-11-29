@@ -11,17 +11,17 @@
     BOOL _onViewDidAppearFirstTime;
 }
 
--(void)loadView {
-    self.view = UIView.new;
-}
-
 - (instancetype)construct {
-    super.construct;
+    [super construct];
     _didLayoutSubviews = NO;
     _onViewWillAppearFirstTime = NO;
     _onViewDidAppearFirstTime = NO;
     _showing = NO;
     return self;
+}
+
+-(void)loadView {
+    self.view = UIView.new;
 }
 
 - (void)viewDidLoad {
@@ -30,16 +30,6 @@
 }
 
 - (void)onViewDidLoad {}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    if (!_didLayoutSubviews) {
-        _didLayoutSubviews = YES;
-        [self onInitialViewDidLayoutSubviews];
-    }
-}
-
-- (void)onInitialViewDidLayoutSubviews {}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -51,10 +41,23 @@
 }
 
 - (void)onViewWillAppear {}
-
 - (void)onViewWillAppearFirstTime {}
-
 - (void)onViewWillAppearFromPresentedController {}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    if (!_didLayoutSubviews) {
+        _didLayoutSubviews = YES;
+        [self onInitialViewDidLayoutSubviews];
+        [self onCreateLayout];
+        [self onLayoutCreated];
+    }else [self onUpdateLayout];
+}
+
+- (void)onInitialViewDidLayoutSubviews {}
+- (void)onCreateLayout {}
+- (void)onLayoutCreated {}
+- (void)onUpdateLayout {}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

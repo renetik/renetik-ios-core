@@ -4,6 +4,7 @@
 
 @import BlocksKit;
 
+#import "UIView+CSExtension.h"
 #import "UIColor+CSExtension.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSDimension.h"
@@ -17,6 +18,8 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (instancetype)construct {
     super.construct;
+    self.autoresizingMask = nil;
+    self.flexibleLeft.flexibleTop.flexibleRight.flexibleBottom;
     return self;
 }
 
@@ -403,17 +406,14 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return [self add:view];
 }
 
-- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view offset:(int)offset {
+- (UIView *)addVerticaLine:(UIView *)view offset:(int)offset {
     val lastSubview = self.subviews.last;
     [view top:lastSubview ? lastSubview.bottom + offset : offset];
     return [self add:view];
 }
 
-- (UIView *)addViewVerticalSingleLineLayout:(UIView *)view {
-    val lastSubview = self.subviews.last;
-    if (lastSubview) [view left:lastSubview.left top:lastSubview.bottom];
-    else [view left:0 top:0];
-    return [self add:view];
+- (UIView *)addVerticalLine:(UIView *)view {
+    return [self addVerticaLine:view offset:0];
 }
 
 - (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height {
@@ -439,7 +439,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (UIView *)content:(UIView *)view {
     self.content = view;
-    return self;
+    return view;
 }
 
 - (void)setContent:(UIView *)view {

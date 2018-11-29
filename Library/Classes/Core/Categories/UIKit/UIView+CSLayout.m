@@ -124,7 +124,7 @@
 }
 
 - (instancetype)matchParentWidth {
-    return [self width:self.superview.width].centerInParentHorizontal.flexibleWidth;
+    return [self width:self.superview.width].centerInParentHorizontal.flexibleWidth.fixedLeft.fixedRight;
 }
 
 - (instancetype)matchParentWidthWithMargin:(CGFloat)margin {
@@ -136,7 +136,7 @@
 }
 
 - (instancetype)matchParentHeight {
-    return [self height:self.superview.height].centerInParentVertical.flexibleHeight;
+    return [self height:self.superview.height].centerInParentVertical.flexibleHeight.fixedTop.fixedBottom;
 }
 
 

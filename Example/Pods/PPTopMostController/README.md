@@ -117,7 +117,7 @@ There is an example with [PPRevealSideViewController](https://github.com/ipup/PP
 That's it!
 
 # Why PPTopMostController?
-Let's take the case where you have for example a manager which downloads data + a content which triggers notification when an error occured.
+Let's take the case where you have for example a manager which downloads data + a view which triggers notification when an error occured.
 
 ## Using a delegate
 

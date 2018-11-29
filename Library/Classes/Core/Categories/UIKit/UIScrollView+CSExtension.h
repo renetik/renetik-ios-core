@@ -29,6 +29,8 @@
 
 - (instancetype)updateContentSizeVertical;
 
+- (instancetype)updateContentSizeVerticalWithPadding:(NSInteger) padding;
+
 - (instancetype)updateContentSizeHorizontal;
 
 - (instancetype)contentInset:(UIEdgeInsets)contentInset;

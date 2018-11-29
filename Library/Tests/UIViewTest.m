@@ -2,7 +2,7 @@
 //  Created by Rene Dohan on 5/9/12.
 //
 
-@import Renetik-iOS;
+@import Renetik;
 @import Quick;
 @import Nimble;
 @import XCTest;
@@ -11,7 +11,7 @@
 
 @implementation UIViewTest
 
-- (void)testPosition {
+- (void)testPosition { 
     var container = [UIView withSize:200 :200];
     var subview = [container add:[UIView withRect:50 :50 :100 :100]];
 
@@ -83,6 +83,21 @@
     XCTAssertEqual(subview.fromRight, 50);
     XCTAssertEqual(subview.top, 50);
     XCTAssertEqual(subview.fromBottom, 50);
+}
+
+- (void) testMatchParentWithMargin {
+    let content = [UIView withSize:200: 200];
+    let subview = [[[[content add:UILabel.construct] top:50] height:100] matchParentWidthWithMargin: 30];
+    XCTAssertEqual(subview.left, 30);
+    XCTAssertEqual(subview.right, 170);
+    XCTAssertEqual(subview.fromRight, 30);
+    XCTAssertEqual(subview.width, 140);
+    
+    [content width:400 height: 400];
+    XCTAssertEqual(subview.left, 30);
+    XCTAssertEqual(subview.top, 50);
+    XCTAssertEqual(subview.fromRight, 30);
+    XCTAssertEqual(subview.width, 340);
 }
 
 @end

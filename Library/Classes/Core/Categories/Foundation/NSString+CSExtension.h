@@ -2,7 +2,6 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
-
 #import <Foundation/Foundation.h>
 
 @interface NSString (CSExtension)
