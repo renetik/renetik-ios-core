@@ -6,6 +6,7 @@
 @import ChameleonFramework;
 @import BlocksKit;
 
+#import "CSMainController.h"
 #import "CSTableController.h"
 #import "CSResponse.h"
 #import "CSRefreshControl.h"
@@ -15,7 +16,6 @@
 #import "UIView+CSDimension.h"
 #import "CSListData.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface CSTableController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property(nonatomic) BOOL loading;
@@ -310,6 +310,11 @@ NS_ASSUME_NONNULL_BEGIN
     if ([_filter respondsToSelector:@selector(onReloadDone:)])[_filter onReloadDone:self];
 }
 
+- (void)clearData {
+    _data.removeAllObjects;
+    _filteredData.removeAllObjects;
+}
+
 @end
 
-NS_ASSUME_NONNULL_END
+

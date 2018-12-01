@@ -6,6 +6,7 @@
 @protocol CSServerDataProtocol;
 
 static NSString *const INVALID_RESPONSE_FROM_SERVER = @"Invalid response from server";
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CSResponse<__covariant DataType> : NSObject
 
@@ -64,3 +65,5 @@ static NSString *const INVALID_RESPONSE_FROM_SERVER = @"Invalid response from se
 - (NSString *)id;
 
 @end
+
+NS_ASSUME_NONNULL_END

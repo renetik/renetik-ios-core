@@ -2,13 +2,13 @@
 //  Created by Rene Dohan on 1/11/13.
 //
 
-#import <UIKit/UIKit.h>
-#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+@import UIKit;
+@import DZNEmptyDataSet;
+
 #import "CSViewController.h"
-#import "CSChildViewLessController.h"
 
 @class CSResponse;
-
+@class CSMainController;
 @protocol CSListData;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -53,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
 
-
 - (instancetype)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -67,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeItemAtIndex:(NSUInteger)index;
 
 - (ObjectType)dataFor:(NSIndexPath *)path;
+
+- (void)clearData;
 
 @end
 

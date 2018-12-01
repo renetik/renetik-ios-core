@@ -78,7 +78,11 @@
 
 - (void)viewDidDisappear;
 
+- (void)onViewVisibilityChanged:(BOOL)visible;
+
 - (void)onViewShowing;
+
+- (void)onViewHiding;
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 @end

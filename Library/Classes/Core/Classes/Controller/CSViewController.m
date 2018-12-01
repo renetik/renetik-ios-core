@@ -20,7 +20,7 @@
     return self;
 }
 
--(void)loadView {
+- (void)loadView {
     self.view = UIView.new;
 }
 
@@ -41,7 +41,9 @@
 }
 
 - (void)onViewWillAppear {}
+
 - (void)onViewWillAppearFirstTime {}
+
 - (void)onViewWillAppearFromPresentedController {}
 
 - (void)viewDidLayoutSubviews {
@@ -51,12 +53,15 @@
         [self onInitialViewDidLayoutSubviews];
         [self onCreateLayout];
         [self onLayoutCreated];
-    }else [self onUpdateLayout];
+    } else [self onUpdateLayout];
 }
 
 - (void)onInitialViewDidLayoutSubviews {}
+
 - (void)onCreateLayout {}
+
 - (void)onLayoutCreated {}
+
 - (void)onUpdateLayout {}
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -94,11 +99,18 @@
 - (void)viewDidDisappear {}
 
 - (void)setShowing:(BOOL)showing {
+    if (_showing == showing) return;
     _showing = showing;
+    [self onViewVisibilityChanged:showing];
     if (showing) [self onViewShowing];
+    else [self onViewHiding];
 }
 
+- (void)onViewVisibilityChanged:(BOOL)visible {}
+
 - (void)onViewShowing {}
+
+- (void)onViewHiding {}
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
