@@ -7,6 +7,7 @@
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayoutGetters.h"
 #import "CSLang.h"
+#import "NSException+CSExtension.h"
 
 @implementation UIView (CSPosition)
 
@@ -31,10 +32,12 @@
 }
 
 - (void)setFromRight:(CGFloat)value {
+    NSAssert(self.superview, @"Needs to have superview");
     self.left = self.superview.width - (value + self.width);
 }
 
 - (void)setFromBottom:(CGFloat)bottom {
+    NSAssert(self.superview, @"Needs to have superview");
     self.top = self.superview.height - (bottom + self.height);
 }
 
@@ -62,16 +65,19 @@
 }
 
 - (UIView *)centerInParent {
+    NSAssert(self.superview, @"Needs to have superview");
     self.center = CGPointMake(self.superview.width / 2, self.superview.height / 2);
     return self;
 }
 
 - (instancetype)centerInParentVertical {
+    NSAssert(self.superview, @"Needs to have superview");
     self.center = CGPointMake(self.center.x, self.superview.height / 2);
     return self;
 }
 
 - (instancetype)centerInParentHorizontal {
+    NSAssert(self.superview, @"Needs to have superview");
     self.center = CGPointMake(self.superview.width / 2, self.center.y);
     return self;
 }

@@ -7,7 +7,7 @@
 
 @interface CSConcurrentResponse : CSResponse<NSMutableArray*>
 
-- (instancetype)construct:(NSArray *)responses;
+- (instancetype)addAll:(NSArray *)responses;
 
 - (CSResponse *)add:(CSResponse *)response;
 

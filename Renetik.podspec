@@ -51,7 +51,7 @@ created out of passion to code my way and to improve readability of my codebase.
    s.subspec 'CocoaLumberjack' do |ss|
      ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
      ss.dependency 'Renetik/Core'
-     ss.dependency 'CocoaLumberjack', '~> 3.4'
+     ss.dependency 'CocoaLumberjack/Swift', '~> 3.4'
    end
 
    s.subspec 'TableController' do |ss|

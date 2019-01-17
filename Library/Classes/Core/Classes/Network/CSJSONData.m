@@ -27,11 +27,9 @@
     return self;
 }
 
-- (instancetype)construct:(NSDictionary *)value {
-    if ([value isKindOfClass:NSMutableDictionary.class])
-        _data = (NSMutableDictionary *) value;
-    else if ([value isKindOfClass:NSDictionary.class])
-        _data = [NSMutableDictionary.new construct:value];
+- (instancetype)load:(NSDictionary *)value {
+    if ([value isKindOfClass:NSMutableDictionary.class])_data = (NSMutableDictionary *) value;
+    else if ([value isKindOfClass:NSDictionary.class])_data = [NSMutableDictionary.new construct:value];
     else {
         errorf(@"value %@ is not dictionary", value);
         _data = NSMutableDictionary.new;
@@ -39,15 +37,13 @@
     return self;
 }
 
-- (instancetype)construct:(CSJSONData *)data key:(NSString *)id {
-    return [self construct:[data getDictionary:id]];
+- (instancetype)load:(CSJSONData *)data key:(NSString *)key {
+    return [self load:[data getDictionary:key]];
 }
 
-- (instancetype)constructByString:(NSString *)value {
-    [self construct];
-    id jsonValue = value.jsonValue;
-    if ([jsonValue isKindOfClass:NSDictionary.class])
-        [self construct:jsonValue];
+- (instancetype)loadJson:(NSString *)jsonString {
+    id jsonValue = jsonString.jsonValue;
+    if ([jsonValue isKindOfClass:NSDictionary.class]) [self load:jsonValue];
     return self;
 }
 
@@ -138,7 +134,7 @@
 }
 
 - (NSString *)description {
-    return _data.description;
+    return [_data description];
 }
 
 - (void)clear {
@@ -146,7 +142,7 @@
 }
 
 - (BOOL)isEmpty {
-    return !_data || _data.count == 0;
+    return !_data || [_data count] == 0;
 }
 
 - (BOOL)set {
@@ -154,12 +150,12 @@
 }
 
 - (id)JSONString {
-    return _data.jsonString;
+    return [_data jsonString];
 }
 
 - (CSJSONData *)getData:(NSString *)key {
     var dictionary = [self getDictionary:key];
-    return dictionary ? [CSJSONData.new construct:dictionary] : nil;
+    return dictionary ? [CSJSONData.new load:dictionary] : nil;
 }
 
 - (NSMutableArray *)sort:(NSMutableArray<CSJSONData *> *)array :(NSComparator)comparator {
@@ -189,7 +185,7 @@
     NSMutableArray<CSJSONData *> *array = NSMutableArray.new;
     uint count = 0;
     for (NSMutableDictionary *value in arrayOfDictionaries)
-        [array add:[type.new construct:value]].index = count++;
+        [array add:[type.new load:value]].index = count++;
     return array;
 }
 
@@ -204,7 +200,7 @@
     NSMutableArray<CSJSONData *> *array = NSMutableArray.new;
     uint count = 0;
     for (NSString *key in dictionaryOfDictionaries) {
-        CSJSONData *data = [array add:[type.new construct:dictionaryOfDictionaries[key]]];
+        CSJSONData *data = [array add:[type.new load:dictionaryOfDictionaries[key]]];
         data.key = key;
         data.index = count++;
     }

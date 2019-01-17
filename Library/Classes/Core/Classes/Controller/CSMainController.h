@@ -16,8 +16,6 @@
 
 @property(nonatomic, strong) CSMainController *parent;
 
-- (instancetype)construct;
-
 - (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers;
 
 - (NSArray<CSMainController *> *)addChildMainControllers:(NSArray<CSMainController *> *)controllers;

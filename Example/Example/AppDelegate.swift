@@ -8,16 +8,37 @@
 
 import UIKit
 import Renetik
+import Fabric
+import Crashlytics
+import CocoaLumberjack
+
+var delegate: AppDelegate!
+var navigation: CSNavigationController = Style.controller(CSNavigationController())
+var model: SampleModel = SampleModel()
+var server: SampleServer = model.server
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+//    var progress: ProgressView!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        CSMenuIcon.image()  //Calling Renetik IOS function to test it's here
+        initializeLogging()
+//        logInfo("Sample didFinishLaunchingWithOptions");
+        delegate = self
+        window = UIWindow()
+        window!.rootViewController = navigation;
+//        progress = [ProgressView.new construct:self];
+        navigation.push(asRoot: SamplePagerController())
+        window!.makeKeyAndVisible()
         return true
+    }
+
+    private func initializeLogging() {
+        Fabric.with([Crashlytics()])
+        DDLog.add(DDTTYLogger.sharedInstance)
+        DDLog.add(DDASLLogger.sharedInstance)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -13,7 +13,6 @@
 }
 
 - (instancetype)construct:(CSMainController *)controller :(int)index :(NSString *)title {
-    super.construct;
     _controller = controller;
     _index = index;
     _title = title;

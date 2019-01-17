@@ -12,8 +12,7 @@
     NSInteger _currentIndex;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {
-    [super construct];
+- (instancetype)setup:(CSMainController *)parent :(NSArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {
     _parent = parent;
     _controllers = controllers;
     [_parent showChildController:self];

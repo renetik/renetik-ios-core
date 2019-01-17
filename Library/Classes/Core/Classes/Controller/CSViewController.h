@@ -48,8 +48,6 @@
 @property(nonatomic) BOOL appearing;
 @property(nonatomic, readonly) BOOL visible;
 
-- (instancetype)construct;
-
 - (void)onViewDidLoad;
 
 - (void)onViewWillAppear;

@@ -11,12 +11,13 @@
     BOOL _onViewDidAppearFirstTime;
 }
 
-- (instancetype)construct {
-    [super construct];
-    _didLayoutSubviews = NO;
-    _onViewWillAppearFirstTime = NO;
-    _onViewDidAppearFirstTime = NO;
-    _showing = NO;
+- (instancetype)init {
+    if (self == super.init) {
+        _didLayoutSubviews = NO;
+        _onViewWillAppearFirstTime = NO;
+        _onViewDidAppearFirstTime = NO;
+        _showing = NO;
+    }
     return self;
 }
 

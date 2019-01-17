@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deselectSelectedRows:(BOOL)animated;
 
-- (UITableViewCell *)getCell:(Class)clazz;
-
 - (id)dequeueReusableCell:(NSString *)identifier;
 
 - (instancetype )hideEmptyCellSplitterBySettingEmptyFooter;

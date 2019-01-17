@@ -12,10 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CSExtension)
 
-+ (instancetype)construct;
-
-- (instancetype)construct;
-
 - (id)as:(Protocol *)aProtocol;
 
 - (instancetype)setObject:(const void *)key :(id)value;

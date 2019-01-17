@@ -2,7 +2,7 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 #import "NSString+CSExtension.h"
-
+#import "CSLang.h"
 
 @implementation NSString (CSExtension)
 
@@ -14,6 +14,13 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 
 - (NSUInteger)size {
     return self.length;
+}
+
+- (NSString *)htmlToText {
+    return [NSAttributedString.alloc
+            initWithData:[self dataUsingEncoding:NSUnicodeStringEncoding]
+                 options:@{NSDocumentTypeDocumentOption: NSHTMLTextDocumentType}
+      documentAttributes:nil error:nil].string;
 }
 
 + (NSString *)randomStringOfLength:(int)len {

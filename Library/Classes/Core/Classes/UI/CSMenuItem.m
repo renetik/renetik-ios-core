@@ -13,7 +13,6 @@
 
 
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title {
-    self.construct;
     _closeMenu = YES;
     _controller = parent;
     _title = title;

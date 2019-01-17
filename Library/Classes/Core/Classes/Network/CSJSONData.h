@@ -6,16 +6,20 @@
 #import <Foundation/Foundation.h>
 #import "CSServerDataProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CSJSONData : NSObject
 
 @property NSInteger index;
 @property NSString *key;
 @property(nonatomic, copy) NSString *childDataKey;
-@property(nonatomic, readonly) NSMutableDictionary *data;
+@property(nonatomic, readonly) id data;
 
-- (instancetype)constructByString:(NSString *)value;
+- (instancetype)loadJson:(NSString *)string;
 
-- (instancetype)construct:(nonnull NSDictionary *)value;
+- (instancetype)load:(NSDictionary *)dictionary;
+
+- (instancetype)load:(CSJSONData *)data key:(NSString *)key;
 
 - (BOOL)isEmpty;
 
@@ -53,8 +57,6 @@
 
 - (void)put:(NSMutableDictionary *)dictionary :(NSString *)key :(id)value;
 
-- (instancetype)construct:(CSJSONData *)data key:(NSString *)id1;
-
 - (id)JSONString;
 
 - (CSJSONData *)getData:(NSString *)key;
@@ -75,3 +77,5 @@
 
 - (NSMutableArray *)createArray:(Class)type dictionaryOfDictionaries:(NSDictionary<NSString *, NSMutableDictionary *> *)dictionaryOfDictionaries;
 @end
+
+NS_ASSUME_NONNULL_END

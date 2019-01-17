@@ -8,10 +8,6 @@
 
 @implementation UIViewController (CSExtension)
 
-- (NSString *)controllerName {
-    return [[self.class description] replaceLast:@"Controller" :@""];
-}
-
 - (instancetype)backButtonWithoutPreviousTitle {
     self.navigationItem.backBarButtonItem = [UIBarButtonItem createWithTitle:@"" :(UIBarButtonItemStylePlain) :nil :nil];
     return self;
@@ -57,16 +53,6 @@
     }
     if ([sender isKindOfClass:UIBarButtonItem.class]) return [self presentModalFromBar:sender :controller :nil];
     return [self presentModalFromView:sender :controller :nil];
-}
-
-+ (instancetype)create {
-    NSString *className = NSStringFromClass(self.class);
-//    NSString *viewName = [className stringByReplacingOccurrencesOfString:@"Controller" withString:@""];
-    return [[self alloc] initWithNibName:className bundle:nil];
-}
-
-+ (instancetype)create:(NSString *)nib {
-    return [[self alloc] initWithNibName:nib bundle:nil];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {

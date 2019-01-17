@@ -11,7 +11,13 @@ static float const CS_FADE_TIME = 0.3;
 NS_ASSUME_NONNULL_BEGIN
 @interface UIView (CSExtension)
 
++ (instancetype)construct;
+
 - (instancetype)construct;
+
++ (instancetype)constructByXib:(NSString *)IBName;
+
++ (instancetype)constructByXib;
 
 - (instancetype)contentMode:(UIViewContentMode)contentMode;
 
@@ -33,17 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)firstResponder;
 
-+ (instancetype)create:(NSString *)IBName;
-
-+ (instancetype)create;
-
 + (NSString *)NIBName;
 
 + (void)animationFromCurrentState:(NSTimeInterval)time :(UIViewAnimationCurve)curve;
-
-- (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone;
-
-- (void)fadeIn:(NSTimeInterval)time;
 
 + (instancetype)createEmpty;
 
@@ -60,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)withHeight:(CGFloat)height;
 
 - (instancetype)fadeIn;
+
+- (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone;
+
+- (void)fadeIn:(NSTimeInterval)time;
 
 - (void)fadeBackgroundColorTo:(UIColor *)color;
 
@@ -85,8 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)visible;
 
-- (UIViewController *)controller;
-
 - (id)getView:(int)tag;
 
 - (instancetype)clearSubViews;
@@ -94,8 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)show;
 
 - (instancetype)hide;
-
-- (UIView *)addUnderLast:(UIView *)view;
 
 - (UIView *)add:(UIView *)view;
 
@@ -121,11 +119,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)addViewVerticalLayout:(UIView *)view;
 
-- (UIView *)addVerticalLine:(UIView *)view offset:(int)offset;
+- (UIView *)addUnderLast:(UIView *)view offset:(int)offset;
 
-- (UIView *)addVerticalLine:(UIView *)view;
-
-- (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height;
+- (UIView *)addUnderLast:(UIView *)view;
 
 - (instancetype)onTap:(void (^)(id))block;
 

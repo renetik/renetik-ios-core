@@ -43,7 +43,6 @@
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
         parent :(NSArray *)data {
-    [super construct];
     _parent = parent;
     _filter = [_parent as:@protocol(CSTableFilterProtocol)];
     _filteredData = NSMutableArray.new;
@@ -58,9 +57,7 @@
 }
 
 - (instancetype)refreshable {
-    _refreshControl = [CSRefreshControl.new construct:_table :^{
-        [self onRefreshControl];
-    }];
+    _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl]; }];
     return self;
 }
 
@@ -139,7 +136,7 @@
 
 - (instancetype)onLoadSuccess:(NSArray *)array {
     if (_pageIndex == -1) {
-        [_data replaceFromArray:array];
+        [_data reload:array];
         _noNext = array.empty;
         [self filterDataAndReload];
     } else {
@@ -163,7 +160,8 @@
 
 - (void)showLoadNextIndicator {
     if (!_loadNextView) {
-        UIActivityIndicatorView *loadingNextView = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        UIActivityIndicatorView *loadingNextView =
+			[UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         if (_loadNextColor)loadingNextView.color = _loadNextColor;
         [loadingNextView startAnimating];
         _loadNextView = loadingNextView;
@@ -181,9 +179,7 @@
 }
 
 - (void)onRefreshControl {
-    if (self.onUserRefresh) {
-        if (self.onUserRefresh())[self reload:YES];
-    } else [self reload:YES];
+    if (self.onUserRefresh) { if (self.onUserRefresh()) [self reload:YES]; } else [self reload:YES];
 }
 
 - (void)setSearchText:(NSString *)text {
@@ -305,7 +301,7 @@
 }
 
 - (void)filterDataAndReload {
-    [_filteredData replaceFromArray:[self filterData:_data]];
+    [_filteredData reload:[self filterData:_data]];
     [_table reloadData];
     if ([_filter respondsToSelector:@selector(onReloadDone:)])[_filter onReloadDone:self];
 }

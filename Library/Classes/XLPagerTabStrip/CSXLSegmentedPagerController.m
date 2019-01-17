@@ -13,7 +13,6 @@
 
 - (instancetype)construct:(CSMainController *)parent
         :(NSArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {
-    [super construct];
     _parent = parent;
     _controllers = controllers;
     [parent addChildMainControllers:_controllers];

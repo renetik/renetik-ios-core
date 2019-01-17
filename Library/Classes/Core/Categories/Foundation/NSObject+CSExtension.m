@@ -6,16 +6,7 @@
 #import "CSDoLaterProcess.h"
 #import "BlocksKit.h"
 
-
 @implementation NSObject (CSExtension)
-
-+ (instancetype)construct {
-    return [self.class.new construct];
-}
-
-- (instancetype)construct {
-    return self;
-}
 
 - (id)as:(Protocol *)aProtocol {
     return [self.class conformsToProtocol:aProtocol] ? self : nil;

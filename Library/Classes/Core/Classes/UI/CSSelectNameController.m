@@ -6,24 +6,37 @@
 #import "CSSelectNameController.h"
 #import "CSMenuItem.h"
 #import "CSSearchBarController.h"
+#import "CSListData.h"
+#import "CSResponse.h"
 
 @interface CSSelectNameController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong)  NSMutableArray<CSName *> * names;
 @end
 
 @implementation CSSelectNameController {
-    NSArray<CSName *> *_names;
     NSArray<CSName *> *_filteredData;
-
     void (^_onSelected)(CSName *);
-
-    void (^_onDelete)(CSName *);
-
+    CSResponse *(^_onDelete)(CSName *);
     NSString *_deleteTitle;
 }
 
+- (instancetype)constructByData:(NSObject <CSListData> *)names :(void (^)(CSName *))onSelected {
+    return [self constructByNames:names.list :onSelected];
+}
+
+- (instancetype)constructByData:(NSObject <CSListData> *)names :(void (^)(CSName *))onSelected
+        :(NSString *)deleteTitle :(CSResponse *(^)(CSName *))onDelete {
+    [self constructByData:names :onSelected];
+    _onDelete = [onDelete copy];
+    _deleteTitle = deleteTitle;
+    [[self menuItem:nil type:UIBarButtonSystemItemEdit] onClick:^(CSMenuItem *item) {
+        item.systemItem = _table.toggleEditing.editing ? UIBarButtonSystemItemCancel : UIBarButtonSystemItemEdit;
+    }];
+    return self;
+}
+
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected {
-    [super construct];
-    _names = names;
+    _names = names.mutableCopy;
     _onSelected = [onSelected copy];
     _filteredData = [NSArray arrayWithArray:_names];
     return self;
@@ -31,7 +44,8 @@
 
 - (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected :(NSString *)clearTitle {
     [self constructByNames:names :onSelected];
-    [self menuItem:clearTitle :^(CSMenuItem *item) {[self onClearClick];}];
+    wlet _self = self;
+    [self menuItem:clearTitle :^(CSMenuItem *item) {[_self onClearClick];}];
     return self;
 }
 
@@ -42,7 +56,8 @@
     return self;
 }
 
-- (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected :(void (^)(CSName *))onDelete :(NSString *)deleteTitle {
+- (instancetype)constructByNames:(NSArray<CSName *> *)names :(void (^)(CSName *))onSelected
+        :(NSString *)deleteTitle :(CSResponse * (^)(CSName *))onDelete {
     [self constructByNames:names :onSelected];
     _onDelete = [onDelete copy];
     _deleteTitle = deleteTitle;
@@ -60,8 +75,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[_table setupTable:self] hideEmptyCellSplitterBySettingEmptyFooter].allowsMultipleSelectionDuringEditing = NO;
-    _table.allowsSelection = !_onDelete;
-    [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[self onFilterData:searchText];}];
+    wlet _self = self;
+    [CSSearchBarController.new construct:(self) :_search :^(NSString *searchText) {[_self reload];}];
 }
 
 - (void)onClearClick {
@@ -76,8 +91,7 @@
 }
 
 - (void)onFilterData:(NSString *)searchText {
-    _filteredData = [_names filterBySearch:searchText];
-    [_table reloadData];
+    [self reload];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)path {
@@ -99,8 +113,9 @@
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)path {
     if (_onDelete) {
+        wlet _self = self;
         let delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:_deleteTitle handler
-        :^(UITableViewRowAction *action, NSIndexPath *indexPath) {[self onDeleteAction:path];}];
+        :^(UITableViewRowAction *action, NSIndexPath *indexPath) {[_self onDeleteAction:path];}];
         delete.backgroundColor = self.primaryColor;
         return @[delete];
     }
@@ -108,7 +123,16 @@
 }
 
 - (void)onDeleteAction:(NSIndexPath *)path {
-    runWith(_onDelete, [_filteredData at:path.index]);
+    let value = [_filteredData at:path.index];
+    wlet _self = self;
+    [_onDelete(value) onSuccess:^(id o) {
+        [_self.names remove:value];
+        [_self reload];
+    }];
+}
+
+- (void)reload {
+    _filteredData = [_names filterBySearch:_search.text];
     [_table reloadData];
 }
 @end

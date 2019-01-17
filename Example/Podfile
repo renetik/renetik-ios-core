@@ -5,15 +5,26 @@ use_frameworks!
 
 target 'Example' do
   pod 'Renetik/CocoaLumberjack', :path => '../'
+  pod 'CocoaLumberjack/Swift', '3.4.2'
   pod 'Renetik/CollectionController', :path => '../'
   pod 'Renetik/TableController', :path => '../'
   pod 'Renetik/RefreshControl', :path => '../'
   pod 'Renetik/Pager', :path => '../'
   pod 'Renetik/AFNetworking', :path => '../'
+  pod 'AFNetworking', '3.2.1'
   pod 'Renetik/Reachability', :path => '../'
+  pod 'Reachability', '3.2'
   pod 'Renetik/SDWebImage', :path => '../'
+  pod 'SDWebImage', '5.0.0-beta3'
   pod 'Renetik/CSMessage', :path => '../'
+  pod 'RMessage', '2.3.2'
   pod 'Renetik/XLPagerTabStrip', :path => '../'
   pod 'XLPagerTabStrip', :git => 'https://github.com/xmartlabs/XLPagerTabStrip', :branch => 'obj-c'
   pod 'Renetik', :testspecs => ['Tests'],:path => '../'
+
+  pod 'ChameleonFramework', '2.1.0'
+
+  pod 'Fabric', '1.9.0'
+  pod 'Crashlytics', '3.12.0'
+
 end

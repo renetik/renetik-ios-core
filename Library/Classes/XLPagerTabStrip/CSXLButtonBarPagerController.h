@@ -10,8 +10,7 @@
 
 @interface CSXLButtonBarPagerController : XLButtonBarPagerTabStripViewController
 
-- (instancetype)construct:(CSMainController *)parent :
-        (NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
+- (instancetype)setup:(CSMainController *)parent :(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
 
 - (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers;
 

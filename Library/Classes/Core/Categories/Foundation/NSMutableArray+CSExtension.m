@@ -9,7 +9,6 @@
 @implementation NSMutableArray (CSExtension)
 
 - (instancetype)construct:(NSArray *)array {
-    [super construct];
     [self addArray:array];
     return self;
 }
@@ -57,7 +56,7 @@
     return self;
 }
 
-- (instancetype)replaceFromArray:(NSArray *)array {
+- (instancetype)reload:(NSArray *)array {
     [self removeAllObjects];
     [self addObjectsFromArray:array];
     return self;

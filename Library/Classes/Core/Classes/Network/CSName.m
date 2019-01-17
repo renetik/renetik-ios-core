@@ -24,7 +24,6 @@
 }
 
 - (instancetype)construct:(NSString *)name id:(NSString *)id {
-    [super construct];
     self.name = name;
     self.id = id;
     return self;

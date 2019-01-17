@@ -17,7 +17,6 @@
 }
 
 - (instancetype)construct:(double)delay :(void (^)())workToInvoke {
-    [super construct];
     _delay = delay;
     _workToInvoke = workToInvoke;
     _stop = YES;

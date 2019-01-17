@@ -23,7 +23,7 @@ static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 }
 
 - (instancetype)setupCollection:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
-    [super construct];
+    [self construct];
     self.delegate = parent;
     self.dataSource = parent;
     [self registerEmptyCell];
@@ -56,10 +56,9 @@ static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 
 - (UICollectionViewCell *)emptyCell:(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
     var cell = [self dequeueCell:EMPTY_CELL :path];
-    if (![cell.contentView.subviews.last getObject:uiCollectionViewCellContent]){
-        [cell.contentView add:[[viewClass.create construct]
-                setObject:uiCollectionViewCellContent :@(YES)]].matchParent;
-        invokeWith(onCreate,cell);
+    if (![cell.contentView.subviews.last getObject:uiCollectionViewCellContent]) {
+        [cell.contentView add:[viewClass.construct setObject:uiCollectionViewCellContent :@(YES)]].matchParent;
+        invokeWith(onCreate, cell);
     }
     return cell;
 }

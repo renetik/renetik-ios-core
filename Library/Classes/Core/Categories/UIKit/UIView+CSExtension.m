@@ -16,11 +16,34 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 @implementation UIView (CSExtension)
 
++ (instancetype)construct {
+    return [self.class.new construct];
+}
+
 - (instancetype)construct {
-    super.construct;
     self.autoresizingMask = nil;
     self.flexibleLeft.flexibleTop.flexibleRight.flexibleBottom;
     return self;
+}
+
++ (instancetype)constructByXib:(NSObject *)owner :(NSString *)xibName {
+    if (![NSBundle.mainBundle pathForResource:xibName ofType:@"nib"]) return self.createEmpty;
+    return [[NSBundle.mainBundle loadNibNamed:xibName owner:owner options:nil][0] construct];
+}
+
++ (instancetype)constructByXib:(NSString *)IBName {
+    return [self constructByXib:nil :IBName];
+}
+
++ (instancetype)constructByXib {
+    NSString *nibName = [self NIBName];
+    return [self constructByXib:nibName];
+}
+
++ (NSString *)NIBName {
+    NSString *className = NSStringFromClass(self.class);
+    if ([className contains:@"."]) className = [className split:@"."].second;
+    return className;
 }
 
 - (instancetype)contentMode:(UIViewContentMode)contentMode {
@@ -99,27 +122,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
             return UIViewAnimationOptionCurveLinear;
     }
     return UIViewAnimationOptionCurveLinear;
-}
-
-+ (instancetype)create:(NSObject *)owner :(NSString *)xibName {
-    if (![NSBundle.mainBundle pathForResource:xibName ofType:@"nib"])
-        return self.createEmpty;
-    return [NSBundle.mainBundle loadNibNamed:xibName owner:owner options:nil][0];
-}
-
-+ (instancetype)create:(NSString *)IBName {
-    return [self create:nil :IBName];
-}
-
-+ (instancetype)create {
-    NSString *nibName = [self NIBName];
-    return [self create:nibName];
-}
-
-+ (NSString *)NIBName {
-    NSString *className = NSStringFromClass(self.class);
-    if ([className contains:@"."]) className = [className split:@"."].second;
-    return className;
 }
 
 - (instancetype)fadeIn {
@@ -216,21 +218,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     else [self fadeOut];
 }
 
-- (UIViewController *)controller {
-    return (UIViewController *) [self traverseResponderChainForUIViewController];
-}
-
-- (id)traverseResponderChainForUIViewController {
-    id nextResponder = [self nextResponder];
-    if ([nextResponder isKindOfClass:[UIViewController class]]) {
-        return nextResponder;
-    } else if ([nextResponder isKindOfClass:[UIView class]]) {
-        return [nextResponder traverseResponderChainForUIViewController];
-    } else {
-        return nil;
-    }
-}
-
 - (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone {
     self.hidden = NO;
     self.alpha = self.alpha < 1 ? self.alpha : 0;
@@ -282,12 +269,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return self;
 }
 
-- (UIView *)addUnderLast:(UIView *)view {
-    [self positionUnderLast:view];
-    [self add:view];
-    return view;
-}
-
 - (UIView *)add:(UIView *)view {
     [self addSubview:view];
     return view;
@@ -306,12 +287,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 - (UIView *)setView:(UIView *)view :(NSInteger)index {
     if ([self.subviews at:index])[[self.subviews at:index] removeFromSuperview];
     [self insertSubview:view atIndex:index];
-    return view;
-}
-
-- (UIView *)positionUnderLast:(UIView *)view {
-    UIView *lastSubviewOfClass = self.subviews.last;
-    [view top:lastSubviewOfClass ? lastSubviewOfClass.bottom : 0];
     return view;
 }
 
@@ -406,25 +381,24 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return [self add:view];
 }
 
-- (UIView *)addVerticaLine:(UIView *)view offset:(int)offset {
-    val lastSubview = self.subviews.last;
-    [view top:lastSubview ? lastSubview.bottom + offset : offset];
+- (UIView *)addUnderLast:(UIView *)view offset:(int)offset {
+    if ([self positionUnderLast:view].top != 0) view.top += offset;
     return [self add:view];
 }
 
-- (UIView *)addVerticalLine:(UIView *)view {
-    return [self addVerticaLine:view offset:0];
+- (UIView *)addUnderLast:(UIView *)view {
+    return [self addUnderLast:view offset:0];
 }
 
-- (UIView *)createSeparatorHorizontal:(CGFloat)offset :(CGFloat)height {
-    return [self add:[UIView withRect:0 :offset - height :self.width :height]];
+- (UIView *)positionUnderLast:(UIView *)view {
+    UIView *lastSubviewOfClass = self.subviews.last;
+    [view top:lastSubviewOfClass ? lastSubviewOfClass.bottom : 0];
+    return view;
 }
 
 - (instancetype)onTap:(void (^)(id))block {
     self.userInteractionEnabled = YES;
-    [self bk_whenTapped:^{
-        block(self);
-    }];
+    [self bk_whenTapped:^{block(self);}];
     return self;
 }
 

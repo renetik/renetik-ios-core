@@ -2,8 +2,6 @@
 //  Created by Rene Dohan on 6/11/12.
 //
 
-@import ChameleonFramework;
-
 #import "CSLang.h"
 #import "UIView+CSExtension.h"
 #import "NSObject+CSExtension.h"
@@ -16,7 +14,7 @@
 
 - (instancetype)construct {
     super.construct;
-    self.backColor = ClearColor;
+    self.backColor = UIColor.clearColor;
     return self;
 }
 
@@ -34,7 +32,7 @@
     return self;
 }
 
-- (UIView*)setHeader:(UIView *)view {
+- (UIView *)setHeader:(UIView *)view {
     self.tableHeaderView = view;
     return view;
 }
@@ -53,24 +51,8 @@
         [self deselectRowAtIndexPath:path animated:animated];
 }
 
-- (UITableViewCell *)getCell:(Class)type {
-    var object = [self dequeueReusableCell:[type description]];
-    if (!object) object = [type create];
-    return object;
-}
-
 - (id)dequeueReusableCell:(NSString *)identifier {
     return [self dequeueReusableCellWithIdentifier:identifier];
-}
-
-- (UITableViewHeaderFooterView *)getHeaderFooter:(Class)type {
-    var object = [self dequeueReusableHeaderFooter:[type description]];
-    if (!object) object = [type create];
-    return object;
-}
-
-- (UITableViewHeaderFooterView *)dequeueReusableHeaderFooter:(NSString *)identifier {
-    return [self dequeueReusableHeaderFooterViewWithIdentifier:identifier];
 }
 
 - (instancetype)hideEmptyCellSplitterBySettingEmptyFooter {
@@ -96,7 +78,7 @@
 
 - (UITableViewCell *)createCell:(Class)viewClass {
     val cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[viewClass className]];
-    UIView *view = [viewClass.create construct];
+    UIView *view = viewClass.construct;
     [cell size:CGSizeMake(self.width, self.rowHeight = view.height)];
     [cell.contentView matchParent];
     [cell.contentView add:view].matchParent;

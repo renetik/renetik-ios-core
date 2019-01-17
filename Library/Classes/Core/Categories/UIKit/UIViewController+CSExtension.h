@@ -10,10 +10,6 @@
 
 @interface UIViewController (CSExtension) <UITextFieldDelegate>
 
-+ (instancetype)create;
-
-+ (instancetype)create:(NSString *)nib;
-
 - (UIViewController *)dismissChildController:(UIViewController *)controller;
 
 - (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
@@ -35,8 +31,6 @@
 - (void)presentController:(UIViewController *)modalViewController;
 
 - (void)dismissController;
-
-- (NSString *)controllerName;
 
 - (instancetype)backButtonWithoutPreviousTitle;
 

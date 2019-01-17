@@ -9,7 +9,6 @@
 @implementation NSMutableDictionary (CSExtension)
 
 - (instancetype)construct:(NSDictionary *)dictionary {
-    [super construct];
     [self addEntriesFromDictionary:dictionary];
     return self;
 }

@@ -88,11 +88,13 @@
 }
 
 - (instancetype)fromRightToWidth:(CGFloat)lengthFromRight {
+    NSAssert(self.superview, @"Needs to have superview");
     val right = self.superview.width - lengthFromRight;
     return [self rightToWidth:right];
 }
 
 - (instancetype)fromBottomToHeight:(CGFloat)lengthFromBottom {
+    NSAssert(self.superview, @"Needs to have superview");
     val bottom = self.superview.height - lengthFromBottom;
     return [self bottomToHeight:bottom];
 }
@@ -124,6 +126,7 @@
 }
 
 - (instancetype)matchParentWidth {
+    NSAssert(self.superview, @"Needs to have superview");
     return [self width:self.superview.width].centerInParentHorizontal.flexibleWidth.fixedLeft.fixedRight;
 }
 
@@ -136,6 +139,7 @@
 }
 
 - (instancetype)matchParentHeight {
+    NSAssert(self.superview, @"Needs to have superview");
     return [self height:self.superview.height].centerInParentVertical.flexibleHeight.fixedTop.fixedBottom;
 }
 

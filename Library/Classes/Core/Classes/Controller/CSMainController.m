@@ -4,21 +4,17 @@
 //
 
 @import BlocksKit;
-#import "CSMainController.h"
-#import "CSMenuItem.h"
-#import "CSActionSheet.h"
-#import "CSMenuHeader.h"
-#import "CSMenuIcon.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_childMainControllers;
     CSActionSheet *_menuSheet;
 }
 
-- (instancetype)construct {
-    [super construct];
-    _menu = NSMutableArray.new;
-    _childMainControllers = NSMutableArray.new;
+- (instancetype)init {
+    if (self == super.init) {
+        _menu = NSMutableArray.new;
+        _childMainControllers = NSMutableArray.new;
+    }
     return self;
 }
 
@@ -91,7 +87,7 @@
 }
 
 - (CSActionSheet *)menuSheet {
-    return _menuSheet ? _menuSheet : (_menuSheet = CSActionSheet.new.construct);
+    return _menuSheet ? _menuSheet : (_menuSheet = CSActionSheet.new);
 }
 
 - (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuHeader *> *)menu {

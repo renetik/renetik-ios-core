@@ -49,6 +49,8 @@
 
 - (NSUInteger)size;
 
+- (NSString *)htmlToText;
+
 + (NSString *)randomStringOfLength:(int)len;
 
 + (NSString *)format:(NSString *)format :(NSObject *)argument;

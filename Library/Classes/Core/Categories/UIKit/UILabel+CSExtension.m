@@ -5,6 +5,7 @@
 
 #import "UILabel+CSExtension.h"
 #import "UIView+CSDimension.h"
+#import "UIView+CSLayoutGetters.h"
 
 
 @implementation UILabel (CSExtension)
@@ -40,7 +41,7 @@
 
 - (instancetype)setHTMLFromString:(NSString *)string {
     string = [string add:stringf(
-            @"<style>body{font-family: '%@'; font-size:%fpx;}</style>",self.font.fontName, self.font.pointSize)];
+            @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize)];
     self.attributedText = [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
                                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                                                  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
@@ -55,6 +56,8 @@
 }
 
 - (instancetype)sizeHeightToLines:(int)numberOfLines {
+//    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+	var currentWidth = self.width;
     var currentText = self.text;
     self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
                 " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
@@ -72,11 +75,13 @@
     self.numberOfLines = numberOfLines;
     [self sizeToFit];
     self.text = currentText;
+	self.width = currentWidth;
     return self;
 }
 
 
 - (instancetype)sizeFit:(NSString *)value {
+    self.numberOfLines = 0;
     var current = self.text;
     return [[self text:value].sizeFit text:current];
 }

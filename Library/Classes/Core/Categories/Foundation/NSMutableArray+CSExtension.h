@@ -27,7 +27,7 @@
 
 - (instancetype)removeAll:(NSArray *)array;
 
-- (instancetype)replaceFromArray:(NSArray *)array;
+- (instancetype)reload:(NSArray *)array;
 
 - (instancetype)reverse;
 

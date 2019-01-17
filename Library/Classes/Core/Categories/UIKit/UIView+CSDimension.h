@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)matchParentHeightWithMargin:(CGFloat)margin;
 
+- (instancetype)widthAsHeight;
+
 - (void)setHeight:(CGFloat)height;
 
 - (instancetype)height:(CGFloat)height;
@@ -33,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)matchParent;
 
 - (instancetype)matchParentWithMargin:(CGFloat)margin;
+
+- (instancetype)heightAsWidth;
 
 - (instancetype)addWidth:(CGFloat)value;
 

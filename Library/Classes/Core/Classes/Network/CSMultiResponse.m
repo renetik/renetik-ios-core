@@ -12,7 +12,6 @@
 }
 
 - (instancetype)construct:(CSResponse *)request {
-    super.construct;
     [self add:request];
     return self;
 }

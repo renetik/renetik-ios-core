@@ -1,8 +1,6 @@
 //
 //  Created by Rene Dohan on 5/2/12.
 //
-#import <UIKit/UIKit.h>
-#import "NSObject+CSExtension.h"
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
 #import "CSImagePickerController.h"
@@ -38,7 +36,7 @@
 }
 
 - (void)createSheet:(id)sender {
-    _actionSheet = [CSActionSheet.new.construct actions:@[@"Choose Photo", @"Take Picture"] :@[^{
+    _actionSheet = [CSActionSheet.new actions:@[@"Choose Photo", @"Take Picture"] :@[^{
         [self onGalleryClick:sender];
     }, ^{
         [self onCaptureClick];

@@ -38,6 +38,11 @@
     return self;
 }
 
+- (instancetype)widthAsHeight {
+    self.width = self.height;
+    return self;
+}
+
 - (void)setHeight:(CGFloat)value {
     CGRect frame = self.frame;
     frame.size.height = value;
@@ -46,6 +51,11 @@
 
 - (instancetype)height:(CGFloat)value {
     self.height = value;
+    return self;
+}
+
+- (instancetype)heightAsWidth {
+    self.height = self.width;
     return self;
 }
 

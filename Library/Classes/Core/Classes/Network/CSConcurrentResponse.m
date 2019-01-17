@@ -16,8 +16,8 @@
     NSMutableArray *_responses;
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (instancetype)init {
+    if (self = super.init) {
         _failedResponses = NSMutableArray.new;
         _responses = NSMutableArray.new;
         self.data = NSMutableArray.new;
@@ -25,8 +25,7 @@
     return self;
 }
 
-- (instancetype)construct:(NSArray *)responses {
-    super.construct;
+- (instancetype)addAll:(NSArray *)responses {
     for (CSResponse *response in responses) [self add:response];
     return self;
 }

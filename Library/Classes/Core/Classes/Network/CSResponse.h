@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CSResponse<__covariant DataType> : NSObject
 
 @property(copy, nonatomic) NSString *url;
-@property(copy, nonatomic) NSString *content;
+@property(copy, nonatomic) NSString * _Nullable content;
 @property(nonatomic, copy) NSString *message;
 @property(nonatomic) NSInteger errorCode;
 @property(nonatomic) NSDictionary *params;
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) BOOL fromCacheIfPossible;
 @property(nonatomic, weak) UIViewController *controller;
 
-- (void)success:(DataType)data;
+- (void)success:(nullable DataType)data;
 
 - (DataType)data;
 

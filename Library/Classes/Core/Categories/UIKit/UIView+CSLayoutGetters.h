@@ -7,39 +7,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSLayoutGetters)
 
-- (CGPoint)position;
+@property(readonly) CGPoint position;
 
-- (CGFloat)left;
+@property(readonly) CGFloat left;
 
-- (CGFloat)x;
+@property(readonly) CGFloat x;
 
-- (CGFloat)top;
+@property(readonly) CGFloat top;
 
-- (CGFloat)y;
+@property(readonly) CGFloat y;
 
-- (CGFloat)right;
+@property(readonly) CGFloat right;
 
-- (CGFloat)bottom;
+@property(readonly) CGFloat bottom;
 
-- (CGFloat)fromRight;
+@property(readonly) CGFloat fromRight;
 
-- (CGFloat)fromBottom;
+@property(readonly) CGFloat fromBottom;
 
-- (CGFloat)leftFromRight;
+@property(readonly) CGFloat leftFromRight;
 
-- (CGFloat)topFromBottom;
+@property(readonly) CGFloat topFromBottom;
 
-- (CGFloat)absTop;
+@property(readonly) CGFloat absTop;
 
-- (CGFloat)absBottom;
+@property(readonly) CGFloat absBottom;
 
-- (CGSize)size;
+@property(readonly) CGSize size;
 
-- (CGFloat)width;
+@property(readonly) CGFloat width;
 
-- (CGFloat)height;
+@property(readonly) CGFloat height;
 
-- (CGSize)calculateSizeFromSubviews;
+@property(readonly) CGSize calculateSizeFromSubviews;
 
 @end
 

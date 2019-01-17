@@ -21,10 +21,11 @@
     void (^_singleAction)(NSInteger);
 }
 
-- (instancetype)construct {
-    [super construct];
-    _titles = NSMutableArray.new;
-    _actions = NSMutableArray.new;
+- (instancetype)init {
+    if (self == super.init) {
+        _titles = NSMutableArray.new;
+        _actions = NSMutableArray.new;
+    }
     return self;
 }
 

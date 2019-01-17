@@ -8,6 +8,7 @@
 @implementation CSSearchBarController {
     UIViewController *_parent;
     BOOL _searchBarShouldBeginEditing;
+
     void (^_onTextDidChange)(NSString *);
 }
 

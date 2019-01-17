@@ -76,7 +76,7 @@
 }
 
 - (void)onLoadSuccess:(NSArray *)array {
-    [_data replaceFromArray:array];
+    [_data reload:array];
     _noNext = array.count == 0;
     [_collectionView reloadData];
     [self updateEmpty];
