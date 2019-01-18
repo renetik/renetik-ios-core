@@ -66,3 +66,4 @@ iOSInjectionProject/
 # Additions
 .idea/
 .DS_Store
+Podfile.lock
