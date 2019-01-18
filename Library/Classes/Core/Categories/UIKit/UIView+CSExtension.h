@@ -9,6 +9,7 @@
 static float const CS_FADE_TIME = 0.3;
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (CSExtension)
 
 + (instancetype)construct;
@@ -71,9 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setBackColor:(UIColor *)color;
 
-- (instancetype)backColor:(UIColor *)color;
+- (instancetype)background:(UIColor *)color;
 
-- (UIColor *)backColor;
+@property UIColor *background;
 
 - (instancetype)tintColor:(UIColor *)color;
 
@@ -141,4 +142,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)addBottomSeparator:(CGFloat)height;
 @end
+
 NS_ASSUME_NONNULL_END

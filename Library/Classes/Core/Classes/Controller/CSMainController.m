@@ -5,6 +5,12 @@
 
 @import BlocksKit;
 
+#import "CSMainController.h"
+#import "CSActionSheet.h"
+#import "CSMenuHeader.h"
+#import "CSMenuItem.h"
+#import "CSMenuIcon.h"
+
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_childMainControllers;
     CSActionSheet *_menuSheet;

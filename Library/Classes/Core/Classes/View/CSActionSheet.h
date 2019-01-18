@@ -44,7 +44,6 @@
 #import "NSBundle+CSExtension.h"
 #import "UIApplication+CSExtension.h"
 
-
 @interface CSActionSheet : NSObject <UIActionSheetDelegate>
 
 @property(nonatomic, readonly) UIActionSheet *sheet;

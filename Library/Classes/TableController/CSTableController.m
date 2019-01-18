@@ -38,7 +38,7 @@
 
 - (void)loadView {
     self.view = _table = UITableView.new;
-    [_table backColor:UIColor.clearColor];
+    [_table background:UIColor.clearColor];
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)

@@ -3,12 +3,12 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
+
 #import "CSViewController.h"
 
 @class CSMenuItem;
 @class CSMenuHeader;
-@class CSActionSheet;
 
 @interface CSMainController : CSViewController
 

@@ -9,8 +9,8 @@ import Renetik
 class SamplePagerController: UIViewController {
 
     override func loadView() {
-        view = UIView().construct().width(200, height: 400).back(.green)
-        view.add(UILabel().construct()).flexibleLeft().top(50).height(30).back(.blue).width(100).fromRight(10)
+        view = UIView().construct().width(200, height: 400).background(.green)
+        view.add(UILabel().construct()).flexibleLeft().top(50).height(30).background(.blue).width(100).fromRight(10)
     }
     
     override func viewDidLoad() {

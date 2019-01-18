@@ -143,7 +143,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     self.backgroundColor = color;
 }
 
-- (instancetype)backColor:(UIColor *)color {
+- (instancetype)background:(UIColor *)color {
     self.backgroundColor = color;
     return self;
 }
@@ -437,7 +437,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (UIView *)addBottomSeparator:(CGFloat)height {
     return [[[[self add:UIView.construct] height:height] fromBottom:0]
-            .matchParentWidth.flexibleTop.fixedBottom backColor:UIColor.darkGrayColor];
+            .matchParentWidth.flexibleTop.fixedBottom background:UIColor.darkGrayColor];
 }
 
 @end
