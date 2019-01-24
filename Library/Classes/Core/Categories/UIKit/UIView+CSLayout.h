@@ -6,6 +6,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+/*
+ * All methods set autoresizing masks by common sense
+ */
 @interface UIView (CSLayout)
 
 - (instancetype)left:(CGFloat)value;
@@ -22,37 +26,90 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)left:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height;
 
+/*
+ *  By setting left, width will be resized
+ */
 - (instancetype)leftToWidth:(CGFloat)left;
 
+/*
+ *  By setting right, width will be resized
+ */
 - (instancetype)rightToWidth:(CGFloat)right;
 
+/*
+ *  By setting top, height will be resized
+ */
 - (instancetype)topToHeight:(CGFloat)top;
 
+/*
+ *  By setting bottom, height will be resized
+ */
 - (instancetype)bottomToHeight:(CGFloat)bottom;
 
-- (instancetype)fromRight:(CGFloat)value;
+/*
+ * Distance of right bound from right side of parent
+ */
+- (instancetype)fromRight:(CGFloat)distanceFromRight;
 
-- (instancetype)fromBottom:(CGFloat)bottom;
+/*
+ * Distance of bottom bound from bottom side of parent
+ */
+- (instancetype)fromBottom:(CGFloat)distanceFromBottom;
 
-- (instancetype)fromRightToWidth:(CGFloat)lengthFromRight;
+/*
+ *  Resize view width so that its right boundary will be in specified distance from right side
+ */
+- (instancetype)fromRightToWidth:(CGFloat)distanceFromRight;
 
-- (instancetype)fromBottomToHeight:(CGFloat)lengthFromBottom;
+/*
+ *  Resize view height so that its bottom boundary will be in specified distance from bottom side
+ */
+- (instancetype)fromBottomToHeight:(CGFloat)distanceFromBottom;
 
-- (instancetype)widthFromRight:(CGFloat)width;
+/*
+ * Set width so right side will stay at fixed position
+ */
+- (instancetype)widthFixedRight:(CGFloat)width;
 
-- (instancetype)heightFromBottom:(CGFloat)value;
+/*
+ * Set height so bootm side will stay at fixed position
+ */
+- (instancetype)heightFixedBottom:(CGFloat)height;
 
+- (instancetype)heightDisabledAutosizing:(CGFloat)height;
+
+- (instancetype)widthDisabledAutosizing:(CGFloat)width;
+
+/*
+ * Fill parent completely with autosizing
+ */
 - (instancetype)matchParent;
 
+/*
+ * Fill parent completely with margin and autosizing
+ */
 - (instancetype)matchParentWithMargin:(CGFloat)margin;
 
+/*
+ * Fill parent width with autosizing
+ */
 - (instancetype)matchParentWidth;
 
+/*
+ * Fill parent width with marign and autosizing
+ */
 - (instancetype)matchParentWidthWithMargin:(CGFloat)margin;
 
+/*
+ * Fill parent height with marign and autosizing
+ */
 - (instancetype)matchParentHeightWithMargin:(CGFloat)margin;
 
+/*
+ * Fill parent height and autosizing
+ */
 - (instancetype)matchParentHeight;
 
 @end
+
 NS_ASSUME_NONNULL_END

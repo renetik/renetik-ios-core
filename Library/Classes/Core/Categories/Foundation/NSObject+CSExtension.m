@@ -8,6 +8,11 @@
 
 @implementation NSObject (CSExtension)
 
++ (instancetype)as:(id)obj {
+    if ([obj isKindOfClass:self]) {return obj;}
+    return nil;
+}
+
 - (id)as:(Protocol *)aProtocol {
     return [self.class conformsToProtocol:aProtocol] ? self : nil;
 }
@@ -51,6 +56,10 @@
 
 - (CSWork *)schedule:(double)seconds :(void (^)(void))method {
     return [CSWork.new construct:seconds :method];
+}
+
+- (BOOL)isNotKindOfClass:(Class)aClass {
+    return ![self isKindOfClass:aClass];
 }
 
 - (BOOL)isKindOfOneOfClass:(NSArray<Class> *)classes {

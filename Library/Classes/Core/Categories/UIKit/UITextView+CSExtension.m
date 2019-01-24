@@ -6,12 +6,6 @@
 
 @implementation UITextView (CSExtension)
 
-//- (instancetype)construct {
-//    super.construct;
-//    [self backColor:UIColor.clearColor];
-//    return self;
-//}
-
 - (instancetype)setHTMLFromString:(NSString *)string {
     string = [string add:stringf(
             @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize)];

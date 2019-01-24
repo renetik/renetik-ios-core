@@ -16,6 +16,7 @@
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
+#import "UIView+CSLayout.h"
 
 @implementation CSToolbarPagerController {
     CSMainController *_parentController;

@@ -9,6 +9,7 @@
 #import "UIView+CSExtension.h"
 #import "UINib+CSExtension.h"
 #import "UIView+CSDimension.h"
+#import "UIView+CSLayout.h"
 
 @implementation UICollectionView (CSExtension)
 
@@ -18,7 +19,7 @@ static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 
 - (instancetype)construct {
     super.construct;
-    self.backColor = UIColor.clearColor;
+    self.backgroundColor = UIColor.clearColor;
     return self;
 }
 

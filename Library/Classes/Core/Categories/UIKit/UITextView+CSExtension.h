@@ -5,7 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UITextView (CSExtension)
 
 - (instancetype)scrollToCursorPosition;
@@ -36,4 +38,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)fontStyle:(UIFontTextStyle)style;
 @end
+
 NS_ASSUME_NONNULL_END

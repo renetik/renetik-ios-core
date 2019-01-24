@@ -4,13 +4,14 @@
 //
 
 #import "CSTabPagerController.h"
-#import "CSTabPagerTabProtocol.h"
+#import "CSTabPagerTab.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
+#import "UIView+CSLayout.h"
 
 @implementation CSTabPagerController {
-    NSArray<CSMainController <CSTabPagerTabProtocol> *> *_childMainControllers;
+    NSArray<CSMainController <CSTabPagerTab> *> *_childMainControllers;
     CSMainController *_parentController;
     UITabBar *_tabBar;
     UIScrollView *_scrollView;
@@ -18,7 +19,7 @@
     UIView *_contentView;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTabProtocol> *> *)controllers
+- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTab> *> *)controllers
         :(UITabBar *)toolbar :(UIScrollView *)scrollView {
     [super construct:parent];
     _parentController = parent;
@@ -65,7 +66,7 @@
 
 - (void)loadBar {
     NSMutableArray *items = NSMutableArray.new;
-    for (CSMainController <CSTabPagerTabProtocol> *controller in _childMainControllers) {
+    for (CSMainController <CSTabPagerTab> *controller in _childMainControllers) {
         UITabBarItem *item = [controller tabItem];
         [items add:item];
     }

@@ -7,11 +7,11 @@
 
 @interface UIImageView (CSSDWebImage)
 
-- (UIImageView *)setImageNSURL:(NSURL *)url;
+- (instancetype)imageNSURL:(NSURL *)url;
 
-- (UIImageView *)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess;
+- (instancetype)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess;
 
 - (void)setImageURL:(NSString *)url;
 
-- (UIImageView *)imageURL:(NSString *)url;
+- (instancetype)imageURL:(NSString *)url;
 @end

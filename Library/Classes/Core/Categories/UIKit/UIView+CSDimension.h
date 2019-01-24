@@ -3,7 +3,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (CSDimension)
 
 - (instancetype)size:(CGSize)size;
@@ -16,25 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)width:(CGFloat)value;
 
-- (instancetype)widthFromRight:(CGFloat)width;
-
-- (instancetype)matchParentWidth;
-
-- (instancetype)matchParentWidthWithMargin:(CGFloat)margin;
-
-- (instancetype)matchParentHeightWithMargin:(CGFloat)margin;
-
 - (instancetype)widthAsHeight;
 
 - (void)setHeight:(CGFloat)height;
 
 - (instancetype)height:(CGFloat)height;
-
-- (instancetype)matchParentHeight;
-
-- (instancetype)matchParent;
-
-- (instancetype)matchParentWithMargin:(CGFloat)margin;
 
 - (instancetype)heightAsWidth;
 
@@ -56,13 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)padding:(CGFloat)padding;
 
-- (instancetype)addLeft:(int)value;
+- (instancetype)addLeft:(NSInteger)value;
 
-- (instancetype)addTop:(int)value;
+- (instancetype)addTop:(NSInteger)value;
 
-- (instancetype)addRight:(int)value;
+- (instancetype)addRight:(NSInteger)value;
 
-- (instancetype)addBottom:(int)value;
+- (instancetype)addBottom:(NSInteger)value;
 
 @end
+
 NS_ASSUME_NONNULL_END

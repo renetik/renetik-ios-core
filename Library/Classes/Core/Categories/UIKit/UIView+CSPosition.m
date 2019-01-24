@@ -2,11 +2,11 @@
 // Created by Rene Dohan on 17/07/18.
 //
 
+#import "CSLang.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayoutGetters.h"
-#import "CSLang.h"
 #import "NSException+CSExtension.h"
 
 @implementation UIView (CSPosition)
@@ -42,7 +42,7 @@
 }
 
 - (void)setAbsTop:(float)value {
-    [self top:[self convertPoint:CGPointMake(0, value) fromView:nil].y];
+    self.top = [self convertPoint:CGPointMake(0, value) fromView:nil].y;
 }
 
 - (instancetype)verticalCenter:(CGFloat)y {

@@ -11,7 +11,7 @@
 
 @implementation UIImageView (CSSDWebImage)
 
-- (UIImageView *)setImageNSURL:(NSURL *)url {
+- (UIImageView *)imageNSURL:(NSURL *)url {
     return [self imageURL:url.absoluteString onSuccess:nil];
 }
 

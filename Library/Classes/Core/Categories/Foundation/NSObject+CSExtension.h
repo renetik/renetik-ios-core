@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CSExtension)
 
++ (instancetype)as:(id)obj;
+
 - (id)as:(Protocol *)aProtocol;
 
 - (instancetype)setObject:(const void *)key :(id)value;
@@ -31,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CSDoLaterProcess *)doLater:(double)seconds :(void (^)(void))method;
 
 - (CSWork *)schedule:(double)seconds :(void (^)(void))method;
+
+- (BOOL)isNotKindOfClass:(Class)aClass;
 
 - (BOOL)isKindOfOneOfClass:(NSArray *)classes;
 

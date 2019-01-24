@@ -7,7 +7,7 @@
 
 @class UITabBarItem;
 
-@protocol CSTabPagerTabProtocol <NSObject>
+@protocol CSTabPagerTab <NSObject>
 
 - (UITabBarItem *)tabItem;
 

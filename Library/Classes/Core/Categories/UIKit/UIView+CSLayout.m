@@ -87,19 +87,19 @@
     return self;
 }
 
-- (instancetype)fromRightToWidth:(CGFloat)lengthFromRight {
+- (instancetype)fromRightToWidth:(CGFloat)distanceFromRight {
     NSAssert(self.superview, @"Needs to have superview");
-    val right = self.superview.width - lengthFromRight;
+    val right = self.superview.width - distanceFromRight;
     return [self rightToWidth:right];
 }
 
-- (instancetype)fromBottomToHeight:(CGFloat)lengthFromBottom {
+- (instancetype)fromBottomToHeight:(CGFloat)distanceFromBottom {
     NSAssert(self.superview, @"Needs to have superview");
-    val bottom = self.superview.height - lengthFromBottom;
+    val bottom = self.superview.height - distanceFromBottom;
     return [self bottomToHeight:bottom];
 }
 
-- (instancetype)widthFromRight:(CGFloat)width {
+- (instancetype)widthFixedRight:(CGFloat)width {
     CGFloat right = self.fromRight;
     self.width = width;
     self.fromRight = right;
@@ -107,11 +107,25 @@
     return self;
 }
 
-- (instancetype)heightFromBottom:(CGFloat)value {
+- (instancetype)heightFixedBottom:(CGFloat)height {
     CGFloat bottom = self.fromBottom;
-    self.height = value;
+    self.height = height;
     self.fromBottom = bottom;
     [self fixedBottom];
+    return self;
+}
+
+- (instancetype)heightDisabledAutosizing:(CGFloat)height {
+    self.autoresizesSubviews = false;
+    [self height:height];
+    self.autoresizesSubviews = true;
+    return self;
+}
+
+- (instancetype)widthDisabledAutosizing:(CGFloat)width {
+    self.autoresizesSubviews = false;
+    [self width:width];
+    self.autoresizesSubviews = true;
     return self;
 }
 

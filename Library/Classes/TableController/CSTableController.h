@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CSTableController<__covariant ObjectType> : CSViewController
 
-@property(readonly, nonatomic) UITableView *table;
+@property(readonly, nonatomic) UITableView *tableView;
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent;
 

@@ -9,12 +9,13 @@
 #import "UINavigationController+CSExtension.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
+#import "UIView+CSLayout.h"
 
 @implementation UITableView (CSExtension)
 
 - (instancetype)construct {
     super.construct;
-    self.backColor = UIColor.clearColor;
+    self.backgroundColor = UIColor.clearColor;
     return self;
 }
 
@@ -82,7 +83,7 @@
     [cell size:CGSizeMake(self.width, self.rowHeight = view.height)];
     [cell.contentView matchParent];
     [cell.contentView add:view].matchParent;
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     return cell;
 }
 

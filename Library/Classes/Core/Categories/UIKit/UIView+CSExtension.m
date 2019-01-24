@@ -9,6 +9,7 @@
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
+#import "UIView+CSLayout.h"
 #import "UIView+CSLayoutGetters.h"
 #import "CSCocoaLumberjack.h"
 
@@ -139,17 +140,9 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     self.backgroundColor = color;
 }
 
-- (void)setBackColor:(UIColor *)color {
-    self.backgroundColor = color;
-}
-
 - (instancetype)background:(UIColor *)color {
     self.backgroundColor = color;
     return self;
-}
-
-- (UIColor *)backColor {
-    return self.backgroundColor;
 }
 
 - (instancetype)tintColor:(UIColor *)color {
@@ -381,7 +374,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return [self add:view];
 }
 
-- (UIView *)addUnderLast:(UIView *)view offset:(int)offset {
+- (UIView *)addUnderLast:(UIView *)view offset:(NSInteger)offset {
     if ([self positionUnderLast:view].top != 0) view.top += offset;
     return [self add:view];
 }
@@ -436,7 +429,11 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 }
 
 - (UIView *)addBottomSeparator:(CGFloat)height {
-    return [[[[self add:UIView.construct] height:height] fromBottom:0]
+    return [[self add:UIView.construct] asBottomSeparator:height];
+}
+
+- (instancetype)asBottomSeparator:(CGFloat)height {
+    return [[[self height:height] fromBottom:0]
             .matchParentWidth.flexibleTop.fixedBottom background:UIColor.darkGrayColor];
 }
 

@@ -12,28 +12,27 @@
 
 - (NSString *)substringTo:(NSUInteger)to;
 
-- (NSString *)add:(NSObject *)first;
+- (instancetype)add:(NSObject *)first;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second;
+- (instancetype)add:(NSObject *)first :(NSObject *)second;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10;
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10;
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10 :(NSObject *)param11;
-
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10 :(NSObject *)param11;
 
 + (NSString *)fromInt:(NSInteger)value;
 

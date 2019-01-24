@@ -84,19 +84,20 @@
 }
 
 - (instancetype)contentMarging:(CGFloat)padding {
-    [self.content left:padding top:padding];
+    self.content.left = padding;
+    self.content.top = padding;
     [[self addWidth:padding * 2] addHeight:padding * 2];
     return self;
 }
 
 - (instancetype)contentMargingVertical:(CGFloat)padding {
-    [self.content top:padding];
+    self.content.top = padding;
     [self addHeight:padding * 2];
     return self;
 }
 
 - (instancetype)contentMargingHorizontal:(CGFloat)padding {
-    [self.content left:padding];
+    self.content.left = padding;
     [self addWidth:padding * 2];
     return self;
 }
@@ -109,24 +110,24 @@
     return self;
 }
 
-- (instancetype)addLeft:(int)value {
+- (instancetype)addLeft:(NSInteger)value {
     self.left += value;
     self.width += value;
     return self;
 }
 
-- (instancetype)addTop:(int)value {
+- (instancetype)addTop:(NSInteger)value {
     self.top += value;
     self.height += value;
     return self;
 }
 
-- (instancetype)addRight:(int)value {
+- (instancetype)addRight:(NSInteger)value {
     self.width += value;
     return self;
 }
 
-- (instancetype)addBottom:(int)value {
+- (instancetype)addBottom:(NSInteger)value {
     self.height += value;
     return self;
 }

@@ -13,6 +13,11 @@
     return self;
 }
 
+- (instancetype)append:(NSString *)string {
+    [self appendString:string];
+    return self;
+}
+
 - (instancetype)deleteLast:(NSInteger)length {
     if (self.length > 0) [self deleteCharactersInRange:NSMakeRange(self.length - length, (NSUInteger) length)];
     return self;

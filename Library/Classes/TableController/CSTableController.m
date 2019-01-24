@@ -14,6 +14,7 @@
 #import "CSTableFilterProtocol.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
+#import "UIView+CSLayout.h"
 #import "CSListData.h"
 
 
@@ -37,8 +38,8 @@
 }
 
 - (void)loadView {
-    self.view = _table = UITableView.new;
-    [_table background:UIColor.clearColor];
+    self.view = _tableView = UITableView.new;
+    [_tableView background:UIColor.clearColor];
 }
 
 - (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
@@ -57,25 +58,23 @@
 }
 
 - (instancetype)refreshable {
-    _refreshControl = [CSRefreshControl.new construct:_table :^{[self onRefreshControl]; }];
+    _refreshControl = [CSRefreshControl.new construct:_tableView :^{[self onRefreshControl];}];
     return self;
 }
 
 - (instancetype)autoReload {
     _autoReload = YES;
-    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{
-        if (self.visible) [self reload:YES];
-    }] start];
+    _reloadWork = [[CSWork.new construct:5 * MINUTE :^{if (self.visible) [self reload:YES];}] start];
     return self;
 }
 
 - (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
-    _table.hide;
-    _table.delegate = parent;
-    _table.dataSource = parent;
-    _table.emptyDataSetSource = self;
-    _table.emptyDataSetDelegate = self;
-    _table.backgroundView = [UIView withColor:UIColor.clearColor];
+    _tableView.hide;
+    _tableView.delegate = parent;
+    _tableView.dataSource = parent;
+    _tableView.emptyDataSetSource = self;
+    _tableView.emptyDataSetDelegate = self;
+    _tableView.backgroundView = [UIView withColor:UIColor.clearColor];
     [UITapGestureRecognizer.alloc bk_initWithHandler:
             ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
                 [self reload];
@@ -88,7 +87,7 @@
 }
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
-    [_table reloadData];
+    [_tableView reloadData];
 }
 
 - (CSResponse *)reload {
@@ -106,11 +105,11 @@
     return [[_loadResponse onFailed:^(CSResponse *response) {
         _self.failed = YES;
         _self.failedMessage = response.message;
-        [_table reloadData];
+        [_tableView reloadData];
     }] onDone:^(id data) {
         if (refreshControl) [_self.refreshControl endRefreshing];
         _self.loading = NO;
-        [_self.table fadeIn];
+        [_self.tableView fadeIn];
     }];
 }
 
@@ -149,9 +148,9 @@
             [paths add:[NSIndexPath indexPathForRow:index + _filteredData.count inSection:0]];
 
         [_filteredData addArray:filteredData];
-        [_table beginUpdates];
-        [_table insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [_table endUpdates];
+        [_tableView beginUpdates];
+        [_tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tableView endUpdates];
     }
     _pageIndex += 1;
     _failed = NO;
@@ -161,12 +160,12 @@
 - (void)showLoadNextIndicator {
     if (!_loadNextView) {
         UIActivityIndicatorView *loadingNextView =
-			[UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         if (_loadNextColor)loadingNextView.color = _loadNextColor;
         [loadingNextView startAnimating];
         _loadNextView = loadingNextView;
     }
-    [[_table.superview add:_loadNextView] fromBottom:5].centerInParentHorizontal;
+    [[_tableView.superview add:_loadNextView] fromBottom:5].centerInParentHorizontal;
 }
 
 - (BOOL)shouldLoadNext:(NSIndexPath *)path {
@@ -179,7 +178,7 @@
 }
 
 - (void)onRefreshControl {
-    if (self.onUserRefresh) { if (self.onUserRefresh()) [self reload:YES]; } else [self reload:YES];
+    if (self.onUserRefresh) {if (self.onUserRefresh()) [self reload:YES];} else [self reload:YES];
 }
 
 - (void)setSearchText:(NSString *)text {
@@ -203,9 +202,9 @@
     val indexes = NSMutableIndexSet.new;
     for (int section = 0; section < filteredData.count; section++) [indexes addIndex:section + _filteredData.count];
     [_filteredData addArray:filteredData];
-    [_table beginUpdates];
-    [_table insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-    [_table endUpdates];
+    [_tableView beginUpdates];
+    [_tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
+    [_tableView endUpdates];
 }
 
 - (void)addItem:(id)item {
@@ -240,7 +239,7 @@
     if (self.emptyText)
         return [self.emptyText attributed:@{
                 NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
-                NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES]}];
+                NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn:_tableView.backgroundColor isFlat:YES]}];
     return nil;
 }
 
@@ -272,7 +271,7 @@
 }
 
 - (UIColor *)imageTintColorForEmptyDataSet:(UIScrollView *)scrollView {
-    return [UIColor colorWithContrastingBlackOrWhiteColorOn:_table.backgroundColor isFlat:YES];
+    return [UIColor colorWithContrastingBlackOrWhiteColorOn:_tableView.backgroundColor isFlat:YES];
 }
 
 - (BOOL)emptyDataSetShouldAnimateImageView:(UIScrollView *)scrollView {
@@ -302,7 +301,7 @@
 
 - (void)filterDataAndReload {
     [_filteredData reload:[self filterData:_data]];
-    [_table reloadData];
+    [_tableView reloadData];
     if ([_filter respondsToSelector:@selector(onReloadDone:)])[_filter onReloadDone:self];
 }
 

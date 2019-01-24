@@ -70,11 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (void)setBackColor:(UIColor *)color;
-
 - (instancetype)background:(UIColor *)color;
-
-@property UIColor *background;
 
 - (instancetype)tintColor:(UIColor *)color;
 
@@ -120,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)addViewVerticalLayout:(UIView *)view;
 
-- (UIView *)addUnderLast:(UIView *)view offset:(int)offset;
+- (UIView *)addUnderLast:(UIView *)view offset:(NSInteger)offset;
 
 - (UIView *)addUnderLast:(UIView *)view;
 
@@ -141,6 +137,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)aspectFill;
 
 - (UIView *)addBottomSeparator:(CGFloat)height;
+
+- (instancetype)asBottomSeparator:(CGFloat)height;
+
 @end
 
 NS_ASSUME_NONNULL_END

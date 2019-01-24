@@ -8,13 +8,13 @@
 #import "CSChildViewLessController.h"
 
 @class CSMainController;
-@protocol CSTabPagerTabProtocol;
+@protocol CSTabPagerTab;
 
 @interface CSTabPagerController : CSChildViewLessController <UIScrollViewDelegate, UITabBarDelegate>
 
 - (void)onPageChange:(NSUInteger)pageIndex;
 
-- (instancetype)construct:(CSMainController *)parentController :(NSArray<CSMainController <CSTabPagerTabProtocol> *> *)controllers :(UITabBar *)tabBar :(UIScrollView *)scrollView;
+- (instancetype)construct:(CSMainController *)parentController :(NSArray<CSMainController <CSTabPagerTab> *> *)controllers :(UITabBar *)tabBar :(UIScrollView *)scrollView;
 
 - (void)reload:(NSArray *)array;
 

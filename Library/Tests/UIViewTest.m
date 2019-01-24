@@ -40,7 +40,7 @@
     XCTAssertEqual(subview.fromRight, 50);
     XCTAssertEqual(subview.width, 100);
 
-    [subview widthFromRight:50];
+    [subview widthFixedRight:50];
     XCTAssertEqual(subview.left, 100);
     XCTAssertEqual(subview.right, 150);
     XCTAssertEqual(subview.fromRight, 50);

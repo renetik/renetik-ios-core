@@ -86,52 +86,52 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [self substringToIndex:to];
 }
 
-- (NSString *)add:(NSObject *)first {
+- (instancetype)add:(NSObject *)first {
     if (!first)return self;
     NSString *description = first.description;
     if (description) return [self stringByAppendingString:description];
     return self;
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second {
+- (instancetype)add:(NSObject *)first :(NSObject *)second {
     return [[self add:first] add:second];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third {
     return [[self add:first :second] add:third];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth {
     return [[self add:first :second :third] add:fourth];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth {
     return [[self add:first :second :third :fourth] add:fifth];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth {
     return [[self add:first :second :third :fourth :fifth] add:sixth];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh {
     return [[self add:first :second :third :fourth :fifth :sixth] add:seventh];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 {
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 {
     return [[self add:first :second :third :fourth :fifth :sixth :seventh] add:param8];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
         :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 {
     return [[self add:first :second :third :fourth :fifth :sixth :seventh :param8] add:param9];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
         :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10 {
     return [[self add:first :second :third :fourth :fifth :sixth :seventh :param8 :param9] add:param10];
 }
 
-- (NSString *)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
+- (instancetype)add:(NSObject *)first :(NSObject *)second :(NSObject *)third :(NSObject *)fourth :(NSObject *)fifth
         :(NSObject *)sixth :(NSObject *)seventh :(NSObject *)param8 :(NSObject *)param9 :(NSObject *)param10 :(NSObject *)param11 {
     return [[self add:first :second :third :fourth :fifth :sixth :seventh :param8 :param9 :param10] add:param11];
 }
@@ -211,16 +211,18 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 }
 
 - (int)indexOf:(NSString *)string {
-    return [self rangeOfString:string].location;
+    let range = [self rangeOfString:string];
+    if (range.length == 0) return -1;
+    return range.location;
 }
 
 - (uint)countString:(NSString *)string {
     return [self split:string].count - 1;
 }
 
-- (BOOL)startsWith:(NSString *)str {
-    if (!str)return NO;
-    return [self hasPrefix:str];
+- (BOOL)startsWith:(NSString *)string {
+    if (!string) return NO;
+    return [self hasPrefix:string];
 }
 
 - (NSAttributedString *)attributed:(NSDictionary *)dictionary {

@@ -4,11 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CSJSONData.h"
+#import "CSDictionaryJsonData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CSName : CSJSONData
+@interface CSName : CSDictionaryJsonData
 
 + (instancetype)create:(NSString *)name :(NSString *)id;
 

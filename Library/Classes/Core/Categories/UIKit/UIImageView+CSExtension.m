@@ -26,6 +26,4 @@
     self.image = [self.image stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
 }
 
-
-
 @end

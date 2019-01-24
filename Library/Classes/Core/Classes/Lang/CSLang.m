@@ -51,8 +51,8 @@ void doLater(NSTimeInterval delay, void (^block)(void)) {
 void doLaterWith(void (^block)(id), id value, NSTimeInterval delay) {
     if (!block)return;
     doLater(delay, ^{
-            runWith(block, value);
-        });
+        runWith(block, value);
+    });
 }
 
 void invoke(void (^block)(void)) {
@@ -94,5 +94,6 @@ NSString *format4(NSString *format, NSObject *argument, NSObject *argument2, NSO
 UIEdgeInsets UIEdgeInsetMake(CGFloat inset) {
     return (UIEdgeInsets) {inset, inset, inset, inset};
 }
+
 
 @end

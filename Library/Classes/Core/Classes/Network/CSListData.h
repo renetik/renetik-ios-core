@@ -3,10 +3,14 @@
 //
 
 @import Foundation;
+#import "CSServerData.h"
+
 NS_ASSUME_NONNULL_BEGIN
-@protocol CSListData <NSObject>
+
+@protocol CSListData <CSServerData>
 
 - (NSMutableArray *)list;
 
 @end
+
 NS_ASSUME_NONNULL_END
