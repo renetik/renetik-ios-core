@@ -11,9 +11,13 @@
 
 @implementation UIView (CSDimension)
 
-
 - (instancetype)size:(CGSize)size {
     self.size = size;
+    return self;
+}
+
+- (instancetype)frame:(CGRect)rect {
+    self.frame = rect;
     return self;
 }
 

@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)size:(CGSize)size;
 
+- (instancetype)frame:(CGRect)rect;
+
 - (instancetype)setSize:(CGSize)size;
 
 - (instancetype)width:(CGFloat)width height:(CGFloat)height;
