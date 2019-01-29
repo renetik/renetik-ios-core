@@ -8,7 +8,7 @@
 @implementation CSAppDelegate {
 }
 
-+ (instancetype)get {
++ (instancetype)instance {
     return (CSAppDelegate *) UIApplication.sharedApplication.delegate;
 }
 

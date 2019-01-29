@@ -2,7 +2,6 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
-
 #import <Foundation/Foundation.h>
 #import "CSLang.h"
 #import "NSDictionary+CSExtension.h"
@@ -41,48 +40,47 @@
 #import "NSBundle+CSExtension.h"
 #import "UIApplication+CSExtension.h"
 
-
+NS_ASSUME_NONNULL_BEGIN
 @interface UINavigationController (CSExtension)
 
-- (void)pushAsRoot:(UIViewController *)newRoot;
+- (void)pushAsRoot :(UIViewController *)newRoot;
 
 - (UIViewController *)rootController;
 
-- (UIViewController *)push:(UIViewController *)controller;
+- (UIViewController *)push :(UIViewController *)controller;
 
-- (UIViewController *)pushFromTop:(UIViewController *)controller;
+- (UIViewController *)pushFromTop :(UIViewController *)controller;
 
-- (UIViewController *)pushFromBottom:(UIViewController *)controller;
+- (UIViewController *)pushFromBottom :(UIViewController *)controller;
 
-- (NSArray *)popToViewController:(UIViewController *)viewController;
+- (NSArray *)popToViewController :(UIViewController *)viewController;
 
-- (void)popToViewControllerOfClass:(Class)viewControllerClass;
+- (void)popToViewControllerOfClass :(Class)viewControllerClass;
 
-- (void)popToViewControllerBefore:(Class)pClass;
+- (void)popToViewControllerBefore :(Class)pClass;
 
-- (void)pushAsSingle:(UIViewController *)pushingController;
+- (void)pushAsSingle :(UIViewController *)pushingController;
 
-- (void)pushViewController:(UIViewController *)controller :(NSUInteger)index1;
+- (void)pushViewController :(UIViewController *)controller :(NSUInteger)index1;
 
-- (void)pushViewControllerAsSecondOfItsKind:(UIViewController *)controller;
+- (void)pushViewControllerAsSecondOfItsKind :(UIViewController *)controller;
 
 - (UIViewController *)popViewController;
 
-- (UIViewController *)beforePrevious;
+- (nullable UIViewController *)beforePrevious;
 
-- (void)pushViewControllerAsFirstOfItsKind:(UIViewController *)newcontroller;
+- (void)pushViewControllerAsFirstOfItsKind :(UIViewController *)newcontroller;
 
-- (void)pushViewController:(UIViewController *)newController after:(Class)afterControllerClass;
+- (void)pushViewController :(UIViewController *)newController after :(Class)afterControllerClass;
 
-- (UIViewController *)lastController;
+- (void)replaceLast :(UIViewController *)controller;
 
-- (void)replaceLast:(UIViewController *)controller;
+- (void)pushInsteadOfLast :(UIViewController *)controller;
 
-- (void)pushInsteadOfLast:(UIViewController *)controller;
+- (nullable UIViewController *)previous;
 
-- (UIViewController *)previous;
+- (nullable UIViewController *)last;
 
-- (UIViewController *)last;
-
-- (BOOL)contains:(Class)controllerClass;
+- (BOOL)contains :(Class)controllerClass;
 @end
+NS_ASSUME_NONNULL_END

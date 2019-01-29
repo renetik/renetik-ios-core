@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setTitleColor:(UIColor *)color;
 
-- (instancetype)setTitle:(NSString *)title;
+- (instancetype)title:(NSString *)title;
 
 - (NSString *)title;
 

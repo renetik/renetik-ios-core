@@ -81,7 +81,7 @@
 
 - (void)onClearClick {
     [self.navigationController popViewController];
-    runWith(_onSelected, _selectedRow = nil);
+    runWith(_onSelected, _selectedRow = NSNull.null);
 }
 
 - (instancetype)setData:(NSArray<CSName *> *)names {

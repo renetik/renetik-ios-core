@@ -6,13 +6,13 @@
 
 @protocol CSServerData <NSObject>
 
-@property(readonly) BOOL isEmpty;
-@property(readonly) BOOL success;
-@property(readonly) NSString *message;
+@property (readonly) BOOL isEmpty;
+@property (readonly) BOOL success;
+@property (readonly) NSString *message;
 
-- (instancetype)loadJson:(NSString *)jsonString;
+- (void)loadContent :(NSString *)content;
 
-- (void)message:(NSString *)value;
+- (void)message :(NSString *)value;
 
 - (void)clear;
 

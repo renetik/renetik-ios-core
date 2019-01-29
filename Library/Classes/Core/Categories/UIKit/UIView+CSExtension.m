@@ -68,8 +68,8 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     val autoSize = view.autoresizingMask;
     [container add:view].matchParent;
     [[superview add:container] center:center].autoresizingMask = autoSize;
-    container.backgroundColor = view.backgroundColor;
-    view.backgroundColor = UIColor.clearColor;
+//    container.backgroundColor = view.backgroundColor;
+//    view.backgroundColor = UIColor.clearColor;
     return container;
 }
 

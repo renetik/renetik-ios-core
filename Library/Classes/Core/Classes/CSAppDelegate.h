@@ -6,6 +6,6 @@
 
 @interface CSAppDelegate : UIResponder <UIApplicationDelegate>
 
-+ (instancetype)get;
++ (instancetype)instance;
 
 @end

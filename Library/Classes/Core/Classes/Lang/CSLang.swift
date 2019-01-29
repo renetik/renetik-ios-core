@@ -8,11 +8,12 @@ import Foundation
 public let YES = true
 public let NO = false
 
+public func stringify<Subject>(_ value: Subject) -> String { return String(describing: value) }
+
 public protocol CSLang {
 }
 
 public extension CSLang {
-
     public var notNil: Bool {
         return true
     }
@@ -68,8 +69,6 @@ public extension Optional {
 //    public func get<ReturnType>(function: (Wrapped) -> ReturnType) -> ReturnType? {
 //        if self != nil { return function(self!) } else { return nil }
 //    }
-
-
 }
 
 public class CSObject {

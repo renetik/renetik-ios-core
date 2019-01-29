@@ -26,7 +26,7 @@
     [self setTitleColor:color forState:UIControlStateSelected];
 }
 
-- (instancetype)setTitle:(NSString *)title {
+- (instancetype)title:(NSString *)title {
     [self setTitle:title forState:UIControlStateNormal];
     return self;
 }

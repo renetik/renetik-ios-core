@@ -2,15 +2,18 @@
 //  Created by Rene Dohan on 1/12/13.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "CSResponse.h"
 
-@interface CSConcurrentResponse : CSResponse<NSMutableArray*>
+NS_ASSUME_NONNULL_BEGIN
+@interface CSConcurrentResponse : CSResponse<NSMutableArray *>
 
-- (instancetype)addAll:(NSArray *)responses;
+- (instancetype)addAll :(NSArray *)responses;
 
-- (CSResponse *)add:(CSResponse *)response;
+- (CSResponse *)add :(CSResponse *)response;
 
 - (void)onAddDone;
 
 @end
+NS_ASSUME_NONNULL_END

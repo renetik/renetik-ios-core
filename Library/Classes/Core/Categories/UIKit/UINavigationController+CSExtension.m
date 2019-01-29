@@ -127,10 +127,6 @@
     }
 }
 
-- (UIViewController *)lastController {
-    return self.viewControllers.last;
-}
-
 - (UIViewController *)beforePrevious {
     return [self.viewControllers at:self.viewControllers.lastIndex - 2];
 }
