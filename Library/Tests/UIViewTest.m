@@ -48,8 +48,8 @@
 }
 
 - (void)testMatch {
-    val container = [UIView withSize:200 :200];
-    val subview = [container add:[UIView withRect:50 :50 :100 :100]];
+    let container = [UIView withSize:200 :200];
+    let subview = [container add:[UIView withRect:50 :50 :100 :100]];
 
     XCTAssertEqual(subview.left, 50);
     XCTAssertEqual(subview.fromRight, 50);

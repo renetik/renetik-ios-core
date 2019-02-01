@@ -2,9 +2,8 @@
 //  Created by Rene Dohan on 6/25/12.
 //
 
-
-#import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+@import UIKit;
+@import MapKit;
 
 @interface MKMapView (CSExtensionZoomLevel)
 

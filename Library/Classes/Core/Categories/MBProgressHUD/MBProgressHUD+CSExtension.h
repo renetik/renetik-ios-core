@@ -3,8 +3,8 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <MBProgressHUD/MBProgressHUD.h>
+@import UIKit;
+@import MBProgressHUD;
 
 @interface MBProgressHUD (CSExtension)
 + (MBProgressHUD *)showMessage:(NSString *)message;

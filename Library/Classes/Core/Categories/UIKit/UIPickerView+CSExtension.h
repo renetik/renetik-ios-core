@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 10/22/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface UIPickerView (CSExtension)
 

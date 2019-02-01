@@ -4,8 +4,7 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSException (CSExtension)
 + (instancetype)exceptionWithName:(NSString *)name1;

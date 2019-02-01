@@ -1,7 +1,6 @@
 //  Created by Rene Dohan on 1/13/13.
 //
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIScrollView (CSExtension)
 
@@ -29,7 +28,7 @@
 
 - (instancetype)updateContentSizeVertical;
 
-- (instancetype)updateContentSizeVerticalWithPadding:(NSInteger) padding;
+- (instancetype)updateContentSizeVerticalWithPadding:(NSInteger)padding;
 
 - (instancetype)updateContentSizeHorizontal;
 

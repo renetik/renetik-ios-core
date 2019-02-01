@@ -3,8 +3,7 @@
 // Copyright (c) 2013 creative_studio. All rights reserved.
 //
 
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSDate (CSExtension)
 

@@ -140,9 +140,9 @@
     } else {
         if ((_noNext = array.empty)) return self;
         [_data addArray :array];
-        val filteredData = [self filterData :array];
+        let filteredData = [self filterData :array];
 
-        val paths = NSMutableArray.new;
+        let paths = NSMutableArray.new;
         for (int index = 0; index < filteredData.count; index++)
             [paths add :[NSIndexPath indexPathForRow :index + _filteredData.count inSection :0]];
 
@@ -199,8 +199,8 @@
 - (void)onLoadNextSectionsSuccess :(NSArray *)array {
     if ((_noNext = array.empty)) return;
     [_data addArray :array];
-    val filteredData = [self filterData :array];
-    val indexes = NSMutableIndexSet.new;
+    let filteredData = [self filterData :array];
+    let indexes = NSMutableIndexSet.new;
     for (int section = 0; section < filteredData.count; section++) [indexes addIndex :section + _filteredData.count];
     [_filteredData addArray :filteredData];
     [_tableView beginUpdates];

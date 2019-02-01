@@ -1,9 +1,7 @@
 //
 // Created by Rene on 11/25/18.
 //
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,73 +10,73 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (CSLayout)
 
-- (instancetype)left:(CGFloat)value;
+- (instancetype)left :(CGFloat)value;
 
-- (instancetype)top:(CGFloat)value;
+- (instancetype)top :(CGFloat)value;
 
-- (instancetype)right:(CGFloat)value;
+- (instancetype)right :(CGFloat)value;
 
-- (instancetype)bottom:(CGFloat)value;
+- (instancetype)bottom :(CGFloat)value;
 
-- (instancetype)left:(CGFloat)left top:(CGFloat)top;
+- (instancetype)left :(CGFloat)left top :(CGFloat)top;
 
-- (instancetype)position:(CGPoint)position;
+- (instancetype)position :(CGPoint)position;
 
-- (instancetype)left:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height;
+- (instancetype)left :(CGFloat)left top :(CGFloat)top width :(CGFloat)width height :(CGFloat)height;
 
 /*
  *  By setting left, width will be resized
  */
-- (instancetype)leftToWidth:(CGFloat)left;
+- (instancetype)leftToWidth :(CGFloat)left;
 
 /*
  *  By setting right, width will be resized
  */
-- (instancetype)rightToWidth:(CGFloat)right;
+- (instancetype)rightToWidth :(CGFloat)right;
 
 /*
  *  By setting top, height will be resized
  */
-- (instancetype)topToHeight:(CGFloat)top;
+- (instancetype)topToHeight :(CGFloat)top;
 
 /*
  *  By setting bottom, height will be resized
  */
-- (instancetype)bottomToHeight:(CGFloat)bottom;
+- (instancetype)bottomToHeight :(CGFloat)bottom;
 
 /*
  * Distance of right bound from right side of parent
  */
-- (instancetype)fromRight:(CGFloat)distanceFromRight;
+- (instancetype)fromRight :(CGFloat)distanceFromRight;
 
 /*
  * Distance of bottom bound from bottom side of parent
  */
-- (instancetype)fromBottom:(CGFloat)distanceFromBottom;
+- (instancetype)fromBottom :(CGFloat)distanceFromBottom;
 
 /*
  *  Resize view width so that its right boundary will be in specified distance from right side
  */
-- (instancetype)fromRightToWidth:(CGFloat)distanceFromRight;
+- (instancetype)fromRightToWidth :(CGFloat)distanceFromRight;
 
 /*
  *  Resize view height so that its bottom boundary will be in specified distance from bottom side
  */
-- (instancetype)fromBottomToHeight:(CGFloat)distanceFromBottom;
+- (instancetype)fromBottomToHeight :(CGFloat)distanceFromBottom;
 
 /*
  * Set width so right side will stay at fixed position
  */
-- (instancetype)widthFixedRight:(CGFloat)width;
+- (instancetype)widthFixedRight :(CGFloat)width;
 
 /*
  * Set height so bootm side will stay at fixed position
  */
-- (instancetype)heightFixedBottom:(CGFloat)height;
+- (instancetype)heightFixedBottom :(CGFloat)height;
 
-- (instancetype)heightDisabledAutosizing:(CGFloat)height;
+- (instancetype)heightDisabledAutosizing :(CGFloat)height;
 
-- (instancetype)widthDisabledAutosizing:(CGFloat)width;
+- (instancetype)widthDisabledAutosizing :(CGFloat)width;
 
 /*
  * Fill parent completely with autosizing
@@ -88,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent completely with margin and autosizing
  */
-- (instancetype)matchParentWithMargin:(CGFloat)margin;
+- (instancetype)matchParentWithMargin :(CGFloat)margin;
 
 /*
  * Fill parent width with autosizing
@@ -98,17 +96,35 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent width with marign and autosizing
  */
-- (instancetype)matchParentWidthWithMargin:(CGFloat)margin;
+- (instancetype)matchParentWidthWithMargin :(CGFloat)margin;
 
 /*
  * Fill parent height with marign and autosizing
  */
-- (instancetype)matchParentHeightWithMargin:(CGFloat)margin;
+- (instancetype)matchParentHeightWithMargin :(CGFloat)margin;
 
 /*
  * Fill parent height and autosizing
  */
 - (instancetype)matchParentHeight;
+
+/*
+ * Resize and moves content to have and keep specified vertical padding
+ in relation to parent container
+ */
+- (instancetype)contentPaddingVertical :(CGFloat)padding;
+
+/*
+ * Resize and moves content to have and keep specified horizontal padding
+ in relation to parent container
+ */
+- (instancetype)contentPaddingHorizontal :(CGFloat)padding;
+
+/*
+ * Resize and moves content to have and keep specified padding
+ in relation to parent container
+ */
+- (instancetype)contentPadding :(CGFloat)padding;
 
 @end
 

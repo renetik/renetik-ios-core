@@ -2,7 +2,8 @@
 //  Created by Rene Dohan on 5/9/12.
 //
 
-#import <Foundation/Foundation.h>
+
+@import Foundation;
 
 @interface NSArray<ObjectType> (CSExtension)
 

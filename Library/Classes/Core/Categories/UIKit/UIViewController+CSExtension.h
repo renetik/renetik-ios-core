@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 6/11/12.
 //
 
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class MBProgressHUD;
 @class CSResponse;

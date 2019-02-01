@@ -4,8 +4,11 @@
 //
 
 #import "UILabel+CSExtension.h"
+#import "CSLang.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
+#import "NSString+CSExtension.h"
+#import "UIView+CSExtension.h"
 
 
 @implementation UILabel (CSExtension)
@@ -57,8 +60,8 @@
 
 - (instancetype)sizeHeightToLines:(int)numberOfLines {
 //    NSAssert(self.width > 0, @"Width has to be set to calculate height");
-	var currentWidth = self.width;
-    var currentText = self.text;
+	let currentWidth = self.width;
+    let currentText = self.text;
     self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
                 " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
                 "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
@@ -82,7 +85,7 @@
 
 - (instancetype)sizeFit:(NSString *)value {
     self.numberOfLines = 0;
-    var current = self.text;
+    let current = self.text;
     return [[self text:value].sizeFit text:current];
 }
 

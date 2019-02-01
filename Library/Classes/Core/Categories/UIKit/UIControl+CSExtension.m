@@ -2,11 +2,8 @@
 //  Created by Rene Dohan on 10/24/12.
 //
 
-
-#import <objc/runtime.h>
 #import "UIControl+CSExtension.h"
 #import "UIControl+BlocksKit.h"
-
 
 @implementation UIControl (CSExtension)
 

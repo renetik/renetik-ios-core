@@ -2,8 +2,7 @@
 // Created by Rene Dohan on 6/4/17.
 // Copyright (c) 2017 renetik_software. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol CSServerDataProtocol <NSObject>
 

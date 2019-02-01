@@ -4,7 +4,8 @@
  BSD License, Use at your own risk
  */
 
-#import <Foundation/Foundation.h>
+
+@import Foundation;
 
 #define D_MINUTE    60
 #define D_HOUR        3600

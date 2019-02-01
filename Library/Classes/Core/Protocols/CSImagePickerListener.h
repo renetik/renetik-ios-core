@@ -2,8 +2,7 @@
 // Created by Rene Dohan on 17/07/15.
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @protocol CSImagePickerListener <NSObject>
 

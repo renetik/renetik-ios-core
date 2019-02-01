@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Rene Dohan. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UICollectionView (CSExtension)
 

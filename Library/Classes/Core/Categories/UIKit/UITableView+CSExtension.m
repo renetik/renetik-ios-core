@@ -78,12 +78,11 @@
 }
 
 - (UITableViewCell *)createCell:(Class)viewClass {
-    val cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[viewClass className]];
+    let cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[viewClass className]];
     UIView *view = viewClass.construct;
     [cell size:CGSizeMake(self.width, self.rowHeight = view.height)];
     [cell.contentView matchParent];
-    [cell.contentView add:view].matchParent;
-//    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [cell.contentView content:view].matchParent;
     return cell;
 }
 

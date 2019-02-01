@@ -3,8 +3,8 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <MediaPlayer/MediaPlayer.h>
+@import UIKit;
+@import MediaPlayer;
 
 @interface MPMediaItem (CSExtension)
 @end

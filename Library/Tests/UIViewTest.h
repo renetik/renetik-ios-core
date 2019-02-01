@@ -6,6 +6,4 @@
 
 @interface UIViewTest:XCTestCase
 
-- (void)testPosition;
-
 @end

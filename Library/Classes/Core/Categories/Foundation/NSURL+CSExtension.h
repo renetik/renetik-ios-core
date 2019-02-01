@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 12/19/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSURL (CSExtension)
 

@@ -3,11 +3,11 @@
 // Copyright (c) 2017 renetik_software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSMutableString (CSExtension)
 
-- (instancetype)add:(NSObject *)first;
+- (instancetype)append:(NSString *)string;
 
 - (instancetype)appendStrings:(NSArray<NSString *> *)strings;
 

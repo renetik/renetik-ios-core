@@ -3,11 +3,10 @@
 // Copyright (c) 2018 Renetik. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import Foundation;
+@import CocoaLumberjack;
 
 CF_ASSUME_NONNULL_BEGIN
-
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 #define infoInt(int)    DDLogInfo(@"%i", int)

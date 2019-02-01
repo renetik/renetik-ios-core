@@ -2,7 +2,7 @@
 //  Created by Rene Dohan on 1/12/13.
 //
 
-#import <UIKit/UIKit.h>
+@import Foundation;
 
 @interface NSIndexPath (CSExtension)
 

@@ -4,8 +4,7 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIImageView (CSAFNetworking)
 

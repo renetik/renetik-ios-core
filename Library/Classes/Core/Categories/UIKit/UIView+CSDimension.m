@@ -87,26 +87,26 @@
     return [self size:self.calculateSizeFromSubviews];
 }
 
-- (instancetype)contentMarging:(CGFloat)padding {
-    self.content.left = padding;
-    self.content.top = padding;
-    [[self addWidth:padding * 2] addHeight:padding * 2];
-    return self;
-}
+//- (instancetype)contentMargin:(CGFloat)padding {
+//    [self contentMarginHorizontal:padding];
+//    [self contentMarginVertical:padding];
+//    return self;
+//}
+//
+//- (instancetype)contentMarginVertical:(CGFloat)padding {
+//    self.content.top = padding;
+//    [self addHeight:padding * 2];
+//    return self;
+//}
+//
+//- (instancetype)contentMarginHorizontal:(CGFloat)padding {
+//    self.content.left = padding;
+//    [self addWidth:padding * 2];
+//    return self;
+//}
+//
 
-- (instancetype)contentMargingVertical:(CGFloat)padding {
-    self.content.top = padding;
-    [self addHeight:padding * 2];
-    return self;
-}
-
-- (instancetype)contentMargingHorizontal:(CGFloat)padding {
-    self.content.left = padding;
-    [self addWidth:padding * 2];
-    return self;
-}
-
-- (instancetype)padding:(CGFloat)padding {
+- (instancetype)resizeByPadding:(CGFloat)padding {
     if (self.isFixedLeft) [self addRight:padding]; else [self addLeft:-padding];
     if (self.isFixedTop) [self addBottom:padding]; else [self addTop:-padding];
     if (self.isFixedRight) [self addLeft:-padding]; else [self addRight:padding];

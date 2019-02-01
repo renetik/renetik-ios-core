@@ -2,85 +2,51 @@
 //  Created by Rene Dohan on 4/29/12.
 //
 
-#import <Foundation/Foundation.h>
-#import "CSLang.h"
-#import "NSDictionary+CSExtension.h"
-#import "NSArray+CSExtension.h"
-#import "NSMutableArray+CSExtension.h"
-#import "UIView+CSExtension.h"
-#import "NSMutableDictionary+CSExtension.h"
-#import "NSObject+CSExtension.h"
-#import "UIViewController+CSExtension.h"
-#import "UIImageView+CSExtension.h"
-#import "NSIndexPath+CSExtension.h"
-#import "UIDevice+CSExtension.h"
-#import "UIScrollView+CSExtension.h"
-#import "NSString+CSExtension.h"
-#import "UIPickerView+CSExtension.h"
-#import "NSLocale+CSExtension.h"
-#import "NSUserDefaults+CSExtension.h"
-#import "UIButton+CSExtension.h"
-#import "UITableViewCell+CSExtension.h"
-#import "UINavigationController+CSExtension.h"
-#import "UIToolbar+CSExtension.h"
-#import "UITableView+CSExtension.h"
-#import "UIControl+CSExtension.h"
-#import "UIImage+CSExtension.h"
-#import "NSData+CSExtension.h"
-#import "NSDate+CSExtensions2.h"
-#import "NSDate+CSExtension.h"
-#import "CSViewControllerProtocol.h"
-#import "NSDateFormatter+CSExtension.h"
-#import "UIColor+CSExtension.h"
-#import "CALayer+CSExtension.h"
-#import "UICollectionView+CSExtension.h"
-#import "UINib+CSExtension.h"
-#import "UIBarButtonItem+CSExtension.h"
-#import "UICollectionViewCell+CSExtension.h"
-#import "NSBundle+CSExtension.h"
-#import "UIApplication+CSExtension.h"
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UINavigationController (CSExtension)
 
-- (void)pushAsRoot :(UIViewController *)newRoot;
+@property(readonly, nullable) UIViewController *previous;
 
-- (UIViewController *)rootController;
+@property(readonly, nullable) UIViewController *last;
 
-- (UIViewController *)push :(UIViewController *)controller;
+@property(readonly, nullable) UIViewController *beforePrevious;
 
-- (UIViewController *)pushFromTop :(UIViewController *)controller;
+@property(readonly, nullable) UIViewController *root;
 
-- (UIViewController *)pushFromBottom :(UIViewController *)controller;
+- (void)pushAsRoot:(UIViewController *)newRoot;
 
-- (NSArray *)popToViewController :(UIViewController *)viewController;
+- (UIViewController *)push:(UIViewController *)controller;
 
-- (void)popToViewControllerOfClass :(Class)viewControllerClass;
+- (UIViewController *)pushFromTop:(UIViewController *)controller;
 
-- (void)popToViewControllerBefore :(Class)pClass;
+- (UIViewController *)pushFromBottom:(UIViewController *)controller;
 
-- (void)pushAsSingle :(UIViewController *)pushingController;
+- (NSArray *)popToViewController:(UIViewController *)viewController;
 
-- (void)pushViewController :(UIViewController *)controller :(NSUInteger)index1;
+- (void)popToViewControllerOfClass:(Class)viewControllerClass;
 
-- (void)pushViewControllerAsSecondOfItsKind :(UIViewController *)controller;
+- (void)popToViewControllerBefore:(Class)pClass;
+
+- (void)pushAsSingle:(UIViewController *)pushingController;
+
+- (void)pushViewController:(UIViewController *)controller :(NSUInteger)index1;
+
+- (void)pushViewControllerAsSecondOfItsKind:(UIViewController *)controller;
 
 - (UIViewController *)popViewController;
 
-- (nullable UIViewController *)beforePrevious;
+- (void)pushViewControllerAsFirstOfItsKind:(UIViewController *)newcontroller;
 
-- (void)pushViewControllerAsFirstOfItsKind :(UIViewController *)newcontroller;
+- (void)pushViewController:(UIViewController *)newController after:(Class)afterControllerClass;
 
-- (void)pushViewController :(UIViewController *)newController after :(Class)afterControllerClass;
+- (void)replaceLast:(UIViewController *)controller;
 
-- (void)replaceLast :(UIViewController *)controller;
+- (void)pushInsteadOfLast:(UIViewController *)controller;
 
-- (void)pushInsteadOfLast :(UIViewController *)controller;
-
-- (nullable UIViewController *)previous;
-
-- (nullable UIViewController *)last;
-
-- (BOOL)contains :(Class)controllerClass;
+- (BOOL)contains:(Class)controllerClass;
 @end
+
 NS_ASSUME_NONNULL_END

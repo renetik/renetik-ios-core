@@ -3,10 +3,8 @@
 // Copyright (c) 2018 renetik_software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-@class MBProgressHUD;
+@import UIKit;
+@import MBProgressHUD;
 
 @interface UIView (CSMBProgressHUD)
 - (MBProgressHUD *)showMessage:(NSString *)string;

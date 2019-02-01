@@ -4,12 +4,13 @@
 //
 
 #import "UICollectionViewCell+CSExtension.h"
+#import "UIView+CSExtension.h"
 #import "NSArray+CSExtension.h"
 
 @implementation UICollectionViewCell (CSExtension)
 
-- (UIView *)content {
-    return self.contentView.subviews.last;
+- (UIView *)cellView {
+    return self.contentView.content;
 }
 
 @end

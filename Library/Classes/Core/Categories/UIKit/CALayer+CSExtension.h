@@ -3,10 +3,8 @@
 //
 
 
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-
-@class UIColor;
+@import UIKit;
+@import QuartzCore;
 
 @interface CALayer (CSExtension)
 

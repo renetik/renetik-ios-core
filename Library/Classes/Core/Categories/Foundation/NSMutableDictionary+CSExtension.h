@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 5/3/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSMutableDictionary<KeyType, ObjectType> (CSExtension)
 

@@ -17,7 +17,8 @@
     self.selectedBackgroundView = [UIView withColor:color];;
 }
 
-- (UIView *)content {
-    return self.contentView.subviews[0];
+- (UIView *)cellView {
+	return self.contentView.content;
 }
+
 @end

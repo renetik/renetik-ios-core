@@ -3,11 +3,9 @@
 // Copyright (c) 2016 renetik_software. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class CSResponse;
-@class CSViewController;
-@class UIViewController;
 
 @protocol CSViewControllerProtocol <NSObject>
 

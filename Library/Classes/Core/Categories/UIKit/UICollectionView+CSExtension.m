@@ -4,6 +4,7 @@
 //
 
 #import "UICollectionView+CSExtension.h"
+#import "CSLang.h"
 #import "NSObject+CSExtension.h"
 #import "NSArray+CSExtension.h"
 #import "UIView+CSExtension.h"
@@ -15,7 +16,6 @@
 
 static NSString *const EMPTY_CELL = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
-static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 
 - (instancetype)construct {
     super.construct;
@@ -56,9 +56,9 @@ static void *uiCollectionViewCellContent = &uiCollectionViewCellContent;
 }
 
 - (UICollectionViewCell *)emptyCell:(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
-    var cell = [self dequeueCell:EMPTY_CELL :path];
-    if (![cell.contentView.subviews.last getObject:uiCollectionViewCellContent]) {
-        [cell.contentView add:[viewClass.construct setObject:uiCollectionViewCellContent :@(YES)]].matchParent;
+    let cell = [self dequeueCell:EMPTY_CELL :path];
+    if (![cell.contentView.content isKindOfClass:viewClass]) {
+        [cell.contentView content:viewClass.construct].matchParent;
         invokeWith(onCreate, cell);
     }
     return cell;

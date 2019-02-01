@@ -2,13 +2,14 @@
 //  Created by Rene Dohan on 10/26/12.
 //
 
+@import UIKit;
 
-#import <UIKit/UIKit.h>
-
+NS_ASSUME_NONNULL_BEGIN
 @interface CSNavigationController : UINavigationController
 
-@property(readonly) UIViewController *lastPopped;
+@property(readonly, nullable) UIViewController *lastPopped;
 
 @property(nonatomic, strong, readonly) CSNavigationController *instance;
 
 @end
+NS_ASSUME_NONNULL_END

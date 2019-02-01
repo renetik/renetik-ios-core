@@ -1,8 +1,7 @@
 //
 // Created by Rene Dohan on 17/07/18.
 //
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 

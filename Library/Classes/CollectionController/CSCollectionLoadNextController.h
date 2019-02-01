@@ -3,8 +3,12 @@
 // Copyright (c) 2016 Bowbook. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import "CSChildViewLessController.h"
+
+@class CSResponse;
+@class CSMainController;
 
 @interface CSCollectionLoadNextController : CSChildViewLessController
 

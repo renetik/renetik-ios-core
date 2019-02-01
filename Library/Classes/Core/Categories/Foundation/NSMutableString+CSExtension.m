@@ -8,13 +8,6 @@
 
 @implementation NSMutableString (CSExtension)
 
-- (instancetype)add:(NSObject *)first {
-	if (!first)return self;
-	NSString *description = first.description;
-	if (description)  [self append:description];
-	return self;
-}
-
 - (instancetype)appendStrings:(NSArray<NSString *> *)strings {
     for (NSString *string in strings) [self appendString:string];
     return self;

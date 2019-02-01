@@ -5,8 +5,8 @@
 
 import Nimble
 import Quick
-import Renetik
 import XCTest
+import Renetik
 
 class TestClass: NSObject {
     var testString = ""

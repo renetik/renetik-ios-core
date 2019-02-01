@@ -12,9 +12,8 @@
 @implementation UIFont (CSExtension)
 
 - (void)setTo:(NSArray *)items {
-    for (id item in items) {
+    for (id item in items)
         [item setFont:self];
-    }
 }
 
 @end

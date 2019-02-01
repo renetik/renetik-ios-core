@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 6/5/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSMutableArray<ObjectType> (CSExtension)
 

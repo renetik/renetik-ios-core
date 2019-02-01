@@ -2,8 +2,8 @@
 
 import Nimble
 import Quick
-import Renetik
 import XCTest
+import Renetik
 
 class UIViewTestSwift: XCTestCase {
     func testheightFromBottom() {

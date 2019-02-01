@@ -3,8 +3,8 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+@import UIKit;
+@import MapKit;
 
 @interface MKMapItem (CSExtension)
 

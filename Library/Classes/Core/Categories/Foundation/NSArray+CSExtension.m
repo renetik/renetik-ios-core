@@ -10,19 +10,19 @@
 @implementation NSArray (CSExtension)
 
 + (NSArray<NSString *> *)toStringList:(NSArray<NSObject *> *)names {
-    val strings = NSMutableArray.new;
+    let strings = NSMutableArray.new;
     for (NSObject *object in names)[strings addObject:object.description];
     return strings;
 }
 
 + (NSArray<NSNumber *> *)toNumberList:(NSArray<NSObject *> *)stringList {
-    val intList = NSMutableArray.new;
+    let intList = NSMutableArray.new;
     for (NSObject *object in stringList) [intList add:@(object.description.intValue)];
     return intList;
 }
 
 - (id)objectAs:(id)anObject {
-    val index = [self indexOf:anObject];
+    let index = [self indexOf:anObject];
     if (index != NSNotFound) return self[index];
     return nil;
 }
@@ -83,7 +83,7 @@
 
 - (NSArray *)filterBySearch:(NSString *)searchText {
     if (searchText.set) {
-        val filtered = NSMutableArray.new;
+        let filtered = NSMutableArray.new;
         for (id item in self) if ([[item description] containsNoCase:searchText]) [filtered add:item];
         return filtered;
     }

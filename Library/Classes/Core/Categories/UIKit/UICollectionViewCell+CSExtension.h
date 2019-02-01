@@ -3,9 +3,10 @@
 // Copyright (c) 2016 Renetik Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UICollectionViewCell (CSExtension)
-- (UIView *)content;
+
+@property (readonly) UIView *cellView;
+
 @end

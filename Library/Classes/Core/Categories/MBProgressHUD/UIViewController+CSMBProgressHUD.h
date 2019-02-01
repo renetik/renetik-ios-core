@@ -3,9 +3,9 @@
 // Copyright (c) 2018 renetik_software. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@class MBProgressHUD;
+@import UIKit;
+@import MBProgressHUD;
 
 @interface UIViewController (CSMBProgressHUD)
 - (MBProgressHUD *)showProgress;

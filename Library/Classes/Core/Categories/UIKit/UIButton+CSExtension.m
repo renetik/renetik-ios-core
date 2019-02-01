@@ -9,6 +9,7 @@
 #import "UIView+CSPosition.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayout.h"
+#import "UIView+CSExtension.h"
 
 @implementation UIButton (CSExtension)
 

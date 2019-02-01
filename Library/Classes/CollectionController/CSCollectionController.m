@@ -5,6 +5,9 @@
 
 #import "CSCollectionController.h"
 #import "CSResponse.h"
+#import "UIView+CSExtension.h"
+#import "NSArray+CSExtension.h"
+#import "NSMutableArray+CSExtension.h"
 
 @implementation CSCollectionController {
     UIView *_loadNextIndicator;
@@ -71,7 +74,7 @@
 }
 
 - (void)updateEmpty {
-    _emptyLabel.fadeVisible = _data.empty;
+    _emptyLabel.fadeVisible = [_data empty];
     _emptyLabel.userInteractionEnabled = NO;
 }
 

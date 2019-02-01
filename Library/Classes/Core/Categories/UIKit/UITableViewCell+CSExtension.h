@@ -1,15 +1,15 @@
 //
 //  Created by Rene Dohan on 5/7/12.
 //
-
-
-#import <Foundation/Foundation.h>
-
+@import UIKit;
+NS_ASSUME_NONNULL_BEGIN
 @interface UITableViewCell (CSExtension)
 
-- (void)setBackgroundViewColor:(UIColor *)color;
+- (void)setBackgroundViewColor :(UIColor *)color;
 
-- (void)setSelectedBackgroundColor:(UIColor *)color;
+- (void)setSelectedBackgroundColor :(UIColor *)color;
 
-- (UIView *)content;
+@property (readonly) UIView *cellView;
+
 @end
+NS_ASSUME_NONNULL_END
