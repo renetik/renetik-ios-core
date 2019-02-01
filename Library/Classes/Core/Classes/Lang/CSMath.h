@@ -5,8 +5,7 @@
 //
 
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface CSMath : NSObject
 + (float)getDistance:(CGPoint)point :(CGPoint)cgPoint;

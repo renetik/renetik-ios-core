@@ -3,9 +3,9 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <MZAppearance/MZAppearance.h>
-#import "CSViewController.h"
+@import UIKit;
+@import MZAppearance;
+
 #import "CSChildViewLessController.h"
 
 @class CSMainController;

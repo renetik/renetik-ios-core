@@ -3,9 +3,12 @@
 // Copyright (c) 2018 Renetik Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "CSMainController.h"
-#import "CSName.h"
+
+@class CSName;
+@class CSResponse;
 @protocol CSListData;
 
 NS_ASSUME_NONNULL_BEGIN

@@ -3,7 +3,7 @@
 // Copyright (c) 2016 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @protocol CSToolbarPage <NSObject>
 

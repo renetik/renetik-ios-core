@@ -2,8 +2,8 @@
 // Created by Rene Dohan on 06/01/15.
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import SDWebImage;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (CSSDWebImage)

@@ -4,16 +4,18 @@
 //
 
 #import "CSSearchBarController.h"
+#import "UIView+CSExtension.h"
+#import "CSLang.h"
 
 @implementation CSSearchBarController {
     UIViewController *_parent;
     BOOL _searchBarShouldBeginEditing;
 
-    void (^_onTextDidChange)(NSString *);
+    void (^ _onTextDidChange)(NSString *);
 }
 
-- (instancetype)construct:(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange {
-    [super construct:parent];
+- (instancetype)construct :(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange {
+    [super construct :parent];
     _parent = parent;
     _searchBar = bar;
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
@@ -22,12 +24,12 @@
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(void (^)(NSString *))onTextDidChange {
-    [self construct:parent :UISearchBar.createEmpty :onTextDidChange];
+- (instancetype)construct :(CSMainController *)parent :(void (^)(NSString *))onTextDidChange {
+    [self construct :parent :UISearchBar.createEmpty :onTextDidChange];
     return self;
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (void)searchBar :(UISearchBar *)searchBar textDidChange :(NSString *)searchText {
     if (![searchBar isFirstResponder]) {
         _searchBarShouldBeginEditing = NO;
         [searchBar resignFirstResponder];
@@ -35,15 +37,15 @@
     runWith(_onTextDidChange, searchText);
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarCancelButtonClicked :(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked :(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)bar {
+- (BOOL)searchBarShouldBeginEditing :(UISearchBar *)bar {
     BOOL boolToReturn = _searchBarShouldBeginEditing;
     _searchBarShouldBeginEditing = YES;
     return boolToReturn;
@@ -52,4 +54,5 @@
 - (NSString *)text {
     return _searchBar.text;
 }
+
 @end

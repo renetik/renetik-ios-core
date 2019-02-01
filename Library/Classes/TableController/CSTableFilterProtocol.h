@@ -3,8 +3,9 @@
 // Copyright (c) 2017 renetik_software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "CSTableController.h"
+@import UIKit;
+
+@class CSTableController;
 
 @protocol CSTableFilterProtocol <NSObject>
 

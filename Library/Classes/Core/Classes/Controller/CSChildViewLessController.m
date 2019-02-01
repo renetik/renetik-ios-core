@@ -4,12 +4,14 @@
 //
 
 #import "CSChildViewLessController.h"
-
+#import "UIViewController+CSExtension.h"
+#import "CSMainController.h"
+#import "CSLang.h"
 
 @implementation CSChildViewLessController
 
-- (instancetype)construct:(CSMainController *)parent {
-    invoke(^{[parent showChildController:self];});
+- (instancetype)construct :(CSMainController *)parent {
+    invoke(^{ [parent showChildController :self]; });
     self.showing = YES;
     return self;
 }

@@ -3,10 +3,7 @@
 // Copyright (c) 2013 creative_studio. All rights reserved.
 //
 
-
-#import <Foundation/Foundation.h>
-#import "UIFont+CSExtension.h"
-
+@import UIKit;
 
 @interface CSTextField : UITextField
 @property(nonatomic) BOOL hideCursor;

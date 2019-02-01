@@ -3,7 +3,8 @@
 // Copyright (c) 2018 Renetik Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "CSDictionaryJsonData.h"
 
 NS_ASSUME_NONNULL_BEGIN

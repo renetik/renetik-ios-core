@@ -3,8 +3,7 @@
 // Copyright (c) 2017 Renetik Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <XLPagerTabStrip/XLButtonBarPagerTabStripViewController.h>
+@import XLPagerTabStrip;
 
 @class CSMainController;
 

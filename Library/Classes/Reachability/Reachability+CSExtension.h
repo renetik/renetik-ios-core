@@ -2,9 +2,8 @@
 //  Created by Rene Dohan on 7/17/12.
 //
 
-
-#import <Foundation/Foundation.h>
-#import <Reachability/Reachability.h>
+@import Foundation;
+@import Reachability;
 
 @interface Reachability (CSExtension)
 

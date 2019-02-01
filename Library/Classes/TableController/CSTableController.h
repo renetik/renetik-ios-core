@@ -10,6 +10,7 @@
 @class CSResponse;
 @class CSMainController;
 @protocol CSListData;
+@protocol CSViewControllerProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 

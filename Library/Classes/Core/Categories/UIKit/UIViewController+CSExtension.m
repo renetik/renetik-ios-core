@@ -5,6 +5,9 @@
 #import "NSString+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
 #import "CSMainController.h"
+#import "UIBarButtonItem+CSExtension.h"
+#import "UIDevice+CSExtension.h"
+#import "UIView+CSExtension.h"
 
 @implementation UIViewController (CSExtension)
 

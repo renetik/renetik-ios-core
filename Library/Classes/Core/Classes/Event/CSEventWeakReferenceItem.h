@@ -3,8 +3,7 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface CSEventWeakReferenceItem : NSObject
 

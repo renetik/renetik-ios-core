@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 // Consts for AutoCompleteOptions:
 // if YES - suggestions will be picked for display case-sensitive

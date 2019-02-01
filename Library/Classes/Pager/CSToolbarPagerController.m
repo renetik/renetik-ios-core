@@ -4,6 +4,7 @@
 //
 
 @import ChameleonFramework;
+
 #import "CSLang.h"
 #import "NSArray+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
@@ -17,6 +18,8 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
 #import "UIView+CSLayout.h"
+#import "UIBarButtonItem+CSExtension.h"
+#import "UIColor+CSExtension.h"
 
 @implementation CSToolbarPagerController {
     CSMainController *_parentController;
@@ -25,13 +28,13 @@
 }
 
 + (id)appearance {
-    return [MZAppearance appearanceForClass:[self class]];
+    return [MZAppearance appearanceForClass :[self class]];
 }
 
-- (instancetype)construct:(CSMainController *)parent
-        :(NSArray<CSMainController <CSToolbarPage> *> *)controllers
-        :(UIToolbar *)toolbar :(UIScrollView *)scrollView {
-    [super construct:parent];
+- (instancetype)construct :(CSMainController *)parent
+                          :(NSArray<CSMainController <CSToolbarPage> *> *)controllers
+                          :(UIToolbar *)toolbar :(UIScrollView *)scrollView {
+    [super construct :parent];
     _parentController = parent;
     _controllers = controllers;
     _toolBar = toolbar;
@@ -40,102 +43,102 @@
     _scrollView.pagingEnabled = YES;
     _scrollView.scrollsToTop = NO;
     _scrollView.directionalLockEnabled = YES;
-    _contentView = [UIView withColor:UIColor.clearColor frame:_scrollView.bounds];
-    [[_scrollView add:_contentView] matchParent];
+    _contentView = [UIView withColor :UIColor.clearColor frame :_scrollView.bounds];
+    [[_scrollView add :_contentView] matchParent];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.class.appearance applyInvocationTo:self];
+    [self.class.appearance applyInvocationTo :self];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewWillAppear :(BOOL)animated {
+    [super viewWillAppear :animated];
     if (_controllers)
         invoke(^{
-            [self reload:_controllers];
+            [self reload :_controllers];
         });
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)view {
-    [self onPageChange:(NSUInteger) lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _controllers.count))];
+- (void)scrollViewDidEndDecelerating :(UIScrollView *)view {
+    [self onPageChange :(NSUInteger)lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _controllers.count))];
     [self showSelectEffect];
 }
 
-- (void)reload:(nonnull NSArray<CSMainController <CSToolbarPage> *> *)controllers {
+- (void)reload :(nonnull NSArray<CSMainController <CSToolbarPage> *> *)controllers {
     if (controllers.empty) return;
-    for (UIViewController *controller in _controllers) [_parentController dismissChildController:controller];
+    for (UIViewController *controller in _controllers) [_parentController dismissChildController :controller];
     _controllers = controllers;
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
     for (CSMainController *controller in _controllers) {
-        [_contentView positionViewNextLast:controller.view];
-        [_parentController showChildController:controller :_contentView];
-        [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
+        [_contentView positionViewNextLast :controller.view];
+        [_parentController showChildController :controller :_contentView];
+        [[controller.view size :_scrollView.size] setNeedsUpdateConstraints];
     }
-    [self selectButton:_currentIndex];
+    [self selectButton :_currentIndex];
 }
 
 - (void)loadBar {
     NSMutableArray<UIBarButtonItem *> *items = NSMutableArray.new;
-    [items add:[UIBarButtonItem createWithItem:UIBarButtonSystemItemFlexibleSpace :nil :nil]]
-            .tag = -1;
+    [items add :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
+    .tag = -1;
     for (uint pageIndex = 0; pageIndex < _controllers.count; ++pageIndex) {
         UIBarButtonItem *item = [_controllers[pageIndex] tabItem];
-        [item setTarget:self forAction:@selector(onItemClick:)];
+        [item setTarget :self forAction :@selector(onItemClick:)];
         item.tag = pageIndex;
         item.tintColor = self.normalItemColor;
-        [items add:item];
-        [items add:[UIBarButtonItem createWithItem:UIBarButtonSystemItemFlexibleSpace :nil :nil]]
-                .tag = -1;
+        [items add :item];
+        [items add :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
+        .tag = -1;
     }
-    [_toolBar setItems:items];
+    [_toolBar setItems :items];
 }
 
-- (void)onItemClick:(UIBarButtonItem *)item {
-    [self selectButton:(NSUInteger) item.tag];
+- (void)onItemClick :(UIBarButtonItem *)item {
+    [self selectButton :(NSUInteger)item.tag];
 }
 
-- (void)selectButton:(NSUInteger)pageIndex {
-    [self onPageChange:pageIndex];
+- (void)selectButton :(NSUInteger)pageIndex {
+    [self onPageChange :pageIndex];
     [self showPage];
     [self showSelectEffect];
 }
 
-- (void)onPageChange:(NSUInteger)pageIndex {
+- (void)onPageChange :(NSUInteger)pageIndex {
     self.currentController.showing = NO;
     _currentIndex = pageIndex;
     self.currentController.showing = YES;
     [_parentController updateBarItemsAndMenu];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)didRotateFromInterfaceOrientation :(UIInterfaceOrientation)fromInterfaceOrientation {
     invoke(^{
-        if (_controllers) [self reload:_controllers];
+        if (_controllers) [self reload :_controllers];
     });
 }
 
 - (void)showPage {
-    [_scrollView scrollToPage:_currentIndex of:_controllers.count];
+    [_scrollView scrollToPage :_currentIndex of :_controllers.count];
 }
 
 - (void)showSelectEffect {
     for (UIBarButtonItem *item in _toolBar.items) {
-        if (item.tag == -1)continue;
+        if (item.tag == -1) continue;
         if (item.tag == _currentIndex) item.tintColor = self.selectedItemColor;
         else item.tintColor = self.normalItemColor;
     }
 }
 
 - (UIColor *)selectedItemColor {
-    if (_selectedItemColor)return _selectedItemColor;
+    if (_selectedItemColor) return _selectedItemColor;
     return FlatBlueDark;
 }
 
 - (UIColor *)normalItemColor {
-    if (_normalItemColor)return _normalItemColor;
-    return [FlatBlueDark addAlpha:0.8];
+    if (_normalItemColor) return _normalItemColor;
+    return [FlatBlueDark addAlpha :0.8];
 }
 
 - (CSMainController <CSToolbarPage> *)currentController {

@@ -4,8 +4,9 @@
 
 @import UIKit;
 
-#import "CSMainController.h"
 #import "CSChildViewLessController.h"
+
+@class CSMainController;
 
 @interface CSScrollViewPager : CSChildViewLessController <UIScrollViewDelegate>
 

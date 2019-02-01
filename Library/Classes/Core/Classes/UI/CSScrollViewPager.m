@@ -2,8 +2,10 @@
 //  Created by Rene Dohan on 1/11/13.
 //
 
-#import "CSScrollViewPager.h"
 @import BlocksKit;
+#import "CSScrollViewPager.h"
+#import "UIScrollView+CSExtension.h"
+#import "UIView+CSExtension.h"
 
 @implementation CSScrollViewPager {
     UIPageControl *_pageControl;

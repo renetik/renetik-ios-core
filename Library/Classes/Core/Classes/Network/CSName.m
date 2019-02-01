@@ -11,7 +11,6 @@
 
 @implementation CSName
 
-
 + (instancetype)create:(NSString *)name :(NSString *)id {
     return [[self.class.alloc init] construct:name id:id];
 }

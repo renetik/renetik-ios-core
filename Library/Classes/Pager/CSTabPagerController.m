@@ -9,6 +9,13 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayoutGetters.h"
 #import "UIView+CSLayout.h"
+#import "UIView+CSExtension.h"
+#import "UIScrollView+CSExtension.h"
+#import "UIViewController+CSExtension.h"
+#import "UIDevice+CSExtension.h"
+#import "NSArray+CSExtension.h"
+#import "NSMutableArray+CSExtension.h"
+#import "CSLang.h"
 
 @implementation CSTabPagerController {
     NSArray<CSMainController <CSTabPagerTab> *> *_childMainControllers;
@@ -51,7 +58,8 @@
 
 - (void)reload:(nonnull NSArray *)controllers {
     if (controllers.empty) return;
-    for (UIViewController *controller in _childMainControllers) [_parentController dismissChildController:controller];
+    for (UIViewController *controller in _childMainControllers)
+		[_parentController dismissChildController:controller];
     _childMainControllers = controllers;
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _childMainControllers.count * _scrollView.width, 0);

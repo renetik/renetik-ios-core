@@ -2,9 +2,7 @@
 //  Created by Rene Dohan on 12/30/12.
 //
 
-
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface CSArgEvent<__covariant ObjectType> : NSObject {
     NSMutableArray *_blockArray;

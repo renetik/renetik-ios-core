@@ -3,8 +3,7 @@
 // Copyright (c) 2017 renetik_software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface CSNetwork : NSObject
 + (NSString *)getSSID;

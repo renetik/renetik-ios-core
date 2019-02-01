@@ -5,8 +5,11 @@
 #import "CSMenuHeader.h"
 #import "NSObject+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
+#import "NSString+CSExtension.h"
+#import "NSArray+CSExtension.h"
 #import "CSMenuItem.h"
 #import "CSMainController.h"
+#import "CSLang.h"
 
 @implementation CSMenuHeader {
     CSMainController *_controller;

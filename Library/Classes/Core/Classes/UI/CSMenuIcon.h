@@ -1,8 +1,8 @@
 //
 // Created by Rene Dohan on 27/03/18.
 //
+@import Foundation;
 
-#import <Foundation/Foundation.h>
 
 @interface CSMenuIcon : NSObject
 

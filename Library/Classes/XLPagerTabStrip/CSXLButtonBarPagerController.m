@@ -3,8 +3,12 @@
 // Copyright (c) 2017 Renetik Software. All rights reserved.
 //
 
+@import UIKit;
+
 #import "CSXLButtonBarPagerController.h"
 #import "CSMainController.h"
+#import "UIViewController+CSExtension.h"
+#import "NSArray+CSExtension.h"
 
 @implementation CSXLButtonBarPagerController {
     NSArray<CSMainController <XLPagerTabStripChildItem> *> *_controllers;

@@ -3,7 +3,7 @@
 //
 
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @protocol CSImagePickerListener;
 

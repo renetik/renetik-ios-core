@@ -3,7 +3,7 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol CSHasValue <NSObject>
 

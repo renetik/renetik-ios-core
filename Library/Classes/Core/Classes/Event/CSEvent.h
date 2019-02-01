@@ -3,10 +3,9 @@
 //
 
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class CSEventRegistration;
-
 
 @interface CSEvent : NSObject {
     NSMutableArray<void (^)(void)> *_blockArray;

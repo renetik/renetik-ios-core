@@ -3,9 +3,11 @@
 // Copyright (c) 2014 Rene Dohan. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "CSViewController.h"
+@import UIKit;
+
 #import "CSChildViewLessController.h"
+
+@class CSMainController;
 
 @interface CSModalBackgroundDismissController : CSChildViewLessController <UIGestureRecognizerDelegate>
 

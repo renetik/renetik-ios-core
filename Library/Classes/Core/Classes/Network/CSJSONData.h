@@ -2,7 +2,7 @@
 // Created by Rene Dohan on 2019-01-18.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class CSDictionaryJsonData;
 

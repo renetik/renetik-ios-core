@@ -2,7 +2,7 @@
 // Created by Rene on 2018-11-21.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol CSServerData <NSObject>
 

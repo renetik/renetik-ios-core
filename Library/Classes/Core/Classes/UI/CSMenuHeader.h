@@ -1,8 +1,8 @@
 //
 // Created by Rene Dohan on 14/03/18.
 //
+@import Foundation;
 
-#import <Foundation/Foundation.h>
 
 @class CSMenuItem;
 @class CSMainController;

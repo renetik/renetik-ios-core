@@ -3,8 +3,8 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "CSViewController.h"
+@import UIKit;
+
 #import "CSMainController.h"
 
 @interface CSChildViewLessController : CSMainController

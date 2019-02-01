@@ -3,14 +3,15 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import BlocksKit;
+
 #import "CSMenuItem.h"
 #import "CSMainController.h"
+#import "CSLang.h"
 
 @implementation CSMenuItem {
     BOOL _visible;
 }
-
 
 - (instancetype)construct:(CSMainController *)parent :(NSString *)title {
     _closeMenu = YES;

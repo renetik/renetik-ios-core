@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #define stringf(frmt, ...)  [NSString stringWithFormat:frmt,__VA_ARGS__]
 #define L(key) NSLocalizedString(key, nil)

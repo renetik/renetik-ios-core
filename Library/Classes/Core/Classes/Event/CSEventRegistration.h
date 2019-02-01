@@ -3,10 +3,9 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class CSEvent;
-
 
 @interface CSEventRegistration : NSObject
 @property(nonatomic, strong) CSEvent *event;

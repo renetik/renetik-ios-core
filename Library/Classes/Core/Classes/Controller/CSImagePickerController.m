@@ -6,6 +6,7 @@
 #import "CSImagePickerController.h"
 #import "CSActionSheet.h"
 #import "CSImagePickerListener.h"
+#import "CSLang.h"
 
 @implementation CSImagePickerController {
     CSActionSheet *_actionSheet;

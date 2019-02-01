@@ -3,8 +3,11 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import "CSChildViewLessController.h"
+
+@class CSMainController;
 
 @interface CSSearchBarController : CSChildViewLessController <UISearchBarDelegate>
 

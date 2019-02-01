@@ -5,8 +5,7 @@
 //
 
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 
 @interface CSException : NSException
 @end

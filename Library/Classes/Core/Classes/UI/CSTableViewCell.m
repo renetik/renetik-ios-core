@@ -2,13 +2,10 @@
 //  Created by Rene Dohan on 10/24/12.
 //
 
-
 #import "CSTableViewCell.h"
+#import "CSLang.h"
 
-
-@implementation CSTableViewCell {
-
-}
+@implementation CSTableViewCell
 
 - (void)layoutSubviews {
     super.layoutSubviews;
