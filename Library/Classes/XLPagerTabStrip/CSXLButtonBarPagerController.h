@@ -11,7 +11,7 @@
 
 - (instancetype)setup:(CSMainController *)parent :(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
 
-- (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers;
+- (void)load:(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
 
 - (CSMainController <XLPagerTabStripChildItem> *)currentController;
 

@@ -59,7 +59,7 @@
     [_parent updateBarItemsAndMenu:animated];
 }
 
-- (void)load:(NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *)controllers {
+- (void)load:(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers {
     _controllers = controllers;
     [_parent addChildMainControllers:_controllers];
     [self reloadPagerTabStripView];
