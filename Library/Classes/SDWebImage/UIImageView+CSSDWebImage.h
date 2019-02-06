@@ -8,12 +8,13 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (CSSDWebImage)
 
-- (instancetype)imageNSURL:(NSURL *)url;
+- (instancetype)imageNSURL :(NSURL *)url;
 
-- (instancetype)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess;
+- (instancetype)imageURL :(NSString *)url onSuccess :(void (^)(UIImageView *imageView))onSuccess;
 
-- (void)setImageURL:(NSString *)url;
+@property NSString *imageURL;
+- (NSString *)imageURL UNAVAILABLE_ATTRIBUTE;
 
-- (instancetype)imageURL:(NSString *)url;
+- (instancetype)imageURL :(NSString *)url;
 @end
 NS_ASSUME_NONNULL_END

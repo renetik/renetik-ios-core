@@ -10,7 +10,7 @@
 
 + (void)resignFirstResponder;
 
-+ (float)statusBarHeight;
++ (CGFloat)statusBarHeight;
 
 - (UIApplication *)openNSURL:(NSURL *)url;
 
