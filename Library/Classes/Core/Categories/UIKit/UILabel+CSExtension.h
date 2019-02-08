@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)hideIfEmpty;
 
-- (instancetype)sizeHeightToLines:(int)numberOfLines;
+- (instancetype)sizeHeightToLines:(NSInteger)numberOfLines;
 
 - (instancetype)sizeFit:(NSString *)value;
 

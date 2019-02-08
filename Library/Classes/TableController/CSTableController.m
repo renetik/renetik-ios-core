@@ -143,27 +143,31 @@
 }
 
 - (instancetype)onLoadSuccess :(NSArray *)array {
-    if (_pageIndex == -1) {
-        [_data reload :array];
-        _noNext = array.empty;
-        [self filterDataAndReload];
-    } else {
-        if ((_noNext = array.empty)) return self;
-        [_data addArray :array];
-        let filteredData = [self filterData :array];
-
-        let paths = NSMutableArray.new;
-        for (int index = 0; index < filteredData.count; index++)
-            [paths add :[NSIndexPath indexPathForRow :index + _filteredData.count inSection :0]];
-
-        [_filteredData addArray :filteredData];
-        [_tableView beginUpdates];
-        [_tableView insertRowsAtIndexPaths :paths withRowAnimation :UITableViewRowAnimationAutomatic];
-        [_tableView endUpdates];
-    }
-    _pageIndex += 1;
+	if(array.hasItems) {
+		[self onLoadSuccessHasData:array];
+		 _pageIndex += 1;
+	} else _noNext = YES;
     _failed = NO;
     return self;
+}
+
+- (void)onLoadSuccessHasData :(NSArray *)array {
+	if (_pageIndex == -1) {
+		[_data reload :array];
+		[self filterDataAndReload];
+	} else {
+		[_data addArray :array];
+		let filteredData = [self filterData :array];
+		
+		let paths = NSMutableArray.new;
+		for (int index = 0; index < filteredData.count; index++)
+			[paths add :[NSIndexPath indexPathForRow :index + _filteredData.count inSection :0]];
+		
+		[_filteredData addArray :filteredData];
+		[_tableView beginUpdates];
+		[_tableView insertRowsAtIndexPaths :paths withRowAnimation :UITableViewRowAnimationAutomatic];
+		[_tableView endUpdates];
+	}
 }
 
 - (void)showLoadNextIndicator {
@@ -207,7 +211,7 @@
 }
 
 - (void)onLoadNextSectionsSuccess :(NSArray *)array {
-    if ((_noNext = array.empty)) return;
+    if ((_noNext = !array.hasItems)) return;
     [_data addArray :array];
     let filteredData = [self filterData :array];
     let indexes = NSMutableIndexSet.new;

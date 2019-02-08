@@ -62,7 +62,7 @@
     return self;
 }
 
-- (instancetype)sizeHeightToLines :(int)numberOfLines {
+- (instancetype)sizeHeightToLines :(NSInteger)numberOfLines {
 //    NSAssert(self.width > 0, @"Width has to be set to calculate height");
     let currentWidth = self.width;
     let currentText = self.text;
