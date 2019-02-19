@@ -1,0 +1,34 @@
+platform :ios, '10.0'
+inhibit_all_warnings!
+use_frameworks!
+#use_modular_headers!
+install! 'cocoapods', :disable_input_output_paths => true   # workaround for ignoring changes in development pods
+
+target 'Renetik_Example' do
+	pod 'CocoaLumberjack/Swift', '~> 3.4'
+	pod 'AFNetworking', '~> 3.2'
+	pod 'Reachability', '~> 3.2'
+	pod 'SDWebImage', '5.0.0-beta3'
+	pod 'RMessage', :git => 'https://github.com/donileo/RMessage', :branch => '2.x.x_develop'
+	pod 'XLPagerTabStrip', :git => 'https://github.com/xmartlabs/XLPagerTabStrip', :branch => 'obj-c'
+	pod 'ChameleonFramework', '~> 2.1'
+	pod 'DZNEmptyDataSet', '~> 1.8'
+	pod 'MBProgressHUD', '~> 1.1'
+	pod 'DTCoreText', '~> 1.6'
+	pod 'IDMPhotoBrowser', :git => 'https://github.com/thiagoperes/IDMPhotoBrowser'
+	pod 'TUSafariActivity', '~> 1.0'
+	pod 'ARChromeActivity', '~> 1.0'
+	
+	pod 'RenetikObjc', :path => '../../RenetikObjc'	
+  pod 'Renetik', :path => '../'
+	
+
+  target 'Renetik_Tests' do
+    inherit! :search_paths
+
+    pod 'Quick', '~> 1.2'
+    pod 'Nimble', '~> 7.0'
+    pod 'FBSnapshotTestCase' , '~> 2.1'
+    pod 'Nimble-Snapshots' , '~> 6.3'
+  end
+end

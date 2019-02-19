@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint RenetikSwift.podspec' to ensure this is a
+# Be sure to run `pod lib lint Renetik.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of RenetikSwift.'
+  s.summary          = 'A short description of Renetik.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,85 +21,85 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/rene-dohan/renetik-ios'
+  s.homepage         = 'https://github.com/rene-dohan/Renetik'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
-  s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://facebook.com/renetiksoftware'
+  s.source           = { :git => 'https://github.com/rene-dohan/Renetik.git', :tag => s.version.to_s }
+  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Library/Classes/**/*'
-  
+#  s.source_files = 'Renetik/Classes/**/*'
+
   # s.resource_bundles = {
-  #   'Renetik' => ['Library/Assets/*.png']
+  #   'Renetik' => ['Renetik/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-	# s.dependency 'RenetikObjc', '0.7.0'
+  # s.dependency 'AFNetworking', '~> 2.3'
 	
 	s.default_subspecs = 'All'
 	
 	s.subspec 'Core' do |ss|
 		ss.dependency 'RenetikObjc/Core', '~> 0.7.0'
-		ss.source_files = 'Library/Classes/Core/**/*'
+		ss.source_files = 'Renetik/Classes/Core/**/*'
 	end
-
+	
 	s.subspec 'SBJson' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/SBJson', '~> 0.7.0'
 	end
-
+	
 	s.subspec 'CocoaLumberjack' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/CocoaLumberjack', '~> 0.7.0'
-		ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
+		ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
 	end
-
+	
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/TableController', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'CollectionController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/CollectionController', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'RefreshControl' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/RefreshControl', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'Pager' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/Pager', '~> 0.7.0'
 	end
-
+	
 	s.subspec 'AFNetworking' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/AFNetworking', '~> 0.7.0'
-		ss.source_files = 'Library/Classes/AFNetworking/**/*'
+		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
 		ss.dependency 'AFNetworking', '~> 3.0'
 	end
-   
+	
 	s.subspec 'Reachability' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/Reachability', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/SDWebImage', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'CSMessage' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/CSMessage', '~> 0.7.0'
 	end
-   
+	
 	s.subspec 'XLPagerTabStrip' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/XLPagerTabStrip', '~> 0.7.0'
@@ -111,9 +111,9 @@ TODO: Add long description of the pod here.
 		ss.dependency 'IDMPhotoBrowser'
 		ss.dependency 'ARChromeActivity'
 		ss.dependency 'TUSafariActivity'
-		ss.source_files = 'Library/Classes/DTCoreText/**/*'
+		ss.source_files = 'Renetik/Classes/DTCoreText/**/*'
 	end
-
+	
 	s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/SBJson'
@@ -128,12 +128,5 @@ TODO: Add long description of the pod here.
 		ss.dependency 'Renetik/CSMessage'
 		ss.dependency 'Renetik/XLPagerTabStrip'
 		ss.dependency 'Renetik/DTCoreText'
-	end
-	
-	s.test_spec 'Tests' do |ts|
-		ts.source_files = 'Library/Tests/**/*.{h,m,swift}'
-		ts.frameworks = 'XCTest'
-		ts.dependency 'Quick'
-		ts.dependency 'Nimble'
 	end
 end

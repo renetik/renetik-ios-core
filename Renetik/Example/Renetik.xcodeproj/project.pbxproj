@@ -1,0 +1,1134 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04A1BA40221C88450016907B /* CSLangTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BA3E221C88440016907B /* CSLangTest.swift */; };
+		04A1BA41221C88450016907B /* UIView+CSLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */; };
+		04A1BAA9221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */; };
+		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
+		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
+		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
+		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		B88B15CF445755CDFF69BBBE /* Pods_Renetik_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 988769B9C3726DED92B8C0F7 /* Pods_Renetik_Tests.framework */; };
+		D0B7E481BA2B8FBB739A5099 /* Pods_Renetik_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB36A5076E50FDDC74919CB /* Pods_Renetik_Example.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04A1BA66221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DA1890D330468EC6297A2A70A24A294;
+			remoteInfo = AFNetworking;
+		};
+		04A1BA68221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15D6318A1E7612662B4554EB281F1A92;
+			remoteInfo = ARChromeActivity;
+		};
+		04A1BA6A221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7765F78A2FE5F72DDAF4920D53B063B;
+			remoteInfo = BlocksKit;
+		};
+		04A1BA6C221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65D2A5A352542B504CFCC420127A9A05;
+			remoteInfo = ChameleonFramework;
+		};
+		04A1BA6E221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A5E9D888196ACFFED6520384303DE52C;
+			remoteInfo = CocoaLumberjack;
+		};
+		04A1BA70221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 56CE8DFDCD87B2C6BB33A9E60D503479;
+			remoteInfo = DACircularProgress;
+		};
+		04A1BA72221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E5EE3AA1E4B1842EE6F4CC70B98405A6;
+			remoteInfo = DTCoreText;
+		};
+		04A1BA74221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E840DCE5577810E3987084F78D4412AF;
+			remoteInfo = DTFoundation;
+		};
+		04A1BA76221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 50EB630C7FC971F7C9743459454E613F;
+			remoteInfo = DZNEmptyDataSet;
+		};
+		04A1BA78221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 63257A2A912EC7331B8E86EBC2BAD2AB;
+			remoteInfo = FBSnapshotTestCase;
+		};
+		04A1BA7A221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F595596F32DD086FD286476FAC63F6A4;
+			remoteInfo = HexColors;
+		};
+		04A1BA7C221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A9C1313745E89EDFDB0591CF37ABC2B2;
+			remoteInfo = IDMPhotoBrowser;
+		};
+		04A1BA7E221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D7E1220C1AF154ED896104842A24330A;
+			remoteInfo = iOSSnapshotTestCase;
+		};
+		04A1BA80221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9D0104677BBCC93967BC597B21C6E572;
+			remoteInfo = MBProgressHUD;
+		};
+		04A1BA82221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28910925CEA801F6667CE4849D89F7DB;
+			remoteInfo = MJRefresh;
+		};
+		04A1BA84221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D9774CC8E82D8AEC600F6F8FD90B9E0B;
+			remoteInfo = MZAppearance;
+		};
+		04A1BA86221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 916F28DED89249DC6F636239D3B7AA27;
+			remoteInfo = Nimble;
+		};
+		04A1BA88221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CEAF5BFFBE6578B0BE1F236C61794655;
+			remoteInfo = "Nimble-Snapshots";
+		};
+		04A1BA8A221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E3FAA45BD08B384D28EACE98E4A341D;
+			remoteInfo = "Pods-Renetik_Example";
+		};
+		04A1BA8C221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4FA19C9CCB1B303CBDDA3F29365E37A4;
+			remoteInfo = "Pods-Renetik_Tests";
+		};
+		04A1BA8E221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D51EF8460EDA293E32C6A3B26BB6314;
+			remoteInfo = pop;
+		};
+		04A1BA90221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 62039F92556E8E3D2E4D7496D9CBB4C6;
+			remoteInfo = PPTopMostController;
+		};
+		04A1BA92221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B207A4C7522CDE2CF4E5BE4B1C157FD5;
+			remoteInfo = Quick;
+		};
+		04A1BA94221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58A46B2D0D030F6D8208AF835E4F37D3;
+			remoteInfo = Reachability;
+		};
+		04A1BA96221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ED44C2C506FFAF9759C6B03E506FF018;
+			remoteInfo = Renetik;
+		};
+		04A1BA98221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E3E2F34CAD61A4AC2056E51E6CA82CF7;
+			remoteInfo = RenetikObjc;
+		};
+		04A1BA9A221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FCF6AEEEBBCD3A924BB67A4576AB1CB6;
+			remoteInfo = RMessage;
+		};
+		04A1BA9C221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60FE9E636BA85B53B62CDC4751FEDFE9;
+			remoteInfo = SBJson;
+		};
+		04A1BA9E221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 870AF5B8412A41F87F3C59487A7A5745;
+			remoteInfo = SDWebImage;
+		};
+		04A1BAA0221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3B07296419E6B0529E64AAC5A355D35;
+			remoteInfo = TUSafariActivity;
+		};
+		04A1BAA2221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BD91495F8B20BFC1AC63F07B2F62D8D5;
+			remoteInfo = "TUSafariActivity-TUSafariActivity";
+		};
+		04A1BAA4221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7EEAE033DC415431B60C6C12AFF539B;
+			remoteInfo = XLPagerTabStrip;
+		};
+		04A1BAA6221C8D1D0016907B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF054653F29ECF5E5C0FDF732A006F2;
+			remoteInfo = "XLPagerTabStrip-XLPagerTabStrip";
+		};
+		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = Renetik;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04A1BA3E221C88440016907B /* CSLangTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSLangTest.swift; sourceTree = "<group>"; };
+		04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CSLayoutTest.swift"; sourceTree = "<group>"; };
+		04A1BA42221C8D1A0016907B /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSizeToHtmlImageTagsTest.swift; sourceTree = "<group>"; };
+		29BCEC69C13B46A534C1B787 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		607FACD01AFB9204008FA782 /* Renetik_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Renetik_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		607FACE51AFB9204008FA782 /* Renetik_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Renetik_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		6CB36A5076E50FDDC74919CB /* Pods_Renetik_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Renetik_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70FC437F37C98FCA9114038D /* Renetik.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Renetik.podspec; path = ../Renetik.podspec; sourceTree = "<group>"; };
+		8C15ECCF76CE2CCBE95DD1EE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		988769B9C3726DED92B8C0F7 /* Pods_Renetik_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Renetik_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF33933E5AD4A5A0F2BAA9B1 /* Pods-Renetik_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renetik_Example.debug.xcconfig"; path = "Target Support Files/Pods-Renetik_Example/Pods-Renetik_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		DD3F84BDB13767E5A583751C /* Pods-Renetik_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renetik_Example.release.xcconfig"; path = "Target Support Files/Pods-Renetik_Example/Pods-Renetik_Example.release.xcconfig"; sourceTree = "<group>"; };
+		F1019755A00EA2BC36185CE8 /* Pods-Renetik_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renetik_Tests.release.xcconfig"; path = "Target Support Files/Pods-Renetik_Tests/Pods-Renetik_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		F64758F23FD192CCCEEE8B5A /* Pods-Renetik_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renetik_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Renetik_Tests/Pods-Renetik_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		607FACCD1AFB9204008FA782 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0B7E481BA2B8FBB739A5099 /* Pods_Renetik_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		607FACE21AFB9204008FA782 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B88B15CF445755CDFF69BBBE /* Pods_Renetik_Tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04A1BA43221C8D1A0016907B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04A1BA67221C8D1D0016907B /* AFNetworking.framework */,
+				04A1BA69221C8D1D0016907B /* ARChromeActivity.framework */,
+				04A1BA6B221C8D1D0016907B /* BlocksKit.framework */,
+				04A1BA6D221C8D1D0016907B /* ChameleonFramework.framework */,
+				04A1BA6F221C8D1D0016907B /* CocoaLumberjack.framework */,
+				04A1BA71221C8D1D0016907B /* DACircularProgress.framework */,
+				04A1BA73221C8D1D0016907B /* DTCoreText.framework */,
+				04A1BA75221C8D1D0016907B /* DTFoundation.framework */,
+				04A1BA77221C8D1D0016907B /* DZNEmptyDataSet.framework */,
+				04A1BA79221C8D1D0016907B /* FBSnapshotTestCase.framework */,
+				04A1BA7B221C8D1D0016907B /* HexColors.framework */,
+				04A1BA7D221C8D1D0016907B /* IDMPhotoBrowser.framework */,
+				04A1BA7F221C8D1D0016907B /* FBSnapshotTestCase.framework */,
+				04A1BA81221C8D1D0016907B /* MBProgressHUD.framework */,
+				04A1BA83221C8D1D0016907B /* MJRefresh.framework */,
+				04A1BA85221C8D1D0016907B /* MZAppearance.framework */,
+				04A1BA87221C8D1D0016907B /* Nimble.framework */,
+				04A1BA89221C8D1D0016907B /* Nimble_Snapshots.framework */,
+				04A1BA8B221C8D1D0016907B /* Pods_Renetik_Example.framework */,
+				04A1BA8D221C8D1D0016907B /* Pods_Renetik_Tests.framework */,
+				04A1BA8F221C8D1D0016907B /* pop.framework */,
+				04A1BA91221C8D1D0016907B /* PPTopMostController.framework */,
+				04A1BA93221C8D1D0016907B /* Quick.framework */,
+				04A1BA95221C8D1D0016907B /* Reachability.framework */,
+				04A1BA97221C8D1D0016907B /* Renetik.framework */,
+				04A1BA99221C8D1D0016907B /* RenetikObjc.framework */,
+				04A1BA9B221C8D1D0016907B /* RMessage.framework */,
+				04A1BA9D221C8D1D0016907B /* SBJson.framework */,
+				04A1BA9F221C8D1D0016907B /* SDWebImage.framework */,
+				04A1BAA1221C8D1D0016907B /* TUSafariActivity.framework */,
+				04A1BAA3221C8D1D0016907B /* TUSafariActivity.bundle */,
+				04A1BAA5221C8D1D0016907B /* XLPagerTabStrip.framework */,
+				04A1BAA7221C8D1D0016907B /* XLPagerTabStrip.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24BE40DBE0F9C93F3544C666 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6CB36A5076E50FDDC74919CB /* Pods_Renetik_Example.framework */,
+				988769B9C3726DED92B8C0F7 /* Pods_Renetik_Tests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		607FACC71AFB9204008FA782 = {
+			isa = PBXGroup;
+			children = (
+				04A1BA42221C8D1A0016907B /* Pods.xcodeproj */,
+				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				607FACD21AFB9204008FA782 /* Example for Renetik */,
+				607FACE81AFB9204008FA782 /* Tests */,
+				607FACD11AFB9204008FA782 /* Products */,
+				9BBA4DB4006E9D2AFC31578A /* Pods */,
+				24BE40DBE0F9C93F3544C666 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		607FACD11AFB9204008FA782 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD01AFB9204008FA782 /* Renetik_Example.app */,
+				607FACE51AFB9204008FA782 /* Renetik_Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		607FACD21AFB9204008FA782 /* Example for Renetik */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				607FACD31AFB9204008FA782 /* Supporting Files */,
+			);
+			name = "Example for Renetik";
+			path = Renetik;
+			sourceTree = "<group>";
+		};
+		607FACD31AFB9204008FA782 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD41AFB9204008FA782 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		607FACE81AFB9204008FA782 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				04A1BA3E221C88440016907B /* CSLangTest.swift */,
+				04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */,
+				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */,
+				607FACE91AFB9204008FA782 /* Supporting Files */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		607FACE91AFB9204008FA782 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				607FACEA1AFB9204008FA782 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				70FC437F37C98FCA9114038D /* Renetik.podspec */,
+				8C15ECCF76CE2CCBE95DD1EE /* README.md */,
+				29BCEC69C13B46A534C1B787 /* LICENSE */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		9BBA4DB4006E9D2AFC31578A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF33933E5AD4A5A0F2BAA9B1 /* Pods-Renetik_Example.debug.xcconfig */,
+				DD3F84BDB13767E5A583751C /* Pods-Renetik_Example.release.xcconfig */,
+				F64758F23FD192CCCEEE8B5A /* Pods-Renetik_Tests.debug.xcconfig */,
+				F1019755A00EA2BC36185CE8 /* Pods-Renetik_Tests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		607FACCF1AFB9204008FA782 /* Renetik_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Renetik_Example" */;
+			buildPhases = (
+				B0E41017B9412C26E2F57608 /* [CP] Check Pods Manifest.lock */,
+				607FACCC1AFB9204008FA782 /* Sources */,
+				607FACCD1AFB9204008FA782 /* Frameworks */,
+				607FACCE1AFB9204008FA782 /* Resources */,
+				3123176FCBE3CA6CEA63F065 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Renetik_Example;
+			productName = Renetik;
+			productReference = 607FACD01AFB9204008FA782 /* Renetik_Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		607FACE41AFB9204008FA782 /* Renetik_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Renetik_Tests" */;
+			buildPhases = (
+				68EE6513FBF733A80735D200 /* [CP] Check Pods Manifest.lock */,
+				607FACE11AFB9204008FA782 /* Sources */,
+				607FACE21AFB9204008FA782 /* Frameworks */,
+				607FACE31AFB9204008FA782 /* Resources */,
+				2203D95091F41274B8A3B4E2 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
+			);
+			name = Renetik_Tests;
+			productName = Tests;
+			productReference = 607FACE51AFB9204008FA782 /* Renetik_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		607FACC81AFB9204008FA782 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = CocoaPods;
+				TargetAttributes = {
+					607FACCF1AFB9204008FA782 = {
+						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 4QNB24D8D8;
+						LastSwiftMigration = 1010;
+					};
+					607FACE41AFB9204008FA782 = {
+						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 4QNB24D8D8;
+						LastSwiftMigration = 1010;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
+				};
+			};
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Renetik" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 607FACC71AFB9204008FA782;
+			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 04A1BA43221C8D1A0016907B /* Products */;
+					ProjectRef = 04A1BA42221C8D1A0016907B /* Pods.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				607FACCF1AFB9204008FA782 /* Renetik_Example */,
+				607FACE41AFB9204008FA782 /* Renetik_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		04A1BA67221C8D1D0016907B /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = 04A1BA66221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA69221C8D1D0016907B /* ARChromeActivity.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ARChromeActivity.framework;
+			remoteRef = 04A1BA68221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA6B221C8D1D0016907B /* BlocksKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BlocksKit.framework;
+			remoteRef = 04A1BA6A221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA6D221C8D1D0016907B /* ChameleonFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ChameleonFramework.framework;
+			remoteRef = 04A1BA6C221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA6F221C8D1D0016907B /* CocoaLumberjack.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaLumberjack.framework;
+			remoteRef = 04A1BA6E221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA71221C8D1D0016907B /* DACircularProgress.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DACircularProgress.framework;
+			remoteRef = 04A1BA70221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA73221C8D1D0016907B /* DTCoreText.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DTCoreText.framework;
+			remoteRef = 04A1BA72221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA75221C8D1D0016907B /* DTFoundation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DTFoundation.framework;
+			remoteRef = 04A1BA74221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA77221C8D1D0016907B /* DZNEmptyDataSet.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DZNEmptyDataSet.framework;
+			remoteRef = 04A1BA76221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA79221C8D1D0016907B /* FBSnapshotTestCase.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FBSnapshotTestCase.framework;
+			remoteRef = 04A1BA78221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA7B221C8D1D0016907B /* HexColors.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HexColors.framework;
+			remoteRef = 04A1BA7A221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA7D221C8D1D0016907B /* IDMPhotoBrowser.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = IDMPhotoBrowser.framework;
+			remoteRef = 04A1BA7C221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA7F221C8D1D0016907B /* FBSnapshotTestCase.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FBSnapshotTestCase.framework;
+			remoteRef = 04A1BA7E221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA81221C8D1D0016907B /* MBProgressHUD.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MBProgressHUD.framework;
+			remoteRef = 04A1BA80221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA83221C8D1D0016907B /* MJRefresh.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MJRefresh.framework;
+			remoteRef = 04A1BA82221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA85221C8D1D0016907B /* MZAppearance.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MZAppearance.framework;
+			remoteRef = 04A1BA84221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA87221C8D1D0016907B /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = 04A1BA86221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA89221C8D1D0016907B /* Nimble_Snapshots.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble_Snapshots.framework;
+			remoteRef = 04A1BA88221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA8B221C8D1D0016907B /* Pods_Renetik_Example.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_Renetik_Example.framework;
+			remoteRef = 04A1BA8A221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA8D221C8D1D0016907B /* Pods_Renetik_Tests.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_Renetik_Tests.framework;
+			remoteRef = 04A1BA8C221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA8F221C8D1D0016907B /* pop.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = pop.framework;
+			remoteRef = 04A1BA8E221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA91221C8D1D0016907B /* PPTopMostController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PPTopMostController.framework;
+			remoteRef = 04A1BA90221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA93221C8D1D0016907B /* Quick.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Quick.framework;
+			remoteRef = 04A1BA92221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA95221C8D1D0016907B /* Reachability.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Reachability.framework;
+			remoteRef = 04A1BA94221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA97221C8D1D0016907B /* Renetik.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Renetik.framework;
+			remoteRef = 04A1BA96221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA99221C8D1D0016907B /* RenetikObjc.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RenetikObjc.framework;
+			remoteRef = 04A1BA98221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA9B221C8D1D0016907B /* RMessage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RMessage.framework;
+			remoteRef = 04A1BA9A221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA9D221C8D1D0016907B /* SBJson.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SBJson.framework;
+			remoteRef = 04A1BA9C221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BA9F221C8D1D0016907B /* SDWebImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImage.framework;
+			remoteRef = 04A1BA9E221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BAA1221C8D1D0016907B /* TUSafariActivity.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TUSafariActivity.framework;
+			remoteRef = 04A1BAA0221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BAA3221C8D1D0016907B /* TUSafariActivity.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TUSafariActivity.bundle;
+			remoteRef = 04A1BAA2221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BAA5221C8D1D0016907B /* XLPagerTabStrip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XLPagerTabStrip.framework;
+			remoteRef = 04A1BAA4221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		04A1BAA7221C8D1D0016907B /* XLPagerTabStrip.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = XLPagerTabStrip.bundle;
+			remoteRef = 04A1BAA6221C8D1D0016907B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		607FACCE1AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		607FACE31AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2203D95091F41274B8A3B4E2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Renetik_Tests/Pods-Renetik_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3123176FCBE3CA6CEA63F065 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Renetik_Example/Pods-Renetik_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68EE6513FBF733A80735D200 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Renetik_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0E41017B9412C26E2F57608 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Renetik_Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		607FACCC1AFB9204008FA782 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		607FACE11AFB9204008FA782 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				04A1BA41221C88450016907B /* UIView+CSLayoutTest.swift in Sources */,
+				04A1BAA9221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift in Sources */,
+				04A1BA40221C88450016907B /* CSLangTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* Renetik_Example */;
+			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607FACDA1AFB9204008FA782 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607FACDF1AFB9204008FA782 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		607FACED1AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		607FACEE1AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		607FACF01AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF33933E5AD4A5A0F2BAA9B1 /* Pods-Renetik_Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
+				INFOPLIST_FILE = Renetik/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		607FACF11AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD3F84BDB13767E5A583751C /* Pods-Renetik_Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
+				INFOPLIST_FILE = Renetik/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		607FACF31AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F64758F23FD192CCCEEE8B5A /* Pods-Renetik_Tests.debug.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Renetik_Example.app/Renetik_Example";
+			};
+			name = Debug;
+		};
+		607FACF41AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1019755A00EA2BC36185CE8 /* Pods-Renetik_Tests.release.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 4QNB24D8D8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Renetik_Example.app/Renetik_Example";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Renetik" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACED1AFB9204008FA782 /* Debug */,
+				607FACEE1AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Renetik_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACF01AFB9204008FA782 /* Debug */,
+				607FACF11AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Renetik_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACF31AFB9204008FA782 /* Debug */,
+				607FACF41AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
+}
