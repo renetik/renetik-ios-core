@@ -14,4 +14,23 @@ public extension String {
         }
         return nil
     }
+
+    public var isSet: Bool { return !isEmpty }
+}
+
+public extension Optional where Wrapped == String {
+    public var isNilOrEmpty: Bool {
+        if self == nil { return true }
+        return self!.isEmpty
+    }
+
+    public var isSet: Bool {
+        if self == nil { return false }
+        return !self!.isEmpty
+    }
+
+    public func contains(_ string: String) -> Bool {
+        if self == nil { return false }
+        return self!.contains(string)
+    }
 }

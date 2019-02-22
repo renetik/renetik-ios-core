@@ -119,6 +119,7 @@ import RenetikObjc
     }
 
     func onRequestFailed() {
-        if response.data.message.notNil { response.failed(withMessage: response.data.message) } else { response.failed(withMessage: client.requestFailedMessage) }
+        if let message = response.data.message { response.failed(withMessage: message) }
+        else { response.failed(withMessage: client.requestFailedMessage) }
     }
 }

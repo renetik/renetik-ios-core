@@ -13,58 +13,58 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSInteger index;
 @property NSString *key;
-@property(nonatomic, copy) NSString *childDataKey;
-@property(nonatomic, readonly) NSMutableDictionary *data;
+@property (nonatomic, copy) NSString *childDataKey;
+@property (readonly) NSMutableDictionary *data;
+@property (readonly) BOOL isEmpty;
+@property (readonly) BOOL set;
 
-- (instancetype)loadJson:(NSString *)string;
+- (instancetype)loadJson :(NSString *)string;
 
-- (instancetype)load:(NSDictionary *)dictionary;
+- (instancetype)load :(NSDictionary *)dictionary;
 
-- (instancetype)load:(CSDictionaryJsonData *)data key:(NSString *)key;
-
-- (BOOL)isEmpty;
-
-- (BOOL)set;
+- (instancetype)load :(CSDictionaryJsonData *)data key :(NSString *)key;
 
 - (void)clear;
 
-- (id)objectForKeyedSubscript:(NSString *)key;
+- (id)objectForKeyedSubscript :(NSString *)key;
 
-- (id)get:(NSString *)id;
+- (id)get :(NSString *)id;
 
-- (void)setObject:(id)thing forKeyedSubscript:(NSString *)key;
+- (void)setObject :(id)thing forKeyedSubscript :(NSString *)key;
 
-- (NSString *)getString:(NSString *)key;
+- (nullable NSString *)getString :(NSString *)key;
 
-- (BOOL)isSet:(NSString *)key;
+- (NSString *)getStringValue :(NSString *)key;
 
-- (NSInteger)getInteger:(NSString *)key;
+- (BOOL)isSet :(NSString *)key;
 
-- (NSNumber *)getIntegerNumber:(NSString *)key;
+- (NSInteger)getInteger :(NSString *)key;
 
-- (double)getDouble:(NSString *)key;
+- (nullable NSNumber *)getIntegerNumber :(NSString *)key;
 
-- (NSNumber *)getDoubleNumber:(NSString *)key;
+- (double)getDouble :(NSString *)key;
 
-- (BOOL)getBool:(NSString *)key;
+- (nullable NSNumber *)getDoubleNumber :(NSString *)key;
 
-- (NSMutableDictionary *)getDictionary:(NSString *)key;
+- (BOOL)getBool :(NSString *)key;
 
-- (NSMutableArray *)getArray:(NSString *)key;
+- (nullable NSMutableDictionary *)getDictionary :(NSString *)key;
 
-- (void)put:(NSString *)key :(id)value;
+- (nullable NSMutableArray *)getArray :(NSString *)key;
 
-- (void)put:(NSMutableDictionary *)dictionary :(NSString *)key :(id)value;
+- (void)put :(NSString *)key :(id)value;
+
+- (void)put :(NSMutableDictionary *)dictionary :(NSString *)key :(id)value;
 
 - (id)JSONString;
 
-- (CSDictionaryJsonData *)getData:(NSString *)key;
+- (nullable CSDictionaryJsonData *)getData :(NSString *)key;
 
-- (NSMutableArray<CSDictionaryJsonData *> *)createArray:(Class)type key:(NSString *)arrayKey;
+- (nullable NSMutableArray<CSDictionaryJsonData *> *)createArray :(Class)type key :(NSString *)arrayKey;
 
-- (NSMutableArray<NSMutableArray<CSDictionaryJsonData *> *> *)createArrayOfArray:(Class)type key:(NSString *)arrayKey;
+- (nullable NSMutableArray<NSMutableArray<CSDictionaryJsonData *> *> *)createArrayOfArray :(Class)type key :(NSString *)arrayKey;
 
-- (NSMutableArray<CSDictionaryJsonData *> *)createArray:(Class)type dictionaryId:(NSString *)dictionaryId;
+- (nullable NSMutableArray<CSDictionaryJsonData *> *)createArray :(Class)type dictionaryId :(NSString *)dictionaryId;
 @end
 
 NS_ASSUME_NONNULL_END

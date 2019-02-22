@@ -54,8 +54,16 @@ public extension Optional {
         if self == nil { return "" } else { return "\(self!)" }
     }
 
-    public func notNil(_ function: (Wrapped) -> Void) {
+    @discardableResult
+    public func notNil(_ function: (Wrapped) -> Void) -> Bool {
         if self != nil { function(self!) }
+        return self != nil
+    }
+
+    @discardableResult
+    public func isNil(_ function: () -> Void) -> Bool {
+        if self == nil { function() }
+        return self == nil
     }
 
 //
