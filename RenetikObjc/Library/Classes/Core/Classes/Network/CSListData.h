@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CSListData <CSServerData>
 
-- (NSMutableArray *)list;
+@property (readonly) NSMutableArray *list;
 
 @end
 

@@ -5,7 +5,36 @@
 
 import Foundation
 
-public func stringify<Subject>(_ value: Subject) -> String { return String(describing: value) }
+enum CSError: Error {
+    case todo()
+    case unsupported()
+    case failed()
+}
+
+struct RuntimeError: Error {
+	let message: String
+	
+	init(_ message: String) {
+		self.message = message
+	}
+	
+	public var localizedDescription: String {
+		return message
+	}
+}
+
+public func doLaterSwift(_ delayInSeconds: Int, _ function: @escaping () -> Void) {
+    doLaterSwift(Double(delayInSeconds), function)
+}
+
+public func doLaterSwift(_ delayInSeconds: Double, _ function: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: function)
+}
+
+public func stringify<Subject>(_ value: Subject) -> String {
+    if value == nil { return "" }
+    return String(describing: value)
+}
 
 public protocol CSLang {
 }
@@ -76,7 +105,7 @@ public extension Optional {
 //    }
 }
 
-public class CSObject {
+open class CSObject {
 }
 
 extension NSObject: CSLang {

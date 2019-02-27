@@ -5,7 +5,7 @@
 @import Foundation;
 
 #import "CSResponse.h"
-
+NS_ASSUME_NONNULL_BEGIN
 @interface CSMultiResponse : CSResponse
 
 - (instancetype)construct:(CSResponse *)request;
@@ -15,3 +15,4 @@
 - (CSResponse *)addLast:(CSResponse *)request;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -3,10 +3,10 @@
 #define stringf(frmt, ...)  [NSString stringWithFormat:frmt,__VA_ARGS__]
 #define L(key) NSLocalizedString(key, nil)
 
-static int const SECOND = 1;
-static int const MINUTE = 60;
-static int const HOUR = MINUTE * 60;
-static int const DAY = HOUR * 24;
+static NSInteger const SECOND = 1;
+static NSInteger const MINUTE = 60;
+static NSInteger const HOUR = MINUTE * 60;
+static NSInteger const DAY = HOUR * 24;
 
 #ifdef DEBUG
 #define DEBUGMODE YES
@@ -37,7 +37,7 @@ NSMutableDictionary *muteDict(NSDictionary *array);
 
 void runWith(void (^block)(id), id value);
 
-void doLater(NSTimeInterval delay, void (^block)(void));
+void doLater(NSInteger delay, void (^block)(void));
 
 void invoke(void (^block)(void));
 

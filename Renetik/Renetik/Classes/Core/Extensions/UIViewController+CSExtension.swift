@@ -7,8 +7,10 @@
 
 import UIKit
 
-extension UIViewController {
-    public func push() {
+@objc public extension UIViewController {
+    @discardableResult
+    @objc public func push() -> Self {
         navigation.push(self)
+        return self
     }
 }

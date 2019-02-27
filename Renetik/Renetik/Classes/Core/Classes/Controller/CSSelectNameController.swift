@@ -22,7 +22,7 @@ import RenetikObjc
 
     @objc public func construct(data: CSListData,
                                 _ onSelected: @escaping (CSName?) -> Void) -> Self {
-        return construct(names: data.list() as! [CSName], onSelected)
+        return construct(names: data.list as! [CSName], onSelected)
     }
 
     @objc public func construct(data: CSListData,
@@ -36,6 +36,14 @@ import RenetikObjc
             item.systemItem = self.table!.toggleEditing().isEditing ? .cancel : .edit
         }
         return self
+    }
+
+    public func construct<T: AnyObject>(data: CSListData,
+                                        _ onSelected: @escaping (CSName?) -> Void,
+                                        _ deleteTitle: String,
+                                        _ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
+        return construct(data: data, onSelected, deleteTitle,
+                         onDelete as! ((CSName) -> CSResponse<AnyObject>))
     }
 
     @objc public func construct(names: [CSName],
