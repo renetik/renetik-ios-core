@@ -16,7 +16,7 @@
     CSDoLaterProcess *_doLater;
 }
 
-- (instancetype)construct:(double)delay :(void (^)())workToInvoke {
+- (instancetype)construct:(NSTimeInterval)delay :(void (^)())workToInvoke {
     _delay = delay;
     _workToInvoke = workToInvoke;
     _stop = YES;

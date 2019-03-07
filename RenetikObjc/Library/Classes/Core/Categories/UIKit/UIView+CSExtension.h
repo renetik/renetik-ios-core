@@ -29,9 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)withContent:(UIView *)view;
 
-+ (instancetype)wrap:(UIView *)view withPadding:(int)padding;
++ (instancetype)wrap:(UIView *)view withPadding:(NSInteger)padding;
 
 - (instancetype)asCircular;
+
+- (instancetype)roundedCorners :(NSInteger)width;
 
 - (instancetype)clone;
 

@@ -12,15 +12,15 @@ enum CSError: Error {
 }
 
 struct RuntimeError: Error {
-	let message: String
-	
-	init(_ message: String) {
-		self.message = message
-	}
-	
-	public var localizedDescription: String {
-		return message
-	}
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+
+    public var localizedDescription: String {
+        return message
+    }
 }
 
 public func doLaterSwift(_ delayInSeconds: Int, _ function: @escaping () -> Void) {
@@ -106,6 +106,8 @@ public extension Optional {
 }
 
 open class CSObject {
+    public init() {
+    }
 }
 
 extension NSObject: CSLang {

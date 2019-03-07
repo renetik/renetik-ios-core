@@ -46,6 +46,10 @@
     return [self left :position.x top :position.y];
 }
 
+- (instancetype)position :(CGFloat)left :(CGFloat)top {
+    return [self left :left top :top];
+}
+
 - (instancetype)left :(CGFloat)left top :(CGFloat)top width :(CGFloat)width height :(CGFloat)height {
     [self left :left top :top];
     [self width :width height :height];

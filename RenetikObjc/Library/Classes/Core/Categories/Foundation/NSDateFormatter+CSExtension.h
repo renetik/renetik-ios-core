@@ -3,7 +3,7 @@
 //
 
 @import Foundation;
-
+NS_ASSUME_NONNULL_BEGIN
 @interface NSDateFormatter (CSExtension)
 
 + (NSString *)format:(NSDate *)date :(NSString *)format;
@@ -18,3 +18,4 @@
 
 - (NSString *)now;
 @end
+NS_ASSUME_NONNULL_END

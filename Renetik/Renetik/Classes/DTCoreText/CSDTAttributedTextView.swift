@@ -17,6 +17,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
+    private var imageUrls = [URL]()
     public func encoding(_ encoding: String.Encoding) -> Self {
         self.encoding = encoding
         return self
@@ -52,7 +53,6 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             let controller = UIActivityViewController(activityItems: [url],
                                                       applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
-            CSAppDelegate.instance()
             navigation.last!.present(controller, animated: true, completion: nil)
         }
     }
@@ -60,24 +60,35 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
                                           viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
-            let imageView = UIImageView.construct().frame(frame).imageNSURL(attachment.contentURL)
+            let imageView = UIImageView.construct().frame(frame)
             if attachment.hyperLinkURL.notNil &&
                 attachment.hyperLinkURL != attachment.contentURL {
-                imageView.onTap { _ in
-                    if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
-                        UIApplication.shared.open(attachment.hyperLinkURL)
+                imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
+                    .onTap { _ in
+                        if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
+                            UIApplication.shared.open(attachment.hyperLinkURL)
+                        }
                     }
-                }
             } else if frame.width > 50 {
-                imageView.onTap { _ in
-                    let photoBrowser = IDMPhotoBrowser(photoURLs: [attachment.contentURL])!
-                    photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
-                    photoBrowser.disableVerticalSwipe = true
-                    navigation.push(fromTop: photoBrowser)
-                }
+                imageUrls.add(attachment.contentURL)
+                imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
+                    .onTap { _ in
+                        let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
+                        photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
+                        photoBrowser.disableVerticalSwipe = true
+                        navigation.push(fromTop: photoBrowser)
+                    }
+            } else {
+                imageView.imageNSURL(attachment.contentURL)
             }
             return imageView
         }
         return nil
+    }
+
+	public override func sizeFitHeight() -> Self {
+        attributedTextContentView.sizeToFit()
+        height(attributedTextContentView.height)
+        return self
     }
 }

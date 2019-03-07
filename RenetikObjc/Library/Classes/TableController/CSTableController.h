@@ -16,57 +16,63 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CSTableController<__covariant ObjectType> : CSViewController
 
-@property(readonly, nonatomic) UITableView *tableView;
+@property (readonly, nonatomic) UITableView *tableView;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent;
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UIView *)parentView :(NSArray *)data;
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(NSArray *)data;
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent parentView :(UIView *)parentView;
 
-@property(nonatomic) CSResponse <CSListData> *(^onLoadList)(NSInteger);
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(NSArray *)data;
 
-@property(nonatomic) CSResponse *(^onLoad)(NSInteger);
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent;
 
-@property(nonatomic) BOOL (^onUserRefresh)(void);
+@property (nonatomic) CSResponse <CSListData> * (^ onLoadList)(NSInteger);
 
-@property(nonatomic) NSString *searchText;
+@property (nonatomic) CSResponse * (^ onLoad)(NSInteger);
 
-@property(nonatomic) NSString *emptyText;
+@property (nonatomic) BOOL (^ onUserRefresh)(void);
 
-@property(nonatomic) NSString *emptyDescription;
+@property (nonatomic) NSString *searchText;
 
-@property(nonatomic) BOOL (^shouldLoadNext)(NSIndexPath *);
+@property (nonatomic) NSString *emptyText;
 
-@property(nonatomic) UIView *loadNextView;
+@property (nonatomic) NSString *emptyDescription;
 
-@property(nonatomic) NSInteger pageIndex;
+@property (nonatomic) BOOL (^ shouldLoadNext)(NSIndexPath *);
 
-@property(nonatomic, readonly) NSArray<ObjectType> *data;
+@property (nonatomic) UIView *loadNextView;
 
-@property(nonatomic, strong) UIImage *reloadImage;
+@property (nonatomic) NSInteger pageIndex;
 
-- (void)insertItem:(id)item :(NSInteger)index;
+@property (nonatomic, readonly) NSArray<ObjectType> *data;
 
-- (instancetype)autoReload;
+@property (nonatomic, strong) UIImage *reloadImage;
+
+- (void)loadAdd :(NSArray *)array;
+
+- (void)insertItem :(id)item :(NSInteger)index;
 
 - (void)filterDataAndReload;
 
-- (instancetype)onLoadSuccess:(NSArray<ObjectType> *)array;
+- (instancetype)onLoadSuccess :(NSArray<ObjectType> *)array;
 
-- (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
+- (void)onLoadNextSectionsSuccess :(NSArray<ObjectType> *)array;
 
 - (instancetype)refreshable;
 
-- (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableViewWillDisplayCellForRowAtIndexPath :(NSIndexPath *)indexPath;
 
 - (CSResponse *)reload;
 
-- (void)addItem:(ObjectType)item;
+- (CSResponse *)reload :(BOOL)showProgress;
 
-- (void)removeItem:(ObjectType)item;
+- (void)addItem :(ObjectType)item;
 
-- (void)removeItemAtIndex:(NSUInteger)index;
+- (void)removeItem :(ObjectType)item;
 
-- (ObjectType)dataFor:(NSIndexPath *)path;
+- (void)removeItemAtIndex :(NSUInteger)index;
+
+- (ObjectType)dataFor :(NSIndexPath *)path;
 
 - (void)clearData;
 

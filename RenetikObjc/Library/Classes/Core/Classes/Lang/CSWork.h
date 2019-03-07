@@ -4,13 +4,14 @@
 
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CSWork : NSObject
 
-- (instancetype)construct:(double)delay :(void (^)(void))workToInvoke;
+- (instancetype)construct :(NSTimeInterval)delay :(void (^)(void))workToInvoke;
 
-@property(nonatomic) int count;
+@property (nonatomic) int count;
 
-@property(nonatomic) double delay;
+@property (nonatomic) NSTimeInterval delay;
 
 - (instancetype)start;
 
@@ -21,3 +22,4 @@
 - (instancetype)run;
 
 @end
+NS_ASSUME_NONNULL_END

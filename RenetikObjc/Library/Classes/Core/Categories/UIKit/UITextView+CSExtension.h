@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)setFontStyle:(UIFontTextStyle)style;
 
 - (instancetype)fontStyle:(UIFontTextStyle)style;
+
+- (instancetype)sizeHeightToLines :(NSInteger)numberOfLines;
+
 @end
 
 NS_ASSUME_NONNULL_END

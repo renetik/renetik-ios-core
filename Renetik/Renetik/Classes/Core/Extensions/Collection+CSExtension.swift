@@ -18,10 +18,16 @@ public extension Array where Element: Any {
     }
 
     @discardableResult
-    public mutating func add(_ newElement: Element) -> Element {
-        append(newElement)
-        return newElement
+    public mutating func add(_ item: Element) -> Element {
+        append(item)
+        return item
     }
+	
+	@discardableResult
+	public mutating func add(_ array: Array<Element>) -> Array {
+		append(contentsOf: array)
+		return self
+	}
 
     @discardableResult
     public func remove(_ anObject: Any) -> Array {

@@ -3,10 +3,10 @@
 #define stringf(frmt, ...)  [NSString stringWithFormat:frmt,__VA_ARGS__]
 #define L(key) NSLocalizedString(key, nil)
 
-static NSInteger const SECOND = 1;
-static NSInteger const MINUTE = 60;
-static NSInteger const HOUR = MINUTE * 60;
-static NSInteger const DAY = HOUR * 24;
+static NSTimeInterval const SECOND = 1;
+static NSTimeInterval const MINUTE = 60;
+static NSTimeInterval const HOUR = MINUTE * 60;
+static NSTimeInterval const DAY = HOUR * 24;
 
 #ifdef DEBUG
 #define DEBUGMODE YES

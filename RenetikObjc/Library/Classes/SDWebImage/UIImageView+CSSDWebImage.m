@@ -11,27 +11,31 @@
 
 @implementation UIImageView (CSSDWebImage)
 
-- (UIImageView *)imageNSURL:(NSURL *)url {
-    return [self imageURL:url.absoluteString onSuccess:nil];
+- (UIImageView *)imageNSURL :(NSURL *)url onSuccess :(void (^)(UIImageView *imageView))onSuccess {
+    return [self imageURL :url.absoluteString onSuccess :onSuccess];
 }
 
-- (UIImageView *)imageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess {
-    __weak typeof(self) _self = self;
+- (UIImageView *)imageNSURL :(NSURL *)url {
+    return [self imageURL :url.absoluteString onSuccess :nil];
+}
+
+- (UIImageView *)imageURL :(NSString *)url onSuccess :(void (^)(UIImageView *imageView))onSuccess {
+    __weak typeof(self)_self = self;
     self.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-    [self sd_setImageWithURL:[NSURL URLWithString:url]
-            placeholderImage:nil options:SDWebImageRetryFailed progress:nil
-                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                       if (!error) runWith(onSuccess, _self);
-                   }];
+    [self sd_setImageWithURL :[NSURL URLWithString :url]
+            placeholderImage :nil options :SDWebImageRetryFailed progress :nil
+                   completed :^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!error) runWith(onSuccess, _self);
+    }];
     return self;
 }
 
-- (void)setImageURL:(NSString *)url {
-    [self imageURL:url onSuccess:nil];
+- (void)setImageURL :(NSString *)url {
+    [self imageURL :url onSuccess :nil];
 }
 
-- (UIImageView *)imageURL:(NSString *)url {
-    return [self imageURL:url onSuccess:nil];
+- (UIImageView *)imageURL :(NSString *)url {
+    return [self imageURL :url onSuccess :nil];
 }
 
 @end

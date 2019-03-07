@@ -86,6 +86,19 @@
     return self;
 }
 
+- (instancetype)sizeFitHeight  {
+    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+    self.numberOfLines = 0;
+    CGSize newSize = [self sizeThatFits :CGSizeMake(self.width, MAXFLOAT)];
+    [self height :newSize.height];
+    return self;
+}
+
+- (CGSize)sizeThatFitWidth :(NSInteger)width {
+    CGSize size = [self sizeThatFits :CGSizeMake(width, MAXFLOAT)];
+    return size;
+}
+
 - (instancetype)sizeFit :(NSString *)value {
     self.numberOfLines = 0;
     let current = self.text;

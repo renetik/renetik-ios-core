@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)position :(CGPoint)position;
 
+- (instancetype)position :(CGFloat)left :(CGFloat)top;
+
 - (instancetype)left :(CGFloat)left top :(CGFloat)top width :(CGFloat)width height :(CGFloat)height;
 
 /*

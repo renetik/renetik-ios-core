@@ -41,25 +41,35 @@
     NSMutableArray *_filteredData;
     NSMutableArray *_data;
     UIColor *_loadNextColor;
-    CSWork *_reloadWork;
     id <CSTableFilterProtocol> _filter;
-    BOOL _autoReload;
+}
+
+- (instancetype)init {
+    super.init;
+    _tableView = UITableView.construct;
+    return self;
 }
 
 - (void)loadView {
-    self.view = _tableView = UITableView.new;
-    [_tableView background :UIColor.clearColor];
+    self.view = _tableView;
 }
 
-- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)
-                   parent :(NSArray *)data {
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UIView *)parentView :(NSArray *)data {
     _parent = parent;
     _filter = [_parent as :@protocol(CSTableFilterProtocol)];
     _filteredData = NSMutableArray.new;
     _data = muteArray(data);
-    [parent showChildController :self];
     [self initializeTable :parent];
+    [parent showChildController :self :parentView];
     return self;
+}
+
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(NSArray *)data {
+    return [self construct :parent :parent.view :data];
+}
+
+- (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent parentView :(UIView *)parentView {
+    return [self construct :parent :parentView :NSMutableArray.new];
 }
 
 - (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
@@ -68,12 +78,6 @@
 
 - (instancetype)refreshable {
     _refreshControl = [CSRefreshControl.new construct :_tableView :^{ [self onRefreshControl]; }];
-    return self;
-}
-
-- (instancetype)autoReload {
-    _autoReload = YES;
-    _reloadWork = [[CSWork.new construct :5 * MINUTE :^{ if (self.visible) [self reload :YES]; }] start];
     return self;
 }
 
@@ -90,35 +94,29 @@
     }];
 }
 
-- (void)onViewDidAppearFromPresentedController {
-    super.onViewDidAppearFromPresentedController;
-    if (_autoReload) [_reloadWork run];
-}
-
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
     [_tableView reloadData];
 }
 
 - (CSResponse *)reload {
-    return [self reload :NO];
+    return [self reload :YES];
 }
 
-- (CSResponse *)reload :(BOOL)refreshControl {
+- (CSResponse *)reload :(BOOL)showProgress {
     wvar _self = self;
     if (_loading) [_loadResponse cancel];
     _noNext = NO;
     _pageIndex = -1;
     _loading = YES;
     _loadResponse = [self createLoadResponse];
-    if (!refreshControl) [_parent showProgress :_loadResponse];
+    if (showProgress) [_parent showProgress :_loadResponse];
     return [[_loadResponse onFailed :^(CSResponse *response) {
         _self.failed = YES;
         _self.failedMessage = response.message;
         [_tableView reloadData];
     }] onDone :^(id data) {
-        if (refreshControl) [_self.refreshControl endRefreshing];
+        [_self.refreshControl endRefreshing];
         _self.loading = NO;
-        [_self.tableView fadeIn];
     }];
 }
 
@@ -143,31 +141,34 @@
 }
 
 - (instancetype)onLoadSuccess :(NSArray *)array {
-	if(array.hasItems) {
-		[self onLoadSuccessHasData:array];
-		 _pageIndex += 1;
-	} else _noNext = YES;
+    if (array.hasItems) {
+        [self onLoadSuccessHasData :array];
+        _pageIndex += 1;
+    } else _noNext = YES;
     _failed = NO;
+    [_tableView fadeIn];
     return self;
 }
 
 - (void)onLoadSuccessHasData :(NSArray *)array {
-	if (_pageIndex == -1) {
-		[_data reload :array];
-		[self filterDataAndReload];
-	} else {
-		[_data addArray :array];
-		let filteredData = [self filterData :array];
-		
-		let paths = NSMutableArray.new;
-		for (int index = 0; index < filteredData.count; index++)
-			[paths add :[NSIndexPath indexPathForRow :index + _filteredData.count inSection :0]];
-		
-		[_filteredData addArray :filteredData];
-		[_tableView beginUpdates];
-		[_tableView insertRowsAtIndexPaths :paths withRowAnimation :UITableViewRowAnimationAutomatic];
-		[_tableView endUpdates];
-	}
+    if (_pageIndex == -1) {
+        [_data reload :array];
+        [self filterDataAndReload];
+    } else [self loadAdd :array];
+}
+
+- (void)loadAdd :(NSArray *)array {
+    [_data addArray :array];
+    let filteredData = [self filterData :array];
+
+    let paths = NSMutableArray.new;
+    for (int index = 0; index < filteredData.count; index++)
+        [paths add :[NSIndexPath indexPathForRow :index + _filteredData.count inSection :0]];
+
+    [_filteredData addArray :filteredData];
+    [_tableView beginUpdates];
+    [_tableView insertRowsAtIndexPaths :paths withRowAnimation :UITableViewRowAnimationAutomatic];
+    [_tableView endUpdates];
 }
 
 - (void)showLoadNextIndicator {
@@ -192,7 +193,7 @@
 
 - (void)onRefreshControl {
     if (self.onUserRefresh) {
-        if (self.onUserRefresh()) [self reload :YES];
+        if (self.onUserRefresh()) [self reload :NO];
     } else [self reload :YES];
 }
 
@@ -276,7 +277,8 @@
 - (CAAnimation *)imageAnimationForEmptyDataSet :(UIScrollView *)scrollView {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath :@"transform"];
     animation.fromValue = [NSValue valueWithCATransform3D :CATransform3DIdentity];
-    animation.toValue = [NSValue valueWithCATransform3D :CATransform3DMakeRotation((CGFloat)M_PI_2, 0.0, 0.0, 1.0)];
+    animation.toValue = [NSValue valueWithCATransform3D
+                         :CATransform3DMakeRotation((CGFloat)M_PI_2, 0.0, 0.0, 1.0)];
     animation.duration = 0.25;
     animation.cumulative = YES;
     animation.repeatCount = 4;

@@ -26,8 +26,9 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 }
 
 - (instancetype)construct {
+	self.clipsToBounds = YES;
     self.autoresizingMask = nil;
-    self.flexibleLeft.flexibleTop.flexibleRight.flexibleBottom;
+    self.flexibleLeft.flexibleTop.flexibleRight.flexibleBottom.fixedWidth.fixedHeight;
     return self;
 }
 
@@ -83,7 +84,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return container;
 }
 
-+ (instancetype)wrap :(UIView *)view withPadding :(int)padding {
++ (instancetype)wrap :(UIView *)view withPadding :(NSInteger)padding {
     UIView *container = [self withSize :view.width + padding * 2 :view.height + padding * 2];
     let center = view.center;
     let superview = view.superview;
@@ -97,8 +98,16 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (instancetype)asCircular {
 //    let longerSide = self.width > self.width ? self.width : self.height;
-	[self aspectFill];
+    [self aspectFill];
     self.layer.cornerRadius = self.width / 2;
+    self.layer.masksToBounds = true;
+    self.clipsToBounds = YES;
+    return self;
+}
+
+- (instancetype)roundedCorners :(NSInteger)width {
+    self.layer.cornerRadius = width;
+    self.layer.masksToBounds = true;
     self.clipsToBounds = YES;
     return self;
 }

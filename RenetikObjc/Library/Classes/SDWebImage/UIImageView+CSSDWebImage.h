@@ -8,6 +8,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (CSSDWebImage)
 
+- (instancetype)imageNSURL :(NSURL *)url onSuccess :(void (^)(UIImageView *imageView))onSuccess;
+
 - (instancetype)imageNSURL :(NSURL *)url;
 
 - (instancetype)imageURL :(NSString *)url onSuccess :(void (^)(UIImageView *imageView))onSuccess;

@@ -3,16 +3,16 @@
 #import "NSString+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "UIView+CSExtension.h"
+#import "UIView+CSLayoutGetters.h"
+#import "UIView+CSDimension.h"
 
 @implementation UITextView (CSExtension)
 
 - (instancetype)setHTMLFromString :(NSString *)string {
     string = [string add :stringf(
                   @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize)];
-    self.attributedText = [NSAttributedString.alloc initWithData :[string dataUsingEncoding :NSUnicodeStringEncoding]
-                                                         options :@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                                                     NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding) }
-                                              documentAttributes :nil error :nil];
+    self.attributedText = [NSAttributedString.alloc initWithData :[string dataUsingEncoding :NSUnicodeStringEncoding] options :@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding) }
+                                              documentAttributes      :nil error :nil];
     return self;
 }
 
@@ -82,6 +82,17 @@
 
 - (instancetype)fontStyle :(UIFontTextStyle)style {
     self.font = [UIFont preferredFontForTextStyle :style];
+    return self;
+}
+
+- (instancetype)sizeHeightToLines :(NSInteger)numberOfLines {
+    let currentWidth = self.width;
+    let currentText = self.text;
+    self.text = @"line";
+    for (int i = 0; i < numberOfLines - 1; i++) self.text = [self.text add :@"\n line"];
+    [self sizeToFit];
+    self.text = currentText;
+    self.width = currentWidth;
     return self;
 }
 

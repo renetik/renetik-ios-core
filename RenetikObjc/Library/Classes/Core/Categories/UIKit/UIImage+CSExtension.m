@@ -3,10 +3,11 @@
 //
 
 #import "UIImage+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UIImage (CSExtension)
 
-- (UIImage *)scaleAndRotateFromCamera:(int)maxResolution {
+- (UIImage *)scaleAndRotateFromCamera :(int)maxResolution {
     CGImageRef imgRef = self.CGImage;
     CGFloat width = CGImageGetWidth(imgRef);
     CGFloat height = CGImageGetHeight(imgRef);
@@ -28,27 +29,26 @@
     CGFloat boundHeight;
     UIImageOrientation orient = self.imageOrientation;
     switch (orient) {
-
-        case UIImageOrientationUp: //EXIF = 1
+        case UIImageOrientationUp : //EXIF = 1
             transform = CGAffineTransformIdentity;
             break;
 
-        case UIImageOrientationUpMirrored: //EXIF = 2
+        case UIImageOrientationUpMirrored : //EXIF = 2
             transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
             transform = CGAffineTransformScale(transform, -1.0f, 1.0);
             break;
 
-        case UIImageOrientationDown: //EXIF = 3
+        case UIImageOrientationDown : //EXIF = 3
             transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
             transform = CGAffineTransformRotate(transform, M_PI);
             break;
 
-        case UIImageOrientationDownMirrored: //EXIF = 4
+        case UIImageOrientationDownMirrored : //EXIF = 4
             transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
             transform = CGAffineTransformScale(transform, 1.0, -1.0f);
             break;
 
-        case UIImageOrientationLeftMirrored: //EXIF = 5
+        case UIImageOrientationLeftMirrored : //EXIF = 5
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -57,7 +57,7 @@
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
 
-        case UIImageOrientationLeft: //EXIF = 6
+        case UIImageOrientationLeft : //EXIF = 6
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -65,7 +65,7 @@
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
 
-        case UIImageOrientationRightMirrored: //EXIF = 7
+        case UIImageOrientationRightMirrored : //EXIF = 7
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -73,7 +73,7 @@
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
-        case UIImageOrientationRight: //EXIF = 8
+        case UIImageOrientationRight : //EXIF = 8
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -81,9 +81,8 @@
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
-        default:
-            [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
-
+        default :
+            [NSException raise :NSInternalInconsistencyException format :@"Invalid image orientation"];
     }
 
     UIGraphicsBeginImageContext(bounds.size);
@@ -107,31 +106,31 @@
     return imageCopy;
 }
 
-- (UIImage *)scaleToWidth:(float)width {
+- (UIImage *)scaleToWidth :(float)width {
     float oldWidth = self.size.width;
     float scaleFactor = width / oldWidth;
     float newHeight = self.size.height * scaleFactor;
     float newWidth = oldWidth * scaleFactor;
-    return [self getImage:newHeight newWidth:newWidth];
+    return [self getImage :newHeight newWidth :newWidth];
 }
 
-- (UIImage *)getImage:(float)newHeight newWidth:(float)newWidth {
+- (UIImage *)getImage :(float)newHeight newWidth :(float)newWidth {
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
-    [self drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+    [self drawInRect :CGRectMake(0, 0, newWidth, newHeight)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
 }
 
-- (UIImage *)scaleToHeight:(float)height {
+- (UIImage *)scaleToHeight :(float)height {
     float oldHeight = self.size.height;
     float scaleFactor = height / oldHeight;
     float newWidth = self.size.width * scaleFactor;
     float newHeight = oldHeight * scaleFactor;
-    return [self getImage:newHeight newWidth:newWidth];
+    return [self getImage :newHeight newWidth :newWidth];
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color {
++ (UIImage *)imageWithColor :(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -145,15 +144,15 @@
 }
 
 - (UIImage *)inverseColor {
-    CIImage *coreImage = [CIImage imageWithCGImage:self.CGImage];
-    CIFilter *filter = [CIFilter filterWithName:@"CIColorInvert"];
-    [filter setValue:coreImage forKey:kCIInputImageKey];
-    CIImage *result = [filter valueForKey:kCIOutputImageKey];
-    return [UIImage imageWithCIImage:result];
+    CIImage *coreImage = [CIImage imageWithCGImage :self.CGImage];
+    CIFilter *filter = [CIFilter filterWithName :@"CIColorInvert"];
+    [filter setValue :coreImage forKey :kCIInputImageKey];
+    CIImage *result = [filter valueForKey :kCIOutputImageKey];
+    return [UIImage imageWithCIImage :result];
 }
 
-- (UIImage*)template {
-    return [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+- (UIImage *)template {
+    return [self imageWithRenderingMode :UIImageRenderingModeAlwaysTemplate];
 }
 
 @end

@@ -5,11 +5,12 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CSViewController : UIViewController
 
-@property(nonatomic) BOOL showing;
-@property(nonatomic) BOOL appearing;
-@property(nonatomic, readonly) BOOL visible;
+@property (nonatomic) BOOL showing;
+@property (nonatomic) BOOL appearing;
+@property (nonatomic, readonly) BOOL visible;
 
 - (void)onViewDidLoad;
 
@@ -39,11 +40,14 @@
 
 - (void)viewDidDisappear;
 
-- (void)onViewVisibilityChanged:(BOOL)visible;
+- (void)onViewVisibilityChanged :(BOOL)visible;
 
 - (void)onViewShowing;
 
 - (void)onViewHiding;
 
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
+- (void)onViewWillTransitionToSizeCompletion :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
+
+- (void)addObserver :(NSNotificationName)name :(void (^)(NSNotification *note))block;
 @end
+NS_ASSUME_NONNULL_END

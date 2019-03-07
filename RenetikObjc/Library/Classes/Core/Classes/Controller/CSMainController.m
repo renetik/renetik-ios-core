@@ -121,7 +121,8 @@
 
 - (void)addChildViewController :(UIViewController *)childController {
     [super addChildViewController :childController];
-    if ([childController isKindOfClass :CSMainController.class]) [self addChildMainController :(CSMainController *)childController];
+    if ([childController isKindOfClass :CSMainController.class])
+		[self addChildMainController :(CSMainController *)childController];
 }
 
 - (void)addChildMainController :(CSMainController *)childController {

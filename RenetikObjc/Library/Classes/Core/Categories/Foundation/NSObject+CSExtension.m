@@ -50,7 +50,7 @@
     return [CSDoLaterProcess.new from:method :0.1];
 }
 
-- (CSDoLaterProcess *)doLater:(double)seconds :(void (^)(void))method {
+- (CSDoLaterProcess *)doLater:(NSTimeInterval)seconds :(void (^)(void))method {
     return [CSDoLaterProcess.new from:method :seconds];
 }
 
