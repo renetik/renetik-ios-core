@@ -16,7 +16,7 @@
 #import "CSToolbarPage.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "UIView+CSLayout.h"
 #import "UIBarButtonItem+CSExtension.h"
 #import "UIColor+CSExtension.h"

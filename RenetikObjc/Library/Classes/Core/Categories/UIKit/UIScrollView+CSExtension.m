@@ -5,7 +5,7 @@
 #import "UIScrollView+CSExtension.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayout.h"
 #import "CSLang.h"

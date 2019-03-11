@@ -14,7 +14,7 @@
 
 @property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
 
-@property(nonatomic, strong) CSMainController *parent;
+@property(nonatomic, strong) CSMainController *parentMain;
 
 - (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers;
 

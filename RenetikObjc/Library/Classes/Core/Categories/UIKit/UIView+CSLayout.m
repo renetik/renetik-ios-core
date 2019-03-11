@@ -4,7 +4,7 @@
 
 #import "UIView+CSLayout.h"
 #import "UIView+CSExtension.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSAutoResizing.h"
@@ -80,6 +80,18 @@
     return self;
 }
 
+- (instancetype)fromLeft :(CGFloat)value {
+	self.left = value;
+	[self fixedLeft];
+	return self;
+}
+
+- (instancetype)fromTop :(CGFloat)value {
+	self.top = value;
+	[self fixedTop];
+	return self;
+}
+
 - (instancetype)fromRight :(CGFloat)value {
     self.fromRight = value;
     [self fixedRight];
@@ -89,6 +101,18 @@
 - (instancetype)fromBottom :(CGFloat)bottom {
     self.fromBottom = bottom;
     [self fixedBottom];
+    return self;
+}
+
+- (instancetype)fromTopRight :(CGFloat)value {
+	[self fromTop :value];
+	[self fromRight: value];
+    return self;
+}
+
+- (instancetype)fromBottomRight :(CGFloat)value {
+	[self fromBottom :value];
+	[self fromRight: value];
     return self;
 }
 

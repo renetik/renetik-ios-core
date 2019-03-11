@@ -7,11 +7,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSPosition)
 
-- (void)setLeft :(int)left;
+@property (readonly) CGPoint position;
 
-- (void)setFromRight :(CGFloat)value;
+@property (readonly) CGFloat x;
 
-- (void)setTop :(CGFloat)value;
+@property (readonly) CGFloat y;
+
+@property (readonly) CGFloat leftFromRight;
+
+@property (readonly) CGFloat topFromBottom;
+
+@property (readonly) CGFloat absBottom;
+
+@property (readonly) CGFloat verticalCenter;
+
+@property (readonly) CGFloat horizontalCenter;
+
+@property (nonatomic) CGFloat absTop;
+
+@property (nonatomic) CGFloat right;
+
+@property (nonatomic) CGFloat bottom;
+
+@property (nonatomic) CGFloat fromRight;
+
+@property (nonatomic) CGFloat fromBottom;
+
+@property (nonatomic) CGFloat top;
+
+@property (nonatomic) CGFloat left;
 
 - (instancetype)verticalCenter :(CGFloat)y;
 
@@ -20,14 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)center :(CGPoint)point;
 
 - (instancetype)center :(CGFloat)x :(CGFloat)y;
-
-- (void)setAbsTop :(float)value;
-
-- (void)setFromBottom :(CGFloat)bottom;
-
-- (void)setBottom :(CGFloat)value;
-
-- (void)setRight :(CGFloat)value;
 
 - (instancetype)centerInParent;
 

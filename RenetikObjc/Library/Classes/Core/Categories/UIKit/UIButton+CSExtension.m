@@ -13,6 +13,12 @@
 
 @implementation UIButton (CSExtension)
 
+- (instancetype)construct {
+    super.construct;
+    self.imageView.aspectFit;
+    return self;
+}
+
 - (void)stretchableBackgroundImageWithLeftCapWidth :(NSInteger)leftCapWidth topCapHeight :(NSInteger)topCapHeight {
     [self setBackgroundImage :[[self backgroundImageForState :UIControlStateNormal] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateNormal];
     [self setBackgroundImage :[[self backgroundImageForState :UIControlStateSelected] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateSelected];
@@ -62,7 +68,7 @@
 + (instancetype)addFloating :(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
     UIButton *button = [self.class construct];
     [view add :[button.sizeFit onTouchUp :onClick]];
-    [button image :image].imageView.aspectFit;
+    [button image :image];
     return [[button fromRight :25] fromBottom :25].flexibleLeftTop;
 }
 

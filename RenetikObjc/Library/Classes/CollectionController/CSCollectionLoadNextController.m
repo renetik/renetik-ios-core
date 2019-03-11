@@ -7,7 +7,6 @@
 #import "CSResponse.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
 #import "NSIndexPath+CSExtension.h"
 
 @implementation CSCollectionLoadNextController {

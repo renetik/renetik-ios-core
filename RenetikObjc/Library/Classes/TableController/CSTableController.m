@@ -27,10 +27,7 @@
 #import "UIView+CSLayout.h"
 #import "CSListData.h"
 
-@interface CSTableController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
-@property (nonatomic) BOOL loading;
-@property (nonatomic) BOOL failed;
-@property (nonatomic, copy) NSString *failedMessage;
+@interface CSTableController ()
 @property (nonatomic, strong) CSRefreshControl *refreshControl;
 @end
 
@@ -87,11 +84,10 @@
     _tableView.dataSource = parent;
     _tableView.emptyDataSetSource = self;
     _tableView.emptyDataSetDelegate = self;
-    _tableView.backgroundView = [UIView withColor :UIColor.clearColor];
-    [UITapGestureRecognizer.alloc bk_initWithHandler :
-     ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-        [self reload];
-    }];
+//    [UITapGestureRecognizer.alloc bk_initWithHandler :
+//     ^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+//        [self reload];
+//    }];
 }
 
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
@@ -104,49 +100,40 @@
 
 - (CSResponse *)reload :(BOOL)showProgress {
     wvar _self = self;
-    if (_loading) [_loadResponse cancel];
+    if (_isLoading) _loadResponse.cancel;
     _noNext = NO;
     _pageIndex = -1;
-    _loading = YES;
-    _loadResponse = [self createLoadResponse];
+    _isLoading = YES;
+    _loadResponse = self.onLoad(_pageIndex + 1);
     if (showProgress) [_parent showProgress :_loadResponse];
     return [[_loadResponse onFailed :^(CSResponse *response) {
-        _self.failed = YES;
+        _self.isFailed = YES;
         _self.failedMessage = response.message;
         [_tableView reloadData];
     }] onDone :^(id data) {
-        [_self.refreshControl endRefreshing];
-        _self.loading = NO;
+        _self.refreshControl.endRefreshing;
+        _self.isLoading = NO;
     }];
 }
 
 - (void)loadNext {
-    if (_loading) return;
-    _loading = YES;
-    [self showLoadNextIndicator];
+    if (_isLoading) return;
+    _isLoading = YES;
+    self.showLoadNextIndicator;
     wvar _self = self;
-    [_parent showFailed :[self.createLoadResponse onDone :^(id data) {
-        _self.loading = NO;
+    [_parent showFailed :[self.onLoad(_pageIndex + 1) onDone :^(id data) {
+        _self.isLoading = NO;
         [_self.loadNextView removeFromSuperview];
     }]];
 }
 
-- (CSResponse *)createLoadResponse {
-    wvar _self = self;
-    if (self.onLoadList)
-        return [(self.onLoadList(_pageIndex + 1)) onSuccess :^(NSObject <CSListData> *data) {
-            [_self onLoadSuccess :data.list];
-        }];
-    else return self.onLoad(_pageIndex + 1);
-}
-
-- (instancetype)onLoadSuccess :(NSArray *)array {
+- (instancetype)load :(NSArray *)array {
     if (array.hasItems) {
         [self onLoadSuccessHasData :array];
         _pageIndex += 1;
     } else _noNext = YES;
-    _failed = NO;
-    [_tableView fadeIn];
+    _isFailed = NO;
+    _tableView.fadeIn;
     return self;
 }
 
@@ -183,7 +170,7 @@
 }
 
 - (BOOL)shouldLoadNext :(NSIndexPath *)path {
-    if (_loading) return NO;
+    if (_isLoading) return NO;
     return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - 5);
 }
 
@@ -216,7 +203,8 @@
     [_data addArray :array];
     let filteredData = [self filterData :array];
     let indexes = NSMutableIndexSet.new;
-    for (int section = 0; section < filteredData.count; section++) [indexes addIndex :section + _filteredData.count];
+    for (int section = 0; section < filteredData.count; section++)
+        [indexes addIndex :section + _filteredData.count];
     [_filteredData addArray :filteredData];
     [_tableView beginUpdates];
     [_tableView insertSections :indexes withRowAnimation :UITableViewRowAnimationAutomatic];
@@ -251,72 +239,73 @@
     return _filteredData;
 }
 
-- (NSAttributedString *)titleForEmptyDataSet :(UIScrollView *)scrollView {
-    if (self.emptyText)
-        return [self.emptyText attributed :@{
-                NSFontAttributeName: [UIFont preferredFontForTextStyle :UIFontTextStyleHeadline],
-                NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn :_tableView.backgroundColor isFlat :YES]
-        }];
-    return nil;
-}
+//- (NSAttributedString *)titleForEmptyDataSet :(UIScrollView *)scrollView {
+//    if (self.emptyText)
+//        return [self.emptyText attributed :@{
+//                NSFontAttributeName: [UIFont preferredFontForTextStyle :UIFontTextStyleHeadline],
+//                NSForegroundColorAttributeName: [UIColor colorWithContrastingBlackOrWhiteColorOn :_tableView.backgroundColor isFlat :YES]
+//        }];
+//    return nil;
+//}
 
-- (NSAttributedString *)descriptionForEmptyDataSet :(UIScrollView *)scrollView {
-    if (self.emptyDescription) {
-        NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-        paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-        paragraph.alignment = NSTextAlignmentCenter;
-        return [self.emptyDescription attributed :@{
-                NSFontAttributeName: [UIFont preferredFontForTextStyle :UIFontTextStyleSubheadline],
-                NSForegroundColorAttributeName: FlatWhiteDark,
-                NSParagraphStyleAttributeName: paragraph
-        }];
-    }
-    return nil;
-}
+//- (NSAttributedString *)descriptionForEmptyDataSet :(UIScrollView *)scrollView {
+//    if (self.emptyDescription) {
+//        NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+//        paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+//        paragraph.alignment = NSTextAlignmentCenter;
+//        return [self.emptyDescription attributed :@{
+//                NSFontAttributeName: [UIFont preferredFontForTextStyle :UIFontTextStyleSubheadline],
+//                NSForegroundColorAttributeName: FlatWhiteDark,
+//                NSParagraphStyleAttributeName: paragraph
+//        }];
+//    }
+//    return nil;
+//}
 
-- (CAAnimation *)imageAnimationForEmptyDataSet :(UIScrollView *)scrollView {
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath :@"transform"];
-    animation.fromValue = [NSValue valueWithCATransform3D :CATransform3DIdentity];
-    animation.toValue = [NSValue valueWithCATransform3D
-                         :CATransform3DMakeRotation((CGFloat)M_PI_2, 0.0, 0.0, 1.0)];
-    animation.duration = 0.25;
-    animation.cumulative = YES;
-    animation.repeatCount = 4;
-    return animation;
-}
+//- (CAAnimation *)imageAnimationForEmptyDataSet :(UIScrollView *)scrollView {
+//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath :@"transform"];
+//    animation.fromValue = [NSValue valueWithCATransform3D :CATransform3DIdentity];
+//    animation.toValue = [NSValue valueWithCATransform3D
+//                         :CATransform3DMakeRotation((CGFloat)M_PI_2, 0.0, 0.0, 1.0)];
+//    animation.duration = 0.25;
+//    animation.cumulative = YES;
+//    animation.repeatCount = 4;
+//    return animation;
+//}
 
-- (UIImage *)imageForEmptyDataSet :(UIScrollView *)scrollView {
-    return self.reloadImage.template;
-}
+//- (UIImage *)imageForEmptyDataSet :(UIScrollView *)scrollView {
+//    return self.reloadImage;
+//}
 
-- (UIColor *)imageTintColorForEmptyDataSet :(UIScrollView *)scrollView {
-    return [UIColor colorWithContrastingBlackOrWhiteColorOn :_tableView.backgroundColor isFlat :YES];
-}
+//- (UIColor *)imageTintColorForEmptyDataSet :(UIScrollView *)scrollView {
+//    return [UIColor colorWithContrastingBlackOrWhiteColorOn :_tableView.backgroundColor isFlat :YES];
+//}
 
-- (BOOL)emptyDataSetShouldAnimateImageView :(UIScrollView *)scrollView {
-    return YES;
-}
+//- (BOOL)emptyDataSetShouldAnimateImageView :(UIScrollView *)scrollView {
+//    return YES;
+//}
 
-- (UIColor *)backgroundColorForEmptyDataSet :(UIScrollView *)scrollView {
-    return [UIColor clearColor];
-}
 
-- (void)emptyDataSet :(UIScrollView *)scrollView didTapView :(UIView *)view {
-    [self reload];
-}
+//- (UIColor *)backgroundColorForEmptyDataSet :(UIScrollView *)scrollView {
+//    return [UIColor clearColor];
+//}
 
-- (void)emptyDataSet :(UIScrollView *)scrollView didTapButton :(UIButton *)button {
-    [self reload];
-}
+//- (void)emptyDataSet :(UIScrollView *)scrollView didTapView :(UIView *)view {
+////    [self reload];
+//}
+//
+//- (void)emptyDataSet :(UIScrollView *)scrollView didTapButton :(UIButton *)button {
+////    [self reload];
+//}
+//
+//- (CGFloat)verticalOffsetForEmptyDataSet :(UIScrollView *)scrollView {
+//    return 0;
+//}
 
-- (CGFloat)verticalOffsetForEmptyDataSet :(UIScrollView *)scrollView {
-    return 100;
-}
-
-- (NSString *)emptyText {
-    if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
-    return _emptyText ? _emptyText : @"No items in list to display at this time";
-}
+//- (NSString *)emptyText {
+//    if (_failed) return _failedMessage ? _failedMessage : @"Loading of list content was not successful, click to try again";
+//    return _emptyText ? _emptyText : @"No items in list to display at this time";
+//}
 
 - (void)filterDataAndReload {
     [_filteredData reload :[self filterData :_data]];
@@ -327,6 +316,22 @@
 - (void)clearData {
     _data.removeAllObjects;
     _filteredData.removeAllObjects;
+}
+
+- (instancetype)scrollToBottom {
+    if (_filteredData.hasItems) invoke(^{
+            let path =  [NSIndexPath indexPathForRow :_filteredData.count - 1];
+            [self.tableView scrollToRowAtIndexPath :path
+                                  atScrollPosition :UITableViewScrollPositionBottom animated :true];
+        });
+    return self;
+}
+
+- (BOOL)isAtBottom {
+    let lastPath = self.tableView.indexPathsForVisibleRows.last;
+    if (!lastPath) return YES;
+    if (lastPath.row == _filteredData.count - 1) return YES;
+    else return NO;
 }
 
 @end

@@ -8,7 +8,7 @@
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "UIView+CSLayout.h"
 
 @implementation UITableView (CSExtension)
@@ -52,7 +52,7 @@
         [self deselectRowAtIndexPath :path animated :animated];
 }
 
-- (id)dequeueReusableCell :(NSString *)identifier {
+- (UITableViewCell*)dequeueReusableCell :(NSString *)identifier {
     return [self dequeueReusableCellWithIdentifier :identifier];
 }
 

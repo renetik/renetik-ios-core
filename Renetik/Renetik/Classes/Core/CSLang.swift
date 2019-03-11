@@ -48,6 +48,7 @@ public extension CSLang {
         return false
     }
 
+	@discardableResult
     public func apply(_ function: (Self) -> Void) -> Self {
         function(self)
         return self
@@ -84,9 +85,9 @@ public extension Optional {
     }
 
     @discardableResult
-    public func notNil(_ function: (Wrapped) -> Void) -> Bool {
+    public func notNil(_ function: (Wrapped) -> Void) -> Optional<Wrapped> {
         if self != nil { function(self!) }
-        return self != nil
+        return self
     }
 
     @discardableResult

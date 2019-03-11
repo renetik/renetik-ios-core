@@ -3,7 +3,6 @@
 #import "NSString+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "UIView+CSExtension.h"
-#import "UIView+CSLayoutGetters.h"
 #import "UIView+CSDimension.h"
 
 @implementation UITextView (CSExtension)

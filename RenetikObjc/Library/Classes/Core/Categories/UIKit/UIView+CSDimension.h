@@ -8,29 +8,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSDimension)
 
-- (instancetype)size:(CGSize)size;
+@property (readonly) CGSize size;
 
-- (instancetype)frame:(CGRect)rect;
+@property (readonly) CGSize calculateSizeFromSubviews;
 
-- (instancetype)setSize:(CGSize)size;
+@property (nonatomic) CGFloat width;
 
-- (instancetype)width:(CGFloat)width height:(CGFloat)height;
+@property (nonatomic) CGFloat height;
 
-- (void)setWidth:(CGFloat)width;
+- (instancetype)size :(CGSize)size;
 
-- (instancetype)width:(CGFloat)value;
+- (instancetype)frame :(CGRect)rect;
+
+- (instancetype)setSize :(CGSize)size;
+
+- (instancetype)width :(CGFloat)width height :(CGFloat)height;
+
+- (instancetype)width :(CGFloat)value;
 
 - (instancetype)widthAsHeight;
 
-- (void)setHeight:(CGFloat)height;
-
-- (instancetype)height:(CGFloat)height;
+- (instancetype)height :(CGFloat)height;
 
 - (instancetype)heightAsWidth;
 
-- (instancetype)addWidth:(CGFloat)value;
+- (instancetype)addWidth :(CGFloat)value;
 
-- (instancetype)addHeight:(CGFloat)value;
+- (instancetype)addHeight :(CGFloat)value;
 
 - (instancetype)sizeFit;
 
@@ -38,15 +42,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)fitSubviews;
 
-- (instancetype)resizeByPadding:(CGFloat)padding;
+- (instancetype)resizeByPadding :(CGFloat)padding;
 
-- (instancetype)addLeft:(NSInteger)value;
+- (instancetype)addLeft :(CGFloat)value;
 
-- (instancetype)addTop:(NSInteger)value;
+- (instancetype)addTop :(CGFloat)value;
 
-- (instancetype)addRight:(NSInteger)value;
+- (instancetype)addRight :(CGFloat)value;
 
-- (instancetype)addBottom:(NSInteger)value;
+- (instancetype)addBottom :(CGFloat)value;
 
 @end
 

@@ -8,20 +8,30 @@
 import RenetikObjc
 
 public extension UIView {
+    @discardableResult
     public func add<T: UIView>(view subView: T) -> T {
-        self.add(subView)
+        add(subView)
         return subView
     }
 
-    public func addUnderLast<T: UIView>(view subView: T, offset: Int) -> T {
+    @discardableResult
+    public func add<T: UIView>(view subView: T, _ function: (T) -> Void) -> T {
+        add(subView)
+        function(subView)
+        return subView
+    }
+
+    @discardableResult
+    public func addUnderLast<T: UIView>(view subView: T, offset: CGFloat) -> T {
         addUnderLast(subView)
-        if subView.top > 0 { subView.addTop(offset) }
+        if subView.top > 0 { subView.top += offset }
         return subView
     }
 
-    public func addNextLast<T: UIView>(view subView: T, offset: Int) -> T {
+    @discardableResult
+    public func addNextLast<T: UIView>(view subView: T, offset: CGFloat) -> T {
         addNextLast(subView)
-        if subView.left > 0 { subView.addLeft(offset) }
+        if subView.left > 0 { subView.left += offset }
         return subView
     }
 }

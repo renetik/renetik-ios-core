@@ -16,14 +16,3 @@ import UIKit
     }
 }
 
-public extension UIViewController {
-    public func tableOnLoadList<ListData: CSListData, RowType: AnyObject>(
-        _ table: CSTableController<RowType>,
-        _ sendRequest: @escaping (Int) -> CSResponse<ListData>) {
-        table.onLoad = { pageIndex in
-            sendRequest(pageIndex).onSuccess { listData in
-                table.onLoadSuccess(listData.list as! [RowType])
-            } as! CSResponse<AnyObject>
-        }
-    }
-}

@@ -13,7 +13,7 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSLayout.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "CSCocoaLumberjack.h"
 #import "NSObject+CSExtension.h"
 

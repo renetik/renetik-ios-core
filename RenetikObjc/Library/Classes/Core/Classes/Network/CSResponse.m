@@ -35,6 +35,13 @@
     return self;
 }
 
+- (id)initWith :(id)data {
+    if (self = [self init]) {
+        _data = data;
+    }
+    return self;
+}
+
 - (void)success :(id)data {
     if (_canceled) return;
     _data = data;
@@ -124,7 +131,7 @@
     return self;
 }
 
-- (instancetype)reload :(BOOL)reload {
+- (instancetype)force :(BOOL)reload {
     _forceReload = reload;
     return self;
 }

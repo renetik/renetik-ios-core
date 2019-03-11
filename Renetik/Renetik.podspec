@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'A short description of Renetik.'
 
 # This description is used to generate tags and improve search results.
@@ -61,6 +61,9 @@ TODO: Add long description of the pod here.
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/TableController', '~> 0.7.0'
+		ss.dependency 'DZNEmptyDataSet','~> 1.8'
+		ss.dependency 'ChameleonFramework', '~> 2.1'
+		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
 	
 	s.subspec 'CollectionController' do |ss|

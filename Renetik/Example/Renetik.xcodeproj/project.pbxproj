@@ -420,11 +420,11 @@
 		607FACD21AFB9204008FA782 /* Example for Renetik */ = {
 			isa = PBXGroup;
 			children = (
-				04B9302A221CD18A0052F195 /* View */,
-				04B93026221CCF010052F195 /* Support Files */,
-				04B93024221CCE6F0052F195 /* Controller */,
-				04B93023221CCE660052F195 /* Model */,
 				607FACD51AFB9204008FA782 /* ExampleAppDelegate.swift */,
+				04B93023221CCE660052F195 /* Model */,
+				04B9302A221CD18A0052F195 /* View */,
+				04B93024221CCE6F0052F195 /* Controller */,
+				04B93026221CCF010052F195 /* Support Files */,
 			);
 			name = "Example for Renetik";
 			path = Renetik;

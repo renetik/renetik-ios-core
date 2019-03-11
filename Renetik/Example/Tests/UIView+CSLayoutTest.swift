@@ -10,6 +10,10 @@ class UIViewTestSwift: XCTestCase {
         let container = UIView.withSize(200, 200)
         let subview = container.add(view: UIView.withRect(50, 50, 100, 100))
 
+        XCTAssertEqual(container.width, 200)
+        XCTAssertEqual(container.height, 200)
+        XCTAssertEqual(subview.width, 100)
+        XCTAssertEqual(subview.height, 100)
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
@@ -82,8 +86,8 @@ class UIViewTestSwift: XCTestCase {
 
     func testMatchParentWithMargin() {
         let content = UIView.withSize(200, 200)
-		let subview = content.add(view: UILabel.construct())
-			.top(50).height(100).matchParentWidth(withMargin: 30)
+        let subview = content.add(view: UILabel.construct())
+            .top(50).height(100).matchParentWidth(withMargin: 30)
         XCTAssertEqual(subview.left, 30)
         XCTAssertEqual(subview.right, 170)
         XCTAssertEqual(subview.fromRight, 30)

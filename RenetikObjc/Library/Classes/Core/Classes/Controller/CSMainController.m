@@ -52,7 +52,7 @@
 }
 
 - (BOOL)isMainController {
-    return [self.parentViewController isKindOfClass :UINavigationController.class] || _parent == nil;
+    return [self.parentViewController isKindOfClass :UINavigationController.class] || _parentMain == nil;
 }
 
 - (BOOL)isChildController {
@@ -65,7 +65,7 @@
 
 - (void)updateBarItemsAndMenu :(BOOL)animated {
     if (self.isChildController) {
-        [_parent updateBarItemsAndMenu :animated];
+        [_parentMain updateBarItemsAndMenu :animated];
         return;
     }
     NSMutableArray<CSMenuHeader *> *menu = NSMutableArray.new;
@@ -127,7 +127,7 @@
 
 - (void)addChildMainController :(CSMainController *)childController {
     [_childMainControllers add :childController];
-    childController.parent = self;
+    childController.parentMain = self;
 }
 
 - (UIViewController *)dismissChildController :(UIViewController *)controller {

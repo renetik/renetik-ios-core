@@ -12,4 +12,20 @@ import UIKit
             selectRow(at: path, animated: false, scrollPosition: .none)
         }
     }
+
+    @nonobjc func cellView<ViewType: UIView>(
+        _ viewClass: ViewType.Type, _ onCreate: @escaping (UITableViewCell, ViewType) -> Void,
+        _ onLoad: @escaping (ViewType) -> Void) -> UITableViewCell {
+        var cell = dequeueReusableCell(viewClass.className())
+        if cell.isNil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: viewClass.className())
+            let view = viewClass.init()
+            cell!.contentView.matchParent()
+            rowHeight = cell!.contentView.content(view.construct()).height
+            cell!.width(width, height: rowHeight)
+            onCreate(cell!, view.matchParent())
+        }
+        onLoad(cell!.cellView as! ViewType)
+        return cell!
+    }
 }

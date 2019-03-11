@@ -6,13 +6,13 @@
 
 #import "CSResponse.h"
 NS_ASSUME_NONNULL_BEGIN
-@interface CSMultiResponse : CSResponse
+@interface CSMultiResponse<Data> : CSResponse<Data>
 
-- (instancetype)construct:(CSResponse *)request;
+- (instancetype)construct :(CSResponse *)request;
 
-- (CSResponse *)add:(CSResponse *)response;
+- (CSResponse *)add :(CSResponse *)response;
 
-- (CSResponse *)addLast:(CSResponse *)request;
+- (CSResponse<Data> *)addLast :(CSResponse<Data> *)request;
 
 @end
 NS_ASSUME_NONNULL_END

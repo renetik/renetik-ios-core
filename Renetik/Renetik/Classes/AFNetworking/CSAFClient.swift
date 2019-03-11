@@ -21,6 +21,13 @@ open class CSAFClient: CSObject {
         manager.responseSerializer = AFHTTPResponseSerializer()
     }
 
+    public func setVagueSecurityPolicy() {
+        var policy = AFSecurityPolicy(pinningMode: .none)
+        policy.allowInvalidCertificates = true
+        policy.validatesDomainName = false
+        manager.securityPolicy = policy
+    }
+
     public func addDefault(params: Dictionary<String, String>) {
         defaultParams.add(params)
     }
@@ -39,7 +46,8 @@ open class CSAFClient: CSObject {
     }
 
     public func basicAuhentification(username: String, password: String) {
-        manager.requestSerializer.setAuthorizationHeaderFieldWithUsername(username, password: password)
+        manager.requestSerializer
+            .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
 
     open func get<Data: CSServerData>(_ service: String, data: Data, _ params: Dictionary<String, String>) -> CSResponse<Data> {

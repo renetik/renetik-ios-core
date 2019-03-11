@@ -7,7 +7,7 @@
 #import "CSTabPagerTab.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
+
 #import "UIView+CSLayout.h"
 #import "UIView+CSExtension.h"
 #import "UIScrollView+CSExtension.h"

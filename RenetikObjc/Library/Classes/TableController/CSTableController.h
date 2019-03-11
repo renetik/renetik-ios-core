@@ -26,27 +26,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)construct :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent;
 
-@property (nonatomic) CSResponse <CSListData> * (^ onLoadList)(NSInteger);
-
 @property (nonatomic) CSResponse * (^ onLoad)(NSInteger);
 
 @property (nonatomic) BOOL (^ onUserRefresh)(void);
 
 @property (nonatomic) NSString *searchText;
 
-@property (nonatomic) NSString *emptyText;
-
-@property (nonatomic) NSString *emptyDescription;
-
 @property (nonatomic) BOOL (^ shouldLoadNext)(NSIndexPath *);
 
 @property (nonatomic) UIView *loadNextView;
+
+@property (nonatomic) BOOL isLoading;
+
+@property (nonatomic) BOOL isFailed;
+
+@property (nonatomic, copy) NSString *failedMessage;
 
 @property (nonatomic) NSInteger pageIndex;
 
 @property (nonatomic, readonly) NSArray<ObjectType> *data;
 
-@property (nonatomic, strong) UIImage *reloadImage;
+- (CSResponse *)reload;
+
+- (CSResponse *)reload :(BOOL)showProgress;
+
+- (instancetype)load :(NSArray<ObjectType> *)array;
 
 - (void)loadAdd :(NSArray *)array;
 
@@ -54,17 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)filterDataAndReload;
 
-- (instancetype)onLoadSuccess :(NSArray<ObjectType> *)array;
-
 - (void)onLoadNextSectionsSuccess :(NSArray<ObjectType> *)array;
 
 - (instancetype)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath :(NSIndexPath *)indexPath;
-
-- (CSResponse *)reload;
-
-- (CSResponse *)reload :(BOOL)showProgress;
 
 - (void)addItem :(ObjectType)item;
 
@@ -75,6 +73,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (ObjectType)dataFor :(NSIndexPath *)path;
 
 - (void)clearData;
+
+- (BOOL)isAtBottom;
+
+- (instancetype)scrollToBottom;
 
 @end
 

@@ -10,21 +10,22 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (CSLayout)
 
-- (instancetype)left :(CGFloat)value;
+- (instancetype)left :(CGFloat)value;  //TODO move to position remove and use fromLeft
 
-- (instancetype)top :(CGFloat)value;
+- (instancetype)top :(CGFloat)value; //TODO move to position remove and use fromTop
 
-- (instancetype)right :(CGFloat)value;
+- (instancetype)right :(CGFloat)value; //TODO move to position check usages
 
-- (instancetype)bottom :(CGFloat)value;
+- (instancetype)bottom :(CGFloat)value; //TODO move to position check usages
 
-- (instancetype)left :(CGFloat)left top :(CGFloat)top;
+- (instancetype)left :(CGFloat)left top :(CGFloat)top; // replace with fromLeftTop
 
-- (instancetype)position :(CGPoint)position;
+- (instancetype)position :(CGPoint)position; /// check usages
 
-- (instancetype)position :(CGFloat)left :(CGFloat)top;
+- (instancetype)position :(CGFloat)left :(CGFloat)top; // replace with fromLeftTop
 
-- (instancetype)left :(CGFloat)left top :(CGFloat)top width :(CGFloat)width height :(CGFloat)height;
+- (instancetype)left :(CGFloat)left top :(CGFloat)top
+			   width :(CGFloat)width height :(CGFloat)height; // replace with fromLeftTop + size
 
 /*
  *  By setting left, width will be resized
@@ -46,6 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)bottomToHeight :(CGFloat)bottom;
 
+- (instancetype)fromLeft :(CGFloat)distanceFromLeft;
+
+- (instancetype)fromTop :(CGFloat)distanceFromTop;
+
 /*
  * Distance of right bound from right side of parent
  */
@@ -55,6 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Distance of bottom bound from bottom side of parent
  */
 - (instancetype)fromBottom :(CGFloat)distanceFromBottom;
+
+- (instancetype)fromTopRight :(CGFloat)value;
+
+- (instancetype)fromBottomRight :(CGFloat)value;
 
 /*
  *  Resize view width so that its right boundary will be in specified distance from right side

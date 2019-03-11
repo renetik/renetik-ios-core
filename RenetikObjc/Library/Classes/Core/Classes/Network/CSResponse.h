@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL fromCacheIfPossible;
 @property (nonatomic, weak) UIViewController *controller;
 
+- (id)initWith :(id)data;
+
 - (id)initWith :(NSString *)url :(DataType)data :(NSDictionary *)params;
 
 - (void)success :(nullable DataType)data;
@@ -58,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)fromCacheIfPossible :(BOOL)force;
 
-- (instancetype)reload :(BOOL)reload;
+- (instancetype)force :(BOOL)reload;
 
 - (instancetype)setId :(id)id;
 

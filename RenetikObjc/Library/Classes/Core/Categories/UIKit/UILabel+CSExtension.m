@@ -6,7 +6,6 @@
 #import "UILabel+CSExtension.h"
 #import "CSLang.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayoutGetters.h"
 #import "NSString+CSExtension.h"
 #import "UIView+CSExtension.h"
 
