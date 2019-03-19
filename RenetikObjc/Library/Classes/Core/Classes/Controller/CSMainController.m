@@ -73,25 +73,26 @@
     NSArray<UIBarButtonItem *> *actionItems = [self createActionBarItems :menu];
     UIBarButtonItem *barMenuItem = [self onCreateMenu :menu];
     NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
-    if (barMenuItem) [barItems add :barMenuItem];
+    if (barMenuItem) [barItems put :barMenuItem];
     [barItems addArray :actionItems];
     [self onPrepareRightBarButtonItems :barItems];
     [self.navigationItem setRightBarButtonItems :barItems];
     [self.navigationItem setLeftBarButtonItem :self.onPrepareLeftBarItem animated :true];
 }
 
-- (NSArray<UIBarButtonItem *> *)createActionBarItems :(NSMutableArray<CSMenuHeader *> *)menu {
+- (NSArray<UIBarButtonItem *> *)createActionBarItems
+    :(NSMutableArray<CSMenuHeader *> *)menu {
     NSMutableArray<UIBarButtonItem *> *array = NSMutableArray.new;
     if (menu.first && menu.first.isDisplayedAsItem) {
-        [array add :menu.first.items.first.createBarButton];
+        [array put :menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex :0];
     }
     if (menu.first && menu.first.isDisplayedAsItem) {
-        [array add :menu.first.items.first.createBarButton];
+        [array put :menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex :0];
     }
     if (menu.count == 1 && menu.first.isDisplayedAsItem) {
-        [array add :menu.first.items.first.createBarButton];
+        [array put :menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex :0];
     }
     return array.reverse;
@@ -121,12 +122,11 @@
 
 - (void)addChildViewController :(UIViewController *)childController {
     [super addChildViewController :childController];
-    if ([childController isKindOfClass :CSMainController.class])
-		[self addChildMainController :(CSMainController *)childController];
+    if ([childController isKindOfClass :CSMainController.class]) [self addChildMainController :(CSMainController *)childController];
 }
 
 - (void)addChildMainController :(CSMainController *)childController {
-    [_childMainControllers add :childController];
+    [_childMainControllers put :childController];
     childController.parentMain = self;
 }
 
@@ -143,12 +143,13 @@
 }
 
 - (NSArray<CSMainController *> *)addChildMainControllers :(NSArray<CSMainController *> *)controllers {
-    for (CSMainController *controller in controllers) [self addChildMainController :controller];
+    for (CSMainController *controller in controllers)
+        [self addChildMainController :controller];
     return controllers;
 }
 
 - (void)onPrepareMenu :(NSMutableArray<CSMenuHeader *> *)menu {
-    for (CSMenuHeader *menuHeader in _menu) if (menuHeader.visible) [menu add :menuHeader];
+    for (CSMenuHeader *menuHeader in _menu) if (menuHeader.visible) [menu put :menuHeader];
     for (CSMainController *controller in _childMainControllers) if (controller.showing) [controller onPrepareMenu :menu];
 }
 
@@ -181,63 +182,6 @@
     doLater(0.7, ^{
         [parent dismissChildController :self];
     });
-}
-
-- (CSMenuHeader *)menuHeader :(NSString *)title {
-    return [_menu add :[CSMenuHeader.new construct :self :_menu.count :title]];
-}
-
-- (CSMenuItem *)menuItemView :(UIView *)view {
-    return [self.menuHeader itemView :view];
-}
-
-- (CSMenuHeader *)menuHeader {
-    return [self menuHeader :@""];
-}
-
-- (CSMenuItem *)menuItem {
-    return [self menuItem :@""];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title {
-    return [self.menuHeader item :title];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title :(void (^)(CSMenuItem *))onClick {
-    CSMenuItem *item = [self.menuHeader item :title :onClick];
-    return item;
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title :(NSString *)description :(void (^)(CSMenuItem *))onClick {
-    CSMenuItem *item = [self.menuHeader item :title :onClick];
-    item.subTitle = description;
-    return item;
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title type :(UIBarButtonSystemItem)item {
-    return [self.menuHeader item :title type :item];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title image :(UIImage *)image {
-    return [self.menuHeader item :title image :image];
-}
-
-- (CSMenuItem *)menuItemImage :(UIImage *)image {
-    return [self menuItem :@"" image :image];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick {
-    return [[[self.menuHeader item :title image :image] note :note] onClick :onClick];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title type :(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
-    return [self.menuHeader item :title type :type :onClick];
-}
-
-- (CSMenuItem *)menuItem :(NSString *)title :(NSString *)description type :(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick {
-    CSMenuItem *item = [self.menuHeader item :title type :type :onClick];
-    item.subTitle = description;
-    return item;
 }
 
 @end

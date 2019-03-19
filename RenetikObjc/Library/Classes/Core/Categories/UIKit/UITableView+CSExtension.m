@@ -52,7 +52,7 @@
         [self deselectRowAtIndexPath :path animated :animated];
 }
 
-- (UITableViewCell*)dequeueReusableCell :(NSString *)identifier {
+- (UITableViewCell *)dequeueReusableCell :(NSString *)identifier {
     return [self dequeueReusableCellWithIdentifier :identifier];
 }
 
@@ -71,7 +71,8 @@
     return self;
 }
 
-- (UITableViewCell *)cellView :(Class)viewClass :(void (^)(UITableViewCell *))onCreate {
+- (UITableViewCell *)cellView :(Class)viewClass
+                              :(void (^)(UITableViewCell *))onCreate {
     var cell = [self dequeueReusableCell :[viewClass className]];
     if (!cell) invokeWith(onCreate, cell = [self createCell :viewClass]);
     return cell;
@@ -86,17 +87,6 @@
     return cell;
 }
 
-- (UITableViewCell *)getCellWithStyle :(NSString *)id :(UITableViewCellStyle)style {
-    return [self getCellWithStyle :id :style :nil];
-}
 
-- (UITableViewCell *)getCellWithStyle :(NSString *const)id :(enum UITableViewCellStyle)style :(void (^)(UITableViewCell *cell))onCreate {
-    var cell = [self dequeueReusableCell :id];
-    if (!cell) {
-        cell = [UITableViewCell.alloc initWithStyle :style reuseIdentifier :id].construct;
-        runWith(onCreate, cell);
-    }
-    return cell;
-}
 
 @end

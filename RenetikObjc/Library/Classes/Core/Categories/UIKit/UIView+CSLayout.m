@@ -110,10 +110,22 @@
     return self;
 }
 
+- (instancetype)fromTopLeft :(CGFloat)value {
+	[self fromTop :value];
+	[self fromLeft: value];
+	return self;
+}
+
 - (instancetype)fromBottomRight :(CGFloat)value {
 	[self fromBottom :value];
 	[self fromRight: value];
     return self;
+}
+
+- (instancetype)fromBottomLeft :(CGFloat)value {
+	[self fromBottom :value];
+	[self fromLeft: value];
+	return self;
 }
 
 - (instancetype)fromRightToWidth :(CGFloat)distanceFromRight {

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A short description of Renetik.'
 
 # This description is used to generate tags and improve search results.
@@ -45,6 +45,12 @@ TODO: Add long description of the pod here.
 	s.subspec 'Core' do |ss|
 		ss.dependency 'RenetikObjc/Core', '~> 0.7.0'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
+	end
+	
+	s.subspec 'CoreLocation' do |ss|
+		ss.dependency 'Renetik/Core'
+		s.frameworks = 'CoreLocation'
+		ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
 	end
 	
 	s.subspec 'SBJson' do |ss|
@@ -98,9 +104,10 @@ TODO: Add long description of the pod here.
 		ss.dependency 'RenetikObjc/SDWebImage', '~> 0.7.0'
 	end
 	
-	s.subspec 'CSMessage' do |ss|
+	s.subspec 'CSNotification' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/CSMessage', '~> 0.7.0'
+		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
+		ss.dependency 'RMessage', '~> 2.2'
 	end
 	
 	s.subspec 'XLPagerTabStrip' do |ss|
@@ -119,6 +126,7 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
+		ss.dependency 'Renetik/CoreLocation'
 		ss.dependency 'Renetik/SBJson'
 		ss.dependency 'Renetik/CocoaLumberjack'
 		ss.dependency 'Renetik/TableController'
@@ -128,7 +136,7 @@ TODO: Add long description of the pod here.
 		ss.dependency 'Renetik/AFNetworking'
 		ss.dependency 'Renetik/Reachability'
 		ss.dependency 'Renetik/SDWebImage'
-		ss.dependency 'Renetik/CSMessage'
+		ss.dependency 'Renetik/CSNotification'
 		ss.dependency 'Renetik/XLPagerTabStrip'
 		ss.dependency 'Renetik/DTCoreText'
 	end

@@ -48,7 +48,7 @@ public extension CSLang {
         return false
     }
 
-	@discardableResult
+    @discardableResult
     public func apply(_ function: (Self) -> Void) -> Self {
         function(self)
         return self
@@ -100,15 +100,13 @@ public extension Optional {
 //    public func then(function: (Wrapped) -> Void) {
 //        if self != nil { function(self!) }
 //    }
-//
-//    public func get<ReturnType>(function: (Wrapped) -> ReturnType) -> ReturnType? {
-//        if self != nil { return function(self!) } else { return nil }
-//    }
+
+    public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
+        if self != nil { return function(self!) } else { return nil }
+    }
 }
 
 open class CSObject {
-    public init() {
-    }
 }
 
 extension NSObject: CSLang {

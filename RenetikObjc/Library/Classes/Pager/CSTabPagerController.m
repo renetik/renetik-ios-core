@@ -76,7 +76,7 @@
     NSMutableArray *items = NSMutableArray.new;
     for (CSMainController <CSTabPagerTab> *controller in _childMainControllers) {
         UITabBarItem *item = [controller tabItem];
-        [items add:item];
+        [items put:item];
     }
     [_tabBar setItems:items];
 }

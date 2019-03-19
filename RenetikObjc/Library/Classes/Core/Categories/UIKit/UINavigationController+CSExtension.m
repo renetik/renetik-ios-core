@@ -88,11 +88,11 @@
     NSMutableArray *toRemove = NSMutableArray.new;
 
     for (UIViewController *controller in self.viewControllers)
-        if ([controller isKindOfClass :pushingController.class]) [toRemove add :controller];
+        if ([controller isKindOfClass :pushingController.class]) [toRemove put :controller];
 
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray :self.viewControllers];
     [viewControllers removeObjectsInArray :toRemove];
-    [viewControllers add :pushingController];
+    [viewControllers put :pushingController];
     [self setViewControllers :viewControllers animated :YES];
 }
 
@@ -152,12 +152,12 @@
     NSMutableArray *viewControllersToRemove = NSMutableArray.new;
     for (NSInteger index = self.viewControllers.count - 1; index >= 0; index--) {
         UIViewController *pushed = [self.viewControllers at :(NSUInteger)index];
-        [viewControllersToRemove add :pushed];
+        [viewControllersToRemove put :pushed];
         if ([pushed isKindOfClass :controller.class]) break;
     }
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray :[self viewControllers]];
     [viewControllers removeObjectsInArray :viewControllersToRemove];
-    [viewControllers add :controller];
+    [viewControllers put :controller];
     [self setViewControllers :viewControllers animated :YES];
 }
 

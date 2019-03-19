@@ -25,7 +25,7 @@
     NSMutableArray<CSDictionaryJsonData *> *dataArray = NSMutableArray.new;
     uint count = 0;
     for (NSMutableDictionary *value in array)
-        [dataArray add:[(CSDictionaryJsonData *) type.new load:value]].index = count++;
+        [dataArray put:[(CSDictionaryJsonData *) type.new load:value]].index = count++;
     return dataArray;
 }
 
@@ -35,7 +35,7 @@
     NSMutableArray<CSDictionaryJsonData *> *dataArray = NSMutableArray.new;
     uint count = 0;
     for (NSString *key in dictionary) {
-        let data = [dataArray add:[(CSDictionaryJsonData *) type.new load:dictionary[key]]];
+        let data = [dataArray put:[(CSDictionaryJsonData *) type.new load:dictionary[key]]];
         data.key = key;
         data.index = count++;
     }
@@ -47,7 +47,7 @@
     if (!jsonArray) return nil;
     NSMutableArray<NSMutableArray<CSDictionaryJsonData *> *> *dataArray = NSMutableArray.new;
     for (NSArray<NSMutableDictionary *> *arrayOfDictionaries in jsonArray)
-        [dataArray add:[self createArray:type :arrayOfDictionaries]];
+        [dataArray put:[self createArray:type :arrayOfDictionaries]];
     return dataArray;
 }
 

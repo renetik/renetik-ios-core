@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSArray<ObjectType> *data;
 
+- (instancetype)onLoad :(CSResponse * (^)(NSInteger))function;
+
 - (CSResponse *)reload;
 
 - (CSResponse *)reload :(BOOL)showProgress;

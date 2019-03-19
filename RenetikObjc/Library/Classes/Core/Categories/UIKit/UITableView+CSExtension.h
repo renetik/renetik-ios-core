@@ -29,9 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell *)cellView :(Class)viewClass :(void (^)(UITableViewCell *))onCreate;
 
-- (UITableViewCell *)getCellWithStyle :(NSString *)string :(UITableViewCellStyle)style;
-
-- (UITableViewCell *)getCellWithStyle :(NSString *const)id :(enum UITableViewCellStyle)style :(void (^)(UITableViewCell *cell))onCreate;
 @end
 
 NS_ASSUME_NONNULL_END

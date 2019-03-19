@@ -10,59 +10,39 @@
 @class CSMenuItem;
 @class CSMenuHeader;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface CSMainController : CSViewController
 
-@property(nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
+@property (nonatomic, strong) NSMutableArray<CSMenuHeader *> *menu;
 
-@property(nonatomic, strong) CSMainController *parentMain;
+@property (nonatomic, strong) CSMainController *parentMain;
 
-- (NSArray<CSMainController *> *)setChildMainControllers:(NSArray<CSMainController *> *)controllers;
+- (NSArray<CSMainController *> *)setChildMainControllers
+    :(NSArray<CSMainController *> *)controllers;
 
-- (NSArray<CSMainController *> *)addChildMainControllers:(NSArray<CSMainController *> *)controllers;
+- (NSArray<CSMainController *> *)addChildMainControllers
+    :(NSArray<CSMainController *> *)controllers;
 
-- (UIBarButtonItem *)onCreateMenu:(NSMutableArray<CSMenuItem *> *)menuItems;
+- (void)addChildMainController :(CSMainController *)childController;
 
-- (void)onPrepareRightBarButtonItems:(NSMutableArray<UIBarButtonItem *> *)array;
+- (UIBarButtonItem *)onCreateMenu :(NSMutableArray<CSMenuItem *> *)menuItems;
 
-- (instancetype)showIn:(CSMainController *)parent;
+- (void)onPrepareRightBarButtonItems :(NSMutableArray<UIBarButtonItem *> *)array;
 
-- (void)hideIn:(UIViewController *)parent;
+- (instancetype)showIn :(CSMainController *)parent;
 
-- (CSMenuHeader *)menuHeader:(NSString *)title;
-
-- (CSMenuItem *)menuItemView:(UIView *)view;
-
-- (CSMenuHeader *)menuHeader;
-
-- (CSMenuItem *)menuItem:(NSString *)title;
-
-- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description :(void (^)(CSMenuItem *))onClick;
-
-- (CSMenuItem *)menuItem:(NSString *)title :(void (^)(CSMenuItem *))onClick;
-
-- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)item;
-
-- (CSMenuItem *)menuItem:(NSString *)title image:(UIImage *)image;
-
-- (CSMenuItem *)menuItemImage:(UIImage *)image;
-
-- (CSMenuItem *)menuItem:(NSString *)title :(UIImage *)image :(NSString *)note :(void (^)(CSMenuItem *))onClick;
-
-- (CSMenuItem *)menuItem:(NSString *)title type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
-
-- (CSMenuItem *)menuItem:(NSString *)title :(NSString *)description type:(UIBarButtonSystemItem)type :(void (^)(CSMenuItem *))onClick;
-
-- (CSMenuItem *)menuItem;
+- (void)hideIn :(UIViewController *)parent;
 
 - (BOOL)isMainController;
 
 - (BOOL)isChildController;
 
-- (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)items;
+- (void)onPrepareMenu :(NSMutableArray<CSMenuHeader *> *)items;
 
 - (UIBarButtonItem *)onPrepareLeftBarItem;
 
 - (void)updateBarItemsAndMenu;
 
-- (void)updateBarItemsAndMenu:(BOOL)animated;
+- (void)updateBarItemsAndMenu :(BOOL)animated;
 @end
+NS_ASSUME_NONNULL_END

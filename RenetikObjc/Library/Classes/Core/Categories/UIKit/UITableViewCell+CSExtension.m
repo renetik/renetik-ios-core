@@ -5,20 +5,23 @@
 #import "UIView+CSExtension.h"
 #import "UITableViewCell+CSExtension.h"
 
-
 @implementation UITableViewCell (CSExtension)
 
-
-- (void)setBackgroundViewColor:(UIColor *)color {
-    self.backgroundView = [UIView withColor:color];
+- (instancetype)construct {
+    super.construct;
+    self.clipToBounds;
 }
 
-- (void)setSelectedBackgroundColor:(UIColor *)color {
-    self.selectedBackgroundView = [UIView withColor:color];;
+- (void)setBackgroundViewColor :(UIColor *)color {
+    self.backgroundView = [UIView withColor :color];
+}
+
+- (void)setSelectedBackgroundColor :(UIColor *)color {
+    self.selectedBackgroundView = [UIView withColor :color];
 }
 
 - (UIView *)cellView {
-	return self.contentView.content;
+    return self.contentView.content;
 }
 
 @end

@@ -11,9 +11,10 @@
 
 @implementation CSMenuItem {
     BOOL _visible;
+    BOOL _noActionItem;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title {
+- (instancetype)construct :(CSMainController *)parent :(NSString *)title {
     _closeMenu = YES;
     _controller = parent;
     _title = title;
@@ -21,20 +22,20 @@
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action {
-    [self construct:parent :@""];
+- (instancetype)construct :(CSMainController *)parent item :(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action {
+    [self construct :parent :@""];
     self.systemItem = item;
     self.action = action;
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
-    [self construct:parent :title];
+- (instancetype)construct :(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
+    [self construct :parent :title];
     self.action = action;
     return self;
 }
 
-- (instancetype)onClick:(void (^)(CSMenuItem *))onClick {
+- (instancetype)onClick :(void (^)(CSMenuItem *))onClick {
     self.action = onClick;
     return self;
 }
@@ -47,7 +48,7 @@
     self.visible = YES;
 }
 
-- (void)setVisible:(BOOL)visible {
+- (void)setVisible :(BOOL)visible {
     if (_visible == visible) return;
     _visible = visible;
     [self updateMenu];
@@ -58,57 +59,64 @@
     return _visible;
 }
 
-- (void)setHidden:(BOOL)hidden {
+- (void)setHidden :(BOOL)hidden {
     self.visible = !hidden;
 }
 
 - (void)updateMenu {
-    if ([_controller isKindOfClass:CSMainController.class]) [_controller updateBarItemsAndMenu];
-    else if ([_controller.parentViewController isKindOfClass:CSMainController.class])
-        [(CSMainController *) _controller.parentViewController updateBarItemsAndMenu];
-    else
-        NSLog(@"CSMainController not found");
+    if ([_controller isKindOfClass :CSMainController.class]) [_controller updateBarItemsAndMenu];
+    else if ([_controller.parentViewController isKindOfClass :CSMainController.class]) [(CSMainController *) _controller.parentViewController updateBarItemsAndMenu];
+    else NSLog(@"CSMainController not found");
 }
 
-- (void)setTitle:(NSString *)title {
+- (void)setTitle :(NSString *)title {
     _title = title;
     [self updateMenu];
 }
 
-- (void)setSystemItem:(UIBarButtonSystemItem)systemItem {
+- (void)setSystemItem :(UIBarButtonSystemItem)systemItem {
     _systemItem = systemItem;
     [self updateMenu];
 }
 
 - (UIBarButtonItem *)createBarButton {
-    if (self.systemItem) return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem:self.systemItem handler:self.createAction];
-    else if (self.image) return [UIBarButtonItem.alloc bk_initWithImage:self.image style:(UIBarButtonItemStylePlain) handler:self.createAction];
-    else return [UIBarButtonItem.alloc bk_initWithTitle:self.title style:(UIBarButtonItemStylePlain) handler:self.createAction];
+    if (self.systemItem) return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem :self.systemItem handler :self.createAction];
+    else if (self.image) return [UIBarButtonItem.alloc bk_initWithImage :self.image style :(UIBarButtonItemStylePlain) handler :self.createAction];
+    else return [UIBarButtonItem.alloc bk_initWithTitle :self.title style :(UIBarButtonItemStylePlain) handler :self.createAction];
 }
 
 - (void (^)(id))createAction {
     return ^(id sender) {
-        invokeWith(self.action, self);
+               invokeWith(self.action, self);
     };
 }
 
-- (instancetype)closeMenu:(BOOL)close {
+- (instancetype)closeMenu :(BOOL)close {
     _closeMenu = close;
     return self;
 }
 
-- (void)setView:(UIView *)view {
+- (void)setView :(UIView *)view {
     _view = view;
 }
 
-- (instancetype)note:(NSString *)string {
+- (instancetype)note :(NSString *)string {
     _subTitle = string;
     return self;
 }
 
-- (void)setImage:(UIImage *)image {
+- (void)setImage :(UIImage *)image {
     _image = image;
     [self updateMenu];
+}
+
+- (instancetype)noActionItem {
+    _noActionItem = YES;
+    return self;
+}
+
+- (BOOL)isNoActionItem {
+    return _noActionItem;
 }
 
 @end

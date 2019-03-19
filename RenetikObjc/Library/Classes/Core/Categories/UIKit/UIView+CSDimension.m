@@ -48,6 +48,10 @@
     return self;
 }
 
+- (instancetype)sizeBySquare :(CGFloat)square {
+    return [self width :square height :square];
+}
+
 - (void)setWidth :(CGFloat)value {
     CGRect frame = self.frame;
     frame.size.width = value;

@@ -66,8 +66,8 @@
 }
 
 - (instancetype)addAction :(NSString *)title :(void (^)(void))action {
-    [_titles add :title];
-    [_actions add :[action copy]];
+    [_titles put :title];
+    [_actions put :[action copy]];
     return self;
 }
 

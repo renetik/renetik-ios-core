@@ -94,4 +94,8 @@ UIEdgeInsets UIEdgeInsetMake(CGFloat inset) {
     return (UIEdgeInsets) {inset, inset, inset, inset };
 }
 
+BOOL bitmaskContains(NSUInteger bitmask, NSUInteger containns) {
+    return (bitmask & containns) != 0;
+}
+
 @end

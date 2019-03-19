@@ -8,6 +8,7 @@
 
 @interface MKMapItem (CSExtension)
 
-+ (void)navigateModeDriving:(CLLocationCoordinate2D)coordinate2D :(NSString *)address;
++ (void)navigateModeDriving :(double)lat :(double)lng :(NSString *)name;
++ (void)navigateModeDriving :(CLLocationCoordinate2D)coordinate :(NSString *)name;
 
 @end

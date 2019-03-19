@@ -31,8 +31,8 @@
 }
 
 - (CSResponse *)add:(CSResponse *)response {
-    [self.data add:response.data];
-    __weak CSResponse *wResponse = [_responses add:response];
+    [self.data put:response.data];
+    __weak CSResponse *wResponse = [_responses put:response];
     return [[response onFailed:^(CSResponse *failedResponse) {[self onResponseFailed:wResponse];}]
             onSuccess:^(id data) {[self onResponseSuccess:wResponse];}];
 }
@@ -42,7 +42,7 @@
 }
 
 - (void)onResponseFailed:(CSResponse *)failedResponse {
-    if ([_responses remove:[_failedResponses add:failedResponse]].empty) [self onResponsesDone];
+    if ([_responses remove:[_failedResponses put:failedResponse]].empty) [self onResponsesDone];
 }
 
 - (void)cancel {

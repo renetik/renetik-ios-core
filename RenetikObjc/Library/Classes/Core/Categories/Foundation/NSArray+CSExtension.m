@@ -17,7 +17,7 @@
 
 + (NSArray<NSNumber *> *)toNumberList:(NSArray<NSObject *> *)stringList {
     let intList = NSMutableArray.new;
-    for (NSObject *object in stringList) [intList add:@(object.description.intValue)];
+    for (NSObject *object in stringList) [intList put:@(object.description.intValue)];
     return intList;
 }
 
@@ -84,7 +84,7 @@
 - (NSArray *)filterBySearch:(NSString *)searchText {
     if (searchText.set) {
         let filtered = NSMutableArray.new;
-        for (id item in self) if ([[item description] containsNoCase:searchText]) [filtered add:item];
+        for (id item in self) if ([[item description] containsNoCase:searchText]) [filtered put:item];
         return filtered;
     }
     return self;

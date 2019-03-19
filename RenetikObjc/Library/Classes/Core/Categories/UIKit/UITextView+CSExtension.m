@@ -27,8 +27,12 @@
 - (instancetype)asLabel {
     self.textContainerInset = UIEdgeInsetsZero;
     self.contentInset = UIEdgeInsetsZero;
-    self.editable = NO;
-    self.scrollEnabled = NO;
+    self.editable = false;
+    self.scrollEnabled = false;
+	self.backgroundColor = UIColor.clearColor;
+	self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+	self.textContainer.lineFragmentPadding = 0;
+	self.layoutManager.usesFontLeading = false;
     return self;
 }
 

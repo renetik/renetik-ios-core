@@ -23,7 +23,7 @@
 
 - (CSEventRegistration *)add:(void (^)(void))block {
     void (^blockCopy)() = [block copy];
-    [_blockArray add:blockCopy];
+    [_blockArray put:blockCopy];
     return [CSEventRegistration.new construct:self :blockCopy];
 }
 

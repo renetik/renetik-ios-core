@@ -82,15 +82,15 @@
 
 - (void)loadBar {
     NSMutableArray<UIBarButtonItem *> *items = NSMutableArray.new;
-    [items add :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
+    [items put :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
     .tag = -1;
     for (uint pageIndex = 0; pageIndex < _controllers.count; ++pageIndex) {
         UIBarButtonItem *item = [_controllers[pageIndex] tabItem];
         [item setTarget :self forAction :@selector(onItemClick:)];
         item.tag = pageIndex;
         item.tintColor = self.normalItemColor;
-        [items add :item];
-        [items add :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
+        [items put :item];
+        [items put :[UIBarButtonItem createWithItem :UIBarButtonSystemItemFlexibleSpace :nil :nil]]
         .tag = -1;
     }
     [_toolBar setItems :items];

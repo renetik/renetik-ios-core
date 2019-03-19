@@ -13,7 +13,7 @@
     return self;
 }
 
-- (id)add:(id)anObject {
+- (id)put:(id)anObject {
     [self addObject:anObject];
     return anObject;
 }

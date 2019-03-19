@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)position :(CGFloat)left :(CGFloat)top; // replace with fromLeftTop
 
 - (instancetype)left :(CGFloat)left top :(CGFloat)top
-			   width :(CGFloat)width height :(CGFloat)height; // replace with fromLeftTop + size
+               width :(CGFloat)width height :(CGFloat)height;             // replace with fromLeftTop + size
 
 /*
  *  By setting left, width will be resized
@@ -63,15 +63,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)fromTopRight :(CGFloat)value;
 
+- (instancetype)fromTopLeft :(CGFloat)value;
+
 - (instancetype)fromBottomRight :(CGFloat)value;
 
+- (instancetype)fromBottomLeft :(CGFloat)value;
+
 /*
- *  Resize view width so that its right boundary will be in specified distance from right side
+ *  Resize view width so that its right boundary
+ *  will be in specified distance from right side
  */
 - (instancetype)fromRightToWidth :(CGFloat)distanceFromRight;
 
 /*
- *  Resize view height so that its bottom boundary will be in specified distance from bottom side
+ *  Resize view height so that its bottom boundary
+    will be in specified distance from bottom side
  */
 - (instancetype)fromBottomToHeight :(CGFloat)distanceFromBottom;
 

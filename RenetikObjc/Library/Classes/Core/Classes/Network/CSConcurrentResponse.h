@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface CSConcurrentResponse : CSResponse<NSMutableArray *>
 
-- (instancetype)addAll :(NSArray *)responses;
+- (instancetype)addAll :(NSArray<CSResponse *> *)responses;
 
 - (CSResponse *)add :(CSResponse *)response;
 

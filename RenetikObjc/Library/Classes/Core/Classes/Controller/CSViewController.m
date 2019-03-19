@@ -152,7 +152,7 @@
     return self.appearing && self.showing;
 }
 
-- (void)addObserver :(NSNotificationName)name :(void (^)(NSNotification *note))block {
+- (void)observer :(NSNotificationName)name :(void (^)(NSNotification *note))block {
     let observer = [NSNotificationCenter.defaultCenter addObserverForName
                     :name object :nil queue :nil usingBlock :block];
     [_notificationCenterObservers addObject :observer];

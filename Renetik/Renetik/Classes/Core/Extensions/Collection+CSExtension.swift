@@ -3,7 +3,7 @@
 // Copyright (c) 2018 Renetik Software. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public extension Collection {
     public var hasItems: Bool { return !isEmpty }
@@ -11,9 +11,7 @@ public extension Collection {
 
 public extension Array where Element: Any {
     public func at(_ index: Int) -> Element? {
-        if index >= 0 && index < count {
-            return self[index]
-        }
+        if index >= 0 && index < count { return self[index] }
         return nil
     }
 
@@ -22,26 +20,37 @@ public extension Array where Element: Any {
         append(item)
         return item
     }
-	
-	@discardableResult
-	public mutating func add(_ array: Array<Element>) -> Array {
-		append(contentsOf: array)
-		return self
-	}
 
     @discardableResult
-    public func remove(_ anObject: Any) -> Array {
-        remove(anObject)
+    public mutating func add(_ array: Array<Element>) -> Array {
+        append(contentsOf: array)
+        return self
+    }
+}
+
+public extension Array where Element: Equatable {
+    @discardableResult
+    public mutating func remove(_ item: Element) -> Array {
+        if let index = firstIndex(where: { item == $0 }) {
+            remove(at: index)
+        }
+        return self
+    }
+
+    @discardableResult
+    public mutating func removeAll(_ item: Element) -> Array {
+        removeAll(where: { item == $0 })
         return self
     }
 }
 
 public extension Array where Element: NSObject {
-    public func filter(bySearch searchText: String?) -> Array {
-        if searchText?.set != nil {
+    @discardableResult
+    public func filter(bySearch text: String?) -> Array {
+        if text?.trim()?.isSet == true {
             var filtered = Array<Element>()
-            for item: Element in self {
-                if item.description.containsNoCase(searchText) {
+            for item in self {
+                if item.description.containsNoCase(text) {
                     filtered.add(item)
                 }
             }

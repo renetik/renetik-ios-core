@@ -26,9 +26,10 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 }
 
 - (instancetype)construct {
-	self.clipsToBounds = YES;
+    self.clipsToBounds = YES;
     self.autoresizingMask = nil;
-    self.flexibleLeft.flexibleTop.flexibleRight.flexibleBottom.fixedWidth.fixedHeight;
+    self.flexibleLeft.flexibleTop.flexibleRight
+    .flexibleBottom.fixedWidth.fixedHeight;
     return self;
 }
 
@@ -245,7 +246,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     [self fadeIn :time :nil];
 }
 
-- (id)getView :(int)tag {
+- (id)getView :(NSInteger)tag {
     return [self viewWithTag :tag];
 }
 
@@ -435,6 +436,11 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (instancetype)aspectFit {
     self.contentMode = UIViewContentModeScaleAspectFit;
+    return self;
+}
+
+- (instancetype)clipToBounds {
+    self.clipsToBounds = true;
     return self;
 }
 

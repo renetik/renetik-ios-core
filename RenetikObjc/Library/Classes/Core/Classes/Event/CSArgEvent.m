@@ -22,7 +22,7 @@
 }
 
 - (void)add:(void (^)(id))block {
-    [_blockArray add:block];
+    [_blockArray put:block];
 }
 
 - (void (^)(id))last {

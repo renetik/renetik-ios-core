@@ -36,7 +36,7 @@
 
 - (void)addButton :(NSString *)button :(void (^)(void))buttonAction {
     [_alert addButtonWithTitle :button];
-    [_actions add :[buttonAction copy]];
+    [_actions put :[buttonAction copy]];
 }
 
 - (instancetype)create :(NSString *)title :(NSString *)message :(NSString *)cancelTitle :(NSString *)okTitle :(void (^)(void))onSubmit onCancel :(void (^)(void))onCancel {

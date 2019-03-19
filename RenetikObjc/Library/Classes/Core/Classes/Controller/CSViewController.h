@@ -48,6 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
-- (void)addObserver :(NSNotificationName)name :(void (^)(NSNotification *note))block;
+- (void)observer :(NSNotificationName)name :(void (^)(NSNotification *note))block;
 @end
 NS_ASSUME_NONNULL_END

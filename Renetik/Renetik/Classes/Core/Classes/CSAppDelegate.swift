@@ -7,8 +7,9 @@
 
 import RenetikObjc
 
-var logger: CSLogger = CSAppDelegate.instance().logger
-var navigation: CSNavigationController = CSAppDelegate.instance().navigation
+var logger: CSLogger = delegate.logger
+var navigation: CSNavigationController = delegate.navigation
+var delegate: CSAppDelegate = CSAppDelegate.instance()
 
 @objc open class CSAppDelegate: UIResponder, UIApplicationDelegate {
     @objc public var logger: CSLogger!

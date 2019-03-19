@@ -4,14 +4,23 @@
 //
 
 #import "MKMapItem+CSExtension.h"
-
+#import "CSLang.h"
 
 @implementation MKMapItem (CSExtension)
 
-+ (void)navigateModeDriving:(CLLocationCoordinate2D)coordinate2D :(NSString *)address {
-    MKMapItem *destinationMapItem = [MKMapItem.alloc initWithPlacemark:[MKPlacemark.alloc initWithCoordinate:coordinate2D addressDictionary:nil]];
-    destinationMapItem.name = address;
-    [MKMapItem openMapsWithItems:@[destinationMapItem] launchOptions:@{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving}];
++ (void)navigateModeDriving :(double)lat :(double)lng :(NSString *)name {
+    let coordinate = CLLocationCoordinate2DMake(lat, lng);
+    [MKMapItem navigateModeDriving :coordinate :name];
+}
+
++ (void)navigateModeDriving :(CLLocationCoordinate2D)coordinate
+                            :(NSString *)name {
+    let destinationMapItem =
+        [MKMapItem.alloc initWithPlacemark :
+         [MKPlacemark.alloc initWithCoordinate
+          :coordinate addressDictionary :nil]];
+    destinationMapItem.name = name;
+    [MKMapItem openMapsWithItems :@[destinationMapItem] launchOptions :@{ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving }];
 }
 
 @end

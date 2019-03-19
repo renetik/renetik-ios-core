@@ -8,9 +8,7 @@
 
 - (instancetype)construct:(NSArray<ObjectType> *)array;
 
-//- (ObjectType)objectAtIndexedSubscript:(NSUInteger)idx;
-
-- (ObjectType)add:(ObjectType)anObject;
+- (ObjectType)put:(ObjectType)anObject;
 
 - (ObjectType)set:(ObjectType)anObject;
 

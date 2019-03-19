@@ -282,7 +282,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6CB36A5076E50FDDC74919CB /* Pods_Renetik_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Renetik_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70FC437F37C98FCA9114038D /* Renetik.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Renetik.podspec; path = ../Renetik.podspec; sourceTree = "<group>"; };
+		70FC437F37C98FCA9114038D /* Renetik.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Renetik.podspec; path = ../Renetik.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8C15ECCF76CE2CCBE95DD1EE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		988769B9C3726DED92B8C0F7 /* Pods_Renetik_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Renetik_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF33933E5AD4A5A0F2BAA9B1 /* Pods-Renetik_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renetik_Example.debug.xcconfig"; path = "Target Support Files/Pods-Renetik_Example/Pods-Renetik_Example.debug.xcconfig"; sourceTree = "<group>"; };

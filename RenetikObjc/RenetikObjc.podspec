@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint Renetik-iOS.podspec' to ensure this is a
+# Be sure to run `pod lib lint RenetikObjc.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RenetikObjc'
-  s.version          = '0.7.1'
+  s.version          = '0.7.2'
   s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure'
 
 	s.description      = <<-DESC
@@ -91,12 +91,6 @@ Pod::Spec.new do |s|
      ss.dependency 'SDWebImage', '~> 5.0.0-beta'
    end
 
-   s.subspec 'CSMessage' do |ss|
-     ss.source_files = 'Library/Classes/CSMessage/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'RMessage', '~> 2.2'
-   end
-
    s.subspec 'XLPagerTabStrip' do |ss|
      ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
      ss.dependency 'RenetikObjc/Core'
@@ -114,7 +108,6 @@ Pod::Spec.new do |s|
 		ss.dependency 'RenetikObjc/AFNetworking'
 		ss.dependency 'RenetikObjc/Reachability'
 		ss.dependency 'RenetikObjc/SDWebImage'
-		ss.dependency 'RenetikObjc/CSMessage'
 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
 	end
 end

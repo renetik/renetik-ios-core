@@ -4,6 +4,7 @@
 
 #import "UIView+CSAutoResizing.h"
 #import "CSCocoaLumberjack.h"
+#import "CSLang.h"
 
 @implementation UIView (CSAutoResizing)
 
@@ -77,19 +78,23 @@
 }
 
 - (BOOL)isFixedLeft {
-    return (self.autoresizingMask & UIViewAutoresizingFlexibleLeftMargin) != 0;
+    return !bitmaskContains(self.autoresizingMask,
+							UIViewAutoresizingFlexibleLeftMargin);
 }
 
 - (BOOL)isFixedTop {
-    return (self.autoresizingMask & UIViewAutoresizingFlexibleTopMargin) != 0;
+	return !bitmaskContains(self.autoresizingMask,
+							UIViewAutoresizingFlexibleTopMargin);
 }
 
 - (BOOL)isFixedRight {
-    return (self.autoresizingMask & UIViewAutoresizingFlexibleRightMargin) != 0;
+	return !bitmaskContains(self.autoresizingMask,
+							UIViewAutoresizingFlexibleRightMargin);
 }
 
 - (BOOL)isFixedBottom {
-    return (self.autoresizingMask & UIViewAutoresizingFlexibleBottomMargin) != 0;
+	return !bitmaskContains(self.autoresizingMask,
+							UIViewAutoresizingFlexibleBottomMargin);
 }
 
 @end

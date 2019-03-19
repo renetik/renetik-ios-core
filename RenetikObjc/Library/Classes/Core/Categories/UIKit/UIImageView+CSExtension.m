@@ -10,7 +10,8 @@
 
 - (instancetype)construct {
     super.construct;
-    self.aspectFit;
+	self.aspectFit;
+	self.clipsToBounds = true;
     return self;
 }
 

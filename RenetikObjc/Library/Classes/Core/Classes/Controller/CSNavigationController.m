@@ -2,9 +2,10 @@
 //  Created by Rene Dohan on 10/26/12.
 //
 
-
 #import "CSNavigationController.h"
 #import "UINavigationController+CSExtension.h"
+#import "UIView+CSExtension.h"
+#import "UIApplication+CSExtension.h"
 
 @implementation CSNavigationController {
 }
@@ -12,30 +13,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _instance = self;
+    [self.navigationBar onTap :^(UIView *view) {
+        UIApplication.resignFirstResponder;
+	}];
 }
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+- (UIViewController *)popViewControllerAnimated :(BOOL)animated {
     _lastPopped = self.last;
-    return [super popViewControllerAnimated:animated];
+    return [super popViewControllerAnimated :animated];
 }
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (void)pushViewController :(UIViewController *)viewController animated :(BOOL)animated {
     _lastPopped = nil;
-    [super pushViewController:viewController animated:animated];
+    [super pushViewController :viewController animated :animated];
 }
 
-- (void)pushAsRoot:(UIViewController *)newRoot {
+- (void)pushAsRoot :(UIViewController *)newRoot {
     _lastPopped = nil;
-    [super pushAsRoot:newRoot];
+    [super pushAsRoot :newRoot];
 }
 
-- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated {
-    return [super popToRootViewControllerAnimated:animated];
+- (NSArray *)popToRootViewControllerAnimated :(BOOL)animated {
+    return [super popToRootViewControllerAnimated :animated];
 }
 
-- (NSArray *)popToViewController:(UIViewController *)controller animated:(BOOL)animated {
+- (NSArray *)popToViewController :(UIViewController *)controller animated :(BOOL)animated {
     _lastPopped = controller;
-    return [super popToViewController:controller animated:animated];
+    return [super popToViewController :controller animated :animated];
 }
 
 - (BOOL)shouldAutorotate {

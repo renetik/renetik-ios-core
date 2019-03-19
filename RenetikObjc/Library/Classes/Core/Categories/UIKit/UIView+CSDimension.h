@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)width :(CGFloat)width height :(CGFloat)height;
 
+- (instancetype)sizeBySquare :(CGFloat)square;
+
 - (instancetype)width :(CGFloat)value;
 
 - (instancetype)widthAsHeight;
