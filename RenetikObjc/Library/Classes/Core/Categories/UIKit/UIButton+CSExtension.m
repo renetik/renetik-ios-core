@@ -26,6 +26,11 @@
     [self setBackgroundImage :[[self backgroundImageForState :UIControlStateHighlighted] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateHighlighted];
 }
 
+- (instancetype)titleColor :(UIColor *)color {
+    self.titleColor = color;
+    return self;
+}
+
 - (void)setTitleColor :(UIColor *)color {
     [self setTitleColor :color forState :UIControlStateNormal];
     [self setTitleColor :color forState :UIControlStateHighlighted];

@@ -29,10 +29,10 @@
     self.contentInset = UIEdgeInsetsZero;
     self.editable = false;
     self.scrollEnabled = false;
-	self.backgroundColor = UIColor.clearColor;
-	self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-	self.textContainer.lineFragmentPadding = 0;
-	self.layoutManager.usesFontLeading = false;
+    self.backgroundColor = UIColor.clearColor;
+    self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.textContainer.lineFragmentPadding = 0;
+    self.layoutManager.usesFontLeading = false;
     return self;
 }
 
@@ -43,8 +43,9 @@
     return self;
 }
 
-- (instancetype)dataDetector :(UIDataDetectorTypes)dataDetectorTypes {
-    self.dataDetectorTypes = dataDetectorTypes;
+- (instancetype)dataDetector :(UIDataDetectorTypes)types {
+    self.dataDetectorTypes = types;
+    if (types != UIDataDetectorTypeNone) self.selectable = true;
     return self;
 }
 

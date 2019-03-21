@@ -15,6 +15,14 @@ public extension Array where Element: Any {
         return nil
     }
 
+    public var second: Element? {
+        return at(1)
+    }
+
+    public var third: Element? {
+        return at(2)
+    }
+
     @discardableResult
     public mutating func add(_ item: Element) -> Element {
         append(item)
@@ -65,5 +73,13 @@ public extension Dictionary {
     public mutating func add(_ other: Dictionary) -> Dictionary {
         other.forEach { k, v in self[k] = v }
         return self
+    }
+
+    public var asJson: String? {
+        if let theJSONData = try? JSONSerialization.data(
+            withJSONObject: self, options: [.prettyPrinted]) {
+            return String(data: theJSONData, encoding: .ascii)
+        }
+        return nil
     }
 }

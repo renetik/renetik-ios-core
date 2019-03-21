@@ -36,11 +36,6 @@ open class CSAFClient: CSObject {
         defaultParams.removeAll()
     }
 
-    //     func cancelAllOperations() {
-    //        manager.invalidateSessionCancelingTasks(true)
-    //        manager = nil
-    //    }
-
     public func acceptable(contentTypes: Array<String>) {
         manager.responseSerializer.acceptableContentTypes = Set<String>(contentTypes)
     }
@@ -50,43 +45,69 @@ open class CSAFClient: CSObject {
             .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
 
-    open func get<Data: CSServerData>(_ service: String, data: Data, _ params: Dictionary<String, String>) -> CSResponse<Data> {
+    open func get<Data: CSServerData>(
+        _ service: String, data: Data,
+        _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let responseListener = CSAFResponseListener(self, response)
         manager.get(response.url, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return response
     }
 
-    open func get<Data: CSServerData>(_ service: String, data: Data) -> CSResponse<Data> {
+    open func get<Data: CSServerData>(
+        _ service: String, data: Data) -> CSResponse<Data> {
         return get(service, data: data, [:])
     }
 
-    open func post<Data: CSServerData>(_ service: String, data: Data,
-                                       _ params: Dictionary<String, String>, form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+    open func post<Data: CSServerData>(
+        _ service: String, data: Data,
+        _ params: Dictionary<String, String>, form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let responseListener = CSAFResponseListener(self, response)
         manager.post(response.url, parameters: response.params, constructingBodyWith: form, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return response
     }
 
-    open func post<Data: CSServerData>(_ service: String, data: Data,
-                                       form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+    open func post<Data: CSServerData>(_
+        service: String, data: Data,
+        form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         return post(service, data: data, [:], form: form)
     }
 
-    open func post<Data: CSServerData>(_ service: String, data: Data,
-                                       _ params: Dictionary<String, String>) -> CSResponse<Data> {
+    open func post<Data: CSServerData>(_
+        service: String, data: Data,
+        _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let listener = CSAFResponseListener(self, response)
         manager.post(response.url, parameters: response.params, progress: listener.onProgress, success: listener.onSuccess, failure: listener.onFailure)
         return response
     }
 
-    private func createParams(_ params: Dictionary<String, String>) -> Dictionary<String, String> {
+    private func createParams(_
+        params: Dictionary<String, String>) -> Dictionary<String, String> {
         var newParams = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams
+    }
+}
+
+public extension AFMultipartFormData {
+    public func appendUTF8(parts: [String: String]) {
+        logInfo(parts.asJson?.substring(to: 100))
+        for (key, value) in parts {
+            appendPart(withForm: value.data(using: .utf8)!, name: key)
+        }
+    }
+
+    func appendImage(parts: [UIImage]) {
+        logInfo(parts)
+        for index in 0 ..< parts.count {
+            appendPart(withFileData:
+                parts[index].jpegData(compressionQuality: 0.8)!,
+                name: "images[\(index)]",
+                fileName: "mobileUpload.jpg", mimeType: "image/jpeg")
+        }
     }
 }
 

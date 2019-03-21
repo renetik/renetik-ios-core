@@ -9,7 +9,10 @@
 
 - (instancetype)construct {
     super.construct;
-    self.clipToBounds;
+    self.backgroundColor = UIColor.clearColor;
+    [self setSelectedBackgroundColor :UIColor.clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    return self;
 }
 
 - (void)setBackgroundViewColor :(UIColor *)color {

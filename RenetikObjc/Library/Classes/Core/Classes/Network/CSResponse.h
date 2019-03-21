@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) DataType data;
 @property (copy, nonatomic) NSString *_Nullable content;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSString *requestCancelledMessage;
 @property (nonatomic) NSInteger errorCode;
 @property (nonatomic) NSDictionary *params;
 @property (nonatomic) NSDictionary *post;
@@ -36,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cancel;
 
-- (NSString *)requestCancelledMessage;
 
 - (CSResponse *)failIfFail :(CSResponse *)request;
 

@@ -71,6 +71,15 @@ public extension CSLang {
     }
 }
 
+public extension CSLang where Self: NSObject {
+    public func equalsOne(_ objects: NSObject...) -> Bool {
+        for object in objects {
+            if self == object { return true }
+        }
+        return false
+    }
+}
+
 public extension Optional {
     public var notNil: Bool {
         return self != nil
@@ -103,6 +112,16 @@ public extension Optional {
 
     public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
         if self != nil { return function(self!) } else { return nil }
+    }
+}
+
+public extension Optional where Wrapped: NSObject {
+    public func equalsOne(_ objects: NSObject...) -> Bool {
+        if self == nil { return false }
+        for object in objects {
+            if self == object { return true }
+        }
+        return false
     }
 }
 

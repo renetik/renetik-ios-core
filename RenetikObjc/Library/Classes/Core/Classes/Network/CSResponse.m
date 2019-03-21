@@ -21,6 +21,7 @@
         _onFailedEvent = CSArgEvent.new;
         _onSuccessEvent = CSArgEvent.new;
         _onDoneEvent = CSArgEvent.new;
+        _requestCancelledMessage = @"Request cancelled.";
     }
     return self;
 }
@@ -70,10 +71,6 @@
 - (void)cancel {
     [self failedWithMessage :self.requestCancelledMessage];
     _canceled = YES;
-}
-
-- (NSString *)requestCancelledMessage {
-    return @"Request cancelled.";
 }
 
 - (CSResponse *)failIfFail :(CSResponse *)response {

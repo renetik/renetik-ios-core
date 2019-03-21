@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)addFloating :(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick;
 
+- (instancetype)titleColor :(UIColor *)color;
+
 - (void)setTitleColor :(UIColor *)color;
 
 - (instancetype)title :(NSString *)title;
