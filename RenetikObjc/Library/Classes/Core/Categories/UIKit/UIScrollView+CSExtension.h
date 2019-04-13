@@ -4,13 +4,13 @@
 
 @interface UIScrollView (CSExtension)
 
-+ (instancetype)contentVertical:(UIView *)view;
++ (instancetype)contentVertical:(UIView*)view;
 
-+ (instancetype)contentHorizontal:(UIView *)view;
++ (instancetype)contentHorizontal:(UIView*)view;
 
-- (UIView *)contentVertical:(UIView *)view;
+- (UIView*)contentVertical:(UIView*)view;
 
-- (UIView *)contentHorizontal:(UIView *)view;
+- (UIView*)contentHorizontal:(UIView*)view;
 
 - (void)scrollToPage:(NSInteger)toIndex of:(NSInteger)ofCount;
 
@@ -20,17 +20,18 @@
 
 - (long)currentPageIndexFrom:(NSUInteger)from;
 
-- (void)setContentVertical:(UIView *)view;
+- (void)setContentVertical:(UIView*)view;
 
 - (instancetype)contentVerticalSize:(CGFloat)size;
 
-- (instancetype)contentSizeVertical:(CGFloat)size;
+- (instancetype)contentSizeHeight:(CGFloat)size;
 
-- (instancetype)updateContentSizeVertical;
+- (instancetype)contentSizeHeightByLastContentSubview;
 
-- (instancetype)updateContentSizeVerticalWithPadding:(NSInteger)padding;
+- (instancetype)contentSizeHeightByLastContentSubviewWithPadding:(NSInteger) padding
+    NS_SWIFT_NAME(contentSizeHeightByLastContentSubview(padding:));
 
-- (instancetype)updateContentSizeHorizontal;
+- (instancetype)contentSizeWidthByLastContentSubview;
 
 - (instancetype)contentInset:(UIEdgeInsets)contentInset;
 @end

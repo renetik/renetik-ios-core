@@ -1,0 +1,21 @@
+//
+//  Motorkari.pch
+//  Motorkari
+//
+//  Created by Rene Dohan on 16/12/16.
+//  Copyright © 2016 Renetik Software. All rights reserved.
+//
+
+#ifndef Motorkari_pch
+#define Motorkari_pch
+
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wno-unused-getter-return-value"
+#pragma clang diagnostic ignored "-Wmissing-selector-name"
+#pragma clang diagnostic ignored "-Wunused-result"
+#pragma clang diagnostic ignored "-Wnonnull"
+
+#endif /* Motorkari_pch */

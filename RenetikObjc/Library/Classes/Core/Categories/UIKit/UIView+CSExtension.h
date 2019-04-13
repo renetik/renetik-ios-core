@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)construct;
 
-+ (instancetype)constructByXib :(NSString *)IBName;
++ (instancetype)constructByXib :(NSString*)IBName;
 
 + (instancetype)constructByXib;
 
@@ -25,12 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)animate :(NSTimeInterval)duration :(void (^)(void))animations;
 
-+ (instancetype)wrap :(UIView *)view;
-
-+ (instancetype)withContent :(UIView *)view;
-
-+ (instancetype)wrap :(UIView *)view withPadding :(NSInteger)padding;
-
 - (instancetype)asCircular;
 
 - (instancetype)roundedCorners :(NSInteger)width;
@@ -39,17 +33,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIViewAnimationOptions)animationOptionsWithCurve :(UIViewAnimationCurve)curve;
 
-- (UIView *)firstResponder;
+- (UIView*)firstResponder;
 
-+ (NSString *)NIBName;
++ (NSString*)NIBName;
 
 + (void)animationFromCurrentState :(NSTimeInterval)time :(UIViewAnimationCurve)curve;
 
 + (instancetype)createEmpty;
 
-+ (instancetype)withColor :(UIColor *)color;
++ (instancetype)withColor :(UIColor*)color;
 
-+ (instancetype)withColor :(UIColor *)color frame :(CGRect)frame;
++ (instancetype)withColor :(UIColor*)color frame :(CGRect)frame;
 
 + (instancetype)withFrame :(CGRect)frame;
 
@@ -65,15 +59,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fadeIn :(NSTimeInterval)time;
 
-- (void)fadeBackgroundColorTo :(UIColor *)color;
+- (void)fadeBackgroundColorTo :(UIColor*)color;
 
 - (void)fadeOut :(NSTimeInterval)time;
 
 - (void)fadeOut :(NSTimeInterval)time :(void (^)(void))method;
 
-- (instancetype)background :(UIColor *)color;
+- (instancetype)background :(UIColor*)color;
 
-- (instancetype)tintColor :(UIColor *)color;
+- (instancetype)tintColor :(UIColor*)color;
 
 - (void)fadeOut;
 
@@ -87,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)getView :(NSInteger)tag;
 
-- (instancetype)clearSubViews;
+- (instancetype)clearSubviews;
 
 - (instancetype)show;
 
@@ -95,43 +89,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)clipToBounds;
 
-- (UIView *)add :(UIView *)view;
+- (UIView*)add:(UIView*)view;
 
-- (instancetype)addViews :(NSArray<UIView *> *)views;
+- (instancetype)onClick:(void (^)(UIView*))block;
 
-- (UIView *)insertView :(UIView *)view :(NSInteger)index;
-
-- (UIView *)setView :(UIView *)view :(NSInteger)index;
-
-- (UIView *)positionUnderLast :(UIView *)view;
-
-- (UIView *)addNextLast :(UIView *)view;
-
-- (UIView *)positionViewNextLast :(UIView *)view;
-
-- (UIView *)addViewHorizontalSingleLineLayout :(UIView *)view;
-
-- (UIView *)addViewHorizontalLayout :(UIView *)view;
-
-- (UIView *)addViewHorizontalSingleLineReverseLayout :(UIView *)view;
-
-- (UIView *)addViewHorizontalReverseLayout :(UIView *)view;
-
-- (UIView *)addViewVerticalLayout :(UIView *)view;
-
-- (UIView *)addUnderLast :(UIView *)view offset :(NSInteger)offset;
-
-- (UIView *)addUnderLast :(UIView *)view;
-
-- (instancetype)onTap :(void (^)(UIView *))block;
-
-- (void)setOnTap :(void (^)(UIView *))block;
+- (void)setOnClick:(void (^)(UIView*))block;
 
 - (BOOL)isVisibleToUser;
-
-- (UIView *)content :(UIView *)view;
-
-@property (nonatomic) UIView *content;
 
 - (instancetype)aspectFit;
 
@@ -139,9 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)clipToBounds;
 
-- (UIView *)addBottomSeparator :(CGFloat)height;
+- (UIView*)addBottomSeparator:(CGFloat)height;
 
-- (instancetype)asBottomSeparator :(CGFloat)height;
+- (instancetype)asBottomSeparator:(CGFloat)height;
 
 @end
 

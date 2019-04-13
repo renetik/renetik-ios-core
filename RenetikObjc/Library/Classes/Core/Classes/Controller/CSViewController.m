@@ -7,21 +7,25 @@
 #import "CSLang.h"
 #import "UIViewController+CSExtension.h"
 #import "NSObject+CSExtension.h"
+#import "CSEventRegistration.h"
+#import "NSMutableArray+CSExtension.h"
 
 @implementation CSViewController {
     BOOL _didLayoutSubviews;
     BOOL _onViewWillAppearFirstTime;
     BOOL _onViewDidAppearFirstTime;
-    NSMutableArray<NSObject *> *_notificationCenterObservers;
+    NSMutableArray<NSObject*>*_notificationCenterObservers;
+    NSMutableArray<CSEventRegistration*>*_eventRegistrations;
 }
 
 - (instancetype)init {
-    if (self == super.init) {
+    if(self == super.init) {
         _didLayoutSubviews = NO;
         _onViewWillAppearFirstTime = NO;
         _onViewDidAppearFirstTime = NO;
         _showing = NO;
         _notificationCenterObservers = NSMutableArray.new;
+        _eventRegistrations = NSMutableArray.new;
     }
     return self;
 }
@@ -39,9 +43,9 @@
 }
 
 - (void)viewWillAppear :(BOOL)animated {
-    [super viewWillAppear :animated];
+    [super viewWillAppear:animated];
     [self onViewWillAppear];
-    if (!_onViewWillAppearFirstTime) {
+    if(!_onViewWillAppearFirstTime) {
         _onViewWillAppearFirstTime = YES;
         [self onViewWillAppearFirstTime];
     } else [self onViewWillAppearFromPresentedController];
@@ -58,12 +62,13 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (!_didLayoutSubviews) {
+    if(!_didLayoutSubviews) {
         _didLayoutSubviews = YES;
         [self onInitialViewDidLayoutSubviews];
         [self onCreateLayout];
         [self onLayoutCreated];
     } else [self onUpdateLayout];
+    [self onViewDidLayout];
 }
 
 - (void)onInitialViewDidLayoutSubviews {
@@ -78,11 +83,14 @@
 - (void)onUpdateLayout {
 }
 
+- (void)onViewDidLayout {
+}
+
 - (void)viewDidAppear :(BOOL)animated {
-    [super viewDidAppear :animated];
+    [super viewDidAppear:animated];
     self.appearing = YES;
     [self onViewDidAppear];
-    if (!_onViewDidAppearFirstTime) {
+    if(!_onViewDidAppearFirstTime) {
         _onViewDidAppearFirstTime = YES;
         [self onViewDidAppearFirstTime];
     } else [self onViewDidAppearFromPresentedController];
@@ -98,9 +106,9 @@
 }
 
 - (void)viewWillDisappear :(BOOL)animated {
-    [super viewWillDisappear :animated];
+    [super viewWillDisappear:animated];
     [self viewWillDisappear];
-    if (self.isMovingFromParentViewController) [self onViewDismissing];
+    if(self.isMovingFromParentViewController) [self onViewDismissing];
 }
 
 - (void)viewWillDisappear {
@@ -108,11 +116,13 @@
 
 - (void)onViewDismissing {
     [self removeNotificationObserver];
-    for (NSObject *observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver :observer];
+    for(NSObject*observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver:observer];
+    for(CSEventRegistration*registration in _eventRegistrations)
+        [registration cancel];
 }
 
 - (void)viewDidDisappear :(BOOL)animated {
-    [super viewDidDisappear :animated];
+    [super viewDidDisappear:animated];
     self.appearing = NO;
     [self viewDidDisappear];
 }
@@ -121,10 +131,10 @@
 }
 
 - (void)setShowing :(BOOL)showing {
-    if (_showing == showing) return;
+    if(_showing == showing) return;
     _showing = showing;
-    [self onViewVisibilityChanged :showing];
-    if (showing) [self onViewShowing];
+    [self onViewVisibilityChanged:showing];
+    if(showing) [self onViewShowing];
     else [self onViewHiding];
 }
 
@@ -138,24 +148,28 @@
 }
 
 - (void)viewWillTransitionToSize :(CGSize)size withTransitionCoordinator :(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize :size withTransitionCoordinator :coordinator];
-    [coordinator animateAlongsideTransition :nil completion :^(id <UIViewControllerTransitionCoordinatorContext> context) {
-        [self onViewWillTransitionToSizeCompletion :size :context];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:nil completion:^(id <UIViewControllerTransitionCoordinatorContext> context) {
+        [self onViewWillTransitionToSizeCompletion:size :context];
     }];
 }
 
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size
-                                             :(id <UIViewControllerTransitionCoordinatorContext>)context {
+    :(id <UIViewControllerTransitionCoordinatorContext>)context {
 }
 
 - (BOOL)visible {
     return self.appearing && self.showing;
 }
 
-- (void)observer :(NSNotificationName)name :(void (^)(NSNotification *note))block {
+- (void)observer :(NSNotificationName)name :(void (^)(NSNotification*note))block {
     let observer = [NSNotificationCenter.defaultCenter addObserverForName
-                    :name object :nil queue :nil usingBlock :block];
-    [_notificationCenterObservers addObject :observer];
+                    :name object:nil queue:nil usingBlock:block];
+    [_notificationCenterObservers addObject:observer];
+}
+
+- (void)register :(CSEventRegistration*)registration {
+    [_eventRegistrations put:registration];
 }
 
 @end

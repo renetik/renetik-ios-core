@@ -6,6 +6,7 @@
 #import "CSScrollViewPager.h"
 #import "UIScrollView+CSExtension.h"
 #import "UIView+CSExtension.h"
+#import "UIView+CSContainer.h"
 
 @implementation CSScrollViewPager {
     UIPageControl *_pageControl;
@@ -26,7 +27,7 @@
 }
 
 - (void)onViewWillAppear {
-    [_scrollView clearSubViews];
+    [_scrollView clearSubviews];
     [_scrollView content:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }
@@ -50,7 +51,7 @@
 }
 
 - (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
-    [_scrollView clearSubViews];
+    [_scrollView clearSubviews];
     [_scrollView content:_createContentView()];
     [self showPage:_pageControl.currentPage];
 }

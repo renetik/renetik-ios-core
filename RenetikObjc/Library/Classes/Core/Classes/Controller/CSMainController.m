@@ -16,6 +16,7 @@
 #import "CSMenuIcon.h"
 #import "UIView+CSExtension.h"
 #import "CSLang.h"
+#import "UIView+CSPosition.h"
 
 @implementation CSMainController {
     NSMutableArray<CSMainController *> *_childMainControllers;
@@ -160,7 +161,7 @@
 
 - (instancetype)showIn :(CSMainController *)parent {
     CATransition *transition = CATransition.animation;
-    transition.duration = 0.3;
+    transition.duration = 0.15;
     transition.timingFunction = [CAMediaTimingFunction functionWithName :kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromBottom;
@@ -170,18 +171,15 @@
     return self;
 }
 
-- (void)hideIn :(UIViewController *)parent {
-    CATransition *transition = CATransition.animation;
-    transition.duration = 0.7;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName :kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromTop;
-    [self.view.layer addAnimation :transition forKey :nil];
-    self.view.hide;
+- (instancetype)hideIn {
     self.showing = NO;
-    doLater(0.7, ^{
-        [parent dismissChildController :self];
-    });
+    [UIView animateWithDuration :0.5
+                     animations :^{ self.view.bottom =  -5; }
+                     completion :^(BOOL finished) {
+        self.view.hide;
+        [_parentMain dismissChildController :self];
+    }];
+    return self;
 }
 
 @end

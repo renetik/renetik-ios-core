@@ -15,6 +15,8 @@
 
 + (BOOL)iPad;
 
++ (BOOL)isSlimScreen;
+
 + (BOOL)isWideScreen;
 
 + (float)systemVersion;

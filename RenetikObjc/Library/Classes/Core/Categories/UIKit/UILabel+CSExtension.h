@@ -8,32 +8,32 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UILabel (CSExtension)
 
-- (instancetype)setFontSize :(CGFloat)size;
+@property CGFloat fontSize;
 
-- (instancetype)fontSize :(CGFloat)size;
+-(instancetype)fontSize :(CGFloat)size;
 
-- (void)setFontStyle :(UIFontTextStyle)style;
+@property UIFontTextStyle fontStyle;
 
-- (instancetype)fontStyle :(UIFontTextStyle)style;
+-(instancetype)fontStyle :(UIFontTextStyle)style;
 
-- (instancetype)font :(UIFont *)font;
+-(instancetype)font :(UIFont *)font;
 
-- (instancetype)textColor :(UIColor *)textColor;
+-(instancetype)textColor :(UIColor *)textColor;
 
-- (instancetype)setHTMLFromString :(NSString *)string;
+-(instancetype)setHTMLFromString :(NSString *)string;
 
-- (instancetype)hideIfEmpty;
+-(instancetype)hideIfEmpty;
 
-- (instancetype)sizeHeightToLines :(NSInteger)numberOfLines;
+-(instancetype)heightToLines :(NSInteger)numberOfLines;
 
-- (instancetype)sizeFitHeight;
+-(instancetype)sizeFitHeight;
 
-- (CGSize)sizeThatFitWidth :(NSInteger)width;
+-(CGSize)sizeThatFitWidth :(NSInteger)width;
 
-- (instancetype)sizeFit :(NSString *)value;
+-(instancetype)sizeFit :(NSString *)value;
 
-- (instancetype)text :(NSString *)string;
+-(instancetype)text :(NSString *)string;
 
-- (instancetype)textAlign :(enum NSTextAlignment)alignment;
+-(instancetype)textAlign :(enum NSTextAlignment)alignment;
 @end
 NS_ASSUME_NONNULL_END

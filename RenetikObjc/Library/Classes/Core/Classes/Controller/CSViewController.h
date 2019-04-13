@@ -5,8 +5,10 @@
 
 @import UIKit;
 
+@class CSEventRegistration;
+
 NS_ASSUME_NONNULL_BEGIN
-@interface CSViewController : UIViewController
+@interface CSViewController: UIViewController
 
 @property (nonatomic) BOOL showing;
 @property (nonatomic) BOOL appearing;
@@ -25,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onLayoutCreated;
 
 - (void)onUpdateLayout;
+
+- (void)onViewDidLayout;
 
 - (void)onViewWillAppearFromPresentedController;
 
@@ -48,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
-- (void)observer :(NSNotificationName)name :(void (^)(NSNotification *note))block;
+- (void)observer :(NSNotificationName)name
+    :(void (^)(NSNotification*note))block;
+
+- (void)register :(CSEventRegistration*)registration;
 @end
 NS_ASSUME_NONNULL_END

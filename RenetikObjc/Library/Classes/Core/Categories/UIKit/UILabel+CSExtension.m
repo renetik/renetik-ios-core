@@ -14,16 +14,20 @@
 - (instancetype)construct {
     super.construct;
     self.lineBreakMode = NSLineBreakByTruncatingTail;
+//	self.backgroundColor = UIColor.clearColor;
     return self;
 }
 
-- (instancetype)setFontSize :(CGFloat)size {
+- (void)setFontSize :(CGFloat)size {
     self.font = [self.font fontWithSize :size];
-    return self;
+}
+
+- (CGFloat)fontSize {
+    return self.font.pointSize;
 }
 
 - (instancetype)fontSize :(CGFloat)size {
-    self.font = [self.font fontWithSize :size];
+    self.fontSize = size;
     return self;
 }
 
@@ -31,8 +35,12 @@
     self.font = [UIFont preferredFontForTextStyle :style];
 }
 
+- (UIFontTextStyle)fontStyle {
+    return [self.font.fontDescriptor objectForKey :UIFontDescriptorTextStyleAttribute];
+}
+
 - (instancetype)fontStyle :(UIFontTextStyle)style {
-    self.font = [UIFont preferredFontForTextStyle :style];
+    self.fontStyle = style;
     return self;
 }
 
@@ -61,7 +69,7 @@
     return self;
 }
 
-- (instancetype)sizeHeightToLines :(NSInteger)numberOfLines {
+- (instancetype)heightToLines :(NSInteger)numberOfLines {
 //    NSAssert(self.width > 0, @"Width has to be set to calculate height");
     let currentWidth = self.width;
     let currentText = self.text;

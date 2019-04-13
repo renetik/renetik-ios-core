@@ -5,22 +5,26 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UICollectionView (CSExtension)
 
-- (instancetype)setupCollection:(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
+- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
 
-- (__kindof UICollectionViewCell *)dequeueCell:(NSString *)identifier :(NSIndexPath *)path;
+- (instancetype)layout :(UICollectionViewLayout *)layout;
 
-- (__kindof UICollectionViewCell *)dequeueCellForView:(Class)identifier :(NSIndexPath *)path;
+- (__kindof UICollectionViewCell *)dequeueCell :(NSString *)identifier :(NSIndexPath *)path;
+
+- (__kindof UICollectionViewCell *)dequeueCellForView :(Class)identifier :(NSIndexPath *)path;
 
 - (instancetype)registerForCellView;
 
-- (instancetype)registerEmptyCell:(Class)cellClass;
+- (instancetype)registerDefaultCell :(Class)cellClass;
 
 - (instancetype)registerEmptyHeader;
 
-- (UICollectionViewCell *)cellView:(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate;
+- (UICollectionViewCell *)cellView :(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate;
 
-- (__kindof UICollectionReusableView *)dequeEmptyHeader:(NSIndexPath *)path;
+- (__kindof UICollectionReusableView *)dequeEmptyHeader :(NSIndexPath *)path;
 
 @end
+NS_ASSUME_NONNULL_END

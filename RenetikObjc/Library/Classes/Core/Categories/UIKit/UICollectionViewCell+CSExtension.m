@@ -6,6 +6,7 @@
 #import "UICollectionViewCell+CSExtension.h"
 #import "UIView+CSExtension.h"
 #import "NSArray+CSExtension.h"
+#import "UIView+CSContainer.h"
 
 @implementation UICollectionViewCell (CSExtension)
 

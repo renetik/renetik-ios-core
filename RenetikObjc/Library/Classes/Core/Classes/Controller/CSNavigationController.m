@@ -13,7 +13,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _instance = self;
-    [self.navigationBar onTap :^(UIView *view) {
+    [self.navigationBar onClick :^(UIView *view) {
         UIApplication.resignFirstResponder;
 	}];
 }

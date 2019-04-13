@@ -6,9 +6,10 @@
 
 @interface UIColor (CSExtension)
 
-+ (UIColor *)colorWithRGBA:(CGFloat)red :(CGFloat)green :(CGFloat)blue :(CGFloat)alpha;
++(UIColor *)colorWithRGBA:(CGFloat)red :(CGFloat)green :(CGFloat)blue :(CGFloat)alpha;
 
-+ (UIColor *)colorWithHex:(NSString *)hex;
++(UIColor *)colorWithHex:(NSString *)hex;
 
-- (UIColor *)addAlpha:(CGFloat)alpha;
+-(UIColor *)addAlpha:(CGFloat) alpha
+    NS_SWIFT_NAME(add(alpha:));
 @end

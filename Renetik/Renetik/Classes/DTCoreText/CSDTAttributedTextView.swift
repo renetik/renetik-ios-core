@@ -49,7 +49,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!,
                                           viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
-        return UIView.construct().frame(frame).onTap { view in
+        return UIView.construct().frame(frame).onClick { view in
             let controller = UIActivityViewController(activityItems: [url],
                                                       applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
@@ -64,7 +64,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             if attachment.hyperLinkURL.notNil &&
                 attachment.hyperLinkURL != attachment.contentURL {
                 imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
-                    .onTap { _ in
+                    .onClick { _ in
                         if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
                             UIApplication.shared.open(attachment.hyperLinkURL)
                         }
@@ -72,7 +72,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             } else if frame.width > 50 {
                 imageUrls.add(attachment.contentURL)
                 imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
-                    .onTap { _ in
+                    .onClick { _ in
                         let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
                         photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
                         photoBrowser.disableVerticalSwipe = true

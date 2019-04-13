@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://facebook.com/renetiksoftware'
   s.ios.deployment_target = '10.0'
   s.default_subspecs = 'All'
+	s.prefix_header_file = 'Library/Classes/RenetikObjc.pch'
 	
   s.subspec 'Core' do |ss|
     ss.source_files = 'Library/Classes/Core/**/*'

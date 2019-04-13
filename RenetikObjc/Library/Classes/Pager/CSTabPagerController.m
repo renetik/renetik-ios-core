@@ -7,7 +7,7 @@
 #import "CSTabPagerTab.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-
+#import "UIView+CSContainer.h"
 #import "UIView+CSLayout.h"
 #import "UIView+CSExtension.h"
 #import "UIScrollView+CSExtension.h"
@@ -18,16 +18,16 @@
 #import "CSLang.h"
 
 @implementation CSTabPagerController {
-    NSArray<CSMainController <CSTabPagerTab> *> *_childMainControllers;
-    CSMainController *_parentController;
-    UITabBar *_tabBar;
-    UIScrollView *_scrollView;
+    NSArray<CSMainController <CSTabPagerTab>*>*_childMainControllers;
+    CSMainController*_parentController;
+    UITabBar*_tabBar;
+    UIScrollView*_scrollView;
     NSUInteger _currentIndex;
-    UIView *_contentView;
+    UIView*_contentView;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTab> *> *)controllers
-        :(UITabBar *)toolbar :(UIScrollView *)scrollView {
+- (instancetype)construct:(CSMainController*)parent :(NSArray<CSMainController <CSTabPagerTab>*>*)controllers
+    :(UITabBar*)toolbar :(UIScrollView*)scrollView {
     [super construct:parent];
     _parentController = parent;
     _childMainControllers = controllers;
@@ -43,29 +43,29 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    invoke(^{
-        [self reload:_childMainControllers];
-    });
+- (void)onUpdateLayout {
+    super.onUpdateLayout;
+    //    invoke(^{ //TODO: ?
+    [self reload:_childMainControllers];
+//    });
     [self updateAppearance];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)view {
-    [self onPageChange:(NSUInteger) lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _childMainControllers.count))];
+- (void)scrollViewDidEndDecelerating:(UIScrollView*)view {
+    [self onPageChange:(NSUInteger)lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _childMainControllers.count))];
     [self showSelectEffect];
 }
 
-- (void)reload:(nonnull NSArray *)controllers {
-    if (controllers.empty) return;
-    for (UIViewController *controller in _childMainControllers)
-		[_parentController dismissChildController:controller];
+- (void)reload:(nonnull NSArray*)controllers {
+    if(controllers.empty) return;
+    for(UIViewController*controller in _childMainControllers)
+        [_parentController dismissChildController:controller];
     _childMainControllers = controllers;
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _childMainControllers.count * _scrollView.width, 0);
 
-    for (CSMainController *controller in _childMainControllers) {
-        [_contentView positionViewNextLast:controller.view];
+    for(CSMainController*controller in _childMainControllers) {
+        [_contentView horizontalLineAdd:controller.view];
         [_parentController showChildController:controller :_contentView];
         [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
     }
@@ -73,15 +73,15 @@
 }
 
 - (void)loadBar {
-    NSMutableArray *items = NSMutableArray.new;
-    for (CSMainController <CSTabPagerTab> *controller in _childMainControllers) {
-        UITabBarItem *item = [controller tabItem];
+    NSMutableArray*items = NSMutableArray.new;
+    for(CSMainController <CSTabPagerTab>*controller in _childMainControllers) {
+        UITabBarItem*item = [controller tabItem];
         [items put:item];
     }
     [_tabBar setItems:items];
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+- (void)tabBar:(UITabBar*)tabBar didSelectItem:(UITabBarItem*)item {
     [self onPageChange:[tabBar.items indexOfObject:item]];
     [self showPage];
 }
@@ -107,14 +107,8 @@
     _tabBar.selectedItem = _tabBar.items[_currentIndex];
 }
 
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
-    [super onViewWillTransitionToSizeCompletion:size :context];
-    [self reload:_childMainControllers];
-    [self updateAppearance];
-}
-
 - (void)updateAppearance {
-    if (UIDevice.isPortrait) {
+    if(UIDevice.isPortrait) {
         [_tabBar show];
         [_scrollView bottomToHeight:_tabBar.top];
     } else {

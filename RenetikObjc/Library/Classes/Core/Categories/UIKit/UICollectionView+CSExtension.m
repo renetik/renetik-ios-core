@@ -11,10 +11,11 @@
 #import "UINib+CSExtension.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayout.h"
+#import "UIView+CSContainer.h"
 
 @implementation UICollectionView (CSExtension)
 
-static NSString * const EMPTY_CELL = @"emptyCellIdentifier";
+static NSString * const DEFAULT_CELL_ID = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 
 - (instancetype)construct {
@@ -23,12 +24,17 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     return self;
 }
 
-- (instancetype)setupCollection :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
+- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
     [self construct];
     self.delegate = parent;
     self.dataSource = parent;
     [self registerForCellView];
     [self reloadData];
+    return self;
+}
+
+- (instancetype)layout :(UICollectionViewLayout *)layout {
+    [self setCollectionViewLayout :layout animated :false];
     return self;
 }
 
@@ -41,12 +47,12 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 }
 
 - (instancetype)registerForCellView {
-    [self registerClass :[UICollectionViewCell class] forCellWithReuseIdentifier :EMPTY_CELL];
+    [self registerClass :[UICollectionViewCell class] forCellWithReuseIdentifier :DEFAULT_CELL_ID];
     return self;
 }
 
-- (instancetype)registerEmptyCell :(Class)cellClass {
-    [self registerClass :cellClass forCellWithReuseIdentifier :EMPTY_CELL];
+- (instancetype)registerDefaultCell :(Class)cellClass {
+    [self registerClass :cellClass forCellWithReuseIdentifier :DEFAULT_CELL_ID];
     return self;
 }
 
@@ -56,7 +62,7 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 }
 
 - (UICollectionViewCell *)cellView :(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
-    let cell = [self dequeueCell :EMPTY_CELL :path];
+    let cell = [self dequeueCell :DEFAULT_CELL_ID :path];
     if (![cell.contentView.content isKindOfClass :viewClass]) {
         [cell.contentView content :viewClass.construct].matchParent;
         invokeWith(onCreate, cell);

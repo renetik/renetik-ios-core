@@ -16,27 +16,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CGFloat height;
 
-- (instancetype)size :(CGSize)size;
+- (instancetype)size:(CGSize)size;
 
-- (instancetype)frame :(CGRect)rect;
+- (instancetype)frame:(CGRect)rect;
 
-- (instancetype)setSize :(CGSize)size;
+- (instancetype)setSize:(CGSize) size
+    NS_SWIFT_NAME(set(size:));
 
-- (instancetype)width :(CGFloat)width height :(CGFloat)height;
+- (instancetype)width:(CGFloat)width height:(CGFloat)height;
 
-- (instancetype)sizeBySquare :(CGFloat)square;
+- (instancetype)sizeBySquare:(CGFloat) square
+    NS_SWIFT_NAME(sizeBy(square:));
 
-- (instancetype)width :(CGFloat)value;
+- (instancetype)width:(CGFloat)value;
 
 - (instancetype)widthAsHeight;
 
-- (instancetype)height :(CGFloat)height;
+- (instancetype)height:(CGFloat)height;
 
 - (instancetype)heightAsWidth;
 
-- (instancetype)addWidth :(CGFloat)value;
+- (instancetype)addWidth:(CGFloat) value
+    NS_SWIFT_NAME(add(width:));
 
-- (instancetype)addHeight :(CGFloat)value;
+- (instancetype)addHeight:(CGFloat) value
+    NS_SWIFT_NAME(add(height:));
 
 - (instancetype)sizeFit;
 
@@ -44,15 +48,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)fitSubviews;
 
-- (instancetype)resizeByPadding :(CGFloat)padding;
+- (instancetype)resizeByPadding:(CGFloat) padding
+    NS_SWIFT_NAME(resizeBy(padding:));
 
-- (instancetype)addLeft :(CGFloat)value;
+- (instancetype)addLeft:(CGFloat) value
+    NS_SWIFT_NAME(add(left:));
 
-- (instancetype)addTop :(CGFloat)value;
+- (instancetype)addTop:(CGFloat) value
+    NS_SWIFT_NAME(add(top:));
 
-- (instancetype)addRight :(CGFloat)value;
+- (instancetype)addRight:(CGFloat) value
+    NS_SWIFT_NAME(add(right:));
 
-- (instancetype)addBottom :(CGFloat)value;
+- (instancetype)addBottom:(CGFloat) value
+    NS_SWIFT_NAME(add(bottom:));
 
 @end
 

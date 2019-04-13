@@ -21,6 +21,7 @@ public class CSDTAttributedLabel: DTAttributedLabel, DTAttributedTextContentView
     public override func construct() -> Self {
         super.construct()
         delegate = self
+		backgroundColor = .clear
         return self
     }
 
@@ -42,9 +43,9 @@ public class CSDTAttributedLabel: DTAttributedLabel, DTAttributedTextContentView
         ]
     }
 
-    public func sizeHeight(toLines: Int) -> CSDTAttributedLabel {
-        height(UILabel.construct().width(width).font(font).sizeHeight(toLines: toLines).height)
-        numberOfLines = toLines
+    public func heightTo(lines: Int) -> CSDTAttributedLabel {
+        height(UILabel.construct().width(width).font(font).height(toLines: lines).height)
+        numberOfLines = lines
         return self
     }
 
@@ -53,29 +54,31 @@ public class CSDTAttributedLabel: DTAttributedLabel, DTAttributedTextContentView
         return self
     }
 
-    public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!,
-                                          viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
-        return UIView.construct().frame(frame).onTap { view in
-            let controller = UIActivityViewController(activityItems: [url],
-                                                      applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+    public func attributedTextContentView(_
+        attributedTextContentView: DTAttributedTextContentView!,
+        viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
+        return UIView.construct().frame(frame).onClick { view in
+            let controller = UIActivityViewController(
+                activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
             navigation.last!.present(controller, animated: true, completion: nil)
         }
     }
 
-    public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
-                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
+    public func attributedTextContentView(_
+        contentView: DTAttributedTextContentView!,
+        viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
             let imageView = UIImageView.construct().frame(frame).imageNSURL(attachment.contentURL)
             if attachment.hyperLinkURL.notNil &&
                 attachment.hyperLinkURL != attachment.contentURL {
-                imageView.onTap { _ in
+                imageView.onClick { _ in
                     if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
                         UIApplication.shared.open(attachment.hyperLinkURL)
                     }
                 }
             } else if frame.width > 50 {
-                imageView.onTap { _ in
+                imageView.onClick { _ in
                     let photoBrowser = IDMPhotoBrowser(photoURLs: [attachment.contentURL])!
                     photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
                     photoBrowser.disableVerticalSwipe = true

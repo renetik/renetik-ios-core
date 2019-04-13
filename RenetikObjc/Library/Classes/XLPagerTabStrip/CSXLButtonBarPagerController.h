@@ -23,4 +23,5 @@ NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *controllers;
 - (NSInteger)selectedIndex;
 
 - (void)setBarVisible :(BOOL)visible;
+
 @end

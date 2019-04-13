@@ -10,90 +10,94 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (CSLayout)
 
-- (instancetype)left :(CGFloat)value;  //TODO move to position remove and use fromLeft
+- (instancetype)left:(CGFloat)value;       //TODO move to position remove and use fromLeft
 
-- (instancetype)top :(CGFloat)value; //TODO move to position remove and use fromTop
+- (instancetype)top:(CGFloat)value;      //TODO move to position remove and use fromTop
 
-- (instancetype)right :(CGFloat)value; //TODO move to position check usages
+- (instancetype)right:(CGFloat)value;      //TODO move to position check usages
 
-- (instancetype)bottom :(CGFloat)value; //TODO move to position check usages
+- (instancetype)bottom:(CGFloat)value;      //TODO move to position check usages
 
-- (instancetype)left :(CGFloat)left top :(CGFloat)top; // replace with fromLeftTop
+- (instancetype)left:(CGFloat)left top:(CGFloat)top;        // replace with fromLeftTop
 
-- (instancetype)position :(CGPoint)position; /// check usages
+- (instancetype)position:(CGPoint)position;      /// check usages
 
-- (instancetype)position :(CGFloat)left :(CGFloat)top; // replace with fromLeftTop
+- (instancetype)position:(CGFloat)left :(CGFloat)top;       // replace with fromLeftTop
 
-- (instancetype)left :(CGFloat)left top :(CGFloat)top
-               width :(CGFloat)width height :(CGFloat)height;             // replace with fromLeftTop + size
+- (instancetype)left:(CGFloat)left top:(CGFloat)top
+    width:(CGFloat)width height:(CGFloat)height;            // replace with fromLeftTop + size
 
 /*
  *  By setting left, width will be resized
  */
-- (instancetype)leftToWidth :(CGFloat)left;
+- (instancetype)leftToWidth:(CGFloat)left;
 
 /*
  *  By setting right, width will be resized
  */
-- (instancetype)rightToWidth :(CGFloat)right;
+- (instancetype)rightToWidth:(CGFloat)right;
 
 /*
  *  By setting top, height will be resized
  */
-- (instancetype)topToHeight :(CGFloat)top;
+- (instancetype)topToHeight:(CGFloat)top;
 
 /*
  *  By setting bottom, height will be resized
  */
-- (instancetype)bottomToHeight :(CGFloat)bottom;
+- (instancetype)bottomToHeight:(CGFloat)bottom;
 
-- (instancetype)fromLeft :(CGFloat)distanceFromLeft;
+- (instancetype)fromLeft:(CGFloat)distanceFromLeft;
 
-- (instancetype)fromTop :(CGFloat)distanceFromTop;
+- (instancetype)fromTop:(CGFloat)distanceFromTop;
 
 /*
  * Distance of right bound from right side of parent
  */
-- (instancetype)fromRight :(CGFloat)distanceFromRight;
+- (instancetype)fromRight:(CGFloat)distanceFromRight;
 
 /*
  * Distance of bottom bound from bottom side of parent
  */
-- (instancetype)fromBottom :(CGFloat)distanceFromBottom;
+- (instancetype)fromBottom:(CGFloat)distanceFromBottom;
 
-- (instancetype)fromTopRight :(CGFloat)value;
+- (instancetype)fromTopRight:(CGFloat)value;
 
-- (instancetype)fromTopLeft :(CGFloat)value;
+- (instancetype)fromTopLeft:(CGFloat)value;
 
-- (instancetype)fromBottomRight :(CGFloat)value;
+- (instancetype)fromBottomRight:(CGFloat)value;
 
-- (instancetype)fromBottomLeft :(CGFloat)value;
+- (instancetype)fromBottomLeft:(CGFloat)value;
 
 /*
  *  Resize view width so that its right boundary
  *  will be in specified distance from right side
  */
-- (instancetype)fromRightToWidth :(CGFloat)distanceFromRight;
+- (instancetype)fromRightToWidth:(CGFloat)distanceFromRight;
+//TODO: rename to addWifthFromRight addWidthFrom(right:)
 
 /*
  *  Resize view height so that its bottom boundary
     will be in specified distance from bottom side
  */
-- (instancetype)fromBottomToHeight :(CGFloat)distanceFromBottom;
+- (instancetype)fromBottomToHeight:(CGFloat)distanceFromBottom;
+//TODO: rename to addHeightFromBottom addHeightFrom(bottom:)
 
 /*
  * Set width so right side will stay at fixed position
  */
-- (instancetype)widthFixedRight :(CGFloat)width;
+- (instancetype)widthFixedRight:(CGFloat)width;
+//TODO: rename to fixedRightSetWidth fixedRight(width:)
 
 /*
  * Set height so bootm side will stay at fixed position
  */
-- (instancetype)heightFixedBottom :(CGFloat)height;
+- (instancetype)heightFixedBottom:(CGFloat)height;
+//TODO: rename to fixedBottomSetHeight fixedBottom(height:)
 
-- (instancetype)heightDisabledAutosizing :(CGFloat)height;
+- (instancetype)heightDisabledAutosizing:(CGFloat)height;
 
-- (instancetype)widthDisabledAutosizing :(CGFloat)width;
+- (instancetype)widthDisabledAutosizing:(CGFloat)width;
 
 /*
  * Fill parent completely with autosizing
@@ -103,7 +107,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent completely with margin and autosizing
  */
-- (instancetype)matchParentWithMargin :(CGFloat)margin;
+- (instancetype)matchParentWithMargin:(CGFloat) margin
+    NS_SWIFT_NAME(matchParent(margin:));
 
 /*
  * Fill parent width with autosizing
@@ -113,12 +118,13 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent width with marign and autosizing
  */
-- (instancetype)matchParentWidthWithMargin :(CGFloat)margin;
+- (instancetype)matchParentWidthWithMargin:(CGFloat) margin NS_SWIFT_NAME(matchParentWidth(margin:));
 
 /*
  * Fill parent height with marign and autosizing
  */
-- (instancetype)matchParentHeightWithMargin :(CGFloat)margin;
+- (instancetype)matchParentHeightWithMargin:(CGFloat) margin
+    NS_SWIFT_NAME(matchParentHeight(margin:));
 
 /*
  * Fill parent height and autosizing
@@ -129,19 +135,19 @@ NS_ASSUME_NONNULL_BEGIN
  * Resize and moves content to have and keep specified vertical padding
  in relation to parent container
  */
-- (instancetype)contentPaddingVertical :(CGFloat)padding;
+- (instancetype)contentPaddingVertical:(CGFloat)padding;
 
 /*
  * Resize and moves content to have and keep specified horizontal padding
  in relation to parent container
  */
-- (instancetype)contentPaddingHorizontal :(CGFloat)padding;
+- (instancetype)contentPaddingHorizontal:(CGFloat)padding;
 
 /*
  * Resize and moves content to have and keep specified padding
  in relation to parent container
  */
-- (instancetype)contentPadding :(CGFloat)padding;
+- (instancetype)contentPadding:(CGFloat)padding;
 
 @end
 

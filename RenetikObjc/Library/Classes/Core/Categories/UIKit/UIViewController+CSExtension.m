@@ -7,6 +7,7 @@
 #import "UIBarButtonItem+CSExtension.h"
 #import "UIDevice+CSExtension.h"
 #import "UIView+CSExtension.h"
+#import "UIView+CSContainer.h"
 
 @implementation UIViewController (CSExtension)
 
@@ -72,13 +73,13 @@
 }
 
 - (UIViewController *)showChildControllerUnderLast :(UIViewController *)controller {
-    [self.view positionUnderLast :controller.view];
+    [self.view verticalLineAdd :controller.view];
     [self showChildController :controller :self.view];
     return controller;
 }
 
 - (UIViewController *)showChildControllerNextLast :(UIViewController *)controller :(UIView *)view {
-    [self.view positionViewNextLast :controller.view];
+    [self.view horizontalLineAdd :controller.view];
     [self showChildController :controller :view];
     return controller;
 }

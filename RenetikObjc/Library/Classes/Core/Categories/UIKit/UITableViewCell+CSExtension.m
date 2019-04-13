@@ -4,6 +4,7 @@
 #import "CSLang.h"
 #import "UIView+CSExtension.h"
 #import "UITableViewCell+CSExtension.h"
+#import "UIView+CSContainer.h"
 
 @implementation UITableViewCell (CSExtension)
 

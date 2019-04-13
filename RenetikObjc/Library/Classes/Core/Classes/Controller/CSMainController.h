@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)showIn :(CSMainController *)parent;
 
-- (void)hideIn :(UIViewController *)parent;
+- (instancetype)hideIn;
 
 - (BOOL)isMainController;
 

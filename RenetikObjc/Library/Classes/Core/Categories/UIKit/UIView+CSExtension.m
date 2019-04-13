@@ -13,11 +13,8 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSLayout.h"
-
 #import "CSCocoaLumberjack.h"
 #import "NSObject+CSExtension.h"
-
-static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 @implementation UIView (CSExtension)
 
@@ -65,36 +62,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 + (void)animate :(NSTimeInterval)duration :(void (^)(void))animations {
     [UIView animateWithDuration :duration animations :animations];
-}
-
-+ (instancetype)wrap :(UIView *)view {
-    UIView *container = [self withFrame :view.frame];
-    let center = view.center;
-    let superview = view.superview;
-    let autoSize = view.autoresizingMask;
-    [container add :view].matchParent;
-    [[superview add :container] center :center].autoresizingMask = autoSize;
-//    container.backgroundColor = view.backgroundColor;
-//    view.backgroundColor = UIColor.clearColor;
-    return container;
-}
-
-+ (instancetype)withContent :(UIView *)view {
-    UIView *container = [self withFrame :view.frame];
-    [container content :view];
-    return container;
-}
-
-+ (instancetype)wrap :(UIView *)view withPadding :(NSInteger)padding {
-    UIView *container = [self withSize :view.width + padding * 2 :view.height + padding * 2];
-    let center = view.center;
-    let superview = view.superview;
-    let autoSize = view.autoresizingMask;
-    [[container add :view] matchParentWithMargin :padding];
-    [[superview add :container] center :center].autoresizingMask = autoSize;
-    container.backgroundColor = view.backgroundColor;
-    view.backgroundColor = UIColor.clearColor;
-    return container;
 }
 
 - (instancetype)asCircular {
@@ -272,52 +239,6 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     }];
 }
 
-- (instancetype)clearSubViews {
-    for (UIView *view in self.subviews) [view removeFromSuperview];
-    return self;
-}
-
-- (UIView *)add :(UIView *)view {
-    [self addSubview :view];
-    return view;
-}
-
-- (instancetype)addViews :(NSArray<UIView *> *)views {
-    for (UIView *view in views) [self addSubview :view];
-    return self;
-}
-
-- (UIView *)insertView :(UIView *)view :(NSInteger)index {
-    [self insertSubview :view atIndex :index];
-    return view;
-}
-
-- (UIView *)setView :(UIView *)view :(NSInteger)index {
-    if ([self.subviews at :index]) [[self.subviews at :index] removeFromSuperview];
-    [self insertSubview :view atIndex :index];
-    return view;
-}
-
-- (UIView *)findLastSubviewOfClass :(Class)pClass {
-    for (NSInteger i = self.subviews.count - 1; i >= 0; i--) {
-        UIView *subView = self.subviews[(NSUInteger)i];
-        if ([subView isMemberOfClass :pClass]) return subView;
-    }
-    return nil;
-}
-
-- (UIView *)addNextLast :(UIView *)view {
-    [self positionViewNextLast :view];
-    [self addSubview :view];
-    return view;
-}
-
-- (UIView *)positionViewNextLast :(UIView *)view {
-    UIView *lastSubview = self.subviews.last;
-    [view left :lastSubview ? lastSubview.right : 0];
-    return view;
-}
-
 - (instancetype)show {
     self.visible = YES;
     return self;
@@ -328,90 +249,14 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return self;
 }
 
-- (UIView *)addViewHorizontalSingleLineLayout :(UIView *)view {
-    view.height = self.height;
-    return [self addViewHorizontalLayout :view];
-}
-
-- (UIView *)addViewHorizontalLayout :(UIView *)view {
-    UIView *lastSubview = self.subviews.last;
-    if (lastSubview) {
-        if (lastSubview.right + view.width <= self.width) {
-            [view left :lastSubview.right];
-            [view top :lastSubview.top];
-        } else {
-            [view left :0];
-            [view top :lastSubview.bottom];
-        }
-    } else {
-        [view left :0];
-        [view top :0];
-    }
-    return [self add :view];
-}
-
-- (UIView *)addViewHorizontalSingleLineReverseLayout :(UIView *)view {
-    view.height = self.height;
-    return [self addViewHorizontalReverseLayout :view];
-}
-
-- (UIView *)addViewHorizontalReverseLayout :(UIView *)view {
-    UIView *lastSubview = self.subviews.last;
-    if (lastSubview) {
-        if (lastSubview.left - view.width >= 0) {
-            [view fromBottom :lastSubview.bottom];
-            [view fromRight :lastSubview.left];
-        } else {
-            [view fromBottom :lastSubview.top];
-            [view fromRight :self.width];
-        }
-    } else {
-        [view fromBottom :self.height];
-        [view fromRight :self.width];
-    }
-    return [self add :view];
-}
-
-- (UIView *)addViewVerticalLayout :(UIView *)view {
-    UIView *lastSubview = self.subviews.last;
-    if (lastSubview) {
-        if (lastSubview.bottom + view.height <= self.height) {
-            [view left :lastSubview.left];
-            [view top :lastSubview.bottom];
-        } else {
-            [view left :lastSubview.right];
-            [view top :0];
-        }
-    } else {
-        [view left :0];
-        [view top :0];
-    }
-    return [self add :view];
-}
-
-- (UIView *)addUnderLast :(UIView *)view offset :(NSInteger)offset {
-    if ([self positionUnderLast :view].top != 0) view.top += offset;
-    return [self add :view];
-}
-
-- (UIView *)addUnderLast :(UIView *)view {
-    return [self addUnderLast :view offset :0];
-}
-
-- (UIView *)positionUnderLast :(UIView *)view {
-    UIView *lastSubviewOfClass = self.subviews.last;
-    [view top :lastSubviewOfClass ? lastSubviewOfClass.bottom : 0];
-    return view;
-}
-
-- (instancetype)onTap :(void (^)(UIView *))block {
+- (instancetype)onClick :(void (^)(UIView *))block {
     self.userInteractionEnabled = YES;
     [self bk_whenTapped :^{ block(self); }];
     return self;
 }
 
-- (void)setOnTap :(void (^)(UIView *))block {
-    [self onTap :block];
+- (void)setOnClick :(void (^)(UIView *))block {
+    [self onClick :block];
 }
 
 - (BOOL)isVisibleToUser {
@@ -419,20 +264,7 @@ static void *csViewContentPropertyKey = &csViewContentPropertyKey;
     return self.window && !self.hidden && self.alpha > 0;
 }
 
-- (UIView *)content :(UIView *)view {
-    self.content = view;
-    return view;
-}
 
-- (void)setContent :(UIView *)view {
-    if (self.content) [self.content removeFromSuperview];
-    [self setWeakObject :csViewContentPropertyKey :view];
-    [self add :view];
-}
-
-- (UIView *)content {
-    return [self getObject :csViewContentPropertyKey];
-}
 
 - (instancetype)aspectFit {
     self.contentMode = UIViewContentModeScaleAspectFit;

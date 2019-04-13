@@ -16,7 +16,7 @@
 #import "CSToolbarPage.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
-
+#import "UIView+CSContainer.h"
 #import "UIView+CSLayout.h"
 #import "UIBarButtonItem+CSExtension.h"
 #import "UIColor+CSExtension.h"
@@ -48,17 +48,17 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.class.appearance applyInvocationTo :self];
+- (void)onViewDidLoad{
+	super.onViewDidLoad;
+	 [self.class.appearance applyInvocationTo :self];
 }
 
-- (void)viewWillAppear :(BOOL)animated {
-    [super viewWillAppear :animated];
-    if (_controllers)
-        invoke(^{
-            [self reload :_controllers];
-        });
+- (void)onUpdateLayout {
+	super.onUpdateLayout;
+	if (_controllers)
+		invoke(^{
+			[self reload :_controllers];
+		});
 }
 
 - (void)scrollViewDidEndDecelerating :(UIScrollView *)view {
@@ -73,7 +73,7 @@
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
     for (CSMainController *controller in _controllers) {
-        [_contentView positionViewNextLast :controller.view];
+        [_contentView horizontalLineAdd :controller.view];
         [_parentController showChildController :controller :_contentView];
         [[controller.view size :_scrollView.size] setNeedsUpdateConstraints];
     }
@@ -111,12 +111,6 @@
     _currentIndex = pageIndex;
     self.currentController.showing = YES;
     [_parentController updateBarItemsAndMenu];
-}
-
-- (void)didRotateFromInterfaceOrientation :(UIInterfaceOrientation)fromInterfaceOrientation {
-    invoke(^{
-        if (_controllers) [self reload :_controllers];
-    });
 }
 
 - (void)showPage {
