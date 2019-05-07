@@ -64,14 +64,10 @@
     [super viewDidLayoutSubviews];
     if(!_didLayoutSubviews) {
         _didLayoutSubviews = YES;
-        [self onInitialViewDidLayoutSubviews];
         [self onCreateLayout];
         [self onLayoutCreated];
     } else [self onUpdateLayout];
     [self onViewDidLayout];
-}
-
-- (void)onInitialViewDidLayoutSubviews {
 }
 
 - (void)onCreateLayout {

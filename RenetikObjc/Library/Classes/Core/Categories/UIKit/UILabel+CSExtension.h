@@ -10,30 +10,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property CGFloat fontSize;
 
--(instancetype)fontSize :(CGFloat)size;
+- (instancetype)fontSize :(CGFloat)size;
 
 @property UIFontTextStyle fontStyle;
 
--(instancetype)fontStyle :(UIFontTextStyle)style;
+- (instancetype)fontStyle :(UIFontTextStyle)style;
 
--(instancetype)font :(UIFont *)font;
+- (instancetype)font :(UIFont*)font;
 
--(instancetype)textColor :(UIColor *)textColor;
+- (instancetype)textColor :(UIColor*)textColor;
 
--(instancetype)setHTMLFromString :(NSString *)string;
+- (instancetype)setHTMLFromString :(NSString*)string;
 
--(instancetype)hideIfEmpty;
+- (instancetype)hideIfEmpty;
 
--(instancetype)heightToLines :(NSInteger)numberOfLines;
+- (instancetype)heightToLines :(NSInteger)numberOfLines;
 
--(instancetype)sizeFitHeight;
+- (instancetype)sizeFitHeight;
 
--(CGSize)sizeThatFitWidth :(NSInteger)width;
+- (CGSize)sizeThatFitWidth :(NSInteger)width;
 
--(instancetype)sizeFit :(NSString *)value;
+- (instancetype)sizeFit :(NSString*)value;
 
--(instancetype)text :(NSString *)string;
+- (instancetype)text :(NSString*)string;
 
--(instancetype)textAlign :(enum NSTextAlignment)alignment;
+- (instancetype)textAlign :(NSTextAlignment)alignment;
+
+- (instancetype)lineBreak :(NSLineBreakMode)mode;
 @end
 NS_ASSUME_NONNULL_END

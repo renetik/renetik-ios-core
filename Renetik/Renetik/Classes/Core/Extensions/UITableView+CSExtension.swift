@@ -14,17 +14,19 @@ import UIKit
     }
 
     @nonobjc func cellView<ViewType: UIView>(
-        _ viewClass: ViewType.Type,
+        _ cellViewType: ViewType.Type,
         onCreate: @escaping (UITableViewCell, ViewType) -> Void,
         onLoad: @escaping (ViewType) -> Void) -> UITableViewCell {
-        var cell = dequeueReusableCell(viewClass.className())
+        var cell = dequeueReusableCell(cellViewType.className())
         if cell.isNil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: viewClass.className())
-            let view = viewClass.init()
+            cell = UITableViewCell(style: .default, reuseIdentifier: cellViewType.className())
             cell!.contentView.matchParent()
-            rowHeight = cell!.contentView.content(view.construct()).height
+            let cellView = cellViewType.init()
+			onCreate(cell!, cellView)
+            cell!.contentView.content(cellView.construct())
+            rowHeight = cellView.height
             cell!.width(width, height: rowHeight)
-            onCreate(cell!, view.matchParent())
+			cellView.matchParent()
         }
         onLoad(cell!.cellView as! ViewType)
         return cell!
@@ -32,7 +34,7 @@ import UIKit
 
     @objc func cell(with identifier: String,
                     style: UITableViewCell.CellStyle,
-					onCreate: ((UITableViewCell) -> Void)? = nil)
+                    onCreate: ((UITableViewCell) -> Void)? = nil)
         -> UITableViewCell {
         var cell = dequeueReusableCell(identifier)
         if cell.isNil {

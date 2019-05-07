@@ -19,7 +19,7 @@
 }
 
 - (void)setFontSize :(CGFloat)size {
-    self.font = [self.font fontWithSize :size];
+    self.font = [self.font fontWithSize:size];
 }
 
 - (CGFloat)fontSize {
@@ -32,11 +32,11 @@
 }
 
 - (void)setFontStyle :(UIFontTextStyle)style {
-    self.font = [UIFont preferredFontForTextStyle :style];
+    self.font = [UIFont preferredFontForTextStyle:style];
 }
 
 - (UIFontTextStyle)fontStyle {
-    return [self.font.fontDescriptor objectForKey :UIFontDescriptorTextStyleAttribute];
+    return [self.font.fontDescriptor objectForKey:UIFontDescriptorTextStyleAttribute];
 }
 
 - (instancetype)fontStyle :(UIFontTextStyle)style {
@@ -44,28 +44,28 @@
     return self;
 }
 
-- (instancetype)font :(UIFont *)font {
+- (instancetype)font :(UIFont*)font {
     self.font = font;
     return self;
 }
 
-- (instancetype)textColor :(UIColor *)textColor {
+- (instancetype)textColor :(UIColor*)textColor {
     self.textColor = textColor;
     return self;
 }
 
-- (instancetype)setHTMLFromString :(NSString *)string {
-    string = [string add :stringf(
+- (instancetype)setHTMLFromString :(NSString*)string {
+    string = [string add:stringf(
                   @"<style>body{font-family: '%@'; font-size:%fpx;}</style>", self.font.fontName, self.font.pointSize)];
-    self.attributedText = [NSAttributedString.alloc initWithData :[string dataUsingEncoding :NSUnicodeStringEncoding]
-                                                         options :@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                                                     NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding) }
-                                              documentAttributes :nil error :nil];
+    self.attributedText = [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
+                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                                    NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding) }
+                                              documentAttributes:nil error:nil];
     return self;
 }
 
 - (instancetype)hideIfEmpty {
-    [self setVisible :[NSString set :self.text]];
+    [self setVisible:[NSString set:self.text]];
     return self;
 }
 
@@ -96,29 +96,34 @@
 - (instancetype)sizeFitHeight  {
     NSAssert(self.width > 0, @"Width has to be set to calculate height");
     self.numberOfLines = 0;
-    CGSize newSize = [self sizeThatFits :CGSizeMake(self.width, MAXFLOAT)];
-    [self height :newSize.height];
+    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    [self height:newSize.height];
     return self;
 }
 
 - (CGSize)sizeThatFitWidth :(NSInteger)width {
-    CGSize size = [self sizeThatFits :CGSizeMake(width, MAXFLOAT)];
+    CGSize size = [self sizeThatFits:CGSizeMake(width, MAXFLOAT)];
     return size;
 }
 
-- (instancetype)sizeFit :(NSString *)value {
+- (instancetype)sizeFit :(NSString*)value {
     self.numberOfLines = 0;
     let current = self.text;
-    return [[self text :value].sizeFit text :current];
+    return [[self text:value].sizeFit text:current];
 }
 
-- (instancetype)text :(NSString *)string {
+- (instancetype)text :(NSString*)string {
     self.text = string;
     return self;
 }
 
 - (instancetype)textAlign :(enum NSTextAlignment)alignment {
     self.textAlignment = alignment;
+    return self;
+}
+
+- (instancetype)lineBreak :(NSLineBreakMode)mode {
+    self.lineBreakMode = mode;
     return self;
 }
 
