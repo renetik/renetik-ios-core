@@ -24,6 +24,7 @@
 #import "NSIndexPath+CSExtension.h"
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayout.h"
+#import "UIDevice+CSExtension.h"
 
 @interface CSTableController ()
 @property (nonatomic, strong) CSRefreshControl*refreshControl;
@@ -42,6 +43,7 @@
 - (instancetype)init {
     super.init;
     _tableView = UITableView.construct;
+    _tableView.estimatedRowHeight = 0;
     return self;
 }
 
@@ -177,7 +179,12 @@
 
 - (BOOL)shouldLoadNext :(NSIndexPath*)path {
     if(_isLoading) return NO;
-    return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - 5);
+    var loadStartIndex = 5;
+    if(UIDevice.isPortrait && UIDevice.iPad) loadStartIndex = 15;
+    if(UIDevice.isLandscape && UIDevice.iPad) loadStartIndex = 11;
+    if(UIDevice.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
+    if(UIDevice.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
+    return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - loadStartIndex);
 }
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath :(NSIndexPath*)indexPath {
