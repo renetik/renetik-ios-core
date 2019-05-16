@@ -22,11 +22,11 @@ import UIKit
             cell = UITableViewCell(style: .default, reuseIdentifier: cellViewType.className())
             cell!.contentView.matchParent()
             let cellView = cellViewType.init()
-			onCreate(cell!, cellView)
+            onCreate(cell!, cellView)
             cell!.contentView.content(cellView.construct())
-            rowHeight = cellView.height
+//            rowHeight = cellView.height should be setup in style of controller if height for row not implemented
             cell!.width(width, height: rowHeight)
-			cellView.matchParent()
+            cellView.matchParent()
         }
         onLoad(cell!.cellView as! ViewType)
         return cell!

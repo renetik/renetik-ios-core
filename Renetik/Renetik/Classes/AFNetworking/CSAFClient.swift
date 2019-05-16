@@ -139,11 +139,13 @@ class CSAFResponseListener<ServerData: CSServerData>: NSObject {
         if response.url != request?.url?.absoluteString { logInfo("for \(response.url)") }
         logInfo(content)
         response.data.loadContent(content)
-        if error.notNil && response.data.isEmpty { onHandleResponseError(error!, content) } else if response.data.success { response.success(response.data) } else { onRequestFailed() }
+        if error.notNil && response.data.isEmpty { onHandleResponseError(task?.response, error!, content) }
+        else if response.data.success { response.success(response.data) } else { onRequestFailed() }
     }
 
-    func onHandleResponseError(_ error: NSError, _ content: String) {
-        logInfo("Failed \(error.code) \(error.localizedDescription) \(content)")
+    func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
+        logWarn("Failed \(String(describing: httpResponse)) \(error.code) \(error.localizedDescription) \(content)")
+        // Sometimes reciving code -999 zrušeno
         response.failed(withMessage: error.localizedDescription)
     }
 

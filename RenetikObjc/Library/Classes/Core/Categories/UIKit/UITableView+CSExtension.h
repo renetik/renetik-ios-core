@@ -9,8 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)setupTable :(id <UITableViewDelegate, UITableViewDataSource>)parent;
 
-- (instancetype)setupTable :(id <UITableViewDelegate>)delegate :(id <UITableViewDataSource>)dataSource;
-
 - (UIView *)setHeader :(UIView *)view;
 
 - (UIView *)setFooter :(UIView *)view;

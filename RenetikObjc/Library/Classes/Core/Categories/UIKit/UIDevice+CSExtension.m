@@ -27,6 +27,10 @@
     return UIDevice.iPhone && UIDevice.isPortrait;
 }
 
++ (BOOL)isSlimScreeniPhone5 {
+	return UIDevice.iPhone && UIDevice.isPortrait;
+}
+
 + (BOOL)isWideScreen {
     return !UIDevice.isSlimScreen;
 }

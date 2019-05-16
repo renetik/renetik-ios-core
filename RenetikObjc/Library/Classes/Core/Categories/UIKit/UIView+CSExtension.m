@@ -23,7 +23,6 @@
 }
 
 - (instancetype)construct {
-//    [self width:1 height:1];
     self.clipsToBounds = YES;
     self.autoresizingMask = nil;
     self.flexibleLeft.flexibleTop.flexibleRight
