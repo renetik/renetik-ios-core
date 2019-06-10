@@ -5,7 +5,6 @@
 
 #import "UILabel+CSExtension.h"
 
-
 @implementation UILabel (CSExtension)
 
 - (instancetype)setString:(NSString *)text {

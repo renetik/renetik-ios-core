@@ -15,7 +15,7 @@
 }
 
 - (void)scrollToTop {
-    [self scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+	[self setContentOffset:CGPointMake(self.contentOffset.x, -self.contentInset.top) animated:YES];
 }
 
 - (void)scrollToBottom {

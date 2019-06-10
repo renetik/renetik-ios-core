@@ -1,8 +1,7 @@
 //
 //  Created by Rene Dohan on 1/13/13.
 //
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIImageView (CSExtension)
 

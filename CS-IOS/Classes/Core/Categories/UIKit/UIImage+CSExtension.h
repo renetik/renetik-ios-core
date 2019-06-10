@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 10/14/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface UIImage (CSExtension)
 

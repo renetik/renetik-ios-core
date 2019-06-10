@@ -2,8 +2,7 @@
 // Created by Rene Dohan on 30/12/14.
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface UIToolbar (CSExtension)
 - (void)changeText:(UIBarButtonItem *)item :(NSString *)title;

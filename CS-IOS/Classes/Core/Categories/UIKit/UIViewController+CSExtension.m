@@ -4,6 +4,8 @@
 
 #import "NSString+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
+#import "UIView+CSExtension.h"
+#import "UIDevice+CSExtension.h"
 
 @implementation UIViewController (CSExtension)
 

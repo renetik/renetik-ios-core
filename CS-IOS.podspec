@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 
-  s.default_subspecs = 'Core'
+  s.default_subspecs = 'All'
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'CS-IOS/Classes/Core/**/*'
@@ -104,6 +104,20 @@ Pod::Spec.new do |s|
      ss.dependency 'CS-IOS/Core'
      ss.dependency 'XLPagerTabStrip', '~> 3.0.0'
    end
+	 
+	 s.subspec 'All' do |ss|
+		 ss.dependency 'CS-IOS/Core'
+		 ss.dependency 'CS-IOS/CocoaLumberjack'
+		 ss.dependency 'CS-IOS/TableController'
+		 ss.dependency 'CS-IOS/CollectionController'
+		 ss.dependency 'CS-IOS/RefreshControl'
+		 ss.dependency 'CS-IOS/Pager'
+		 ss.dependency 'CS-IOS/AFNetworking'
+		 ss.dependency 'CS-IOS/Reachability'
+		 ss.dependency 'CS-IOS/SDWebImage'
+		 ss.dependency 'CS-IOS/RMessage'
+		 ss.dependency 'CS-IOS/XLPagerTabStrip'
+	 end
 
   #s.source_files = 'CS-IOS/Classes/**/*'
   #s.module_map = 'module.modulemap'

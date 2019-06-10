@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Renetik Software. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIRefreshControl (CSExtension)
 - (UIRefreshControl *)addRefreshControl:(UIScrollView *)control :(id)target :(SEL)action;

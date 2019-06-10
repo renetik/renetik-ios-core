@@ -2,8 +2,7 @@
 //  Created by Rene Dohan on 5/7/12.
 //
 
-
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface UITableViewCell (CSExtension)
 

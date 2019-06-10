@@ -3,7 +3,11 @@
 //
 
 
+#import "UIView+CSExtension.h"
 #import "UIColor+CSExtension.h"
+#import "NSString+CSExtension.h"
+#import "NSArray+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UIView (CSExtension)
 
