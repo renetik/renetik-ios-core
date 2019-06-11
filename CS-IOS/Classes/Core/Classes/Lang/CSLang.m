@@ -90,4 +90,8 @@ NSString *format4(NSString *format, NSObject *argument, NSObject *argument2, NSO
     return [NSString format:format :argument :argument2 :argument3 :argument4];
 }
 
+BOOL bitmaskContains(NSUInteger bitmask, NSUInteger containns) {
+	return (bitmask & containns) != 0;
+}
+
 @end

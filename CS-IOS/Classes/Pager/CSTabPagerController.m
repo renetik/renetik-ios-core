@@ -7,16 +7,16 @@
 #import "CSTabPagerTabProtocol.h"
 
 @implementation CSTabPagerController {
-    NSArray<CSMainController <CSTabPagerTabProtocol> *> *_controllers;
-    CSMainController *_parentController;
-    UITabBar *_tabBar;
-    UIScrollView *_scrollView;
+    NSArray<CSMainController <CSTabPagerTabProtocol>*>*_controllers;
+    CSMainController*_parentController;
+    UITabBar*_tabBar;
+    UIScrollView*_scrollView;
     NSUInteger _currentIndex;
-    UIView *_contentView;
+    UIView*_contentView;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTabProtocol> *> *)controllers
-        :(UITabBar *)toolbar :(UIScrollView *)scrollView {
+- (instancetype)construct:(CSMainController*)parent :(NSArray<CSMainController <CSTabPagerTabProtocol>*>*)controllers
+    :(UITabBar*)toolbar :(UIScrollView*)scrollView {
     [super construct:parent];
     _parentController = parent;
     _controllers = controllers;
@@ -34,28 +34,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    invoke(^{
-        [self reload:_controllers];
-    });
+    invoke(^{ [self reload:_controllers]; });
     [self updateAppearance];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)view {
-    [self onPageChange:(NSUInteger) lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _controllers.count))];
+- (void)scrollViewDidEndDecelerating:(UIScrollView*)view {
+    [self onPageChange:(NSUInteger)lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _controllers.count))];
     [self showSelectEffect];
 }
 
-- (void)reload:(nonnull NSArray *)controllers {
-    if (controllers.empty) return;
-    for (UIViewController *controller in _controllers) [_parentController removeController:controller];
+- (void)reload:(nonnull NSArray*)controllers {
+    if(controllers.empty) return;
+    for(UIViewController*controller in _controllers)
+        [_parentController removeController:controller];
     _controllers = controllers;
     [self loadBar];
-    _scrollView.contentSize = CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
+    _scrollView.contentSize =
+        CGSizeMake(_contentView.width = _controllers.count * _scrollView.width, 0);
 
-    for (CSMainController *controller in _controllers) {
-//        controller.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    for(CSMainController*controller in _controllers) {
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
+//		controller.view.matchParentHeight;
         controller.view.size = _scrollView.size;
         [controller.view setNeedsUpdateConstraints];
     }
@@ -63,15 +63,13 @@
 }
 
 - (void)loadBar {
-    NSMutableArray *items = NSMutableArray.new;
-    for (CSMainController <CSTabPagerTabProtocol> *controller in _controllers) {
-        UITabBarItem *item = [controller tabItem];
-        [items add:item];
-    }
+    NSMutableArray*items = NSMutableArray.new;
+    for(CSMainController <CSTabPagerTabProtocol>*controller in _controllers)
+        [items add:[controller tabItem]];
     [_tabBar setItems:items];
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+- (void)tabBar:(UITabBar*)tabBar didSelectItem:(UITabBarItem*)item {
     [self onPageChange:[tabBar.items indexOfObject:item]];
     [self showPage];
 }
@@ -104,13 +102,9 @@
 }
 
 - (void)updateAppearance {
-    if (UIDevice.isPortrait) {
-        [_tabBar show];
-        [_scrollView setBottomToHeight:_tabBar.top];
-    } else {
-        [_tabBar hide];
-        [_scrollView setBottomToHeight:_tabBar.bottom];
-    }
+    if(UIDevice.isPortrait) [_scrollView setBottomToHeight:_tabBar.top];
+	else _scrollView.height = _scrollView.superview.height;
+	_tabBar.hidden = UIDevice.isLandscape;
 }
 
 @end

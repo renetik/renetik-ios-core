@@ -69,7 +69,8 @@
     for (CSMainController *controller in _controllers) {
         [_contentView positionViewNextLast:controller.view];
         [_parentController addController:controller :_contentView];
-        controller.view.size = _scrollView.size;
+//		controller.view.matchParentHeight;
+		controller.view.size = _scrollView.size;
     }
     [self selectButton:_currentIndex];
 }
