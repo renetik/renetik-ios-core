@@ -40,12 +40,14 @@
 //}
 
 - (void)scrollToTop {
-    [self scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self setContentOffset:CGPointMake(self.contentOffset.x, -self.contentInset.top) animated:YES];
 }
 
 - (void)scrollToBottom {
     [self setContentOffset:
-     CGPointMake(0, self.contentSize.height - self.bounds.size.height) animated:YES];
+     CGPointMake(self.contentOffset.x,
+                 self.contentSize.height - self.bounds.size.height - self.contentInset.bottom)
+                  animated:YES];
 }
 
 - (long)currentPageIndexFrom :(NSUInteger)from {

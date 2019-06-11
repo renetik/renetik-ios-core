@@ -24,9 +24,9 @@
 
 - (instancetype)construct {
     self.clipsToBounds = YES;
-    self.autoresizingMask = nil;
-    self.flexibleLeft.flexibleTop.flexibleRight
-    .flexibleBottom.fixedWidth.fixedHeight;
+	self.autoresizingMask = nil;
+	self.flexibleLeft.flexibleTop.flexibleRight
+	.flexibleBottom.fixedWidth.fixedHeight;
     return self;
 }
 

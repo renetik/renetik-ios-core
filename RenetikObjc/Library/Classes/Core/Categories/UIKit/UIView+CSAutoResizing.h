@@ -8,6 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSAutoResizing)
 
+- (instancetype)setAutoresizingDefaults;
+
 - (instancetype)flexibleWidthHeight;
 
 - (instancetype)flexibleWidth;
