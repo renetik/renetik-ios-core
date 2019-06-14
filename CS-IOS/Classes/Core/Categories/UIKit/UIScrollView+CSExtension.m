@@ -31,11 +31,11 @@
     return lround(self.contentOffset.x / (self.contentSize.width / from));
 }
 
-- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation {
-    if (@available(iOS 11, *)){
-        self.contentInset = UIEdgeInsetsMake(navigation.navigationBar.bottom, 0, 0, 0);
-        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    return self;
+- (instancetype)contentInsetTopAdjustment :(CGFloat)top {
+	self.contentInset = UIEdgeInsetsMake(top, 0, 0, 0);
+	if(@available(iOS 11, *)) self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+	return self;
 }
+
+
 @end

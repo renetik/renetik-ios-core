@@ -25,9 +25,6 @@
 }
 
 - (void)setup:(UIScrollView *)scrollView header:(MJRefreshNormalHeader *)header {
-    header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    header.lastUpdatedTimeLabel.textColor = FlatGray;
-    header.stateLabel.textColor = FlatGray;
     header.automaticallyChangeAlpha = YES;
     scrollView.mj_header = header;
     scrollView.alwaysBounceVertical = YES;

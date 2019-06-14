@@ -5,15 +5,15 @@
 
 #import "UIRefreshControl+CSExtension.h"
 
-
 @implementation UIRefreshControl (CSExtension)
 
-- (UIRefreshControl *)addRefreshControl:(UIScrollView *)control :(id)target :(SEL)action {
+- (UIRefreshControl*)addRefreshControl:(UIScrollView*)control :(id)target :(SEL)action {
     control.alwaysBounceVertical = YES;
-//    self.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"
-//                                                           attributes:@{NSForegroundColorAttributeName: UIColor.whiteColor}];
+    self.attributedTitle = [NSAttributedString.alloc
+                            initWithString:@"Pull to refresh"
+                                attributes:@{ NSForegroundColorAttributeName: UIColor.whiteColor }];
     [self addTarget:target action:action forControlEvents:UIControlEventValueChanged];
-    [control addSubview:self];
+    control.refreshControl = self;
     return self;
 }
 

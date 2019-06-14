@@ -41,11 +41,24 @@
 #import "NSBundle+CSExtension.h"
 #import "UIApplication+CSExtension.h"
 
+@interface CSViewController: UIViewController
 
-@interface CSViewController : UIViewController
-
-@property(nonatomic) BOOL isActive;
+@property (nonatomic) BOOL isActive;
 
 - (void)onInitialViewDidLayoutSubviews;
+
+- (void)onViewWillAppear;
+
+- (void)onViewWillAppearFirstTime;
+
+- (void)onViewWillAppearFromPresentedController;
+
+- (void)onViewDidAppearFirstTime;
+
+- (void)onViewDidAppear;
+
+- (void)onViewDidAppearFromPresentedController;
+
+- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
 
 @end

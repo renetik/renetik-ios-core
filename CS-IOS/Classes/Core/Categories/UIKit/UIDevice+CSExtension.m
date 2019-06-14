@@ -2,14 +2,25 @@
 //  Created by Rene Dohan on 12/26/12.
 //
 
-
 #import <UIKit/UIKit.h>
 
 @implementation UIDevice (CSExtension)
 
++ (void)setOrientation:(UIDeviceOrientation)orientation {
+    [UIDevice.currentDevice setValue:@(orientation) forKey:@"orientation"];
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
++ (UIDeviceOrientation)orientation {
+    return UIDevice.currentDevice.orientation;
+}
+
++ (UIInterfaceOrientation)statusBarOrientation  {
+    return UIApplication.sharedApplication.statusBarOrientation;
+}
+
 + (BOOL)isPortrait {
-    if (self.currentDevice.orientation == UIDeviceOrientationUnknown)
-        return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
+    if(self.currentDevice.orientation == UIDeviceOrientationUnknown) return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
     return UIDeviceOrientationIsPortrait(self.currentDevice.orientation);
 }
 
@@ -26,11 +37,11 @@
 }
 
 + (BOOL)isWideScreen {
-    return  self.isWideScreenIOS8 ;
+    return self.isWideScreenIOS8;
 }
 
 + (BOOL)isWideScreenIOS8 {
-    return fabs((double) UIScreen.mainScreen.nativeBounds.size.height - (double) 1136) < DBL_EPSILON;
+    return fabs((double)UIScreen.mainScreen.nativeBounds.size.height - (double)1136) < DBL_EPSILON;
 }
 
 + (float)systemVersion {

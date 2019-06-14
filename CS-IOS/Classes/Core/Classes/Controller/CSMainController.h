@@ -68,20 +68,6 @@
 
 - (BOOL)isChildController;
 
-- (void)onViewWillAppear;
-
-- (void)onViewWillAppearFirstTime;
-
-- (void)onViewWillAppearFromPresentedController;
-
-- (void)onViewDidAppearFirstTime;
-
-- (void)onViewDidAppear;
-
-- (void)onViewDidAppearFromPresentedController;
-
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context;
-
 - (void)onPrepareMenu:(NSMutableArray<CSMenuHeader *> *)items;
 
 - (UIBarButtonItem *)onPrepareLeftBarItem;

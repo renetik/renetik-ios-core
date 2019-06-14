@@ -2,10 +2,15 @@
 //  Created by Rene Dohan on 12/26/12.
 //
 
-
 @import UIKit;
 
 @interface UIDevice (CSExtension)
+
++ (void)setOrientation:(UIDeviceOrientation)orientation;
+
++ (UIDeviceOrientation)orientation;
+
++ (UIInterfaceOrientation)statusBarOrientation;
 
 + (BOOL)isPortrait;
 

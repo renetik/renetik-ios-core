@@ -9,4 +9,9 @@
 + (CGFloat)height;
 
 + (CGFloat)width;
+
++ (BOOL)isPortrait;
+
++ (BOOL)isLandscape;
+
 @end

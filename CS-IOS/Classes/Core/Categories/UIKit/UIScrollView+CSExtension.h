@@ -16,6 +16,6 @@
 
 - (long)currentPageIndexFrom:(NSUInteger)from;
 
-- (instancetype)fixScrollViewContentInsets:(UINavigationController *)navigation;
+- (instancetype)contentInsetTopAdjustment :(CGFloat)top;
 
 @end

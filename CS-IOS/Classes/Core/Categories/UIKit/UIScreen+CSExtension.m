@@ -5,7 +5,6 @@
 
 #import "UIScreen+CSExtension.h"
 
-
 @implementation UIScreen (CSExtension)
 + (CGFloat)height {
     return UIScreen.mainScreen.bounds.size.height;
@@ -14,4 +13,13 @@
 + (CGFloat)width {
     return UIScreen.mainScreen.bounds.size.width;
 }
+
++ (BOOL)isPortrait {
+    return self.width < self.height;
+}
+
++ (BOOL)isLandscape {
+    return !self.isPortrait;
+}
+
 @end

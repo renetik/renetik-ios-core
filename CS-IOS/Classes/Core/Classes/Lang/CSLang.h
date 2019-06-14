@@ -57,5 +57,6 @@ NSString *format3(NSString *format, NSObject *argument, NSObject *argument2, NSO
 NSString *format4(NSString *format, NSObject *argument, NSObject *argument2, NSObject *argument3, NSObject *argument4);
 
 BOOL bitmaskContains(NSUInteger bitmask, NSUInteger containns);
+BOOL isPortrait(CGSize size);
 
 @end
