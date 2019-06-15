@@ -2,11 +2,12 @@
 //  Created by Rene Dohan on 1/12/13.
 //
 
-
 @import UIKit;
 
 @interface UITextView (CSExtension)
 
+- (instancetype)setHTMLFromString :(NSString*)string;
 
-- (void)setHTMLWithViewFontSize:(NSString *)string;
+- (instancetype)asLabel;
+
 @end
