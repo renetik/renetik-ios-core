@@ -21,6 +21,8 @@
 
 @property(nonatomic) BOOL visible;
 
+@property(nonatomic) BOOL canBeAction;
+
 @property(nonatomic, weak) CSMainController *controller;
 
 @property(nonatomic) UIBarButtonSystemItem systemItem;
@@ -56,4 +58,6 @@
 - (void)setView:(UIView *)view;
 
 - (instancetype)note:(NSString *)string;
+
+- (instancetype)notAsAction;
 @end

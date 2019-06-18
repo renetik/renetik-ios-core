@@ -6,11 +6,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImageView (CSSDWebImage)
-
-- (UIImageView *)setCSImageNSURL:(NSURL *)url;
-
-- (UIImageView *)setCSImageURL:(NSString *)url onSuccess:(void (^)(UIImageView *imageView))onSuccess;
-
-- (UIImageView *)setCSImageURL:(NSString *)url;
-
+- (UIImageView*)setCSImageNSURL:(NSURL*)url;
+- (UIImageView*)setCSImageURL:(NSString*)url
+    onSuccess:(void (^)(UIImageView*imageView))onSuccess;
+- (UIImageView*)setCSImageURL:(NSString*)url;
+- (UIImageView*)setCSImageURLWithRefresh:(NSString*)url;
 @end

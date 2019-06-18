@@ -10,4 +10,5 @@
 
 - (instancetype)asLabel;
 
+- (instancetype)sizeFitHeight;
 @end

@@ -105,15 +105,15 @@
 - (NSArray<UIBarButtonItem*>*)createActionBarItems
     :(NSMutableArray<CSMenuHeader*>*)menu {
     NSMutableArray<UIBarButtonItem*>*array = NSMutableArray.new;
-    if(menu.first && menu.first.isDisplayedAsItem) {
+    if(menu.first && menu.first.canBeAction) {
         [array add:menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex:0];
     }
-    if(menu.first && menu.first.isDisplayedAsItem) {
+    if(menu.first && menu.first.canBeAction) {
         [array add:menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex:0];
     }
-    if(menu.count == 1 && menu.first.isDisplayedAsItem) {
+    if(menu.count == 1 && menu.first.canBeAction) {
         [array add:menu.first.items.first.createBarButton];
         [menu removeObjectAtIndex:0];
     }

@@ -11,35 +11,35 @@
     BOOL _visible;
 }
 
-
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title {
+- (instancetype)construct:(CSMainController*)parent :(NSString*)title {
     self.construct;
     _closeMenu = YES;
     _controller = parent;
     _title = title;
     _visible = YES;
+    _canBeAction = YES;
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem *))action {
+- (instancetype)construct:(CSMainController*)parent item:(UIBarButtonSystemItem)item :(void (^)(CSMenuItem*))action {
     [self construct:parent :@""];
     self.systemItem = item;
     self.action = action;
     return self;
 }
 
-- (instancetype)construct:(CSMainController *)parent :(NSString *)title :(void (^)(CSMenuItem *))action {
+- (instancetype)construct:(CSMainController*)parent :(NSString*)title :(void (^)(CSMenuItem*))action {
     [self construct:parent :title];
     self.action = action;
     return self;
 }
 
-- (instancetype)onClick:(void (^)(CSMenuItem *))onClick {
+- (instancetype)onClick:(void (^)(CSMenuItem*))onClick {
     self.action = onClick;
     return self;
 }
 
-- (instancetype)setOnClick:(void (^)(CSMenuItem *))onClick {
+- (instancetype)setOnClick:(void (^)(CSMenuItem*))onClick {
     self.action = onClick;
     return self;
 }
@@ -53,13 +53,13 @@
 }
 
 - (void)setVisible:(BOOL)visible {
-    if (_visible == visible) return;
+    if(_visible == visible) return;
     _visible = visible;
     [self updateMenu];
 }
 
 - (BOOL)visible {
-    if (_isVisible) return _isVisible(self);
+    if(_isVisible) return _isVisible(self);
     return _visible;
 }
 
@@ -68,27 +68,25 @@
 }
 
 - (void)updateMenu {
-    if ([_controller isKindOfClass:CSMainController.class]) [_controller updateBarItemsAndMenu];
-    else if ([_controller.parentViewController isKindOfClass:CSMainController.class])
-        [(CSMainController *) _controller.parentViewController updateBarItemsAndMenu];
-    else
-        NSLog(@"CSMainController not found");
+    if([_controller isKindOfClass:CSMainController.class]) [_controller updateBarItemsAndMenu];
+    else if([_controller.parentViewController isKindOfClass:CSMainController.class]) [(CSMainController*) _controller.parentViewController updateBarItemsAndMenu];
+    else NSLog(@"CSMainController not found");
 }
 
-- (void)setTitle:(NSString *)title {
+- (void)setTitle:(NSString*)title {
     _title = title;
     [self updateMenu];
 }
 
-- (UIBarButtonItem *)createBarButton {
-    if (self.systemItem) return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem:self.systemItem handler:self.createAction];
-    else if (self.image) return [UIBarButtonItem.alloc bk_initWithImage:self.image style:(UIBarButtonItemStylePlain) handler:self.createAction];
+- (UIBarButtonItem*)createBarButton {
+    if(self.systemItem) return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem:self.systemItem handler:self.createAction];
+    else if(self.image) return [UIBarButtonItem.alloc bk_initWithImage:self.image style:(UIBarButtonItemStylePlain) handler:self.createAction];
     else return [UIBarButtonItem.alloc bk_initWithTitle:self.title style:(UIBarButtonItemStylePlain) handler:self.createAction];
 }
 
 - (void (^)(id))createAction {
     return ^(id sender) {
-        invokeWith(self.action, self);
+               invokeWith(self.action, self);
     };
 }
 
@@ -97,12 +95,17 @@
     return self;
 }
 
-- (void)setView:(UIView *)view {
+- (void)setView:(UIView*)view {
     _view = view;
 }
 
-- (instancetype)note:(NSString *)string {
+- (instancetype)note:(NSString*)string {
     _subTitle = string;
+    return self;
+}
+
+- (instancetype)notAsAction {
+    _canBeAction = NO;
     return self;
 }
 

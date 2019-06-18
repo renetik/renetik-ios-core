@@ -33,6 +33,6 @@
 
 - (CSMenuItem *)itemView:(UIView *)view;
 
-- (BOOL)isDisplayedAsItem;
+- (BOOL)canBeAction;
 
 @end
