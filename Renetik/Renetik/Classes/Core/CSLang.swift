@@ -6,9 +6,9 @@
 import Foundation
 
 enum CSError: Error {
-    case todo()
-    case unsupported()
-    case failed()
+	case todo
+    case unsupported
+    case failed
 }
 
 struct RuntimeError: Error {

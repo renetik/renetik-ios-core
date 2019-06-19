@@ -17,17 +17,30 @@ open class CSAFClient: CSObject {
 
     public init(url: String) {
         self.url = url
-        manager = AFHTTPSessionManager()
+        let configuration = URLSessionConfiguration.default
+//        configuration.httpMaximumConnectionsPerHost = 10
+//        configuration.timeoutIntervalForRequest = 60
+//        configuration.timeoutIntervalForResource = 60
+        manager = AFHTTPSessionManager(baseURL: URL(string: url),
+                                       sessionConfiguration: configuration)
         manager.responseSerializer = AFHTTPResponseSerializer()
     }
 
-    public func setVagueSecurityPolicy() {
+    public func setVagueCertificateSecurityPolicy() {
         var policy = AFSecurityPolicy(pinningMode: .none)
         policy.allowInvalidCertificates = true
         policy.validatesDomainName = false
         manager.securityPolicy = policy
     }
 
+	public func setVagueSecurityPolicy() {
+		var policy = AFSecurityPolicy(pinningMode: .none)
+		policy.allowInvalidCertificates = true
+		policy.validatesDomainName = false
+		manager.securityPolicy = policy
+	}
+
+	
     public func addDefault(params: Dictionary<String, String>) {
         defaultParams.add(params)
     }
@@ -50,7 +63,7 @@ open class CSAFClient: CSObject {
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let responseListener = CSAFResponseListener(self, response)
-        manager.get(response.url, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
+        manager.get(service, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return response
     }
 
@@ -64,7 +77,7 @@ open class CSAFClient: CSObject {
         _ params: Dictionary<String, String>, form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let responseListener = CSAFResponseListener(self, response)
-        manager.post(response.url, parameters: response.params, constructingBodyWith: form, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
+        manager.post(service, parameters: response.params, constructingBodyWith: form, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return response
     }
 
@@ -79,7 +92,9 @@ open class CSAFClient: CSObject {
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let response = CSResponse("\(url)\(service)", data, createParams(params))
         let listener = CSAFResponseListener(self, response)
-        manager.post(response.url, parameters: response.params, progress: listener.onProgress, success: listener.onSuccess, failure: listener.onFailure)
+        manager.post(service, parameters: response.params,
+					 progress: listener.onProgress, success: listener.onSuccess,
+					 failure: listener.onFailure)
         return response
     }
 
@@ -145,7 +160,10 @@ class CSAFResponseListener<ServerData: CSServerData>: NSObject {
 
     func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
         logWarn("Failed \(String(describing: httpResponse)) \(error.code) \(error.localizedDescription) \(content)")
-        // Sometimes reciving code -999 zrušeno
+        // Sometimes reciving code -999 canceled
+		if error.code == -999 {
+            logInfo(httpResponse!.perform(Selector("allHeaderFields")))
+        }
         response.failed(withMessage: error.localizedDescription)
     }
 
