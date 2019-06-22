@@ -8,9 +8,11 @@
 @implementation UIView (CSAutoResizing)
 
 - (instancetype)setAutoresizingDefaults {
+	self.translatesAutoresizingMaskIntoConstraints = YES;
     self.autoresizingMask = nil;
     self.flexibleLeft.flexibleTop.flexibleRight
     .flexibleBottom.fixedWidth.fixedHeight;
+    return self;
 }
 
 - (instancetype)flexibleWidthHeight {

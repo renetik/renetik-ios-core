@@ -17,7 +17,9 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
-    private var imageUrls = [URL]()
+    public var defaultLinkColor: UIColor = .blue
+	private var imageUrls = [URL]()
+
     public func encoding(_ encoding: String.Encoding) -> Self {
         self.encoding = encoding
         return self
@@ -44,6 +46,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             DTDefaultFontFamily: font.familyName,
             DTDefaultFontSize: font.pointSize,
             DTDefaultTextColor: textColor,
+            DTDefaultLinkColor: defaultLinkColor,
         ]
     }
 
@@ -86,7 +89,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return nil
     }
 
-	public override func sizeFitHeight() -> Self {
+    public override func sizeFitHeight() -> Self {
         attributedTextContentView.sizeToFit()
         height(attributedTextContentView.height)
         return self

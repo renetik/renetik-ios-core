@@ -162,7 +162,7 @@ class CSAFResponseListener<ServerData: CSServerData>: NSObject {
         logWarn("Failed \(String(describing: httpResponse)) \(error.code) \(error.localizedDescription) \(content)")
         // Sometimes reciving code -999 canceled
 		if error.code == -999 {
-            logInfo(httpResponse!.perform(Selector("allHeaderFields")))
+            logInfo(httpResponse)
         }
         response.failed(withMessage: error.localizedDescription)
     }
