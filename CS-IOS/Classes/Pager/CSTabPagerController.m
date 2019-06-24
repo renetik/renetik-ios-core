@@ -95,16 +95,17 @@
     _tabBar.selectedItem = _tabBar.items[_currentIndex];
 }
 
-- (void)onViewWillTransitionToSizeCompletion:(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
+- (void)onViewWillTransitionToSizeCompletion
+    :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
     [super onViewWillTransitionToSizeCompletion:size :context];
     [self reload:_controllers];
     [self updateAppearance];
 }
 
 - (void)updateAppearance {
-    if(UIDevice.isPortrait) [_scrollView setBottomToHeight:_tabBar.top];
-	else _scrollView.height = _scrollView.superview.height;
-	_tabBar.hidden = UIDevice.isLandscape;
+    if(UIDevice.isShortScreen) _scrollView.height = _scrollView.superview.height;
+    else [_scrollView setBottomToHeight:_tabBar.top];
+    _tabBar.hidden = UIDevice.isShortScreen;
 }
 
 @end

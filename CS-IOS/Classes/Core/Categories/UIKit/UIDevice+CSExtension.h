@@ -20,6 +20,12 @@
 
 + (BOOL)iPad;
 
++ (BOOL)isShortScreen;
+
++ (BOOL)isTallScreen;
+
++ (BOOL)isThinScreen;
+
 + (BOOL)isWideScreen;
 
 + (float)systemVersion;

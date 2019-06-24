@@ -28,16 +28,29 @@
     return !self.isPortrait;
 }
 
++ (BOOL)isThinScreen {
+    return self.iPhone && self.isPortrait;
+}
+
++ (BOOL)isShortScreen {
+	return self.iPhone && self.isLandscape;
+}
+
++ (BOOL)isTallScreen {
+	return !self.isShortScreen;
+}
+
++ (BOOL)isWideScreen {
+    return !self.isThinScreen;
+//	self.isWideScreenIOS8;
+}
+
 + (BOOL)iPhone {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
 }
 
 + (BOOL)iPad {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-}
-
-+ (BOOL)isWideScreen {
-    return self.isWideScreenIOS8;
 }
 
 + (BOOL)isWideScreenIOS8 {
