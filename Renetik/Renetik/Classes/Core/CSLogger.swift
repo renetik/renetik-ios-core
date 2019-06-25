@@ -17,7 +17,10 @@ import Foundation
 public func logDebug<Subject>(_ value: Subject, functionName: String = #function,
                               fileName: String = #file, lineNumber: Int = #line) {
     let className = (fileName as NSString).lastPathComponent
-    logger.logDebug("<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))")
+    let message =
+        "<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))"
+    logger.logDebug(message)
+    CSNotification(message).bottom().show()
 }
 
 public func logInfo<Subject>(_ value: Subject, functionName: String = #function,

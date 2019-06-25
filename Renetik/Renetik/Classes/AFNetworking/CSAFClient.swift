@@ -18,9 +18,9 @@ open class CSAFClient: CSObject {
     public init(url: String) {
         self.url = url
         let configuration = URLSessionConfiguration.default
-//        configuration.httpMaximumConnectionsPerHost = 10
-//        configuration.timeoutIntervalForRequest = 60
-//        configuration.timeoutIntervalForResource = 60
+        configuration.httpMaximumConnectionsPerHost = 10
+        configuration.timeoutIntervalForRequest = 60
+        configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
                                        sessionConfiguration: configuration)
         manager.responseSerializer = AFHTTPResponseSerializer()
@@ -33,14 +33,13 @@ open class CSAFClient: CSObject {
         manager.securityPolicy = policy
     }
 
-	public func setVagueSecurityPolicy() {
-		var policy = AFSecurityPolicy(pinningMode: .none)
-		policy.allowInvalidCertificates = true
-		policy.validatesDomainName = false
-		manager.securityPolicy = policy
-	}
+    public func setVagueSecurityPolicy() {
+        var policy = AFSecurityPolicy(pinningMode: .none)
+        policy.allowInvalidCertificates = true
+        policy.validatesDomainName = false
+        manager.securityPolicy = policy
+    }
 
-	
     public func addDefault(params: Dictionary<String, String>) {
         defaultParams.add(params)
     }
@@ -61,10 +60,12 @@ open class CSAFClient: CSObject {
     open func get<Data: CSServerData>(
         _ service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
-        let response = CSResponse("\(url)\(service)", data, createParams(params))
-        let responseListener = CSAFResponseListener(self, response)
-        manager.get(service, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
-        return response
+        let request = CSResponse(url, service, data, createParams(params))
+        request.type = .get
+        let response = CSAFResponse(self, request)
+        execute(request, response)
+//        manager.get(service, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
+        return request
     }
 
     open func get<Data: CSServerData>(
@@ -74,11 +75,17 @@ open class CSAFClient: CSObject {
 
     open func post<Data: CSServerData>(
         _ service: String, data: Data,
-        _ params: Dictionary<String, String>, form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
-        let response = CSResponse("\(url)\(service)", data, createParams(params))
-        let responseListener = CSAFResponseListener(self, response)
-        manager.post(service, parameters: response.params, constructingBodyWith: form, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
-        return response
+        _ params: Dictionary<String, String>,
+        form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+        let request = CSResponse(url, service, data, createParams(params))
+        request.type = .post
+        request.form = form
+        let response = CSAFResponse(self, request)
+//        execute(request, response)
+        manager.post(service, parameters: request.params, constructingBodyWith: form,
+                     progress: response.onProgress, success: response.onSuccess,
+                     failure: response.onFailure)
+        return request
     }
 
     open func post<Data: CSServerData>(_
@@ -90,12 +97,14 @@ open class CSAFClient: CSObject {
     open func post<Data: CSServerData>(_
         service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
-        let response = CSResponse("\(url)\(service)", data, createParams(params))
-        let listener = CSAFResponseListener(self, response)
-        manager.post(service, parameters: response.params,
-					 progress: listener.onProgress, success: listener.onSuccess,
-					 failure: listener.onFailure)
-        return response
+        let request = CSResponse(url, service, data, createParams(params))
+        request.type = .post
+        let response = CSAFResponse(self, request)
+        execute(request, response)
+//        manager.post(service, parameters: response.params,
+//                     progress: listener.onProgress, success: listener.onSuccess,
+//                     failure: listener.onFailure)
+        return request
     }
 
     private func createParams(_
@@ -104,6 +113,22 @@ open class CSAFClient: CSObject {
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams
+    }
+
+    func execute<Data: CSServerData>(
+        _ request: CSResponse<Data>, _ response: CSAFResponse<Data>) {
+        if request.type == .get {
+            manager.get(request.service, parameters: request.params, progress: response.onProgress, success: response.onSuccess, failure: response.onFailure)
+        } else {
+            if request.form.notNil {
+                manager.post(request.service, parameters: request.params, constructingBodyWith: request.form!, progress: response.onProgress,
+                             success: response.onSuccess, failure: response.onFailure)
+            } else {
+                manager.post(request.service, parameters: request.params,
+                             progress: response.onProgress, success: response.onSuccess,
+                             failure: response.onFailure)
+            }
+        }
     }
 }
 
@@ -126,17 +151,18 @@ public extension AFMultipartFormData {
     }
 }
 
-class CSAFResponseListener<ServerData: CSServerData>: NSObject {
+class CSAFResponse<ServerData: CSServerData>: NSObject {
     let client: CSAFClient
-    let response: CSResponse<ServerData>
+    let request: CSResponse<ServerData>
+    var retryCount = 0
 
     init(_ client: CSAFClient, _ response: CSResponse<ServerData>) {
         self.client = client
-        self.response = response
+        request = response
     }
 
     func onProgress(_ progress: Progress) {
-        response.setProgress(progress.fractionCompleted)
+        request.setProgress(progress.fractionCompleted)
     }
 
     func onSuccess(_ task: URLSessionDataTask, _ data: Any?) {
@@ -148,27 +174,37 @@ class CSAFResponseListener<ServerData: CSServerData>: NSObject {
     }
 
     func handleResponse(_ task: URLSessionDataTask?, _ data: Data?, error: NSError?) {
+        logUrl(task)
         let content = data.notNil ? String(data: data!, encoding: .utf8)! : ""
-        let request = task?.currentRequest
-        logInfo("from \(String(describing: request?.url))")
-        if response.url != request?.url?.absoluteString { logInfo("for \(response.url)") }
         logInfo(content)
-        response.data.loadContent(content)
-        if error.notNil && response.data.isEmpty { onHandleResponseError(task?.response, error!, content) }
-        else if response.data.success { response.success(response.data) } else { onRequestFailed() }
+        request.data.loadContent(content)
+        if error.notNil && request.data.isEmpty {
+            onHandleResponseError(task?.response, error!, content) }
+        else if request.data.success { request.success(request.data) }
+        else { onRequestFailed() }
+    }
+
+    func logUrl(_ task: URLSessionDataTask?) {
+        let taskRequest = task?.currentRequest
+        logInfo("from \(taskRequest?.url.asString)")
+        let requestUrl = "\(request.url)\(request.service)"
+        if requestUrl != taskRequest?.url?.absoluteString { logInfo("for \(requestUrl)") }
     }
 
     func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
         logWarn("Failed \(String(describing: httpResponse)) \(error.code) \(error.localizedDescription) \(content)")
         // Sometimes reciving code -999 canceled
-		if error.code == -999 {
-            logInfo(httpResponse)
+        if error.code == -999 && retryCount < 3 {
+            retryCount += 1
+            logInfo("-999 Zruseno Retrying..." + httpResponse.asString)
+            client.execute(request, self)
+        } else {
+            request.failed(withMessage: error.localizedDescription)
         }
-        response.failed(withMessage: error.localizedDescription)
     }
 
     func onRequestFailed() {
-        if let message = response.data.message { response.failed(withMessage: message) }
-        else { response.failed(withMessage: client.requestFailedMessage) }
+        if let message = request.data.message { request.failed(withMessage: message) }
+        else { request.failed(withMessage: client.requestFailedMessage) }
     }
 }
