@@ -11,9 +11,7 @@
     UICollectionView *_collectionView;
     CSResponse *_loadResponse;
     BOOL _noNext;
-
     CSResponse *(^_loadBlock)();
-
     UIColor *_color;
 }
 
