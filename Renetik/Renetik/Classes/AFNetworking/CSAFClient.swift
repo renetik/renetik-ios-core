@@ -11,7 +11,7 @@ import RenetikObjc
 
 open class CSAFClient: CSObject {
     public let url: String
-    let manager: AFHTTPSessionManager
+    public let manager: AFHTTPSessionManager
     var defaultParams: Dictionary<String, String> = [:]
     public var requestFailedMessage = "Request failed"
 

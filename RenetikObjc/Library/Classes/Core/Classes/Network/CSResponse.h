@@ -55,9 +55,11 @@ typedef NS_ENUM (NSUInteger, CSRequestType) {
 
 - (instancetype)onProgress :(void (^)(NSNumber*))onProgress;
 
-- (instancetype)onDone :(void (^)(DataType))block;
+- (instancetype)onCancel :(void (^)(CSResponse*))block;
 
 - (instancetype)onFailed :(void (^)(CSResponse*))block;
+
+- (instancetype)onDone :(void (^)(DataType))block;
 
 - (instancetype)setProgress :(double)completed;
 

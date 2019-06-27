@@ -19,13 +19,13 @@ import UIKit
         onLoad: @escaping (ViewType) -> Void) -> UITableViewCell {
         var cell = dequeueReusableCell(cellViewType.className())
         if cell.isNil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellViewType.className())
+            cell = UITableViewCell(style: .default,
+                                   reuseIdentifier: cellViewType.className())
             cell!.contentView.matchParent()
             let cellView = cellViewType.init()
             onCreate(cell!, cellView)
             cell!.contentView.content(cellView.construct())
-//            rowHeight = cellView.height should be setup in style of controller if height for row not implemented
-            cell!.width(width, height: rowHeight)
+            cell!.width(width, height: cellView.height)
             cellView.matchParent()
         }
         onLoad(cell!.cellView as! ViewType)

@@ -12,15 +12,17 @@
     CSArgEvent<CSResponse*>*_onFailedEvent;
     CSArgEvent<NSNumber*>*_onProgressEvent;
     CSArgEvent<id>*_onSuccessEvent;
+    CSArgEvent<id>*_onCancelEvent;
     CSArgEvent<id>*_onDoneEvent;
     NSString*_id;
 }
 
 - (id)init {
-    if(self = [super init]) {
+    if(self = super.init) {
         _onProgressEvent = CSArgEvent.new;
         _onFailedEvent = CSArgEvent.new;
         _onSuccessEvent = CSArgEvent.new;
+        _onCancelEvent = CSArgEvent.new;
         _onDoneEvent = CSArgEvent.new;
         _requestCancelledMessage = @"Request cancelled.";
     }
@@ -70,6 +72,7 @@
 
 - (void)cancel {
     [self failedWithMessage:self.requestCancelledMessage];
+    [_onCancelEvent run:self];
     _canceled = YES;
 }
 
@@ -81,7 +84,7 @@
 
 - (NSString*)description {
     return stringf(@"Response Url:%@ Service:%@ Message:%@ Params:%@ Post:%@ Content:%@",
-                 _url, _service, _message, _params, _post, _content);
+                   _url, _service, _message, _params, _post, _content);
 }
 
 - (CSResponse*)successIfSuccess :(CSResponse*)response {
@@ -108,6 +111,11 @@
 
 - (instancetype)onProgress :(void (^)(NSNumber*))onProgress {
     [_onProgressEvent add:onProgress];
+    return self;
+}
+
+- (instancetype)onCancel :(void (^)(id))block {
+    [_onCancelEvent add:block];
     return self;
 }
 
