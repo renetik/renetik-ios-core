@@ -5,12 +5,11 @@
 #import "CSView.h"
 #import "CSLang.h"
 
-
 @implementation CSView
 
 - (void)layoutSubviews {
     super.layoutSubviews;
-    runWith(self.onLayoutSubviews, self);
+    run(self.onLayoutSubviews);
 }
 
 @end

@@ -6,7 +6,7 @@
 
 @interface CSView : UIView
 
-@property(nonatomic, copy) void (^onLayoutSubviews)(CSView *);
+@property(nonatomic, copy) void (^onLayoutSubviews)();
 
 - (void)layoutSubviews;
 

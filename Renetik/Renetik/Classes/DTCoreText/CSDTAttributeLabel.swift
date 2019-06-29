@@ -21,15 +21,16 @@ public class CSDTAttributedLabel: DTAttributedLabel, DTAttributedTextContentView
     public override func construct() -> Self {
         super.construct()
         delegate = self
-		backgroundColor = .clear
+        backgroundColor = .clear
         return self
     }
 
     public var html = "" {
         didSet {
             let correctedHtml = html.addSizeToHtmlImageTags(self.width)
-            attributedString = NSAttributedString(htmlData: correctedHtml.data(using: encoding),
-                                                  options: attributedOptions, documentAttributes: nil)
+            attributedString = NSAttributedString(
+                htmlData: correctedHtml.data(using: encoding),
+                options: attributedOptions, documentAttributes: nil)
         }
     }
 

@@ -114,6 +114,16 @@
     return [[self text:value].sizeFit text:current];
 }
 
+- (instancetype)sizeHeightToFit:(NSString*)value {
+    self.numberOfLines = 0;
+    let current = self.text;
+    self.text = value;
+    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    self.height = newSize.height;
+    self.text = current;
+    return self;
+}
+
 - (instancetype)text :(NSString*)string {
     self.text = string;
     return self;

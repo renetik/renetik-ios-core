@@ -4,9 +4,11 @@
 
 @import UIKit;
 
-@interface CSTableViewCell : UITableViewCell
+@interface CSTableViewCell: UITableViewCell
 
-@property(nonatomic, copy) void (^onLayoutSubviews)(UITableViewCell *);
+@property (nonatomic, copy) void (^ onLayoutSubviews)();
+
+- (void)executeToUpdateHeight:(void (^)())onUpdateHeight;
 
 - (void)layoutSubviews;
 

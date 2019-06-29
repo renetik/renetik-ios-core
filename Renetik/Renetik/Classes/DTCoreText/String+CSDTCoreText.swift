@@ -20,4 +20,11 @@ extension String {
         }
         return string as String
     }
+
+    public func addHtmlTags() -> String {
+        if !starts(with: "<html") {
+            return "<html><body>\(self)</body></html>"
+        }
+        return self
+    }
 }

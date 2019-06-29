@@ -5,15 +5,27 @@
 #import "CSTableViewCell.h"
 #import "CSLang.h"
 
+@interface CSTableViewCell ()
+
+@property (nonatomic, copy) void (^ onUpdateHeight)();
+
+@end
+
 @implementation CSTableViewCell
 
 - (void)layoutSubviews {
     super.layoutSubviews;
-    runWith(self.onLayoutSubviews, self);
+    run(self.onLayoutSubviews);
+    run(self.onUpdateHeight);
 }
 
-- (NSString *)reuseIdentifier {
-    if (super.reuseIdentifier)return super.reuseIdentifier;
+- (void)executeToUpdateHeight:(void (^)())onUpdateHeight {
+    run(onUpdateHeight);
+	self.onUpdateHeight = onUpdateHeight;
+}
+
+- (NSString*)reuseIdentifier {
+    if(super.reuseIdentifier) return super.reuseIdentifier;
     return self.class.description;
 }
 

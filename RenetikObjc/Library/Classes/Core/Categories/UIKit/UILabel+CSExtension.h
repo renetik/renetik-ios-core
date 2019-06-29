@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)sizeFit :(NSString*)value;
 
+- (instancetype)sizeHeightToFit:(NSString*)value;
+
 - (instancetype)text :(NSString*)string;
 
 - (instancetype)textAlign :(NSTextAlignment)alignment;
