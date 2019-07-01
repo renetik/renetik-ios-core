@@ -27,18 +27,18 @@
 #import "UIDevice+CSExtension.h"
 
 @interface CSTableController ()
-@property(nonatomic, strong) CSRefreshControl *refreshControl;
+@property (nonatomic, strong) CSRefreshControl*refreshControl;
 @property (nonatomic) CSResponse* (^ onLoad)();
 @property (nonatomic) CSResponse* (^ onLoadPage)(NSInteger);
 @end
 
 @implementation CSTableController {
-    UIViewController <CSViewControllerProtocol> *_parent;
+    UIViewController <CSViewControllerProtocol>*_parent;
     BOOL _noNext;
-    CSResponse *_loadResponse;
-    NSMutableArray *_filteredData;
-    NSMutableArray *_data;
-    UIColor *_loadNextColor;
+    CSResponse*_loadResponse;
+    NSMutableArray*_filteredData;
+    NSMutableArray*_data;
+    UIColor*_loadNextColor;
     id <CSTableFilterProtocol> _filter;
 }
 
@@ -53,7 +53,7 @@
     self.view = _tableView;
 }
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent :(UIView *)parentView :(NSArray *)data {
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate>*)parent :(UIView*)parentView :(NSArray*)data {
     _parent = parent;
     _filter = [_parent as:@protocol(CSTableFilterProtocol)];
     _filteredData = NSMutableArray.new;
@@ -65,64 +65,67 @@
 }
 
 - (instancetype)construct
-        :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent
-        :(NSArray *)data {
-    return [self construct:parent :parent.view :data];
+    :(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate>*)parent
+    :(NSArray*)data {
+    return [self construct:parent :parent.view:data];
 }
 
 - (instancetype)construct
-        :(CSMainController <CSViewControllerProtocol,
-        UITableViewDataSource, UITableViewDelegate> *)parent
-               parentView:(UIView *)parentView {
+    :(CSMainController <CSViewControllerProtocol,
+                        UITableViewDataSource, UITableViewDelegate>*)parent
+    parentView:(UIView*)parentView {
     return [self construct:parent :parentView :NSMutableArray.new];
 }
 
-- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
+- (instancetype)construct:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate>*)parent {
     return [self construct:parent :NSMutableArray.new];
 }
 
 - (instancetype)refreshable {
     _refreshControl = [CSRefreshControl.new construct
-    :_tableView :^{
-        self.onRefreshControl;
-    }];
+                       :_tableView :^{  self.onRefreshControl; }];
     return self;
 }
 
-- (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate> *)parent {
+- (void)initializeTable:(CSMainController <CSViewControllerProtocol, UITableViewDataSource, UITableViewDelegate>*)parent {
     _tableView.hide;
     _tableView.delegate = parent;
     _tableView.dataSource = parent;
 }
 
 - (void)onViewWillTransitionToSizeCompletion
-        :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
-    [_tableView reloadData];
+    :(CGSize)size :(id <UIViewControllerTransitionCoordinatorContext>)context {
+    _tableView.reloadData;
 }
 
-- (instancetype)onLoadPage:(CSResponse *(^)(NSInteger))function {
+- (void)onViewWillAppearFromPresentedController {
+    super.onViewWillAppearFromPresentedController;
+    _tableView.reloadData;
+}
+
+- (instancetype)onLoadPage:(CSResponse*(^)(NSInteger))function {
     self.onLoadPage = [function copy];
     return self;
 }
 
-- (instancetype)onLoad:(CSResponse *(^)())function {
-	self.onLoad = [function copy];
-	return self;
+- (instancetype)onLoad:(CSResponse*(^)())function {
+    self.onLoad = [function copy];
+    return self;
 }
 
-- (CSResponse *)reload {
+- (CSResponse*)reload {
     return [self reload:YES];
 }
 
-- (CSResponse *)reload:(BOOL)showProgress {
+- (CSResponse*)reload:(BOOL)showProgress {
     wvar _self = self;
-    if (_isLoading) _loadResponse.cancel;
+    if(_isLoading) _loadResponse.cancel;
     _noNext = NO;
     _pageIndex = -1;
     _isLoading = YES;
     _loadResponse = self.onLoad ? self.onLoad() : self.onLoadPage(0);
-    if (showProgress) [_parent showProgress:_loadResponse];
-    return [[_loadResponse onFailed:^(CSResponse *response) {
+    if(showProgress) [_parent showProgress:_loadResponse];
+    return [[_loadResponse onFailed:^(CSResponse*response) {
         _self.isFailed = YES;
         _self.failedMessage = response.message;
         _tableView.reloadData;
@@ -134,8 +137,8 @@
 }
 
 - (void)loadNext {
-    if (!self.onLoadPage) return;
-    if (_isLoading) return;
+    if(!self.onLoadPage) return;
+    if(_isLoading) return;
     _isLoading = YES;
     self.showLoadNextIndicator;
     wvar _self = self;
@@ -145,8 +148,8 @@
     }]];
 }
 
-- (instancetype)load:(NSArray *)array {
-    if (array.hasItems) {
+- (instancetype)load:(NSArray*)array {
+    if(array.hasItems) {
         [self onLoadSuccessHasData:array];
         _pageIndex += 1;
     } else _noNext = YES;
@@ -154,78 +157,78 @@
     return self;
 }
 
-- (void)onLoadSuccessHasData:(NSArray *)array {
-    if (_pageIndex == -1) {
+- (void)onLoadSuccessHasData:(NSArray*)array {
+    if(_pageIndex == -1) {
         [_data reload:array];
         [self filterDataAndReload];
     } else [self loadAdd:array];
 }
 
-- (void)loadAdd:(NSArray *)array {
+- (void)loadAdd:(NSArray*)array {
     [_data addArray:array];
     let filteredData = [self filterData:array];
 
     let paths = NSMutableArray.new;
-    for (int index = 0; index < filteredData.count; index++)
+    for(int index = 0; index < filteredData.count; index++)
         [paths put:[NSIndexPath indexPathForRow:index + _filteredData.count inSection:0]];
 
     [_filteredData addArray:filteredData];
-    [_tableView beginUpdates];
+    _tableView.beginUpdates;
     [_tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [_tableView endUpdates];
+    _tableView.endUpdates;
 }
 
 - (void)showLoadNextIndicator {
-    if (!_loadNextView) {
-        UIActivityIndicatorView *loadingNextView =
-                [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        if (_loadNextColor) loadingNextView.color = _loadNextColor;
-        [loadingNextView startAnimating];
+    if(!_loadNextView) {
+        UIActivityIndicatorView*loadingNextView =
+            [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        if(_loadNextColor) loadingNextView.color = _loadNextColor;
+        loadingNextView.startAnimating;
         _loadNextView = loadingNextView;
     }
     [[_tableView.superview add:_loadNextView] fromBottom:5].centerInParentHorizontal;
 }
 
-- (BOOL)shouldLoadNext:(NSIndexPath *)path {
-    if (_isLoading) return NO;
+- (BOOL)shouldLoadNext:(NSIndexPath*)path {
+    if(_isLoading) return NO;
     var loadStartIndex = 5;
-    if (UIDevice.isPortrait && UIDevice.iPad) loadStartIndex = 15;
-    if (UIDevice.isLandscape && UIDevice.iPad) loadStartIndex = 11;
-    if (UIDevice.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
-    if (UIDevice.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
+    if(UIDevice.isPortrait && UIDevice.iPad) loadStartIndex = 15;
+    if(UIDevice.isLandscape && UIDevice.iPad) loadStartIndex = 11;
+    if(UIDevice.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
+    if(UIDevice.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
     return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - loadStartIndex);
 }
 
-- (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self shouldLoadNext:indexPath]) [self loadNext];
+- (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if([self shouldLoadNext:indexPath]) self.loadNext;
 }
 
 - (void)onRefreshControl {
-    if (self.onUserRefresh) {
-        if (self.onUserRefresh()) [self reload:NO];
+    if(self.onUserRefresh) {
+        if(self.onUserRefresh()) [self reload:NO];
     } else [self reload:NO];
 }
 
-- (void)setSearchText:(NSString *)text {
+- (void)setSearchText:(NSString*)text {
     _searchText = text;
-    [self filterDataAndReload];
+    self.filterDataAndReload;
 }
 
-- (NSArray *)filterData:(NSArray *)toFilter {
+- (NSArray*)filterData:(NSArray*)toFilter {
     return [self filterByFilter:[toFilter filterBySearch:_searchText]];
 }
 
-- (NSArray *)filterByFilter:(NSArray *)toFilter {
-    if ([_filter respondsToSelector:@selector(filterData:)]) return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
+- (NSArray*)filterByFilter:(NSArray*)toFilter {
+    if([_filter respondsToSelector:@selector(filterData:)]) return [NSMutableArray arrayWithArray:[_filter filterData:toFilter]];
     return toFilter;
 }
 
-- (void)onLoadNextSectionsSuccess:(NSArray *)array {
-    if ((_noNext = !array.hasItems)) return;
+- (void)onLoadNextSectionsSuccess:(NSArray*)array {
+    if((_noNext = !array.hasItems)) return;
     [_data addArray:array];
     let filteredData = [self filterData:array];
     let indexes = NSMutableIndexSet.new;
-    for (int section = 0; section < filteredData.count; section++)
+    for(int section = 0; section < filteredData.count; section++)
         [indexes addIndex:section + _filteredData.count];
     [_filteredData addArray:filteredData];
     [_tableView beginUpdates];
@@ -239,7 +242,7 @@
 }
 
 - (void)insertItem:(id)item :(int)index {
-    [_data insertObject:item atIndex:(uint) index];
+    [_data insertObject:item atIndex:(uint)index];
     [self filterDataAndReload];
 }
 
@@ -253,18 +256,18 @@
     [self filterDataAndReload];
 }
 
-- (id)dataFor:(NSIndexPath *)path {
+- (id)dataFor:(NSIndexPath*)path {
     return _filteredData[path.index];
 }
 
-- (NSArray *)data {
+- (NSArray*)data {
     return _filteredData;
 }
 
 - (void)filterDataAndReload {
     [_filteredData reload:[self filterData:_data]];
     [_tableView reloadData];
-    if ([_filter respondsToSelector:@selector(onReloadDone:)]) [_filter onReloadDone:self];
+    if([_filter respondsToSelector:@selector(onReloadDone:)]) [_filter onReloadDone:self];
 }
 
 - (void)clearData {
@@ -273,7 +276,7 @@
 }
 
 - (instancetype)scrollToBottom {
-    if (_filteredData.hasItems)
+    if(_filteredData.hasItems)
         invoke(^{
             let path = [NSIndexPath indexPathForRow:_filteredData.count - 1];
             [self.tableView scrollToRowAtIndexPath:path
@@ -284,8 +287,8 @@
 
 - (BOOL)isAtBottom {
     let lastPath = self.tableView.indexPathsForVisibleRows.last;
-    if (!lastPath) return YES;
-    if (lastPath.row == _filteredData.count - 1) return YES;
+    if(!lastPath) return YES;
+    if(lastPath.row == _filteredData.count - 1) return YES;
     else return NO;
 }
 

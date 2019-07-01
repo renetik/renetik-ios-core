@@ -145,9 +145,14 @@
 
 - (void)viewWillTransitionToSize :(CGSize)size withTransitionCoordinator :(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self onViewWillTransitionToSize:size :coordinator];
     [coordinator animateAlongsideTransition:nil completion:^(id <UIViewControllerTransitionCoordinatorContext> context) {
         [self onViewWillTransitionToSizeCompletion:size :context];
     }];
+}
+
+- (void)onViewWillTransitionToSize
+    :(CGSize)size:(id <UIViewControllerTransitionCoordinator>)coordinator {
 }
 
 - (void)onViewWillTransitionToSizeCompletion :(CGSize)size
