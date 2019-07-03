@@ -19,8 +19,9 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/rene-dohan/renetik-ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
-  s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://facebook.com/renetiksoftware'
+  s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
+												 :tag => s.version.to_s }
+  s.social_media_url = 'https://rene-dohan.github.io'
   s.ios.deployment_target = '10.0'
   s.default_subspecs = 'All'
 	s.prefix_header_file = 'Library/Classes/RenetikObjc.pch'
@@ -112,11 +113,11 @@ Pod::Spec.new do |s|
 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
 	end
 	 
-	 s.test_spec 'Tests' do |test|
-#		 test.requires_app_host = true
-		 test.source_files = 'Library/Tests/*.{h,m,swift}'
-#		 test.dependency 'RenetikObjc/All'
-		 test.dependency 'Quick', '~> 2.1.0'
-		 test.dependency 'Nimble', '~> 8.0.2'
-	 end
+#	 s.test_spec 'Tests' do |test|
+##		 test.requires_app_host = true
+#		 test.source_files = 'Library/Tests/*.{h,m,swift}'
+##		 test.dependency 'RenetikObjc/All'
+#		 test.dependency 'Quick', '~> 2.1.0'
+#		 test.dependency 'Nimble', '~> 8.0.2'
+#	 end
 end

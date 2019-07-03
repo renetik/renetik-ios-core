@@ -6,5 +6,6 @@
 @import UIKit;
 
 @interface UIWindow (CSExtension)
-- (void)showRootController:(UIViewController *)controller;
+- (instancetype)construct:(UIViewController*)controller;
+- (void)showRootController:(UIViewController*)controller;
 @end

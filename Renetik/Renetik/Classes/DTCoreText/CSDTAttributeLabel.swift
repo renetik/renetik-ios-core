@@ -79,6 +79,12 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     @discardableResult
+    @objc public func html(_ html: String) -> Self {
+        self.html = html
+        return self
+    }
+
+    @discardableResult
     @objc public func withBoldFont(_ isBold: Bool) -> Self {
         if isBold { font = font.bold() } else { font = font.normal() }
         return self

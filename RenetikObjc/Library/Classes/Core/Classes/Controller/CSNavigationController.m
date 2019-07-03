@@ -7,8 +7,7 @@
 #import "UIView+CSExtension.h"
 #import "UIApplication+CSExtension.h"
 
-@implementation CSNavigationController {
-}
+@implementation CSNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
