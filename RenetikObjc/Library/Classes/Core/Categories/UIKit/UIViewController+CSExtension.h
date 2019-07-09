@@ -9,8 +9,6 @@
 
 @interface UIViewController (CSExtension) <UITextFieldDelegate>
 
-- (instancetype)construct;
-
 - (UIViewController *)dismissChildController:(UIViewController *)controller;
 
 - (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;

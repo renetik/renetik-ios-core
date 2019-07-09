@@ -6,16 +6,17 @@
 @import UIKit;
 
 #import "CSChildViewLessController.h"
-
 @class CSMainController;
 
-@interface CSSearchBarController : CSChildViewLessController <UISearchBarDelegate>
+NS_ASSUME_NONNULL_BEGIN
+@interface CSSearchBarController: CSChildViewLessController <UISearchBarDelegate>
 
-@property(nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchBar*bar;
+@property (nonatomic, copy, readonly) NSString*text;
 
-- (instancetype)construct:(CSMainController *)parent :(UISearchBar *)bar :(void (^)(NSString *))onTextDidChange;
+- (instancetype)construct:(CSMainController*)parent :(UISearchBar*)bar :(void (^)(NSString*))onTextDidChange;
 
-- (instancetype)construct:(CSMainController *)parent :(void (^)(NSString *))onTextDidChange;
+- (instancetype)construct:(CSMainController*)parent :(void (^)(NSString*))onTextDidChange;
 
-- (NSString *)text;
 @end
+NS_ASSUME_NONNULL_END

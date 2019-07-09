@@ -12,13 +12,13 @@
     for (UIView *subView in self.subviews) {
         for (UIView *secondLevelSubview in subView.subviews) {
             if ([secondLevelSubview isKindOfClass:[UITextField class]]) {
-                UITextField *searchBarTextField = (UITextField *) secondLevelSubview;
-                searchBarTextField.textColor = textColor;
+                UITextField *textField = (UITextField *) secondLevelSubview;
+                textField.textColor = textColor;
             }
-            if ([subView isKindOfClass:[UIButton class]]) {
-                UIButton *cancelButton = (UIButton *) subView;
-                [cancelButton setTitleColor:textColor forState:UIControlStateNormal];
-                [cancelButton setTitleColor:textColor forState:UIControlStateHighlighted];
+            if ([secondLevelSubview isKindOfClass:[UIButton class]]) {
+                UIButton *button = (UIButton *) secondLevelSubview;
+                [button setTitleColor:textColor forState:UIControlStateNormal];
+                [button setTitleColor:textColor forState:UIControlStateHighlighted];
             }
         }
     }

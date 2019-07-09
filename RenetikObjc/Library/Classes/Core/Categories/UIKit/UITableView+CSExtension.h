@@ -7,17 +7,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (CSExtension)
 
-- (instancetype)setupTable :(id <UITableViewDelegate, UITableViewDataSource>)parent;
+- (instancetype)delegates :(id <UITableViewDelegate, UITableViewDataSource>)parent;
 
-- (UIView *)setHeader :(UIView *)view;
+- (instancetype)reload;
 
-- (UIView *)setFooter :(UIView *)view;
+- (UIView*)setHeader :(UIView*)view;
+
+- (UIView*)setFooter :(UIView*)view;
 
 - (void)deselectSelectedRow;
 
 - (void)deselectSelectedRows :(BOOL)animated;
 
-- (nullable UITableViewCell *)dequeueReusableCell :(NSString *)identifier;
+- (nullable UITableViewCell*)dequeueReusableCell :(NSString*)identifier;
 
 - (instancetype)hideEmptyCellSplitterBySettingEmptyFooter;
 
@@ -25,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)toggleEditing;
 
-- (UITableViewCell *)cellView :(Class)viewClass :(void (^)(UITableViewCell *))onCreate;
+- (UITableViewCell*)cellView :(Class)viewClass :(void (^)(UITableViewCell*))onCreate;
 
 @end
 

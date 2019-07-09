@@ -7,16 +7,28 @@
 
 import RenetikObjc
 
-@objc public class CSHideNavigationByScrollController: CSChildViewLessController {
-    var scrollView: UIScrollView!
+@objc public class CSNavigationHidingController: CSChildViewLessController {
+    var scrollView: UIScrollView?
     var navigationBarHidden = false
+    lazy var kayboardManager: CSKeyboardManager = {
+        CSKeyboardManager().construct(self)
+    }()
 
     @discardableResult
     @objc public func construct(
-        _ parent: CSMainController, _ scrollView: UIScrollView) -> Self {
+        _ parent: CSMainController, _ scrollView: UIScrollView?) -> Self {
         super.construct(parent)
         self.scrollView = scrollView
+        kayboardManager.onKayboardChange = onKayboardChange
         return self
+    }
+
+    func onKayboardChange(kayboardHeight: CGFloat) {
+        if kayboardHeight > 0 {
+            hideNavigationBar()
+        } else {
+            showNavigationBar()
+        }
     }
 
     public override func onViewVisibilityChanged(_ visible: Bool) {
@@ -27,20 +39,15 @@ import RenetikObjc
         super.onViewDismissing()
         showNavigationBar()
     }
-	
-	public override func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
-		if navigationBarHidden {
-			UIView.animate(0.3) {
-				navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-				navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
-			}
-		}
-	}
-	
-	public override func onViewWillTransition(to
-		size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {
-		
-	}
+
+    public override func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+        if navigationBarHidden {
+            UIView.animate(0.3) {
+                navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+                navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
+            }
+        }
+    }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isAtTop {

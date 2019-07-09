@@ -19,11 +19,15 @@
     return self;
 }
 
-- (instancetype)setupTable :(id <UITableViewDelegate, UITableViewDataSource>)parent {
+- (instancetype)delegates :(id <UITableViewDelegate, UITableViewDataSource>)parent {
     self.delegate = parent;
     self.dataSource = parent;
-    [self reloadData];
     return self;
+}
+
+- (instancetype)reload{
+	self.reloadData;
+	return self;
 }
 
 - (UIView*)setHeader :(UIView*)view {
@@ -49,6 +53,7 @@
     return [self dequeueReusableCellWithIdentifier:identifier];
 }
 
+// this triggers table reload !!!
 - (instancetype)hideEmptyCellSplitterBySettingEmptyFooter {
     [self setTableFooterView:[UIView.alloc initWithFrame:CGRectMake(0, 0, 0, 0.1)]];
     return self;

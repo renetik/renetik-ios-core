@@ -73,11 +73,9 @@
 }
 
 - (void)loadBar {
-    NSMutableArray*items = NSMutableArray.new;
-    for(CSMainController <CSTabPagerTab>*controller in _childMainControllers) {
-        UITabBarItem*item = [controller tabItem];
-        [items put:item];
-    }
+    NSMutableArray<UIBarItem*>*items = NSMutableArray.new;
+    for(CSMainController <CSTabPagerTab>*controller in _childMainControllers)
+        [items put:controller.tabItem];
     [_tabBar setItems:items];
 }
 
