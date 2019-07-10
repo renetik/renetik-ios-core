@@ -10,6 +10,7 @@ import RenetikObjc
 public class CSKeyboardManager: CSChildViewLessController {
     public var keyboardHeight: CGFloat = 0
     public var onKayboardChange: ((CGFloat) -> Void)?
+    public var isKeyboardVisible: Bool { return keyboardHeight > 0 }
 
     public override func construct(
         _ parent: CSMainController) -> Self {

@@ -101,7 +101,7 @@
 
 - (void)setFromBottom :(CGFloat)bottom {
     NSAssert(self.superview, @"Needs to have superview");
-    NSAssert(self.height, @"Needs to have height");
+//    NSAssert(self.height, @"Needs to have height"); Not nedded
     self.top = self.superview.height - (bottom + self.height);
 }
 

@@ -6,7 +6,7 @@
 import Foundation
 
 enum CSError: Error {
-	case todo
+    case todo
     case unsupported
     case failed
 }
@@ -96,6 +96,12 @@ public extension Optional {
     @discardableResult
     public func notNil(_ function: (Wrapped) -> Void) -> Optional<Wrapped> {
         if self != nil { function(self!) }
+        return self
+    }
+
+    @discardableResult
+    public func elseDo(_ function: () -> Void) -> Optional<Wrapped> {
+        if self == nil { function() }
         return self
     }
 
