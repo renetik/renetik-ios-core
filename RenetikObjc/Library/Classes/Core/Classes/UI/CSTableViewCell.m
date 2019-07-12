@@ -6,9 +6,7 @@
 #import "CSLang.h"
 
 @interface CSTableViewCell ()
-
 @property (nonatomic, copy) void (^ onUpdateHeight)();
-
 @end
 
 @implementation CSTableViewCell

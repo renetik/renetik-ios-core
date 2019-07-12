@@ -43,13 +43,14 @@ import RenetikObjc
         super.onViewDismissing()
         showNavigationBar()
     }
-	
-	public override func viewWillDisappear() {
-		super.viewWillDisappear()
-		showNavigationBar()
-	}
 
-    public override func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+    public override func viewWillDisappear() {
+        super.viewWillDisappear()
+        showNavigationBar()
+    }
+
+    public override func onViewWillTransition(toSizeCompletion
+        size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
             UIView.animate(0.3) {
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
@@ -58,16 +59,28 @@ import RenetikObjc
         }
     }
 
+    var lastContentOffset: CGFloat = 0
+
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if kayboardManager.isKeyboardVisible { return }
-		
+
         if scrollView.isAtTop {
             showNavigationBar()
-        } else if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+        } else if scrollView.isAtBottom {
+            hideNavigationBar()
+        } else if lastContentOffset < scrollView.contentOffset.y {
             hideNavigationBar()
         } else {
             showNavigationBar()
         }
+        lastContentOffset = scrollView.contentOffset.y
+
+        //			if scrollView.panGestureRecognizer.translation(
+        //			in: scrollView.superview).y < 0 {
+//            hideNavigationBar()
+//        } else {
+//            showNavigationBar()
+//        }
     }
 
     @objc public func hideNavigationBar() {
@@ -83,7 +96,7 @@ import RenetikObjc
     @objc public func showNavigationBar() {
         if !isNavigationBarHidden { return }
         UIView.animate(0.5) {
-            navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
+            navigation.navigationBar.top = UIApplication.statusBarHeight()
             navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fade(in: 0.7)
