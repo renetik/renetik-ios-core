@@ -44,11 +44,11 @@
 
 - (void)viewWillAppear :(BOOL)animated {
     [super viewWillAppear:animated];
-    [self onViewWillAppear];
+    self.onViewWillAppear;
     if(!_onViewWillAppearFirstTime) {
         _onViewWillAppearFirstTime = YES;
-        [self onViewWillAppearFirstTime];
-    } else [self onViewWillAppearFromPresentedController];
+        self.onViewWillAppearFirstTime;
+    } else self.onViewWillAppearFromPresentedController;
 }
 
 - (void)onViewWillAppear {
@@ -61,13 +61,13 @@
 }
 
 - (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+    super.viewDidLayoutSubviews;
     if(!_didLayoutSubviews) {
         _didLayoutSubviews = YES;
-        [self onCreateLayout];
-        [self onLayoutCreated];
-    } else [self onUpdateLayout];
-    [self onViewDidLayout];
+        self.onCreateLayout;
+        self.onLayoutCreated;
+    } else self.onUpdateLayout;
+    self.onViewDidLayout;
 }
 
 - (void)onCreateLayout {
@@ -85,11 +85,11 @@
 - (void)viewDidAppear :(BOOL)animated {
     [super viewDidAppear:animated];
     self.appearing = YES;
-    [self onViewDidAppear];
+    self.onViewDidAppear;
     if(!_onViewDidAppearFirstTime) {
         _onViewDidAppearFirstTime = YES;
-        [self onViewDidAppearFirstTime];
-    } else [self onViewDidAppearFromPresentedController];
+        self.onViewDidAppearFirstTime;
+    } else self.onViewDidAppearFromPresentedController;
 }
 
 - (void)onViewDidAppear {
@@ -103,24 +103,24 @@
 
 - (void)viewWillDisappear :(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self viewWillDisappear];
-    if(self.isMovingFromParentViewController) [self onViewDismissing];
+    self.viewWillDisappear;
+    if(self.isMovingFromParentViewController) self.onViewDismissing;
 }
 
 - (void)viewWillDisappear {
 }
 
 - (void)onViewDismissing {
-    [self removeNotificationObserver];
+    self.removeNotificationObserver;
     for(NSObject*observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver:observer];
     for(CSEventRegistration*registration in _eventRegistrations)
-        [registration cancel];
+        registration.cancel;
 }
 
 - (void)viewDidDisappear :(BOOL)animated {
     [super viewDidDisappear:animated];
     self.appearing = NO;
-    [self viewDidDisappear];
+    self.viewDidDisappear;
 }
 
 - (void)viewDidDisappear {
@@ -130,8 +130,8 @@
     if(_showing == showing) return;
     _showing = showing;
     [self onViewVisibilityChanged:showing];
-    if(showing) [self onViewShowing];
-    else [self onViewHiding];
+    if(showing) self.onViewShowing;
+    else self.onViewHiding;
 }
 
 - (void)onViewVisibilityChanged :(BOOL)visible {
@@ -172,6 +172,5 @@
 - (void)register :(CSEventRegistration*)registration {
     [_eventRegistrations put:registration];
 }
-
 
 @end

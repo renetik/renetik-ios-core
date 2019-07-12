@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)sizeFit;
 
-- (instancetype)sizeFitHeight;
+- (instancetype)sizeHeightToFit;
 
 - (instancetype)fitSubviews;
 

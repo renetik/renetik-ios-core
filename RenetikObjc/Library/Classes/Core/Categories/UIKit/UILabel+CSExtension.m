@@ -95,11 +95,9 @@
     return self;
 }
 
-- (instancetype)sizeFitHeight  {
-    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+- (instancetype)sizeHeightToFit  {
     self.numberOfLines = 0;
-    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
-    [self height:newSize.height];
+    super.sizeHeightToFit;
     return self;
 }
 

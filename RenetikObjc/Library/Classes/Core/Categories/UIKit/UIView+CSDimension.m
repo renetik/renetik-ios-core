@@ -24,7 +24,7 @@
 
 - (CGSize)calculateSizeFromSubviews {
     var rect = CGRectZero;
-    for (UIView *view in self.subviews) rect = CGRectUnion(rect, view.frame);
+    for(UIView*view in self.subviews) rect = CGRectUnion(rect, view.frame);
     return rect.size;
 }
 
@@ -44,12 +44,12 @@
 }
 
 - (instancetype)width :(CGFloat)width height :(CGFloat)height {
-    [self size :CGSizeMake(width, height)];
+    [self size:CGSizeMake(width, height)];
     return self;
 }
 
 - (instancetype)sizeBySquare :(CGFloat)square {
-    return [self width :square height :square];
+    return [self width:square height:square];
 }
 
 - (void)setWidth :(CGFloat)value {
@@ -99,20 +99,21 @@
     return self;
 }
 
-- (instancetype)sizeFitHeight {
-    CGSize newSize = [self sizeThatFits :CGSizeMake(self.width, MAXFLOAT)];
-    return [self size :CGSizeMake(fmaxf(newSize.width, self.width), newSize.height)];
+- (instancetype)sizeHeightToFit {
+    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    return [self height:newSize.height];
 }
 
 - (instancetype)fitSubviews {
-    return [self size :self.calculateSizeFromSubviews];
+    return [self size:self.calculateSizeFromSubviews];
 }
 
 - (instancetype)resizeByPadding :(CGFloat)padding {
-    if (self.isFixedLeft) [self addRight :padding]; else [self addLeft :padding];
-    if (self.isFixedTop) [self addBottom :padding]; else [self addTop :padding];
-    if (self.isFixedRight) [self addLeft :padding]; else [self addRight :padding];
-    if (self.isFixedBottom) [self addTop :padding]; else [self addBottom :padding];
+    if(self.isFixedLeft) [self addRight:padding]; else [self addLeft:padding];
+    if(self.isFixedTop) [self addBottom:padding]; else [self addTop:padding];
+    if(self.isFixedRight) [self addLeft:padding]; else [self addRight:padding];
+    if(self.isFixedBottom) [self addTop:padding]; else [self addBottom:padding];
     return self;
 }
 

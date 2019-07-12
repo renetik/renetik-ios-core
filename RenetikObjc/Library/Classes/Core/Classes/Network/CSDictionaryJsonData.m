@@ -97,6 +97,15 @@
     return @([self getDouble :key]);
 }
 
+- (float)getFloat :(NSString *)key {
+	return [self getString :key].floatValue;
+}
+
+- (NSNumber *)getFloatNumber :(NSString *)key {
+	if (![self isSet :key]) return nil;
+	return @([self getFloat :key]);
+}
+
 - (BOOL)getBool :(NSString *)key {
     return [self getString :key].boolValue;
 }

@@ -89,8 +89,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return nil
     }
 
-    public override func sizeFitHeight() -> Self {
-        attributedTextContentView.sizeToFit()
+    public override func sizeHeightToFit() -> Self {
+        attributedTextContentView.sizeHeightToFit()
         height(attributedTextContentView.height)
         return self
     }

@@ -47,11 +47,11 @@ import UIKit
 
     @nonobjc func dequeueCell<CellType: UITableViewCell>(
         _ cellType: CellType.Type,
-        onCreate: @escaping (CellType) -> Void) -> CellType {
+		onCreate: ((CellType) -> Void)? = nil) -> CellType {
         register(cellType, forCellReuseIdentifier: cellType.className())
         var cell = dequeueReusableCell(cellType.className()) as! CellType
         if cell.contentView.subviews.isEmpty {
-            onCreate(cell)
+            onCreate?(cell)
             cell.width = width
             cell.height = 10
             cell.construct() }

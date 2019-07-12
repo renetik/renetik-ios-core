@@ -183,10 +183,16 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
 }
 
 - (UIView*)verticalLineAdd:(UIView*)view margin:(NSInteger)margin {
-    UIView*lastSubview = self.subviews.last;
-    [view top:lastSubview ? lastSubview.bottom : 0];
+    return [self add:[self verticalLineAtPosition
+                      :self.subviews.lastIndex + 1 view:view margin:margin]];
+}
+
+- (UIView*)verticalLineAtPosition:(NSInteger)position
+    view:(UIView*)view margin:(NSInteger)margin {
+    UIView*lastSubview = [self.subviews at:position - 1];
+    [view fromTop:lastSubview ? lastSubview.bottom : 0];
     if(view.top != 0) view.top += margin;
-    return [self add:view];
+    return view;
 }
 
 - (instancetype)heightByLastSubviewWithPadding:(NSInteger)margin {

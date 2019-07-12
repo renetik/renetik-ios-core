@@ -62,6 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIView*)verticalLineAdd:(UIView*)view margin:(NSInteger) margin
     NS_SWIFT_NAME(verticalLine(add:margin:));
 
+- (UIView*)verticalLineAtPosition:(NSInteger)position
+    view:(UIView*)view margin:(NSInteger) margin
+    NS_SWIFT_NAME(verticalLine(position:view:margin:));
+
 - (instancetype)heightByLastSubviewWithPadding:(NSInteger) padding
     NS_SWIFT_NAME(heightByLastSubview(padding:));
 

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)heightToLines :(NSInteger)numberOfLines;
 
-- (instancetype)sizeFitHeight;
+- (instancetype)sizeHeightToFit;
 
 - (CGSize)sizeThatFitWidth :(NSInteger)width;
 

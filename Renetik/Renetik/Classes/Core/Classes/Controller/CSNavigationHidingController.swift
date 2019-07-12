@@ -43,6 +43,11 @@ import RenetikObjc
         super.onViewDismissing()
         showNavigationBar()
     }
+	
+	public override func viewWillDisappear() {
+		super.viewWillDisappear()
+		showNavigationBar()
+	}
 
     public override func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
