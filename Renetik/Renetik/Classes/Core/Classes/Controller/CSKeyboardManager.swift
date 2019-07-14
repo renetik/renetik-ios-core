@@ -12,9 +12,12 @@ public class CSKeyboardManager: CSChildViewLessController {
     public var onKayboardChange: ((CGFloat) -> Void)?
     public var isKeyboardVisible: Bool { return keyboardHeight > 0 }
 
-    public override func construct(
-        _ parent: CSMainController) -> Self {
+	@discardableResult
+    public func construct(
+        _ parent: UIViewController,
+        _ onKayboardChange: ((CGFloat) -> Void)? = nil) -> Self {
         super.construct(parent)
+        self.onKayboardChange = onKayboardChange
         observer(UIResponder.keyboardDidShowNotification, keyboardDidShow)
         observer(UIResponder.keyboardDidHideNotification, keyboardDidHide)
         return self

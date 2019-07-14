@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSContainer)
 
++ (instancetype)withContentView;
+
 + (instancetype)wrap:(UIView*)view;
 
 //+ (instancetype)withContent:(UIView*)view;

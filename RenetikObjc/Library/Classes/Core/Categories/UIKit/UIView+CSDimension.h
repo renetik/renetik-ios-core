@@ -10,11 +10,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) CGSize size;
 
-@property (readonly) CGSize calculateSizeFromSubviews;
-
 @property (nonatomic) CGFloat width;
 
 @property (nonatomic) CGFloat height;
+
+- (CGSize) calculateSizeFromSubviews;
+
+- (CGFloat) calculateHeightToFitWidth;
 
 - (instancetype)size:(CGSize)size;
 

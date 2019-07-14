@@ -15,7 +15,7 @@ import RenetikObjc
 
     @discardableResult
     @objc public override func construct(
-        _ parent: CSMainController) -> Self {
+        _ parent: UIViewController) -> Self {
         super.construct(parent)
         kayboardManager.onKayboardChange = onKayboardChange
         return self

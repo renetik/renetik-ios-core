@@ -94,4 +94,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         height(attributedTextContentView.height)
         return self
     }
+	
+	public override func calculateHeightToFitWidth() -> CGFloat {
+		return attributedTextContentView.calculateHeightToFitWidth()
+	}
 }

@@ -6,6 +6,7 @@
 #import "CSViewController.h"
 #import "CSLang.h"
 #import "UIViewController+CSExtension.h"
+#import "UINavigationController+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "CSEventRegistration.h"
 #import "NSMutableArray+CSExtension.h"
@@ -103,11 +104,11 @@
 
 - (void)viewWillDisappear :(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.viewWillDisappear;
-    if(self.isMovingFromParentViewController) self.onViewDismissing;
+    self.onViewWillDisappear;
+    if(self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
 }
 
-- (void)viewWillDisappear {
+- (void)onViewWillDisappear {
 }
 
 - (void)onViewDismissing {
@@ -117,10 +118,15 @@
         registration.cancel;
 }
 
+- (void)onViewPushedOver {
+}
+
 - (void)viewDidDisappear :(BOOL)animated {
     [super viewDidDisappear:animated];
     self.appearing = NO;
     self.viewDidDisappear;
+	if(!self.controllerInNavigation.parentViewController)
+		self.onViewDismissing;
 }
 
 - (void)viewDidDisappear {
@@ -171,6 +177,20 @@
 
 - (void)register :(CSEventRegistration*)registration {
     [_eventRegistrations put:registration];
+}
+
+- (BOOL)isInNavigationController {
+    if(self.controllerInNavigation) return true;
+    return false;
+}
+
+- (UIViewController*)controllerInNavigation {
+    if(self.parentViewController == self.navigationController) return self;
+    UIViewController*controller = self;
+    do controller = controller.parentViewController;
+    while(controller &&
+          controller.parentViewController != self.navigationController);
+    return controller;
 }
 
 @end

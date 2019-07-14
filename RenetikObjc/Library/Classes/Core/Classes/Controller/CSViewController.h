@@ -38,7 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onViewDidAppearFromPresentedController;
 
-- (void)viewWillDisappear;
+- (void)onViewWillDisappear;
+
+- (void)onViewPushedOver;
 
 - (void)onViewDismissing;
 
@@ -60,5 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
     :(void (^)(NSNotification*note))block;
 
 - (void)register :(CSEventRegistration*)registration;
+
+- (BOOL)isInNavigationController;
+
+- (nullable UIViewController*)controllerInNavigation;
+
 @end
 NS_ASSUME_NONNULL_END

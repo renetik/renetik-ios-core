@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CSMainController *parentMain;
 
+- (void)addChildViewController :(UIViewController *)childController;
+
 - (NSArray<CSMainController *> *)setChildMainControllers
     :(NSArray<CSMainController *> *)controllers;
 

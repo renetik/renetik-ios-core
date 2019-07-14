@@ -15,7 +15,7 @@ import RenetikObjc
 
     @discardableResult
     @objc public override func construct(
-        _ parent: CSMainController) -> Self {
+        _ parent: UIViewController) -> Self {
         super.construct(parent)
         kayboardManager.onKayboardChange = onKayboardChange
         return self
@@ -44,62 +44,61 @@ import RenetikObjc
         showNavigationBar()
     }
 
-    public override func viewWillDisappear() {
-        super.viewWillDisappear()
+    public override func onViewPushedOver() {
+        super.onViewPushedOver()
         showNavigationBar()
     }
 
     public override func onViewWillTransition(toSizeCompletion
         size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
-            UIView.animate(0.3) {
+            UIView.animate(withDuration: 0.3, animations: {
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
                 navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
-            }
+            })
         }
     }
 
     var lastContentOffset: CGFloat = 0
 
+    @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        lastContentOffset = scrollView.contentOffset.y
+    }
+
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if kayboardManager.isKeyboardVisible { return }
-
-        if scrollView.isAtTop {
-            showNavigationBar()
-        } else if scrollView.isAtBottom {
+        if scrollView.isAtTop { showNavigationBar() }
+        else if scrollView.isAtBottom {}
+        else if lastContentOffset < scrollView.contentOffset.y {
             hideNavigationBar()
-        } else if lastContentOffset < scrollView.contentOffset.y {
-            hideNavigationBar()
-        } else {
+        } else if lastContentOffset > scrollView.contentOffset.y {
             showNavigationBar()
         }
-        lastContentOffset = scrollView.contentOffset.y
-
-        //			if scrollView.panGestureRecognizer.translation(
-        //			in: scrollView.superview).y < 0 {
-//            hideNavigationBar()
-//        } else {
-//            showNavigationBar()
-//        }
     }
 
     @objc public func hideNavigationBar() {
         if isNavigationBarHidden { return }
-        UIView.animate(0.5) {
-            navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-            navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
-        }
-        navigation.navigationBar.fadeOut(0.7)
         isNavigationBarHidden = true
+        UIView.animate(withDuration: 0.5, animations: {
+            navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+            if navigation.last!.view.superview != nil {
+                navigation.last!.view.top(UIApplication.statusBarHeight())
+                navigation.last!.view.fromBottom(toHeight: 0)
+            }
+        })
+        navigation.navigationBar.fadeOut(0.7)
     }
 
     @objc public func showNavigationBar() {
         if !isNavigationBarHidden { return }
-        UIView.animate(0.5) {
-            navigation.navigationBar.top = UIApplication.statusBarHeight()
-            navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
-        }
-        navigation.navigationBar.fade(in: 0.7)
         isNavigationBarHidden = false
+        UIView.animate(withDuration: 0.5, animations: {
+            navigation.navigationBar.top = UIApplication.statusBarHeight()
+            if navigation.last!.view.superview != nil {
+                navigation.last!.view.top(navigation.navigationBar.bottom)
+                navigation.last!.view.fromBottom(toHeight: 0)
+            }
+        })
+        navigation.navigationBar.fade(in: 0.7)
     }
 }

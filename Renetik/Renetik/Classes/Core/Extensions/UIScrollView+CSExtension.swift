@@ -11,11 +11,13 @@ import UIKit
     static let scrollStateInaccuracy: CGFloat = 15
 
     @objc public var isAtTop: Bool {
-        return contentOffset.y - UIScrollView.scrollStateInaccuracy <= verticalOffsetForTop
+        return contentOffset.y <= verticalOffsetForTop
     }
 
     @objc public var isAtBottom: Bool {
-        return contentOffset.y + UIScrollView.scrollStateInaccuracy >= verticalOffsetForBottom
+//        let bottomEdge = contentOffset.y + height
+//        return bottomEdge >= contentSize.height
+        return contentOffset.y >= verticalOffsetForBottom
     }
 
     @objc public var verticalOffsetForTop: CGFloat {
@@ -28,6 +30,6 @@ import UIKit
         let scrollContentSizeHeight = contentSize.height
         let bottomInset = contentInset.bottom
         let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
-        return scrollViewBottomOffset
+        return scrollViewBottomOffset.rounded()
     }
 }

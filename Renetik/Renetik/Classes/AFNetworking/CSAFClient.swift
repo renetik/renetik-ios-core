@@ -13,7 +13,8 @@ open class CSAFClient: CSObject {
     public let url: String
     public let manager: AFHTTPSessionManager
     var defaultParams: Dictionary<String, String> = [:]
-    public var requestFailedMessage = "Request failed"
+    public var requestFailMessage = "Request failed"
+    public var requestCancelMessage = "Request cancelled"
 
     public init(url: String) {
         self.url = url
@@ -61,6 +62,7 @@ open class CSAFClient: CSObject {
         _ service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
+		request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
         execute(request, response)
@@ -78,6 +80,7 @@ open class CSAFClient: CSObject {
         _ params: Dictionary<String, String>,
         form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
+		request.requestCancelledMessage = requestCancelMessage
         request.type = .post
         request.form = form
         let response = CSAFResponse(self, request)
@@ -98,6 +101,7 @@ open class CSAFClient: CSObject {
         service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
+		request.requestCancelledMessage = requestCancelMessage
         request.type = .post
         let response = CSAFResponse(self, request)
         execute(request, response)
@@ -205,6 +209,6 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
 
     func onRequestFailed() {
         if let message = request.data.message { request.failed(withMessage: message) }
-        else { request.failed(withMessage: client.requestFailedMessage) }
+        else { request.failed(withMessage: client.requestFailMessage) }
     }
 }

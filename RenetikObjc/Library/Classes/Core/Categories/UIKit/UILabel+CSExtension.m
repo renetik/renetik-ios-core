@@ -116,8 +116,7 @@
     self.numberOfLines = 0;
     let current = self.text;
     self.text = value;
-    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
-    self.height = newSize.height;
+    self.height = self.calculateHeightToFitWidth;
     self.text = current;
     return self;
 }

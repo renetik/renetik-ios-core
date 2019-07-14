@@ -28,6 +28,11 @@
     return rect.size;
 }
 
+- (CGFloat)calculateHeightToFitWidth {
+    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    return newSize.height;
+}
+
 - (instancetype)size :(CGSize)size {
     self.size = size;
     return self;

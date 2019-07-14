@@ -24,6 +24,12 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
 
 @implementation UIView (CSContainer)
 
++ (instancetype)withContentView {
+    let instance = self.construct;
+    [instance content:UIView.construct].matchParent;
+    return instance;
+}
+
 + (instancetype)wrap:(UIView*)view {
     UIView*container = [self withFrame:view.frame];
     let center = view.center;

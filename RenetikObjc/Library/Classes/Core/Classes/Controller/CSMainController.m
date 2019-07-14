@@ -19,12 +19,12 @@
 #import "UIView+CSPosition.h"
 
 @implementation CSMainController {
-    NSMutableArray<CSMainController *> *_childMainControllers;
-    CSActionSheet *_menuSheet;
+    NSMutableArray<CSMainController*>*_childMainControllers;
+    CSActionSheet*_menuSheet;
 }
 
 - (instancetype)init {
-    if (self == super.init) {
+    if(self == super.init) {
         _menu = NSMutableArray.new;
         _childMainControllers = NSMutableArray.new;
     }
@@ -32,28 +32,21 @@
 }
 
 - (void)viewWillAppear :(BOOL)animated {
-    [super viewWillAppear :animated];
-    if (self.isMainController) [self updateBarItemsAndMenu :NO];
+    [super viewWillAppear:animated];
+    if(self.isMainController) [self updateBarItemsAndMenu:NO];
 }
 
 - (void)viewDidAppear :(BOOL)animated {
-    [super viewDidAppear :animated];
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear :(BOOL)animated {
-    [super viewWillDisappear :animated];
-    if (self.menuSheet) [self.menuSheet hide];
-    if ([self.navigationController.viewControllers indexOfObject :self] == NSNotFound && self.isMainController) [self onViewDismissing];
-}
-
-- (void)onViewDismissing {
-    [super onViewDismissing];
-    for (CSMainController *controller in _childMainControllers)
-        [controller onViewDismissing];
+    [super viewWillDisappear:animated];
+    if(self.menuSheet) self.menuSheet.hide;
 }
 
 - (BOOL)isMainController {
-    return [self.parentViewController isKindOfClass :UINavigationController.class] || _parentMain == nil;
+    return [self.parentViewController isKindOfClass:UINavigationController.class] || _parentMain == nil;
 }
 
 - (BOOL)isChildController {
@@ -61,123 +54,124 @@
 }
 
 - (void)updateBarItemsAndMenu {
-    [self updateBarItemsAndMenu :NO];
+    [self updateBarItemsAndMenu:NO];
 }
 
 - (void)updateBarItemsAndMenu :(BOOL)animated {
-    if (self.isChildController) {
-        [_parentMain updateBarItemsAndMenu :animated];
+    if(self.isChildController) {
+        [_parentMain updateBarItemsAndMenu:animated];
         return;
     }
-    NSMutableArray<CSMenuHeader *> *menu = NSMutableArray.new;
-    [self onPrepareMenu :menu];
-    NSArray<UIBarButtonItem *> *actionItems = [self createActionBarItems :menu];
-    UIBarButtonItem *barMenuItem = [self onCreateMenu :menu];
-    NSMutableArray<UIBarButtonItem *> *barItems = NSMutableArray.new;
-    if (barMenuItem) [barItems put :barMenuItem];
-    [barItems addArray :actionItems];
-    [self onPrepareRightBarButtonItems :barItems];
-    [self.navigationItem setRightBarButtonItems :barItems];
-    [self.navigationItem setLeftBarButtonItem :self.onPrepareLeftBarItem animated :true];
+    NSMutableArray<CSMenuHeader*>*menu = NSMutableArray.new;
+    [self onPrepareMenu:menu];
+    NSArray<UIBarButtonItem*>*actionItems =
+        [self createActionBarItems:menu];
+    UIBarButtonItem*barMenuItem = [self onCreateMenu:menu];
+    NSMutableArray<UIBarButtonItem*>*barItems = NSMutableArray.new;
+    if(barMenuItem) [barItems put:barMenuItem];
+    [barItems addArray:actionItems];
+    [self onPrepareRightBarButtonItems:barItems];
+    [self.navigationItem setRightBarButtonItems:barItems];
+    [self.navigationItem setLeftBarButtonItem:self.onPrepareLeftBarItem animated:true];
 }
 
-- (NSArray<UIBarButtonItem *> *)createActionBarItems
-    :(NSMutableArray<CSMenuHeader *> *)menu {
-    NSMutableArray<UIBarButtonItem *> *array = NSMutableArray.new;
-    if (menu.first && menu.first.isDisplayedAsItem) {
-        [array put :menu.first.items.first.createBarButton];
-        [menu removeObjectAtIndex :0];
+- (NSArray<UIBarButtonItem*>*)createActionBarItems
+    :(NSMutableArray<CSMenuHeader*>*)menu {
+    NSMutableArray<UIBarButtonItem*>*array = NSMutableArray.new;
+    if(menu.first && menu.first.isDisplayedAsItem) {
+        [array put:menu.first.items.first.createBarButton];
+        [menu removeObjectAtIndex:0];
     }
-    if (menu.first && menu.first.isDisplayedAsItem) {
-        [array put :menu.first.items.first.createBarButton];
-        [menu removeObjectAtIndex :0];
+    if(menu.first && menu.first.isDisplayedAsItem) {
+        [array put:menu.first.items.first.createBarButton];
+        [menu removeObjectAtIndex:0];
     }
-    if (menu.count == 1 && menu.first.isDisplayedAsItem) {
-        [array put :menu.first.items.first.createBarButton];
-        [menu removeObjectAtIndex :0];
+    if(menu.count == 1 && menu.first.isDisplayedAsItem) {
+        [array put:menu.first.items.first.createBarButton];
+        [menu removeObjectAtIndex:0];
     }
     return array.reverse;
 }
 
-- (CSActionSheet *)menuSheet {
+- (CSActionSheet*)menuSheet {
     return _menuSheet ? _menuSheet : (_menuSheet = CSActionSheet.new);
 }
 
-- (UIBarButtonItem *)onCreateMenu :(NSMutableArray<CSMenuHeader *> *)menu {
-    if (menu.empty) return nil;
+- (UIBarButtonItem*)onCreateMenu :(NSMutableArray<CSMenuHeader*>*)menu {
+    if(menu.empty) return nil;
     self.menuSheet.clear;
-    for (CSMenuHeader *menuHeader in menu) {
-        CSMenuItem *item = menuHeader.items.first;
-        [self.menuSheet addAction :item.title :^{
+    for(CSMenuHeader*menuHeader in menu) {
+        CSMenuItem*item = menuHeader.items.first;
+        [self.menuSheet addAction:item.title:^{
             item.action(item);
         }];
     }
-    return [UIBarButtonItem.alloc bk_initWithImage :CSMenuIcon.image style :UIBarButtonItemStylePlain handler :^(id sender) {
-        if (_menuSheet.visible) [_menuSheet hide];
-        else [_menuSheet showFromBarItem :sender];
+    return [UIBarButtonItem.alloc bk_initWithImage:CSMenuIcon.image style:UIBarButtonItemStylePlain handler:^(id sender) {
+        if(_menuSheet.visible) [_menuSheet hide];
+        else [_menuSheet showFromBarItem:sender];
     }];
 }
 
-- (void)onPrepareRightBarButtonItems :(NSMutableArray<UIBarButtonItem *> *)array {
+- (void)onPrepareRightBarButtonItems :(NSMutableArray<UIBarButtonItem*>*)array {
 }
 
-- (void)addChildViewController :(UIViewController *)childController {
-    [super addChildViewController :childController];
-    if ([childController isKindOfClass :CSMainController.class]) [self addChildMainController :(CSMainController *)childController];
+- (void)addChildViewController :(UIViewController*)childController {
+    [super addChildViewController:childController];
+    if([childController isKindOfClass:CSMainController.class]) [self addChildMainController:(CSMainController*)childController];
 }
 
-- (void)addChildMainController :(CSMainController *)childController {
-    [_childMainControllers put :childController];
-    childController.parentMain = self;
-}
-
-- (UIViewController *)dismissChildController :(UIViewController *)controller {
-    [super dismissChildController :controller];
-    if ([controller isKindOfClass :CSMainController.class]) [_childMainControllers remove :controller];
+- (UIViewController*)dismissChildController :(UIViewController*)controller {
+    [super dismissChildController:controller];
+    if([controller isKindOfClass:CSMainController.class]) [_childMainControllers remove:controller];
     return controller;
 }
 
-- (NSArray<CSMainController *> *)setChildMainControllers :(NSArray<CSMainController *> *)controllers {
+- (NSArray<CSMainController*>*)setChildMainControllers :(NSArray<CSMainController*>*)controllers {
     [_childMainControllers removeAllObjects];
-    [self addChildMainControllers :controllers];
+    [self addChildMainControllers:controllers];
     return controllers;
 }
 
-- (NSArray<CSMainController *> *)addChildMainControllers :(NSArray<CSMainController *> *)controllers {
-    for (CSMainController *controller in controllers)
-        [self addChildMainController :controller];
+- (NSArray<CSMainController*>*)addChildMainControllers :(NSArray<CSMainController*>*)controllers {
+    for(CSMainController*controller in controllers)
+        [self addChildMainController:controller];
     return controllers;
 }
 
-- (void)onPrepareMenu :(NSMutableArray<CSMenuHeader *> *)menu {
-    for (CSMenuHeader *menuHeader in _menu) if (menuHeader.visible) [menu put :menuHeader];
-    for (CSMainController *controller in _childMainControllers) if (controller.showing) [controller onPrepareMenu :menu];
+- (void)addChildMainController :(CSMainController*)childController {
+    [_childMainControllers put:childController];
+    childController.parentMain = self;
 }
 
-- (UIBarButtonItem *)onPrepareLeftBarItem {
-    for (CSMainController *controller in _childMainControllers) if (controller.showing) return controller.onPrepareLeftBarItem;
+- (void)onPrepareMenu :(NSMutableArray<CSMenuHeader*>*)menu {
+    for(CSMenuHeader*menuHeader in _menu) if(menuHeader.visible) [menu put:menuHeader];
+    for(CSMainController*controller in _childMainControllers) if(controller.showing) [controller onPrepareMenu:menu];
+}
+
+- (UIBarButtonItem*)onPrepareLeftBarItem {
+    for(CSMainController*controller in _childMainControllers) if(controller.showing) return controller.onPrepareLeftBarItem;
     return nil;
 }
 
-- (instancetype)showIn :(CSMainController *)parent {
-    CATransition *transition = CATransition.animation;
+- (instancetype)showIn :(CSMainController*)parent {
+    CATransition*transition = CATransition.animation;
     transition.duration = 0.15;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName :kCAMediaTimingFunctionEaseInEaseOut];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromBottom;
-    [self.view.layer addAnimation :transition forKey :nil];
-    [parent showChildController :self];
+    [self.view.layer addAnimation:transition forKey:nil];
+    [parent showChildController:self];
     self.showing = YES;
     return self;
 }
 
 - (instancetype)hideIn {
     self.showing = NO;
-    [UIView animateWithDuration :0.5
-                     animations :^{ self.view.bottom =  -5; }
-                     completion :^(BOOL finished) {
+    [UIView animateWithDuration:0.5
+                     animations:^{ self.view.bottom =  -5; }
+                     completion:^(BOOL finished) {
         self.view.hide;
-        [_parentMain dismissChildController :self];
+        [_parentMain dismissChildController:self];
     }];
     return self;
 }
