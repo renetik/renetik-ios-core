@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)clearSubviews;
 
+- (BOOL)isEmpty;
+
 - (nullable UIView*)add:(UIView*)view;
 
 - (instancetype)addViews:(NSArray<UIView*>*)views;

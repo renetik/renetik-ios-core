@@ -125,8 +125,7 @@
     [super viewDidDisappear:animated];
     self.appearing = NO;
     self.viewDidDisappear;
-	if(!self.controllerInNavigation.parentViewController)
-		self.onViewDismissing;
+    if(!self.controllerInNavigation.parentViewController) self.onViewDismissing;
 }
 
 - (void)viewDidDisappear {

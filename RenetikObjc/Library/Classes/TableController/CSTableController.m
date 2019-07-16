@@ -285,8 +285,10 @@
     if(_filteredData.hasItems)
         invoke(^{
             let path = [NSIndexPath indexPathForRow:_filteredData.count - 1];
-            [self.tableView scrollToRowAtIndexPath:path
-                                  atScrollPosition:UITableViewScrollPositionBottom animated:true];
+            [self.tableView
+             scrollToRowAtIndexPath:path
+                   atScrollPosition:UITableViewScrollPositionBottom
+                           animated:true];
         });
     return self;
 }

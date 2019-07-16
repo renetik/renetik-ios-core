@@ -45,7 +45,7 @@ import UIKit
         return cell!
     }
 
-	@discardableResult
+    @discardableResult
     @nonobjc func register<CellType: UITableViewCell>(
         _ cellType: CellType.Type) -> Self {
         register(cellType, forCellReuseIdentifier: cellType.className())
@@ -56,13 +56,14 @@ import UIKit
         _ cellType: CellType.Type,
         onCreate: ((CellType) -> Void)? = nil) -> CellType {
         var cell = dequeueReusableCell(cellType.className()) as! CellType
-        if cell.contentView.subviews.isEmpty {
+        if cell.contentView.isEmpty() {
             onCreate?(cell)
-            //			cell.contentView.matchParent()
-//            cell.width = width
-//            cell.height = 10
-            cell.construct() }
-        //		cell.width = width
+            cell.contentView.matchParent()
+            cell.width = width
+            cell.height = 50
+            cell.construct()
+		}
+        cell.width = width
         return cell
     }
 }
