@@ -88,6 +88,11 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return self;
 }
 
+- (instancetype)isEmpty {
+	for(UIView*view in self.subviews) [view removeFromSuperview];
+	return self;
+}
+
 - (UIView*)add:(UIView*)view {
     [self addSubview:view];
     return view;

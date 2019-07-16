@@ -28,6 +28,7 @@
     _parent = parent;
     _onTextDidChange = [onTextDidChange copy];
     _bar.delegate = self;
+	_bar.showsCancelButton = false;
     return self;
 }
 
@@ -51,6 +52,18 @@
     BOOL boolToReturn = _searchBarShouldBeginEditing;
     _searchBarShouldBeginEditing = YES;
     return boolToReturn;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
+	[UIView animate:0.3 :^{
+		searchBar.showsCancelButton = true;
+	}];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar*)searchBar {
+	[UIView animate:0.3 :^{
+		searchBar.showsCancelButton = false;
+	}];
 }
 
 - (NSString*)text {

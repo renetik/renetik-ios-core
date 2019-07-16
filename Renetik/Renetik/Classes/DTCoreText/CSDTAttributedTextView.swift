@@ -18,7 +18,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
     public var defaultLinkColor: UIColor = .blue
-	private var imageUrls = [URL]()
+    private var imageUrls = [URL]()
 
     public func encoding(_ encoding: String.Encoding) -> Self {
         self.encoding = encoding
@@ -94,8 +94,19 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         height(attributedTextContentView.height)
         return self
     }
-	
-	public override func calculateHeightToFitWidth() -> CGFloat {
-		return attributedTextContentView.calculateHeightToFitWidth()
-	}
+
+	@discardableResult
+    public func sizeHeightToFit(characters count: Int) -> Self {
+        let previousString = attributedString
+        attributedString = NSAttributedString(string:
+            String.randomString(length: count))
+        attributedTextContentView.sizeHeightToFit()
+        height(attributedTextContentView.height)
+        attributedString = previousString
+        return self
+    }
+
+    public override func calculateHeightToFitWidth() -> CGFloat {
+        return attributedTextContentView.calculateHeightToFitWidth()
+    }
 }

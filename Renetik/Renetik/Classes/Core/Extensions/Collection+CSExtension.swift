@@ -55,10 +55,10 @@ public extension Array where Element: Equatable {
 public extension Array where Element: NSObject {
     @discardableResult
     public func filter(bySearch text: String?) -> Array {
-        if text?.trim()?.isSet == true {
+        if text?.trim().isSet == true {
             var filtered = Array<Element>()
             for item in self {
-                if item.description.containsNoCase(text) {
+                if item.description.containsNoCase(text!) {
                     filtered.add(item)
                 }
             }

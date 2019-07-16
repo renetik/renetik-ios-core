@@ -8,7 +8,9 @@ extension String {
             startTagIndex = string.indexOf("<img ", from: startTagIndex + 1)
             if startTagIndex != NSString.notFound {
                 let endTagIndex = string.indexOf("/>", from: startTagIndex + 1)
-                if !string.substring(from: startTagIndex, to: endTagIndex).contains("width=") {
+                let tagSubString = string.substring(from: startTagIndex,
+                                                    to: endTagIndex) as String
+                if !tagSubString.contains("width=") {
                     endTagsToAddSize.append(endTagIndex)
                 }
             }

@@ -50,12 +50,6 @@
     super.cancel;
 }
 
-- (void)reset {
-    [super reset];
-    [_responses removeAllObjects];
-    [_failedResponses removeAllObjects];
-}
-
 - (void)onAddDone {
     invoke(^{if (_responses.empty)[self onResponsesDone];});
 }

@@ -120,6 +120,16 @@ public class CSDTAttributedLabel: DTAttributedLabel,
         }
     }
 
+	@discardableResult
+    public func sizeHeightToFit(characters count: Int) -> Self {
+        let previousString = attributedString
+		let randomString = String.randomString(length: count)
+        attributedString = NSAttributedString(string:randomString)
+        sizeHeightToFit()
+        attributedString = previousString
+        return self
+    }
+
 //    public func attributedTextContentView(_
 //        contentView: DTAttributedTextContentView!,
 //        viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {

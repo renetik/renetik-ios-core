@@ -63,15 +63,13 @@ typedef NS_ENUM (NSUInteger, CSRequestType) {
 
 - (instancetype)setProgress :(double)completed;
 
-- (void)reset;
-
 - (instancetype)fromCacheIfPossible :(BOOL)force;
 
 - (instancetype)force :(BOOL)reload;
 
-- (instancetype)setId :(id)id;
-
-- (NSString*)id;
+//- (instancetype)setId :(id)id;
+//
+//- (NSString*)id;
 
 @end
 

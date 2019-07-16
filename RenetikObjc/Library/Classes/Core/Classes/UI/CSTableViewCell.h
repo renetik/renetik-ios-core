@@ -6,10 +6,8 @@
 
 @interface CSTableViewCell: UITableViewCell
 
-@property (nonatomic, copy) void (^ onLayoutSubviews)();
-
 - (void)executeToUpdateHeight:(void (^)())onUpdateHeight;
 
-- (void)layoutSubviews;
+- (void)onLayoutSubviews;
 
 @end

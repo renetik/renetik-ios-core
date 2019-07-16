@@ -125,11 +125,17 @@
     _isLoading = YES;
     _loadResponse = self.onLoad ? self.onLoad() : self.onLoadPage(0);
     if(showProgress) [_parent showProgress:_loadResponse];
-    return [[_loadResponse onFailed:^(CSResponse*response) {
+    [_loadResponse onFailed:^(CSResponse*response) {
         _self.isFailed = YES;
         _self.failedMessage = response.message;
         _tableView.reloadData;
-    }] onDone:^(id data) {
+    }];
+    [_loadResponse onCancel:^(CSResponse*response) {
+        _self.isFailed = YES;
+        _self.failedMessage = response.message;
+        _tableView.reloadData;
+    }];
+    return [_loadResponse onDone:^(id data) {
         _self.tableView.fadeIn;
         _self.refreshControl.endRefreshing;
         _self.isLoading = NO;

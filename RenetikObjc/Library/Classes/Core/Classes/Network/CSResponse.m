@@ -45,46 +45,50 @@
     return self;
 }
 
+- (NSString*)description {
+	let format = @"url:%@ service:%@ message:%@ params:%@ post:%@ content:%@";
+	return stringf(format, _url, _service, _message, _params, _post, _content);
+}
+
 - (void)success :(id)data {
-    if(_canceled) return;
+    if(_done) return;
     _data = data;
-    self.onSuccessEvent;
-    self.onDoneEvent;
-}
-
-- (void)onSuccessEvent {
-    _success = YES;
-    [_onSuccessEvent run:self.data];
-}
-
-- (void)onDoneEvent {
-    _done = YES;
-    [_onDoneEvent run:self.data];
+	_success = YES;
+	[_onSuccessEvent run:self.data];
+    self.done;
 }
 
 - (void)failed :(CSResponse*)response {
-    if(_canceled) return;
+    if(_done) return;
     _failed = YES;
     NSLog(@"Response failed %@", response.message);
     [_onFailedEvent run:response];
-    self.onDoneEvent;
+    self.done;
+}
+
+- (instancetype)failedWithMessage :(NSString*)message {
+	if(_done) return self;
+	self.message = message;
+	[self failed:self];
+	return self;
 }
 
 - (void)cancel {
-    [self failedWithMessage:self.requestCancelledMessage];
+	self.message = self.requestCancelledMessage;
+	_canceled = YES;
     [_onCancelEvent run:self];
-    _canceled = YES;
+	self.done;
+}
+
+- (void)done {
+	_done = YES;
+	[_onDoneEvent run:self.data];
 }
 
 - (CSResponse*)failIfFail :(CSResponse*)response {
     return [response onFailed:^(CSResponse*_response) {
         [self failed:_response];
     }];
-}
-
-- (NSString*)description {
-    return stringf(@"Response Url:%@ Service:%@ Message:%@ Params:%@ Post:%@ Content:%@",
-                   _url, _service, _message, _params, _post, _content);
 }
 
 - (CSResponse*)successIfSuccess :(CSResponse*)response {
@@ -95,13 +99,6 @@
     [self failIfFail:response];
     [self successIfSuccess:response];
     return response;
-}
-
-- (instancetype)failedWithMessage :(NSString*)message {
-    if(_canceled) return self;
-    self.message = message;
-    [self failed:self];
-    return self;
 }
 
 - (instancetype)onSuccess :(void (^)(id))onSuccess {
@@ -139,22 +136,14 @@
     return self;
 }
 
-- (void)reset {
-    _message = nil;
-    _done = false;
-    _success = false;
-    _failed = false;
-    _canceled = false;
-}
-
-- (instancetype)setId :(NSString*)id {
-    _id = id;
-    return self;
-}
-
-- (NSString*)id {
-    return _id;
-}
+//- (instancetype)setId :(NSString*)id {
+//    _id = id;
+//    return self;
+//}
+//
+//- (NSString*)id {
+//    return _id;
+//}
 
 - (id)fromCacheIfPossible :(BOOL)force {
     _fromCacheIfPossible = force;

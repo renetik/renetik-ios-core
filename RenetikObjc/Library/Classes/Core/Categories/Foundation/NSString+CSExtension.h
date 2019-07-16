@@ -4,6 +4,7 @@
 
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface NSString (CSExtension)
 
 - (NSString *)remove:(NSString *)string;
@@ -100,3 +101,4 @@
 
 - (NSAttributedString *)attributed:(NSDictionary *)dictionary;
 @end
+NS_ASSUME_NONNULL_END

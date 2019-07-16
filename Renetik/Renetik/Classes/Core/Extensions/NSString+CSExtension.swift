@@ -15,6 +15,9 @@ public extension NSString {
     }
 
     @objc func substring(from: Int, to: Int) -> NSString {
-        return substring(with: NSRange(location: from, length: to - from)) as NSString
+        let substringLenght = to - from
+        return substring(with: NSRange(location: from, length:
+            substringLenght < length ? substringLenght : length
+        )) as NSString
     }
 }
