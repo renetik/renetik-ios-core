@@ -62,7 +62,7 @@ open class CSAFClient: CSObject {
         _ service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
-		request.requestCancelledMessage = requestCancelMessage
+        request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
         execute(request, response)
@@ -80,7 +80,7 @@ open class CSAFClient: CSObject {
         _ params: Dictionary<String, String>,
         form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
-		request.requestCancelledMessage = requestCancelMessage
+        request.requestCancelledMessage = requestCancelMessage
         request.type = .post
         request.form = form
         let response = CSAFResponse(self, request)
@@ -101,7 +101,7 @@ open class CSAFClient: CSObject {
         service: String, data: Data,
         _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
-		request.requestCancelledMessage = requestCancelMessage
+        request.requestCancelledMessage = requestCancelMessage
         request.type = .post
         let response = CSAFResponse(self, request)
         execute(request, response)
@@ -192,7 +192,8 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         let taskRequest = task?.currentRequest
         logInfo("from \(taskRequest?.url.asString)")
         let requestUrl = "\(request.url)\(request.service)"
-        if requestUrl != taskRequest?.url?.absoluteString { logInfo("for \(requestUrl)") }
+        if requestUrl != taskRequest?.url?.absoluteString {
+            logInfo("for \(requestUrl)") }
     }
 
     func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
