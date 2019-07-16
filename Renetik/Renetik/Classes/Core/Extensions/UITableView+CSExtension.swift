@@ -45,18 +45,24 @@ import UIKit
         return cell!
     }
 
+	@discardableResult
+    @nonobjc func register<CellType: UITableViewCell>(
+        _ cellType: CellType.Type) -> Self {
+        register(cellType, forCellReuseIdentifier: cellType.className())
+        return self
+    }
+
     @nonobjc func dequeueCell<CellType: UITableViewCell>(
         _ cellType: CellType.Type,
-		onCreate: ((CellType) -> Void)? = nil) -> CellType {
-//        register(cellType, forCellReuseIdentifier: cellType.className())
+        onCreate: ((CellType) -> Void)? = nil) -> CellType {
         var cell = dequeueReusableCell(cellType.className()) as! CellType
         if cell.contentView.subviews.isEmpty {
             onCreate?(cell)
-//			cell.contentView.matchParent()
+            //			cell.contentView.matchParent()
 //            cell.width = width
 //            cell.height = 10
             cell.construct() }
-//		cell.width = width
+        //		cell.width = width
         return cell
     }
 }
