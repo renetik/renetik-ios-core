@@ -25,6 +25,7 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSLayout.h"
 #import "UIDevice+CSExtension.h"
+#import "UIScreen+CSExtension.h"
 
 @interface CSTableController ()
 @property (nonatomic, strong) CSRefreshControl*refreshControl;
@@ -150,24 +151,19 @@
     wvar _self = self;
     [_parent showFailed:[self.onLoadPage(_pageIndex + 1) onDone:^(id data) {
         _self.isLoading = NO;
-        [_self.loadNextView removeFromSuperview];
+        _self.loadNextView.removeFromSuperview;
     }]];
 }
 
 - (instancetype)load:(NSArray*)array {
-    if(array.hasItems) {
-        [self onLoadSuccessHasData:array];
-        _pageIndex += 1;
-    } else _noNext = YES;
+	if(_pageIndex == -1) {
+		[_data reload:array];
+		self.filterDataAndReload;
+	} else [self loadAdd:array];
+    if(array.hasItems) _pageIndex += 1;
+    else _noNext = YES;
     _isFailed = NO;
     return self;
-}
-
-- (void)onLoadSuccessHasData:(NSArray*)array {
-    if(_pageIndex == -1) {
-        [_data reload:array];
-        [self filterDataAndReload];
-    } else [self loadAdd:array];
 }
 
 - (void)loadAdd:(NSArray*)array {
@@ -186,8 +182,7 @@
 
 - (void)showLoadNextIndicator {
     if(!_loadNextView) {
-        UIActivityIndicatorView*loadingNextView =
-            [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        let loadingNextView = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         if(_loadNextColor) loadingNextView.color = _loadNextColor;
         loadingNextView.startAnimating;
         _loadNextView = loadingNextView;
@@ -198,10 +193,10 @@
 - (BOOL)shouldLoadNext:(NSIndexPath*)path {
     if(_isLoading) return NO;
     var loadStartIndex = 5;
-    if(UIDevice.isPortrait && UIDevice.iPad) loadStartIndex = 15;
-    if(UIDevice.isLandscape && UIDevice.iPad) loadStartIndex = 11;
-    if(UIDevice.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
-    if(UIDevice.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
+    if(UIScreen.isPortrait && UIDevice.iPad) loadStartIndex = 15;
+    if(UIScreen.isLandscape && UIDevice.iPad) loadStartIndex = 11;
+    if(UIScreen.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
+    if(UIScreen.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
     return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - loadStartIndex);
 }
 
@@ -237,29 +232,29 @@
     for(int section = 0; section < filteredData.count; section++)
         [indexes addIndex:section + _filteredData.count];
     [_filteredData addArray:filteredData];
-    [_tableView beginUpdates];
+    _tableView.beginUpdates;
     [_tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-    [_tableView endUpdates];
+    _tableView.endUpdates;
 }
 
 - (void)addItem:(id)item {
     [_data addObject:item];
-    [self filterDataAndReload];
+    self.filterDataAndReload;
 }
 
 - (void)insertItem:(id)item :(int)index {
     [_data insertObject:item atIndex:(uint)index];
-    [self filterDataAndReload];
+    self.filterDataAndReload;
 }
 
 - (void)removeItem:(id)item {
     [_data removeObject:item];
-    [self filterDataAndReload];
+    self.filterDataAndReload;
 }
 
 - (void)removeItemAtIndex:(NSUInteger)index {
     [_data removeObjectAtIndex:index];
-    [self filterDataAndReload];
+    self.filterDataAndReload;
 }
 
 - (id)dataFor:(NSIndexPath*)path {
@@ -272,7 +267,7 @@
 
 - (void)filterDataAndReload {
     [_filteredData reload:[self filterData:_data]];
-    [_tableView reloadData];
+    _tableView.reloadData;
     if([_filter respondsToSelector:@selector(onReloadDone:)]) [_filter onReloadDone:self];
 }
 

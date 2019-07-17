@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UISearchBar*bar;
 @property (nonatomic, copy, readonly) NSString*text;
 
-- (instancetype)construct:(CSMainController*)parent :(UISearchBar*)bar :(void (^)(NSString*))onTextDidChange;
-
 - (instancetype)construct:(CSMainController*)parent :(void (^)(NSString*))onTextDidChange;
 
 @end

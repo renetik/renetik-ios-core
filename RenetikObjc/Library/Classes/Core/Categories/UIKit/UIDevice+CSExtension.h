@@ -7,9 +7,9 @@
 
 @interface UIDevice (CSExtension)
 
-+ (BOOL)isPortrait;
-
-+ (BOOL)isLandscape;
+//+ (BOOL)isPortrait;
+//
+//+ (BOOL)isLandscape;
 
 + (BOOL)iPhone;
 

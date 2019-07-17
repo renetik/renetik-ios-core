@@ -13,6 +13,7 @@
 #import "UIScrollView+CSExtension.h"
 #import "UIViewController+CSExtension.h"
 #import "UIDevice+CSExtension.h"
+#import "UIScreen+CSExtension.h"
 #import "NSArray+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "CSLang.h"
@@ -106,7 +107,7 @@
 }
 
 - (void)updateAppearance {
-    if(UIDevice.isPortrait) {
+    if(UIScreen.isPortrait) {
         [_tabBar show];
         [_scrollView bottomToHeight:_tabBar.top];
     } else {

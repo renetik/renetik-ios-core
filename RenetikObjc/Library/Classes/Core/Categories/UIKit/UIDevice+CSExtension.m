@@ -3,17 +3,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIScreen+CSExtension.h"
+#import "CSLang.h"
 
 @implementation UIDevice (CSExtension)
 
-+ (BOOL)isPortrait {
-    if (self.currentDevice.orientation == UIDeviceOrientationUnknown) return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
-    return UIDeviceOrientationIsPortrait(self.currentDevice.orientation);
-}
-
-+ (BOOL)isLandscape {
-    return !self.isPortrait;
-}
+//+ (BOOL)isPortrait {
+//    let orientation = self.currentDevice.orientation;
+//    if(orientation != UIDeviceOrientationUnknown) return UIDeviceOrientationIsPortrait(orientation);
+//    else return UIScreen.isPortrait;
+//}
+//
+//+ (BOOL)isLandscape {
+//    return !self.isPortrait;
+//}
 
 + (BOOL)iPhone {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
@@ -24,11 +27,11 @@
 }
 
 + (BOOL)isSlimScreen {
-    return UIDevice.iPhone && UIDevice.isPortrait;
+    return UIDevice.iPhone && UIScreen.isPortrait;
 }
 
 + (BOOL)isSlimScreeniPhone5 {
-	return UIDevice.iPhone && UIDevice.isPortrait;
+    return UIDevice.iPhone && UIScreen.isPortrait;
 }
 
 + (BOOL)isWideScreen {

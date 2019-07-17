@@ -12,8 +12,8 @@ public enum DisplayType {
 }
 
 @objc public extension UIDevice {
-    @objc class var width: CGFloat { return UIScreen.main.bounds.size.width }
-    @objc class var height: CGFloat { return UIScreen.main.bounds.size.height }
+    @objc class var width: CGFloat { return UIScreen.width() }
+    @objc class var height: CGFloat { return UIScreen.height() }
     @objc class var maxLength: CGFloat { return max(width, height) }
     @objc class var minLength: CGFloat { return min(width, height) }
     @objc class var zoomed: Bool { return UIScreen.main.nativeScale >= UIScreen.main.scale }
@@ -23,7 +23,7 @@ public enum DisplayType {
     @objc class var carplay: Bool { return UIDevice.current.userInterfaceIdiom == .carPlay }
     @objc class var tv: Bool { return UIDevice.current.userInterfaceIdiom == .tv }
     class var isSlimScreenLessThenIPhone6: Bool {
-        return isPortrait() && (typeIsLike == .iphone4 || typeIsLike == .iphone5)
+        return UIScreen.isPortrait() && (typeIsLike == .iphone4 || typeIsLike == .iphone5)
     }
     @nonobjc class var typeIsLike: DisplayType {
         if phone && maxLength < 568 {

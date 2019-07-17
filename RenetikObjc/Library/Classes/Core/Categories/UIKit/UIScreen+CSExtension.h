@@ -5,6 +5,11 @@
 @import UIKit;
 
 @interface UIScreen (CSExtension)
+
++ (BOOL)isPortrait;
+
++ (BOOL)isLandscape;
+
 + (CGFloat)height;
 
 + (CGFloat)width;

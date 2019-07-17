@@ -10,7 +10,7 @@ import RenetikObjc
 @objc public class CSSelectNameController: CSMainController
     , UITableViewDelegate, UITableViewDataSource {
     @objc public let table = UITableView.construct()
-    @objc public let search = UISearchBar.construct()
+    @objc public let search = CSSearchBarController()
     @objc public var selectedRow: CSName?
     private var names: [CSName] = []
     private var filteredData: [CSName] = []
@@ -84,11 +84,10 @@ import RenetikObjc
         view.add(view: table).matchParent()
         table.hideEmptyCellSplitterBySettingEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
-        table.tableHeaderView = search
+        table.tableHeaderView = search.bar
         table.delegate = self
         table.dataSource = self
-        CSSearchBarController()
-            .construct(self, search) { _ in self.reload() }
+        search.construct(self) { _ in self.reload() }
         reload()
     }
 
