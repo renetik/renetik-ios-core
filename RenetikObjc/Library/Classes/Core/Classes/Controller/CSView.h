@@ -4,12 +4,10 @@
 
 @import UIKit;
 
-@interface CSView : UIView
-
-@property(nonatomic, copy) void (^onLayoutSubviews)();
+@interface CSView: UIView
 
 - (void)executeToUpdateHeight:(void (^)())onUpdateHeight;
 
-- (void)layoutSubviews;
+- (void)onLayoutSubviews;
 
 @end

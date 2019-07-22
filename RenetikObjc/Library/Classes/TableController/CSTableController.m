@@ -193,9 +193,9 @@
 - (BOOL)shouldLoadNext:(NSIndexPath*)path {
     if(_isLoading) return NO;
     var loadStartIndex = 5;
-    if(UIScreen.isPortrait && UIDevice.iPad) loadStartIndex = 15;
-    if(UIScreen.isLandscape && UIDevice.iPad) loadStartIndex = 11;
-    if(UIScreen.isPortrait && UIDevice.iPhone) loadStartIndex = 9;
+    if(UIScreen.isPortrait && UIDevice.iPad) loadStartIndex = 10;
+    if(UIScreen.isLandscape && UIDevice.iPad) loadStartIndex = 9;
+    if(UIScreen.isPortrait && UIDevice.iPhone) loadStartIndex = 8;
     if(UIScreen.isLandscape && UIDevice.iPhone) loadStartIndex = 7;
     return !_noNext && (_shouldLoadNext ? _shouldLoadNext(path) : path.index >= _data.count - loadStartIndex);
 }
