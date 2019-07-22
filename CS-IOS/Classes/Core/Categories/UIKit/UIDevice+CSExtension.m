@@ -3,6 +3,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIScreen+CSExtension.h"
 
 @implementation UIDevice (CSExtension)
 
@@ -11,29 +12,29 @@
     [UIViewController attemptRotationToDeviceOrientation];
 }
 
-+ (UIDeviceOrientation)orientation {
-    return UIDevice.currentDevice.orientation;
-}
+//+ (UIDeviceOrientation)orientation {
+//    return UIDevice.currentDevice.orientation;
+//}
 
-+ (UIInterfaceOrientation)statusBarOrientation  {
-    return UIApplication.sharedApplication.statusBarOrientation;
-}
+//+ (UIInterfaceOrientation)statusBarOrientation  {
+//    return UIApplication.sharedApplication.statusBarOrientation;
+//}
 
-+ (BOOL)isPortrait {
-    if(self.currentDevice.orientation == UIDeviceOrientationUnknown) return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
-    return UIDeviceOrientationIsPortrait(self.currentDevice.orientation);
-}
+//+ (BOOL)isPortrait {
+//    if(self.currentDevice.orientation == UIDeviceOrientationUnknown) return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
+//    return UIDeviceOrientationIsPortrait(self.currentDevice.orientation);
+//}
 
-+ (BOOL)isLandscape {
-    return !self.isPortrait;
-}
+//+ (BOOL)isLandscape {
+//    return !self.isPortrait;
+//}
 
 + (BOOL)isThinScreen {
-    return self.iPhone && self.isPortrait;
+    return self.iPhone && UIScreen.isPortrait;
 }
 
 + (BOOL)isShortScreen {
-	return self.iPhone && self.isLandscape;
+	return self.iPhone && UIScreen.isLandscape;
 }
 
 + (BOOL)isTallScreen {
@@ -42,7 +43,6 @@
 
 + (BOOL)isWideScreen {
     return !self.isThinScreen;
-//	self.isWideScreenIOS8;
 }
 
 + (BOOL)iPhone {
