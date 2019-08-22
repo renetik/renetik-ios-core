@@ -1,5 +1,4 @@
 //
-//  CSNavigationByKeyboardHidingController.swift
 //  Renetik
 //
 //  Created by Rene Dohan on 7/9/19.
@@ -7,7 +6,7 @@
 
 import RenetikObjc
 
-@objc public class CSNavigationByKeyboardHidingController: CSChildViewLessController {
+@objc public class CSNavigationHidingByKeyboardController: CSChildViewLessController {
     var navigationBarHidden = false
     lazy var kayboardManager: CSKeyboardManager = {
         CSKeyboardManager().construct(self)
