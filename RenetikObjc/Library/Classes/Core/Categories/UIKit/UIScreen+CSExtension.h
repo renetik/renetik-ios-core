@@ -10,7 +10,8 @@
 
 + (BOOL)isLandscape;
 
++ (CGFloat)width;
+
 + (CGFloat)height;
 
-+ (CGFloat)width;
 @end

@@ -25,12 +25,12 @@
 	return !self.isPortrait;
 }
 
-+ (CGFloat)height {
-    return UIScreen.mainScreen.bounds.size.height;
-}
-
 + (CGFloat)width {
     return UIScreen.mainScreen.bounds.size.width;
+}
+
++ (CGFloat)height {
+    return UIScreen.mainScreen.bounds.size.height;
 }
 
 @end

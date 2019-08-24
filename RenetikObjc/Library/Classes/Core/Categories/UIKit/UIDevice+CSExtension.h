@@ -7,21 +7,14 @@
 
 @interface UIDevice (CSExtension)
 
-//+ (BOOL)isPortrait;
-//
-//+ (BOOL)isLandscape;
-
 + (BOOL)iPhone;
 
 + (BOOL)iPad;
-
-+ (BOOL)isSlimScreen;
-
-+ (BOOL)isWideScreen;
 
 + (float)systemVersion;
 
 + (BOOL)isIOS10;
 
 + (BOOL)isIOS11;
+
 @end
