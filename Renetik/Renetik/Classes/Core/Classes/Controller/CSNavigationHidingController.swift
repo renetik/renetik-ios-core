@@ -52,7 +52,7 @@ import RenetikObjc
     public override func onViewWillTransition(toSizeCompletion
         size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
                 navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
             })
@@ -79,26 +79,26 @@ import RenetikObjc
     @objc public func hideNavigationBar() {
         if isNavigationBarHidden { return }
         isNavigationBarHidden = true
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
                 navigation.last!.view.top(UIApplication.statusBarHeight())
                 navigation.last!.view.fromBottom(toHeight: 0)
             }
         })
-        navigation.navigationBar.fadeOut(0.7)
+        navigation.navigationBar.fadeOut(0.45)
     }
 
     @objc public func showNavigationBar() {
         if !isNavigationBarHidden { return }
         isNavigationBarHidden = false
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             navigation.navigationBar.top = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
                 navigation.last!.view.top(navigation.navigationBar.bottom)
                 navigation.last!.view.fromBottom(toHeight: 0)
             }
         })
-        navigation.navigationBar.fade(in: 0.7)
+        navigation.navigationBar.fade(in: 0.45)
     }
 }

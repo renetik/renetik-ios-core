@@ -47,7 +47,7 @@ import UIKit
 
     @discardableResult
     @nonobjc func register<CellType: UITableViewCell>(
-        _ cellType: CellType.Type) -> Self {
+        cellType: CellType.Type) -> Self {
         register(cellType, forCellReuseIdentifier: cellType.className())
         return self
     }
