@@ -7,31 +7,16 @@
 
 import RenetikObjc
 
-extension CSConcurrentResponse {
-	
-}
+public extension CSConcurrentResponse {
+    @discardableResult
+    @nonobjc public func add<T: AnyObject>(response: CSResponse<T>) -> CSResponse<T> {
+        add(response as! CSResponse<AnyObject>)
+        return response
+    }
 
-// @objc class CSConcurrentResponseSwift: CSResponse<NSMutableArray> {
-//    init<T: AnyObject>(_ responses: [CSResponse<T>]) {
-//    }
-//
-//    @discardableResult
-//    @objc func addAll(_ responses: [CSResponse<AnyObject>]) -> Self {
-//        return self
-//    }
-//
-//    @discardableResult
-//    @objc func add(_ response: CSResponse<AnyObject>) -> CSResponse<AnyObject> {
-//        return response
-//    }
-//
-//    @discardableResult
-//    func add<T: AnyObject>(response: CSResponse<T>) -> CSResponse<T> {
-//        return response
-//    }
-//
-//    @discardableResult
-//    @objc func onAddDone() -> Self {
-//        return self
-//    }
-// }
+    @discardableResult
+    @nonobjc public func add<T: AnyObject>(responses: [CSResponse<T>]) -> Self {
+        addAll(responses as! [CSResponse<AnyObject>])
+        return self
+    }
+}

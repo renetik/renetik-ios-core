@@ -14,13 +14,19 @@ public extension String {
         }
         return nil
     }
-	
-	static func randomString(length: Int) -> String {
-		let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-		return String((0..<length).map{ _ in letters.randomElement()! })
-	}
+
+    static func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map { _ in letters.randomElement()! })
+    }
 
     public var isSet: Bool { return !isEmpty }
+
+    public var set: Bool { return isSet }
+
+    public var trim: String { return asNSString.trim() }
+
+    public var asNSString: NSString { return (self as NSString) }
 }
 
 public extension Optional where Wrapped == String {

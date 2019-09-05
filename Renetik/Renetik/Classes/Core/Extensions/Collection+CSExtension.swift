@@ -55,7 +55,7 @@ public extension Array where Element: Equatable {
 public extension Array where Element: NSObject {
     @discardableResult
     public func filter(bySearch text: String?) -> Array {
-        if text?.trim().isSet == true {
+        if text?.trim.isSet == true {
             var filtered = Array<Element>()
             for item in self {
                 if item.description.containsNoCase(text!) {
@@ -77,7 +77,7 @@ public extension Dictionary {
 
     public var asJson: String? {
         if let theJSONData = try? JSONSerialization.data(
-            withJSONObject: self, options: [.prettyPrinted]) {
+                withJSONObject: self, options: [.prettyPrinted]) {
             return String(data: theJSONData, encoding: .ascii)
         }
         return nil

@@ -7,6 +7,15 @@
 
 @interface NSArray<ObjectType> (CSExtension)
 
+@property(readonly) BOOL empty;
+@property(readonly) BOOL hasItems;
+@property(readonly) NSInteger lastIndex;
+@property(readonly) NSInteger size;
+@property(readonly) BOOL set;
+@property(readonly) _Nullable ObjectType first;
+@property(readonly) _Nullable ObjectType second;
+@property(readonly) _Nullable ObjectType last;
+
 + (NSArray<NSString *> *)toStringList:(NSArray<NSObject *> *)names;
 
 + (NSArray<NSNumber *> *)toNumberList:(NSArray<NSObject *> *)stringList;
@@ -17,27 +26,11 @@
 
 - (NSInteger)indexOf:(id)anObject;
 
-- (ObjectType)at:(NSInteger)index;
+- (nullable ObjectType)at:(NSInteger)index;
 
-- (ObjectType)get:(NSInteger)index;
-
-- (BOOL)empty;
-
-- (BOOL)hasItems;
-
-- (ObjectType)last;
-
-- (ObjectType)first;
-
-- (ObjectType)second;
-
-- (NSInteger)lastIndex;
-
-- (NSInteger)size;
+- (nullable ObjectType)get:(NSInteger)index;
 
 - (BOOL)equals:(NSArray *)array;
-
-- (BOOL)set;
 
 - (NSArray *)filterBySearch:(NSString *)searchText;
 

@@ -87,8 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)hide;
 
-- (instancetype)clipToBounds;
-
 - (UIView*)add:(UIView*)view;
 
 - (instancetype)onClick:(void (^)(UIView*))block;

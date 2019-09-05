@@ -52,8 +52,8 @@ import UIKit
         return self
     }
 
-    @nonobjc func dequeueCell<CellType: UITableViewCell>(
-        _ cellType: CellType.Type,
+    @nonobjc func dequeue<CellType: UITableViewCell>(
+        cellType: CellType.Type,
         onCreate: ((CellType) -> Void)? = nil) -> CellType {
         var cell = dequeueReusableCell(cellType.className()) as! CellType
         if cell.contentView.isEmpty() {
