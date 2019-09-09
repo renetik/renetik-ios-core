@@ -10,8 +10,7 @@ import DZNEmptyDataSet
 import RenetikObjc
 import UIKit
 
-@objc public class CSTableEmptyController: NSObject
-        , DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+@objc public class CSTableEmptyController: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     @objc public var emptyText: String?
     @objc public var emptyDescription: String?
     @objc public var table: CSTableController<AnyObject>!

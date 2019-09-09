@@ -11,4 +11,8 @@ public extension CGFloat {
 	public func plus(_ value: Int) -> CGFloat {
 		return self + CGFloat(value)
 	}
+
+	public func multiply(_ value: Int) -> CGFloat {
+		return self * CGFloat(value)
+	}
 }

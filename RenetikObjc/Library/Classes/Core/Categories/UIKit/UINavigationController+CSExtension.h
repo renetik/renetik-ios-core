@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushInsteadOfLast:(UIViewController *)controller;
 
+- (void)push:(UIViewController *)pushingController keepLast:(NSInteger)count;
+
 - (BOOL)contains:(Class)controllerClass;
 @end
 

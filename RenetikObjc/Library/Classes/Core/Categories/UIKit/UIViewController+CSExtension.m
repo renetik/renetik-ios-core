@@ -74,15 +74,15 @@
     return controller;
 }
 
-- (UIViewController*)showChildControllerNextLast :(UIViewController*)controller :(UIView*)view {
+- (UIViewController*)showChildControllerNextLast :(UIViewController*)controller :(UIView*)parentView {
     [self.view horizontalLineAdd:controller.view];
-    [self showChildController:controller :view];
+    [self showChildController:controller :parentView];
     return controller;
 }
 
-- (UIViewController*)showChildController :(UIViewController*)controller :(UIView*)view {
+- (UIViewController*)showChildController :(UIViewController*)controller :(UIView*)parentView {
     [self addChildViewController:controller];
-    [view addSubview:controller.view];
+    [parentView addSubview:controller.view];
     [controller didMoveToParentViewController:self];
     return controller;
 }

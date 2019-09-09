@@ -13,13 +13,4 @@ import UIKit
         if isBold { font = font.bold() } else { font = font.normal() }
         return self
     }
-
-    @discardableResult
-    @objc public func sizeHeightToFit(characters count: Int) -> Self {
-        let previousString = text
-        text = String.randomString(length: count)
-        sizeHeightToFit()
-        text = previousString
-        return self
-    }
 }

@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
    s.subspec 'SDWebImage' do |ss|
      ss.source_files = 'Library/Classes/SDWebImage/**/*'
      ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'SDWebImage', '~> 5.0.0-beta'
+     ss.dependency 'SDWebImage', '~> 5.1.1'
    end
 
    s.subspec 'XLPagerTabStrip' do |ss|

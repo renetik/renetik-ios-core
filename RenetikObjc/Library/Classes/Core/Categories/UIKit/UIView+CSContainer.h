@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)wrap:(UIView*)view;
 
-//+ (instancetype)withContent:(UIView*)view;
-
 + (instancetype)wrap:(UIView*)view withPadding:(NSInteger) padding NS_SWIFT_NAME(wrap(view:padding:));
 
 - (UIView*)content:(UIView*)view;
@@ -39,32 +37,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIView*)setView:(UIView*)view :(NSInteger) index
     NS_SWIFT_NAME(set(view:index:));
 
-- (UIView*)horizontalLayoutAdd:(UIView*) view
-    NS_SWIFT_NAME(horizontalLayout(add:));
+- (UIView*)horizontalLayoutAdd:(UIView*) view;
 
-- (UIView*)horizontalLayoutAdd:(UIView*)view margin:(NSInteger)margin columns:(NSInteger) columns
-    NS_SWIFT_NAME(horizontalLayout(add:margin:columns:));
+- (UIView*)horizontalLayoutAdd:(UIView*)view margin:(NSInteger)margin columns:(NSInteger) columns;
 
-- (UIView*)horizontalLineAdd:(UIView*) view
-    NS_SWIFT_NAME(horizontalLine(add:));
+- (UIView*)horizontalLineAdd:(UIView*) view;
 
-- (UIView*)horizontalLineAdd:(UIView*)view margin:(NSInteger) margin
-    NS_SWIFT_NAME(horizontalLine(add:margin:));
+- (UIView*)horizontalLineAdd:(UIView*)view margin:(NSInteger) margin;
 
 - (UIView*)horizontalReverseLayoutAdd:(UIView*) view
     NS_SWIFT_NAME(horizontalReverseLayout(add:));
 
-- (UIView*)verticalLayoutAdd:(UIView*) view
-    NS_SWIFT_NAME(verticalLayout(add:));
+- (UIView*)verticalLayoutAdd:(UIView*) view;
 
-- (UIView*)verticalLayoutAdd:(UIView*)view margin:(NSInteger) margin
-    NS_SWIFT_NAME(verticalLayout(add:margin:));
+- (UIView*)verticalLayoutAdd:(UIView*)view margin:(NSInteger) margin;
 
-- (UIView*)verticalLineAdd:(UIView*) view
-    NS_SWIFT_NAME(verticalLine(add:));
+- (UIView*)verticalLineAdd:(UIView*) view;
 
-- (UIView*)verticalLineAdd:(UIView*)view margin:(NSInteger) margin
-    NS_SWIFT_NAME(verticalLine(add:margin:));
+- (UIView*)verticalLineAdd:(UIView*)view margin:(NSInteger) margin;
 
 - (UIView*)verticalLineAtPosition:(NSInteger)position
     view:(UIView*)view margin:(NSInteger) margin
