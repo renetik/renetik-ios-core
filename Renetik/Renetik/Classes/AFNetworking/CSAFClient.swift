@@ -23,7 +23,7 @@ open class CSAFClient: CSObject {
         configuration.timeoutIntervalForRequest = 60
         configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
-                                       sessionConfiguration: configuration)
+                sessionConfiguration: configuration)
         manager.responseSerializer = AFHTTPResponseSerializer()
     }
 
@@ -55,30 +55,30 @@ open class CSAFClient: CSObject {
 
     public func basicAuhentification(username: String, password: String) {
         manager.requestSerializer
-            .setAuthorizationHeaderFieldWithUsername(username, password: password)
+                .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
 
     open func get<Data: CSServerData>(
-        _ service: String, data: Data,
-        _ params: Dictionary<String, String>) -> CSResponse<Data> {
+            _ service: String, data: Data,
+            _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
-        execute(request, response)
+        invoke { self.execute(request, response) }
 //        manager.get(service, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return request
     }
 
     open func get<Data: CSServerData>(
-        _ service: String, data: Data) -> CSResponse<Data> {
+            _ service: String, data: Data) -> CSResponse<Data> {
         return get(service, data: data, [:])
     }
 
     open func post<Data: CSServerData>(
-        _ service: String, data: Data,
-        _ params: Dictionary<String, String>,
-        form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+            _ service: String, data: Data,
+            _ params: Dictionary<String, String>,
+            form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -86,20 +86,20 @@ open class CSAFClient: CSObject {
         let response = CSAFResponse(self, request)
 //        execute(request, response)
         manager.post(service, parameters: request.params, constructingBodyWith: form,
-                     progress: response.onProgress, success: response.onSuccess,
-                     failure: response.onFailure)
+                progress: response.onProgress, success: response.onSuccess,
+                failure: response.onFailure)
         return request
     }
 
     open func post<Data: CSServerData>(_
-        service: String, data: Data,
-        form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+                                       service: String, data: Data,
+                                       form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         return post(service, data: data, [:], form: form)
     }
 
     open func post<Data: CSServerData>(_
-        service: String, data: Data,
-        _ params: Dictionary<String, String>) -> CSResponse<Data> {
+                                       service: String, data: Data,
+                                       _ params: Dictionary<String, String>) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -112,7 +112,7 @@ open class CSAFClient: CSObject {
     }
 
     private func createParams(_
-        params: Dictionary<String, String>) -> Dictionary<String, String> {
+                              params: Dictionary<String, String>) -> Dictionary<String, String> {
         var newParams = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
         newParams.add(defaultParams)
         newParams.add(params)
@@ -120,17 +120,17 @@ open class CSAFClient: CSObject {
     }
 
     func execute<Data: CSServerData>(
-        _ request: CSResponse<Data>, _ response: CSAFResponse<Data>) {
+            _ request: CSResponse<Data>, _ response: CSAFResponse<Data>) {
         if request.type == .get {
             manager.get(request.service, parameters: request.params, progress: response.onProgress, success: response.onSuccess, failure: response.onFailure)
         } else {
             if request.form.notNil {
                 manager.post(request.service, parameters: request.params, constructingBodyWith: request.form!, progress: response.onProgress,
-                             success: response.onSuccess, failure: response.onFailure)
+                        success: response.onSuccess, failure: response.onFailure)
             } else {
                 manager.post(request.service, parameters: request.params,
-                             progress: response.onProgress, success: response.onSuccess,
-                             failure: response.onFailure)
+                        progress: response.onProgress, success: response.onSuccess,
+                        failure: response.onFailure)
             }
         }
     }
@@ -146,11 +146,11 @@ public extension AFMultipartFormData {
 
     func appendImage(parts: [UIImage]) {
         logInfo(parts)
-        for index in 0 ..< parts.count {
+        for index in 0..<parts.count {
             appendPart(withFileData:
-                parts[index].jpegData(compressionQuality: 0.8)!,
-                name: "images[\(index)]",
-                fileName: "mobileUpload.jpg", mimeType: "image/jpeg")
+            parts[index].jpegData(compressionQuality: 0.8)!,
+                    name: "images[\(index)]",
+                    fileName: "mobileUpload.jpg", mimeType: "image/jpeg")
         }
     }
 }
@@ -183,9 +183,12 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         logInfo(content)
         request.data.loadContent(content)
         if error.notNil && request.data.isEmpty {
-            onHandleResponseError(task?.response, error!, content) }
-        else if request.data.success { request.success(request.data) }
-        else { onRequestFailed() }
+            onHandleResponseError(task?.response, error!, content)
+        } else if request.data.success {
+            request.success(request.data)
+        } else {
+            onRequestFailed()
+        }
     }
 
     func logUrl(_ task: URLSessionDataTask?) {
@@ -193,7 +196,8 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         logInfo("from \(taskRequest?.url.asString)")
         let requestUrl = "\(request.url)\(request.service)"
         if requestUrl != taskRequest?.url?.absoluteString {
-            logInfo("for \(requestUrl)") }
+            logInfo("for \(requestUrl)")
+        }
     }
 
     func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
@@ -209,7 +213,6 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
     }
 
     func onRequestFailed() {
-        if let message = request.data.message { request.failed(withMessage: message) }
-        else { request.failed(withMessage: client.requestFailMessage) }
+        if let message = request.data.message { request.failed(withMessage: message) } else { request.failed(withMessage: client.requestFailMessage) }
     }
 }

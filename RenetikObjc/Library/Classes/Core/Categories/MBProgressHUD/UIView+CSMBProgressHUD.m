@@ -12,20 +12,24 @@
 
 @implementation UIView (CSMBProgressHUD)
 
-- (MBProgressHUD*)showMessage:(NSString*)string {
-    return [MBProgressHUD showMessage:self :string];
+- (MBProgressHUD *)showMessage:(NSString *)string {
+    let message = [MBProgressHUD showMessage:self :string];
+    message.removeFromSuperViewOnHide = true;
+    return message;
 }
 
-- (MBProgressHUD*)showProgress {
-    MBProgressHUD*hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    hud.animationType = MBProgressHUDAnimationZoom;
-    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.backgroundColor = UIColor.clearColor;
-    return hud;
-}
-
-- (MBProgressHUD*)showProgress:(UIColor*)color {
+- (MBProgressHUD *)showProgress {
     let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    progress.removeFromSuperViewOnHide = true;
+    progress.animationType = MBProgressHUDAnimationZoom;
+    progress.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    progress.bezelView.backgroundColor = UIColor.clearColor;
+    return progress;
+}
+
+- (MBProgressHUD *)showProgress:(UIColor *)color {
+    let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    progress.removeFromSuperViewOnHide = true;
     progress.mode = MBProgressHUDModeIndeterminate;
     progress.activityIndicatorColor = color;
     progress.animationType = MBProgressHUDAnimationZoom;

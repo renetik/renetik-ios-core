@@ -15,6 +15,10 @@
     CSArgEvent<id>*_onCancelEvent;
     CSArgEvent<id>*_onDoneEvent;
     NSString*_id;
+    BOOL _isSuccess;
+    BOOL _isFailed;
+    BOOL _isCanceled;
+    BOOL _isDone;
 }
 
 - (id)init {
@@ -51,23 +55,23 @@
 }
 
 - (void)success :(id)data {
-    if(_done) return;
+    if(_isDone) return;
     _data = data;
-	_success = YES;
+	_isSuccess = YES;
 	[_onSuccessEvent run:self.data];
     self.done;
 }
 
 - (void)failed :(CSResponse*)response {
-    if(_done) return;
-    _failed = YES;
+    if(_isDone) return;
+    _isFailed = YES;
     NSLog(@"Response failed %@", response.message);
     [_onFailedEvent run:response];
     self.done;
 }
 
 - (instancetype)failedWithMessage :(NSString*)message {
-	if(_done) return self;
+	if(_isDone) return self;
 	self.message = message;
 	[self failed:self];
 	return self;
@@ -75,13 +79,13 @@
 
 - (void)cancel {
 	self.message = self.requestCancelledMessage;
-	_canceled = YES;
+	_isCanceled = YES;
     [_onCancelEvent run:self];
-	self.done;
+    self.done;
 }
 
 - (void)done {
-	_done = YES;
+	_isDone = YES;
 	[_onDoneEvent run:self.data];
 }
 
@@ -135,15 +139,6 @@
     _forceReload = reload;
     return self;
 }
-
-//- (instancetype)setId :(NSString*)id {
-//    _id = id;
-//    return self;
-//}
-//
-//- (NSString*)id {
-//    return _id;
-//}
 
 - (id)fromCacheIfPossible :(BOOL)force {
     _fromCacheIfPossible = force;
