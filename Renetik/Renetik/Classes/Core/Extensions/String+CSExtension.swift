@@ -27,6 +27,10 @@ public extension String {
     public var trim: String { return asNSString.trim() }
 
     public var asNSString: NSString { return (self as NSString) }
+
+    public var boolValue: Bool {
+        return asNSString.boolValue
+    }
 }
 
 public extension Optional where Wrapped == String {
