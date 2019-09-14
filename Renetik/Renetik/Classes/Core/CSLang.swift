@@ -94,30 +94,58 @@ public extension Optional {
     }
 
     @discardableResult
-    public func notNil(_ function: (Wrapped) -> Void) -> Optional<Wrapped> {
-        if self != nil { function(self!) }
-        return self
+    public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResultNil {
+        if self != nil {
+            function(self!)
+            return CSConditionalResultNil(isNil: false)
+        }
+        return CSConditionalResultNil(isNil: true)
     }
 
     @discardableResult
-    public func elseDo(_ function: () -> Void) -> Optional<Wrapped> {
-        if self == nil { function() }
-        return self
+    public func isNil(_ function: () -> Void) -> CSConditionalResultNotNil<Wrapped> {
+        if self == nil {
+            function()
+            return CSConditionalResultNotNil()
+        }
+        return CSConditionalResultNotNil(variable: self!)
     }
-
-    @discardableResult
-    public func isNil(_ function: () -> Void) -> Bool {
-        if self == nil { function() }
-        return self == nil
-    }
-
-//
-//    public func then(function: (Wrapped) -> Void) {
-//        if self != nil { function(self!) }
-//    }
 
     public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
         if self != nil { return function(self!) } else { return nil }
+    }
+}
+
+public class CSConditionalResultNil {
+
+    let isNil: Bool
+
+    init(isNil: Bool) {
+        self.isNil = isNil
+    }
+
+    public func elseDo(_ function: () -> Void) {
+        if isNil { function() }
+    }
+}
+
+public class CSConditionalResultNotNil<Type> {
+
+    let variable: Type?
+    let notNil: Bool
+
+    init() {
+        self.notNil = false
+        self.variable = nil
+    }
+
+    init(variable: Type) {
+        self.notNil = true
+        self.variable = variable
+    }
+
+    public func elseDo(_ function: (Type) -> Void) {
+        if notNil { function(variable!) }
     }
 }
 

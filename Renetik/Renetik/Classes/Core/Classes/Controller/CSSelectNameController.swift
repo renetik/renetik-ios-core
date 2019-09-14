@@ -8,75 +8,33 @@
 import RenetikObjc
 
 @objc public class CSSelectNameController: CSMainController
-    , UITableViewDelegate, UITableViewDataSource {
+        , UITableViewDelegate, UITableViewDataSource {
     @objc public let table = UITableView.construct()
     @objc public let search = CSSearchBarController()
-    @objc public var selectedRow: CSName?
+    @objc public var selectedName: CSName?
     private var names: [CSName] = []
     private var filteredData: [CSName] = []
-    private var onSelected: ((CSName?) -> Void)!
+    private var onSelected: ((CSName) -> Void)!
     private var onDelete: ((CSName) -> CSResponse<AnyObject>)?
-    private var deleteTitle = ""
 
-    @objc public func construct(
-        names: [CSName],
-        _ onSelected: @escaping (CSName?) -> Void) -> Self {
-        self.names = names
+    @discardableResult
+    @objc public func construct(data: [CSName], onSelected: @escaping (CSName) -> Void) -> Self {
+        self.names = data
         self.onSelected = onSelected
         return self
     }
 
-    @objc public func construct(
-        data: CSListData,
-        _ onSelected: @escaping (CSName?) -> Void) -> Self {
-        return construct(names: data.list as! [CSName], onSelected)
-    }
-
-    @objc public func construct(
-        names: [CSName], _ onSelected: @escaping (CSName?) -> Void,
-        _ clearTitle: String) -> Self {
-        construct(names: names, onSelected)
-        menuItem(title: clearTitle, onClick: onClearClick)
-        return self
-    }
-
-    public func construct(
-        strings: [String], _ onSelected: @escaping (Int?) -> Void,
-        _ clearTitle: String) -> Self {
-        construct(names: CSName.createNames(fromStrings: strings),
-                  { name in onSelected(name?.index) }, clearTitle)
-        return self
-    }
-
-    @objc public func construct(
-        names: [CSName], _ onSelected: @escaping (CSName?) -> Void,
-        _ deleteTitle: String,
-        _ onDelete: @escaping (CSName) -> CSResponse<AnyObject>) -> Self {
-        construct(names: names, onSelected)
+    @nonobjc public func construct(
+            data: [CSName], onSelected: @escaping (CSName?) -> Void,
+            onDelete: @escaping (CSName) -> CSResponse<AnyObject>) -> Self {
+        self.names = data
+        self.onSelected = onSelected
         self.onDelete = onDelete
-        self.deleteTitle = deleteTitle
         menuItem(type: .edit) {
-            $0.systemItem =
-                self.table.toggleEditing().isEditing ? .cancel : .edit
+            $0.systemItem = self.table.toggleEditing().isEditing ?
+                    .cancel : .edit
         }
         return self
-    }
-
-    @objc public func construct(
-        data: CSListData, _ onSelected: @escaping (CSName?) -> Void,
-        _ deleteTitle: String,
-        _ onDelete: @escaping (CSName) -> CSResponse<AnyObject>) -> Self {
-        construct(names: data.list as! [CSName], onSelected,
-                  deleteTitle, onDelete)
-        return self
-    }
-
-    public func construct<T: AnyObject>(
-        data: CSListData, _ onSelected: @escaping (CSName?) -> Void,
-        _ deleteTitle: String,
-        _ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
-        return construct(data: data, onSelected, deleteTitle,
-                         onDelete as! ((CSName) -> CSResponse<AnyObject>))
     }
 
     public override func onViewWillAppear() {
@@ -89,12 +47,6 @@ import RenetikObjc
         table.dataSource = self
         search.construct(self) { _ in self.reload() }
         reload()
-    }
-
-    private func onClearClick(_ item: CSMenuItem) {
-        selectedRow = nil
-        onSelected!(selectedRow)
-        navigation.popViewController()
     }
 
     private func reload() {
@@ -116,9 +68,9 @@ import RenetikObjc
 
     public func tableView(_ tableView: UITableView,
                           didSelectRowAt path: IndexPath) {
-        selectedRow = filteredData[path.row]
+        selectedName = filteredData[path.row]
         navigation.popViewController()
-        onSelected!(selectedRow)
+        onSelected!(selectedName!)
     }
 
     public func tableView(_ tableView: UITableView,
@@ -133,8 +85,7 @@ import RenetikObjc
             let value = filteredData[path.row]
             onDelete?(value).onSuccess { _ in
                 self.names.remove(value)
-                if self.names.isEmpty { navigation.popViewController() }
-                else { self.reload() }
+                if self.names.isEmpty { navigation.popViewController() } else { self.reload() }
             }
         }
     }

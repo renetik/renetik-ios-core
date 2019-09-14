@@ -22,4 +22,18 @@ import UIKit
         }
         return cell
     }
+
+    public func scrollToPage() {
+        var currentCellOffset = contentOffset
+        currentCellOffset.x += width / 2
+        var path = indexPathForItem(at: currentCellOffset)
+        if path.isNil {
+            currentCellOffset.x += 15
+            path = indexPathForItem(at: currentCellOffset)
+        }
+        if path != nil {
+            logInfo("Scrolling to page \(path!)")
+            scrollToItem(at: path!, at: .centeredHorizontally, animated: true)
+        }
+    }
 }
