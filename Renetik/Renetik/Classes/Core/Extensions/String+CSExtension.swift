@@ -26,10 +26,16 @@ public extension String {
 
     public var trim: String { return asNSString.trim() }
 
+    public var length: Int { return count }
+
     public var asNSString: NSString { return (self as NSString) }
 
     public var boolValue: Bool {
         return asNSString.boolValue
+    }
+
+    func substring(from: Int) -> String {
+        return asNSString.substring(from: from, to: length) as String
     }
 }
 

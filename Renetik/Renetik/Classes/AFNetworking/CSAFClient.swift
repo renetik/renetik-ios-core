@@ -60,13 +60,12 @@ open class CSAFClient: CSObject {
 
     open func get<Data: CSServerData>(
             _ service: String, data: Data,
-            _ params: Dictionary<String, String>) -> CSResponse<Data> {
+            _ params:  [String: String?]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
         invoke { self.execute(request, response) }
-//        manager.get(service, parameters: response.params, progress: responseListener.onProgress, success: responseListener.onSuccess, failure: responseListener.onFailure)
         return request
     }
 
@@ -99,21 +98,17 @@ open class CSAFClient: CSObject {
 
     open func post<Data: CSServerData>(_
                                        service: String, data: Data,
-                                       _ params: Dictionary<String, String>) -> CSResponse<Data> {
+                                       _ params:  [String: String?]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
         let response = CSAFResponse(self, request)
         execute(request, response)
-//        manager.post(service, parameters: response.params,
-//                     progress: listener.onProgress, success: listener.onSuccess,
-//                     failure: listener.onFailure)
         return request
     }
 
-    private func createParams(_
-                              params: Dictionary<String, String>) -> Dictionary<String, String> {
-        var newParams = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
+    private func createParams(_ params: [String: String?]) -> [String: String?] {
+        var newParams:[String: String?] = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams

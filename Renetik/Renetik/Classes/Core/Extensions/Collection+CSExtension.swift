@@ -38,11 +38,11 @@ public extension Array where Element: Any {
 
 public extension Array where Element: Equatable {
     @discardableResult
-    public mutating func remove(_ item: Element) -> Array {
+    public mutating func remove(_ item: Element) -> Element? {
         if let index = firstIndex(where: { item == $0 }) {
-            remove(at: index)
+            return remove(at: index)
         }
-        return self
+        return nil
     }
 
     @discardableResult

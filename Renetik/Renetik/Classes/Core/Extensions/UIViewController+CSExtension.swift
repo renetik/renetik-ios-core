@@ -14,5 +14,11 @@ import UIKit
         navigation.push(self)
         return self
     }
+
+    @discardableResult
+    @objc public func pushFromTop() -> Self {
+        navigation.push(fromTop: self)
+        return self
+    }
 }
 

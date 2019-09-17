@@ -27,7 +27,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
   s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
 												 :tag => s.version.to_s }
-	s.social_media_url = 'https://rene-dohan.github.io'
+  s.social_media_url = 'https://renetik-software.github.io'
 
   s.ios.deployment_target = '10.0'
 

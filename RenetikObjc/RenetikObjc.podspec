@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
   s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
 												 :tag => s.version.to_s }
-  s.social_media_url = 'https://rene-dohan.github.io'
+  s.social_media_url = 'https://renetik-software.github.io'
   s.ios.deployment_target = '10.0'
   s.default_subspecs = 'All'
 	s.prefix_header_file = 'Library/Classes/RenetikObjc.pch'

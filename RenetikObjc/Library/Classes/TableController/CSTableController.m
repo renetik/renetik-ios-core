@@ -5,9 +5,9 @@
 @import ChameleonFramework;
 @import BlocksKit;
 
+#import "CSTableController.h"
 #import "CSMainController.h"
 #import "CSLang.h"
-#import "CSTableController.h"
 #import "CSResponse.h"
 #import "CSRefreshControl.h"
 #import "CSWork.h"
@@ -226,19 +226,6 @@
     return toFilter;
 }
 
-- (void)onLoadNextSectionsSuccess:(NSArray *)array {
-    if ((_noNext = !array.hasItems)) return;
-    [_data addArray:array];
-    let filteredData = [self filterData:array];
-    let indexes = NSMutableIndexSet.new;
-    for (int section = 0; section < filteredData.count; section++)
-        [indexes addIndex:section + _filteredData.count];
-    [_filteredData addArray:filteredData];
-    _tableView.beginUpdates;
-    [_tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
-    _tableView.endUpdates;
-}
-
 - (void)addItem:(id)item {
     [_data addObject:item];
     self.filterDataAndReload;
@@ -261,10 +248,6 @@
 
 - (id)dataFor:(NSIndexPath *)path {
     return _filteredData[path.index];
-}
-
-- (NSArray *)data {
-    return _filteredData;
 }
 
 - (void)filterDataAndReload {
