@@ -73,11 +73,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fadeToggle;
 
-- (void)setVisible :(BOOL)visible;
+@property BOOL visible;
+
+- (instancetype)visible:(BOOL)visible;
 
 - (void)setFadeVisible :(BOOL)visible;
-
-- (BOOL)visible;
 
 - (id)getView :(NSInteger)tag;
 

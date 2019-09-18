@@ -24,7 +24,7 @@
 
 - (CGSize)calculateSizeFromSubviews {
     var rect = CGRectZero;
-    for(UIView*view in self.subviews) rect = CGRectUnion(rect, view.frame);
+    for (UIView *view in self.subviews) rect = CGRectUnion(rect, view.frame);
     return rect.size;
 }
 
@@ -33,37 +33,37 @@
     return newSize.height;
 }
 
-- (instancetype)size :(CGSize)size {
+- (instancetype)size:(CGSize)size {
     self.size = size;
     return self;
 }
 
-- (instancetype)frame :(CGRect)rect {
+- (instancetype)frame:(CGRect)rect {
     self.frame = rect;
     return self;
 }
 
-- (instancetype)setSize :(CGSize)size {
+- (instancetype)setSize:(CGSize)size {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
     return self;
 }
 
-- (instancetype)width :(CGFloat)width height :(CGFloat)height {
+- (instancetype)width:(CGFloat)width height:(CGFloat)height {
     [self size:CGSizeMake(width, height)];
     return self;
 }
 
-- (instancetype)sizeBySquare :(CGFloat)square {
+- (instancetype)sizeBySquare:(CGFloat)square {
     return [self width:square height:square];
 }
 
-- (void)setWidth :(CGFloat)value {
+- (void)setWidth:(CGFloat)value {
     CGRect frame = self.frame;
     frame.size.width = value;
     self.frame = frame;
 }
 
-- (instancetype)width :(CGFloat)value {
+- (instancetype)width:(CGFloat)value {
     self.width = value;
     return self;
 }
@@ -73,14 +73,19 @@
     return self;
 }
 
-- (void)setHeight :(CGFloat)value {
+- (void)setHeight:(CGFloat)value {
     CGRect frame = self.frame;
     frame.size.height = value;
     self.frame = frame;
 }
 
-- (instancetype)height :(CGFloat)value {
+- (instancetype)height:(CGFloat)value {
     self.height = value;
+    return self;
+}
+
+- (instancetype)hideByHeightIf:(BOOL)hide {
+    if (hide) self.height = 0;
     return self;
 }
 
@@ -89,12 +94,12 @@
     return self;
 }
 
-- (instancetype)addWidth :(CGFloat)value {
+- (instancetype)addWidth:(CGFloat)value {
     self.width += value;
     return self;
 }
 
-- (instancetype)addHeight :(CGFloat)value {
+- (instancetype)addHeight:(CGFloat)value {
     self.height += value;
     return self;
 }
@@ -105,6 +110,9 @@
 }
 
 - (instancetype)sizeHeightToFit {
+    if (self.width <= 0) {
+        NSLog(@"kokot");
+    }
     NSAssert(self.width > 0, @"Width has to be set to calculate height");
     CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
     return [self height:newSize.height];
@@ -114,32 +122,32 @@
     return [self size:self.calculateSizeFromSubviews];
 }
 
-- (instancetype)resizeByPadding :(CGFloat)padding {
-    if(self.isFixedLeft) [self addRight:padding]; else [self addLeft:padding];
-    if(self.isFixedTop) [self addBottom:padding]; else [self addTop:padding];
-    if(self.isFixedRight) [self addLeft:padding]; else [self addRight:padding];
-    if(self.isFixedBottom) [self addTop:padding]; else [self addBottom:padding];
+- (instancetype)resizeByPadding:(CGFloat)padding {
+    if (self.isFixedLeft) [self addRight:padding]; else [self addLeft:padding];
+    if (self.isFixedTop) [self addBottom:padding]; else [self addTop:padding];
+    if (self.isFixedRight) [self addLeft:padding]; else [self addRight:padding];
+    if (self.isFixedBottom) [self addTop:padding]; else [self addBottom:padding];
     return self;
 }
 
-- (instancetype)addLeft :(CGFloat)value {
+- (instancetype)addLeft:(CGFloat)value {
     self.left -= value;
     self.width += value;
     return self;
 }
 
-- (instancetype)addTop :(CGFloat)value {
+- (instancetype)addTop:(CGFloat)value {
     self.top -= value;
     self.height += value;
     return self;
 }
 
-- (instancetype)addRight :(CGFloat)value {
+- (instancetype)addRight:(CGFloat)value {
     self.width += value;
     return self;
 }
 
-- (instancetype)addBottom :(CGFloat)value {
+- (instancetype)addBottom:(CGFloat)value {
     self.height += value;
     return self;
 }

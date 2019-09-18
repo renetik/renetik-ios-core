@@ -189,6 +189,11 @@
     self.hidden = !visible;
 }
 
+- (instancetype)visible:(BOOL)visible {
+    self.visible = visible;
+    return self;
+}
+
 - (void)setFadeVisible:(BOOL)visible {
     if (visible) [self fadeIn];
     else [self fadeOut];

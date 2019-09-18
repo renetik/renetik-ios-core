@@ -7,22 +7,18 @@
 
 @class CSMainController;
 
-@interface CSXLButtonBarPagerController: XLButtonBarPagerTabStripViewController
+@interface CSXLButtonBarPagerController : XLButtonBarPagerTabStripViewController
 
-@property (readonly)
-NSMutableArray<CSMainController <XLPagerTabStripChildItem>*>*controllers;
+@property(readonly) NSMutableArray<CSMainController <XLPagerTabStripChildItem> *> *controllers;
+@property(readonly) CSMainController <XLPagerTabStripChildItem> *currentController;
+@property(readonly) NSInteger selectedIndex;
 
-- (instancetype)setup :(CSMainController*)parent :(NSArray<UIViewController <XLPagerTabStripChildItem>*>*)controllers;
+- (instancetype)setup:(CSMainController *)parent :(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
 
-- (void)load
-    :(NSArray<UIViewController <XLPagerTabStripChildItem>*>*)controllers;
+- (void)load:(NSArray<UIViewController <XLPagerTabStripChildItem> *> *)controllers;
 
-- (void)add :(UIViewController <XLPagerTabStripChildItem>*)controller;
+- (void)add:(UIViewController <XLPagerTabStripChildItem> *)controller;
 
-- (CSMainController <XLPagerTabStripChildItem>*)currentController;
-
-- (NSInteger)selectedIndex;
-
-- (void)setBarVisible :(BOOL)visible;
+- (void)setBarVisible:(BOOL)visible;
 
 @end

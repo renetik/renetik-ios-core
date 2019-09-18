@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)height:(CGFloat)height;
 
+- (instancetype)hideByHeightIf:(BOOL)hide;
+
 - (instancetype)heightAsWidth;
 
 - (instancetype)addWidth:(CGFloat) value
