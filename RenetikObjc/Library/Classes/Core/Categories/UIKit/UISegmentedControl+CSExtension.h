@@ -5,9 +5,11 @@
 @import UIKit;
 
 @interface UISegmentedControl (CSExtension)
-- (NSString *)selectedTitle;
 
 + (int)DEFAULT_HEIGHT;
 
-- (NSInteger)selectedIndex;
+@property(readonly) NSString *selectedTitle;
+
+@property(readonly) NSInteger selectedIndex;
+
 @end

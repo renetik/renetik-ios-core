@@ -15,7 +15,7 @@ import RenetikObjc
 
     @discardableResult
     @objc public override func construct(
-        _ parent: UIViewController) -> Self {
+            _ parent: UIViewController) -> Self {
         super.construct(parent)
         kayboardManager.onKayboardChange = onKayboardChange
         return self
@@ -50,7 +50,7 @@ import RenetikObjc
     }
 
     public override func onViewWillTransition(toSizeCompletion
-        size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+                                              size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
             UIView.animate(withDuration: 0.2, animations: {
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
@@ -67,9 +67,10 @@ import RenetikObjc
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if kayboardManager.isKeyboardVisible { return }
-        if scrollView.isAtTop { showNavigationBar() }
-        else if scrollView.isAtBottom {}
-        else if lastContentOffset < scrollView.contentOffset.y {
+        if scrollView.isAtTop {
+            showNavigationBar()
+        } else if scrollView.isAtBottom {
+        } else if lastContentOffset < scrollView.contentOffset.y {
             hideNavigationBar()
         } else if lastContentOffset > scrollView.contentOffset.y {
             showNavigationBar()
@@ -83,10 +84,14 @@ import RenetikObjc
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
                 navigation.last!.view.top(UIApplication.statusBarHeight())
-                navigation.last!.view.fromBottom(toHeight: 0)
+                navigation.last!.view.fromBottom(toHeight: self.fromBottom)
             }
         })
         navigation.navigationBar.fadeOut(0.45)
+    }
+
+    var fromBottom: CGFloat {
+        if navigation.isToolbarHidden { return 0 } else { return navigation.toolbar.topFromBottom }
     }
 
     @objc public func showNavigationBar() {
@@ -96,7 +101,7 @@ import RenetikObjc
             navigation.navigationBar.top = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
                 navigation.last!.view.top(navigation.navigationBar.bottom)
-                navigation.last!.view.fromBottom(toHeight: 0)
+                navigation.last!.view.fromBottom(toHeight: self.fromBottom)
             }
         })
         navigation.navigationBar.fade(in: 0.45)

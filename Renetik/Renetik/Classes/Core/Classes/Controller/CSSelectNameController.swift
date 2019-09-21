@@ -24,16 +24,10 @@ import RenetikObjc
         return self
     }
 
-    @nonobjc public func construct(
-            data: [CSName], onSelected: @escaping (CSName?) -> Void,
-            onDelete: @escaping (CSName) -> CSResponse<AnyObject>) -> Self {
-        self.names = data
-        self.onSelected = onSelected
-        self.onDelete = onDelete
-        menuItem(type: .edit) {
-            $0.systemItem = self.table.toggleEditing().isEditing ?
-                    .cancel : .edit
-        }
+    @discardableResult
+    public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
+        self.onDelete = onDelete as! ((CSName) -> CSResponse<AnyObject>)
+        menuItem(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
         return self
     }
 

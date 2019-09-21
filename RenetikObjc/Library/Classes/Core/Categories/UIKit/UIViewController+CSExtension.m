@@ -13,11 +13,11 @@
 
 - (instancetype)backButtonWithoutPreviousTitle {
     self.navigationItem.backBarButtonItem =
-        [UIBarButtonItem createWithTitle:@"" :UIBarButtonItemStylePlain :nil :nil];
+            [UIBarButtonItem createWithTitle:@"" :UIBarButtonItemStylePlain :nil :nil];
     return self;
 }
 
-- (instancetype)backButtonTitle :(NSString*)title {
+- (instancetype)backButtonTitle:(NSString *)title {
     self.navigationItem.backBarButtonItem.title = title;
     return self;
 }
@@ -26,9 +26,9 @@
     return self.navigationController.last == self;
 }
 
-- (UIPopoverController*)presentModalFromView :(UIView*)view :(UIViewController*)controller :(id <UIPopoverControllerDelegate>)delegate {
-    if(UIDevice.iPad) {
-        UIPopoverController*popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+- (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
+    if (UIDevice.iPad) {
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
         popover.delegate = delegate;
         [popover presentPopoverFromRect:view.bounds inView:view.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         return popover;
@@ -38,9 +38,9 @@
     }
 }
 
-- (UIPopoverController*)presentModalFromBar :(UIBarButtonItem*)buttonItem :(UIViewController*)controller :(id <UIPopoverControllerDelegate>)delegate {
-    if(UIDevice.iPad) {
-        UIPopoverController*popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+- (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
+    if (UIDevice.iPad) {
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
         popover.delegate = delegate;
         [popover presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         return popover;
@@ -50,55 +50,59 @@
     }
 }
 
-- (UIPopoverController*)presentModalFrom :(id)sender :(UIViewController*)controller {
-    if(!sender) {
+- (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller {
+    if (!sender) {
         [self presentController:controller];
         return nil;
     }
-    if([sender isKindOfClass:UIBarButtonItem.class]) return [self presentModalFromBar:sender :controller :nil];
+    if ([sender isKindOfClass:UIBarButtonItem.class]) return [self presentModalFromBar:sender :controller :nil];
     return [self presentModalFromView:sender :controller :nil];
 }
 
-- (BOOL)textFieldShouldReturn :(UITextField*)theTextField {
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];
     return YES;
 }
 
-- (UIViewController*)showChildController :(UIViewController*)controller {
+- (UIViewController *)showChildController:(UIViewController *)controller {
     return [self showChildController:controller :self.view];
 }
 
-- (UIViewController*)showChildControllerUnderLast :(UIViewController*)controller {
+- (UIViewController *)showChildControllerUnderLast:(UIViewController *)controller {
     [self.view verticalLineAdd:controller.view];
     [self showChildController:controller :self.view];
     return controller;
 }
 
-- (UIViewController*)showChildControllerNextLast :(UIViewController*)controller :(UIView*)parentView {
+- (UIViewController *)showChildControllerNextLast:(UIViewController *)controller :(UIView *)parentView {
     [self.view horizontalLineAdd:controller.view];
     [self showChildController:controller :parentView];
     return controller;
 }
 
-- (UIViewController*)showChildController :(UIViewController*)controller :(UIView*)parentView {
+- (UIViewController *)showChildController:(UIViewController *)controller :(UIView *)parentView {
     [self addChildViewController:controller];
     [parentView addSubview:controller.view];
     [controller didMoveToParentViewController:self];
+    if ([controller isKindOfClass:CSMainController.class])
+        ((CSMainController *) controller).showing = true;
     return controller;
 }
 
-- (UIViewController*)addChildController :(UIViewController*)controller {
+- (UIViewController *)addChildController:(UIViewController *)controller {
     return [self showChildController:controller :nil];
 }
 
-- (UIViewController*)dismissChildController :(UIViewController*)controller {
+- (UIViewController *)dismissChildController:(UIViewController *)controller {
     [controller willMoveToParentViewController:nil];
     [controller.view removeFromSuperview];
     [controller removeFromParentViewController];
+    if ([controller isKindOfClass:CSMainController.class])
+        ((CSMainController *) controller).showing = false;
     return controller;
 }
 
-- (void)presentController :(UIViewController*)modalViewController {
+- (void)presentController:(UIViewController *)modalViewController {
     [self presentViewController:modalViewController animated:YES completion:nil];
 }
 

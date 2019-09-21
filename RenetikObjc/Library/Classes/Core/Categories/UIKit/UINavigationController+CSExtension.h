@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController *)pushFromBottom:(UIViewController *)controller;
 
+- (UIViewController *)pushFromLeft:(UIViewController *)controller;
+
+- (UIViewController *)pushFromRight:(UIViewController *)controller;
+
 - (NSArray *)popToViewController:(UIViewController *)viewController;
 
 - (void)popToViewControllerOfClass:(Class)viewControllerClass;

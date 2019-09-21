@@ -168,6 +168,9 @@ extension NSObject: CSLang {
 extension String: CSLang {
 }
 
+extension Int: CSLang {
+}
+
 extension Array: CSLang {
 }
 
