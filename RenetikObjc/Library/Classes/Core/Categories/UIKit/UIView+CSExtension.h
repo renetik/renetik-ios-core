@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)asBottomSeparator:(CGFloat)height;
 
-- (instancetype)border:(CGFloat)width :(UIColor *)color :(int)radius;
+- (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius;
 
 @end
 

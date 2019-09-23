@@ -60,7 +60,7 @@ open class CSAFClient: CSObject {
 
     open func get<Data: CSServerData>(
             _ service: String, data: Data,
-            _ params:  [String: String?]) -> CSResponse<Data> {
+            _ params: [String: String?]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
@@ -98,7 +98,7 @@ open class CSAFClient: CSObject {
 
     open func post<Data: CSServerData>(_
                                        service: String, data: Data,
-                                       _ params:  [String: String?]) -> CSResponse<Data> {
+                                       _ params: [String: String?]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -108,7 +108,7 @@ open class CSAFClient: CSObject {
     }
 
     private func createParams(_ params: [String: String?]) -> [String: String?] {
-        var newParams:[String: String?] = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
+        var newParams: [String: String?] = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams
@@ -208,6 +208,10 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
     }
 
     func onRequestFailed() {
-        if let message = request.data.message { request.failed(withMessage: message) } else { request.failed(withMessage: client.requestFailMessage) }
+        if let message = request.data.message {
+            request.failed(withMessage: message)
+        } else {
+            request.failed(withMessage: client.requestFailMessage)
+        }
     }
 }

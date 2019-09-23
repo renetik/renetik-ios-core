@@ -1,6 +1,6 @@
 //
 // Created by Rene Dohan on 05/03/15.
-// Copyright (c) 2015 creative_studio. All rights reserved.
+// Copyright (c) 2015 Renetik Software. All rights reserved.
 //
 
 #import "CSViewController.h"
@@ -9,24 +9,29 @@
 #import "UINavigationController+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "CSEventRegistration.h"
+#import "CSEvent.h"
 #import "NSMutableArray+CSExtension.h"
 
 @implementation CSViewController {
     BOOL _didLayoutSubviews;
     BOOL _onViewWillAppearFirstTime;
     BOOL _onViewDidAppearFirstTime;
-    NSMutableArray<NSObject*>*_notificationCenterObservers;
-    NSMutableArray<CSEventRegistration*>*_eventRegistrations;
+    NSMutableArray<NSObject *> *_notificationCenterObservers;
+    NSMutableArray<CSEventRegistration *> *_eventRegistrations;
+//    CSEvent *_onOrientationChanging;
+//    CSEvent *_onOrientationChanged;
 }
 
 - (instancetype)init {
-    if(self == super.init) {
+    if (self == super.init) {
         _didLayoutSubviews = NO;
         _onViewWillAppearFirstTime = NO;
         _onViewDidAppearFirstTime = NO;
         _showing = NO;
         _notificationCenterObservers = NSMutableArray.new;
         _eventRegistrations = NSMutableArray.new;
+        _onOrientationChanging = CSEvent.new;
+        _onOrientationChanged = CSEvent.new;
     }
     return self;
 }
@@ -43,10 +48,10 @@
 - (void)onViewDidLoad {
 }
 
-- (void)viewWillAppear :(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.onViewWillAppear;
-    if(!_onViewWillAppearFirstTime) {
+    if (!_onViewWillAppearFirstTime) {
         _onViewWillAppearFirstTime = YES;
         self.onViewWillAppearFirstTime;
     } else self.onViewWillAppearFromPresentedController;
@@ -63,7 +68,7 @@
 
 - (void)viewDidLayoutSubviews {
     super.viewDidLayoutSubviews;
-    if(!_didLayoutSubviews) {
+    if (!_didLayoutSubviews) {
         _didLayoutSubviews = YES;
         self.onCreateLayout;
         self.onLayoutCreated;
@@ -83,11 +88,11 @@
 - (void)onViewDidLayout {
 }
 
-- (void)viewDidAppear :(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.appearing = YES;
+    _appearing = YES;
     self.onViewDidAppear;
-    if(!_onViewDidAppearFirstTime) {
+    if (!_onViewDidAppearFirstTime) {
         _onViewDidAppearFirstTime = YES;
         self.onViewDidAppearFirstTime;
     } else self.onViewDidAppearFromPresentedController;
@@ -102,10 +107,10 @@
 - (void)onViewDidAppearFromPresentedController {
 }
 
-- (void)viewWillDisappear :(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.onViewWillDisappear;
-    if(self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
+    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
 }
 
 - (void)onViewWillDisappear {
@@ -113,33 +118,33 @@
 
 - (void)onViewDismissing {
     self.removeNotificationObserver;
-    for(NSObject*observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver:observer];
-    for(CSEventRegistration*registration in _eventRegistrations)
+    for (NSObject *observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver:observer];
+    for (CSEventRegistration *registration in _eventRegistrations)
         registration.cancel;
 }
 
 - (void)onViewPushedOver {
 }
 
-- (void)viewDidDisappear :(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.appearing = NO;
+    _appearing = NO;
     self.viewDidDisappear;
-    if(!self.controllerInNavigation.parentViewController) self.onViewDismissing;
+    if (!self.controllerInNavigation.parentViewController) self.onViewDismissing;
 }
 
 - (void)viewDidDisappear {
 }
 
-- (void)setShowing :(BOOL)showing {
-    if(_showing == showing) return;
+- (void)setShowing:(BOOL)showing {
+    if (_showing == showing) return;
     _showing = showing;
     [self onViewVisibilityChanged:showing];
-    if(showing) self.onViewShowing;
+    if (showing) self.onViewShowing;
     else self.onViewHiding;
 }
 
-- (void)onViewVisibilityChanged :(BOOL)visible {
+- (void)onViewVisibilityChanged:(BOOL)visible {
 }
 
 - (void)onViewShowing {
@@ -148,47 +153,55 @@
 - (void)onViewHiding {
 }
 
-- (void)viewWillTransitionToSize :(CGSize)size withTransitionCoordinator :(id <UIViewControllerTransitionCoordinator>)coordinator {
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    _onOrientationChanging.run;
     [self onViewWillTransitionToSize:size :coordinator];
     [coordinator animateAlongsideTransition:nil completion:^(id <UIViewControllerTransitionCoordinatorContext> context) {
         [self onViewWillTransitionToSizeCompletion:size :context];
+        _onOrientationChanged.run;
     }];
 }
 
 - (void)onViewWillTransitionToSize
-    :(CGSize)size:(id <UIViewControllerTransitionCoordinator>)coordinator {
+        :(CGSize)size :(id <UIViewControllerTransitionCoordinator>)coordinator {
 }
 
-- (void)onViewWillTransitionToSizeCompletion :(CGSize)size
-    :(id <UIViewControllerTransitionCoordinatorContext>)context {
+- (void)onViewWillTransitionToSizeCompletion:(CGSize)size
+        :(id <UIViewControllerTransitionCoordinatorContext>)context {
 }
 
 - (BOOL)visible {
     return self.appearing && self.showing;
 }
 
-- (void)observer :(NSNotificationName)name :(void (^)(NSNotification*note))block {
+- (void)observer:(NSNotificationName)name :(void (^)(NSNotification *note))block {
     let observer = [NSNotificationCenter.defaultCenter addObserverForName
-                    :name object:nil queue:nil usingBlock:block];
+    :name                                                          object:nil queue:nil usingBlock:block];
     [_notificationCenterObservers addObject:observer];
 }
 
-- (void)register :(CSEventRegistration*)registration {
+- (CSEventRegistration *)register:(CSEventRegistration *)registration {
     [_eventRegistrations put:registration];
+    return registration;
+}
+
+- (void)cancel:(CSEventRegistration *)registration {
+    [_eventRegistrations remove:registration];
+    registration.cancel;
 }
 
 - (BOOL)isInNavigationController {
-    if(self.controllerInNavigation) return true;
+    if (self.controllerInNavigation) return true;
     return false;
 }
 
-- (UIViewController*)controllerInNavigation {
-    if(self.parentViewController == self.navigationController) return self;
-    UIViewController*controller = self;
+- (UIViewController *)controllerInNavigation {
+    if (self.parentViewController == self.navigationController) return self;
+    UIViewController *controller = self;
     do controller = controller.parentViewController;
-    while(controller &&
-          controller.parentViewController != self.navigationController);
+    while (controller &&
+            controller.parentViewController != self.navigationController);
     return controller;
 }
 

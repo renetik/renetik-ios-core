@@ -12,6 +12,12 @@ public enum DisplayType {
 }
 
 @objc public extension UIDevice {
+
+    public class func set(orientation: UIInterfaceOrientation) {
+        UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
+        UIViewController.attemptRotationToDeviceOrientation()
+    }
+
     @objc class var width: CGFloat {
         return UIScreen.width()
     }

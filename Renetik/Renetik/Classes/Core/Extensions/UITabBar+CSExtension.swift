@@ -7,11 +7,19 @@
 import UIKit
 
 @objc public extension UITabBar {
-    @objc public var selectedItemIndex: Int {
-        if selectedItem.notNil {
-            return items!.firstIndex(of: selectedItem!)!
-        }
-        return -1
-    }
+//    @objc public var selectedItemIndex: Int {
+//
+//    }
 
+    @objc public var selectedItemIndex: Int {
+        get {
+            if selectedItem.notNil {
+                return items!.firstIndex(of: selectedItem!)!
+            }
+            return -1
+        }
+        set {
+            selectedItem = items![newValue]
+        }
+    }
 }

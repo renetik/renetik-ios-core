@@ -295,7 +295,7 @@
             .matchParentWidth.flexibleTop.fixedBottom background:UIColor.darkGrayColor];
 }
 
-- (instancetype)border:(CGFloat)width :(UIColor *)color :(int)radius {
+- (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius {
     [self.layer setBorder:width :color :radius];
     return self;
 }

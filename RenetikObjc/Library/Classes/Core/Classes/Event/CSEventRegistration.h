@@ -8,6 +8,7 @@
 @class CSEvent;
 
 @interface CSEventRegistration : NSObject
+
 @property(nonatomic, strong) CSEvent *event;
 
 @property(nonatomic, copy) void (^block)(void);
