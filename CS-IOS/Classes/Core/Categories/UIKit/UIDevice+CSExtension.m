@@ -12,22 +12,9 @@
     [UIViewController attemptRotationToDeviceOrientation];
 }
 
-//+ (UIDeviceOrientation)orientation {
-//    return UIDevice.currentDevice.orientation;
-//}
-
-//+ (UIInterfaceOrientation)statusBarOrientation  {
-//    return UIApplication.sharedApplication.statusBarOrientation;
-//}
-
-//+ (BOOL)isPortrait {
-//    if(self.currentDevice.orientation == UIDeviceOrientationUnknown) return UIScreen.mainScreen.bounds.size.width < UIScreen.mainScreen.bounds.size.height;
-//    return UIDeviceOrientationIsPortrait(self.currentDevice.orientation);
-//}
-
-//+ (BOOL)isLandscape {
-//    return !self.isPortrait;
-//}
++ (UIDeviceOrientation)orientation {
+    return UIDevice.currentDevice.orientation;
+}
 
 + (BOOL)isThinScreen {
     return self.iPhone && UIScreen.isPortrait;

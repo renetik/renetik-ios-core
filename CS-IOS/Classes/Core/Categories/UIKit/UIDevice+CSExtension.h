@@ -10,12 +10,6 @@
 
 + (UIDeviceOrientation)orientation;
 
-+ (UIInterfaceOrientation)statusBarOrientation;
-
-+ (BOOL)isPortrait;
-
-+ (BOOL)isLandscape;
-
 + (BOOL)iPhone;
 
 + (BOOL)iPad;
