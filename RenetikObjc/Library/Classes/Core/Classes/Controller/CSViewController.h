@@ -64,14 +64,18 @@ NS_ASSUME_NONNULL_BEGIN
         :(void (^)(NSNotification *note))block;
 
 - (CSEventRegistration *)register:(CSEventRegistration *)registration
- NS_SWIFT_NAME(register(event:));
+NS_SWIFT_NAME(register(event:));
 
 - (void)cancel:(CSEventRegistration *)registration
- NS_SWIFT_NAME(cancel(registration:));
+NS_SWIFT_NAME(cancel(registration:));
 
 - (BOOL)isInNavigationController;
 
 - (nullable UIViewController *)controllerInNavigation;
+
+- (void)setShouldAutorotate:(BOOL)shouldAutorotate;
+
+- (void)clearShouldAutorotate;
 
 @end
 

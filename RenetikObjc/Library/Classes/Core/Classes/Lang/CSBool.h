@@ -5,10 +5,9 @@
 
 @import Foundation;
 
-@interface CSBool : NSNumber
+@interface CSBool : NSObject
 
-+ (CSBool *)newBool:(BOOL)value;
-
-- (BOOL)value;
++ (CSBool *)construct:(BOOL)value;
+@property BOOL value;
 
 @end

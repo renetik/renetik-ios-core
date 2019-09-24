@@ -10,19 +10,28 @@
 
 + (BOOL)isPortrait {
     let window = UIApplication.sharedApplication.delegate.window;
-    if(window.rootViewController) {
+    if (window.rootViewController) {
         let orientation =
-            window.rootViewController.interfaceOrientation;
+                window.rootViewController.interfaceOrientation;
         return UIInterfaceOrientationIsPortrait(orientation);
     } else {
         let orientation =
-            UIApplication.sharedApplication.statusBarOrientation;
+                UIApplication.sharedApplication.statusBarOrientation;
         return UIInterfaceOrientationIsPortrait(orientation);
     }
 }
 
++ (UIInterfaceOrientation)orientation {
+    let window = UIApplication.sharedApplication.delegate.window;
+    if (window.rootViewController) {
+        return window.rootViewController.interfaceOrientation;
+    } else {
+        return UIApplication.sharedApplication.statusBarOrientation;
+    }
+}
+
 + (BOOL)isLandscape {
-	return !self.isPortrait;
+    return !self.isPortrait;
 }
 
 + (CGFloat)width {

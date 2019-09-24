@@ -11,6 +11,7 @@
 #import "CSEventRegistration.h"
 #import "CSEvent.h"
 #import "NSMutableArray+CSExtension.h"
+#import "CSBool.h"
 
 @implementation CSViewController {
     BOOL _didLayoutSubviews;
@@ -18,8 +19,7 @@
     BOOL _onViewDidAppearFirstTime;
     NSMutableArray<NSObject *> *_notificationCenterObservers;
     NSMutableArray<CSEventRegistration *> *_eventRegistrations;
-//    CSEvent *_onOrientationChanging;
-//    CSEvent *_onOrientationChanged;
+    CSBool *_shouldAutorotate;
 }
 
 - (instancetype)init {
@@ -203,6 +203,19 @@
     while (controller &&
             controller.parentViewController != self.navigationController);
     return controller;
+}
+
+- (BOOL)shouldAutorotate {
+    if (_shouldAutorotate) return _shouldAutorotate.value;
+    return super.shouldAutorotate;
+}
+
+- (void)setShouldAutorotate:(BOOL)shouldAutorotate {
+    _shouldAutorotate = [CSBool construct:shouldAutorotate];
+}
+
+- (void)clearShouldAutorotate {
+    _shouldAutorotate = nil;
 }
 
 @end

@@ -7,6 +7,10 @@
 
 @interface UIDevice (CSExtension)
 
++ (void)setOrientation:(UIDeviceOrientation)orientation;
+
++ (UIDeviceOrientation)orientation;
+
 + (BOOL)iPhone;
 
 + (BOOL)iPad;

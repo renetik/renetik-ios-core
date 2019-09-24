@@ -5,22 +5,10 @@
 
 #import "CSBool.h"
 
-@interface CSBool ()
-@property NSNumber *number;
-@end
-
 @implementation CSBool
-
-@synthesize number;
-
-+ (CSBool *)newBool:(BOOL)value {
++ (CSBool *)construct:(BOOL)value {
     CSBool *this = [self new];
-    this.number = @(value);
+    this.value = value;
     return this;
 }
-
-- (BOOL)value {
-    return [number boolValue];
-}
-
 @end

@@ -8,6 +8,16 @@
 
 @implementation UIDevice (CSExtension)
 
++ (void)setOrientation:(UIDeviceOrientation)orientation {
+    [UIDevice.currentDevice setValue:@(orientation) forKey:@"orientation"];
+    [UIViewController attemptRotationToDeviceOrientation];
+    [UIDevice.currentDevice setValue:@(UIDeviceOrientationUnknown) forKey:@"orientation"];
+}
+
++ (UIDeviceOrientation)orientation {
+    return UIDevice.currentDevice.orientation;
+}
+
 + (BOOL)iPhone {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
 }

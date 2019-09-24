@@ -6,6 +6,8 @@
 
 @interface UIScreen (CSExtension)
 
++ (UIInterfaceOrientation)orientation;
+
 + (BOOL)isPortrait;
 
 + (BOOL)isLandscape;

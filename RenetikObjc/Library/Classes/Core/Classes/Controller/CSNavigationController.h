@@ -5,11 +5,23 @@
 @import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, CSForcedOrientation) {
+    CSForcedOrientationNone,
+    CSForcedOrientationPortrait,
+    CSForcedOrientationLandscape,
+};
+
 @interface CSNavigationController : UINavigationController
 
-@property(readonly, nullable) UIViewController *lastPopped;
+@property(nonatomic, readonly, nullable) UIViewController *lastPopped;
 
 @property(nonatomic, strong, readonly) CSNavigationController *instance;
 
+- (void)forceOrientation:(CSForcedOrientation)orientation;
+
+- (void)cancelForcedOrientation;
+
 @end
+
 NS_ASSUME_NONNULL_END

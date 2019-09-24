@@ -46,6 +46,11 @@
     return self;
 }
 
+- (instancetype)removeNotificationObserver:(NSString *)name {
+    [NSNotificationCenter.defaultCenter removeObserver:self name:name object:nil];
+    return self;
+}
+
 - (CSDoLaterProcess *)doLater:(void (^)(void))method {
     return [CSDoLaterProcess.new from:method :0.1];
 }
