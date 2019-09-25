@@ -60,8 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)filterDataAndReload;
 
-- (void)onLoadNextSectionsSuccess:(NSArray<ObjectType> *)array;
-
 - (instancetype)refreshable;
 
 - (void)tableViewWillDisplayCellForRowAtIndexPath:(NSIndexPath *)indexPath;

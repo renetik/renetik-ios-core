@@ -23,7 +23,7 @@ static NSInteger const MB = 1024 * KB;
 
 @interface CSLang : NSObject
 
-    void run(void (^block)(void));
+void run(void (^block)(void));
 
 id nilToNull(id object);
 
@@ -33,34 +33,20 @@ BOOL is(id object);
 
 id stringify(id object);
 
-NSMutableArray * muteArray(NSArray *array);
+void doLater(NSTimeInterval delay, void (^block)(void));
 
-NSMutableDictionary * muteDict(NSDictionary *array);
+void doLaterWith(NSTimeInterval delay, id value, void (^block)(id));
 
 void runWith(void (^block)(id), id value);
 
-void doLater(NSInteger delay, void (^block)(void));
-
 void invoke(void (^block)(void));
-
-void showMessage(NSString *title);
-
-void doLaterWith(void (^block)(id), id value, NSTimeInterval delay);
 
 void invokeWith(void (^block)(id), id value);
 
 BOOL isDebug(void);
 
-NSString * format(NSString *format, NSObject *argument);
-
-NSString * format2(NSString *format, NSObject *argument, NSObject *argument2);
-
-NSString * format3(NSString *format, NSObject *argument, NSObject *argument2, NSObject *argument3);
-
-NSString * format4(NSString *format, NSObject *argument, NSObject *argument2, NSObject *argument3, NSObject *argument4);
-
 UIEdgeInsets UIEdgeInsetMake(CGFloat inset);
 
-BOOL bitmaskContains(NSUInteger bitmask, NSUInteger containns);
+BOOL bitmaskContains(NSUInteger mask, NSUInteger contains);
 
 @end

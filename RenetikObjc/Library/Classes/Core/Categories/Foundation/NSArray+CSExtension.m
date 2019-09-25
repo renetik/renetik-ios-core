@@ -97,4 +97,8 @@
     return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
+- (NSMutableArray *)mutable{
+    return [NSMutableArray.new construct:self];
+}
+
 @end

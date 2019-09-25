@@ -1,20 +1,22 @@
 //
 //  Created by Rene Dohan on 5/2/12.
 //
+#import "CSImagePickerController.h"
+#import "CSImagePickerListener.h"
+#import "CSMainController.h"
 #import "UIViewController+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
-#import "CSImagePickerController.h"
+#import "CSViewControllerProtocol.h"
 #import "CSActionSheet.h"
-#import "CSImagePickerListener.h"
 #import "CSLang.h"
 
 @implementation CSImagePickerController {
     CSActionSheet *_actionSheet;
-    UIViewController <CSImagePickerListener> *_parent;
+    UIViewController <CSViewControllerProtocol, CSImagePickerListener> *_parent;
 }
 
-- (id)initWithButtons:(UIViewController <CSImagePickerListener> *)parentController {
-    if (self = [super init]) _parent = parentController;
+- (instancetype)initWithParent:(UIViewController <CSImagePickerListener, CSViewControllerProtocol> *)parent {
+    if (self = super.init) _parent = parent;
     return self;
 }
 
@@ -52,7 +54,7 @@
         picker.allowsEditing = YES;
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         _popover = [_parent presentModalFrom:sender :picker];
-    } else showMessage(@"Library not available");
+    } else [_parent showMessage:@"Gallery not available" onPositive:nil];
 }
 
 - (void)onCaptureClick {
@@ -63,7 +65,7 @@
         picker.allowsEditing = YES;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [_parent presentController:picker];
-    } else showMessage(@"Camera not available");
+    } else [_parent showMessage:@"Camera not available" onPositive:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)data {

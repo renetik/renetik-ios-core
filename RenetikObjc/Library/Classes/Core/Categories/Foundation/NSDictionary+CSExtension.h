@@ -4,7 +4,7 @@
 
 @import Foundation;
 
-@interface NSDictionary (CSExtension)
+@interface NSDictionary<__covariant KeyType, __covariant ObjectType> (CSExtension)
 
 + (id)put:(id)key :(id)object;
 
@@ -21,5 +21,7 @@
 - (BOOL)contains:(NSString *)key;
 
 - (NSString *)jsonString;
+
+- (NSDictionary<KeyType, ObjectType> *)mutable;
 
 @end

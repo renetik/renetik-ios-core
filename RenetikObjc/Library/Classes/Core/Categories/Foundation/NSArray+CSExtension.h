@@ -4,7 +4,7 @@
 
 
 @import Foundation;
-
+NS_ASSUME_NONNULL_BEGIN
 @interface NSArray<ObjectType> (CSExtension)
 
 @property(readonly) BOOL empty;
@@ -35,4 +35,7 @@
 - (NSArray *)filterBySearch:(NSString *)searchText;
 
 - (NSString *)jsonString;
+
+- (NSMutableArray<ObjectType> *)mutable;
 @end
+NS_ASSUME_NONNULL_END

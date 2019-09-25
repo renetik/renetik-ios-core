@@ -3,6 +3,7 @@
 //
 
 #import "NSDictionary+CSExtension.h"
+#import "NSMutableDictionary+CSExtension.h"
 #import "CSLang.h"
 #import "CSCocoaLumberjack.h"
 
@@ -34,15 +35,23 @@
     return dictionary;
 }
 
-- (id)get:(NSString *)key {return nullToNil(self[key]);}
+- (id)get:(NSString *)key {
+    return nullToNil(self[key]);
+}
 
-- (BOOL)contains:(NSString *)key {return self[key] != nil;}
+- (BOOL)contains:(NSString *)key {
+    return self[key] != nil;
+}
 
 - (NSString *)jsonString {
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     warn(error);
     return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+- (NSDictionary *)mutable {
+    return [NSMutableDictionary.new construct:self];
 }
 
 @end

@@ -58,7 +58,7 @@
     _parent = parent;
     _filter = [_parent as:@protocol(CSTableFilterProtocol)];
     _filteredData = NSMutableArray.new;
-    _data = muteArray(data);
+    _data = data.mutable;
     [self initializeTable:parent];
     [parent showChildController:self :parentView];
     _pageIndex = -1;

@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showMessage:(NSString *)message onPositive:(nullable void (^)())onPositive
 NS_SWIFT_NAME(show(message:onPositive:));
 
-- (void)showTitle:( NSString *)title message:(NSString *)message
-    negativeTitle:( NSString *)negativeTitle
-    positiveTitle:( NSString *)positiveTitle onPositive:(void (^)())onPositive
-NS_SWIFT_NAME(show(title:message:negativeTitle:positiveTitle:onPositive:));
+//- (void)showTitle:(NSString *)title message:(NSString *)message
+//    positiveTitle:(NSString *)positiveTitle onPositive:(void (^)())onPositive
+//    negativeTitle:(NSString *)negativeTitle
+//NS_SWIFT_NAME(show(title:message:positiveTitle:onPositive:negativeTitle:));
 
 @end
 

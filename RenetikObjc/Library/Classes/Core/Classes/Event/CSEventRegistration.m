@@ -6,16 +6,15 @@
 #import "CSEventRegistration.h"
 #import "CSEvent.h"
 
-
 @implementation CSEventRegistration
 
-- (instancetype)construct:(CSEvent *)event :(void (^)())pFunction {
+- (instancetype)construct:(CSEvent *)event :(CSEventBlock)function {
     _event = event;
-    _block = pFunction;
+    _function = function;
     return self;
 }
 
 - (void)cancel {
-    [_event remove:_block];
+    [_event remove:_function];
 }
 @end

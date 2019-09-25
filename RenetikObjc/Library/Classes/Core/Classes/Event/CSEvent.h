@@ -7,14 +7,16 @@
 
 @class CSEventRegistration;
 
-@interface CSEvent : NSObject {
-    NSMutableArray<void (^)(void)> *_blockArray;
-}
+NS_ASSUME_NONNULL_BEGIN
+typedef void (^CSEventBlock)(CSEventRegistration *);
 
-- (CSEventRegistration *)add:(void (^)(void))block;
+@interface CSEvent : NSObject
 
-- (void)remove:(void (^)(void))block;
+- (CSEventRegistration *)add:(CSEventBlock)block;
+
+- (void)remove:(CSEventBlock)block;
 
 - (void)run;
 
 @end
+NS_ASSUME_NONNULL_END

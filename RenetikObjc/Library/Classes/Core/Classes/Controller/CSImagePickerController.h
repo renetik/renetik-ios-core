@@ -6,12 +6,15 @@
 @import UIKit;
 
 @protocol CSImagePickerListener;
+@protocol CSViewControllerProtocol;
+
+@class CSMainController;
 
 @interface CSImagePickerController : NSObject <UIPopoverControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property(nonatomic, strong) UIPopoverController *popover;
 
-- (id)initWithButtons:(UIViewController <CSImagePickerListener> *)delegate;
+- (instancetype)initWithParent:(UIViewController <CSImagePickerListener, CSViewControllerProtocol> *)parent;
 
 - (void)showFromBarButton:(UIBarButtonItem *)sender;
 
