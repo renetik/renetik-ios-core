@@ -6,19 +6,20 @@
 @import MBProgressHUD;
 
 #import "UIView+CSMBProgressHUD.h"
-
 #import "MBProgressHUD+CSExtension.h"
 #import "CSLang.h"
 
 @implementation UIView (CSMBProgressHUD)
 
 - (MBProgressHUD *)showMessage:(NSString *)string {
+    [MBProgressHUD hideHUDForView:self animated:true];
     let message = [MBProgressHUD showMessage:self :string];
     message.removeFromSuperViewOnHide = true;
     return message;
 }
 
 - (MBProgressHUD *)showProgress {
+    [MBProgressHUD hideHUDForView:self animated:true];
     let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
     progress.removeFromSuperViewOnHide = true;
     progress.animationType = MBProgressHUDAnimationZoom;
@@ -28,6 +29,7 @@
 }
 
 - (MBProgressHUD *)showProgress:(UIColor *)color {
+    [MBProgressHUD hideHUDForView:self animated:true];
     let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
     progress.removeFromSuperViewOnHide = true;
     progress.mode = MBProgressHUDModeIndeterminate;

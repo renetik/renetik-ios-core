@@ -89,8 +89,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return nil
     }
 
-    public override func sizeHeightToFit() -> Self {
-        attributedTextContentView.sizeHeightToFit()
+    public override func sizeFitWidth() -> Self {
+        attributedTextContentView.sizeFitWidth()
         height(attributedTextContentView.height)
         return self
     }
@@ -100,7 +100,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         let previousString = attributedString
         attributedString = NSAttributedString(string:
             String.randomString(length: count))
-        attributedTextContentView.sizeHeightToFit()
+        attributedTextContentView.sizeFitWidth()
         height(attributedTextContentView.height)
         attributedString = previousString
         return self

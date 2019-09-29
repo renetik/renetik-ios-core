@@ -126,15 +126,15 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     UIView*lastSubview = self.subviews.last;
     if(lastSubview) {
         if(lastSubview.right + margin + view.width + margin <= self.width) {
-            [view left:lastSubview.right + margin];
-            [view top:lastSubview.top];
+            [view fromLeft:lastSubview.right + margin];
+            [view fromTop:lastSubview.top];
         } else {
-            [view left:margin];
-            [view top:lastSubview.bottom + margin];
+            [view fromLeft:margin];
+            [view fromTop:lastSubview.bottom + margin];
         }
     } else {
-        [view left:margin];
-        [view top:margin];
+        [view fromLeft:margin];
+        [view fromTop:margin];
     }
     return [self add:view];
 }
@@ -145,7 +145,7 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
 
 - (UIView*)horizontalLineAdd:(UIView*)view margin:(NSInteger)margin {
     UIView*lastSubview = self.subviews.last;
-    [view left:lastSubview ? lastSubview.right : 0];
+    [view fromLeft:lastSubview ? lastSubview.right : 0];
     if(view.left != 0) view.left += margin;
     return [self add:view];
 }
@@ -175,15 +175,15 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     UIView*lastSubview = self.subviews.last;
     if(lastSubview) {
         if(lastSubview.bottom + view.height <= self.height) {
-            [view left:lastSubview.left + margin];
-            [view top:lastSubview.bottom + margin];
+            [view fromLeft:lastSubview.left + margin];
+            [view fromTop:lastSubview.bottom + margin];
         } else {
-            [view left:lastSubview.right + margin];
-            [view top:margin];
+            [view fromLeft:lastSubview.right + margin];
+            [view fromTop:margin];
         }
     } else {
-        [view left:margin];
-        [view top:margin];
+        [view fromLeft:margin];
+        [view fromTop:margin];
     }
     return [self add:view];
 }

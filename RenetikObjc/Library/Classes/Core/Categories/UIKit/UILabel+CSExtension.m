@@ -18,7 +18,7 @@
     return self;
 }
 
-- (void)setFontSize :(CGFloat)size {
+- (void)setFontSize:(CGFloat)size {
     self.font = [self.font fontWithSize:size];
 }
 
@@ -26,12 +26,12 @@
     return self.font.pointSize;
 }
 
-- (instancetype)fontSize :(CGFloat)size {
+- (instancetype)fontSize:(CGFloat)size {
     self.fontSize = size;
     return self;
 }
 
-- (void)setFontStyle :(UIFontTextStyle)style {
+- (void)setFontStyle:(UIFontTextStyle)style {
     self.font = [UIFont preferredFontForTextStyle:style];
 }
 
@@ -39,80 +39,51 @@
     return [self.font.fontDescriptor objectForKey:UIFontDescriptorTextStyleAttribute];
 }
 
-- (instancetype)fontStyle :(UIFontTextStyle)style {
+- (instancetype)fontStyle:(UIFontTextStyle)style {
     self.fontStyle = style;
     return self;
 }
 
-- (instancetype)font :(UIFont*)font {
+- (instancetype)font:(UIFont *)font {
     self.font = font;
     return self;
 }
 
-- (instancetype)textColor :(UIColor*)textColor {
+- (instancetype)textColor:(UIColor *)textColor {
     self.textColor = textColor;
     return self;
 }
 
-- (instancetype)setHTMLFromString :(NSString*)string {
+- (instancetype)setHTMLFromString:(NSString *)string {
     string = [string add:stringf(@"<style>body{font-family: '%@'; font-size:%fpx;}</style>",
-                                 self.font.fontName, self.font.pointSize)];
+            self.font.fontName, self.font.pointSize)];
     self.attributedText =
-        [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
-                                       options:@{
-         NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-         NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
-         } documentAttributes:nil error:nil];
+            [NSAttributedString.alloc initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding]
+                                           options:@{
+                                                   NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                                   NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+                                           } documentAttributes:nil error:nil];
     return self;
 }
 
 - (instancetype)hideIfEmpty {
-    [self setVisible:[NSString set:self.text]];
+    [self setVisible:self.text.trim.set];
     return self;
 }
 
-- (instancetype)heightToLines :(NSInteger)numberOfLines {
-//    NSAssert(self.width > 0, @"Width has to be set to calculate height");
-    let currentWidth = self.width;
-    let currentText = self.text;
-    self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
-        " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
-        "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
-        "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
-        " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
-        "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
-        "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
-        " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
-        "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
-        "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
-        " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
-        "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
-        "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk";
-    self.numberOfLines = numberOfLines;
-    [self sizeToFit];
-    self.text = currentText;
-    self.width = currentWidth;
-    return self;
-}
-
-- (instancetype)sizeHeightToFit  {
+- (instancetype)sizeFitWidth {
     self.numberOfLines = 0;
-    super.sizeHeightToFit;
+    super.sizeFitWidth;
     return self;
 }
 
-- (CGSize)sizeThatFitWidth :(NSInteger)width {
-    CGSize size = [self sizeThatFits:CGSizeMake(width, MAXFLOAT)];
-    return size;
-}
-
-- (instancetype)sizeFit :(NSString*)value {
+- (instancetype)sizeFit:(NSString *)value {
     self.numberOfLines = 0;
     let current = self.text;
     return [[self text:value].sizeFit text:current];
 }
 
-- (instancetype)sizeHeightToFit:(NSString*)value {
+- (instancetype)sizeHeightToFit:(NSString *)value {
     self.numberOfLines = 0;
     let current = self.text;
     self.text = value;
@@ -121,17 +92,41 @@
     return self;
 }
 
-- (instancetype)text :(NSString*)string {
+- (instancetype)heightToLines:(NSInteger)numberOfLines {
+//    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+    let currentWidth = self.width;
+    let currentText = self.text;
+    self.text = @"cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
+                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif "
+                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk "
+                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk";
+    self.numberOfLines = numberOfLines;
+    [self sizeToFit];
+    self.text = currentText;
+    self.width = currentWidth;
+    return self;
+}
+
+- (instancetype)text:(NSString *)string {
     self.text = string;
     return self;
 }
 
-- (instancetype)textAlign :(enum NSTextAlignment)alignment {
+- (instancetype)textAlign:(enum NSTextAlignment)alignment {
     self.textAlignment = alignment;
     return self;
 }
 
-- (instancetype)lineBreak :(NSLineBreakMode)mode {
+- (instancetype)lineBreak:(NSLineBreakMode)mode {
     self.lineBreakMode = mode;
     return self;
 }

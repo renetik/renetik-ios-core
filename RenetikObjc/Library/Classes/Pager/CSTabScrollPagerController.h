@@ -11,7 +11,7 @@
 
 @protocol CSTabPagerTab;
 
-@interface CSTabPagerController : CSChildViewLessController <UIScrollViewDelegate, UITabBarDelegate>
+@interface CSTabScrollPagerController : CSChildViewLessController <UIScrollViewDelegate, UITabBarDelegate>
 
 - (void)onPageChange:(NSUInteger)pageIndex;
 

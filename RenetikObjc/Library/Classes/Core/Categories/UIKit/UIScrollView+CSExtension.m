@@ -61,13 +61,13 @@
 }
 
 - (UIView*)contentVertical :(UIView*)view {
-    [[super content:view].matchParentWidth top:0];
+    [[super content:view].matchParentWidth fromTop:0];
     self.contentSizeHeightByLastContentSubview;
     return view;
 }
 
 - (UIView*)contentHorizontal :(UIView*)view {
-    [[super content:view].matchParentHeight left:0];
+    [[super content:view].matchParentHeight fromLeft:0];
     self.contentSizeWidthByLastContentSubview;
     return view;
 }

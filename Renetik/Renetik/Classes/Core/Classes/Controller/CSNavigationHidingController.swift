@@ -7,9 +7,9 @@
 
 import RenetikObjc
 
-@objc public class CSNavigationHidingController: CSChildViewLessController {
+public class CSNavigationHidingController: CSChildViewLessController {
     var isNavigationBarHidden = false
-    lazy var kayboardManager: CSKeyboardManager = {
+    lazy var keyboardManager: CSKeyboardManager = {
         CSKeyboardManager().construct(self)
     }()
 
@@ -17,18 +17,18 @@ import RenetikObjc
     @objc public override func construct(
             _ parent: UIViewController) -> Self {
         super.construct(parent)
-        kayboardManager.onKayboardChange = onKayboardChange
+        keyboardManager.onKeyboardChange = onKeyboardChange
         return self
     }
 
     public func showIfNotKeyboard() {
-        if isNavigationBarHidden && !kayboardManager.isKeyboardVisible {
+        if isNavigationBarHidden && !keyboardManager.isKeyboardVisible {
             showNavigationBar()
         }
     }
 
-    func onKayboardChange(kayboardHeight: CGFloat) {
-        if kayboardHeight > 0 {
+    func onKeyboardChange(keyboardHeight: CGFloat) {
+        if keyboardHeight > 0 {
             hideNavigationBar()
         } else {
             showNavigationBar()
@@ -50,12 +50,13 @@ import RenetikObjc
     }
 
     public override func onViewWillTransition(toSizeCompletion
-                                              size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+                                              size: CGSize,
+                                              _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.2) {
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-                navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
-            })
+                navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
+            }
         }
     }
 
@@ -66,7 +67,7 @@ import RenetikObjc
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if kayboardManager.isKeyboardVisible { return }
+        if keyboardManager.isKeyboardVisible { return }
         if scrollView.isAtTop {
             showNavigationBar()
         } else if scrollView.isAtBottom {
@@ -80,13 +81,13 @@ import RenetikObjc
     @objc public func hideNavigationBar() {
         if isNavigationBarHidden { return }
         isNavigationBarHidden = true
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3) {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
-                navigation.last!.view.top(UIApplication.statusBarHeight())
-                navigation.last!.view.fromBottom(toHeight: self.fromBottom)
+                navigation.last!.view.from(top: UIApplication.statusBarHeight())
+                navigation.last!.view.height(fromBottom: self.fromBottom)
             }
-        })
+        }
         navigation.navigationBar.fadeOut(0.45)
     }
 
@@ -97,13 +98,13 @@ import RenetikObjc
     @objc public func showNavigationBar() {
         if !isNavigationBarHidden { return }
         isNavigationBarHidden = false
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3) {
             navigation.navigationBar.top = UIApplication.statusBarHeight()
             if navigation.last!.view.superview != nil {
-                navigation.last!.view.top(navigation.navigationBar.bottom)
-                navigation.last!.view.fromBottom(toHeight: self.fromBottom)
+                navigation.last!.view.from(top: navigation.navigationBar.bottom)
+                navigation.last!.view.height(fromBottom: self.fromBottom)
             }
-        })
+        }
         navigation.navigationBar.fade(in: 0.45)
     }
 }

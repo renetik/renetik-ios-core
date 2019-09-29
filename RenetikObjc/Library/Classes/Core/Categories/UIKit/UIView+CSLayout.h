@@ -10,90 +10,95 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (CSLayout)
 
-- (instancetype)left:(CGFloat)value;       //TODO move to position remove and use fromLeft
+- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
+NS_SWIFT_NAME(from(left:top:));
 
-- (instancetype)top:(CGFloat)value;      //TODO move to position remove and use fromTop
+- (instancetype)fromLeft:(CGFloat)left bottom:(CGFloat)bottom
+NS_SWIFT_NAME(from(left:bottom:));
 
-- (instancetype)right:(CGFloat)value;      //TODO move to position check usages
+- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
+                   width:(CGFloat)width height:(CGFloat)height
+NS_SWIFT_NAME(from(left:top:width:height:));
 
-- (instancetype)bottom:(CGFloat)value;      //TODO move to position check usages
+- (instancetype)fromLeft:(CGFloat)value
+NS_SWIFT_NAME(from(left:));
 
-- (instancetype)left:(CGFloat)left top:(CGFloat)top;        // replace with fromLeftTop
-
-- (instancetype)position:(CGPoint)position;      /// check usages
-
-- (instancetype)position:(CGFloat)left :(CGFloat)top;       // replace with fromLeftTop
-
-- (instancetype)left:(CGFloat)left top:(CGFloat)top
-    width:(CGFloat)width height:(CGFloat)height;            // replace with fromLeftTop + size
-
-/*
- *  By setting left, width will be resized
- */
-- (instancetype)leftToWidth:(CGFloat)left;
-
-/*
- *  By setting right, width will be resized
- */
-- (instancetype)rightToWidth:(CGFloat)right;
-
-/*
- *  By setting top, height will be resized
- */
-- (instancetype)topToHeight:(CGFloat)top;
-
-/*
- *  By setting bottom, height will be resized
- */
-- (instancetype)bottomToHeight:(CGFloat)bottom;
-
-- (instancetype)fromLeft:(CGFloat)distanceFromLeft;
-
-- (instancetype)fromTop:(CGFloat)distanceFromTop;
+- (instancetype)fromTop:(CGFloat)value
+NS_SWIFT_NAME(from(top:));
 
 /*
  * Distance of right bound from right side of parent
  */
-- (instancetype)fromRight:(CGFloat)distanceFromRight;
+- (instancetype)fromRight:(CGFloat)distanceFromRight
+NS_SWIFT_NAME(from(right:));
 
 /*
  * Distance of bottom bound from bottom side of parent
  */
-- (instancetype)fromBottom:(CGFloat)distanceFromBottom;
+- (instancetype)fromBottom:(CGFloat)distanceFromBottom
+NS_SWIFT_NAME(from(bottom:));
 
-- (instancetype)fromTopRight:(CGFloat)value;
+- (instancetype)fromTopRight:(CGFloat)value
+NS_SWIFT_NAME(from(topRight:));
 
-- (instancetype)fromTopLeft:(CGFloat)value;
+- (instancetype)fromTopLeft:(CGFloat)value
+NS_SWIFT_NAME(from(topLeft:));
 
-- (instancetype)fromBottomRight:(CGFloat)value;
+- (instancetype)fromBottomRight:(CGFloat)value
+NS_SWIFT_NAME(from(bottomRight:));
 
-- (instancetype)fromBottomLeft:(CGFloat)value;
+- (instancetype)fromBottomLeft:(CGFloat)value
+NS_SWIFT_NAME(from(bottomLeft:));
 
 /*
  *  Resize view width so that its right boundary
  *  will be in specified distance from right side
  */
-- (instancetype)fromRightToWidth:(CGFloat)distanceFromRight;
-//TODO: rename to addWifthFromRight addWidthFrom(right:)
+- (instancetype)widthFromRight:(CGFloat)right
+NS_SWIFT_NAME(width(fromRight:));
 
 /*
  *  Resize view height so that its bottom boundary
     will be in specified distance from bottom side
  */
-- (instancetype)fromBottomToHeight:(CGFloat)distanceFromBottom;
-//TODO: rename to addHeightFromBottom addHeightFrom(bottom:)
+- (instancetype)heightFromBottom:(CGFloat)bottom
+NS_SWIFT_NAME(height(fromBottom:));
+
+/*
+ *  By setting left, width will be resized
+ */
+- (instancetype)widthFromLeft:(CGFloat)left
+NS_SWIFT_NAME(width(fromLeft:));
+
+/*
+ *  By setting right, width will be resized
+ */
+- (instancetype)widthByRight:(CGFloat)right
+NS_SWIFT_NAME(width(byRight:));
+
+/*
+ *  By setting top, height will be resized
+ */
+- (instancetype)heightFromTop:(CGFloat)top
+NS_SWIFT_NAME(height(fromTop:));
+
+/*
+ *  By setting bottom, height will be resized
+ */
+- (instancetype)heightByBottom:(CGFloat)bottom
+NS_SWIFT_NAME(height(byBottom:));
 
 /*
  * Set width so right side will stay at fixed position
  */
-- (instancetype)widthFixedRight:(CGFloat)width;
-//TODO: rename to fixedRightSetWidth fixedRight(width:)
+- (instancetype)fixedRightSetWidth:(CGFloat)width
+NS_SWIFT_NAME(fixedRight(width:));
 
 /*
- * Set height so bootm side will stay at fixed position
+ * Set height so bottom side will stay at fixed position
  */
-- (instancetype)heightFixedBottom:(CGFloat)height;
-//TODO: rename to fixedBottomSetHeight fixedBottom(height:)
+- (instancetype)fixedBottomSetHeight:(CGFloat)height
+NS_SWIFT_NAME(fixedBottom(height:));
 
 - (instancetype)heightDisabledAutosizing:(CGFloat)height;
 
@@ -107,8 +112,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent completely with margin and autosizing
  */
-- (instancetype)matchParentWithMargin:(CGFloat) margin
-    NS_SWIFT_NAME(matchParent(margin:));
+- (instancetype)matchParentWithMargin:(CGFloat)margin
+NS_SWIFT_NAME(matchParent(margin:));
 
 /*
  * Fill parent width with autosizing
@@ -118,13 +123,13 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Fill parent width with marign and autosizing
  */
-- (instancetype)matchParentWidthWithMargin:(CGFloat) margin NS_SWIFT_NAME(matchParentWidth(margin:));
+- (instancetype)matchParentWidthWithMargin:(CGFloat)margin NS_SWIFT_NAME(matchParentWidth(margin:));
 
 /*
  * Fill parent height with marign and autosizing
  */
-- (instancetype)matchParentHeightWithMargin:(CGFloat) margin
-    NS_SWIFT_NAME(matchParentHeight(margin:));
+- (instancetype)matchParentHeightWithMargin:(CGFloat)margin
+NS_SWIFT_NAME(matchParentHeight(margin:));
 
 /*
  * Fill parent height and autosizing

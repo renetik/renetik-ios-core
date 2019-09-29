@@ -25,7 +25,7 @@ import RenetikObjc
 
     override func onCreateLayout() {
         super.onCreateLayout()
-        for cell in cells { view.add(view: cell).top(-500) }
+        for cell in cells { view.add(view: cell).from(top: -500) }
     }
 
     override func onViewDidLayout() {
@@ -33,8 +33,8 @@ import RenetikObjc
         for cell in cells { cell.width(parentMain.view.width) }
     }
 
-    override func onViewWillTransition(to
-        size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {
+    override func onViewWillTransition(to size: CGSize,
+                                       _ coordinator: UIViewControllerTransitionCoordinator) {
         super.onViewWillTransition(to: size, coordinator)
         for cell in cells { cell.width(size.width) }
     }

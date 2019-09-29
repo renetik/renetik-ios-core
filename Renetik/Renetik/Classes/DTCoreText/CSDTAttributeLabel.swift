@@ -14,7 +14,7 @@ import TUSafariActivity
 import UIKit
 
 public class CSDTAttributedLabel: DTAttributedLabel,
-    DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
+        DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
@@ -54,8 +54,8 @@ public class CSDTAttributedLabel: DTAttributedLabel,
         didSet {
             let correctedHtml = html.addSizeToHtmlImageTags(self.width)
             attributedString = NSAttributedString(
-                htmlData: html.data(using: encoding),
-                options: attributedOptions, documentAttributes: nil)
+                    htmlData: html.data(using: encoding),
+                    options: attributedOptions, documentAttributes: nil)
         }
     }
 
@@ -109,23 +109,23 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     public func attributedTextContentView(_
-        attributedTextContentView: DTAttributedTextContentView!,
-        viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
+                                          attributedTextContentView: DTAttributedTextContentView!,
+                                          viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
         if !linksActive { return nil }
         return UIView.construct().frame(frame).onClick { view in
             let controller = UIActivityViewController(
-                activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+                    activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
             navigation.last!.present(controller, animated: true, completion: nil)
         }
     }
 
-	@discardableResult
+    @discardableResult
     public func sizeHeightToFit(characters count: Int) -> Self {
         let previousString = attributedString
-		let randomString = String.randomString(length: count)
-        attributedString = NSAttributedString(string:randomString)
-        sizeHeightToFit()
+        let randomString = String.randomString(length: count)
+        attributedString = NSAttributedString(string: randomString)
+        sizeFitWidth()
         attributedString = previousString
         return self
     }
@@ -156,8 +156,8 @@ public class CSDTAttributedLabel: DTAttributedLabel,
 //    }
 
     public func attributedTextContentView(_
-        contentView: DTAttributedTextContentView!,
-        viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
+                                          contentView: DTAttributedTextContentView!,
+                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment.contentURL.absoluteString.hasPrefix("/") {
             let url = URL(string: "https://rcherz.com" + attachment.contentURL.absoluteString)!
             attachment.contentURL = url
@@ -177,10 +177,10 @@ public class CSDTAttributedLabel: DTAttributedLabel,
         for attachment in layoutFrame.textAttachments() {
             let textAttachment = (attachment as! DTTextAttachment)
             if textAttachment.contentURL.absoluteString ==
-                lazyImageView.url.absoluteString {
+                       lazyImageView.url.absoluteString {
                 textAttachment.displaySize =
-                    CGSize(width: didChangeImageSize.width + 10,
-                           height: didChangeImageSize.height)
+                        CGSize(width: didChangeImageSize.width + 10,
+                                height: didChangeImageSize.height)
                 textAttachment.verticalAlignment = .center
             }
         }

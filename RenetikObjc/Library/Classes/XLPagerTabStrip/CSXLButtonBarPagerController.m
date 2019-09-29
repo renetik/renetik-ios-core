@@ -101,12 +101,12 @@
     if(visible) {
         if(_buttonBarViewHeightBeforeHide == 0) return;
         self.buttonBarView.height = _buttonBarViewHeightBeforeHide;
-        [self.containerView topToHeight:_buttonBarViewHeightBeforeHide];
+        [self.containerView heightFromTop:_buttonBarViewHeightBeforeHide];
         _buttonBarViewHeightBeforeHide = 0;
     } else {
         _buttonBarViewHeightBeforeHide = self.buttonBarView.height;
         self.buttonBarView.height = 0;
-        [self.containerView topToHeight:0];
+        [self.containerView heightFromTop:0];
     }
 }
 

@@ -12,69 +12,25 @@
 
 @implementation UIView (CSLayout)
 
-- (instancetype)left :(CGFloat)value {
-    self.left = value;
-    [self fixedLeft];
-    return self;
-}
-
-- (instancetype)top :(CGFloat)value {
-    self.top = value;
-    [self fixedTop];
-    return self;
-}
-
-- (instancetype)right :(CGFloat)value {
-    self.right = value;
-    [self fixedRight];
-    return self;
-}
-
-- (instancetype)bottom :(CGFloat)value {
-    self.bottom = value;
-    [self fixedBottom];
-    return self;
-}
-
-- (instancetype)left :(CGFloat)left top :(CGFloat)top {
-    [self left :left];
-    [self top :top];
-    return self;
-}
-
-- (instancetype)position :(CGPoint)position {
-    return [self left :position.x top :position.y];
-}
-
-- (instancetype)position :(CGFloat)left :(CGFloat)top {
-    return [self left :left top :top];
-}
-
-- (instancetype)left :(CGFloat)left top :(CGFloat)top width :(CGFloat)width height :(CGFloat)height {
-    [self left :left top :top];
-    [self width :width height :height];
-    return self;
-}
-
-- (instancetype)leftToWidth :(CGFloat)left {
+- (instancetype)widthFromLeft :(CGFloat)left {
     self.width = self.right - left;
-    [self left :left];
+    [self fromLeft:left];
     return self;
 }
 
-- (instancetype)rightToWidth :(CGFloat)right {
+- (instancetype)widthByRight :(CGFloat)right {
     self.width = right - self.left;
     [self fixedRight];
     return self;
 }
 
-- (instancetype)topToHeight :(CGFloat)top {
+- (instancetype)heightFromTop :(CGFloat)top {
     self.height = self.bottom - top;
-    [self top :top];
+    [self fromTop:top];
     return self;
 }
 
-- (instancetype)bottomToHeight :(CGFloat)bottom {
+- (instancetype)heightByBottom :(CGFloat)bottom {
     self.height = bottom - self.top;
     [self fixedBottom];
     return self;
@@ -128,19 +84,37 @@
 	return self;
 }
 
-- (instancetype)fromRightToWidth :(CGFloat)distanceFromRight {
+- (instancetype)fromLeft:(CGFloat)left top :(CGFloat)top {
+    [self fromLeft:left];
+    [self fromTop:top];
+    return self;
+}
+
+- (instancetype)fromLeft:(CGFloat)left bottom :(CGFloat)bottom {
+    [self fromLeft:left];
+    [self fromBottom:bottom];
+    return self;
+}
+
+- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height :(CGFloat)height {
+    [self fromLeft:left top:top];
+    [self width :width height :height];
+    return self;
+}
+
+- (instancetype)widthFromRight :(CGFloat)distanceFromRight {
     NSAssert(self.superview, @"Needs to have superview");
     let right = self.superview.width - distanceFromRight;
-    return [self rightToWidth :right];
+    return [self widthByRight:right];
 }
 
-- (instancetype)fromBottomToHeight :(CGFloat)distanceFromBottom {
+- (instancetype)heightFromBottom :(CGFloat)distanceFromBottom {
     NSAssert(self.superview, @"Needs to have superview");
     let bottom = self.superview.height - distanceFromBottom;
-    return [self bottomToHeight :bottom];
+    return [self heightByBottom:bottom];
 }
 
-- (instancetype)widthFixedRight :(CGFloat)width {
+- (instancetype)fixedRightSetWidth :(CGFloat)width {
     CGFloat right = self.fromRight;
     self.width = width;
     self.fromRight = right;
@@ -148,7 +122,7 @@
     return self;
 }
 
-- (instancetype)heightFixedBottom :(CGFloat)height {
+- (instancetype)fixedBottomSetHeight :(CGFloat)height {
     CGFloat bottom = self.fromBottom;
     self.height = height;
     self.fromBottom = bottom;
@@ -186,11 +160,11 @@
 }
 
 - (instancetype)matchParentWidthWithMargin :(CGFloat)margin {
-    return [[self.matchParentWidth left :margin] fromRightToWidth :margin];
+    return [[self.matchParentWidth fromLeft:margin] widthFromRight:margin];
 }
 
 - (instancetype)matchParentHeightWithMargin :(CGFloat)margin {
-    return [[self.matchParentHeight top :margin] fromBottomToHeight :margin];
+    return [[self.matchParentHeight fromTop:margin] heightFromBottom:margin];
 }
 
 - (instancetype)matchParentHeight {
@@ -199,15 +173,15 @@
 }
 
 - (instancetype)contentPaddingVertical :(CGFloat)padding {
-    [self.content top :padding];
-    [self.content fromBottomToHeight :padding];
+    [self.content fromTop:padding];
+    [self.content heightFromBottom:padding];
     [self.content flexibleWidth];
     return self;
 }
 
 - (instancetype)contentPaddingHorizontal :(CGFloat)padding {
-    [self.content left :padding];
-    [self.content fromRightToWidth :padding];
+    [self.content fromLeft:padding];
+    [self.content widthFromRight:padding];
     [self.content flexibleHeight];
     return self;
 }

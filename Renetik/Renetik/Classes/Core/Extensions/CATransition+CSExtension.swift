@@ -4,7 +4,7 @@
 
 import QuartzCore.CAAnimation
 
-extension CATransition {
+public extension CATransition {
     @discardableResult
     public class func create(for view: UIView,
                              duration: CFTimeInterval = 0.5,

@@ -9,15 +9,15 @@ import RenetikObjc
 
 public class CSKeyboardManager: CSChildViewLessController {
     public var keyboardHeight: CGFloat = 0
-    public var onKayboardChange: ((CGFloat) -> Void)?
+    public var onKeyboardChange: ((CGFloat) -> Void)?
     public var isKeyboardVisible: Bool { return keyboardHeight > 0 }
 
 	@discardableResult
     public func construct(
         _ parent: UIViewController,
-        _ onKayboardChange: ((CGFloat) -> Void)? = nil) -> Self {
+        _ onKeyboardChange: ((CGFloat) -> Void)? = nil) -> Self {
         super.construct(parent)
-        self.onKayboardChange = onKayboardChange
+        self.onKeyboardChange = onKeyboardChange
         observer(UIResponder.keyboardDidShowNotification, keyboardDidShow)
         observer(UIResponder.keyboardDidHideNotification, keyboardDidHide)
         return self
@@ -28,11 +28,11 @@ public class CSKeyboardManager: CSChildViewLessController {
             note.userInfo![UIResponder.keyboardFrameEndUserInfoKey]
             as! CGRect
         keyboardHeight = rect.size.height
-        onKayboardChange?(keyboardHeight)
+        onKeyboardChange?(keyboardHeight)
     }
 
     func keyboardDidHide(_ note: Notification) {
         keyboardHeight = 0
-        onKayboardChange?(0)
+        onKeyboardChange?(0)
     }
 }

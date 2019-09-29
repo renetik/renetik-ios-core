@@ -8,12 +8,12 @@
 
 @implementation NSBundle (CSExtension)
 
-+ (NSString *)shortVersion {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-}
-
-+ (NSString *)build {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *) kCFBundleVersionKey];;
-}
+//+ (NSString *)shortVersion {
+//    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+//}
+//
+//+ (NSString *)build {
+//    return [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *) kCFBundleVersionKey];;
+//}
 
 @end

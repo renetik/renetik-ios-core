@@ -22,6 +22,18 @@
     return self.frame.size.height;
 }
 
+- (void)setWidth:(CGFloat)value {
+    CGRect frame = self.frame;
+    frame.size.width = value;
+    self.frame = frame;
+}
+
+- (void)setHeight:(CGFloat)value {
+    CGRect frame = self.frame;
+    frame.size.height = value;
+    self.frame = frame;
+}
+
 - (CGSize)calculateSizeFromSubviews {
     var rect = CGRectZero;
     for (UIView *view in self.subviews) rect = CGRectUnion(rect, view.frame);
@@ -57,12 +69,6 @@
     return [self width:square height:square];
 }
 
-- (void)setWidth:(CGFloat)value {
-    CGRect frame = self.frame;
-    frame.size.width = value;
-    self.frame = frame;
-}
-
 - (instancetype)width:(CGFloat)value {
     self.width = value;
     return self;
@@ -71,12 +77,6 @@
 - (instancetype)widthAsHeight {
     self.width = self.height;
     return self;
-}
-
-- (void)setHeight:(CGFloat)value {
-    CGRect frame = self.frame;
-    frame.size.height = value;
-    self.frame = frame;
 }
 
 - (instancetype)height:(CGFloat)value {
@@ -109,16 +109,19 @@
     return self;
 }
 
-- (instancetype)sizeHeightToFit {
-    if (self.width <= 0) {
-        NSLog(@"kokot");
-    }
+- (instancetype)sizeFitWidth {
     NSAssert(self.width > 0, @"Width has to be set to calculate height");
     CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
     return [self height:newSize.height];
 }
 
-- (instancetype)fitSubviews {
+- (instancetype)sizeFitHeight {
+    NSAssert(self.height > 0, @"Width has to be set to calculate height");
+    CGSize newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
+    return [self width:newSize.width];
+}
+
+- (instancetype)sizeFitSubviews {
     return [self size:self.calculateSizeFromSubviews];
 }
 

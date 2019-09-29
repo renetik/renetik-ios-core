@@ -108,7 +108,7 @@ open class CSAFClient: CSObject {
     }
 
     private func createParams(_ params: [String: String?]) -> [String: String?] {
-        var newParams: [String: String?] = ["version": "IOS \(Bundle.shortVersion()) \(Bundle.build())"]
+        var newParams: [String: String?] = ["version": "IOS \(Bundle.shortVersion) \(Bundle.build)"]
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams

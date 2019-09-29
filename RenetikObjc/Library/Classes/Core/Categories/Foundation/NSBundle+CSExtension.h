@@ -9,9 +9,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSBundle (CSExtension)
-+ (NSString *)shortVersion;
-
-+ (NSString *)build;
+//+ (NSString *)shortVersion;
+//
+//+ (NSString *)build;
 @end
 
 NS_ASSUME_NONNULL_END

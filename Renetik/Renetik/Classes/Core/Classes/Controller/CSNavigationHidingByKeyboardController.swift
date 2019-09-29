@@ -16,7 +16,7 @@ import RenetikObjc
     @objc public override func construct(
         _ parent: UIViewController) -> Self {
         super.construct(parent)
-        kayboardManager.onKayboardChange = onKayboardChange
+        kayboardManager.onKeyboardChange = onKayboardChange
         return self
     }
 
@@ -32,7 +32,7 @@ import RenetikObjc
         if navigationBarHidden { return }
         UIView.animate(0.5) {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-            navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
+            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeOut(0.7)
         navigationBarHidden = true
@@ -42,7 +42,7 @@ import RenetikObjc
         if !navigationBarHidden { return }
         UIView.animate(0.5) {
             navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
-            navigation.last!.view.top(toHeight: navigation.navigationBar.bottom)
+            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fade(in: 0.7)
         navigationBarHidden = false

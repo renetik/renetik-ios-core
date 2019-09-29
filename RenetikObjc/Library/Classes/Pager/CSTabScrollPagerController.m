@@ -3,7 +3,7 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
-#import "CSTabPagerController.h"
+#import "CSTabScrollPagerController.h"
 #import "CSTabPagerTab.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSDimension.h"
@@ -12,23 +12,22 @@
 #import "UIView+CSExtension.h"
 #import "UIScrollView+CSExtension.h"
 #import "UIViewController+CSExtension.h"
-#import "UIDevice+CSExtension.h"
 #import "UIScreen+CSExtension.h"
 #import "NSArray+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "CSLang.h"
 
-@implementation CSTabPagerController {
-    NSArray<CSMainController <CSTabPagerTab>*>*_childMainControllers;
-    CSMainController*_parentController;
-    UITabBar*_tabBar;
-    UIScrollView*_scrollView;
+@implementation CSTabScrollPagerController {
+    NSArray<CSMainController <CSTabPagerTab> *> *_childMainControllers;
+    CSMainController *_parentController;
+    UITabBar *_tabBar;
+    UIScrollView *_scrollView;
     NSUInteger _currentIndex;
-    UIView*_contentView;
+    UIView *_contentView;
 }
 
-- (instancetype)construct:(CSMainController*)parent :(NSArray<CSMainController <CSTabPagerTab>*>*)controllers
-    :(UITabBar*)toolbar :(UIScrollView*)scrollView {
+- (instancetype)construct:(CSMainController *)parent :(NSArray<CSMainController <CSTabPagerTab> *> *)controllers
+        :(UITabBar *)toolbar :(UIScrollView *)scrollView {
     [super construct:parent];
     _parentController = parent;
     _childMainControllers = controllers;
@@ -46,26 +45,27 @@
 
 - (void)onUpdateLayout {
     super.onUpdateLayout;
-    //    invoke(^{ //TODO: ?
-    [self reload:_childMainControllers];
-//    });
+    invoke(^{
+        [self reload:_childMainControllers];
+    });
     [self updateAppearance];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView*)view {
-    [self onPageChange:(NSUInteger)lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _childMainControllers.count))];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)view {
+    [self onPageChange:(NSUInteger)
+            lround(_scrollView.contentOffset.x / (_scrollView.contentSize.width / _childMainControllers.count))];
     [self showSelectEffect];
 }
 
-- (void)reload:(nonnull NSArray*)controllers {
-    if(controllers.empty) return;
-    for(UIViewController*controller in _childMainControllers)
+- (void)reload:(nonnull NSArray *)controllers {
+    if (controllers.empty) return;
+    for (UIViewController *controller in _childMainControllers)
         [_parentController dismissChildController:controller];
     _childMainControllers = controllers;
     [self loadBar];
     _scrollView.contentSize = CGSizeMake(_contentView.width = _childMainControllers.count * _scrollView.width, 0);
 
-    for(CSMainController*controller in _childMainControllers) {
+    for (CSMainController *controller in _childMainControllers) {
         [_contentView horizontalLineAdd:controller.view];
         [_parentController showChildController:controller :_contentView];
         [[controller.view size:_scrollView.size] setNeedsUpdateConstraints];
@@ -74,13 +74,13 @@
 }
 
 - (void)loadBar {
-    NSMutableArray<UIBarItem*>*items = NSMutableArray.new;
-    for(CSMainController <CSTabPagerTab>*controller in _childMainControllers)
+    NSMutableArray<UIBarItem *> *items = NSMutableArray.new;
+    for (CSMainController <CSTabPagerTab> *controller in _childMainControllers)
         [items put:controller.tabItem];
     [_tabBar setItems:items];
 }
 
-- (void)tabBar:(UITabBar*)tabBar didSelectItem:(UITabBarItem*)item {
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     [self onPageChange:[tabBar.items indexOfObject:item]];
     [self showPage];
 }
@@ -107,12 +107,12 @@
 }
 
 - (void)updateAppearance {
-    if(UIScreen.isPortrait) {
+    if (UIScreen.isPortrait) {
         [_tabBar show];
-        [_scrollView bottomToHeight:_tabBar.top];
+        [_scrollView heightByBottom:_tabBar.top];
     } else {
         [_tabBar hide];
-        [_scrollView bottomToHeight:_tabBar.bottom];
+        [_scrollView heightByBottom:_tabBar.bottom];
     }
 }
 
