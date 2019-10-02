@@ -110,7 +110,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.onViewWillDisappear;
-    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
+//    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
 }
 
 - (void)onViewWillDisappear {
@@ -118,7 +118,8 @@
 
 - (void)onViewDismissing {
     self.removeNotificationObserver;
-    for (NSObject *observer in _notificationCenterObservers) [NSNotificationCenter.defaultCenter removeObserver:observer];
+    for (NSObject *observer in _notificationCenterObservers)
+        [NSNotificationCenter.defaultCenter removeObserver:observer];
     for (CSEventRegistration *registration in _eventRegistrations)
         registration.cancel;
 }
@@ -131,6 +132,7 @@
     _appearing = NO;
     self.viewDidDisappear;
     if (!self.controllerInNavigation.parentViewController) self.onViewDismissing;
+    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
 }
 
 - (void)viewDidDisappear {
