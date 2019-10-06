@@ -9,39 +9,47 @@ import Foundation
 
 @objc public extension UIScreen {
 
-    @objc public class var portrait: Bool {
+//    public class var portrait: Bool {
+//        return UIScreen.isPortrait()
+//    }
+
+    @nonobjc public class var isPortrait: Bool {
         return UIScreen.isPortrait()
     }
 
-    @objc public class var landscape: Bool {
-        return !portrait
+//    public class var landscape: Bool {
+//        return !isPortrait
+//    }
+
+    @nonobjc public class var isLandscape: Bool {
+        return !isPortrait
     }
 
-    @objc public class var isThin: Bool {
-        return portrait && UIDevice.isPhone
+    public class var isThin: Bool {
+        return isPortrait && UIDevice.isPhone
     }
 
-    @objc public class var isUltraThin: Bool {
-        return portrait && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
+    public class var isUltraThin: Bool {
+        return isPortrait && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
     }
 
-    @objc public class var isWide: Bool {
+    public class var isWide: Bool {
         return !isThin
     }
 
-    @objc public class var isUltraWide: Bool {
-        return UIDevice.isTablet && landscape
+    public class var isUltraWide: Bool {
+        return UIDevice.isTablet && isLandscape
     }
 
-    @objc public class var isShort: Bool {
-        return landscape && UIDevice.isPhone
+    public class var isShort: Bool {
+        return isLandscape && UIDevice.isPhone
     }
 
-    @objc public class var isUltraShort: Bool {
-        return landscape && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
+    public class var isUltraShort: Bool {
+        return isLandscape && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
     }
 
-    @objc public class var isTall: Bool {
+    public class var isTall: Bool {
         return !isShort
     }
 

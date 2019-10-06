@@ -10,6 +10,6 @@
 
 @property(readonly) NSString *selectedTitle;
 
-@property(readonly) NSInteger selectedIndex;
+@property(nonatomic, assign) NSInteger selectedIndex;
 
 @end

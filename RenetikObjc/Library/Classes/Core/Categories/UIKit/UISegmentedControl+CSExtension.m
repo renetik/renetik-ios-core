@@ -18,4 +18,8 @@
 - (NSInteger)selectedIndex {
     return self.selectedSegmentIndex;
 }
+
+- (void)setSelectedIndex:(NSInteger)index {
+    self.selectedSegmentIndex = index;
+}
 @end

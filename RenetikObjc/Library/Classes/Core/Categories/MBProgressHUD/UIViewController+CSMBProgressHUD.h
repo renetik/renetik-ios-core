@@ -8,7 +8,7 @@
 @import MBProgressHUD;
 
 @interface UIViewController (CSMBProgressHUD)
-- (MBProgressHUD *)showProgress;
-
-- (instancetype)hideProgress;
+//- (MBProgressHUD *)showProgress;
+//
+//- (instancetype)hideProgress;
 @end

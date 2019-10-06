@@ -33,7 +33,7 @@ public class CSNavigationHidingController: CSChildViewLessController {
     }
 
     func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 {
+        if keyboardHeight > 0 && UIScreen.isLandscape {
             requestNavigationBarHidden()
         } else {
             requestNavigationBarShown()
@@ -54,11 +54,11 @@ public class CSNavigationHidingController: CSChildViewLessController {
         requestNavigationBarShown()
     }
 
-    public override func onViewWillTransition(toSizeCompletion
-                                              size: CGSize,
+    public override func onViewWillTransition(toSizeCompletion size: CGSize,
                                               _ context: UIViewControllerTransitionCoordinatorContext) {
         if isNavigationBarHidden {
             UIView.animate(withDuration: 0.2) {
+                navigation.navigationBar.alpha = 0
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
                 navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
             }

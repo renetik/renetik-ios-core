@@ -9,13 +9,13 @@
 
 @implementation UIViewController (CSMBProgressHUD)
 
-- (MBProgressHUD *)showProgress {
-    return self.view.showProgress;
-}
-
-- (instancetype)hideProgress {
-    self.view.hideProgress;
-    return self;
-}
+//- (MBProgressHUD *)showProgress {
+//    return self.view.showProgress;
+//}
+//
+//- (instancetype)hideProgress {
+//    self.view.hideProgress;
+//    return self;
+//}
 
 @end
