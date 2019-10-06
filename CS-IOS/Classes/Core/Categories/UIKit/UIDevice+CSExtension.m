@@ -10,6 +10,7 @@
 + (void)setOrientation:(UIDeviceOrientation)orientation {
     [UIDevice.currentDevice setValue:@(orientation) forKey:@"orientation"];
     [UIViewController attemptRotationToDeviceOrientation];
+    [UIDevice.currentDevice setValue:@(UIDeviceOrientationUnknown) forKey:@"orientation"];
 }
 
 + (UIDeviceOrientation)orientation {
