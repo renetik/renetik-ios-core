@@ -14,13 +14,9 @@ enum CSError: Error {
 struct RuntimeError: Error {
     let message: String
 
-    init(_ message: String) {
-        self.message = message
-    }
+    init(_ message: String) { self.message = message }
 
-    public var localizedDescription: String {
-        return message
-    }
+    public var localizedDescription: String { message }
 }
 
 public func doLaterSwift(_ delayInSeconds: Int, _ function: @escaping () -> Void) {
@@ -36,17 +32,20 @@ public func stringify<Subject>(_ value: Subject) -> String {
     return String(describing: value)
 }
 
-public protocol CSLang {
+public func notNil(_ items: Any?...) -> Bool {
+    for it in items { if it.isNil { return false } }
+    return true
 }
 
-public extension CSLang {
-    public var notNil: Bool {
-        return true
-    }
+public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
 
-    public var isNil: Bool {
-        return false
-    }
+public protocol CSAny {
+}
+
+public extension CSAny {
+    public var notNil: Bool { true }
+
+    public var isNil: Bool { false }
 
     @discardableResult
     public func apply(_ function: (Self) -> Void) -> Self {
@@ -54,24 +53,22 @@ public extension CSLang {
         return self
     }
 
-    public func then(function: (Self) -> Void) {
-        function(self)
+    @discardableResult
+    public func invoke(_ function: () -> Void) -> Self {
+        function()
+        return self
     }
 
-    public func get<ReturnType>(function: (Self) -> ReturnType) -> ReturnType {
-        return function(self)
-    }
+    public func then(_ function: (Self) -> Void) { function(self) }
 
-    public var asString: String {
-        return "\(self)"
-    }
+    public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
-    public static func cast(_ object: Any) -> Self {
-        return object as! Self
-    }
+    public var asString: String { "\(self)" }
+
+    public static func cast(_ object: Any) -> Self { object as! Self }
 }
 
-public extension CSLang where Self: NSObject {
+public extension CSAny where Self: NSObject {
     public func equalsOne(_ objects: NSObject...) -> Bool {
         for object in objects {
             if self == object { return true }
@@ -81,17 +78,11 @@ public extension CSLang where Self: NSObject {
 }
 
 public extension Optional {
-    public var notNil: Bool {
-        return self != nil
-    }
+    public var notNil: Bool { self != nil }
 
-    public var isNil: Bool {
-        return self == nil
-    }
+    public var isNil: Bool { self == nil }
 
-    public var asString: String {
-        if self == nil { return "" } else { return "\(self!)" }
-    }
+    public var asString: String { if self == nil { return "" } else { return "\(self!)" } }
 
     @discardableResult
     public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResultNil {
@@ -120,13 +111,9 @@ public class CSConditionalResultNil {
 
     let isNil: Bool
 
-    init(isNil: Bool) {
-        self.isNil = isNil
-    }
+    init(isNil: Bool) { self.isNil = isNil }
 
-    public func elseDo(_ function: () -> Void) {
-        if isNil { function() }
-    }
+    public func elseDo(_ function: () -> Void) { if isNil { function() } }
 }
 
 public class CSConditionalResultNotNil<Type> {
@@ -144,9 +131,7 @@ public class CSConditionalResultNotNil<Type> {
         self.variable = variable
     }
 
-    public func elseDo(_ function: (Type) -> Void) {
-        if notNil { function(variable!) }
-    }
+    public func elseDo(_ function: (Type) -> Void) { if notNil { function(variable!) } }
 }
 
 public extension Optional where Wrapped: NSObject {
@@ -159,23 +144,20 @@ public extension Optional where Wrapped: NSObject {
     }
 }
 
-open class CSObject {
+open class CSObject: CSAny {
 }
 
-extension NSObject: CSLang {
+extension NSObject: CSAny {
 }
 
-extension String: CSLang {
+extension String: CSAny {
 }
 
-extension Int: CSLang {
+extension Int: CSAny {
 }
 
-extension Array: CSLang {
+extension Array: CSAny {
 }
 
-extension Dictionary: CSLang {
-}
-
-extension CSObject: CSLang {
+extension Dictionary: CSAny {
 }

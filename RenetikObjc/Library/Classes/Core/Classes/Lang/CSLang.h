@@ -4,6 +4,7 @@
 #define L(key)             NSLocalizedString(key, nil)
 
 static NSTimeInterval const SECOND = 1;
+static NSTimeInterval const HALF_SECOND = SECOND / 2;
 static NSTimeInterval const MINUTE = 60;
 static NSTimeInterval const HOUR = MINUTE * 60;
 static NSTimeInterval const DAY = HOUR * 24;

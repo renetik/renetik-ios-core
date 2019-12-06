@@ -7,7 +7,7 @@
 
 import RenetikObjc
 
-@objc public class CSSelectNameController: CSMainController
+public class CSSelectNameController: CSMainController
         , UITableViewDelegate, UITableViewDataSource {
     @objc public let table = UITableView.construct()
     @objc public let search = CSSearchBarController()
@@ -57,7 +57,7 @@ import RenetikObjc
 
     public func tableView(_ tableView: UITableView,
                           numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
+        filteredData.count
     }
 
     public func tableView(_ tableView: UITableView,
@@ -69,7 +69,7 @@ import RenetikObjc
 
     public func tableView(_ tableView: UITableView,
                           canEditRowAt path: IndexPath) -> Bool {
-        return onDelete.notNil
+        onDelete.notNil
     }
 
     public func tableView(_ tableView: UITableView,

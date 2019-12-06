@@ -20,7 +20,7 @@
 #import "CSCocoaLumberjack.h"
 #import "NSObject+CSExtension.h"
 
-static void*csViewContentPropertyKey = &csViewContentPropertyKey;
+static void *csViewContentPropertyKey = &csViewContentPropertyKey;
 
 @implementation UIView (CSContainer)
 
@@ -30,8 +30,8 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return instance;
 }
 
-+ (instancetype)wrap:(UIView*)view {
-    UIView*container = [self withFrame:view.frame];
++ (instancetype)wrap:(UIView *)view {
+    UIView *container = [self withFrame:view.frame];
     let center = view.center;
     let superview = view.superview;
     let autoSize = view.autoresizingMask;
@@ -48,8 +48,8 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
 //    return container;
 //}
 
-+ (instancetype)wrap:(UIView*)view withPadding:(NSInteger)padding {
-    UIView*container = [self withSize:view.width + padding * 2:view.height + padding * 2];
++ (instancetype)wrap:(UIView *)view withPadding:(NSInteger)padding {
+    UIView *container = [self withSize:view.width + padding * 2 :view.height + padding * 2];
     let center = view.center;
     let superview = view.superview;
     let autoSize = view.autoresizingMask;
@@ -60,31 +60,31 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return container;
 }
 
-- (UIView*)content:(UIView*)view {
+- (UIView *)content:(UIView *)view {
     self.content = view;
     return view;
 }
 
-- (void)setContent:(UIView*)view {
-    if(self.content) [self.content removeFromSuperview];
-    [self setWeakObject:csViewContentPropertyKey:view];
+- (void)setContent:(UIView *)view {
+    if (self.content) [self.content removeFromSuperview];
+    [self setWeakObject:csViewContentPropertyKey :view];
     [self add:view];
 }
 
-- (UIView*)content {
+- (UIView *)content {
     return [self getObject:csViewContentPropertyKey];
 }
 
-- (UIView*)findLastSubviewOfClass:(Class)pClass {
-    for(NSInteger i = self.subviews.count - 1; i >= 0; i--) {
-        UIView*subView = self.subviews[(NSUInteger)i];
-        if([subView isMemberOfClass:pClass]) return subView;
+- (UIView *)findLastSubviewOfClass:(Class)pClass {
+    for (NSInteger i = self.subviews.count - 1; i >= 0; i--) {
+        UIView *subView = self.subviews[(NSUInteger) i];
+        if ([subView isMemberOfClass:pClass]) return subView;
     }
     return nil;
 }
 
 - (instancetype)clearSubviews {
-    for(UIView*view in self.subviews) [view removeFromSuperview];
+    for (UIView *view in self.subviews) [view removeFromSuperview];
     return self;
 }
 
@@ -92,40 +92,40 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return self.subviews.count == 0;
 }
 
-- (UIView*)add:(UIView*)view {
+- (UIView *)add:(UIView *)view {
     [self addSubview:view];
     return view;
 }
 
-- (instancetype)addViews:(NSArray<UIView*>*)views {
-    for(UIView*view in views) [self addSubview:view];
+- (instancetype)addViews:(NSArray<UIView *> *)views {
+    for (UIView *view in views) [self addSubview:view];
     return self;
 }
 
-- (UIView*)addView:(UIView*)view:(NSInteger)index {
+- (UIView *)addView:(UIView *)view :(NSInteger)index {
     [self insertSubview:view atIndex:index];
     return view;
 }
 
-- (UIView*)setView:(UIView*)view:(NSInteger)index {
-    if([self.subviews at:index]) [[self.subviews at:index] removeFromSuperview];
+- (UIView *)setView:(UIView *)view :(NSInteger)index {
+    if ([self.subviews at:index]) [[self.subviews at:index] removeFromSuperview];
     [self insertSubview:view atIndex:index];
     return view;
 }
 
-- (UIView*)horizontalLayoutAdd:(UIView*)view {
+- (UIView *)horizontalLayoutAdd:(UIView *)view {
     return [self horizontalLayoutAdd:view margin:0];
 }
 
-- (UIView*)horizontalLayoutAdd:(UIView*)view margin:(NSInteger)margin columns:(NSInteger)columns {
+- (UIView *)horizontalLayoutAdd:(UIView *)view margin:(NSInteger)margin columns:(NSInteger)columns {
     view.width = (self.width - margin * (columns + 1)) / columns;
     return [self horizontalLayoutAdd:view margin:margin];
 }
 
-- (UIView*)horizontalLayoutAdd:(UIView*)view margin:(NSInteger)margin {
-    UIView*lastSubview = self.subviews.last;
-    if(lastSubview) {
-        if(lastSubview.right + margin + view.width + margin <= self.width) {
+- (UIView *)horizontalLayoutAdd:(UIView *)view margin:(NSInteger)margin {
+    UIView *lastSubview = self.subviews.last;
+    if (lastSubview) {
+        if (lastSubview.right + margin + view.width + margin <= self.width) {
             [view fromLeft:lastSubview.right + margin];
             [view fromTop:lastSubview.top];
         } else {
@@ -139,21 +139,21 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return [self add:view];
 }
 
-- (UIView*)horizontalLineAdd:(UIView*)view   {
+- (UIView *)horizontalLineAdd:(UIView *)view {
     return [self horizontalLineAdd:view margin:0];
 }
 
-- (UIView*)horizontalLineAdd:(UIView*)view margin:(NSInteger)margin {
-    UIView*lastSubview = self.subviews.last;
+- (UIView *)horizontalLineAdd:(UIView *)view margin:(NSInteger)margin {
+    UIView *lastSubview = self.subviews.last;
     [view fromLeft:lastSubview ? lastSubview.right : 0];
-    if(view.left != 0) view.left += margin;
+    if (view.left != 0) view.left += margin;
     return [self add:view];
 }
 
-- (UIView*)horizontalReverseLayoutAdd:(UIView*)view {
-    UIView*lastSubview = self.subviews.last;
-    if(lastSubview) {
-        if(lastSubview.left - view.width >= 0) {
+- (UIView *)horizontalReverseLayoutAdd:(UIView *)view {
+    UIView *lastSubview = self.subviews.last;
+    if (lastSubview) {
+        if (lastSubview.left - view.width >= 0) {
             [view fromBottom:lastSubview.bottom];
             [view fromRight:lastSubview.left];
         } else {
@@ -167,48 +167,58 @@ static void*csViewContentPropertyKey = &csViewContentPropertyKey;
     return [self add:view];
 }
 
-- (UIView*)verticalLayoutAdd:(UIView*)view {
+- (UIView *)verticalLayoutAdd:(UIView *)view {
     return [self verticalLayoutAdd:view margin:0];
 }
 
-- (UIView*)verticalLayoutAdd:(UIView*)view margin:(NSInteger)margin {
-    UIView*lastSubview = self.subviews.last;
-    if(lastSubview) {
-        if(lastSubview.bottom + view.height <= self.height) {
-            [view fromLeft:lastSubview.left + margin];
-            [view fromTop:lastSubview.bottom + margin];
+- (UIView *)verticalLayoutAdd:(UIView *)view margin:(NSInteger)margin {
+    return [self verticalLayoutUpdate:[self add:view] margin:margin];
+}
+
+- (UIView *)verticalLayoutUpdate:(UIView *)view margin:(NSInteger)margin {
+    UIView *previousSubview = [self.subviews getPreviousOf:view];
+    if (previousSubview) {
+        if (previousSubview.bottom + view.height <= self.height) {
+            [view fromLeft:previousSubview.left + margin];
+            [view fromTop:previousSubview.bottom + margin];
         } else {
-            [view fromLeft:lastSubview.right + margin];
+            [view fromLeft:previousSubview.right + margin];
             [view fromTop:margin];
         }
     } else {
         [view fromLeft:margin];
         [view fromTop:margin];
     }
-    return [self add:view];
+    return view;
 }
 
-- (UIView*)verticalLineAdd:(UIView*)view   {
+- (UIView *)verticalLineAdd:(UIView *)view {
     return [self verticalLineAdd:view margin:0];
 }
 
-- (UIView*)verticalLineAdd:(UIView*)view margin:(NSInteger)margin {
-    return [self add:[self verticalLineAtPosition
-                      :self.subviews.lastIndex + 1 view:view margin:margin]];
+- (UIView *)verticalLineAdd:(UIView *)view margin:(NSInteger)margin {
+    return [self verticalLineUpdate:[self add:view] margin:margin];
 }
 
-- (UIView*)verticalLineAtPosition:(NSInteger)position
-    view:(UIView*)view margin:(NSInteger)margin {
-    UIView*lastSubview = [self.subviews at:position - 1];
+- (UIView *)verticalLineUpdate:(UIView *)view margin:(NSInteger)margin {
+    UIView *previousSubview = [self.subviews getPreviousOf:view];
+    [view fromTop:previousSubview ? previousSubview.bottom : 0];
+    if (view.top != 0) view.top += margin;
+    return view;
+}
+
+- (UIView *)verticalLineAtPosition:(NSInteger)position
+                              view:(UIView *)view margin:(NSInteger)margin {
+    UIView *lastSubview = [self.subviews at:position - 1];
     [view fromTop:lastSubview ? lastSubview.bottom : 0];
-    if(view.top != 0) view.top += margin;
+    if (view.top != 0) view.top += margin;
     return view;
 }
 
 - (instancetype)heightByLastSubviewWithPadding:(NSInteger)margin {
-    if(self.content) [self height:self.content.subviews.last.bottom];
+    if (self.content) [self height:self.content.subviews.last.bottom];
     else [self height:self.subviews.last.bottom];
-    if(self.height) self.height += margin;
+    if (self.height) self.height += margin;
     return self;
 }
 

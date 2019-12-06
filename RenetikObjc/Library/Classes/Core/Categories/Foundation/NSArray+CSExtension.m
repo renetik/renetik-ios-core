@@ -6,6 +6,7 @@
 #import "NSString+CSExtension.h"
 #import "NSMutableArray+CSExtension.h"
 #import "CSCocoaLumberjack.h"
+#import "NSArray+CSExtension.h"
 
 @implementation NSArray (CSExtension)
 
@@ -43,6 +44,10 @@
     return [self at:index];
 }
 
+- (id)getPreviousOf:(id)anObject {
+    return [self at:[self indexOf:anObject] - 1];
+}
+
 - (BOOL)empty {
     return self.count == 0;
 }
@@ -53,6 +58,10 @@
 
 - (id)last {
     return [self at:self.lastIndex];
+}
+
+- (id)beforeLast {
+    return [self at:self.lastIndex - 1];
 }
 
 - (id)first {
@@ -90,14 +99,14 @@
     return self;
 }
 
-- (NSString *)jsonString{
+- (NSString *)jsonString {
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:nil error:&error];
     warn(error);
     return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (NSMutableArray *)mutable{
+- (NSMutableArray *)mutable {
     return [NSMutableArray.new construct:self];
 }
 

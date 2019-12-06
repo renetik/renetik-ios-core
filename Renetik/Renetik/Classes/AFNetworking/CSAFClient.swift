@@ -9,7 +9,7 @@
 import AFNetworking
 import RenetikObjc
 
-open class CSAFClient: CSObject {
+open class CSAFClient: CSAny {
     public let url: String
     public let manager: AFHTTPSessionManager
     var defaultParams: Dictionary<String, String> = [:]
@@ -53,14 +53,14 @@ open class CSAFClient: CSObject {
         manager.responseSerializer.acceptableContentTypes = Set<String>(contentTypes)
     }
 
-    public func basicAuhentification(username: String, password: String) {
+    public func basicAuthentication(username: String, password: String) {
         manager.requestSerializer
                 .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
 
     open func get<Data: CSServerData>(
-            _ service: String, data: Data,
-            _ params: [String: String?]) -> CSResponse<Data> {
+            service: String, data: Data,
+            params: [String: String?] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
@@ -69,15 +69,10 @@ open class CSAFClient: CSObject {
         return request
     }
 
-    open func get<Data: CSServerData>(
-            _ service: String, data: Data) -> CSResponse<Data> {
-        return get(service, data: data, [:])
-    }
-
     open func post<Data: CSServerData>(
-            _ service: String, data: Data,
-            _ params: Dictionary<String, String>,
-            form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+            service: String, data: Data,
+            form: @escaping (AFMultipartFormData) -> Void,
+            params: [String: String] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -90,15 +85,9 @@ open class CSAFClient: CSObject {
         return request
     }
 
-    open func post<Data: CSServerData>(_
-                                       service: String, data: Data,
-                                       form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
-        return post(service, data: data, [:], form: form)
-    }
-
-    open func post<Data: CSServerData>(_
-                                       service: String, data: Data,
-                                       _ params: [String: String?]) -> CSResponse<Data> {
+    open func post<Data: CSServerData>(
+            service: String, data: Data,
+            params: [String: String?] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post

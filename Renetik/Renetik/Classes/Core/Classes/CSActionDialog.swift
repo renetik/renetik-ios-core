@@ -84,13 +84,13 @@ import RenetikObjc
     public func show(from barItem: UIBarButtonItem) {
         create()
         if UIDevice.iPad() { sheet.show(from: barItem, animated: true) }
-        else { sheet.show(in: CSAppDelegate.instance().window!) }
+        else { sheet.show(in: CSApplicationDelegate.instance().window!) }
     }
 
     public func show(from view: UIView) {
         create()
         if UIDevice.iPad() { sheet.show(from: view.frame, in: view.superview!, animated: true) }
-        else { sheet.show(in: CSAppDelegate.instance().window!) }
+        else { sheet.show(in: CSApplicationDelegate.instance().window!) }
     }
 
     public func hide() {

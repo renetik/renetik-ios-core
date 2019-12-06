@@ -2,16 +2,25 @@
 //  Created by Rene Dohan on 12/30/12.
 //
 
+
 @import Foundation;
+
+@class CSEventRegistration;
+
 NS_ASSUME_NONNULL_BEGIN
-@interface CSArgEvent<ObjectType> : NSObject {
-    NSMutableArray *_blockArray;
-}
 
-- (void)run :(ObjectType)argument;
+typedef void (^CSEventBlock)(id);
 
-- (void)add :(void (^)(ObjectType))block;
+@interface CSArgEvent<Argument> : NSObject
 
-- (void (^)(ObjectType))last;
+- (CSEventRegistration *)add:(CSEventBlock)block;
+
+- (void)remove:(CSEventBlock)block;
+
+- (void)fire:(Argument)argument;
+
+- (void)fire;
+
 @end
+
 NS_ASSUME_NONNULL_END

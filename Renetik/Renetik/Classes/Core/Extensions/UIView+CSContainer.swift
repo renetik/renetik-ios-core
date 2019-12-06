@@ -26,7 +26,7 @@ public extension UIView {
     @discardableResult
     public func verticalLine<T: UIView>(
             add view: T, margin: Int = 0, function: ((T) -> Void)? = nil) -> T {
-        verticalLineAdd(view, margin: margin)
+        verticalLine(add:view, margin: margin)
         function?(view)
         return view
     }

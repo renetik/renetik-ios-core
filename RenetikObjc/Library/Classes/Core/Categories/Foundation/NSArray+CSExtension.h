@@ -4,7 +4,9 @@
 
 
 @import Foundation;
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface NSArray<ObjectType> (CSExtension)
 
 @property(readonly) BOOL empty;
@@ -15,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) _Nullable ObjectType first;
 @property(readonly) _Nullable ObjectType second;
 @property(readonly) _Nullable ObjectType last;
+@property(readonly) _Nullable ObjectType beforeLast;
 
 + (NSArray<NSString *> *)toStringList:(NSArray<NSObject *> *)names;
 
@@ -30,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable ObjectType)get:(NSInteger)index;
 
+- (nullable ObjectType)getPreviousOf:(ObjectType)anObject;
+
 - (BOOL)equals:(NSArray *)array;
 
 - (NSArray *)filterBySearch:(NSString *)searchText;
@@ -38,4 +43,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSMutableArray<ObjectType> *)mutable;
 @end
+
 NS_ASSUME_NONNULL_END

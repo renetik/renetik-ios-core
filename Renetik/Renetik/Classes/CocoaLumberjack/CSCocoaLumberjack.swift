@@ -4,7 +4,7 @@
 
 import CocoaLumberjack
 
-@objc public class CocoaLumberjackCSLogger: NSObject, CSLogger {
+public class CocoaLumberjackCSLogger: NSObject, CSLogger {
     public func logDebug(_ value: String) {
         DDLogDebug(value)
     }

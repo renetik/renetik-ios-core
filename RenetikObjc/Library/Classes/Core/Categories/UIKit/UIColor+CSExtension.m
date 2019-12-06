@@ -3,6 +3,7 @@
 //
 
 #import "UIColor+CSExtension.h"
+#import "NSString+CSExtension.h"
 
 @implementation UIColor (CSExtension)
 
@@ -11,6 +12,7 @@
 }
 
 + (UIColor *)colorWithHex:(NSString *)hex {
+    if ([hex startsWith:@"#"]) hex = [hex substringFromIndex:1];
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
 
     // String should be 6 or 8 characters

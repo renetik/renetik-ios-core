@@ -6,5 +6,10 @@
 //
 
 import UIKit
-extension UIButton {
+
+public extension UIButton {
+    @objc public func alignContent(_ alignment: ContentHorizontalAlignment) -> Self {
+        contentHorizontalAlignment = alignment
+        return self
+    }
 }

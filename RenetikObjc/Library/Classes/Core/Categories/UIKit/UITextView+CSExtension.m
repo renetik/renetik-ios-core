@@ -55,7 +55,7 @@
     return self;
 }
 
-- (instancetype)textAlign:(enum NSTextAlignment)alignment {
+- (instancetype)alignText:(enum NSTextAlignment)alignment {
     self.textAlignment = alignment;
     return self;
 }

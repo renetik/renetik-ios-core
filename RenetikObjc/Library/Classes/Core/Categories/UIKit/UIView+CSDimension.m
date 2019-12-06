@@ -104,6 +104,16 @@
     return self;
 }
 
+- (instancetype)removeWidth:(CGFloat)value {
+    self.width -= value;
+    return self;
+}
+
+- (instancetype)removeHeight:(CGFloat)value {
+    self.height -= value;
+    return self;
+}
+
 - (instancetype)sizeFit {
     [self sizeToFit];
     return self;
@@ -116,7 +126,7 @@
 }
 
 - (instancetype)sizeFitHeight {
-    NSAssert(self.height > 0, @"Width has to be set to calculate height");
+    NSAssert(self.height > 0, @"Height has to be set to calculate height");
     CGSize newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
     return [self width:newSize.width];
 }

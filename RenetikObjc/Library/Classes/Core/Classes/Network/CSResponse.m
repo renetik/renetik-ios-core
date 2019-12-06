@@ -59,7 +59,7 @@
     if (_isDone) return;
     _data = data;
     _isSuccess = YES;
-    [_onSuccessEvent run:self.data];
+    [_onSuccessEvent fire:self.data];
     self.done;
 }
 
@@ -68,7 +68,7 @@
     _isFailed = YES;
     _failedResponse = response;
     NSLog(@"Response failed %@", response.message);
-    [_onFailedEvent run:response];
+    [_onFailedEvent fire:response];
     self.done;
 }
 
@@ -82,13 +82,13 @@
 - (void)cancel {
     self.message = self.requestCancelledMessage;
     _isCanceled = YES;
-    [_onCancelEvent run:self];
+    [_onCancelEvent fire:self];
     self.done;
 }
 
 - (void)done {
     _isDone = YES;
-    [_onDoneEvent run:self.data];
+    [_onDoneEvent fire:self.data];
 }
 
 - (CSResponse *)failIfFail:(CSResponse *)response {
@@ -135,7 +135,7 @@
 }
 
 - (instancetype)setProgress:(double)completed {
-    [_onProgressEvent run:@(completed)];
+    [_onProgressEvent fire:@(completed)];
     return self;
 }
 
