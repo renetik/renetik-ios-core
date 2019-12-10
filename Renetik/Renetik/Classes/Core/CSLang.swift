@@ -19,6 +19,11 @@ struct RuntimeError: Error {
     public var localizedDescription: String { message }
 }
 
+public func doLaterSwift(_ function: @escaping () -> Void) {
+    doLaterSwift(0, function)
+}
+
+
 public func doLaterSwift(_ delayInSeconds: Int, _ function: @escaping () -> Void) {
     doLaterSwift(Double(delayInSeconds), function)
 }
@@ -48,7 +53,7 @@ public extension CSAny {
     public var isNil: Bool { false }
 
     @discardableResult
-    public func apply(_ function: (Self) -> Void) -> Self {
+    public func also(_ function: (Self) -> Void) -> Self {
         function(self)
         return self
     }
@@ -61,6 +66,7 @@ public extension CSAny {
 
     public func then(_ function: (Self) -> Void) { function(self) }
 
+    // let in kotlin
     public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
     public var asString: String { "\(self)" }

@@ -24,7 +24,7 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
     @discardableResult
     public func add<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T> {
         data.add(response.data)
-        (response as! CSResponse<AnyObject>).apply { response in
+        (response as! CSResponse<AnyObject>).also { response in
             responses.add(response)
             response.onFailed { _ in self.onResponseFailed(response) }
                     .onSuccess { _ in self.onResponseSuccess(response) }
