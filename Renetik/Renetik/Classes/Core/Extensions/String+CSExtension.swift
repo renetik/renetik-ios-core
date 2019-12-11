@@ -10,7 +10,9 @@ import Foundation
 public extension String {
     public func htmlToText(_ encoding: String.Encoding) -> String? {
         if let data = data(using: encoding) {
-            return (try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil))?.string
+            return (try? NSAttributedString(data: data,
+                    options: [.documentType: NSAttributedString.DocumentType.html],
+                    documentAttributes: nil))?.string
         }
         return nil
     }
@@ -20,23 +22,23 @@ public extension String {
         return String((0..<length).map { _ in letters.randomElement()! })
     }
 
-    public var isSet: Bool { return !isEmpty }
+    public var isSet: Bool { !isEmpty }
 
-    public var set: Bool { return isSet }
+    public var set: Bool { isSet }
 
-    public var trim: String { return asNSString.trim() }
+    public var trim: String { asNSString.trim() }
 
-    public var length: Int { return count }
+    public var length: Int { count }
 
-    public var asNSString: NSString { return (self as NSString) }
+    public var asNSString: NSString { (self as NSString) }
 
-    public var boolValue: Bool {
-        return asNSString.boolValue
-    }
+    public var boolValue: Bool { asNSString.boolValue }
 
-    func substring(from: Int) -> String {
-        return asNSString.substring(from: from, to: length) as String
-    }
+    public var doubleValue: Double { asNSString.doubleValue }
+
+    public var intValue: Int { asNSString.integerValue }
+
+    func substring(from: Int) -> String { asNSString.substring(from: from, to: length) as String }
 }
 
 public extension Optional where Wrapped == String {

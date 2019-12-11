@@ -15,9 +15,4 @@
     self.showing = YES;
     return self;
 }
-
-- (void)loadView {
-    self.view = UIView.new;
-}
-
 @end

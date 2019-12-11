@@ -68,10 +68,6 @@ typedef NS_ENUM (NSUInteger, CSRequestType) {
 
 - (instancetype)force:(BOOL)reload;
 
-//- (instancetype)setId :(id)id;
-//
-//- (NSString*)id;
-
 @end
 
 NS_ASSUME_NONNULL_END

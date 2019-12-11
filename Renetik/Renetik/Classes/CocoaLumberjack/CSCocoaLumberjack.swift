@@ -4,7 +4,7 @@
 
 import CocoaLumberjack
 
-@objc public class CocoaLumberjackCSLogger: NSObject, CSLogger {
+public class CocoaLumberjackCSLogger: NSObject, CSLogger {
     public func logDebug(_ value: String) {
         DDLogDebug(value)
     }
@@ -24,7 +24,7 @@ import CocoaLumberjack
 
 public class CSCocoaLumberjackFormater: NSObject, DDLogFormatter {
     var loggerCount = 0
-    let threadUnsafeDateFormatter = DateFormatter().apply {
+    let threadUnsafeDateFormatter = DateFormatter().also {
         $0.formatterBehavior = .behavior10_4
         $0.dateFormat = "HH:mm:ss:SSS"
     }

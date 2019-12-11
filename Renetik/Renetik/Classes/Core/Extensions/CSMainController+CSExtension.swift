@@ -31,18 +31,18 @@ import RenetikObjc
     @discardableResult
     @objc public func menuItem(view: UIView,
                                onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).apply { $0.view = view }
+        return menuItem(onClick: onClick).also { $0.view = view }
     }
 
     @discardableResult
     @objc public func menuItem(image: UIImage,
                                onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).apply { $0.image = image }
+        return menuItem(onClick: onClick).also { $0.image = image }
     }
 
     @discardableResult
     @objc public func menuItem(type: UIBarButtonItem.SystemItem,
                                onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).apply { $0.systemItem = type }
+        return menuItem(onClick: onClick).also { $0.systemItem = type }
     }
 }

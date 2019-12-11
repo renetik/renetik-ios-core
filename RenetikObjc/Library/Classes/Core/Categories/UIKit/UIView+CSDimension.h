@@ -46,6 +46,12 @@ NS_SWIFT_NAME(add(width:));
 - (instancetype)addHeight:(CGFloat)value
 NS_SWIFT_NAME(add(height:));
 
+- (instancetype)removeWidth:(CGFloat)value
+NS_SWIFT_NAME(remove(width:));
+
+- (instancetype)removeHeight:(CGFloat)value
+NS_SWIFT_NAME(remove(height:));
+
 - (instancetype)sizeFit;
 
 - (instancetype)sizeFitWidth;

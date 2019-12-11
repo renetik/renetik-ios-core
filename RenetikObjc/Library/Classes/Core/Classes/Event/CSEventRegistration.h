@@ -5,17 +5,17 @@
 
 @import Foundation;
 
-#import "CSEvent.h"
+#import "CSArgEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CSEventRegistration : NSObject
 
-@property(nonatomic, strong) CSEvent *event;
+@property(nonatomic, strong) CSArgEvent *event;
 
 @property(nonatomic, copy) CSEventBlock function;
 
-- (instancetype)construct:(CSEvent *)event :(CSEventBlock)function;
+- (instancetype)construct:(CSArgEvent *)event :(CSEventBlock)function;
 
 - (void)cancel;
 @end

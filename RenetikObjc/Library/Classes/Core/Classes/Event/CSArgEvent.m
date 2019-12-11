@@ -5,27 +5,34 @@
 
 #import "CSArgEvent.h"
 #import "CSLang.h"
-#import "NSArray+CSExtension.h"
+#import "CSEventRegistration.h"
 #import "NSMutableArray+CSExtension.h"
 
-
-@implementation CSArgEvent
+@implementation CSArgEvent {
+    NSMutableArray<CSEventBlock> *_blockArray;
+}
 
 - (id)init {
-    if (self = [super init])
-        _blockArray = [NSMutableArray new];
+    if (self = super.init) _blockArray = NSMutableArray.new;
     return self;
 }
 
-- (void)run:(id)argument {
-    for (void (^block)(id) in _blockArray) runWith(block, argument);
+- (void)fire {
+    [self fire:nil];
 }
 
-- (void)add:(void (^)(id))block {
-    [_blockArray put:block];
+- (void)fire:(id)argument {
+    for (CSEventBlock block in _blockArray) block(argument);
 }
 
-- (void (^)(id))last {
-    return _blockArray.last;
+- (CSEventRegistration *)add:(CSEventBlock)block {
+    let blockCopy = (CSEventBlock) [block copy];
+    [_blockArray put:blockCopy];
+    return [CSEventRegistration.new construct:self :blockCopy];
 }
+
+- (void)remove:(CSEventBlock)block {
+    [_blockArray removeObject:block];
+}
+
 @end

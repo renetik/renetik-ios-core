@@ -9,7 +9,11 @@ import RenetikObjc
 import RMessage
 import UIKit
 
-@objc public class CSNotification: NSObject {
+public extension UIViewController {
+    public func toast(_ title: String) { CSNotification().title(title).show() }
+}
+
+public class CSNotification: NSObject {
     @objc public var title: String?
     @objc public var subtitle: String?
     @objc public var icon: UIImage?
@@ -82,7 +86,7 @@ import UIKit
     @objc public func action(_ title: String?, _ onClick: @escaping () -> Void) -> Self {
         actionTitle = title
         actionOnClick = onClick
-		dismissable = false
+        dismissable = false
         return self
     }
 
@@ -104,18 +108,18 @@ import UIKit
 
     @discardableResult
     @objc public func show() -> Self {
-        return show(navigation.last!)
+        show(navigation.last!)
     }
 
     @discardableResult
     @objc public func show(_ parent: UIViewController?) -> Self {
         RMessage.showNotification(
-            in: parent, title: title, subtitle: subtitle, iconImage: icon,
-            type: type, customTypeName: nil,
-            duration: (time.notNil ? time! : TimeInterval(duration.rawValue)),
-            callback: nil, presentingCompletion: nil, dismissCompletion: nil,
-            buttonTitle: actionTitle, buttonCallback: actionOnClick,
-            at: position, canBeDismissedByUser: dismissable)
+                in: parent, title: title, subtitle: subtitle, iconImage: icon,
+                type: type, customTypeName: nil,
+                duration: (time.notNil ? time! : TimeInterval(duration.rawValue)),
+                callback: nil, presentingCompletion: nil, dismissCompletion: nil,
+                buttonTitle: actionTitle, buttonCallback: actionOnClick,
+                at: position, canBeDismissedByUser: dismissable)
         return self
     }
 

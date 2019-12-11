@@ -46,8 +46,14 @@ public extension Array where Element: Equatable {
     }
 
     @discardableResult
-    public mutating func removeAll(_ item: Element) -> Array {
+    public mutating func removeAll(_ item: Element) -> Self {
         removeAll(where: { item == $0 })
+        return self
+    }
+
+    @discardableResult
+    public mutating func clear() -> Self {
+        removeAll()
         return self
     }
 }

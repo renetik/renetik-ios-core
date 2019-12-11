@@ -5,8 +5,7 @@
 
 @import UIKit;
 
-@class CSEvent;
-@class CSEventRegistration;
+#import "CSArgEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) BOOL showing;
 @property(nonatomic, readonly) BOOL appearing;
 @property(nonatomic, readonly) BOOL visible;
-@property(nonatomic, readonly) CSEvent *onOrientationChanging;
-@property(nonatomic, readonly) CSEvent *onOrientationChanged;
+@property(nonatomic, readonly) CSArgEvent<id> *onOrientationChanging;
+@property(nonatomic, readonly) CSArgEvent<id> *onOrientationChanged;
 
 - (void)onViewDidLoad;
 

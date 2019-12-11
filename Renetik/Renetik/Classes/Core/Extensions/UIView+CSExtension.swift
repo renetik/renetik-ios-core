@@ -5,5 +5,6 @@
 
 import UIKit
 
-extension UIView {
+public extension UIView {
+    public var availableHeight: CGFloat { height - navigation.navigationBar.bottom }
 }

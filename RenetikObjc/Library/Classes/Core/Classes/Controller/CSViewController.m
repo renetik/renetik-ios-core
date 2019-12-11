@@ -9,7 +9,7 @@
 #import "UINavigationController+CSExtension.h"
 #import "NSObject+CSExtension.h"
 #import "CSEventRegistration.h"
-#import "CSEvent.h"
+#import "CSArgEvent.h"
 #import "NSMutableArray+CSExtension.h"
 #import "CSBool.h"
 
@@ -30,8 +30,8 @@
         _showing = NO;
         _notificationCenterObservers = NSMutableArray.new;
         _eventRegistrations = NSMutableArray.new;
-        _onOrientationChanging = CSEvent.new;
-        _onOrientationChanged = CSEvent.new;
+        _onOrientationChanging = CSArgEvent.new;
+        _onOrientationChanged = CSArgEvent.new;
     }
     return self;
 }
@@ -157,11 +157,11 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    _onOrientationChanging.run;
+    _onOrientationChanging.fire;
     [self onViewWillTransitionToSize:size :coordinator];
     [coordinator animateAlongsideTransition:nil completion:^(id <UIViewControllerTransitionCoordinatorContext> context) {
         [self onViewWillTransitionToSizeCompletion:size :context];
-        _onOrientationChanged.run;
+        _onOrientationChanged.fire;
     }];
 }
 

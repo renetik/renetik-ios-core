@@ -4,11 +4,11 @@
 //
 
 #import "CSEventRegistration.h"
-#import "CSEvent.h"
+#import "CSArgEvent.h"
 
 @implementation CSEventRegistration
 
-- (instancetype)construct:(CSEvent *)event :(CSEventBlock)function {
+- (instancetype)construct:(CSArgEvent *)event :(CSEventBlock)function {
     _event = event;
     _function = function;
     return self;

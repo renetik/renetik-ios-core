@@ -8,10 +8,19 @@
 import Foundation
 
 @objc public protocol CSLogger {
-    @objc func logDebug(_ value: String)
-    @objc func logInfo(_ value: String)
-    @objc func logWarn(_ value: String)
-    @objc func logError(_ value: String)
+    func logDebug(_ value: String)
+    func logInfo(_ value: String)
+    func logWarn(_ value: String)
+    func logError(_ value: String)
+}
+
+public extension UIViewController {
+    public func logInfoToast<Subject>(_ value: Subject? = nil, functionName: String = #function,
+                                      fileName: String = #file, lineNumber: Int = #line) {
+        let className = (fileName as NSString).lastPathComponent
+        logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(stringify(value))")
+        toast(stringify(value))
+    }
 }
 
 public func logDebug<Subject>(_ value: Subject? = nil, functionName: String = #function,
@@ -30,17 +39,17 @@ public func logInfo(functionName: String = #function,
 public func logInfo<Subject>(_ value: Subject? = nil, functionName: String = #function,
                              fileName: String = #file, lineNumber: Int = #line) {
     let className = (fileName as NSString).lastPathComponent
-    logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))")
+    logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(stringify(value))")
 }
 
 public func logWarn<Subject>(_ value: Subject? = nil, functionName: String = #function,
                              fileName: String = #file, lineNumber: Int = #line) {
     let className = (fileName as NSString).lastPathComponent
-    logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))")
+    logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(stringify(value))")
 }
 
 public func logError<Subject>(_ value: Subject? = nil, functionName: String = #function,
                               fileName: String = #file, lineNumber: Int = #line) {
     let className = (fileName as NSString).lastPathComponent
-    logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))")
+    logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(stringify(value))")
 }

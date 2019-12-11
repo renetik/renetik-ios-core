@@ -24,6 +24,19 @@ open class CSAFClient: CSAny {
         configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
                 sessionConfiguration: configuration)
+//        manager.setDataTaskWillCacheResponseBlock { session, task, cachedResponse in
+//            let response = cachedResponse.response as! HTTPURLResponse
+//            var headers = response.allHeaderFields as! [String: String]
+//            print(headers.keys.contains("Cache-Control"))
+//            headers["Cache-Control"] = "max-age=30"
+//            headers["Cache-Control"] = "max-stale=30"
+//            let modifiedResponse = HTTPURLResponse(
+//                    url: response.url!,
+//                    statusCode: response.statusCode,
+//                    httpVersion: "HTTP/1.1",
+//                    headerFields: headers)!
+//            return CachedURLResponse(response: modifiedResponse, data: cachedResponse.data)
+//        }
         manager.responseSerializer = AFHTTPResponseSerializer()
     }
 
@@ -53,14 +66,14 @@ open class CSAFClient: CSAny {
         manager.responseSerializer.acceptableContentTypes = Set<String>(contentTypes)
     }
 
-    public func basicAuhentification(username: String, password: String) {
+    public func basicAuthentication(username: String, password: String) {
         manager.requestSerializer
                 .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
 
     open func get<Data: CSServerData>(
-            _ service: String, data: Data,
-            _ params: [String: String?]) -> CSResponse<Data> {
+            service: String, data: Data,
+            params: [String: String?] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
@@ -69,15 +82,10 @@ open class CSAFClient: CSAny {
         return request
     }
 
-    open func get<Data: CSServerData>(
-            _ service: String, data: Data) -> CSResponse<Data> {
-        return get(service, data: data, [:])
-    }
-
     open func post<Data: CSServerData>(
-            _ service: String, data: Data,
-            _ params: Dictionary<String, String>,
-            form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
+            service: String, data: Data,
+            form: @escaping (AFMultipartFormData) -> Void,
+            params: [String: String] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -90,15 +98,9 @@ open class CSAFClient: CSAny {
         return request
     }
 
-    open func post<Data: CSServerData>(_
-                                       service: String, data: Data,
-                                       form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
-        return post(service, data: data, [:], form: form)
-    }
-
-    open func post<Data: CSServerData>(_
-                                       service: String, data: Data,
-                                       _ params: [String: String?]) -> CSResponse<Data> {
+    open func post<Data: CSServerData>(
+            service: String, data: Data,
+            params: [String: String?] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
