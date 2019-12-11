@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(void)hideTextInsets:(NSArray<UITextView *> *)textViews;
 
--(instancetype)textAlign:(enum NSTextAlignment)alignment;
+-(instancetype)alignText:(enum NSTextAlignment)alignment;
 
 -(instancetype)font:(UIFont *)font;
 

@@ -9,7 +9,7 @@
 import AFNetworking
 import RenetikObjc
 
-open class CSAFClient: CSObject {
+open class CSAFClient: CSAny {
     public let url: String
     public let manager: AFHTTPSessionManager
     var defaultParams: Dictionary<String, String> = [:]

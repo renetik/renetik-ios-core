@@ -36,10 +36,10 @@ public func stringify<Subject>(_ value: Subject) -> String {
     return String(describing: value)
 }
 
-public protocol CSLang {
+public protocol CSAny {
 }
 
-public extension CSLang {
+public extension CSAny {
     public var notNil: Bool {
         return true
     }
@@ -71,7 +71,7 @@ public extension CSLang {
     }
 }
 
-public extension CSLang where Self: NSObject {
+public extension CSAny where Self: NSObject {
     public func equalsOne(_ objects: NSObject...) -> Bool {
         for object in objects {
             if self == object { return true }
@@ -162,20 +162,20 @@ public extension Optional where Wrapped: NSObject {
 open class CSObject {
 }
 
-extension NSObject: CSLang {
+extension NSObject: CSAny {
 }
 
-extension String: CSLang {
+extension String: CSAny {
 }
 
-extension Int: CSLang {
+extension Int: CSAny {
 }
 
-extension Array: CSLang {
+extension Array: CSAny {
 }
 
-extension Dictionary: CSLang {
+extension Dictionary: CSAny {
 }
 
-extension CSObject: CSLang {
+extension CSObject: CSAny {
 }
