@@ -48,6 +48,9 @@ public protocol CSAny {
 }
 
 public extension CSAny {
+
+    public static func cast(_ object: Any) -> Self { object as! Self }
+
     public var notNil: Bool { true }
 
     public var isNil: Bool { false }
@@ -71,7 +74,7 @@ public extension CSAny {
 
     public var asString: String { "\(self)" }
 
-    public static func cast(_ object: Any) -> Self { object as! Self }
+    public func cast<T>() -> T { self as! T }
 }
 
 public extension CSAny where Self: NSObject {
@@ -88,7 +91,10 @@ public extension Optional {
 
     public var isNil: Bool { self == nil }
 
-    public var asString: String { if self == nil { return "" } else { return "\(self!)" } }
+    public var asString: String {
+        if self == nil { return "" }
+        else { return "\(self!)" }
+    }
 
     @discardableResult
     public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResultNil {
@@ -109,7 +115,8 @@ public extension Optional {
     }
 
     public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
-        if self != nil { return function(self!) } else { return nil }
+        if self != nil { return function(self!) }
+        else { return nil }
     }
 }
 
