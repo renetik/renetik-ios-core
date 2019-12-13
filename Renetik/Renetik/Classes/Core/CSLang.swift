@@ -75,6 +75,8 @@ public extension CSAny {
     public var asString: String { "\(self)" }
 
     public func cast<T>() -> T { self as! T }
+
+    public func castOrNil<T>() -> T? { self as? T }
 }
 
 public extension CSAny where Self: NSObject {
@@ -120,6 +122,21 @@ public extension Optional {
     }
 }
 
+public extension Optional where Wrapped: NSObject {
+    public func equalsOne(_ objects: NSObject...) -> Bool {
+        if self == nil { return false }
+        for object in objects {
+            if self == object { return true }
+        }
+        return false
+    }
+}
+
+//public extension Optional where Wrapped == Bool {
+//    public var isTrue: Bool { self == true }
+//    public var isFalse: Bool { self == false }
+//}
+
 public class CSConditionalResultNil {
 
     let isNil: Bool
@@ -145,16 +162,6 @@ public class CSConditionalResultNotNil<Type> {
     }
 
     public func elseDo(_ function: (Type) -> Void) { if notNil { function(variable!) } }
-}
-
-public extension Optional where Wrapped: NSObject {
-    public func equalsOne(_ objects: NSObject...) -> Bool {
-        if self == nil { return false }
-        for object in objects {
-            if self == object { return true }
-        }
-        return false
-    }
 }
 
 open class CSObject: CSAny {
