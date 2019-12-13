@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CSEventBlock)(id);
+typedef void (^CSEventBlock)(id, CSEventRegistration *);
 
 @interface CSArgEvent<Argument> : NSObject
 

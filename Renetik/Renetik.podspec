@@ -108,7 +108,7 @@ TODO: Add long description of the pod here.
 	s.subspec 'CSNotification' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
-		ss.dependency 'RMessage', '~> 2.2'
+		ss.dependency 'RMessage', '~> 2.3'
 	end
 	
 	s.subspec 'XLPagerTabStrip' do |ss|

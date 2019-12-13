@@ -15,29 +15,17 @@ public class CSNavigationHidingController: CSChildViewLessController {
     var isHidingRunning = false
 
     lazy var keyboardManager: CSKeyboardManager = {
-        CSKeyboardManager().construct(self)
+        CSKeyboardManager().construct(self).also { $0.onKeyboardChange = onKeyboardChange }
     }()
 
-    @discardableResult
-    @objc public override func construct(
-            _ parent: UIViewController) -> Self {
-        super.construct(parent)
-        keyboardManager.onKeyboardChange = onKeyboardChange
-        return self
-    }
-
     public func showIfNotKeyboard() {
-        if isNavigationBarHidden && !keyboardManager.isKeyboardVisible {
-            requestNavigationBarShown()
-        }
+        if isNavigationBarHidden &&
+                   !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
     }
 
     func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 && UIScreen.isLandscape {
-            requestNavigationBarHidden()
-        } else {
-            requestNavigationBarShown()
-        }
+        if keyboardHeight > 0 && UIScreen.isLandscape { requestNavigationBarHidden() }
+        else { requestNavigationBarShown() }
     }
 
     public override func onViewVisibilityChanged(_ visible: Bool) {
@@ -73,14 +61,10 @@ public class CSNavigationHidingController: CSChildViewLessController {
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         lastContentOffset.notNil { lastOffset in
-            if scrollView.isAtTop {
-                requestNavigationBarShown()
-            } else if scrollView.isAtBottom {
-            } else if lastOffset < scrollView.contentOffset.y {
-                requestNavigationBarHidden()
-            } else if lastOffset > scrollView.contentOffset.y {
-                requestNavigationBarShown()
-            }
+            if scrollView.isAtTop { requestNavigationBarShown() }
+            else if scrollView.isAtBottom {}
+            else if lastOffset < scrollView.contentOffset.y { requestNavigationBarHidden() }
+            else if lastOffset > scrollView.contentOffset.y { requestNavigationBarShown() }
         }
     }
 
@@ -114,14 +98,13 @@ public class CSNavigationHidingController: CSChildViewLessController {
             navigation.last!.view.height(fromBottom: self.fromBottom)
         }, completion: { _ in
             self.isHidingRunning = false
-            if self.shouldShow {
-                self.requestNavigationBarShown()
-            }
+            if self.shouldShow { self.requestNavigationBarShown() }
         })
     }
 
     var fromBottom: CGFloat {
-        if navigation.isToolbarHidden { return 0 } else { return navigation.toolbar.topFromBottom }
+        if navigation.isToolbarHidden { return 0 }
+        else { return navigation.toolbar.topFromBottom }
     }
 
     @objc public func requestNavigationBarShown() {
@@ -145,9 +128,7 @@ public class CSNavigationHidingController: CSChildViewLessController {
             navigation.last!.view.height(fromBottom: self.fromBottom)
         }, completion: { _ in
             self.isShowingRunning = false
-            if self.shouldHide {
-                self.requestNavigationBarHidden()
-            }
+            if self.shouldHide { self.requestNavigationBarHidden() }
         })
     }
 }

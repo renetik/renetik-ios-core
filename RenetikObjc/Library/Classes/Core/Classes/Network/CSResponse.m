@@ -110,27 +110,37 @@
 }
 
 - (instancetype)onSuccess:(void (^)(id))onSuccess {
-    [_onSuccessEvent add:onSuccess];
+    [_onSuccessEvent add:^(id argument, CSEventRegistration *registration) {
+        onSuccess(argument);
+    }];
     return self;
 }
 
 - (instancetype)onProgress:(void (^)(NSNumber *))onProgress {
-    [_onProgressEvent add:onProgress];
+    [_onProgressEvent add:^(NSNumber *progress, CSEventRegistration *registration) {
+        onProgress(progress);
+    }];
     return self;
 }
 
-- (instancetype)onCancel:(void (^)(id))block {
-    [_onCancelEvent add:block];
+- (instancetype)onCancel:(void (^)(id))onCancel {
+    [_onCancelEvent add:^(id argument, CSEventRegistration *registration) {
+        onCancel(argument);
+    }];
     return self;
 }
 
-- (instancetype)onDone:(void (^)(id))block {
-    [_onDoneEvent add:block];
+- (instancetype)onDone:(void (^)(id))onDone {
+    [_onDoneEvent add:^(id argument, CSEventRegistration *registration) {
+        onDone(argument);
+    }];
     return self;
 }
 
-- (instancetype)onFailed:(void (^)(CSResponse *))block {
-    [_onFailedEvent add:block];
+- (instancetype)onFailed:(void (^)(CSResponse *))onFailed {
+    [_onFailedEvent add:^(CSResponse *argument, CSEventRegistration *registration) {
+        onFailed(argument);
+    }];
     return self;
 }
 

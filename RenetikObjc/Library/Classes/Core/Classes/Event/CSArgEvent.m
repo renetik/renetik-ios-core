@@ -22,7 +22,8 @@
 }
 
 - (void)fire:(id)argument {
-    for (CSEventBlock block in _blockArray) block(argument);
+    for (CSEventBlock block in _blockArray)
+        block(argument, [CSEventRegistration.new construct:self :block]);
 }
 
 - (CSEventRegistration *)add:(CSEventBlock)block {

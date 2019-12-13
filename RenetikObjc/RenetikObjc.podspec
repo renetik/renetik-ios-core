@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   s.subspec 'SBJson' do |ss|
       ss.source_files = 'Library/Classes/SBJson/**/*'
       ss.dependency 'RenetikObjc/Core'
-      ss.dependency 'SBJson', '~> 3.1.1'
+      ss.dependency 'SBJson', '~> 3.1'
   end
   
    s.subspec 'CocoaLumberjack' do |ss|
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
    s.subspec 'SDWebImage' do |ss|
      ss.source_files = 'Library/Classes/SDWebImage/**/*'
      ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'SDWebImage', '~> 5.1.1'
+     ss.dependency 'SDWebImage', '~> 5.3'
    end
 
    s.subspec 'XLPagerTabStrip' do |ss|
