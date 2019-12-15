@@ -4,8 +4,11 @@
 //
 
 @import UIKit;
+@import BlocksKit;
 
 @interface UIBarButtonItem (CSExtension)
+
++ (UIBarButtonItem *)createWithImage:(UIImage *)image onClick:(void (^)(id sender))action;
 
 + (UIBarButtonItem *)createSoloTitle:(NSString *)title;
 

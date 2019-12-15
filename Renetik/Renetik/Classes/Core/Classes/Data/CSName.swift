@@ -7,17 +7,17 @@
 
 import RenetikObjc
 
-@objc open class CSName: CSDictionaryJsonData {
+open class CSName: CSDictionaryJsonData {
     @objc public var nameKey = "name"
     @objc public var idKey = "id"
 
     @objc open var name: String {
-        get { return getStringValue(nameKey) }
+        get { getStringValue(nameKey) }
         set(value) { put(nameKey, value) }
     }
 
     @objc open var id: String {
-        get { return getStringValue(idKey) }
+        get { getStringValue(idKey) }
         set(value) { put(idKey, value) }
     }
 
@@ -32,7 +32,7 @@ import RenetikObjc
     }
 
     @objc public class func create(_ name: String, _ id: String = "") -> Self {
-        return self.init().construct(name, id)
+        self.init().construct(name, id)
     }
 
     @objc public class func createNames(fromStrings strings: [String]) -> [CSName] {
@@ -52,7 +52,7 @@ import RenetikObjc
     }
 
     @objc open override var description: String {
-        return name
+        name
     }
 
     @objc open override func isEqual(_ object: Any?) -> Bool {

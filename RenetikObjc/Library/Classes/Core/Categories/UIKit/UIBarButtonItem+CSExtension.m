@@ -3,10 +3,14 @@
 // Copyright (c) 2015 creative_studio. All rights reserved.
 //
 
+
 #import "UIBarButtonItem+CSExtension.h"
 
-
 @implementation UIBarButtonItem (CSExtension)
+
++ (UIBarButtonItem *)createWithImage:(UIImage *)image onClick:(void (^)(id sender))action {
+    return [UIBarButtonItem.alloc bk_initWithImage:image style:UIBarButtonItemStylePlain handler:action];
+}
 
 + (UIBarButtonItem *)createSoloTitle:(NSString *)title {
     return [UIBarButtonItem.alloc initWithTitle:title style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -20,7 +24,7 @@
     return [UIBarButtonItem.alloc initWithBarButtonSystemItem:item target:target action:action];
 }
 
-+ (UIBarButtonItem *)createWithItem:(UIBarButtonSystemItem)item{
++ (UIBarButtonItem *)createWithItem:(UIBarButtonSystemItem)item {
     return [UIBarButtonItem.alloc initWithBarButtonSystemItem:item target:nil action:nil];
 }
 
@@ -33,7 +37,7 @@
     self.action = action;
 }
 
-+ (UIImage *)imageFromSystemBarButton:(UIBarButtonSystemItem)systemItem :(UIColor *) color {
++ (UIImage *)imageFromSystemBarButton:(UIBarButtonSystemItem)systemItem :(UIColor *)color {
     UIToolbar *bar = UIToolbar.new;
     UIBarButtonItem *buttonItem = [UIBarButtonItem createWithItem:systemItem];
     [bar setItems:@[buttonItem] animated:NO];
