@@ -67,9 +67,9 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/TableController', '~> 0.8.0'
+# 		ss.dependency 'RenetikObjc/TableController', '~> 0.8.0'
 		ss.dependency 'DZNEmptyDataSet','~> 1.8'
-		ss.dependency 'ChameleonFramework', '~> 2.1'
+# 		ss.dependency 'ChameleonFramework', '~> 2.1'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
 	
@@ -107,7 +107,10 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'XLPagerTabStrip' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/XLPagerTabStrip', '~> 0.8.0'
+        ss.dependency 'XLPagerTabStrip', '~> 9.0'
+#         ss.dependency 'XLPagerTabStrip', '~> 3.0'
+# 		ss.dependency 'RenetikObjc/XLPagerTabStrip', '~> 0.8.0'
+		ss.source_files = 'Renetik/Classes/XLPagerTabStrip/**/*'
 	end
 	
 	s.subspec 'DTCoreText' do |ss|

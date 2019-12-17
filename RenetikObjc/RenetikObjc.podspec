@@ -94,24 +94,24 @@ Pod::Spec.new do |s|
      ss.dependency 'SDWebImage', '~> 5.3'
    end
 
-   s.subspec 'XLPagerTabStrip' do |ss|
-     ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'XLPagerTabStrip', '~> 3.0'
-   end
+#    s.subspec 'XLPagerTabStrip' do |ss|
+#      ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
+#      ss.dependency 'RenetikObjc/Core'
+#      ss.dependency 'XLPagerTabStrip', '~> 3.0'
+#    end
 
    s.subspec 'All' do |ss|
 		ss.dependency 'RenetikObjc/Core'
 		ss.dependency 'RenetikObjc/SBJson'
 		ss.dependency 'RenetikObjc/CocoaLumberjack'
-		ss.dependency 'RenetikObjc/TableController'
+# 		ss.dependency 'RenetikObjc/TableController'
 # 		ss.dependency 'RenetikObjc/CollectionController'
 		ss.dependency 'RenetikObjc/RefreshControl'
 		ss.dependency 'RenetikObjc/Pager'
 # 		ss.dependency 'RenetikObjc/AFNetworking'
 		ss.dependency 'RenetikObjc/Reachability'
 		ss.dependency 'RenetikObjc/SDWebImage'
-		ss.dependency 'RenetikObjc/XLPagerTabStrip'
+# 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
 	end
 	 
 #	 s.test_spec 'Tests' do |test|
