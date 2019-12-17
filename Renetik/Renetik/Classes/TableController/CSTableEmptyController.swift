@@ -10,15 +10,15 @@ import DZNEmptyDataSet
 import RenetikObjc
 import UIKit
 
-@objc public class CSTableEmptyController: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    @objc public var emptyText: String?
-    @objc public var emptyDescription: String?
-    @objc public var table: CSTableController<AnyObject>!
-    @objc public var reloadImage = UIImage()
-    @objc public var reloadImageTintColor: UIColor?
-    @objc public var backgroundColor: UIColor? = .clear
-    @objc public var titleFont = UIFont.preferredFont(forTextStyle: .title3).bold()
-    @objc public var descriptionFont = UIFont.preferredFont(forTextStyle: .footnote)
+public class CSTableEmptyController<ObjectType: AnyObject & CustomStringConvertible & Equatable>: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    public var emptyText: String?
+    public var emptyDescription: String?
+    public var table: CSTableController<ObjectType>!
+    public var reloadImage = UIImage()
+    public var reloadImageTintColor: UIColor?
+    public var backgroundColor: UIColor? = .clear
+    public var titleFont = UIFont.preferredFont(forTextStyle: .title3).bold()
+    public var descriptionFont = UIFont.preferredFont(forTextStyle: .footnote)
     var text: String {
         if table.isFailed {
             return table.failedMessage.notNil ? table.failedMessage :
@@ -27,15 +27,10 @@ import UIKit
         return emptyText.notNil ? emptyText! : "No items in list to display at this time"
     }
 
-    @nonobjc public func construct<RowType: AnyObject>(_ table: CSTableController<RowType>,
-                                                       _ title: String? = nil,
-                                                       _ description: String? = nil) {
-        construct(table as! CSTableController<AnyObject>, title, description)
-    }
-
-    @objc public func construct(_ table: CSTableController<AnyObject>,
-                                _ title: String? = nil,
-                                _ description: String? = nil) -> Self {
+    @discardableResult
+    public func construct(_ table: CSTableController<ObjectType>,
+                          _ title: String? = nil,
+                          _ description: String? = nil) -> Self {
         self.table = table
         self.emptyText = title
         self.emptyDescription = description
@@ -44,8 +39,19 @@ import UIKit
         return self
     }
 
+//    public func construct(_ table: CSTableControllerSwift<ObjectType>,
+//                          _ title: String? = nil,
+//                          _ description: String? = nil) -> Self {
+//        self.table = table
+//        self.emptyText = title
+//        self.emptyDescription = description
+//        table.tableView.emptyDataSetDelegate = self
+//        table.tableView.emptyDataSetSource = self
+//        return self
+//    }
+
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return text.attributed([
+        text.attributed([
             NSAttributedString.Key.font: titleFont,
             NSAttributedString.Key.foregroundColor:
             UIColor(contrastingBlackOrWhiteColorOn: table.tableView.backgroundColor, isFlat: true),
@@ -77,23 +83,23 @@ import UIKit
     }
 
     public func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return reloadImage
+        reloadImage
     }
 
     public func imageTintColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor? {
-        return reloadImageTintColor
+        reloadImageTintColor
     }
 
     public func emptyDataSetShouldAllowImageViewAnimate(_ scrollView: UIScrollView!) -> Bool {
-        return true
+        true
     }
 
     public func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
-        return true
+        true
     }
 
     public func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return backgroundColor
+        backgroundColor
     }
 
     public func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
@@ -105,6 +111,6 @@ import UIKit
     }
 
     public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return 0
+        0
     }
 }

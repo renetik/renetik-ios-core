@@ -44,7 +44,7 @@ TODO: Add long description of the pod here.
 	s.default_subspecs = 'All'
 	
 	s.subspec 'Core' do |ss|
-		ss.dependency 'RenetikObjc/Core', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/Core', '~> 0.8.0'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
 	end
 	
@@ -56,53 +56,47 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'SBJson' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/SBJson', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/SBJson', '~> 0.8.0'
 	end
 	
 	s.subspec 'CocoaLumberjack' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/CocoaLumberjack', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/CocoaLumberjack', '~> 0.8.0'
 		ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
 	end
 	
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/TableController', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/TableController', '~> 0.8.0'
 		ss.dependency 'DZNEmptyDataSet','~> 1.8'
 		ss.dependency 'ChameleonFramework', '~> 2.1'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
 	
-	s.subspec 'CollectionController' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/CollectionController', '~> 0.7.0'
-	end
-	
 	s.subspec 'RefreshControl' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/RefreshControl', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/RefreshControl', '~> 0.8.0'
 	end
 	
 	s.subspec 'Pager' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/Pager', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/Pager', '~> 0.8.0'
 	end
 	
 	s.subspec 'AFNetworking' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/AFNetworking', '~> 0.7.0'
 		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
 		ss.dependency 'AFNetworking', '~> 3.0'
 	end
 	
 	s.subspec 'Reachability' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/Reachability', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/Reachability', '~> 0.8.0'
 	end
 	
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/SDWebImage', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/SDWebImage', '~> 0.8.0'
 	end
 	
 	s.subspec 'CSNotification' do |ss|
@@ -113,7 +107,7 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'XLPagerTabStrip' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/XLPagerTabStrip', '~> 0.7.0'
+		ss.dependency 'RenetikObjc/XLPagerTabStrip', '~> 0.8.0'
 	end
 	
 	s.subspec 'DTCoreText' do |ss|
@@ -131,7 +125,6 @@ TODO: Add long description of the pod here.
 		ss.dependency 'Renetik/SBJson'
 		ss.dependency 'Renetik/CocoaLumberjack'
 		ss.dependency 'Renetik/TableController'
-		ss.dependency 'Renetik/CollectionController'
 		ss.dependency 'Renetik/RefreshControl'
 		ss.dependency 'Renetik/Pager'
 		ss.dependency 'Renetik/AFNetworking'

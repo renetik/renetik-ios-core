@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RenetikObjc
 
 public extension String {
     public func htmlToText(_ encoding: String.Encoding) -> String? {
@@ -39,6 +40,8 @@ public extension String {
     public var intValue: Int { asNSString.integerValue }
 
     func substring(from: Int) -> String { asNSString.substring(from: from, to: length) as String }
+
+    func containsNoCase(_ string: String?) -> Bool { asNSString.containsNoCase(string) }
 }
 
 public extension Optional where Wrapped == String {

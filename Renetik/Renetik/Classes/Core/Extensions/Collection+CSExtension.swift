@@ -34,6 +34,13 @@ public extension Array where Element: Any {
         append(contentsOf: array)
         return self
     }
+
+    @discardableResult
+    public mutating func reload(_ array: Array<Element>) -> Array {
+        removeAll()
+        add(array)
+        return self
+    }
 }
 
 public extension Array where Element: Equatable {
@@ -58,13 +65,13 @@ public extension Array where Element: Equatable {
     }
 }
 
-public extension Array where Element: NSObject {
-    @discardableResult
-    public func filter(bySearch text: String?) -> Array {
-        if text?.trim.isSet == true {
-            var filtered = Array<Element>()
+public extension Array where Element: Equatable & CustomStringConvertible {
+
+    func filter(bySearch searchText: String?) -> [Element] {
+        if searchText?.set == true {
+            var filtered = [Element]()
             for item in self {
-                if item.description.containsNoCase(text!) {
+                if item.description.containsNoCase(searchText) {
                     filtered.add(item)
                 }
             }

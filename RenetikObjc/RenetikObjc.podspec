@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RenetikObjc'
-  s.version          = '0.7.2'
+  s.version          = '0.8.0'
   s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure'
 
 	s.description      = <<-DESC
@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
     ss.frameworks = 'UIKit'
     ss.dependency 'BlocksKit', '~> 2.2'
     ss.dependency 'MBProgressHUD', '~> 1.1'
+    ss.dependency 'AFNetworking', '~> 3.0'
   end
 
   s.subspec 'SBJson' do |ss|
@@ -54,12 +55,12 @@ Pod::Spec.new do |s|
      ss.dependency 'ChameleonFramework', '~> 2.1'
    end
 
-   s.subspec 'CollectionController' do |ss|
-     ss.source_files = 'Library/Classes/CollectionController/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'RenetikObjc/RefreshControl'
-     ss.dependency 'DZNEmptyDataSet','~> 1.8'
-   end
+#    s.subspec 'CollectionController' do |ss|
+#      ss.source_files = 'Library/Classes/CollectionController/**/*'
+#      ss.dependency 'RenetikObjc/Core'
+#      ss.dependency 'RenetikObjc/RefreshControl'
+#      ss.dependency 'DZNEmptyDataSet','~> 1.8'
+#    end
 
    s.subspec 'RefreshControl' do |ss|
      ss.source_files = 'Library/Classes/RefreshControl/**/*'
@@ -75,11 +76,11 @@ Pod::Spec.new do |s|
      ss.dependency 'ChameleonFramework', '~> 2.1'
    end
 
-   s.subspec 'AFNetworking' do |ss|
-     ss.source_files = 'Library/Classes/AFNetworking/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'AFNetworking', '~> 3.0'
-   end
+#    s.subspec 'AFNetworking' do |ss|
+#      ss.source_files = 'Library/Classes/AFNetworking/**/*'
+#      ss.dependency 'RenetikObjc/Core'
+#      ss.dependency 'AFNetworking', '~> 3.0'
+#    end
 
    s.subspec 'Reachability' do |ss|
      ss.source_files = 'Library/Classes/Reachability/**/*'
@@ -104,10 +105,10 @@ Pod::Spec.new do |s|
 		ss.dependency 'RenetikObjc/SBJson'
 		ss.dependency 'RenetikObjc/CocoaLumberjack'
 		ss.dependency 'RenetikObjc/TableController'
-		ss.dependency 'RenetikObjc/CollectionController'
+# 		ss.dependency 'RenetikObjc/CollectionController'
 		ss.dependency 'RenetikObjc/RefreshControl'
 		ss.dependency 'RenetikObjc/Pager'
-		ss.dependency 'RenetikObjc/AFNetworking'
+# 		ss.dependency 'RenetikObjc/AFNetworking'
 		ss.dependency 'RenetikObjc/Reachability'
 		ss.dependency 'RenetikObjc/SDWebImage'
 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
