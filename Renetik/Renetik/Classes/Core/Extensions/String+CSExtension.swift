@@ -25,13 +25,11 @@ public extension String {
 
     public var isSet: Bool { !isEmpty }
 
-    public var set: Bool { isSet }
-
     public var trim: String { asNSString.trim() }
 
     public var length: Int { count }
 
-    public var asNSString: NSString { (self as NSString) }
+    public var asNSString: NSString { self as NSString }
 
     public var boolValue: Bool { asNSString.boolValue }
 

@@ -12,6 +12,14 @@
     return [UIBarButtonItem.alloc bk_initWithImage:image style:UIBarButtonItemStylePlain handler:action];
 }
 
++ (UIBarButtonItem *)createWithItem:(UIBarButtonSystemItem)item onClick:(void (^)(id sender))action {
+    return [UIBarButtonItem.alloc bk_initWithBarButtonSystemItem:item handler:action];
+}
+
++ (UIBarButtonItem *)createWithTitle:(NSString *)title onClick:(void (^)(id sender))action {
+    return [UIBarButtonItem.alloc bk_initWithTitle:title style:UIBarButtonItemStylePlain handler:action];
+}
+
 + (UIBarButtonItem *)createSoloTitle:(NSString *)title {
     return [UIBarButtonItem.alloc initWithTitle:title style:UIBarButtonItemStylePlain target:nil action:nil];
 }

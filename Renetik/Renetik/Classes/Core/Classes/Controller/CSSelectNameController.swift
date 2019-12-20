@@ -39,7 +39,7 @@ public class CSSelectNameController: CSMainController
         table.tableHeaderView = search.bar
         table.delegate = self
         table.dataSource = self
-        search.construct(self) { _ in self.reload() }
+        search.construct(by: self) { _ in self.reload() }
         reload()
     }
 
@@ -79,7 +79,8 @@ public class CSSelectNameController: CSMainController
             let value = filteredData[path.row]
             onDelete?(value).onSuccess { _ in
                 self.names.remove(value)
-                if self.names.isEmpty { navigation.popViewController() } else { self.reload() }
+                if self.names.isEmpty { navigation.popViewController() }
+                else { self.reload() }
             }
         }
     }

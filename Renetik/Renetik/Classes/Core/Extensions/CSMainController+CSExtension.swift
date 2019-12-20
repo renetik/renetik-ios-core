@@ -8,41 +8,23 @@
 import Foundation
 import RenetikObjc
 
-@objc public extension CSMainController {
+public extension CSMainController {
     @discardableResult
-    @objc public func menuHeader(title: String = "") -> CSMenuHeader {
-        return menu.put(CSMenuHeader().construct(self, menu.count, title))
-            as! CSMenuHeader
+    public func menuHeader(title: String = "") -> CSMenuHeader {
+        menu.add(CSMenuHeader(by: self, index: menu.count, title: title))
     }
 
     @discardableResult
-    @objc public func menuItem(title: String = "",
-                               onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        let item = menuHeader().item(title)
-        onClick.notNil { item.onClick($0) }
-        return item
+    public func menuItem(title: String = "", image: UIImage? = nil,
+                         type: UIBarButtonItem.SystemItem? = nil,
+                         onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
+        menuHeader().item(with: title, type: type, image: image, action: onClick)
     }
 
-    @discardableResult
-    @objc public func menuItem(onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(title: "", onClick: onClick)
-    }
 
     @discardableResult
-    @objc public func menuItem(view: UIView,
-                               onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).also { $0.view = view }
-    }
-
-    @discardableResult
-    @objc public func menuItem(image: UIImage,
-                               onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).also { $0.image = image }
-    }
-
-    @discardableResult
-    @objc public func menuItem(type: UIBarButtonItem.SystemItem,
-                               onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
-        return menuItem(onClick: onClick).also { $0.systemItem = type }
+    public func menuItem(view: UIView,
+                         onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
+        menuHeader().item(with: view, action: onClick)
     }
 }

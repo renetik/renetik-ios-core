@@ -7,7 +7,7 @@
 
 import RenetikObjc
 
-public class CSNavigationHidingController: CSChildViewLessController {
+public class CSNavigationHidingController: CSMainController {
     var isNavigationBarHidden = false
     var shouldShow = false
     var isShowingRunning = false
@@ -21,6 +21,11 @@ public class CSNavigationHidingController: CSChildViewLessController {
     public func showIfNotKeyboard() {
         if isNavigationBarHidden &&
                    !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
+    }
+
+    @discardableResult
+    public func construct(by parent: UIViewController) -> Self {
+        super.constructAsViewLess(in: parent).cast()
     }
 
     func onKeyboardChange(keyboardHeight: CGFloat) {

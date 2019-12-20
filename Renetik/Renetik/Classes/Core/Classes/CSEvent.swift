@@ -4,42 +4,49 @@
 
 public func event<Type>() -> CSEvent<Type> { CSEvent<Type>() }
 
-private class Function<Type>: NSObject {
-    let value: (Type) -> Void
-
-    init(_ function: @escaping (Type) -> Void) {
-        value = function
-    }
+public struct CSEventArgument<Type> {
+    public let registration: CSEventRegistration<Type>
+    public let argument: Type
 }
 
-public class CSEvent<Type> {
+public class CSEventRegistration<Type>: CSObject {
 
-    private var callbacks = [Function<Type>]()
+    private let event: CSEvent<Type>, function: (CSEventArgument<Type>) -> Void
 
-    public func fire(_ argument: Type) {
-        for function in callbacks { function.value(argument) }
-    }
-
-    @discardableResult
-    public func add(_ function: @escaping (Type) -> Void) -> CSEventRegistration<Type> {
-        CSEventRegistration(event: self, function: callbacks.add(Function(function)))
-    }
-
-    fileprivate func remove(_ functionToRemove: Function<Type>) {
-        callbacks.removeAll { (function: Function<Type>) in functionToRemove == function }
-    }
-}
-
-public class CSEventRegistration<Type> {
-
-    private let event: CSEvent<Type>, function: Function<Type>
-
-    fileprivate init(event: CSEvent<Type>, function: Function<Type>) {
+    fileprivate init(event: CSEvent<Type>, function: @escaping (CSEventArgument<Type>) -> Void) {
         self.event = event
         self.function = function
     }
 
     public func cancel() {
-        event.remove(function)
+        event.remove(self)
+    }
+
+    fileprivate func fire(_ argument: Type) {
+        function(CSEventArgument(registration: self, argument: argument))
+    }
+}
+
+public class CSEvent<Type> {
+
+    private var registrations = [CSEventRegistration<Type>]()
+
+    public func fire(_ argument: Type) {
+        for registration in registrations { registration.fire(argument) }
+    }
+
+    @discardableResult
+    public func add(_ function: @escaping (CSEventArgument<Type>) -> Void) -> CSEventRegistration<Type> {
+        registrations.add(CSEventRegistration(event: self, function: function))
+    }
+
+    fileprivate func remove(_ functionToRemove: CSEventRegistration<Type>) {
+        registrations.removeAll(functionToRemove)
+    }
+}
+
+public extension CSEvent where Type == Void {
+    public func fire() {
+        fire(())
     }
 }

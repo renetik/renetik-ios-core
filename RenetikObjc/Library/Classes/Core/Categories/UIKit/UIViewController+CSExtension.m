@@ -64,43 +64,43 @@
     return YES;
 }
 
-- (UIViewController *)showChildController:(UIViewController *)controller {
-    return [self showChildController:controller :self.view];
-}
-
-- (UIViewController *)showChildControllerUnderLast:(UIViewController *)controller {
-    [self.view verticalLineAdd:controller.view];
-    [self showChildController:controller :self.view];
-    return controller;
-}
-
-- (UIViewController *)showChildControllerNextLast:(UIViewController *)controller :(UIView *)parentView {
-    [self.view horizontalLineAdd:controller.view];
-    [self showChildController:controller :parentView];
-    return controller;
-}
-
-- (UIViewController *)showChildController:(UIViewController *)controller :(UIView *)parentView {
-    [self addChildViewController:controller];
-    [parentView addSubview:controller.view];
-    [controller didMoveToParentViewController:self];
-    if ([controller isKindOfClass:CSMainController.class])
-        ((CSMainController *) controller).showing = true;
-    return controller;
-}
-
-- (UIViewController *)addChildController:(UIViewController *)controller {
-    return [self showChildController:controller :nil];
-}
-
-- (UIViewController *)dismissChildController:(UIViewController *)controller {
-    [controller willMoveToParentViewController:nil];
-    [controller.view removeFromSuperview];
-    [controller removeFromParentViewController];
-    if ([controller isKindOfClass:CSMainController.class])
-        ((CSMainController *) controller).showing = false;
-    return controller;
-}
+//- (UIViewController *)showChildController:(UIViewController *)controller {
+//    return [self showChildController:controller :self.view];
+//}
+//
+//- (UIViewController *)showChildControllerUnderLast:(UIViewController *)controller {
+//    [self.view verticalLineAdd:controller.view];
+//    [self showChildController:controller :self.view];
+//    return controller;
+//}
+//
+//- (UIViewController *)showChildControllerNextLast:(UIViewController *)controller :(UIView *)parentView {
+//    [self.view horizontalLineAdd:controller.view];
+//    [self showChildController:controller :parentView];
+//    return controller;
+//}
+//
+//- (UIViewController *)showChildController:(UIViewController *)controller :(UIView *)parentView {
+//    [self addChildViewController:controller];
+//    [parentView addSubview:controller.view];
+//    [controller didMoveToParentViewController:self];
+//    if ([controller isKindOfClass:CSMainController.class])
+//        ((CSMainController *) controller).showing = true;
+//    return controller;
+//}
+//
+//- (UIViewController *)addChildController:(UIViewController *)controller {
+//    return [self showChildController:controller :nil];
+//}
+//
+//- (UIViewController *)dismissChildController:(UIViewController *)controller {
+//    [controller willMoveToParentViewController:nil];
+//    [controller.view removeFromSuperview];
+//    [controller removeFromParentViewController];
+//    if ([controller isKindOfClass:CSMainController.class])
+//        ((CSMainController *) controller).showing = false;
+//    return controller;
+//}
 
 - (void)presentController:(UIViewController *)modalViewController {
     [self presentViewController:modalViewController animated:YES completion:nil];

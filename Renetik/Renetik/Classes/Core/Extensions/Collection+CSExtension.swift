@@ -6,7 +6,8 @@
 import Foundation
 
 public extension Collection {
-    public var hasItems: Bool { return !isEmpty }
+    public var hasItems: Bool { !isEmpty }
+    public var size: Int { count }
 }
 
 public extension Array where Element: Any {
@@ -30,7 +31,7 @@ public extension Array where Element: Any {
     }
 
     @discardableResult
-    public mutating func add(_ array: Array<Element>) -> Array {
+    public mutating func add(array: Array<Element>) -> Array {
         append(contentsOf: array)
         return self
     }
@@ -38,7 +39,7 @@ public extension Array where Element: Any {
     @discardableResult
     public mutating func reload(_ array: Array<Element>) -> Array {
         removeAll()
-        add(array)
+        add(array: array)
         return self
     }
 }
@@ -68,7 +69,7 @@ public extension Array where Element: Equatable {
 public extension Array where Element: Equatable & CustomStringConvertible {
 
     func filter(bySearch searchText: String?) -> [Element] {
-        if searchText?.set == true {
+        if searchText?.isSet == true {
             var filtered = [Element]()
             for item in self {
                 if item.description.containsNoCase(searchText) {

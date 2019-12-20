@@ -6,9 +6,15 @@
 @import UIKit;
 @import BlocksKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIBarButtonItem (CSExtension)
 
 + (UIBarButtonItem *)createWithImage:(UIImage *)image onClick:(void (^)(id sender))action;
+
++ (UIBarButtonItem *)createWithItem:(UIBarButtonSystemItem)item onClick:(void (^)(id sender))action;
+
++ (UIBarButtonItem *)createWithTitle:(NSString *)title onClick:(void (^)(id sender))action;
 
 + (UIBarButtonItem *)createSoloTitle:(NSString *)title;
 
@@ -25,3 +31,5 @@
 - (void)setTarget:(id)target forAction:(SEL)action;
 
 @end
+
+NS_ASSUME_NONNULL_END

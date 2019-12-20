@@ -21,8 +21,8 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
         self.controllers = controllers
-        parent.showChildController(self)
-        parent.addChildMainControllers(controllers)
+        parent.showChild(controller: self)
+        parent.addChild(mainControllers: controllers)
         return self
     }
 
@@ -54,21 +54,21 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
 
     func updateControllersVisible(at index: Int, animated: Bool) {
 //        currentIndex = index
-        for controller in controllers { controller.showing = false }
-        currentController.showing = true
-        parentController.updateBarItemsAndMenu(animated)
+        for controller in controllers { controller.isShowing = false }
+        currentController.isShowing = true
+        parentController.updateBarItemsAndMenu(animated: animated)
     }
 
     public func load(controllers: [CSXLButtonBarPagerChildController]) {
         self.controllers = controllers
-        parentController.addChildMainControllers(self.controllers)
+        parentController.addChild(mainControllers: self.controllers)
         reloadPagerTabStripView()
         updateControllersVisible(at: currentIndex, animated: false)
     }
 
     public func add(controller: (CSXLButtonBarPagerChildController)) {
         controllers.add(controller)
-        parentController.addChildMainController(controller)
+        parentController.addChild(mainController: controller)
         reloadPagerTabStripView()
         updateControllersVisible(at: currentIndex, animated: false)
     }

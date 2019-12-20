@@ -8,17 +8,18 @@
 
 import RenetikObjc
 
-@objc class CSTableCellForHeightController: CSChildViewLessController {
+class CSTableCellForHeightController: CSMainController {
+
     var cells: [UIView]!
-    @objc var cell: UIView { return cells.first! }
+    var cell: UIView { cells.first! }
 
     @discardableResult
-    @objc func construct(_ parent: CSMainController,
-                         cell: UIView) -> Self { return construct(parent, [cell]) }
+    func construct(_ parent: CSMainController,
+                   cell: UIView) -> Self { construct(parent, [cell]) }
 
     @discardableResult
-    @objc func construct(_ parent: CSMainController, _ cells: [UIView]) -> Self {
-        super.construct(parent)
+    func construct(_ parent: CSMainController, _ cells: [UIView]) -> Self {
+        super.constructAsViewLess(in: parent)
         self.cells = cells
         return self
     }
@@ -30,7 +31,7 @@ import RenetikObjc
 
     override func onViewDidLayout() {
         super.onViewDidLayout()
-        for cell in cells { cell.width(parentMain.view.width) }
+        for cell in cells { cell.width(parentMain!.view.width) }
     }
 
     override func onViewWillTransition(to size: CGSize,

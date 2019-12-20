@@ -47,7 +47,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         tableView.delegates(parent).hide()
         filter = parentController as? CSTableControllerFilter
         self.data = data
-        parentController.showChildController(self, parentView)
+        parentController.showChild(controller: self, parentView: parentView)
         return self
     }
 
@@ -143,13 +143,13 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     }
 
     func loadAdd(_ array: [RowType]) {
-        data.add(array)
+        data.add(array: array)
         let filteredData = filter(data: array)
         var paths = [IndexPath]()
         for index in 0..<dataCount {
             paths.add(IndexPath(row: index + dataCount, section: 0))
         }
-        self.filteredData.add(filteredData)
+        self.filteredData.add(array: filteredData)
         tableView.beginUpdates()
         tableView.insertRows(at: paths, with: .automatic)
         tableView.endUpdates()

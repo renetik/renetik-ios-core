@@ -6,29 +6,29 @@
 
 import RenetikObjc
 
-@objc public class CSNavigationHidingByKeyboardController: CSChildViewLessController {
+public class CSNavigationHidingByKeyboardController: CSMainController {
     var navigationBarHidden = false
-    lazy var kayboardManager: CSKeyboardManager = {
+    lazy var keyboardManager: CSKeyboardManager = {
         CSKeyboardManager().construct(self)
     }()
 
     @discardableResult
-    @objc public override func construct(
-        _ parent: UIViewController) -> Self {
-        super.construct(parent)
-        kayboardManager.onKeyboardChange = onKayboardChange
+    public func construct(_ parent: UIViewController) -> Self {
+        super.constructAsViewLess(in: parent)
+        keyboardManager.onKeyboardChange = onKeyboardChange
         return self
     }
 
-    func onKayboardChange(kayboardHeight: CGFloat) {
-        if kayboardHeight > 0 {
+    func onKeyboardChange(keyboardHeight: CGFloat) {
+        if keyboardHeight > 0 {
             hideNavigationBar()
-        } else {
+        }
+        else {
             showNavigationBar()
         }
     }
 
-    @objc public func hideNavigationBar() {
+    public func hideNavigationBar() {
         if navigationBarHidden { return }
         UIView.animate(0.5) {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
@@ -38,7 +38,7 @@ import RenetikObjc
         navigationBarHidden = true
     }
 
-    @objc public func showNavigationBar() {
+    public func showNavigationBar() {
         if !navigationBarHidden { return }
         UIView.animate(0.5) {
             navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
