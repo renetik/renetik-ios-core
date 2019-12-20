@@ -8,22 +8,20 @@
 import RenetikObjc
 
 open class CSName: CSDictionaryJsonData {
-    @objc public var nameKey = "name"
-    @objc public var idKey = "id"
+    public var nameKey = "name"
+    public var idKey = "id"
 
-    @objc open var name: String {
+    open var name: String {
         get { getStringValue(nameKey) }
         set(value) { put(nameKey, value) }
     }
 
-    @objc open var id: String {
+    open var id: String {
         get { getStringValue(idKey) }
         set(value) { put(idKey, value) }
     }
 
-    @objc public required override init() {
-        super.init()
-    }
+    public required override init() { super.init() }
 
     public init(_ name: String, _ id: String = "") {
         super.init()
@@ -31,11 +29,11 @@ open class CSName: CSDictionaryJsonData {
         self.name = name
     }
 
-    @objc public class func create(_ name: String, _ id: String = "") -> Self {
+    public class func create(_ name: String, _ id: String = "") -> Self {
         self.init().construct(name, id)
     }
 
-    @objc public class func createNames(fromStrings strings: [String]) -> [CSName] {
+    public class func createNames(fromStrings strings: [String]) -> [CSName] {
         var names = [CSName]()
         var index = 0
         for name: String in strings {
@@ -45,24 +43,22 @@ open class CSName: CSDictionaryJsonData {
         return names
     }
 
-    @objc public func construct(_ name: String, _ id: String = "") -> Self {
+    public func construct(_ name: String, _ id: String = "") -> Self {
         self.id = id
         self.name = name
         return self
     }
 
-    @objc open override var description: String {
-        name
-    }
+    open override var description: String { name }
 
-    @objc open override func isEqual(_ object: Any?) -> Bool {
+    open override func isEqual(_ object: Any?) -> Bool {
         if let nameObject = object as? CSName {
             return nameObject.name == name
         }
         return super.isEqual(object)
     }
 
-    @objc public class func find(nameId: String, _ names: [CSName]) -> CSName? {
+    public class func find(nameId: String, _ names: [CSName]) -> CSName? {
         for name: CSName in names {
             if name.id.equals(nameId) == true {
                 return name
@@ -71,7 +67,7 @@ open class CSName: CSDictionaryJsonData {
         return nil
     }
 
-    @objc public class func find(name: String, _ names: [CSName]) -> CSName? {
+    public class func find(name: String, _ names: [CSName]) -> CSName? {
         for nameObject: CSName in names {
             if nameObject.name.equals(name) {
                 return nameObject
