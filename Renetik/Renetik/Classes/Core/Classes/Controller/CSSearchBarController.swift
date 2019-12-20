@@ -23,8 +23,6 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
         return self
     }
 
-    public override func loadView() { view = bar }
-
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchBar.isFirstResponder {
             searchBarShouldBeginEditing = false
