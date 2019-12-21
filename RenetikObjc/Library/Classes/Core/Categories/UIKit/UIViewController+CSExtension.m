@@ -1,13 +1,9 @@
 //
 //  Created by Rene Dohan on 6/11/12.
 //
-#import "NSString+CSExtension.h"
 #import "UINavigationController+CSExtension.h"
-#import "CSMainController.h"
 #import "UIBarButtonItem+CSExtension.h"
 #import "UIDevice+CSExtension.h"
-#import "UIView+CSExtension.h"
-#import "UIView+CSContainer.h"
 
 @implementation UIViewController (CSExtension)
 

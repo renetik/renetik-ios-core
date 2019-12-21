@@ -13,19 +13,17 @@ public class CSNavigationHidingController: CSMainController {
     var isShowingRunning = false
     var shouldHide = false
     var isHidingRunning = false
-
-    lazy var keyboardManager: CSKeyboardManager = {
-        CSKeyboardManager().construct(self).also { $0.onKeyboardChange = onKeyboardChange }
-    }()
+    let keyboardManager = CSKeyboardManager()
 
     public func showIfNotKeyboard() {
-        if isNavigationBarHidden &&
-                   !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
+        if isNavigationBarHidden && !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
     }
 
     @discardableResult
     public func construct(by parent: UIViewController) -> Self {
-        super.constructAsViewLess(in: parent).cast()
+        super.constructAsViewLess(in: parent)
+        keyboardManager.construct(self, onKeyboardChange)
+        return self
     }
 
     func onKeyboardChange(keyboardHeight: CGFloat) {

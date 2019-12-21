@@ -3,12 +3,9 @@
 //
 #import "CSImagePickerController.h"
 #import "CSImagePickerListener.h"
-#import "CSMainController.h"
 #import "UIViewController+CSExtension.h"
-#import "UINavigationController+CSExtension.h"
 #import "CSViewControllerProtocol.h"
 #import "CSActionSheet.h"
-#import "CSLang.h"
 
 @implementation CSImagePickerController {
     CSActionSheet *_actionSheet;

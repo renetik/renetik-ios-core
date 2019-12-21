@@ -6,7 +6,6 @@
 #import "UINavigationController+CSExtension.h"
 #import "UIView+CSExtension.h"
 #import "UIApplication+CSExtension.h"
-#import "CSBool.h"
 #import "NSObject+CSExtension.h"
 #import "UIDevice+CSExtension.h"
 #import "UIScreen+CSExtension.h"
@@ -69,9 +68,11 @@
 - (void)forceOrientation:(CSForcedOrientation)forcedOrientation {
     _forcedOrientation = forcedOrientation;
     _orientationToReturnToFromForcedOrientation = (UIDeviceOrientation) UIScreen.orientation;
-    if (forcedOrientation == CSForcedOrientationPortrait && UIScreen.isLandscape)
+    if ((forcedOrientation == CSForcedOrientationPortrait || forcedOrientation == CSForcedOrientationNone)
+            && UIScreen.isLandscape)
         UIDevice.orientation = UIDeviceOrientationPortrait;
-    else if (forcedOrientation == CSForcedOrientationLandscape && UIScreen.isPortrait)
+    else if ((forcedOrientation == CSForcedOrientationLandscape || forcedOrientation == CSForcedOrientationNone)
+            && UIScreen.isPortrait)
         UIDevice.orientation = UIDeviceOrientationLandscapeLeft;
     [self addNotificationObserver:@selector(onUIDeviceOrientationDidChangeNotification:)
                              name:UIDeviceOrientationDidChangeNotification];

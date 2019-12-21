@@ -53,7 +53,6 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     }
 
     func updateControllersVisible(at index: Int, animated: Bool) {
-//        currentIndex = index
         for controller in controllers { controller.isShowing = false }
         currentController.isShowing = true
         parentController.updateBarItemsAndMenu(animated: animated)

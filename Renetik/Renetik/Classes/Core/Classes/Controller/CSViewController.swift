@@ -85,7 +85,6 @@ open class CSViewController: UIViewController {
         }
     }
 
-
     open func onViewDidAppear() {}
 
     open func onViewDidAppearFirstTime() {}
@@ -102,6 +101,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
         if controllerInNavigation?.parent == nil { onViewDismissing() }
