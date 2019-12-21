@@ -8,8 +8,8 @@ import RenetikObjc
 
 open class CSViewController: UIViewController {
 
-    public let onOrientationChanging: CSEvent<Void> = event()
-    public let onOrientationChanged: CSEvent<Void> = event()
+    public let onOrientationChanging: CSEvent<Nil> = event()
+    public let onOrientationChanged: CSEvent<Nil> = event()
 
     public private(set) var isAppearing = false
     public var isShowing = false {
@@ -21,7 +21,7 @@ open class CSViewController: UIViewController {
     private var isOnViewWillAppearFirstTime = false
     private var isOnViewDidAppearFirstTime = false
     private var notificationCenterObservers: [NSObjectProtocol] = []
-    private var eventRegistrations = [CSEventRegistration<Any>]()
+    private var eventRegistrations = [CSEventRegistration]()
     private var isShouldAutorotate: Bool? = nil
 
     override open func loadView() { view = UIView.construct() }
@@ -150,12 +150,12 @@ open class CSViewController: UIViewController {
     }
 
     @discardableResult
-    public func register<T>(event registration: CSEventRegistration<T>) -> CSEventRegistration<T> {
-        eventRegistrations.add(registration.cast()).cast()
+    public func register<T>(event registration: CSEventListener<T>) -> CSEventListener<T> {
+        eventRegistrations.add(registration).cast()
     }
 
-    public func cancel<T>(event registration: CSEventRegistration<T>) {
-        eventRegistrations.remove(registration.cast())?.cancel()
+    public func cancel<T>(event registration: CSEventListener<T>) {
+        eventRegistrations.remove(registration)?.cancel()
     }
 
     public var isInNavigationController: Bool {
@@ -166,9 +166,8 @@ open class CSViewController: UIViewController {
     public var controllerInNavigation: UIViewController? {
         if parent == navigationController { return self }
         var controller: UIViewController? = self
-        repeat {
-            controller = controller?.parent
-        } while controller.notNil && controller?.parent != navigationController
+        repeat { controller = controller?.parent } while
+                controller.notNil && controller?.parent != navigationController
         return controller
     }
 

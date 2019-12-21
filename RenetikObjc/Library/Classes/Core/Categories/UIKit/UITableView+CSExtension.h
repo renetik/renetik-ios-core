@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UITableViewCell*)dequeueReusableCell :(NSString*)identifier;
 
+/*
+ * This triggers table reload !!!
+ */
 - (instancetype)hideEmptyCellSplitterBySettingEmptyFooter;
 
 - (instancetype)toggleEditingAnimated :(BOOL)animated;

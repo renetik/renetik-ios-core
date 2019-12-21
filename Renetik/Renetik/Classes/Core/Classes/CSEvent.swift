@@ -4,12 +4,16 @@
 
 public func event<Type>() -> CSEvent<Type> { CSEvent<Type>() }
 
+public class CSEventRegistration: CSObject {
+    open func cancel() { fatalError() }
+}
+
 public struct CSEventArgument<Type> {
-    public let registration: CSEventRegistration<Type>
+    public let registration: CSEventListener<Type>
     public let argument: Type
 }
 
-public class CSEventRegistration<Type>: CSObject {
+public class CSEventListener<Type>: CSEventRegistration {
 
     private let event: CSEvent<Type>, function: (CSEventArgument<Type>) -> Void
 
@@ -18,8 +22,8 @@ public class CSEventRegistration<Type>: CSObject {
         self.function = function
     }
 
-    public func cancel() {
-        event.remove(self)
+    override public func cancel() {
+        event.remove(listener: self)
     }
 
     fileprivate func fire(_ argument: Type) {
@@ -29,24 +33,22 @@ public class CSEventRegistration<Type>: CSObject {
 
 public class CSEvent<Type> {
 
-    private var registrations = [CSEventRegistration<Type>]()
+    private var registrations = [CSEventListener<Type>]()
 
     public func fire(_ argument: Type) {
         for registration in registrations { registration.fire(argument) }
     }
 
     @discardableResult
-    public func add(_ function: @escaping (CSEventArgument<Type>) -> Void) -> CSEventRegistration<Type> {
-        registrations.add(CSEventRegistration(event: self, function: function))
+    public func add(listener: @escaping (CSEventArgument<Type>) -> Void) -> CSEventListener<Type> {
+        registrations.add(CSEventListener(event: self, function: listener))
     }
 
-    fileprivate func remove(_ functionToRemove: CSEventRegistration<Type>) {
-        registrations.removeAll(functionToRemove)
+    public func remove(listener: CSEventListener<Type>) {
+        registrations.removeAll(listener)
     }
 }
 
-public extension CSEvent where Type == Void {
-    public func fire() {
-        fire(())
-    }
+public extension CSEvent where Type == Nil {
+    public func fire() { fire(Nil.instance) }
 }

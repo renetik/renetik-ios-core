@@ -44,11 +44,19 @@ public func notNil(_ items: Any?...) -> Bool {
 
 public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
 
-
 open class CSObject: CSAny, Equatable {
     public static func ==(lhs: CSObject, rhs: CSObject) -> Bool {
         lhs === rhs
     }
+}
+
+
+public class Nil: CSAny, Equatable {
+    private init() {}
+
+    public static var instance: Nil = Nil()
+
+    public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
 extension NSObject: CSAny {

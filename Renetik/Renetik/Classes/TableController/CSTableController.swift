@@ -130,7 +130,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
             filterDataAndReload()
         }
         else {
-            loadAdd(array)
+            load(add: array)
         }
         if array.hasItems {
             pageIndex += 1
@@ -142,14 +142,14 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         return self
     }
 
-    func loadAdd(_ array: [RowType]) {
-        data.add(array: array)
-        let filteredData = filter(data: array)
+    func load(add toAddData: [RowType]) {
+        data.add(array: toAddData)
+        let toAddFilteredData = filter(data: toAddData)
         var paths = [IndexPath]()
-        for index in 0..<dataCount {
+        for index in 0..<toAddFilteredData.count {
             paths.add(IndexPath(row: index + dataCount, section: 0))
         }
-        self.filteredData.add(array: filteredData)
+        self.filteredData.add(array: toAddFilteredData)
         tableView.beginUpdates()
         tableView.insertRows(at: paths, with: .automatic)
         tableView.endUpdates()
@@ -165,7 +165,11 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         tableView.superview!.add(view: loadNextView!).from(bottom: 5).centerInParentHorizontal()
     }
 
-    func shouldLoadNext(_ path: IndexPath) -> Bool {
+    public func tableViewWillDisplayCellForRow(at indexPath: IndexPath) {
+        if shouldLoadNext(path: indexPath) { loadNext() }
+    }
+
+    private func shouldLoadNext(path: IndexPath) -> Bool {
         if isLoading { return false }
         var loadStartIndex = 5
         if UIScreen.isPortrait && UIDevice.isTablet { loadStartIndex = 10 }
@@ -176,16 +180,12 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         return !noNext && pathInPositionForLoadNext && (onShouldLoadNext?(path) ?? true)
     }
 
-    public func tableViewWillDisplayCellForRow(at indexPath: IndexPath) {
-        if shouldLoadNext(indexPath) { loadNext() }
-    }
-
-    func filter(data: [RowType]) -> [RowType] {
+    private func filter(data: [RowType]) -> [RowType] {
         let filteredBySearchData = data.filter(bySearch: searchText)
         return filter?.filter(data: filteredBySearchData) ?? filteredBySearchData
     }
 
-    func filterDataAndReload() {
+    private func filterDataAndReload() {
         filteredData.reload(filter(data: data))
         tableView.reloadData()
         filter?.onReloadDone(in: self)
@@ -225,7 +225,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     public func scrollToBottom() -> Self {
         if filteredData.hasItems {
             invoke {
-                let path = IndexPath(index: dataCount - 1)
+                let path = IndexPath(row: dataCount - 1, section: 0)
                 self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
             }
         }
