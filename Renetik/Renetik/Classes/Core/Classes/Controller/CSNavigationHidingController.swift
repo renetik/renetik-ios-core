@@ -7,6 +7,10 @@
 
 import RenetikObjc
 
+public protocol CSHasNavigationHiding {
+    var navigationHiding: CSNavigationHidingController { get }
+}
+
 public class CSNavigationHidingController: CSMainController {
     var isNavigationBarHidden = false
     var shouldShow = false
