@@ -13,22 +13,19 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
 
     private(set) var controllers: [CSXLButtonBarPagerChildController]!
     var currentController: CSXLButtonBarPagerChildController { controllers[currentIndex] }
-    var selectedIndex: Int { currentIndex }
-
     private var parentController: CSMainController!
-    private var buttonBarViewHeightBeforeHide: CGFloat = 0
 
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
         self.controllers = controllers
         parent.showChild(controller: self)
         parent.addChild(mainControllers: controllers)
+        settings.style.buttonBarHeight.isNil { self.settings.style.buttonBarHeight = 44 }
         return self
     }
 
-    override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        controllers
-    }
+    override public func viewControllers(
+            for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] { controllers }
 
     override public func viewWillLayoutSubviews() { if controllers.hasItems { super.viewWillLayoutSubviews() } }
 
@@ -82,13 +79,10 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
 
     public func setBar(visible: Bool) {
         if visible {
-            if buttonBarViewHeightBeforeHide == 0 { return }
-            buttonBarView.height = buttonBarViewHeightBeforeHide
-            containerView.height(fromTop: buttonBarViewHeightBeforeHide)
-            buttonBarViewHeightBeforeHide = 0
+            buttonBarView.height = settings.style.buttonBarHeight!
+            containerView.height(fromTop: settings.style.buttonBarHeight!)
         }
         else {
-            buttonBarViewHeightBeforeHide = buttonBarView.height
             buttonBarView.height = 0
             containerView.height(fromTop: 0)
         }

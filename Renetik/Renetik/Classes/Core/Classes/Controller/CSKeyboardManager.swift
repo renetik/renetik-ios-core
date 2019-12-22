@@ -10,7 +10,7 @@ import RenetikObjc
 public class CSKeyboardManager: CSMainController {
     public var keyboardHeight: CGFloat = 0
     public var onKeyboardChange: ((CGFloat) -> Void)?
-    public var isKeyboardVisible: Bool { return keyboardHeight > 0 }
+    public var isKeyboardVisible: Bool { keyboardHeight > 0 }
 
     @discardableResult
     public func construct(

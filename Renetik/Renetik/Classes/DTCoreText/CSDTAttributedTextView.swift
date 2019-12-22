@@ -35,12 +35,12 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         didSet {
             let correctedHtml = html.addSizeToHtmlImageTags(self.width)
             attributedString = NSAttributedString(htmlData: correctedHtml.data(using: encoding),
-                                                  options: attributedOptions, documentAttributes: nil)
+                    options: attributedOptions, documentAttributes: nil)
         }
     }
 
     public var attributedOptions: [AnyHashable: Any] {
-        return [
+        [
             DTUseiOS6Attributes: true,
             DTDefaultFontName: font.fontName,
             DTDefaultFontFamily: font.familyName,
@@ -52,9 +52,9 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!,
                                           viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
-        return UIView.construct().frame(frame).onClick { view in
+        UIView.construct().frame(frame).onClick { view in
             let controller = UIActivityViewController(activityItems: [url],
-                                                      applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+                    applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
             navigation.last!.present(controller, animated: true, completion: nil)
         }
@@ -65,23 +65,25 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         if attachment is DTImageTextAttachment {
             let imageView = UIImageView.construct().frame(frame)
             if attachment.hyperLinkURL.notNil &&
-                attachment.hyperLinkURL != attachment.contentURL {
+                       attachment.hyperLinkURL != attachment.contentURL {
                 imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
-                    .onClick { _ in
-                        if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
-                            UIApplication.shared.open(attachment.hyperLinkURL)
+                        .onClick { _ in
+                            if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
+                                UIApplication.shared.open(attachment.hyperLinkURL)
+                            }
                         }
-                    }
-            } else if frame.width > 50 {
+            }
+            else if frame.width > 50 {
                 imageUrls.add(attachment.contentURL)
                 imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
-                    .onClick { _ in
-                        let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
-                        photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
-                        photoBrowser.disableVerticalSwipe = true
-                        navigation.push(fromTop: photoBrowser)
-                    }
-            } else {
+                        .onClick { _ in
+                            let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
+                            photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
+                            photoBrowser.disableVerticalSwipe = true
+                            navigation.push(fromTop: photoBrowser)
+                        }
+            }
+            else {
                 imageView.imageNSURL(attachment.contentURL)
             }
             return imageView
@@ -95,11 +97,11 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return self
     }
 
-	@discardableResult
+    @discardableResult
     public func sizeHeightToFit(characters count: Int) -> Self {
         let previousString = attributedString
         attributedString = NSAttributedString(string:
-            String.randomString(length: count))
+        String.randomString(length: count))
         attributedTextContentView.sizeFitWidth()
         height(attributedTextContentView.height)
         attributedString = previousString
@@ -107,6 +109,6 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     }
 
     public override func calculateHeightToFitWidth() -> CGFloat {
-        return attributedTextContentView.calculateHeightToFitWidth()
+        attributedTextContentView.calculateHeightToFitWidth()
     }
 }

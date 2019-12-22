@@ -224,8 +224,8 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     @discardableResult
     public func scrollToBottom() -> Self {
         if filteredData.hasItems {
-            invoke {
-                let path = IndexPath(row: dataCount - 1, section: 0)
+            Renetik.doLater {
+                let path = IndexPath(row: self.dataCount - 1, section: 0)
                 self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
             }
         }

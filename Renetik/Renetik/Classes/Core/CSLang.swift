@@ -19,17 +19,16 @@ struct RuntimeError: Error {
     public var localizedDescription: String { message }
 }
 
-public func doLaterSwift(_ function: @escaping () -> Void) {
-    doLaterSwift(0, function)
+public func doLater(function: @escaping () -> Void) {
+    doLater(seconds: 0, function: function)
 }
 
-
-public func doLaterSwift(_ delayInSeconds: Int, _ function: @escaping () -> Void) {
-    doLaterSwift(Double(delayInSeconds), function)
+public func doLater(seconds: Int, function: @escaping () -> Void) {
+    doLater(seconds: Double(seconds), function: function)
 }
 
-public func doLaterSwift(_ delayInSeconds: Double, _ function: @escaping () -> Void) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: function)
+public func doLater(seconds: Double, function: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: function)
 }
 
 public func stringify<Subject>(_ value: Subject) -> String {

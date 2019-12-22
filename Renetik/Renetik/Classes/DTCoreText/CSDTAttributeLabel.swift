@@ -60,7 +60,7 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     public var attributedOptions: [AnyHashable: Any] {
-        return [
+        [
             DTUseiOS6Attributes: true,
             DTDefaultFontName: font.fontName,
             DTDefaultFontFamily: font.familyName,
@@ -86,7 +86,8 @@ public class CSDTAttributedLabel: DTAttributedLabel,
 
     @discardableResult
     @objc public func withBoldFont(_ isBold: Bool) -> Self {
-        if isBold { font = font.bold() } else { font = font.normal() }
+        if isBold { font = font.bold() }
+        else { font = font.normal() }
         return self
     }
 

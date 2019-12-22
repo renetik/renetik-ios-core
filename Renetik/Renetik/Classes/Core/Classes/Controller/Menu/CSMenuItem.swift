@@ -7,14 +7,21 @@ import Renetik
 
 public class CSMenuItem: CSObject {
 
-    let controller: CSMainController
-    public var title: String?
-    public var systemItem: UIBarButtonItem.SystemItem?
-    public var image: UIImage?
-    var view: UIView?
+    private let controller: CSMainController
+    public var title: String? {
+        didSet { updateMenu() }
+    }
+    public var systemItem: UIBarButtonItem.SystemItem? {
+        didSet { updateMenu() }
+    }
+    public var image: UIImage? {
+        didSet { updateMenu() }
+    }
+    public var isVisible = true {
+        didSet { updateMenu() }
+    }
     var action: ((CSMenuItem) -> Void)?
-    var _visible = true
-    var closeMenu = true
+    var view: UIView?
     var isNoActionItem = false
     var index = 0
 
@@ -37,31 +44,23 @@ public class CSMenuItem: CSObject {
 
     @discardableResult
     public func hide() -> Self {
-        self.visible = false;
+        self.isVisible = false;
         return self
     }
 
     @discardableResult
     public func show() -> Self {
-        self.visible = true;
+        self.isVisible = true;
         return self
     }
 
-    public var visible: Bool {
-        get { _visible }
-        set(value) {
-            if _visible == value { return }
-            _visible = value
-            updateMenu()
-        }
-    }
-
     public var hidden: Bool {
-        get { !_visible }
-        set(value) { visible = !value }
+        get { !isVisible }
+        set(value) { isVisible = !value }
     }
 
     private func updateMenu() {
+        if !controller.isViewLoaded { return }
         (controller as? CSMainController).notNil { $0.updateBarItemsAndMenu() }.elseDo {
             (controller.parent as? CSMainController).notNil { $0.updateBarItemsAndMenu() }
                     .elseDo { logError("CSMainController not found") }
@@ -69,18 +68,12 @@ public class CSMenuItem: CSObject {
     }
 
     internal func createBarButton() -> UIBarButtonItem {
-        if systemItem.notNil { return UIBarButtonItem(item: systemItem!, onClick: createAction) }
-        if image.notNil { return UIBarButtonItem(image: image!, onClick: createAction) }
-        return UIBarButtonItem(title: title!, onClick: createAction)
+        if systemItem.notNil { return UIBarButtonItem(item: systemItem!, onClick: onBarButtonClick) }
+        if image.notNil { return UIBarButtonItem(image: image!, onClick: onBarButtonClick) }
+        return UIBarButtonItem(title: title!, onClick: onBarButtonClick)
     }
 
-    private var createAction: (Any) -> Void { { _ in self.action?(self) } }
-
-    @discardableResult
-    func closeMenu(_ close: Bool) -> Self {
-        self.closeMenu = close
-        return self
-    }
+    private var onBarButtonClick: (Any) -> Void { { _ in self.action!(self) } }
 
     @discardableResult
     func set(view: UIView) -> Self {

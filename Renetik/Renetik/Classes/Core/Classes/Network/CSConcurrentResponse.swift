@@ -33,7 +33,7 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
     }
 
     public func onAddDone() {
-        invoke { if self.responses.isEmpty { self.onResponsesDone() } }
+        Renetik.doLater { if self.responses.isEmpty { self.onResponsesDone() } }
     }
 
     func onResponseSuccess(_ response: CSResponse<AnyObject>) {
@@ -52,7 +52,8 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
     }
 
     func onResponsesDone() {
-        if failedResponses.hasItems { failed(failedResponses.first!) } else { success(data) }
+        if failedResponses.hasItems { failed(failedResponses.first!) }
+        else { success(data) }
     }
 
 

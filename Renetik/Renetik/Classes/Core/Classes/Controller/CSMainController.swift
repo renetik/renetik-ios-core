@@ -12,13 +12,6 @@ open class CSMainController: CSViewController {
     var menu = [CSMenuHeader]()
     var menuSheet = CSActionSheet()
 
-    @discardableResult
-    public func constructAsViewLess(in parent: UIViewController) -> Self {
-        invoke { parent.showChild(controller: self) }
-        isShowing = true
-        return self
-    }
-
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isMainController { updateBarItemsAndMenu() }
@@ -51,7 +44,7 @@ open class CSMainController: CSViewController {
     }
 
     func onPrepare(menu: inout [CSMenuHeader]) {
-        for menuHeader in self.menu { if menuHeader.visible() { menu.add(menuHeader) } }
+        for menuHeader in self.menu { if menuHeader.isVisible { menu.add(menuHeader) } }
         for controller in childMainControllers {
             if controller.isShowing { controller.onPrepare(menu: &menu) }
         }

@@ -79,7 +79,7 @@ open class CSAFClient: CSObject {
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
-        invoke { self.execute(request, response) }
+        Renetik.doLater { self.execute(request, response) }
         return request
     }
 

@@ -24,7 +24,16 @@ open class CSViewController: UIViewController {
     private var eventRegistrations = [CSEventRegistration]()
     private var isShouldAutorotate: Bool? = nil
 
-    override open func loadView() { view = UIView.construct() }
+    @discardableResult
+    public func constructAsViewLess(in parent: UIViewController) -> Self {
+//        view = UIView.withSize(1, 1)
+        Renetik.doLater { parent.showChild(controller: self) }
+        isShowing = true
+        return self
+    }
+
+    // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
+    override open func loadView() { view = UIView.withSize(1, 1) }
 
     override public func viewDidLoad() {
         super.viewDidLoad()

@@ -6,8 +6,9 @@ import Foundation
 
 public class CSMenuHeader: CSObject {
 
+    private let controller: CSMainController
+
     var items = [CSMenuItem]()
-    let controller: CSMainController
     let index: Int
     let title: String
 
@@ -17,18 +18,18 @@ public class CSMenuHeader: CSObject {
         self.title = title
     }
 
-    func item(with title: String, type: UIBarButtonItem.SystemItem? = nil,
-              image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
+    public func item(with title: String, type: UIBarButtonItem.SystemItem? = nil,
+                     image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
         items.add(CSMenuItem(by: controller, title: title, systemItem: type, image: image, action: action))
                 .also { $0.index = items.size - 1 }
     }
 
-    func item(with view: UIView, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
+    public func item(with view: UIView, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
         items.add(CSMenuItem(by: controller, view: view, action: action)).also { $0.index = items.size - 1 }
     }
 
-    public func visible() -> Bool {
-        for item in items { if item.visible { return true } }
+    public var isVisible: Bool {
+        for item in items { if item.isVisible { return true } }
         return false
     }
 
