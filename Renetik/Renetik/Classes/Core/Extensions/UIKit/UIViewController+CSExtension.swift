@@ -5,8 +5,9 @@
 //  Created by Rene Dohan on 2/19/19.
 //
 
-import RenetikObjc
+import Foundation
 import UIKit
+import RenetikObjc
 
 public extension UIViewController {
     @discardableResult
@@ -58,6 +59,15 @@ public extension UIViewController {
         controller.removeFromParent()
         (controller as? CSMainController)?.isShowing = false
         return controller
+    }
+
+    public func popoverFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) -> Self {
+        modalPresentationStyle = .popover
+        view.notNil {
+            popoverPresentationController?.sourceRect = $0.frame
+            popoverPresentationController?.sourceView = $0.superview;
+        }.elseDo { popoverPresentationController?.barButtonItem = item }
+        return self
     }
 }
 

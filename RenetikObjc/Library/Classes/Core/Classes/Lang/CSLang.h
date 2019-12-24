@@ -40,7 +40,7 @@ void doLaterWith(NSTimeInterval delay, id value, void (^block)(id));
 
 void runWith(void (^block)(id), id value);
 
-void invoke(void (^block)(void));
+//void invoke(void (^block)(void));
 
 void invokeWith(void (^block)(id), id value);
 

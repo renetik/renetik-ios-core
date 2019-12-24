@@ -22,38 +22,38 @@
     return self.navigationController.last == self;
 }
 
-- (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
-    if (UIDevice.iPad) {
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
-        popover.delegate = delegate;
-        [popover presentPopoverFromRect:view.bounds inView:view.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        return popover;
-    } else {
-        [self presentController:controller];
-        return nil;
-    }
-}
-
-- (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
-    if (UIDevice.iPad) {
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
-        popover.delegate = delegate;
-        [popover presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        return popover;
-    } else {
-        [self presentController:controller];
-        return nil;
-    }
-}
-
-- (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller {
-    if (!sender) {
-        [self presentController:controller];
-        return nil;
-    }
-    if ([sender isKindOfClass:UIBarButtonItem.class]) return [self presentModalFromBar:sender :controller :nil];
-    return [self presentModalFromView:sender :controller :nil];
-}
+//- (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
+//    if (UIDevice.iPad) {
+//        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+//        popover.delegate = delegate;
+//        [popover presentPopoverFromRect:view.bounds inView:view.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//        return popover;
+//    } else {
+//        [self presentController:controller];
+//        return nil;
+//    }
+//}
+//
+//- (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate {
+//    if (UIDevice.iPad) {
+//        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+//        popover.delegate = delegate;
+//        [popover presentPopoverFromBarButtonItem:buttonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//        return popover;
+//    } else {
+//        [self presentController:controller];
+//        return nil;
+//    }
+//}
+//
+//- (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller {
+//    if (!sender) {
+//        [self presentController:controller];
+//        return nil;
+//    }
+//    if ([sender isKindOfClass:UIBarButtonItem.class]) return [self presentModalFromBar:sender :controller :nil];
+//    return [self presentModalFromView:sender :controller :nil];
+//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];

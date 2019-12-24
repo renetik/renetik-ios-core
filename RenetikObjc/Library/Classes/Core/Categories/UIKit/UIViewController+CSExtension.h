@@ -11,11 +11,11 @@
 
 //- (UIViewController *)dismissChildController:(UIViewController *)controller;
 
-- (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
+//- (UIPopoverController *)presentModalFromView:(UIView *)view :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
 
-- (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
+//- (UIPopoverController *)presentModalFromBar:(UIBarButtonItem *)buttonItem :(UIViewController *)controller :(id <UIPopoverControllerDelegate>)delegate;
 
-- (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller;
+//- (UIPopoverController *)presentModalFrom:(id)sender :(UIViewController *)controller;
 
 //- (UIViewController *)showChildControllerUnderLast:(UIViewController *)controller;
 //

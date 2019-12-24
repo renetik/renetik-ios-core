@@ -41,16 +41,9 @@ void doLaterWith(NSTimeInterval delay, id value, void (^block)(id)) {
     });
 }
 
-void invoke(void (^block)(void)) {
-    if (!block) return;
-    dispatch_async(dispatch_get_main_queue(), block);
-}
-
 void invokeWith(void (^block)(id), id value) {
     if (!block) return;
-    invoke(^{
-        runWith(block, value);
-    });
+    dispatch_async(dispatch_get_main_queue(), ^{runWith(block, value);});
 }
 
 BOOL isDebug() {

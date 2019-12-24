@@ -94,7 +94,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         pageIndex = -1
         isLoading = true
         loadResponse = onLoad.notNil ? onLoad!() : onLoadPage!(0)
-        if withProgress { parentController.showProgress(loadResponse!.cast()) }
+        if withProgress { parentController.showProgress(loadResponse!) }
         loadResponse!.onFailed { response in
             self.isFailed = true
             self.failedMessage = response.message
@@ -117,7 +117,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         if isLoading { return }
         isLoading = true
         showLoadNextIndicator()
-        parentController.showFailed(onLoadPage!(pageIndex + 1).cast()).onDone { data in
+        parentController.showFailed(onLoadPage!(pageIndex + 1)).onDone { data in
             self.isLoading = false
             self.loadNextView?.removeFromSuperview()
         }

@@ -7,12 +7,12 @@
 
 import SystemConfiguration.CaptiveNetwork
 
-@objc public class CSNetwork: NSObject {
+public class CSNetwork: NSObject {
     @objc public class var SSID: String? {
         if let interfaces = CNCopySupportedInterfaces() as NSArray? {
             for interface in interfaces {
                 if let interfaceInfo =
-                    CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
+                CNCopyCurrentNetworkInfo(interface as! CFString) as NSDictionary? {
                     return interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
                 }
             }

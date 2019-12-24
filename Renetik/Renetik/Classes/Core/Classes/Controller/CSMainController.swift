@@ -10,7 +10,7 @@ open class CSMainController: CSViewController {
     var childMainControllers = [CSMainController]()
     public var parentMain: CSMainController? = nil
     var menu = [CSMenuHeader]()
-    var menuSheet = CSActionSheet()
+    lazy var menuDialog = { dialog() }()
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -19,7 +19,7 @@ open class CSMainController: CSViewController {
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        menuSheet.hide()
+        menuDialog.hide()
     }
 
     public var isMainController: Bool { parent is UINavigationController || parentMain == nil }
@@ -69,17 +69,17 @@ open class CSMainController: CSViewController {
 
     func onCreate(menu: [CSMenuHeader]) -> UIBarButtonItem? {
         if menu.isEmpty { return nil }
-        menuSheet.clear()
+        menuDialog.clear()
         for menuHeader in menu {
             let item = menuHeader.items.first!
-            menuSheet.addAction(item.title) { item.action!(item) }
+            menuDialog.add(title: item.title!) { item.action!(item) }
         }
-        return UIBarButtonItem(image: CSMenuIcon.image(), onClick: { sender in
-            if self.menuSheet.visible {
-                self.menuSheet.hide()
+        return UIBarButtonItem(image: CSMenuItem.menuImage, onClick: { sender in
+            if self.menuDialog.isVisible {
+                self.menuDialog.hide()
             }
             else {
-                self.menuSheet.show(fromBarItem: sender)
+                self.menuDialog.showSheetFrom(item: sender)
             }
         })
     }

@@ -17,8 +17,7 @@
 }
 
 - (UIApplication *)openNSURL:(NSURL *)url {
-    if (UIDevice.isIOS10) [self openURL:url options:@{} completionHandler:nil];
-    else [self openURL:url];
+    [self openURL:url options:@{} completionHandler:nil];
     return self;
 }
 

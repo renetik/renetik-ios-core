@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RenetikObjc'
-  s.version          = '0.8.0'
+  s.version          = '0.8.1'
   s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure'
 
 	s.description      = <<-DESC
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
 												 :tag => s.version.to_s }
   s.social_media_url = 'https://renetik-software.github.io'
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   s.default_subspecs = 'All'
 	s.prefix_header_file = 'Library/Classes/RenetikObjc.pch'
 	
@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
    s.subspec 'CocoaLumberjack' do |ss|
      ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
      ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'CocoaLumberjack/Swift', '~> 3.4'
+     ss.dependency 'CocoaLumberjack/Swift', '~> 3.6'
    end
 
 #    s.subspec 'TableController' do |ss|
@@ -88,11 +88,11 @@ Pod::Spec.new do |s|
 #      ss.dependency 'Reachability', '~> 3.0'
 #    end
 
-   s.subspec 'SDWebImage' do |ss|
-     ss.source_files = 'Library/Classes/SDWebImage/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'SDWebImage', '~> 5.3'
-   end
+#    s.subspec 'SDWebImage' do |ss|
+#      ss.source_files = 'Library/Classes/SDWebImage/**/*'
+#      ss.dependency 'RenetikObjc/Core'
+#      ss.dependency 'SDWebImage', '~> 5.3'
+#    end
 
 #    s.subspec 'XLPagerTabStrip' do |ss|
 #      ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
@@ -110,7 +110,7 @@ Pod::Spec.new do |s|
 # 		ss.dependency 'RenetikObjc/Pager'
 # 		ss.dependency 'RenetikObjc/AFNetworking'
 # 		ss.dependency 'RenetikObjc/Reachability'
-		ss.dependency 'RenetikObjc/SDWebImage'
+# 		ss.dependency 'RenetikObjc/SDWebImage'
 # 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
 	end
 	 

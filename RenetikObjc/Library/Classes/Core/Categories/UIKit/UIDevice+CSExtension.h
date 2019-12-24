@@ -7,18 +7,18 @@
 
 @interface UIDevice (CSExtension)
 
-+ (void)setOrientation:(UIDeviceOrientation)orientation;
+//+ (void)setOrientation:(UIDeviceOrientation)orientation;
 
-+ (UIDeviceOrientation)orientation;
+//+ (UIDeviceOrientation)orientation;
 
 + (BOOL)iPhone;
 
 + (BOOL)iPad;
 
-+ (float)systemVersion;
-
-+ (BOOL)isIOS10;
-
-+ (BOOL)isIOS11;
+//+ (float)systemVersion;
+//
+//+ (BOOL)isIOS10;
+//
+//+ (BOOL)isIOS11;
 
 @end

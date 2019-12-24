@@ -2,18 +2,18 @@
 // Created by Rene Dohan on 19/02/18.
 // Copyright (c) 2018 renetik_software. All rights reserved.
 //
-@import UIKit;
+//@import UIKit;
+//
+//@interface UIScreen (CSExtension)
 
-@interface UIScreen (CSExtension)
+//+ (UIInterfaceOrientation)orientation;
 
-+ (UIInterfaceOrientation)orientation;
+//+ (BOOL)isPortrait;
+//
+//+ (BOOL)isLandscape;
 
-+ (BOOL)isPortrait;
+//+ (CGFloat)width;
+//
+//+ (CGFloat)height;
 
-+ (BOOL)isLandscape;
-
-+ (CGFloat)width;
-
-+ (CGFloat)height;
-
-@end
+//@end

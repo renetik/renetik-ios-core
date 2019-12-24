@@ -66,7 +66,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             let imageView = UIImageView.construct().frame(frame)
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
-                imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
+                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }
                         .onClick { _ in
                             if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
                                 UIApplication.shared.open(attachment.hyperLinkURL)
@@ -75,7 +75,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             }
             else if frame.width > 50 {
                 imageUrls.add(attachment.contentURL)
-                imageView.imageNSURL(attachment.contentURL) { $0.roundImageCorners(3) }
+                imageView.image(url:attachment.contentURL) { $0.roundImageCorners(3) }
                         .onClick { _ in
                             let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
                             photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
@@ -84,7 +84,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
                         }
             }
             else {
-                imageView.imageNSURL(attachment.contentURL)
+                imageView.image(url:attachment.contentURL)
             }
             return imageView
         }

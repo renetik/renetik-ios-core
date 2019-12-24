@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'A short description of Renetik.'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ TODO: Add long description of the pod here.
 												 :tag => s.version.to_s }
   s.social_media_url = 'https://renetik-software.github.io'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
 #  s.source_files = 'Renetik/Classes/**/*'
 
@@ -94,13 +94,14 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/SDWebImage', '~> 0.8.0'
+		ss.dependency 'SDWebImage', '~> 5.3'
+		ss.source_files = 'Renetik/Classes/SDWebImage/**/*'
 	end
-	
+
 	s.subspec 'CSNotification' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
-		ss.dependency 'RMessage', '~> 2.3'
+		ss.dependency 'RMessage', '~> 3.0'
 	end
 	
 	s.subspec 'XLPagerTabStrip' do |ss|

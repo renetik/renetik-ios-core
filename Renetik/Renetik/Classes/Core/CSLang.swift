@@ -49,7 +49,6 @@ open class CSObject: CSAny, Equatable {
     }
 }
 
-
 public class Nil: CSAny, Equatable {
     private init() {}
 

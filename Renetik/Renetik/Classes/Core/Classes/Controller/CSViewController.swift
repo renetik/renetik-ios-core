@@ -154,8 +154,7 @@ open class CSViewController: UIViewController {
     open func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {}
 
     public func observe(notification name: NSNotification.Name, callback: @escaping (Notification) -> Void) {
-        notificationCenterObservers.add(NotificationCenter.default
-                .addObserver(forName: name, object: nil, queue: nil, using: callback))
+        notificationCenterObservers.add(NotificationCenter.add(observer: name, using: callback))
     }
 
     @discardableResult

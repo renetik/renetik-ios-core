@@ -27,8 +27,7 @@ public class CSMenuItem: CSObject {
 
     public init(by parent: CSMainController, title: String? = nil,
                 systemItem: UIBarButtonItem.SystemItem? = nil,
-                image: UIImage? = nil,
-                action: ((CSMenuItem) -> Void)? = nil) {
+                image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) {
         controller = parent
         self.title = title
         self.systemItem = systemItem
@@ -86,4 +85,30 @@ public class CSMenuItem: CSObject {
         isNoActionItem = true
         return self
     }
+}
+
+public extension CSMenuItem {
+    public static var menuImage: UIImage = {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 26, height: 26), _: false, _: 0)
+        // Color Declarations
+        let fillColor = UIColor.white
+        // Frames
+        let frame = CGRect(x: 0, y: 0, width: 26, height: 26)
+        // Bottom Bar Drawing
+        let bottomBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
+                y: frame.minY + floor((frame.height - 1) * 0.72000 + 0.5), width: 16, height: 1))
+        fillColor.setFill()
+        bottomBarPath.fill()
+        // Middle Bar Drawing
+        let middleBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
+                y: frame.minY + floor((frame.height - 1) * 0.48000 + 0.5), width: 16, height: 1))
+        fillColor.setFill()
+        middleBarPath.fill()
+        // Top Bar Drawing
+        let topBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
+                y: frame.minY + floor((frame.height - 1) * 0.24000 + 0.5), width: 16, height: 1))
+        fillColor.setFill()
+        topBarPath.fill()
+        return UIGraphicsGetImageFromCurrentImageContext()!
+    }()
 }
