@@ -29,89 +29,20 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files = 'Library/Classes/Core/**/*'
     ss.frameworks = 'UIKit'
-    ss.dependency 'BlocksKit', '~> 2.2'
-    ss.dependency 'MBProgressHUD', '~> 1.1'
-    ss.dependency 'AFNetworking', '~> 3.0'
+    ss.dependency 'MBProgressHUD', '~> 1.1' # Could be moved to subspec
+    ss.dependency 'AFNetworking', '~> 3.0'  # CSResponse should be moved to subspec
+    ss.dependency 'BlocksKit', '~> 2.2' # Could be moved to subspec maybe
   end
 
-#   s.subspec 'SBJson' do |ss|
-#       ss.source_files = 'Library/Classes/SBJson/**/*'
-#       ss.dependency 'RenetikObjc/Core'
-#       ss.dependency 'SBJson', '~> 3.1'
-#   end
-  
    s.subspec 'CocoaLumberjack' do |ss|
      ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
      ss.dependency 'RenetikObjc/Core'
      ss.dependency 'CocoaLumberjack/Swift', '~> 3.6'
    end
 
-#    s.subspec 'TableController' do |ss|
-#      ss.source_files = 'Library/Classes/TableController/*'
-#      ss.resources = 'Library/Classes/TableController/TableController.bundle'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'RenetikObjc/RefreshControl'
-#      ss.dependency 'DZNEmptyDataSet','~> 1.8'
-#      ss.dependency 'ChameleonFramework', '~> 2.1'
-#    end
-
-#    s.subspec 'CollectionController' do |ss|
-#      ss.source_files = 'Library/Classes/CollectionController/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'RenetikObjc/RefreshControl'
-#      ss.dependency 'DZNEmptyDataSet','~> 1.8'
-#    end
-
-   s.subspec 'RefreshControl' do |ss|
-     ss.source_files = 'Library/Classes/RefreshControl/**/*'
-     ss.dependency 'RenetikObjc/Core'
-     ss.dependency 'ChameleonFramework', '~> 2.1'
-     ss.dependency 'MJRefresh', '~> 3.1'
-   end
-
-#    s.subspec 'Pager' do |ss|
-#      ss.source_files = 'Library/Classes/Pager/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'MZAppearance', '~> 1.1'
-#      ss.dependency 'ChameleonFramework', '~> 2.1'
-#    end
-
-#    s.subspec 'AFNetworking' do |ss|
-#      ss.source_files = 'Library/Classes/AFNetworking/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'AFNetworking', '~> 3.0'
-#    end
-
-#    s.subspec 'Reachability' do |ss|
-#      ss.source_files = 'Library/Classes/Reachability/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'Reachability', '~> 3.0'
-#    end
-
-#    s.subspec 'SDWebImage' do |ss|
-#      ss.source_files = 'Library/Classes/SDWebImage/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'SDWebImage', '~> 5.3'
-#    end
-
-#    s.subspec 'XLPagerTabStrip' do |ss|
-#      ss.source_files = 'Library/Classes/XLPagerTabStrip/**/*'
-#      ss.dependency 'RenetikObjc/Core'
-#      ss.dependency 'XLPagerTabStrip', '~> 3.0'
-#    end
-
    s.subspec 'All' do |ss|
 		ss.dependency 'RenetikObjc/Core'
-# 		ss.dependency 'RenetikObjc/SBJson'
 		ss.dependency 'RenetikObjc/CocoaLumberjack'
-# 		ss.dependency 'RenetikObjc/TableController'
-# 		ss.dependency 'RenetikObjc/CollectionController'
-		ss.dependency 'RenetikObjc/RefreshControl'
-# 		ss.dependency 'RenetikObjc/Pager'
-# 		ss.dependency 'RenetikObjc/AFNetworking'
-# 		ss.dependency 'RenetikObjc/Reachability'
-# 		ss.dependency 'RenetikObjc/SDWebImage'
-# 		ss.dependency 'RenetikObjc/XLPagerTabStrip'
 	end
 	 
 #	 s.test_spec 'Tests' do |test|

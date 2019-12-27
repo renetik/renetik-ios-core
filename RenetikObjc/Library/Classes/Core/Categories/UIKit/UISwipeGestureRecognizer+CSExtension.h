@@ -3,8 +3,6 @@
 //
 @import UIKit;
 
-@class CSSelector;
-
 @interface UISwipeGestureRecognizer (CSExtension)
 
 + (UISwipeGestureRecognizer *)new:(id)target :(SEL)selector :(UISwipeGestureRecognizerDirection)direction;

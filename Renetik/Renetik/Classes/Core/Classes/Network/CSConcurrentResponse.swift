@@ -1,6 +1,5 @@
 //
-//  CSConcurentResponse.swift
-//  Renetik
+//  Renetik Software
 //
 //  Created by Rene Dohan on 3/14/19.
 //

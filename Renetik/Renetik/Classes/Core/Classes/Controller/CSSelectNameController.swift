@@ -9,16 +9,16 @@ import RenetikObjc
 
 public class CSSelectNameController: CSMainController
         , UITableViewDelegate, UITableViewDataSource {
-    @objc public let table = UITableView.construct()
-    @objc public let search = CSSearchBarController()
-    @objc public var selectedName: CSName?
+    public let table = UITableView.construct()
+    public let search = CSSearchBarController()
+    public var selectedName: CSName?
     private var names: [CSName] = []
     private var filteredData: [CSName] = []
     private var onSelected: ((CSName) -> Void)!
     private var onDelete: ((CSName) -> CSResponse<AnyObject>)?
 
     @discardableResult
-    @objc public func construct(data: [CSName], onSelected: @escaping (CSName) -> Void) -> Self {
+    public func construct(data: [CSName], onSelected: @escaping (CSName) -> Void) -> Self {
         self.names = data
         self.onSelected = onSelected
         return self

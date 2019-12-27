@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import RenetikObjc
 
 public extension UIButton {
-    @objc public func alignContent(_ alignment: ContentHorizontalAlignment) -> Self {
+    public func alignContent(_ alignment: ContentHorizontalAlignment) -> Self {
         contentHorizontalAlignment = alignment
         return self
+    }
+
+    public var text: String {
+        get { title() }
+        set(value) { title(value) }
     }
 }

@@ -6,11 +6,10 @@ import Foundation
 import UIKit
 import RenetikObjc
 
-public protocol CSViewControllerProtocol {
-    func asController() -> UIViewController
+public protocol CSViewControllerProtocol where Self: UIViewController {
     func show<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T>
-    func showProgress<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T>
-    func showFailed<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T>
+    func show<T: AnyObject>(progress response: CSResponse<T>) -> CSResponse<T>
+    func show<T: AnyObject>(failed response: CSResponse<T>) -> CSResponse<T>
     func show(message: String, onPositive: (() -> Void)?)
     func show(title: String?, message: String, positiveTitle: String,
               onPositive: @escaping () -> Void, negativeTitle: String, onCanceled: (() -> Void)?)

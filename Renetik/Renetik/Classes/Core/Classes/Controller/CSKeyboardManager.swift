@@ -23,13 +23,13 @@ public class CSKeyboardManager: CSMainController {
         return self
     }
 
-    func keyboardDidShow(_ note: Notification) {
+    private func keyboardDidShow(_ note: Notification) {
         let rect = note.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         keyboardHeight = rect.size.height
         onKeyboardChange?(keyboardHeight)
     }
 
-    func keyboardDidHide(_ note: Notification) {
+    private func keyboardDidHide(_ note: Notification) {
         keyboardHeight = 0
         onKeyboardChange?(0)
     }

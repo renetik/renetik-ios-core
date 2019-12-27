@@ -46,6 +46,8 @@ TODO: Add long description of the pod here.
 	s.subspec 'Core' do |ss|
 		ss.dependency 'RenetikObjc/Core', '~> 0.8.0'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
+		ss.dependency 'UITextView+Placeholder', '~> 1.3'
+		ss.dependency 'MBProgressHUD', '~> 1.1'
 	end
 	
 	s.subspec 'CoreLocation' do |ss|
@@ -53,11 +55,6 @@ TODO: Add long description of the pod here.
 		s.frameworks = 'CoreLocation'
 		ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
 	end
-	
-# 	s.subspec 'SBJson' do |ss|
-# 		ss.dependency 'Renetik/Core'
-# 		ss.dependency 'RenetikObjc/SBJson', '~> 0.8.0'
-# 	end
 	
 	s.subspec 'CocoaLumberjack' do |ss|
 		ss.dependency 'Renetik/Core'
@@ -68,29 +65,15 @@ TODO: Add long description of the pod here.
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'DZNEmptyDataSet','~> 1.8'
+		ss.dependency 'ChameleonFramework', '~> 2.1'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
-	
-	s.subspec 'RefreshControl' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/RefreshControl', '~> 0.8.0'
-	end
-	
-# 	s.subspec 'Pager' do |ss|
-# 		ss.dependency 'Renetik/Core'
-# 		ss.dependency 'RenetikObjc/Pager', '~> 0.8.0'
-# 	end
 	
 	s.subspec 'AFNetworking' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
 		ss.dependency 'AFNetworking', '~> 3.0'
 	end
-	
-# 	s.subspec 'Reachability' do |ss|
-# 		ss.dependency 'Renetik/Core'
-# 		ss.dependency 'RenetikObjc/Reachability', '~> 0.8.0'
-# 	end
 	
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
@@ -122,13 +105,9 @@ TODO: Add long description of the pod here.
 	s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/CoreLocation'
-# 		ss.dependency 'Renetik/SBJson'
 		ss.dependency 'Renetik/CocoaLumberjack'
 		ss.dependency 'Renetik/TableController'
-		ss.dependency 'Renetik/RefreshControl'
-# 		ss.dependency 'Renetik/Pager'
 		ss.dependency 'Renetik/AFNetworking'
-# 		ss.dependency 'Renetik/Reachability'
 		ss.dependency 'Renetik/SDWebImage'
 		ss.dependency 'Renetik/CSNotification'
 		ss.dependency 'Renetik/XLPagerTabStrip'

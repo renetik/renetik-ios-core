@@ -9,9 +9,9 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
 
     public let bar = UISearchBar.construct()
     public var text: String { bar.text ?? "" }
-    var parentController: UIViewController!
-    var searchBarShouldBeginEditing = false
-    var onTextChanged: ((String) -> Void)!
+    private var parentController: UIViewController!
+    private var searchBarShouldBeginEditing = false
+    private var onTextChanged: ((String) -> Void)!
 
     @discardableResult
     public func construct(by parent: CSMainController, onTextChanged: @escaping (String) -> Void) -> Self {

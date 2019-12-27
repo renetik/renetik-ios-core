@@ -1,15 +1,12 @@
 //
 // Created by Rene Dohan on 12/2/19.
-// Copyright (c) 2019 Bowbook. All rights reserved.
+// Copyright (c) 2019 Renetik Software. All rights reserved.
 //
 
 import UIKit
-import RenetikObjc
 
 public extension UIViewController {
-    public func dialog() -> CSAlertController {
-        CSAlertController(in: self)
-    }
+    public func dialog() -> CSAlertController { CSAlertController(in: self) }
 
     public func dialog(_ message: String) -> CSAlertController {
         CSAlertController(in: self, title: "", message: message)
@@ -18,6 +15,14 @@ public extension UIViewController {
     public func dialog(_ title: String, _ message: String) -> CSAlertController {
         CSAlertController(in: self, title: title, message: message)
     }
+}
+
+public extension UIView {
+    public func dialog() -> CSAlertController { navigation.dialog() }
+
+    public func dialog(_ message: String) -> CSAlertController { navigation.dialog(message) }
+
+    public func dialog(_ title: String, _ message: String) -> CSAlertController { navigation.dialog(title, message) }
 }
 
 public class CSAlertController: CSObject {
@@ -44,7 +49,10 @@ public class CSAlertController: CSObject {
 
     public func hide() { alert?.dismiss(animated: true) }
 
-    public func add(title: String, action: @escaping () -> Void) { actions.add((title: title, action: action)) }
+    public func add(title: String, action: @escaping () -> Void) -> Self {
+        actions.add((title: title, action: action))
+        return self
+    }
 
     public func clear() { actions.removeAll() }
 

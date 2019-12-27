@@ -1,8 +1,7 @@
 //
-//  File.swift
 //  Renetik
 //
-//  Created by Rene Dohan on 3/10/19.
+//  Created by Renetik Software on 3/10/19.
 //
 
 import ChameleonFramework
@@ -38,17 +37,6 @@ public class CSTableEmptyController<ObjectType: AnyObject & CustomStringConverti
         table.tableView.emptyDataSetSource = self
         return self
     }
-
-//    public func construct(_ table: CSTableControllerSwift<ObjectType>,
-//                          _ title: String? = nil,
-//                          _ description: String? = nil) -> Self {
-//        self.table = table
-//        self.emptyText = title
-//        self.emptyDescription = description
-//        table.tableView.emptyDataSetDelegate = self
-//        table.tableView.emptyDataSetSource = self
-//        return self
-//    }
 
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         text.attributed([

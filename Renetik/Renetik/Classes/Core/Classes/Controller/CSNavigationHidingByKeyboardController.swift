@@ -8,8 +8,8 @@ import RenetikObjc
 
 public class CSNavigationHidingByKeyboardController: CSMainController {
 
-    var navigationBarHidden = false
-    let keyboardManager = CSKeyboardManager()
+    private var navigationBarHidden = false
+    private let keyboardManager = CSKeyboardManager()
 
     @discardableResult
     public func construct(_ parent: UIViewController) -> Self {
@@ -18,7 +18,7 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
         return self
     }
 
-    func onKeyboardChange(keyboardHeight: CGFloat) {
+    private func onKeyboardChange(keyboardHeight: CGFloat) {
         if keyboardHeight > 0 {
             hideNavigationBar()
         }
