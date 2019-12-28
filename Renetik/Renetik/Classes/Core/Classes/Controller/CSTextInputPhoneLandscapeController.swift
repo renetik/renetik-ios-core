@@ -23,45 +23,15 @@ public protocol CSHasTextInput: NSObjectProtocol {
 
 extension UITextView: CSHasInputAccessory {}
 
-class KVOObserver: NSObject {
-
-    private let callback: () -> Void
-    private let observe: NSObject
-    private let keyPath: String
-
-    private init(observe: NSObject, keyPath: String, callback: @escaping () -> Void) {
-        self.callback = callback
-        self.observe = observe
-        self.keyPath = keyPath;
-    }
-
-    deinit {
-//        print("KVOObserver deinit")
-        observe.removeObserver(self, forKeyPath: keyPath)
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        self.callback()
-    }
-
-    class func observe(_ object: NSObject, keyPath: String, callback: @escaping () -> Void) -> KVOObserver {
-        let kvoObserver = KVOObserver(observe: object, keyPath: keyPath, callback: callback)
-        object.addObserver(kvoObserver, forKeyPath: keyPath, options: [.new, .initial], context: nil)
-        return kvoObserver
-    }
-}
-
 public class CSTextInputPhoneLandscapeController: CSViewController {
 
     private let keyboardManager = CSKeyboardManager()
-    public let container = UIView.withSize(100, 50).background(.lightGray)
+    public let container = UIView.withSize(100, 50).background(.white)
     public let textView = UITextView.construct().background(.white)
-    public let doneButton = UIButton.construct().titleColor(.black)
+    public let doneButton = UIButton.construct().titleColor(.blue)
     private var parentTextInput: (CSHasTextProtocol & CSHasUIResponder)!
     private var hasAccessory: CSHasInputAccessory?
     private var accessoryTextInput: UITextInput?
-
-    private let modelStateKvoObserver: KVOObserver? = nil
 
     @discardableResult
     public func construct(by parent: CSViewController, textInput: CSHasTextProtocol & CSHasUIResponder,
