@@ -52,13 +52,13 @@ NS_SWIFT_NAME(remove(width:));
 - (instancetype)removeHeight:(CGFloat)value
 NS_SWIFT_NAME(remove(height:));
 
-- (instancetype)sizeFit;
+- (instancetype)resizeToFit;
 
-- (instancetype)sizeFitWidth;
+- (instancetype)heightToFit;
 
-- (instancetype)sizeFitHeight;
+- (instancetype)widthToFit;
 
-- (instancetype)sizeFitSubviews;
+- (instancetype)resizeToFitSubviews;
 
 - (instancetype)resizeByPadding:(CGFloat)padding
 NS_SWIFT_NAME(resizeBy(padding:));

@@ -71,16 +71,16 @@
     return self;
 }
 
-- (instancetype)sizeFitWidth {
+- (instancetype)heightToFit {
     self.numberOfLines = 0;
-    super.sizeFitWidth;
+    super.heightToFit;
     return self;
 }
 
 - (instancetype)sizeFit:(NSString *)value {
     self.numberOfLines = 0;
     let current = self.text;
-    return [[self text:value].sizeFit text:current];
+    return [[self text:value].resizeToFit text:current];
 }
 
 - (instancetype)sizeHeightToFit:(NSString *)value {

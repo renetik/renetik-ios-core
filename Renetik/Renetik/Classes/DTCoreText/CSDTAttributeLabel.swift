@@ -122,11 +122,11 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     @discardableResult
-    public func sizeHeightToFit(characters count: Int) -> Self {
+    public func heightToFit(characters count: Int) -> Self {
         let previousString = attributedString
         let randomString = String.randomString(length: count)
         attributedString = NSAttributedString(string: randomString)
-        sizeFitWidth()
+        heightToFit()
         attributedString = previousString
         return self
     }

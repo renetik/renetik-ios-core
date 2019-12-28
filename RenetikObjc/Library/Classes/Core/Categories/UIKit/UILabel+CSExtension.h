@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)hideIfEmpty;
 
-- (instancetype)sizeFitWidth;
+- (instancetype)heightToFit;
 
 - (instancetype)sizeFit:(NSString *)value;
 

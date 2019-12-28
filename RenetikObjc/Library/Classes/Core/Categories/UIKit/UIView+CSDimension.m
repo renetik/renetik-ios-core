@@ -114,24 +114,24 @@
     return self;
 }
 
-- (instancetype)sizeFit {
+- (instancetype)resizeToFit {
     [self sizeToFit];
     return self;
 }
 
-- (instancetype)sizeFitWidth {
+- (instancetype)heightToFit {
     NSAssert(self.width > 0, @"Width has to be set to calculate height");
     CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
     return [self height:newSize.height];
 }
 
-- (instancetype)sizeFitHeight {
+- (instancetype)widthToFit {
     NSAssert(self.height > 0, @"Height has to be set to calculate height");
     CGSize newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
     return [self width:newSize.width];
 }
 
-- (instancetype)sizeFitSubviews {
+- (instancetype)resizeToFitSubviews {
     return [self size:self.calculateSizeFromSubviews];
 }
 
