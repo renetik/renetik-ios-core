@@ -6,10 +6,10 @@ import Foundation
 import UIKit
 import RenetikObjc
 
-public class CSTablePagerController<RowType: CSTableControllerRowType>: NSObject {
+public class CSTablePagerController<RowType: CSTableControllerRow>: NSObject {
 
     private var table: CSTableController<RowType>!
-    private var onLoadPage: ((Int) -> CSResponse<AnyObject>)!
+    private var onLoadPage: ((Int) -> CSProcess<AnyObject>)!
     private var pageIndex = -1
     private var noNext = false
     private var loadNextView: UIView?
@@ -19,28 +19,22 @@ public class CSTablePagerController<RowType: CSTableControllerRowType>: NSObject
 
     @discardableResult
     public func construct(by controller: CSTableController<RowType>,
-                          request: @escaping (Int) -> CSResponse<CSListData>) -> Self {
+                          operation: @escaping (Int) -> CSOperation<CSListServerJsonData<RowType>>) -> Self {
         self.table = controller
-        onLoadPage = { index in request(index).onSuccess { data in self.load(data.list.cast()) }.cast() }
+        onLoadPage = { index in operation(index).send().onSuccess { data in self.load(data.list) }.cast() }
         table.onLoad = onLoad
         return self;
     }
 
     public func construct(by controller: CSTableController<RowType>,
-                          request: @escaping (Int) -> CSResponse<AnyObject>) -> Self {
+                          process: @escaping (Int) -> CSProcess<AnyObject>) -> Self {
         self.table = controller
-        onLoadPage = request
+        onLoadPage = process
         table.onLoad = onLoad
         return self;
     }
 
-//    @discardableResult
-//    public func onLoadListPage(request: @escaping (Int) -> CSResponse<CSListData>) -> Self {
-//        onLoadPage = { index in request(index).onSuccess { data in self.load(data.list.cast()) }.cast() }
-//        return self
-//    }
-
-    private func onLoad() -> CSResponse<AnyObject> {
+    private func onLoad(_ withProgress: Bool) -> CSProcess<AnyObject> {
         noNext = false
         pageIndex = 0
         return onLoadPage(pageIndex)
@@ -48,18 +42,18 @@ public class CSTablePagerController<RowType: CSTableControllerRowType>: NSObject
 
     @discardableResult
     public func load(_ array: [RowType]) -> Self {
-        if pageIndex == 0 {
-            table.load(array)
-        }
-        else {
-            table.load(add: array)
-        }
-        if array.hasItems {
-            pageIndex += 1
-        }
-        else {
-            noNext = true
-        }
+        (pageIndex == 0).then { table.load(array) }.elseDo { table.load(add: array) }
+        (array.hasItems).then { pageIndex += 1 }.elseDo { noNext = true }
+//        if pageIndex == 0 {
+//            table.load(array)
+//        } else {
+//            table.load(add: array)
+//        }
+//        if array.hasItems {
+//            pageIndex += 1
+//        } else {
+//            noNext = true
+//        }
         return self
     }
 
@@ -82,19 +76,24 @@ public class CSTablePagerController<RowType: CSTableControllerRowType>: NSObject
         if table.isLoading { return }
         table.isLoading = true
         showLoadNextIndicator()
-        table.parentController.show(failed: onLoadPage!(pageIndex)).onDone { data in
+        onLoadPage!(pageIndex).onFailed { _ in
+            self.table.parentController.toast(localized("renetik-table-pager-load-next-failed"))
+        }.onDone { _ in
             self.table.isLoading = false
             self.loadNextView?.removeFromSuperview()
         }
     }
 
     private func showLoadNextIndicator() {
-        if loadNextView.isNil {
-            let loadingNextView = UIActivityIndicatorView(style: .gray)
-            loadNextColor.notNil { loadingNextView.color = $0 }
-            loadingNextView.startAnimating()
-            loadNextView = loadingNextView
+        table.tableView.superview!.add(view: loadNextView ?? createLoadNextView())
+                .from(bottom: 5).centerInParentHorizontal()
+    }
+
+    private func createLoadNextView() -> UIView {
+        UIActivityIndicatorView(style: .gray).also { view in
+            loadNextColor.notNil { view.color = $0 }
+            view.startAnimating()
+            self.loadNextView = view
         }
-        table.tableView.superview!.add(view: loadNextView!).from(bottom: 5).centerInParentHorizontal()
     }
 }

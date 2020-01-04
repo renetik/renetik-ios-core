@@ -25,27 +25,7 @@ open class CSAFClient: CSObject {
         configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
                 sessionConfiguration: configuration)
-//        manager.setDataTaskWillCacheResponseBlock { session, task, cachedResponse in
-//            let response = cachedResponse.response as! HTTPURLResponse
-//            var headers = response.allHeaderFields as! [String: String]
-//            print(headers.keys.contains("Cache-Control"))
-//            headers["Cache-Control"] = "max-age=30"
-//            headers["Cache-Control"] = "max-stale=30"
-//            let modifiedResponse = HTTPURLResponse(
-//                    url: response.url!,
-//                    statusCode: response.statusCode,
-//                    httpVersion: "HTTP/1.1",
-//                    headerFields: headers)!
-//            return CachedURLResponse(response: modifiedResponse, data: cachedResponse.data)
-//        }
         manager.responseSerializer = AFHTTPResponseSerializer()
-    }
-
-    public func setVagueCertificateSecurityPolicy() {
-        var policy = AFSecurityPolicy(pinningMode: .none)
-        policy.allowInvalidCertificates = true
-        policy.validatesDomainName = false
-        manager.securityPolicy = policy
     }
 
     public func setVagueSecurityPolicy() {

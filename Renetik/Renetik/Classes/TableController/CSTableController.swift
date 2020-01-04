@@ -4,39 +4,27 @@
 
 import RenetikObjc
 
-public protocol CSTableControllerFilter {
-    func filter<ObjectType>(data: [ObjectType]) -> [ObjectType]?
-    func onReloadDone<ObjectType>(in controller: CSTableController<ObjectType>)
-}
+public typealias CSTableControllerRow = CSJsonData
+public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate
 
-extension CSTableControllerFilter {
-    func filter<ObjectType>(data: [ObjectType]) -> [ObjectType] { data }
+public class CSTableController<RowType: CSTableControllerRow>: CSViewController {
 
-    func onReloadDone<ObjectType>(in controller: CSTableController<ObjectType>) {}
-}
-
-public typealias CSTableControllerRowType = AnyObject & CustomStringConvertible & Equatable
-public typealias CSTableControllerParentType =
-        CSMainController & CSViewControllerProtocol & UITableViewDataSource & UITableViewDelegate
-
-public class CSTableController<RowType: CSTableControllerRowType>: CSViewController {
-
-    public var onLoad: (() -> CSResponse<AnyObject>)!
-    public let onLoadResponse: CSEvent<CSResponse<AnyObject>> = event()
+    public var onLoad: ((_ withProgress: Bool) -> CSProcess<AnyObject>)!
+    public let onLoadResponse: CSEvent<CSProcess<AnyObject>> = event()
     public var onUserRefresh: (() -> Bool)?
     public var searchText = "" { didSet { filterDataAndReload() } }
     internal var isLoading = false
     internal var isFailed = false
-    internal var failedMessage = ""
+    internal var failedMessage: String?
     internal var filteredData = [RowType]()
-    private var loadResponse: CSResponse<AnyObject>? = nil
+    private var loadProcess: CSProcess<AnyObject>? = nil
 
-    internal var parentController: (UIViewController & CSViewControllerProtocol)!
+    internal var parentController: CSTableControllerParent!
     public let tableView = UITableView.construct().also { $0.estimatedRowHeight = 0 }
     private var filter: CSTableControllerFilter?
     internal var data: [RowType]!
 
-    public func construct(by parent: CSTableControllerParentType,
+    public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [RowType] = [RowType]()) -> Self {
         parentController = parent
         tableView.delegates(parent).hide()
@@ -47,10 +35,8 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     }
 
     @discardableResult
-    public func onLoadList(request: @escaping () -> CSResponse<CSListData>) -> Self {
-        onLoad = {
-            request().onSuccess { data in self.load(data.list.cast()) }.cast()
-        }
+    public func onLoadList(operation: CSOperation<CSListServerJsonData<RowType>>) -> Self {
+        onLoad = { isProgress in operation.send(progress: isProgress) { data in self.load(data.list) }.cast() }
         return self
     }
 
@@ -64,32 +50,23 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     public var dataCount: Int { filteredData.count }
 
     @discardableResult
-    public func reload() -> CSResponse<AnyObject> { reload(withProgress: true) }
-
-    @discardableResult
-    public func reload(withProgress: Bool) -> CSResponse<AnyObject> {
-        if isLoading { loadResponse!.cancel() }
+    public func reload(withProgress: Bool = true) -> CSProcess<AnyObject> {
+        if isLoading { loadProcess!.cancel() }
         isLoading = true
-        let loadResponse = onLoad()
-        if withProgress { parentController.show(progress: loadResponse) }
-        loadResponse.onFailed { response in
+        return onLoad(withProgress).onFailed { process in
             self.isFailed = true
-            self.failedMessage = response.message
+            self.failedMessage = process.errorMessage
             self.tableView.reloadData()
-        }
-        loadResponse.onCancel { response in
+        }.onCancel { process in
             self.isFailed = true
-            self.failedMessage = response.message
+            self.failedMessage = process.errorMessage
             self.tableView.reloadData()
-        }
-        loadResponse.onDone { data in
-            self.tableView.fadeIn()
-//            self.refreshControl?.endRefreshing()
+        }.onDone { data in
             self.isLoading = false
+        }.also { process in
+            self.loadProcess = process
+            onLoadResponse.fire(process)
         }
-        self.loadResponse = loadResponse
-        onLoadResponse.fire(loadResponse)
-        return loadResponse
     }
 
     @discardableResult
@@ -97,6 +74,7 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
         data.reload(array)
         filterDataAndReload()
         isFailed = false
+        tableView.fadeIn()
         return self
     }
 
@@ -126,22 +104,3 @@ public class CSTableController<RowType: CSTableControllerRowType>: CSViewControl
     }
 }
 
-extension CSTableController {
-    @discardableResult
-    public func scrollToBottom() -> Self {
-        if filteredData.hasItems {
-            Renetik.doLater {
-                let path = IndexPath(row: self.dataCount - 1, section: 0)
-                self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
-            }
-        }
-        return self
-    }
-
-    public func isAtBottom() -> Bool {
-        let lastPath = tableView.indexPathsForVisibleRows?.last
-        if lastPath == nil { return true }
-        if lastPath!.row == dataCount - 1 { return true }
-        return false
-    }
-}

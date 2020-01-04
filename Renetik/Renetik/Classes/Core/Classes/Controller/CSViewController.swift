@@ -13,9 +13,15 @@ open class CSViewController: UIViewController {
 
     public private(set) var isAppearing = false
     public var isShowing = false {
-        didSet { if isShowing != oldValue { onShowingChanged() } }
+        didSet {
+            if isShowing != oldValue {
+                onShowingChanged()
+            }
+        }
     }
-    public var isVisible: Bool { self.isAppearing && self.isShowing }
+    public var isVisible: Bool {
+        self.isAppearing && self.isShowing
+    }
 
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false
@@ -27,20 +33,25 @@ open class CSViewController: UIViewController {
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
 //        view = UIView.withSize(1, 1)
-        Renetik.doLater { parent.showChild(controller: self) }
+        Renetik.doLater {
+            parent.showChild(controller: self)
+        }
         isShowing = true
         return self
     }
 
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
-    override open func loadView() { view = UIView.withSize(1, 1) }
+    override open func loadView() {
+        view = UIView.withSize(1, 1)
+    }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         onViewDidLoad()
     }
 
-    open func onViewDidLoad() {}
+    open func onViewDidLoad() {
+    }
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -48,17 +59,19 @@ open class CSViewController: UIViewController {
         if !isOnViewWillAppearFirstTime {
             isOnViewWillAppearFirstTime = true
             onViewWillAppearFirstTime()
-        }
-        else {
+        } else {
             onViewWillAppearFromPresentedController()
         }
     }
 
-    open func onViewWillAppear() {}
+    open func onViewWillAppear() {
+    }
 
-    open func onViewWillAppearFirstTime() {}
+    open func onViewWillAppearFirstTime() {
+    }
 
-    open func onViewWillAppearFromPresentedController() {}
+    open func onViewWillAppearFromPresentedController() {
+    }
 
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -66,20 +79,23 @@ open class CSViewController: UIViewController {
             isDidLayoutSubviews = true
             onCreateLayout()
             onLayoutCreated()
-        }
-        else {
+        } else {
             onUpdateLayout()
         }
         onViewDidLayout()
     }
 
-    open func onCreateLayout() {}
+    open func onCreateLayout() {
+    }
 
-    open func onLayoutCreated() {}
+    open func onLayoutCreated() {
+    }
 
-    open func onUpdateLayout() {}
+    open func onUpdateLayout() {
+    }
 
-    open func onViewDidLayout() {}
+    open func onViewDidLayout() {
+    }
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -88,17 +104,20 @@ open class CSViewController: UIViewController {
         if !isOnViewDidAppearFirstTime {
             isOnViewDidAppearFirstTime = true
             onViewDidAppearFirstTime()
-        }
-        else {
+        } else {
+            //TODO this is probably called also in different situations so has wrong name
             onViewDidAppearFromPresentedController()
         }
     }
 
-    open func onViewDidAppear() {}
+    open func onViewDidAppear() {
+    }
 
-    open func onViewDidAppearFirstTime() {}
+    open func onViewDidAppearFirstTime() {
+    }
 
-    open func onViewDidAppearFromPresentedController() {}
+    open func onViewDidAppearFromPresentedController() {
+    }
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -106,38 +125,50 @@ open class CSViewController: UIViewController {
         //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
 
-    open func onViewWillDisappear() {}
+    open func onViewWillDisappear() {
+    }
 
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if !isAppearing { return }
+        if !isAppearing {
+            return
+        }
         isAppearing = false
         onViewDidDisappear()
-        if controllerInNavigation?.parent == nil { onViewDismissing() }
-        if navigationController?.previous == controllerInNavigation { onViewPushedOver() }
+        if controllerInNavigation?.parent == nil {
+            onViewDismissing()
+        }
+        if navigationController?.previous == controllerInNavigation {
+            onViewPushedOver()
+        }
     }
 
-    open func onViewDidDisappear() {}
+    open func onViewDidDisappear() {
+    }
 
-    open func onViewPushedOver() {}
+    open func onViewPushedOver() {
+    }
 
-    open func onViewDismissing() {}
+    open func onViewDismissing() {
+    }
 
     private func onShowingChanged() {
         onViewVisibilityChanged(isShowing)
         if isShowing {
             onViewShowing()
-        }
-        else {
+        } else {
             onViewHiding()
         }
     }
 
-    open func onViewVisibilityChanged(_ visible: Bool) {}
+    open func onViewVisibilityChanged(_ visible: Bool) {
+    }
 
-    open func onViewShowing() {}
+    open func onViewShowing() {
+    }
 
-    open func onViewHiding() {}
+    open func onViewHiding() {
+    }
 
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -149,9 +180,11 @@ open class CSViewController: UIViewController {
         }
     }
 
-    open func onViewWillTransition(to size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {}
+    open func onViewWillTransition(to size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {
+    }
 
-    open func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {}
+    open func onViewWillTransition(toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+    }
 
     public func observe(notification name: NSNotification.Name, callback: @escaping (Notification) -> Void) {
         notificationCenterObservers.add(NotificationCenter.add(observer: name, using: callback))
@@ -167,22 +200,32 @@ open class CSViewController: UIViewController {
     }
 
     public var isInNavigationController: Bool {
-        if controllerInNavigation.notNil { return true }
+        if controllerInNavigation.notNil {
+            return true
+        }
         return false
     }
 
     public var controllerInNavigation: UIViewController? {
-        if parent == navigationController { return self }
+        if parent == navigationController {
+            return self
+        }
         var controller: UIViewController? = self
-        repeat { controller = controller?.parent } while
+        repeat {
+            controller = controller?.parent
+        } while
                 controller.notNil && controller?.parent != navigationController
         return controller
     }
 
     override public var shouldAutorotate: Bool {
-        if isShouldAutorotate.notNil { return isShouldAutorotate! }
+        if isShouldAutorotate.notNil {
+            return isShouldAutorotate!
+        }
         return super.shouldAutorotate
     }
 
-    public func clearShouldAutorotate() { isShouldAutorotate = nil }
+    public func clearShouldAutorotate() {
+        isShouldAutorotate = nil
+    }
 }

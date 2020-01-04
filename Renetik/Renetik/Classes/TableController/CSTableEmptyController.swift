@@ -9,7 +9,7 @@ import DZNEmptyDataSet
 import RenetikObjc
 import UIKit
 
-public class CSTableEmptyController<ObjectType: AnyObject & CustomStringConvertible & Equatable>: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+public class CSTableEmptyController<ObjectType: CSTableControllerRow>: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     public var emptyText: String?
     public var emptyDescription: String?
     public var table: CSTableController<ObjectType>!
@@ -20,10 +20,10 @@ public class CSTableEmptyController<ObjectType: AnyObject & CustomStringConverti
     public var descriptionFont = UIFont.preferredFont(forTextStyle: .footnote)
     var text: String {
         if table.isFailed {
-            return table.failedMessage.notNil ? table.failedMessage :
+            return table.failedMessage ??
                     "Loading of list content was not successful, click to try again"
         }
-        return emptyText.notNil ? emptyText! : "No items in list to display at this time"
+        return emptyText ?? "No items in list to display at this time"
     }
 
     @discardableResult

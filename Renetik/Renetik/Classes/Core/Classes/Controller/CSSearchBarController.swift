@@ -7,7 +7,7 @@ import RenetikObjc
 
 public class CSSearchBarController: CSMainController, UISearchBarDelegate {
 
-    public let bar = UISearchBar.construct()
+    public let bar = UISearchBar.construct().resizeToFit()
     public var text: String { bar.text ?? "" }
     private var parentController: UIViewController!
     private var searchBarShouldBeginEditing = false

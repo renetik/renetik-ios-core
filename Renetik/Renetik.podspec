@@ -31,16 +31,6 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '11.0'
 
-#  s.source_files = 'Renetik/Classes/**/*'
-
-  # s.resource_bundles = {
-  #   'Renetik' => ['Renetik/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
-	
 	s.default_subspecs = 'All'
 	
 	s.subspec 'Core' do |ss|
@@ -48,11 +38,35 @@ TODO: Add long description of the pod here.
 		ss.source_files = 'Renetik/Classes/Core/**/*'
 		ss.dependency 'UITextView+Placeholder', '~> 1.3'
 		ss.dependency 'MBProgressHUD', '~> 1.1'
+		ss.dependency 'ChameleonFramework', '~> 2.1'
+	end
+
+	s.subspec 'Alamofire' do |ss|
+		ss.dependency 'Alamofire', '~> 5.0.0-rc.1'
+		ss.dependency 'Renetik/Core'
+		ss.dependency 'Renetik/JsonData'
+		ss.dependency 'Renetik/Operation'
+		ss.source_files = 'Renetik/Classes/Alamofire/**/*'
+	end
+
+    s.subspec 'AlamofireCached' do |ss|
+		ss.dependency 'Renetik/Alamofire'
+		ss.source_files = 'Renetik/Classes/AlamofireCached/**/*'
+	end
+
+    s.subspec 'Operation' do |ss|
+		ss.dependency 'Renetik/Core'
+		ss.source_files = 'Renetik/Classes/Operation/**/*'
+	end
+
+    s.subspec 'JsonData' do |ss|
+		ss.dependency 'Renetik/Core'
+		ss.source_files = 'Renetik/Classes/JsonData/**/*'
 	end
 	
 	s.subspec 'CoreLocation' do |ss|
 		ss.dependency 'Renetik/Core'
-		s.frameworks = 'CoreLocation'
+		ss.frameworks = 'CoreLocation'
 		ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
 	end
 	
@@ -64,6 +78,7 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
+		ss.dependency 'Renetik/Operation'
 		ss.dependency 'DZNEmptyDataSet','~> 1.8'
 		ss.dependency 'ChameleonFramework', '~> 2.1'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
@@ -104,6 +119,10 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
+		ss.dependency 'Renetik/Alamofire'
+		ss.dependency 'Renetik/AlamofireCached'
+		ss.dependency 'Renetik/JsonData'
+		ss.dependency 'Renetik/Operation'
 		ss.dependency 'Renetik/CoreLocation'
 		ss.dependency 'Renetik/CocoaLumberjack'
 		ss.dependency 'Renetik/TableController'

@@ -19,6 +19,16 @@ struct RuntimeError: Error {
     public var localizedDescription: String { message }
 }
 
+public func localized(_ key: String) -> String {
+    let notFound = "Not Found"
+    let string = Bundle.main.localizedString(forKey: key, value: notFound, table: nil)
+    if string == notFound {
+        logWarn("localized key ot found \(key)")
+        return key
+    }
+    return string
+}
+
 public func doLater(function: @escaping () -> Void) {
     doLater(seconds: 0, function: function)
 }
@@ -32,8 +42,8 @@ public func doLater(seconds: Double, function: @escaping () -> Void) {
 }
 
 public func stringify<Subject>(_ value: Subject) -> String {
-    if value == nil { return "" }
-    return String(describing: value)
+    if value == nil { return "nil" }
+    return String(reflecting: value)
 }
 
 public func notNil(_ items: Any?...) -> Bool {
@@ -43,10 +53,12 @@ public func notNil(_ items: Any?...) -> Bool {
 
 public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
 
-open class CSObject: CSAny, Equatable {
-    public static func ==(lhs: CSObject, rhs: CSObject) -> Bool {
-        lhs === rhs
-    }
+open class CSObject: CSAny, Equatable, CustomStringConvertible {
+    public init() {}
+
+    public static func ==(lhs: CSObject, rhs: CSObject) -> Bool { lhs === rhs }
+
+    public var description: String { "\(type(of: self))" }
 }
 
 public class Nil: CSAny, Equatable {
@@ -57,17 +69,12 @@ public class Nil: CSAny, Equatable {
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
-extension NSObject: CSAny {
-}
+extension NSObject: CSAny {}
 
-extension String: CSAny {
-}
+extension String: CSAny {}
 
-extension Int: CSAny {
-}
+extension Int: CSAny {}
 
-extension Array: CSAny {
-}
+extension Array: CSAny {}
 
-extension Dictionary: CSAny {
-}
+extension Dictionary: CSAny {}

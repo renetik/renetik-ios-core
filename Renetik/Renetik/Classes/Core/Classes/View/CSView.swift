@@ -6,6 +6,7 @@ import UIKit
 
 open class CSView: UIView {
 
+    private var isDidLayoutSubviews = false
     private var onUpdateHeight: (() -> Void)?
 
     public func execute(toUpdateHeight onUpdateHeight: @escaping () -> Void) {
@@ -15,9 +16,27 @@ open class CSView: UIView {
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        onLayoutSubviews()
+        if !isDidLayoutSubviews {
+            isDidLayoutSubviews = true
+            onCreateLayout()
+            onLayoutSubviewsFirstTime()
+        } else {
+            onUpdateLayout()
+        }
         onUpdateHeight?()
+        onLayoutSubviews()
     }
 
-    func onLayoutSubviews() {}
+    func onCreateLayout() {
+    }
+
+    func onLayoutSubviewsFirstTime() {
+    }
+
+    func onUpdateLayout() {
+    }
+
+    func onLayoutSubviews() {
+    }
+
 }

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol CSAny: CustomStringConvertible {
+public protocol CSAny {
 }
 
 public extension CSAny {
@@ -27,6 +27,11 @@ public extension CSAny {
         return self
     }
 
+    @discardableResult
+    public func run(_ function: () -> Void) -> Void {
+        function()
+    }
+
     public func then(_ function: (Self) -> Void) { function(self) }
 
     // let in kotlin
@@ -34,7 +39,7 @@ public extension CSAny {
 
     public var asString: String { "\(self)" }
 
-    public var description: String { asString }
+//    public var description: String { "\(type(of: self))" }
 
     public func cast<T>() -> T { self as! T }
 

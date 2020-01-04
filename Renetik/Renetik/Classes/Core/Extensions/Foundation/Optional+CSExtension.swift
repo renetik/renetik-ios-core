@@ -15,12 +15,12 @@ public extension Optional {
     }
 
     @discardableResult
-    public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResultNil {
+    public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResult {
         if self != nil {
             function(self!)
-            return CSConditionalResultNil(isNil: false)
+            return CSConditionalResult(doElseIf: false)
         }
-        return CSConditionalResultNil(isNil: true)
+        return CSConditionalResult(doElseIf: true)
     }
 
     @discardableResult
@@ -50,13 +50,13 @@ public extension Optional where Wrapped: NSObject { //TODO: Use custom isEqual
     }
 }
 
-public class CSConditionalResultNil {
+public class CSConditionalResult {
 
-    let isNil: Bool
+    let isDoElse: Bool
 
-    init(isNil: Bool) { self.isNil = isNil }
+    init(doElseIf: Bool) { self.isDoElse = doElseIf }
 
-    public func elseDo(_ function: () -> Void) { if isNil { function() } }
+    public func elseDo(_ function: () -> Void) { if isDoElse { function() } }
 }
 
 public class CSConditionalResultNotNil<Type> {
@@ -76,8 +76,3 @@ public class CSConditionalResultNotNil<Type> {
 
     public func elseDo(_ function: (Type) -> Void) { if notNil { function(variable!) } }
 }
-
-//public extension Optional where Wrapped == Bool {
-//    public var isTrue: Bool { self == true }
-//    public var isFalse: Bool { self == false }
-//}

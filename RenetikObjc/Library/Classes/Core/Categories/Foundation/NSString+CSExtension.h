@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)equalsAnd:(NSArray<NSString *> *)array;
 
-- (BOOL)contains:(NSString *)string;
+- (BOOL)contains:(nullable NSString *)string;
 
 - (NSArray<NSString *> *)split:(NSString *)string;
 

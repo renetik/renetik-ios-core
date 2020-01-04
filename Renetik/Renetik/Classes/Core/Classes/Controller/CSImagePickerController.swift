@@ -10,22 +10,23 @@ public protocol CSImagePickerListener {
     func imagePicker(controller: CSImagePickerController, didFinishPickingMedia data: [UIImagePickerController.InfoKey: Any])
 }
 
+public typealias CSImagePickerParent = UIViewController & CSImagePickerListener & CSHasDialogController
+
 public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
         UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    private let parent: (UIViewController & CSViewControllerProtocol & CSImagePickerListener)!
-    private lazy var dialog: CSAlertController = { parent.dialog() }()
+    private let parent: CSImagePickerParent!
+    private lazy var dialog: CSDialogProtocol = { parent.dialog() }()
     private var popover: UIPopoverController?
 
-    public init(parent: (UIViewController & CSImagePickerListener & CSViewControllerProtocol)!) {
+    public init(parent: CSImagePickerParent!) {
         self.parent = parent
     }
 
     public func showFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) {
         if dialog.isVisible {
             dialog.hide()
-        }
-        else {
+        } else {
             dialog.add(title: "Choose Photo") { self.onGalleryClick(from: view, from: item) }
             dialog.add(title: "Take Picture") { self.onCaptureClick() }
             dialog.showSheetFrom(view: view, item: item)
@@ -40,9 +41,8 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
             picker.allowsEditing = true
             picker.sourceType = .photoLibrary
             parent.present(picker.popoverFrom(view: view, item: item))
-        }
-        else {
-            parent.show(message: "Gallery not available")
+        } else {
+            parent.dialog("Gallery not available").show()
         }
     }
 
@@ -54,9 +54,8 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
             picker.allowsEditing = true
             picker.sourceType = .camera
             parent.present(picker)
-        }
-        else {
-            parent.show(message: "Camera not available")
+        } else {
+            parent.dialog("Camera not available").show()
         }
     }
 

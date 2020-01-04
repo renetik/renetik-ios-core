@@ -22,6 +22,9 @@ open class CSNavigationController: UINavigationController {
         navigationBar.onClick { view in UIApplication.resignFirstResponder() }
     }
 
+    @discardableResult
+    open func pop() -> UIViewController? { super.popViewController(animated: true) }
+
     override open func popViewController(animated: Bool) -> UIViewController? {
         lastPopped = last
         return super.popViewController(animated: animated)
@@ -71,8 +74,7 @@ open class CSNavigationController: UINavigationController {
         orientationToReturnToFromForcedOrientation = UIScreen.orientation as! UIDeviceOrientation
         if (forcedOrientation == .portrait || forcedOrientation == .none) && UIScreen.isLandscape {
             UIDevice.set(orientation: .portrait)
-        }
-        else if (forcedOrientation == .landscape || forcedOrientation == .none) && UIScreen.isPortrait {
+        } else if (forcedOrientation == .landscape || forcedOrientation == .none) && UIScreen.isPortrait {
             UIDevice.set(orientation: .landscapeLeft)
         }
         orientationDidChangeNotificationObserverToken =

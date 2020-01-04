@@ -72,7 +72,7 @@ public extension Array where Element: Equatable & CustomStringConvertible {
         if searchText?.isSet == true {
             var filtered = [Element]()
             for item in self {
-                if item.description.containsNoCase(searchText) {
+                if item.description.contains(searchText, ignoreCase: true) {
                     filtered.add(item)
                 }
             }
@@ -87,6 +87,11 @@ public extension Dictionary {
     public mutating func add(_ other: Dictionary) -> Dictionary {
         other.forEach { k, v in self[k] = v }
         return self
+    }
+
+    @discardableResult
+    public mutating func remove(key: Key) -> Value? {
+        removeValue(forKey: key)
     }
 
     public var asJson: String? {

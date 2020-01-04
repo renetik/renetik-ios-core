@@ -10,7 +10,7 @@ import UIKit
 import RMessage
 
 public extension UIViewController {
-    public func toast(_ title: String) { CSNotification().title(title).show() }
+    public func toast(_ title: String) { CSNotification().title(title).show(self) }
 }
 
 public class CSNotification: CSObject {
