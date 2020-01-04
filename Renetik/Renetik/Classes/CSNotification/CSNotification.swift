@@ -11,6 +11,12 @@ import RMessage
 
 public extension UIViewController {
     public func toast(_ title: String) { CSNotification().title(title).show(self) }
+
+    public func toast(success title: String) { CSNotification().success().title(title).show(self) }
+
+    public func toast(warning title: String) { CSNotification().warning().title(title).show(self) }
+
+    public func toast(error title: String) { CSNotification().error().title(title).show(self) }
 }
 
 public class CSNotification: CSObject {
@@ -18,12 +24,12 @@ public class CSNotification: CSObject {
     public var body: String?
     public var icon: UIImage?
     public var actionOnClick: (() -> Void)?
-    public var dismissable = true
+    public var dismissible = true
 
     private var position: RMessagePosition = .top
     private var type: RMessageSpec = normalSpec
-    private var time: TimeInterval?
-    private static var rmessage = { RMController() }()
+    private var time: TimeInterval = 3
+    private static var controller = { RMController() }()
 
     public override init() {
     }
@@ -87,17 +93,17 @@ public class CSNotification: CSObject {
 
     public func action(onClick: @escaping () -> Void) -> Self {
         actionOnClick = onClick
-        dismissable = false
+        dismissible = false
         return self
     }
 
     public func dismissable(_ dismissable: Bool) -> Self {
-        self.dismissable = dismissable
+        self.dismissible = dismissable
         return self
     }
 
     public func hanging() -> Self {
-        dismissable = false
+        dismissible = false
         return self
     }
 
@@ -112,14 +118,14 @@ public class CSNotification: CSObject {
     @discardableResult
     public func show(_ parent: UIViewController?) -> Self {
         var type = self.type
-        type.durationType = dismissable ? .timed : .endless
-        type.timeToDismiss = time ?? 0
+        type.durationType = dismissible ? .timed : .endless
+        type.timeToDismiss = time
         type.iconImage = icon
-        Self.rmessage.showMessage(withSpec: type, atPosition: position, title: title ?? "",
+        Self.controller.showMessage(withSpec: type, atPosition: position, title: title ?? "",
                 body: body, viewController: parent, leftView: nil, rightView: nil, backgroundView: nil,
                 tapCompletion: actionOnClick, presentCompletion: nil, dismissCompletion: nil)
         return self
     }
 
-    public class func dismissActive() { Self.rmessage.dismissOnScreenMessage() }
+    public class func dismissActive() { Self.controller.dismissOnScreenMessage() }
 }
