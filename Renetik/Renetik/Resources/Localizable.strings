@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  Created by Rene Dohan on 1/4/20.
+*/
+renetik_dialog_cancel="Cancel";
+renetik_send_request_failed="Request Failed";
+renetik_send_request_retry="Retry";
+renetik_send_request_cancel="Cancel";
+renetik_table_load_next_failed="Loading of more data failed";

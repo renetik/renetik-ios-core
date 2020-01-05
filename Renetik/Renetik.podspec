@@ -28,6 +28,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
 												 :tag => s.version.to_s }
   s.social_media_url = 'https://renetik-software.github.io'
+  s.ios.resource_bundle = { 'RenetikBundle' => 'Renetik/Resources/**/*'}
 
   s.ios.deployment_target = '11.0'
 

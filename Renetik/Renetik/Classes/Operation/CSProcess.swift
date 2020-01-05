@@ -41,7 +41,6 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     var isDone = false
     var isCanceled = false
     var url: String? = nil
-//    public var title: String? = nil
     var data: Data? = nil
     public var operationCancelledMessage = "Operation was canceled."
     public var errorMessage: String? = nil
@@ -109,7 +108,7 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     }
 
     open func cancel() {
-        logDebug("Response cancel \(self) isCanceled \(isCanceled) isDone \(isDone) " +
+        logInfo("Response cancel \(self) isCanceled \(isCanceled) isDone \(isDone) " +
                 "isSuccess \(isSuccess) isFailed \(isFailed)")
         if (isCanceled || isDone || isSuccess || isFailed) { return }
         isCanceled = true
@@ -119,7 +118,7 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     }
 
     private func onDoneImpl() {
-        logDebug("Response onDone \(self)")
+        logInfo("Response onDone \(self)")
         if isDone {
             logError("already done")
             return

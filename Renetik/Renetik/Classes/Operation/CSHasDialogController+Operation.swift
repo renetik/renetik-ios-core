@@ -19,10 +19,10 @@ public extension CSHasDialogController {
         let progress = dialog(operation.title).showProgress(onCancel: { _ in operation.cancel() })
 
         process.onFailed { _ in
-            self.dialog(operation.title, localized("renetik_android_framework_send_request_failed"))
-                    .show(positiveTitle: localized("renetik_android_framework_send_request_retry"),
+            self.dialog(operation.title, CSStrings.sendRequestFailed)
+                    .show(positiveTitle: CSStrings.sendRequestRetry,
                             positiveAction: { self.sendWithProgress(operation: operation, onSuccess: onSuccess) },
-                            negativeTitle: "renetik_android_framework_send_request_cancel",
+                            negativeTitle: CSStrings.sendRequestCancel,
                             negativeAction: { operation.cancel() })
         }.onDone { _ in progress.hide() }
 
@@ -31,20 +31,22 @@ public extension CSHasDialogController {
     }
 
     @discardableResult
-    func sendWithFailedDialog<Data: CSAny>(operation: CSOperation<Data>) -> CSProcess<Data> {
-        operation.send().onFailed { _ in
-            self.dialog(operation.title, localized("renetik_android_framework_send_request_failed"))
-                    .show(positiveTitle: localized("renetik_android_framework_send_request_retry"),
+    func sendWithFailedDialog<Data: CSAny>(operation: CSOperation<Data>, onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data> {
+        let process = operation.send().onFailed { _ in
+            self.dialog(operation.title, CSStrings.sendRequestFailed)
+                    .show(positiveTitle: CSStrings.sendRequestRetry,
                             positiveAction: { self.sendWithFailedDialog(operation: operation) },
-                            negativeTitle: localized("renetik_android_framework_send_request_cancel"),
+                            negativeTitle: CSStrings.sendRequestCancel,
                             negativeAction: { operation.cancel() })
         }
+        onSuccess.notNil { operation.onSuccess($0) }
+        return process
     }
 }
 
 public extension CSOperation {
     @discardableResult
-    func send(progress: Bool, onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data> {
+    func send(progress: Bool = true, onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data> {
         navigation.send(operation: self, progress: progress, onSuccess: onSuccess)
     }
 

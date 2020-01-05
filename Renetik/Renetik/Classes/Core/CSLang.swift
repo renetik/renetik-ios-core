@@ -19,12 +19,27 @@ struct RuntimeError: Error {
     public var localizedDescription: String { message }
 }
 
+let isDebug: Bool = {
+    var isDebug = false
+
+    func setDebug() -> Bool {
+        isDebug = true
+        return true
+    }
+
+    assert(setDebug())
+    return isDebug
+}()
+
+let renetikBundle = {
+    Bundle(path: Bundle.main.path(forResource: "RenetikBundle", ofType: "bundle")!)!
+}()
+
 public func localized(_ key: String) -> String {
-    let notFound = "Not Found"
-    let string = Bundle.main.localizedString(forKey: key, value: notFound, table: nil)
-    if string == notFound {
-        logWarn("localized key ot found \(key)")
-        return key
+    var string = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    if string == key {
+        string = renetikBundle.localizedString(forKey: key, value: nil, table: nil)
+        if string == key { logWarn("localized key ot found \(key)") }
     }
     return string
 }

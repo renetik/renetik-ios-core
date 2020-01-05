@@ -6,6 +6,8 @@
 
 static char UIButtonBlockKey;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIControl (CSExtension)
 
 - (instancetype)addTouchUp:(id)target :(SEL)action;
@@ -14,10 +16,16 @@ static char UIButtonBlockKey;
 
 - (instancetype)addTouchCancel:(id)target :(SEL)action;
 
-- (instancetype)onTouchUp:(void (^)(id sender))handler;
+- (instancetype)onTouchUp:(void (^)(UIView *))handler;
 
-- (instancetype)addTouchDown:(void (^)(id sender))handler;
+- (instancetype)onTouchDown:(void (^)(UIView *))handler;
 
-- (instancetype)addTouchCancel:(void (^)(id sender))handler;
+- (instancetype)addTouchDown:(void (^)(UIView *))handler;
+
+- (instancetype)addTouchCancel:(void (^)(UIView *))handler;
+
+- (instancetype)onClick:(void (^)(UIView *))block;
 
 @end
+
+NS_ASSUME_NONNULL_END

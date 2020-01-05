@@ -28,7 +28,7 @@ public func logDebug<Subject>(_ value: Subject, functionName: String = #function
     let className = (fileName as NSString).lastPathComponent
     let message = "<\(className)> \(functionName) [#\(lineNumber)]| \(String(describing: value))"
     logger.logDebug(message)
-    CSNotification(message).bottom().show()
+    if isDebug { CSNotification(message).time(5).bottom().show() }
 }
 
 public func logInfo(functionName: String = #function,

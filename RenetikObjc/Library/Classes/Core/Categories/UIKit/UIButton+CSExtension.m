@@ -6,7 +6,6 @@
 #import "UIButton+CSExtension.h"
 #import "UIControl+CSExtension.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSPosition.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayout.h"
 #import "UIView+CSExtension.h"
@@ -19,36 +18,36 @@
     return self;
 }
 
-- (void)stretchableBackgroundImageWithLeftCapWidth :(NSInteger)leftCapWidth topCapHeight :(NSInteger)topCapHeight {
-    [self setBackgroundImage :[[self backgroundImageForState :UIControlStateNormal] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateNormal];
-    [self setBackgroundImage :[[self backgroundImageForState :UIControlStateSelected] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateSelected];
-    [self setBackgroundImage :[[self backgroundImageForState :UIControlStateDisabled] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateDisabled];
-    [self setBackgroundImage :[[self backgroundImageForState :UIControlStateHighlighted] stretchableImageWithLeftCapWidth :leftCapWidth topCapHeight :topCapHeight] forState :UIControlStateHighlighted];
+- (void)stretchableBackgroundImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight {
+    [self setBackgroundImage:[[self backgroundImageForState:UIControlStateNormal] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateNormal];
+    [self setBackgroundImage:[[self backgroundImageForState:UIControlStateSelected] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateSelected];
+    [self setBackgroundImage:[[self backgroundImageForState:UIControlStateDisabled] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateDisabled];
+    [self setBackgroundImage:[[self backgroundImageForState:UIControlStateHighlighted] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateHighlighted];
 }
 
-- (instancetype)titleColor :(UIColor *)color {
+- (instancetype)titleColor:(UIColor *)color {
     self.titleColor = color;
     return self;
 }
 
-- (void)setTitleColor :(UIColor *)color {
-    [self setTitleColor :color forState :UIControlStateNormal];
-    [self setTitleColor :color forState :UIControlStateHighlighted];
-    [self setTitleColor :color forState :UIControlStateDisabled];
-    [self setTitleColor :color forState :UIControlStateSelected];
+- (void)setTitleColor:(UIColor *)color {
+    [self setTitleColor:color forState:UIControlStateNormal];
+    [self setTitleColor:color forState:UIControlStateHighlighted];
+    [self setTitleColor:color forState:UIControlStateDisabled];
+    [self setTitleColor:color forState:UIControlStateSelected];
 }
 
-- (instancetype)title :(NSString *)title {
-    [self setTitle :title forState :UIControlStateNormal];
+- (instancetype)title:(NSString *)title {
+    [self setTitle:title forState:UIControlStateNormal];
     return self;
 }
 
 - (NSString *)title {
-    return [self titleForState :UIControlStateNormal];
+    return [self titleForState:UIControlStateNormal];
 }
 
-- (instancetype)image :(UIImage *)image {
-    [self setImage :image forState :UIControlStateNormal];
+- (instancetype)image:(UIImage *)image {
+    [self setImage:image forState:UIControlStateNormal];
     return self;
 }
 
@@ -62,19 +61,21 @@
     return self;
 }
 
-- (void)setImage :(UIImage *)image {
-    [self image :image];
+- (void)setImage:(UIImage *)image {
+    [self image:image];
 }
 
-- (void)setBackgroundImage :(UIImage *)image {
-    [self setBackgroundImage :image forState :UIControlStateNormal];
+- (void)setBackgroundImage:(UIImage *)image {
+    [self setBackgroundImage:image forState:UIControlStateNormal];
 }
 
-+ (instancetype)addFloating :(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
++ (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
     UIButton *button = [self.class construct];
-    [view add :[button.resizeToFit onTouchUp :onClick]];
-    [button image :image];
-    return [[button fromRight :25] fromBottom :25].flexibleLeftTop;
+    [view add:[button.resizeToFit onTouchUp:^(UIView *view) {
+        onClick(view);
+    }]];
+    [button image:image];
+    return [[button fromRight:25] fromBottom:25].flexibleLeftTop;
 }
 
 @end

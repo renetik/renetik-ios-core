@@ -128,23 +128,28 @@ public class CSDialogController: CSObject, CSDialogProtocol {
         mbProgressHud = MBProgressHUD.showAdded(to: controller.view, animated: true).also { hud in
             hud.removeFromSuperViewOnHide = true
             hud.animationType = .zoom
-            hud.bezelView.style = .solidColor
             hud.contentColor = .white
-            hud.bezelView.backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.87)
+            hud.bezelView.style = .solidColor
+            hud.bezelView.backgroundColor =
+                    UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.87)
+            let title = self.title.isSet ? self.title! : message
             onCancel.notNil { cancel in
                 hud.detailsLabel.text = title.isSet ? "\n" + title! + "\n" : "\n"
-                hud.button.title(cancelTitle ?? localized("renetik_dialog_cancel"))
-                hud.button.onClick { _ in
+                hud.button.title(cancelTitle ?? CSStrings.dialogCancel).onClick { _ in
                     onCancel?(self)
                     self.mbProgressHud?.hide(animated: true)
                 }
-                hud.button.titleLabel!.fontStyle(.headline)
+//                hud.button.titleLabel!.fontStyle(.headline)
+//                hud.button.titleLabel?.textColor = .white
+//                hud.button.show()
             }.elseDo {
-                hud.detailsLabel.text = "\n" + title!
+                hud.detailsLabel.text = "\n" + title.asString
             }
-            let indicator = UIActivityIndicatorView.cast(hud.bezelView.subviews[5])
-            hud.tintColor = .white
-            hud.color = .white
+            hud.detailsLabel.textColor = .white
+
+//            let indicator = UIActivityIndicatorView.cast(hud.bezelView.subviews[5])
+//            hud.tintColor = .white
+//            hud.color = .white
         }
         return self
     }

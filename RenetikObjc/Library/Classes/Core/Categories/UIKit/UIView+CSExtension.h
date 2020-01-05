@@ -15,59 +15,59 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)construct;
 
-+ (instancetype)constructByXib :(NSString*)IBName;
++ (instancetype)constructByXib:(NSString *)IBName;
 
 + (instancetype)constructByXib;
 
-- (instancetype)contentMode :(UIViewContentMode)contentMode;
+- (instancetype)contentMode:(UIViewContentMode)contentMode;
 
-- (instancetype)clipsToBounds :(BOOL)clipsToBounds;
+- (instancetype)clipsToBounds:(BOOL)clipsToBounds;
 
-+ (void)animate :(NSTimeInterval)duration :(void (^)(void))animations;
++ (void)animate:(NSTimeInterval)duration :(void (^)(void))animations;
 
 - (instancetype)asCircular;
 
-- (instancetype)roundedCorners :(NSInteger)width;
+- (instancetype)roundedCorners:(NSInteger)width;
 
 - (instancetype)clone;
 
-+ (UIViewAnimationOptions)animationOptionsWithCurve :(UIViewAnimationCurve)curve;
++ (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve;
 
-- (UIView*)firstResponder;
+- (UIView *)firstResponder;
 
-+ (NSString*)NIBName;
++ (NSString *)NIBName;
 
-+ (void)animationFromCurrentState :(NSTimeInterval)time :(UIViewAnimationCurve)curve;
++ (void)animationFromCurrentState:(NSTimeInterval)time :(UIViewAnimationCurve)curve;
 
 + (instancetype)createEmpty;
 
-+ (instancetype)withColor :(UIColor*)color;
++ (instancetype)withColor:(UIColor *)color;
 
-+ (instancetype)withColor :(UIColor*)color frame :(CGRect)frame;
++ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame;
 
-+ (instancetype)withFrame :(CGRect)frame;
++ (instancetype)withFrame:(CGRect)frame;
 
-+ (instancetype)withSize :(CGFloat)width :(CGFloat)height;
++ (instancetype)withSize:(CGFloat)width :(CGFloat)height;
 
-+ (instancetype)withRect :(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
++ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
 
-+ (instancetype)withHeight :(CGFloat)height;
++ (instancetype)withHeight:(CGFloat)height;
 
 - (instancetype)fadeIn;
 
-- (void)fadeIn :(NSTimeInterval)time :(void (^)(void))onDone;
+- (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone;
 
-- (void)fadeIn :(NSTimeInterval)time;
+- (void)fadeIn:(NSTimeInterval)time;
 
-- (void)fadeBackgroundColorTo :(UIColor*)color;
+- (void)fadeBackgroundColorTo:(UIColor *)color;
 
-- (void)fadeOut :(NSTimeInterval)time;
+- (void)fadeOut:(NSTimeInterval)time;
 
-- (void)fadeOut :(NSTimeInterval)time :(void (^)(void))method;
+- (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (instancetype)background :(UIColor*)color;
+- (instancetype)background:(UIColor *)color;
 
-- (instancetype)tintColor :(UIColor*)color;
+- (instancetype)tintColor:(UIColor *)color;
 
 - (void)fadeOut;
 
@@ -77,9 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)visible:(BOOL)visible;
 
-- (void)setFadeVisible :(BOOL)visible;
+- (void)setFadeVisible:(BOOL)visible;
 
-- (id)getView :(NSInteger)tag;
+- (id)getView:(NSInteger)tag;
 
 - (instancetype)clearSubviews;
 
@@ -87,11 +87,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)hide;
 
-- (UIView*)add:(UIView*)view;
+- (UIView *)add:(UIView *)view;
 
-- (instancetype)onClick:(void (^)(UIView*))block;
+- (instancetype)onClick:(void (^)(UIView *))block;
 
-- (void)setOnClick:(void (^)(UIView*))block;
+- (instancetype)onTap:(void (^)(UIView *))block;
+
+- (void)setOnClick:(void (^)(UIView *))block;
 
 - (BOOL)isVisibleToUser;
 
@@ -101,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)clipToBounds;
 
-- (UIView*)addBottomSeparator:(CGFloat)height;
+- (UIView *)addBottomSeparator:(CGFloat)height;
 
 - (instancetype)asBottomSeparator:(CGFloat)height;
 

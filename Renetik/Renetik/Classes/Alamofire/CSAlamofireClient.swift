@@ -19,6 +19,7 @@ public class CSAlamofireClient: CSObject {
     private var defaultParams: Dictionary<String, String> = [:]
     public var requestFailMessage = "Request failed"
     public var requestCancelMessage = "Request cancelled"
+    private lazy var networkReachability = { NetworkReachabilityManager(host: self.host)! }()
 
     public init(url: String, disabledTrustSecurity: Bool = false) {
         self.url = url
@@ -60,18 +61,14 @@ public class CSAlamofireClient: CSObject {
     public func get<DataType: CSServerJsonData>(_ operation: CSOperation<DataType>?, service: String,
                                                 data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
-//            if (operation?.isCached.isFalse) builder.doNotCacheResponse()
-//            operation?.expireMinutes.notNull { minutes ->
-//                    builder.setMaxStaleCacheControl(minutes * CSConstants.MINUTE, TimeUnit.MILLISECONDS)
-//            }
-//            if (operation?.isRefresh.isTrue) builder.responseOnlyFromNetwork
-//        else if (!application.isNetworkConnected && operation?.isCached.isTrue
-//        || operation?.isJustUseCache.isTrue) {
-//        builder.responseOnlyIfCached //TODO Return cached data directly maybe by setting maxAge to int max value
-//        }
+            let loadFromNetwork: Bool = {
+                if operation?.isRefresh == true { return true }
+                if operation?.expireMinutes ?? 0 > 0 { return false }
+                if networkReachability.isReachable { return true }
+                return false
+            }()
             let request = manager.request(url: process.url!, method: .get, parameters: params,
-                    encoding: URLEncoding.default, refreshCache: (operation?.isRefresh).isTrue)
-//            request.validate(statusCode: 200..<300).validate(contentType: ["application/json"])
+                    encoding: URLEncoding.default, refreshCache: loadFromNetwork)
             operation?.expireMinutes.notNil { minutes in request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
                     completionHandler: { response in self.onResponseDone(response: response, process: process) },

@@ -77,7 +77,7 @@ public class CSTablePagerController<RowType: CSTableControllerRow>: NSObject {
         table.isLoading = true
         showLoadNextIndicator()
         onLoadPage!(pageIndex).onFailed { _ in
-            self.table.parentController.toast(localized("renetik-table-pager-load-next-failed"))
+            self.table.parentController.toast(CSStrings.tableLoadNextFailed)
         }.onDone { _ in
             self.table.isLoading = false
             self.loadNextView?.removeFromSuperview()

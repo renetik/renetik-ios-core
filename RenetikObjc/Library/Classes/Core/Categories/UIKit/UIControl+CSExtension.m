@@ -22,19 +22,33 @@
     return self;
 }
 
-- (instancetype)onTouchUp:(void (^)(id sender))handler {
+- (instancetype)onTouchUp:(void (^)(UIView *sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     return self;
 }
 
-- (instancetype)addTouchDown:(void (^)(id sender))handler {
+- (instancetype)onTouchDown:(void (^)(UIView *sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchDown];
     return self;
 }
 
-- (instancetype)addTouchCancel:(void (^)(id sender))handler {
+- (instancetype)addTouchDown:(void (^)(UIView *sender))handler {
+    [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchDown];
+    return self;
+}
+
+- (instancetype)addTouchCancel:(void (^)(UIView *sender))handler {
     [self bk_addEventHandler:handler forControlEvents:UIControlEventTouchCancel];
     return self;
+}
+
+- (instancetype)onClick:(void (^)(UIView *))block {
+    self.userInteractionEnabled = YES;
+    [self onTouchUp:^(id sender) {
+        block(self);
+    }];
+    return self;
+//    return [super onClick:block];
 }
 
 @end

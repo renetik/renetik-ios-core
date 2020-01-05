@@ -32,11 +32,11 @@ public extension DataRequest {
         let useServerButRefresh = !ignoreServer && requestRefreshCache == CSAlamofireCache.refreshCacheValueRefresh
         return response { data in
             if data.request?.httpMethod != "GET" {
-                logDebug("Non-GET requests do not support caching!")
+                logInfo("Non-GET requests do not support caching!")
                 return
             }
             if data.error != nil {
-                logDebug(data.error!.localizedDescription)
+                logError(data.error!.localizedDescription)
                 return
             }
             if let httpResponse = data.response {

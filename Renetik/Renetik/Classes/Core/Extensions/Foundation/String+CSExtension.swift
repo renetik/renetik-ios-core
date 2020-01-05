@@ -74,6 +74,11 @@ public extension Optional where Wrapped == String {
         return self!.isEmpty
     }
 
+    public func isNilOrEmpty(_ function: () -> Void) -> Self {
+        if isNilOrEmpty { function() }
+        return self
+    }
+
     public var isSet: Bool {
         if self == nil {
             return false

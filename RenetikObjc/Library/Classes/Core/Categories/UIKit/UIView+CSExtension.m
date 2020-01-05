@@ -8,13 +8,10 @@
 #import "CSLang.h"
 #import "NSString+CSExtension.h"
 #import "NSArray+CSExtension.h"
-#import "UIColor+CSExtension.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSPosition.h"
 #import "UIView+CSLayout.h"
 #import "CSCocoaLumberjack.h"
-#import "NSObject+CSExtension.h"
 #import "CALayer+CSExtension.h"
 
 @implementation UIView (CSExtension)
@@ -255,6 +252,10 @@
 }
 
 - (instancetype)onClick:(void (^)(UIView *))block {
+    return [self onTap:block];
+}
+
+- (instancetype)onTap:(void (^)(UIView *))block {
     self.userInteractionEnabled = YES;
     [self bk_whenTapped:^{
         block(self);
