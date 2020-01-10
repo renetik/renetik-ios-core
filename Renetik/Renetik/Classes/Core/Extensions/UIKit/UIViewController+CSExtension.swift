@@ -69,5 +69,7 @@ public extension UIViewController {
         }.elseDo { popoverPresentationController?.barButtonItem = item }
         return self
     }
-}
 
+    @available(iOS 12.0, *)
+    public var isDarkMode: Bool { traitCollection.isDarkMode }
+}

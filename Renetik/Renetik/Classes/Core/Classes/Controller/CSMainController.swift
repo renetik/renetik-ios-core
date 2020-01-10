@@ -77,8 +77,7 @@ open class CSMainController: CSViewController {
         return UIBarButtonItem(image: CSMenuItem.menuImage, onClick: { sender in
             if self.menuDialog.isVisible {
                 self.menuDialog.hide()
-            }
-            else {
+            } else {
                 self.menuDialog.showSheetFrom(item: sender)
             }
         })

@@ -15,7 +15,7 @@
 
 - (instancetype)construct {
     super.construct;
-    self.backgroundColor = UIColor.clearColor;
+//    self.backgroundColor = UIColor.clearColor;
     return self;
 }
 

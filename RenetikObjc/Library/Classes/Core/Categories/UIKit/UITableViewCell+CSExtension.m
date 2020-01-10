@@ -10,9 +10,9 @@
 
 - (instancetype)construct {
     super.construct;
-    self.backgroundColor = UIColor.clearColor;
-    [self setSelectedBackgroundColor :UIColor.clearColor];
-    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+//    self.backgroundColor = UIColor.clearColor;
+//    [self setSelectedBackgroundColor :UIColor.clearColor];
+//    self.selectionStyle = UITableViewCellSelectionStyleDefault;
     return self;
 }
 

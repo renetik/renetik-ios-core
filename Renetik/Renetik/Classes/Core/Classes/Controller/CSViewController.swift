@@ -228,4 +228,13 @@ open class CSViewController: UIViewController {
     public func clearShouldAutorotate() {
         isShouldAutorotate = nil
     }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 12.0, *) {
+            if previousTraitCollection?.isDarkMode != isDarkMode { onDisplayChangedTo(darkMode: isDarkMode) }
+        }
+    }
+
+    open func onDisplayChangedTo(darkMode: Bool) {}
 }
