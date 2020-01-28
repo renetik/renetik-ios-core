@@ -6,9 +6,14 @@
 import Renetik
 import RenetikObjc
 
-public class CSOperation<Data: CSAny>: CSAny {
+public protocol CSOperationProtocol {
+    func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self
+}
+
+public class CSOperation<Data>: CSAny, CSOperationProtocol {
 
     public let title: String
+    public var data: Data?
     private let executeProcessFunction: (CSOperation<Data>) -> CSProcess<Data>
 
     public init(title: String, function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
@@ -47,18 +52,23 @@ public class CSOperation<Data: CSAny>: CSAny {
     }
 
     private var process: CSProcess<Data>? = nil
-
-    public var isRefresh = false
     public var isCached = true
+    public var isRefresh = false
     public var expireMinutes: Int? = 1
-    public var isJustUseCache = false
 
+    @discardableResult
     public func refresh() -> Self { invoke { isRefresh = true } }
+
+    @discardableResult
+    public func expire(minutes: Int?) -> Self { invoke { expireMinutes = minutes } }
+
+//    public var isJustUseCache = false
 
     public func send() -> CSProcess<Data> {
         executeProcess().also { process in
             self.process = process
             process.onSuccess { data in
+                self.data = data
                 self.eventSuccess.fire(process.data!)
                 self.eventDone.fire(process.data)
             }
@@ -76,4 +86,10 @@ public class CSOperation<Data: CSAny>: CSAny {
             }
         }
     }
+
+    public func failed(process: CSProcessProtocol) {
+        self.eventFailed.fire(process)
+        self.eventDone.fire(self.process?.data)
+    }
+
 }

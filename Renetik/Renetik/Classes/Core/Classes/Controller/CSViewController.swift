@@ -8,20 +8,12 @@ import RenetikObjc
 
 open class CSViewController: UIViewController {
 
-    public let onOrientationChanging: CSEvent<Nil> = event()
-    public let onOrientationChanged: CSEvent<Nil> = event()
+    public let onOrientationChanging: CSEvent<Void> = event()
+    public let onOrientationChanged: CSEvent<Void> = event()
 
     public private(set) var isAppearing = false
-    public var isShowing = false {
-        didSet {
-            if isShowing != oldValue {
-                onShowingChanged()
-            }
-        }
-    }
-    public var isVisible: Bool {
-        self.isAppearing && self.isShowing
-    }
+    public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
+    public var isVisible: Bool { self.isAppearing && self.isShowing }
 
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false
@@ -42,7 +34,7 @@ open class CSViewController: UIViewController {
 
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
     override open func loadView() {
-        view = UIView.withSize(1, 1)
+        view = UIControl.withSize(1, 1)
     }
 
     override public func viewDidLoad() {
@@ -174,7 +166,7 @@ open class CSViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         onOrientationChanging.fire()
         onViewWillTransition(to: size, coordinator)
-        coordinator.animate(alongsideTransition: nil) { context in
+        coordinator.onCompletion { context in
             self.onViewWillTransition(toSizeCompletion: size, context)
             self.onOrientationChanged.fire()
         }

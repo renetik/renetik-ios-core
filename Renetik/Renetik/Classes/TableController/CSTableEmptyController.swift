@@ -9,25 +9,22 @@ import DZNEmptyDataSet
 import RenetikObjc
 import UIKit
 
-public class CSTableEmptyController<ObjectType: CSTableControllerRow>: NSObject, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
+        DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+
     public var emptyText: String?
     public var emptyDescription: String?
-    public var table: CSTableController<ObjectType>!
+    public var table: CSTableController<Row, Data>!
     public var reloadImage = UIImage()
     public var reloadImageTintColor: UIColor?
     public var backgroundColor: UIColor? = .clear
     public var titleFont = UIFont.preferredFont(forTextStyle: .title3).bold()
-    public var descriptionFont = UIFont.preferredFont(forTextStyle: .footnote)
-    var text: String {
-        if table.isFailed {
-            return table.failedMessage ??
-                    "Loading of list content was not successful, click to try again"
-        }
-        return emptyText ?? "No items in list to display at this time"
-    }
+    public var descriptionFont = UIFont.preferredFont(forTextStyle: .body)
+    public var titleColor = UIColor.black
+    public var descriptionColor = UIColor.black.lighten(byPercentage: 0.05)
 
     @discardableResult
-    public func construct(_ table: CSTableController<ObjectType>,
+    public func construct(_ table: CSTableController<Row, Data>,
                           _ title: String? = nil,
                           _ description: String? = nil) -> Self {
         self.table = table
@@ -38,24 +35,33 @@ public class CSTableEmptyController<ObjectType: CSTableControllerRow>: NSObject,
         return self
     }
 
+    public func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        table.tableView.fadeIn() // Show if hidden, otherwise table empty not visible
+        return true
+    }
+
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        text.attributed([
+        titleText.attributed([
             NSAttributedString.Key.font: titleFont,
-            NSAttributedString.Key.foregroundColor:
-            UIColor(contrastingBlackOrWhiteColorOn: table.tableView.backgroundColor, isFlat: true),
+            NSAttributedString.Key.foregroundColor: titleColor,
         ])
     }
 
-    public func description(forEmptyDataSet
-                            scrollView: UIScrollView!) -> NSAttributedString! {
-        if emptyDescription.isNil { return nil }
-        var paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = .byWordWrapping
-        paragraph.alignment = .center
-        return emptyDescription!.attributed([
+    private var titleText: String {
+        if table.isFailed {
+            return table.failedMessage ?? "Loading of list content was not successful, click to try again"
+        }
+        return emptyText ?? "No items in list to display at this time"
+    }
+
+    public func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString? {
+        emptyDescription?.attributed([
             NSAttributedString.Key.font: descriptionFont,
-            NSAttributedString.Key.foregroundColor: UIColor.flatWhiteColorDark(),
-            NSAttributedString.Key.paragraphStyle: paragraph,
+            NSAttributedString.Key.foregroundColor: descriptionColor,
+            NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle().also {
+                $0.lineBreakMode = .byWordWrapping
+                $0.alignment = .center
+            },
         ])
     }
 
@@ -98,7 +104,5 @@ public class CSTableEmptyController<ObjectType: CSTableControllerRow>: NSObject,
         table.reload().onDone { _ in self.table.tableView.reloadEmptyDataSet() }
     }
 
-    public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        0
-    }
+    public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat { 0 }
 }

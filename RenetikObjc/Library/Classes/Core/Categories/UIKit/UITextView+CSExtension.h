@@ -7,35 +7,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextView (CSExtension)
 
--(instancetype)scrollToCursorPosition;
+- (instancetype)scrollToCursorPosition;
 
--(instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
+- (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
 
--(instancetype)text:(NSString *)text;
+- (instancetype)text:(NSString *)text;
 
--(instancetype)asLabel;
+- (instancetype)asLabel;
 
--(instancetype)setHTMLFromString:(NSString *)string;
+- (instancetype)setHTMLFromString:(NSString *)string;
 
--(instancetype)htmlByString:(NSString *)string;
+- (instancetype)htmlByString:(NSString *)string;
 
-+(void)hideTextInsets:(NSArray<UITextView *> *)textViews;
++ (void)hideTextInsets:(NSArray<UITextView *> *)textViews;
 
--(instancetype)alignText:(enum NSTextAlignment)alignment;
+- (instancetype)alignText:(enum NSTextAlignment)alignment;
 
--(instancetype)font:(UIFont *)font;
+- (instancetype)font:(UIFont *)font;
 
--(instancetype)textColor:(UIColor *)textColor;
+- (instancetype)textColor:(UIColor *)textColor;
 
--(instancetype)setFontSize:(CGFloat)size;
+- (instancetype)setFontSize:(CGFloat)size;
 
--(instancetype)fontSize:(CGFloat)size;
+- (instancetype)fontSize:(CGFloat)size;
 
--(void)setFontStyle:(UIFontTextStyle)style;
+- (void)setFontStyle:(UIFontTextStyle)style;
 
--(instancetype)fontStyle:(UIFontTextStyle)style;
+- (instancetype)fontStyle:(UIFontTextStyle)style;
 
--(instancetype)heightToLines:(NSInteger)numberOfLines;
+- (instancetype)heightToLines:(NSInteger)numberOfLines;
+
+//- (instancetype)onClick:(void (^)())block;
 
 @end
 

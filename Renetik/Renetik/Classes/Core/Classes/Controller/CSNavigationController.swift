@@ -19,7 +19,7 @@ open class CSNavigationController: UINavigationController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         instance = self
-        navigationBar.onClick { view in UIApplication.resignFirstResponder() }
+        navigationBar.onClick { UIApplication.resignFirstResponder() }
     }
 
     @discardableResult
@@ -71,7 +71,7 @@ open class CSNavigationController: UINavigationController {
 
     public func force(orientation: CSForcedOrientation) {
         self.forcedOrientation = orientation
-        orientationToReturnToFromForcedOrientation = UIScreen.orientation as! UIDeviceOrientation
+        orientationToReturnToFromForcedOrientation = UIDeviceOrientation(rawValue: UIScreen.orientation.rawValue)
         if (forcedOrientation == .portrait || forcedOrientation == .none) && UIScreen.isLandscape {
             UIDevice.set(orientation: .portrait)
         } else if (forcedOrientation == .landscape || forcedOrientation == .none) && UIScreen.isPortrait {
@@ -85,6 +85,7 @@ open class CSNavigationController: UINavigationController {
     }
 
     public func cancelForcedOrientation() {
+        if orientationToReturnToFromForcedOrientation.isNil { return }
         forcedOrientation = .none
         NotificationCenter.remove(observer: orientationDidChangeNotificationObserverToken)
         UIDevice.set(orientation: orientationToReturnToFromForcedOrientation!)

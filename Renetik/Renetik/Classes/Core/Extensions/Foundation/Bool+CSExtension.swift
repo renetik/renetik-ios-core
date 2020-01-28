@@ -12,6 +12,11 @@ public extension Bool {
         if isTrue { function() }
         return CSConditionalResult(doElseIf: isFalse)
     }
+
+    func isTrue(_ function: () -> Void) -> CSConditionalResult {
+        if isTrue { function() }
+        return CSConditionalResult(doElseIf: isFalse)
+    }
 }
 
 public extension Optional where Wrapped == Bool {

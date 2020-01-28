@@ -2,10 +2,7 @@
 //  Created by Rene Dohan on 12/29/12.
 //
 
-
 #import "CSMultiResponse.h"
-#import "NSObject+CSExtension.h"
-
 
 @implementation CSMultiResponse {
     CSResponse *_request;

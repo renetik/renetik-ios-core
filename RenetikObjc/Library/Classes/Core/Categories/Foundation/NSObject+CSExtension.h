@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)removeNotificationObserver:(NSString *)name;
 
-- (CSDoLaterProcess *)doLater :(void (^)(void))method;
+//- (CSDoLaterProcess *)doLater :(void (^)(void))method;
 
-- (CSDoLaterProcess *)doLater :(NSTimeInterval)seconds :(void (^)(void))method;
+//- (CSDoLaterProcess *)doLater :(NSTimeInterval)seconds :(void (^)(void))method;
 
 - (CSWork *)schedule :(double)seconds :(void (^)(void))method;
 

@@ -84,6 +84,8 @@ public class Nil: CSAny, Equatable {
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
+extension IndexPath: CSAny {}
+
 extension NSObject: CSAny {}
 
 extension String: CSAny {}

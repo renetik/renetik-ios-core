@@ -31,8 +31,7 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     private func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 && UIScreen.isLandscape { requestNavigationBarHidden() }
-        else { requestNavigationBarShown() }
+        if keyboardHeight > 0 && UIScreen.isLandscape { requestNavigationBarHidden() } else { requestNavigationBarShown() }
     }
 
     public override func onViewVisibilityChanged(_ visible: Bool) {
@@ -51,7 +50,7 @@ public class CSNavigationHidingController: CSMainController {
 
     public override func onViewWillTransition(toSizeCompletion size: CGSize,
                                               _ context: UIViewControllerTransitionCoordinatorContext) {
-        if isNavigationBarHidden {
+        if isNavigationBarHidden { /// TODO: Je totalne dojebany na iphonne x ak otocix skovanyu
             UIView.animate(withDuration: 0.2) {
                 navigation.navigationBar.alpha = 0
                 navigation.navigationBar.bottom = UIApplication.statusBarHeight()
@@ -67,11 +66,17 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        lastContentOffset.notNil { lastOffset in
-            if scrollView.isAtTop { requestNavigationBarShown() }
-            else if scrollView.isAtBottom {}
-            else if lastOffset < scrollView.contentOffset.y { requestNavigationBarHidden() }
-            else if lastOffset > scrollView.contentOffset.y { requestNavigationBarShown() }
+        if scrollView.isAtTop {
+            requestNavigationBarShown()
+        } else if scrollView.isAtBottom {
+        } else {
+            lastContentOffset.notNil { lastOffset in
+                if lastOffset < scrollView.contentOffset.y - 50 {
+                    requestNavigationBarHidden()
+                } else if lastOffset > scrollView.contentOffset.y + 50 {
+                    requestNavigationBarShown()
+                }
+            }
         }
     }
 
@@ -110,8 +115,7 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     private var fromBottom: CGFloat {
-        if navigation.isToolbarHidden { return 0 }
-        else { return navigation.toolbar.topFromBottom }
+        if navigation.isToolbarHidden { return 0 } else { return navigation.toolbar.topFromBottom }
     }
 
     public func requestNavigationBarShown() {

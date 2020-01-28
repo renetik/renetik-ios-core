@@ -100,10 +100,10 @@
     return self;
 }
 
-- (instancetype)onClick:(void (^)(UIView *))block {
-    self.editable = false;
-    self.selectable = false;
-    return [super onClick:block];
-}
+//- (instancetype)onClick:(void (^)())block {
+//    self.editable = false;
+//    self.selectable = false;
+//    return [super onClick:block];
+//}
 
 @end

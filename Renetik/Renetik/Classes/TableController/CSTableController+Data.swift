@@ -7,21 +7,21 @@
 import UIKit
 import RenetikObjc
 
-extension CSTableController {
+public extension CSTableController {
 
-    public func data(for path: IndexPath) -> RowType { filteredData[path.row] }
+    public func data(for path: IndexPath) -> Row { filteredData[path.row] }
 
-    public func add(item: RowType) {
+    public func add(item: Row) {
         data.add(item)
         filterDataAndReload()
     }
 
-    public func insert(item: RowType, index: Int) {
+    public func insert(item: Row, index: Int) {
         data.insert(item, at: index)
         filterDataAndReload()
     }
 
-    public func remove(item: RowType) {
+    public func remove(item: Row) {
         data.remove(item)
         filterDataAndReload()
     }

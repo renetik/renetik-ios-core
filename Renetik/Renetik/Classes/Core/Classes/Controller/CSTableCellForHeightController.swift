@@ -14,10 +14,7 @@ public class CSTableCellForHeightController: CSMainController {
     public var cell: UIView { cells.first! }
 
     @discardableResult
-    public func construct(_ parent: CSMainController, cell: UIView) -> Self { construct(parent, [cell]) }
-
-    @discardableResult
-    public func construct(_ parent: CSMainController, _ cells: [UIView]) -> Self {
+    public func construct(_ parent: CSMainController, _ cells: UIView...) -> Self {
         super.constructAsViewLess(in: parent)
         self.cells = cells
         return self
@@ -25,12 +22,12 @@ public class CSTableCellForHeightController: CSMainController {
 
     override public func onCreateLayout() {
         super.onCreateLayout()
-        for cell in cells { view.add(view: cell).from(top: -500) }
+        for cell in cells { view.add(cell).from(top: -500) }
     }
 
     override public func onViewDidLayout() {
         super.onViewDidLayout()
-        for cell in cells { cell.width(parentMain!.view.width) }
+        for cell in cells { cell.width(parentMainController!.view.width) }
     }
 
     override public func onViewWillTransition(

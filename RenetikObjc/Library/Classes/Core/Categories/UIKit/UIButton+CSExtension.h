@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)stretchableBackgroundImageWithLeftCapWidth :(NSInteger)leftCapWidth topCapHeight :(NSInteger)topCapHeight;
 
-+ (instancetype)addFloating :(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick;
+//+ (instancetype)addFloating :(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick;
 
-- (instancetype)titleColor :(UIColor *)color;
+- (instancetype)textColor :(UIColor *)color;
 
 - (void)setTitleColor :(UIColor *)color;
 

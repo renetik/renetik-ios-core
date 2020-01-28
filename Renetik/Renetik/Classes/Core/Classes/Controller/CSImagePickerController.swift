@@ -10,39 +10,36 @@ public protocol CSImagePickerListener {
     func imagePicker(controller: CSImagePickerController, didFinishPickingMedia data: [UIImagePickerController.InfoKey: Any])
 }
 
-public typealias CSImagePickerParent = UIViewController & CSImagePickerListener & CSHasDialogController
+public typealias CSImagePickerParent = UIViewController & CSImagePickerListener & CSHasSheet & CSHasDialog
 
 public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
         UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     private let parent: CSImagePickerParent!
-    private lazy var dialog: CSDialogProtocol = { parent.dialog() }()
     private var popover: UIPopoverController?
 
     public init(parent: CSImagePickerParent!) {
         self.parent = parent
     }
 
-    public func showFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) {
-        if dialog.isVisible {
-            dialog.hide()
-        } else {
-            dialog.add(title: "Choose Photo") { self.onGalleryClick(from: view, from: item) }
-            dialog.add(title: "Take Picture") { self.onCaptureClick() }
-            dialog.showSheetFrom(view: view, item: item)
-        }
+    @discardableResult
+    public func show(from: CSDisplayElement) -> CSHasDialogVisible {
+        parent.show(actions: [
+            CSDialogAction(title: "Choose Photo") { self.onGalleryClick(from: from) },
+            CSDialogAction(title: "Take Picture") { self.onCaptureClick() }
+        ], from: from)
     }
 
-    private func onGalleryClick(from view: UIView? = nil, from item: UIBarButtonItem? = nil) {
+    private func onGalleryClick(from element: CSDisplayElement) {
         popover = nil
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.allowsEditing = true
             picker.sourceType = .photoLibrary
-            parent.present(picker.popoverFrom(view: view, item: item))
+            parent.present(picker.popoverFrom(view: element.view, item: element.item))
         } else {
-            parent.dialog("Gallery not available").show()
+            parent.show(message: "Gallery not available")
         }
     }
 
@@ -55,7 +52,7 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
             picker.sourceType = .camera
             parent.present(picker)
         } else {
-            parent.dialog("Camera not available").show()
+            parent.show(message: "Camera not available")
         }
     }
 

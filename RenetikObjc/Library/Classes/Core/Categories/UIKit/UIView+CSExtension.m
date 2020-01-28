@@ -10,7 +10,6 @@
 #import "NSArray+CSExtension.h"
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSDimension.h"
-#import "UIView+CSLayout.h"
 #import "CSCocoaLumberjack.h"
 #import "CALayer+CSExtension.h"
 
@@ -23,6 +22,7 @@
 - (instancetype)construct {
     self.clipsToBounds = YES;
     self.setAutoresizingDefaults;
+//    [self width:1 height:1];
     return self;
 }
 
@@ -251,9 +251,11 @@
     return self;
 }
 
-- (instancetype)onClick:(void (^)(UIView *))block {
-    return [self onTap:block];
-}
+//- (instancetype)onClick:(void (^)())block {
+//    return [self onTap:^(UIView *sender) {
+//        block();
+//    }];
+//}
 
 - (instancetype)onTap:(void (^)(UIView *))block {
     self.userInteractionEnabled = YES;
@@ -263,9 +265,9 @@
     return self;
 }
 
-- (void)setOnClick:(void (^)(UIView *))block {
-    [self onClick:block];
-}
+//- (void)setOnClick:(void (^)(UIView *))block {
+//    [self onClick:block];
+//}
 
 - (BOOL)isVisibleToUser {
     infof(@"%@ %@ %@", self.window, @(self.hidden), @(self.alpha));
@@ -285,15 +287,6 @@
 - (instancetype)aspectFill {
     self.contentMode = UIViewContentModeScaleAspectFill;
     return self;
-}
-
-- (UIView *)addBottomSeparator:(CGFloat)height {
-    return [[self add:UIView.construct] asBottomSeparator:height];
-}
-
-- (instancetype)asBottomSeparator:(CGFloat)height {
-    return [[[self height:height] fromBottom:0]
-            .matchParentWidth.flexibleTop.fixedBottom background:UIColor.darkGrayColor];
 }
 
 - (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius {

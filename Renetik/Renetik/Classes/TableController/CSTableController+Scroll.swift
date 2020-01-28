@@ -4,7 +4,7 @@
 
 import RenetikObjc
 
-extension CSTableController {
+public extension CSTableController {
     @discardableResult
     public func scrollToBottom() -> Self {
         if filteredData.hasItems {

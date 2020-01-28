@@ -51,13 +51,13 @@
     return self;
 }
 
-- (CSDoLaterProcess *)doLater:(void (^)(void))method {
-    return [CSDoLaterProcess.new from:method :0.1];
-}
+//- (CSDoLaterProcess *)doLater:(void (^)(void))method {
+//    return [CSDoLaterProcess.new from:method :0.1];
+//}
 
-- (CSDoLaterProcess *)doLater:(NSTimeInterval)seconds :(void (^)(void))method {
-    return [CSDoLaterProcess.new from:method :seconds];
-}
+//- (CSDoLaterProcess *)doLater:(NSTimeInterval)seconds :(void (^)(void))method {
+//    return [CSDoLaterProcess.new from:method :seconds];
+//}
 
 - (CSWork *)schedule:(double)seconds :(void (^)(void))method {
     return [CSWork.new construct:seconds :method];

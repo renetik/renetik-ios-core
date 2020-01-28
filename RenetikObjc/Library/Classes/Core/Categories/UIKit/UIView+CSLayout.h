@@ -10,33 +10,33 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIView (CSLayout)
 
-- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
-NS_SWIFT_NAME(from(left:top:));
+//- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
+//NS_SWIFT_NAME(from(left:top:));
+//
+//- (instancetype)fromLeft:(CGFloat)left bottom:(CGFloat)bottom
+//NS_SWIFT_NAME(from(left:bottom:));
 
-- (instancetype)fromLeft:(CGFloat)left bottom:(CGFloat)bottom
-NS_SWIFT_NAME(from(left:bottom:));
+//- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
+//                   width:(CGFloat)width height:(CGFloat)height
+//NS_SWIFT_NAME(from(left:top:width:height:));
 
-- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top
-                   width:(CGFloat)width height:(CGFloat)height
-NS_SWIFT_NAME(from(left:top:width:height:));
+//- (instancetype)fromLeft:(CGFloat)value
+//NS_SWIFT_NAME(from(left:));
+//
+//- (instancetype)fromTop:(CGFloat)value
+//NS_SWIFT_NAME(from(top:));
 
-- (instancetype)fromLeft:(CGFloat)value
-NS_SWIFT_NAME(from(left:));
+///*
+// * Distance of right bound from right side of parent
+// */
+//- (instancetype)fromRight:(CGFloat)distanceFromRight
+//NS_SWIFT_NAME(from(right:));
 
-- (instancetype)fromTop:(CGFloat)value
-NS_SWIFT_NAME(from(top:));
-
-/*
- * Distance of right bound from right side of parent
- */
-- (instancetype)fromRight:(CGFloat)distanceFromRight
-NS_SWIFT_NAME(from(right:));
-
-/*
- * Distance of bottom bound from bottom side of parent
- */
-- (instancetype)fromBottom:(CGFloat)distanceFromBottom
-NS_SWIFT_NAME(from(bottom:));
+///*
+// * Distance of bottom bound from bottom side of parent
+// */
+//- (instancetype)fromBottom:(CGFloat)distanceFromBottom
+//NS_SWIFT_NAME(from(bottom:));
 
 - (instancetype)fromTopRight:(CGFloat)value
 NS_SWIFT_NAME(from(topRight:));
@@ -103,38 +103,6 @@ NS_SWIFT_NAME(fixedBottom(height:));
 - (instancetype)heightDisabledAutosizing:(CGFloat)height;
 
 - (instancetype)widthDisabledAutosizing:(CGFloat)width;
-
-/*
- * Fill parent completely with autosizing
- */
-- (instancetype)matchParent;
-
-/*
- * Fill parent completely with margin and autosizing
- */
-- (instancetype)matchParentWithMargin:(CGFloat)margin
-NS_SWIFT_NAME(matchParent(margin:));
-
-/*
- * Fill parent width with autosizing
- */
-- (instancetype)matchParentWidth;
-
-/*
- * Fill parent width with marign and autosizing
- */
-- (instancetype)matchParentWidthWithMargin:(CGFloat)margin NS_SWIFT_NAME(matchParentWidth(margin:));
-
-/*
- * Fill parent height with marign and autosizing
- */
-- (instancetype)matchParentHeightWithMargin:(CGFloat)margin
-NS_SWIFT_NAME(matchParentHeight(margin:));
-
-/*
- * Fill parent height and autosizing
- */
-- (instancetype)matchParentHeight;
 
 /*
  * Resize and moves content to have and keep specified vertical padding

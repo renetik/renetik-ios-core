@@ -42,13 +42,13 @@
     return self;
 }
 
-- (instancetype)onClick:(void (^)(UIView *))block {
-    self.userInteractionEnabled = YES;
-    [self onTouchUp:^(id sender) {
-        block(self);
-    }];
-    return self;
+//- (instancetype)onClick:(void (^)())block {
+//    self.userInteractionEnabled = YES;
+//    [self onTouchUp:^(UIView *sender) {
+//        block();
+//    }];
+//    return self;
 //    return [super onClick:block];
-}
+//}
 
 @end

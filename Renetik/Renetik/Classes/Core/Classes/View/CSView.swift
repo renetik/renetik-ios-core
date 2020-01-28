@@ -7,11 +7,10 @@ import UIKit
 open class CSView: UIView {
 
     private var isDidLayoutSubviews = false
-    private var onUpdateHeight: (() -> Void)?
+    private var _onLayoutSubviews: (() -> Void)?
 
-    public func execute(toUpdateHeight onUpdateHeight: @escaping () -> Void) {
-        self.onUpdateHeight = onUpdateHeight
-        self.onUpdateHeight?()
+    public func execute(onLayoutSubviews: @escaping () -> Void) {
+        _onLayoutSubviews = onLayoutSubviews
     }
 
     override open func layoutSubviews() {
@@ -21,22 +20,22 @@ open class CSView: UIView {
             onCreateLayout()
             onLayoutSubviewsFirstTime()
         } else {
-            onUpdateLayout()
+            onLayoutSubviewsUpdate()
         }
-        onUpdateHeight?()
+        _onLayoutSubviews?()
         onLayoutSubviews()
     }
 
-    func onCreateLayout() {
+    open func onCreateLayout() {
     }
 
-    func onLayoutSubviewsFirstTime() {
+    open func onLayoutSubviewsFirstTime() {
     }
 
-    func onUpdateLayout() {
+    open func onLayoutSubviewsUpdate() {
     }
 
-    func onLayoutSubviews() {
+    open func onLayoutSubviews() {
     }
 
 }

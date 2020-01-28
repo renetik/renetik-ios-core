@@ -9,6 +9,7 @@
 #import "UIView+CSAutoResizing.h"
 #import "UIView+CSLayout.h"
 #import "UIView+CSExtension.h"
+#import "UIView+CSContainer.h"
 
 @implementation UIButton (CSExtension)
 
@@ -25,7 +26,7 @@
     [self setBackgroundImage:[[self backgroundImageForState:UIControlStateHighlighted] stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight] forState:UIControlStateHighlighted];
 }
 
-- (instancetype)titleColor:(UIColor *)color {
+- (instancetype)textColor:(UIColor *)color {
     self.titleColor = color;
     return self;
 }
@@ -69,13 +70,13 @@
     [self setBackgroundImage:image forState:UIControlStateNormal];
 }
 
-+ (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
-    UIButton *button = [self.class construct];
-    [view add:[button.resizeToFit onTouchUp:^(UIView *view) {
-        onClick(view);
-    }]];
-    [button image:image];
-    return [[button fromRight:25] fromBottom:25].flexibleLeftTop;
-}
+//+ (instancetype)addFloating:(UIView *)view :(UIImage *)image :(void (^)(UIButton *))onClick {
+//    UIButton *button = [self.class construct];
+//    [view add:[button.resizeToFit onTouchUp:^(UIView *view) {
+//        onClick((UIButton *) view);
+//    }]];
+//    [button image:image];
+//    return [[button fromRight:25] fromBottom:25].flexibleLeftTop;
+//}
 
 @end

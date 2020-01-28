@@ -5,8 +5,8 @@
 #import "UIView+CSDimension.h"
 #import "UIView+CSPosition.h"
 #import "UIView+CSAutoResizing.h"
-#import "UIView+CSExtension.h"
 #import "CSLang.h"
+#import "NSException+CSExtension.h"
 
 @implementation UIView (CSDimension)
 
@@ -120,7 +120,9 @@
 }
 
 - (instancetype)heightToFit {
-    NSAssert(self.width > 0, @"Width has to be set to calculate height");
+    if (self.width <= 0) {
+        @throw [NSException exceptionWithName:@"Width has to be set to calculate height"];
+    }
     CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
     return [self height:newSize.height];
 }

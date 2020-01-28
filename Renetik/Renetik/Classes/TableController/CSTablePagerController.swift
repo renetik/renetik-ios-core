@@ -6,54 +6,35 @@ import Foundation
 import UIKit
 import RenetikObjc
 
-public class CSTablePagerController<RowType: CSTableControllerRow>: NSObject {
+public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
 
-    private var table: CSTableController<RowType>!
-    private var onLoadPage: ((Int) -> CSProcess<AnyObject>)!
+    var table: CSTableController<Row, Data>!
+    var onLoadPage: ((Int) -> CSOperation<Data>)!
     private var pageIndex = -1
     private var noNext = false
     private var loadNextView: UIView?
-    private var loadNextColor: UIColor? = nil
+    private var loadNextColor: UIColor? = .gray
 
     public var onShouldLoadNext: ((IndexPath) -> Bool)?
 
-    @discardableResult
-    public func construct(by controller: CSTableController<RowType>,
-                          operation: @escaping (Int) -> CSOperation<CSListServerJsonData<RowType>>) -> Self {
+    public func construct(by controller: CSTableController<Row, Data>,
+                          onLoadPage: @escaping (Int) -> CSOperation<Data>) -> Self {
         self.table = controller
-        onLoadPage = { index in operation(index).send().onSuccess { data in self.load(data.list) }.cast() }
+        self.onLoadPage = onLoadPage
         table.onLoad = onLoad
         return self;
     }
 
-    public func construct(by controller: CSTableController<RowType>,
-                          process: @escaping (Int) -> CSProcess<AnyObject>) -> Self {
-        self.table = controller
-        onLoadPage = process
-        table.onLoad = onLoad
-        return self;
-    }
-
-    private func onLoad(_ withProgress: Bool) -> CSProcess<AnyObject> {
+    func onLoad() -> CSOperation<Data> {
         noNext = false
         pageIndex = 0
         return onLoadPage(pageIndex)
     }
 
     @discardableResult
-    public func load(_ array: [RowType]) -> Self {
+    public func load(_ array: [Row]) -> Self {
         (pageIndex == 0).then { table.load(array) }.elseDo { table.load(add: array) }
         (array.hasItems).then { pageIndex += 1 }.elseDo { noNext = true }
-//        if pageIndex == 0 {
-//            table.load(array)
-//        } else {
-//            table.load(add: array)
-//        }
-//        if array.hasItems {
-//            pageIndex += 1
-//        } else {
-//            noNext = true
-//        }
         return self
     }
 
@@ -76,7 +57,7 @@ public class CSTablePagerController<RowType: CSTableControllerRow>: NSObject {
         if table.isLoading { return }
         table.isLoading = true
         showLoadNextIndicator()
-        onLoadPage!(pageIndex).onFailed { _ in
+        onLoadPage(pageIndex).send().onFailed { _ in
             self.table.parentController.toast(CSStrings.tableLoadNextFailed)
         }.onDone { _ in
             self.table.isLoading = false
@@ -86,11 +67,11 @@ public class CSTablePagerController<RowType: CSTableControllerRow>: NSObject {
 
     private func showLoadNextIndicator() {
         table.tableView.superview!.add(view: loadNextView ?? createLoadNextView())
-                .from(bottom: 5).centerInParentHorizontal()
+                .from(bottom: 15).centerInParentHorizontal()
     }
 
     private func createLoadNextView() -> UIView {
-        UIActivityIndicatorView(style: .gray).also { view in
+        UIActivityIndicatorView(style: .whiteLarge).also { view in
             loadNextColor.notNil { view.color = $0 }
             view.startAnimating()
             self.loadNextView = view

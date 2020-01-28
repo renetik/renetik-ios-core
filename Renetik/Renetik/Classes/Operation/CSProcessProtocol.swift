@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol CSProcessProtocol {
-    var errorMessage: String? { get }
+    var message: String? { get }
     var error: Error? { get }
     func cancel()
 }

@@ -10,6 +10,11 @@ import UIKit
 import RenetikObjc
 
 public extension UIViewController {
+
+    public func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
+        if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
+    }
+
     @discardableResult
     public func push() -> Self {
         navigation.push(self)
@@ -34,7 +39,7 @@ public extension UIViewController {
     }
 
     func showChildNextLast(controller: UIViewController, parentView: UIView) -> UIViewController {
-        view.horizontalLineAdd(controller.view)
+        view.horizontalLine(add: controller.view)
         showChild(controller: controller, parentView: parentView)
         return controller
     }

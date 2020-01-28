@@ -81,19 +81,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)getView:(NSInteger)tag;
 
-- (instancetype)clearSubviews;
-
 - (instancetype)show;
 
 - (instancetype)hide;
 
-- (UIView *)add:(UIView *)view;
-
-- (instancetype)onClick:(void (^)(UIView *))block;
+//- (instancetype)onClick:(void (^)())block;
 
 - (instancetype)onTap:(void (^)(UIView *))block;
 
-- (void)setOnClick:(void (^)(UIView *))block;
+//- (void)setOnClick:(void (^)(UIView *))block;
 
 - (BOOL)isVisibleToUser;
 
@@ -102,10 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)aspectFill;
 
 - (instancetype)clipToBounds;
-
-- (UIView *)addBottomSeparator:(CGFloat)height;
-
-- (instancetype)asBottomSeparator:(CGFloat)height;
 
 - (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius;
 

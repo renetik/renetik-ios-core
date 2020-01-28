@@ -7,7 +7,7 @@
 @import Foundation;
 
 @interface NSException (CSExtension)
-+ (instancetype)exceptionWithName:(NSString *)name1;
++ (instancetype)exceptionWithName:(NSString *)name;
 
 + (instancetype)abstractNotImplemented;
 @end

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)addTouchCancel:(void (^)(UIView *))handler;
 
-- (instancetype)onClick:(void (^)(UIView *))block;
+//- (instancetype)onClick:(void (^)())block;
 
 @end
 

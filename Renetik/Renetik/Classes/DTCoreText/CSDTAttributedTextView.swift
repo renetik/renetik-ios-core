@@ -52,11 +52,13 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!,
                                           viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
-        UIView.construct().frame(frame).onClick { view in
-            let controller = UIActivityViewController(activityItems: [url],
-                    applicationActivities: [TUSafariActivity(), ARChromeActivity()])
-            controller.popoverPresentationController?.sourceView = view
-            navigation.last!.present(controller, animated: true, completion: nil)
+        UIView.construct().frame(frame).also { view in
+            view.onClick {
+                let controller = UIActivityViewController(activityItems: [url],
+                        applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+                controller.popoverPresentationController?.sourceView = view
+                navigation.last!.present(controller, animated: true, completion: nil)
+            }
         }
     }
 
@@ -66,31 +68,28 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             let imageView = UIImageView.construct().frame(frame)
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
-                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }
-                        .onClick { _ in
-                            if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
-                                UIApplication.shared.open(attachment.hyperLinkURL)
-                            }
-                        }
-            }
-            else if frame.width > 50 {
+                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
+                    if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
+                        UIApplication.shared.open(attachment.hyperLinkURL)
+                    }
+                }
+            } else if frame.width > 50 {
                 imageUrls.add(attachment.contentURL)
-                imageView.image(url:attachment.contentURL) { $0.roundImageCorners(3) }
-                        .onClick { _ in
-                            let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
-                            photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
-                            photoBrowser.disableVerticalSwipe = true
-                            navigation.push(fromTop: photoBrowser)
-                        }
-            }
-            else {
-                imageView.image(url:attachment.contentURL)
+                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
+                    let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
+                    photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
+                    photoBrowser.disableVerticalSwipe = true
+                    navigation.push(fromTop: photoBrowser)
+                }
+            } else {
+                imageView.image(url: attachment.contentURL)
             }
             return imageView
         }
         return nil
     }
 
+    @discardableResult
     public override func heightToFit() -> Self {
         attributedTextContentView.heightToFit()
         height(attributedTextContentView.height)

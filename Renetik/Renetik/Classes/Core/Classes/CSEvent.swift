@@ -48,6 +48,6 @@ public class CSEvent<Type> {
     }
 }
 
-public extension CSEvent where Type == Nil {
-    public func fire() { fire(Nil.instance) }
+public extension CSEvent where Type == Void {
+    public func fire() { fire(()) }
 }

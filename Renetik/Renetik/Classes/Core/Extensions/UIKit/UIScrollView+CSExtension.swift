@@ -6,30 +6,55 @@
 //
 
 import UIKit
+import RenetikObjc
 
-@objc public extension UIScrollView {
+public extension UIScrollView {
+
     static let scrollStateInaccuracy: CGFloat = 15
 
-    @objc public var isAtTop: Bool {
-        return contentOffset.y <= verticalOffsetForTop
+    class func vertical(content view: UIView) -> Self {
+        let instance: UIScrollView = Self.withSize(view.width, view.height)
+        instance.vertical(content: view)
+        return instance as! Self
     }
 
-    @objc public var isAtBottom: Bool {
+    class func horizontal(content view: UIView) -> Self {
+        let instance: UIScrollView = Self.withSize(view.width, view.height)
+        instance.horizontal(content: view)
+        return instance as! Self
+    }
+
+    public var isAtTop: Bool { contentOffset.y <= verticalOffsetForTop }
+
+    public var isAtBottom: Bool {
 //        let bottomEdge = contentOffset.y + height
 //        return bottomEdge >= contentSize.height
-        return contentOffset.y >= verticalOffsetForBottom
+        contentOffset.y >= verticalOffsetForBottom
     }
 
-    @objc public var verticalOffsetForTop: CGFloat {
+    public var verticalOffsetForTop: CGFloat {
         let topInset = contentInset.top
         return -topInset
     }
 
-    @objc public var verticalOffsetForBottom: CGFloat {
+    public var verticalOffsetForBottom: CGFloat {
         let scrollViewHeight = bounds.height
         let scrollContentSizeHeight = contentSize.height
         let bottomInset = contentInset.bottom
         let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
         return scrollViewBottomOffset.rounded()
+    }
+
+    @discardableResult
+    public func vertical<View: UIView>(content view: View) -> View {
+        super.content(view).matchParentWidth().from(top: 0)
+        contentSizeHeightByLastContentSubview()
+        return view
+    }
+
+    func horizontal<View: UIView>(content view: View) -> View {
+        super.content(view).matchParentHeight().from(left: 0)
+        contentSizeWidthByLastContentSubview()
+        return view
     }
 }

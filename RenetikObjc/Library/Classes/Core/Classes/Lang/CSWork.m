@@ -4,7 +4,6 @@
 
 #import "CSWork.h"
 #import "CSLang.h"
-#import "NSObject+CSExtension.h"
 
 #import "CSDoLaterProcess.h"
 
@@ -45,13 +44,13 @@
 }
 
 - (void)process {
-    _doLater = [self doLater:_delay :^{
+    _doLater = [CSDoLaterProcess.new from:^{
         if (!_stop) {
             _count++;
             run(_workToInvoke);
             [self process];
         }
-    }];
+    } :_delay];
 }
 
 - (instancetype)run {

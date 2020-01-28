@@ -27,18 +27,17 @@ public class CSSelectNameController: CSMainController
     @discardableResult
     public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
         self.onDelete = onDelete as! ((CSName) -> CSResponse<AnyObject>)
-        menuItem(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
+        menu(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
         return self
     }
 
     public override func onViewWillAppear() {
         super.onViewWillAppear()
         view.add(view: table).matchParent()
-        table.hideEmptyCellSplitterBySettingEmptyFooter()
+        table.hideEmptyCellsSeparatorByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
         table.tableHeaderView = search.bar
-        table.delegate = self
-        table.dataSource = self
+        table.set(delegate: self)
         search.construct(by: self) { _ in self.reload() }
         reload()
     }
@@ -79,8 +78,7 @@ public class CSSelectNameController: CSMainController
             let value = filteredData[path.row]
             onDelete?(value).onSuccess { _ in
                 self.names.remove(value)
-                if self.names.isEmpty { navigation.popViewController() }
-                else { self.reload() }
+                if self.names.isEmpty { navigation.popViewController() } else { self.reload() }
             }
         }
     }

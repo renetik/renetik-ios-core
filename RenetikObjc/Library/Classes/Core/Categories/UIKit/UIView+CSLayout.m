@@ -84,23 +84,23 @@
     return self;
 }
 
-- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top {
-    [self fromLeft:left];
-    [self fromTop:top];
-    return self;
-}
+//- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top {
+//    [self fromLeft:left];
+//    [self fromTop:top];
+//    return self;
+//}
 
-- (instancetype)fromLeft:(CGFloat)left bottom:(CGFloat)bottom {
-    [self fromLeft:left];
-    [self fromBottom:bottom];
-    return self;
-}
+//- (instancetype)fromLeft:(CGFloat)left bottom:(CGFloat)bottom {
+//    [self fromLeft:left];
+//    [self fromBottom:bottom];
+//    return self;
+//}
 
-- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height {
-    [self fromLeft:left top:top];
-    [self width:width height:height];
-    return self;
-}
+//- (instancetype)fromLeft:(CGFloat)left top:(CGFloat)top width:(CGFloat)width height:(CGFloat)height {
+//    [self fromLeft:left top:top];
+//    [self width:width height:height];
+//    return self;
+//}
 
 - (instancetype)widthFromRight:(CGFloat)distanceFromRight {
     NSAssert(self.superview, @"Needs to have superview");
@@ -142,34 +142,6 @@
     [self width:width];
     self.autoresizesSubviews = true;
     return self;
-}
-
-- (instancetype)matchParent {
-    [self matchParentWidth];
-    [self matchParentHeight];
-    return self;
-}
-
-- (instancetype)matchParentWithMargin:(CGFloat)margin {
-    return [[self matchParentWidthWithMargin:margin] matchParentHeightWithMargin:margin];
-}
-
-- (instancetype)matchParentWidth {
-    NSAssert(self.superview, @"Needs to have superview");
-    return [self width:self.superview.width].centerInParentHorizontal.flexibleWidth.fixedLeft.fixedRight;
-}
-
-- (instancetype)matchParentWidthWithMargin:(CGFloat)margin {
-    return [[self.matchParentWidth fromLeft:margin] widthFromRight:margin];
-}
-
-- (instancetype)matchParentHeightWithMargin:(CGFloat)margin {
-    return [[self.matchParentHeight fromTop:margin] heightFromBottom:margin];
-}
-
-- (instancetype)matchParentHeight {
-    NSAssert(self.superview, @"Needs to have superview");
-    return [self height:self.superview.height].centerInParentVertical.flexibleHeight.fixedTop.fixedBottom;
 }
 
 - (instancetype)contentPaddingVertical:(CGFloat)padding {

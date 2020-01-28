@@ -13,17 +13,17 @@
 
 @implementation UIScrollView (CSExtension)
 
-+ (instancetype)contentVertical :(UIView*)view {
-    let instance = [self withSize:view.width:view.height];
-    [instance contentVertical:view];
-    return instance;
-}
-
-+ (instancetype)contentHorizontal :(UIView*)view {
-    let instance = [self withSize:view.width:view.height];
-    [instance contentHorizontal:view];
-    return self;
-}
+//+ (instancetype)contentVertical :(UIView*)view {
+//    let instance = [self withSize:view.width:view.height];
+//    [instance contentVertical:view];
+//    return instance;
+//}
+//
+//+ (instancetype)contentHorizontal :(UIView*)view {
+//    let instance = [self withSize:view.width:view.height];
+//    [instance contentHorizontal:view];
+//    return self;
+//}
 
 - (void)scrollToPage :(NSInteger)toIndex of :(NSInteger)ofCount {
     CGFloat pageWidth = self.contentSize.width / ofCount;
@@ -60,21 +60,21 @@
     return view;
 }
 
-- (UIView*)contentVertical :(UIView*)view {
-    [[super content:view].matchParentWidth fromTop:0];
-    self.contentSizeHeightByLastContentSubview;
-    return view;
-}
+//- (UIView*)contentVertical :(UIView*)view {
+//    [[super content:view].matchParentWidth fromTop:0];
+//    self.contentSizeHeightByLastContentSubview;
+//    return view;
+//}
 
-- (UIView*)contentHorizontal :(UIView*)view {
-    [[super content:view].matchParentHeight fromLeft:0];
-    self.contentSizeWidthByLastContentSubview;
-    return view;
-}
+//- (UIView*)contentHorizontal :(UIView*)view {
+//    [[super content:view].matchParentHeight fromLeft:0];
+//    self.contentSizeWidthByLastContentSubview;
+//    return view;
+//}
 
-- (void)setContentVertical :(UIView*)view {
-    [self contentVertical:view];
-}
+//- (void)setContentVertical :(UIView*)view {
+//    [self contentVertical:view];
+//}
 
 - (instancetype)contentVerticalSize :(CGFloat)size {
     [[self contentSizeHeight:size].content height:size];

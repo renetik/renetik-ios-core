@@ -7,43 +7,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSPosition)
 
-@property (readonly) CGPoint position;
+@property(readonly) CGPoint position;
 
-@property (readonly) CGFloat x;
+@property(readonly) CGFloat x;
 
-@property (readonly) CGFloat y;
+@property(readonly) CGFloat y;
 
-@property (readonly) CGFloat leftFromRight;
+@property(readonly) CGFloat leftFromRight;
 
-@property (readonly) CGFloat topFromBottom;
+@property(readonly) CGFloat topFromBottom;
 
-@property (readonly) CGFloat absBottom;
+@property(readonly) CGFloat absBottom;
 
-@property (readonly) CGFloat verticalCenter;
+@property(readonly) CGFloat verticalCenter;
 
-@property (readonly) CGFloat horizontalCenter;
+@property(readonly) CGFloat horizontalCenter;
 
-@property (nonatomic) CGFloat absTop;
+@property(nonatomic) CGFloat absTop;
 
-@property (nonatomic) CGFloat right;
+@property(nonatomic) CGFloat left;
+@property(nonatomic) CGFloat right;
+@property(nonatomic) CGFloat top;
+@property(nonatomic) CGFloat bottom;
 
-@property (nonatomic) CGFloat bottom;
+@property(nonatomic) CGFloat fromRight;
+@property(nonatomic) CGFloat fromBottom;
 
-@property (nonatomic) CGFloat fromRight;
+- (instancetype)verticalCenter:(CGFloat)y;
 
-@property (nonatomic) CGFloat fromBottom;
+- (instancetype)horizontalCenter:(CGFloat)x;
 
-@property (nonatomic) CGFloat top;
+- (instancetype)center:(CGPoint)point;
 
-@property (nonatomic) CGFloat left;
-
-- (instancetype)verticalCenter :(CGFloat)y;
-
-- (instancetype)horizontalCenter :(CGFloat)x;
-
-- (instancetype)center :(CGPoint)point;
-
-- (instancetype)center :(CGFloat)x :(CGFloat)y;
+- (instancetype)center:(CGFloat)x :(CGFloat)y;
 
 - (instancetype)centerInParent;
 

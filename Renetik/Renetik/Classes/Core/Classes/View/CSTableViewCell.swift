@@ -6,17 +6,17 @@ import UIKit
 
 open class CSTableViewCell: UITableViewCell {
 
-    private var onUpdateHeight: (() -> Void)?
+    private let layoutFunctions: CSEvent<Void> = event()
 
-    public func execute(toUpdateHeight onUpdateHeight: @escaping () -> Void) {
-        self.onUpdateHeight = onUpdateHeight
-        self.onUpdateHeight?()
+    public func layout(function: @escaping () -> Void) {
+        layoutFunctions.add(listener: { _ in function() })
+        function()
     }
 
     override open func layoutSubviews() {
         super.layoutSubviews()
         onLayoutSubviews()
-        onUpdateHeight?()
+        layoutFunctions.fire()
     }
 
     open func onLayoutSubviews() {

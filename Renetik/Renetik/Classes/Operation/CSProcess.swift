@@ -8,6 +8,7 @@ import Foundation
 public class CSProcess<Data>: CSAny, CSProcessProtocol {
     private let eventSuccess: CSEvent<CSProcess<Data>> = event()
 
+    @discardableResult
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
         eventSuccess.add { function($0.argument.data!) }
         return self
@@ -42,25 +43,26 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     var isCanceled = false
     var url: String? = nil
     var data: Data? = nil
-    public var operationCancelledMessage = "Operation was canceled."
-    public var errorMessage: String? = nil
+    public var message: String? = nil
     public var error: Error? = nil
     var failedProcess: CSProcessProtocol? = nil
 
-    init(_ url: String, _ data: Data) {
+    public init(_ url: String, _ data: Data) {
         self.url = url
         self.data = data
     }
 
-    init(_ data: Data?) { self.data = data }
+    public init(_ data: Data?) { self.data = data }
 
-    func success() {
+    @discardableResult
+    public func success() {
         if isCanceled { return }
         onSuccessImpl()
         onDoneImpl()
     }
 
-    func success(_ data: Data) {
+    @discardableResult
+    public func success(_ data: Data) {
         if isCanceled { return }
         self.data = data
         onSuccessImpl()
@@ -76,23 +78,26 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
         eventSuccess.fire(self)
     }
 
-    func failed(_ process: CSProcessProtocol) {
+    @discardableResult
+    public func failed(_ process: CSProcessProtocol) {
         if isCanceled { return }
         onFailedImpl(process)
         onDoneImpl()
     }
 
-    func failed(_ message: String) -> CSProcess<Data> {
+    @discardableResult
+    public func failed(_ message: String) -> CSProcess<Data> {
         if isCanceled { return self }
-        errorMessage = message
+        self.message = message
         failed(self)
         return self
     }
 
-    func failed(_ error: Error?, message: String? = nil) {
+    @discardableResult
+    public func failed(_ error: Error?, message: String? = nil) {
         if isCanceled { return }
         self.error = error
-        errorMessage = message ?? error?.localizedDescription
+        self.message = message ?? error?.localizedDescription ?? CSStrings.operationFailed
         failed(self)
     }
 
@@ -101,9 +106,9 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
         if isDone { logError("already done") }
         failedProcess = process
         isFailed = true
-        errorMessage = process.errorMessage
+        message = process.message
         error = process.error
-        logError("\(errorMessage.asString), \(error.asString.asString)")
+        logError("\(message.asString), \(error.asString.asString)")
         eventFailed.fire(process)
     }
 
@@ -112,15 +117,15 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
                 "isSuccess \(isSuccess) isFailed \(isFailed)")
         if (isCanceled || isDone || isSuccess || isFailed) { return }
         isCanceled = true
-        self.errorMessage = operationCancelledMessage
+        self.message = CSStrings.operationCancelled
         eventCancel.fire(self)
         onDoneImpl()
     }
 
     private func onDoneImpl() {
-        logInfo("Response onDone \(self)")
+        logInfo()
         if isDone {
-            logError("already done")
+            logError("isDone")
             return
         }
         isDone = true

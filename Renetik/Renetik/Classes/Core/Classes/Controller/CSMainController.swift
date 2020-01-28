@@ -7,28 +7,28 @@ import RenetikObjc
 
 open class CSMainController: CSViewController {
 
-    var childMainControllers = [CSMainController]()
-    public var parentMain: CSMainController? = nil
-    var menu = [CSMenuHeader]()
-    lazy var menuDialog = { dialog() }()
+    public var parentMainController: CSMainController? = nil
+    private var childMainControllers = [CSMainController]()
+    private var menuItems = [CSMenuHeader]()
+    private lazy var dialog = { CSDialogController(in: self) }()
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isMainController { updateBarItemsAndMenu() }
+        if isTopController { updateBarItemsAndMenu() }
     }
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        menuDialog.hide()
+        dialog.hide()
     }
 
-    public var isMainController: Bool { parent is UINavigationController || parentMain == nil }
+    public var isTopController: Bool { parent is UINavigationController || parentMainController == nil }
 
-    public var isChildController: Bool { !isMainController }
+    public var isChildController: Bool { !isTopController }
 
     public func updateBarItemsAndMenu(animated: Bool = false) {
         if isChildController {
-            parentMain?.updateBarItemsAndMenu(animated: animated)
+            parentMainController?.updateBarItemsAndMenu(animated: animated)
             return
         }
         var menu = [CSMenuHeader]()
@@ -44,7 +44,7 @@ open class CSMainController: CSViewController {
     }
 
     func onPrepare(menu: inout [CSMenuHeader]) {
-        for menuHeader in self.menu { if menuHeader.isVisible { menu.add(menuHeader) } }
+        for menuHeader in self.menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
         for controller in childMainControllers {
             if controller.isShowing { controller.onPrepare(menu: &menu) }
         }
@@ -69,18 +69,14 @@ open class CSMainController: CSViewController {
 
     func onCreate(menu: [CSMenuHeader]) -> UIBarButtonItem? {
         if menu.isEmpty { return nil }
-        menuDialog.clear()
-        for menuHeader in menu {
-            let item = menuHeader.items.first!
-            menuDialog.add(title: item.title!) { item.action!(item) }
+        var actions = [CSDialogAction]()
+        for header in menu {
+            let item = header.items.first!
+            actions.add(CSDialogAction(title: item.title!) { item.action!(item) })
         }
-        return UIBarButtonItem(image: CSMenuItem.menuImage, onClick: { sender in
-            if self.menuDialog.isVisible {
-                self.menuDialog.hide()
-            } else {
-                self.menuDialog.showSheetFrom(item: sender)
-            }
-        })
+        return UIBarButtonItem(image: CSMenuItem.menuImage) { item in
+            self.dialog.show(actions: actions, from: item)
+        }
     }
 
     open func onPrepareRightBarButton(items: inout [UIBarButtonItem]) {
@@ -88,7 +84,7 @@ open class CSMainController: CSViewController {
 
     public override func addChild(_ controller: UIViewController) {
         super.addChild(controller)
-        if controller is CSMainController { addChild(mainController: controller.cast()) }
+        (controller as? CSMainController).notNil { addChildMain(controller: $0) }
     }
 
     @discardableResult
@@ -100,20 +96,20 @@ open class CSMainController: CSViewController {
         return controller
     }
 
-    public func setChild(mainControllers: [CSMainController]) -> [CSMainController] {
+    public func setChildMain(controllers: [CSMainController]) -> [CSMainController] {
         self.childMainControllers.removeAll()
-        addChild(mainControllers: mainControllers)
+        addChildMain(controllers: controllers)
         return childMainControllers
     }
 
-    public func addChild(mainControllers: [CSMainController]) -> [CSMainController] {
-        for controller in mainControllers { addChild(mainController: controller) }
+    public func addChildMain(controllers: [CSMainController]) -> [CSMainController] {
+        for controller in controllers { addChildMain(controller: controller) }
         return childMainControllers
     }
 
-    public func addChild(mainController: CSMainController) {
-        childMainControllers.add(mainController)
-        mainController.parentMain = self
+    public func addChildMain(controller: CSMainController) {
+        childMainControllers.add(controller)
+        controller.parentMainController = self
     }
 
     open func onPrepareLeftBarItem() -> UIBarButtonItem? {
@@ -143,8 +139,13 @@ open class CSMainController: CSViewController {
                 animations: { self.view.bottom = -5 },
                 completion: { finished in
                     self.view.hide()
-                    self.parentMain?.dismissChild(controller: self)
+                    self.parentMainController?.dismissChild(controller: self)
                 })
         return self
+    }
+
+    @discardableResult
+    public func menuAdd(header title: String = "") -> CSMenuHeader {
+        menuItems.add(CSMenuHeader(by: self, index: menuItems.count, title: title))
     }
 }

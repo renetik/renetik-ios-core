@@ -12,14 +12,14 @@ public typealias CSXLButtonBarPagerChildController = CSMainController & Indicato
 public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController {
 
     private(set) var controllers: [CSXLButtonBarPagerChildController]!
-    var currentController: CSXLButtonBarPagerChildController { controllers[currentIndex] }
+    private var currentController: CSXLButtonBarPagerChildController { controllers[currentIndex] }
     private var parentController: CSMainController!
 
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
         self.controllers = controllers
         parent.showChild(controller: self)
-        parent.addChild(mainControllers: controllers)
+        parent.addChildMain(controllers: controllers)
         settings.style.buttonBarHeight.isNil { self.settings.style.buttonBarHeight = 44 }
         return self
     }
@@ -27,7 +27,9 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     override public func viewControllers(
             for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] { controllers }
 
-    override public func viewWillLayoutSubviews() { if controllers.hasItems { super.viewWillLayoutSubviews() } }
+//    override open func viewDidLayoutSubviews() { if controllers.hasItems { super.viewDidLayoutSubviews() } }
+
+//    override public func viewWillLayoutSubviews() { if controllers.hasItems { super.viewWillLayoutSubviews() } }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -57,23 +59,23 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
 
     public func load(controllers: [CSXLButtonBarPagerChildController]) {
         self.controllers = controllers
-        parentController.addChild(mainControllers: self.controllers)
+        parentController.addChildMain(controllers: self.controllers)
         reloadPagerTabStripView()
         updateControllersVisible(at: currentIndex, animated: false)
     }
 
     public func add(controller: (CSXLButtonBarPagerChildController)) {
         controllers.add(controller)
-        parentController.addChild(mainController: controller)
+        parentController.addChildMain(controller: controller)
         reloadPagerTabStripView()
         updateControllersVisible(at: currentIndex, animated: false)
     }
 
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: nil) { _ in
-            self.reloadPagerTabStripView()
-            self.updateControllersVisible(at: self.currentIndex, animated: false)
+        coordinator.onCompletion { _ in
+            self.containerView.scroll(toPage: self.currentIndex, of: self.controllers.count)
+//            doLater { self.reloadPagerTabStripView() }
         }
     }
 
@@ -81,10 +83,18 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
         if visible {
             buttonBarView.height = settings.style.buttonBarHeight!
             containerView.height(fromTop: settings.style.buttonBarHeight!)
-        }
-        else {
+        } else {
             buttonBarView.height = 0
             containerView.height(fromTop: 0)
+        }
+    }
+
+    override open func updateContent() {
+        super.updateContent()
+        for (index, childController) in controllers.enumerated() {
+            childController.view.frame = CGRect(x: offsetForChild(at: index) + view.safeAreaInsets.left,
+                    y: 0, width: view.bounds.width - (view.safeAreaInsets.left + view.safeAreaInsets.right),
+                    height: containerView.bounds.height)
         }
     }
 }

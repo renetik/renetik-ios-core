@@ -31,7 +31,7 @@ public class CSNameChooserController<T: Any>: CSMainController
     public func add(onDelete: @escaping (CSNameJsonData) -> CSProcess<T>) -> Self {
         self.onDelete = onDelete
         editMenuItem.isNil {
-            self.editMenuItem = menuItem(type: .edit) {
+            self.editMenuItem = menu(type: .edit) {
                 $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit
             }
         }
@@ -41,11 +41,10 @@ public class CSNameChooserController<T: Any>: CSMainController
     public override func onCreateLayout() {
         super.onCreateLayout()
         view.add(view: table).matchParent()
-        table.hideEmptyCellSplitterBySettingEmptyFooter()
+        table.hideEmptyCellsSeparatorByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
         table.tableHeaderView = search.bar
-        table.delegate = self
-        table.dataSource = self
+        table.set(delegate: self)
         search.construct(by: self) { _ in self.reload() }
         reload()
     }

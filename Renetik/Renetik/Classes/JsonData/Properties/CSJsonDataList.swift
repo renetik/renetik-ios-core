@@ -5,7 +5,7 @@
 
 import Renetik
 
-public class CSJsonDataList<T: CSJsonData> {
+public class CSJsonDataList<T: CSJsonData>: NSObject {
     let data: CSJsonData, type: T.Type, key: String
 
     init(_ data: CSJsonData, _ type: T.Type, _ key: String) {

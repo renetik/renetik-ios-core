@@ -86,8 +86,7 @@ public class CSDTAttributedLabel: DTAttributedLabel,
 
     @discardableResult
     @objc public func withBoldFont(_ isBold: Bool) -> Self {
-        if isBold { font = font.bold() }
-        else { font = font.normal() }
+        if isBold { font = font.bold() } else { font = font.normal() }
         return self
     }
 
@@ -113,11 +112,13 @@ public class CSDTAttributedLabel: DTAttributedLabel,
                                           attributedTextContentView: DTAttributedTextContentView!,
                                           viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
         if !linksActive { return nil }
-        return UIView.construct().frame(frame).onClick { view in
-            let controller = UIActivityViewController(
-                    activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
-            controller.popoverPresentationController?.sourceView = view
-            navigation.last!.present(controller, animated: true, completion: nil)
+        return UIView.construct().frame(frame).also { view in
+            view.onClick {
+                let controller = UIActivityViewController(
+                        activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+                controller.popoverPresentationController?.sourceView = view
+                navigation.last!.present(controller, animated: true, completion: nil)
+            }
         }
     }
 
@@ -138,13 +139,13 @@ public class CSDTAttributedLabel: DTAttributedLabel,
 //            let imageView = UIImageView.construct().frame(frame).imageNSURL(attachment.contentURL)
 //            if attachment.hyperLinkURL.notNil &&
 //                attachment.hyperLinkURL != attachment.contentURL {
-//                imageView.onClick { _ in
+//                imageView.onClick {
 //                    if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
 //                        UIApplication.shared.open(attachment.hyperLinkURL)
 //                    }
 //                }
 //            } else if frame.width > 50 {
-//                imageView.onClick { _ in
+//                imageView.onClick {
 //                    let photoBrowser = IDMPhotoBrowser(photoURLs: [attachment.contentURL])!
 //                    photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
 //                    photoBrowser.disableVerticalSwipe = true

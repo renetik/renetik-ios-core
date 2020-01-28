@@ -61,14 +61,14 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     return self;
 }
 
-- (UICollectionViewCell *)cellView :(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
-    let cell = [self dequeueCell :DEFAULT_CELL_ID :path];
-    if (![cell.contentView.content isKindOfClass :viewClass]) {
-        [cell.contentView content :viewClass.construct].matchParent;
-        invokeWith(onCreate, cell);
-    }
-    return cell;
-}
+//- (UICollectionViewCell *)cellView :(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
+//    let cell = [self dequeueCell :DEFAULT_CELL_ID :path];
+//    if (![cell.contentView.content isKindOfClass :viewClass]) {
+//        [cell.contentView content :viewClass.construct].matchParent;
+//        invokeWith(onCreate, cell);
+//    }
+//    return cell;
+//}
 
 - (UICollectionReusableView *)dequeEmptyHeader :(NSIndexPath *)path {
     return [self dequeueReusableSupplementaryViewOfKind :UICollectionElementKindSectionHeader

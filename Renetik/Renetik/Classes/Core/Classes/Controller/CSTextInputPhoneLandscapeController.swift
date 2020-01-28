@@ -28,7 +28,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     private let keyboardManager = CSKeyboardManager()
     public let container = UIView.withSize(100, 50).background(.white)
     public let textView = UITextView.construct().background(.white)
-    public let doneButton = UIButton.construct().titleColor(.blue)
+    public let doneButton = UIButton.construct().textColor(.blue)
     private var parentTextInput: (CSHasTextProtocol & CSHasUIResponder)!
     private var hasAccessory: CSHasInputAccessory?
     private var accessoryTextInput: UITextInput?
@@ -98,6 +98,6 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
 
     private var isActive: Bool { container.superview.notNil }
 
-    private func onDoneClick(view: UIView) { textView.resignFirstResponder() }
+    private func onDoneClick() { textView.resignFirstResponder() }
 
 }
