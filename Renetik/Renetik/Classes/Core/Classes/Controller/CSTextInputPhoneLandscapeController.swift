@@ -52,8 +52,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     override public func onCreateLayout() {
         super.onCreateLayout()
         container.add(view: doneButton.resizeToFit()).from(right: 5).centerInParentVertical()
-        container.add(view: textView).matchParent(margin: 5)
-                .width(fromRight: doneButton.leftFromRight + 5)
+        container.add(view: textView).matchParent(margin: 5).width(from: doneButton, right: 5)
     }
 
     override public func onViewDidLayout() {

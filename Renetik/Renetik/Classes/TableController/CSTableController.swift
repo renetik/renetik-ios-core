@@ -15,6 +15,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public var onUserRefresh: (() -> Bool)?
     public var searchText = "" { didSet { filterDataAndReload() } }
     internal var isLoading = false
+    internal var isLoadingDone = false
     internal var isFailed = false
     internal var failedMessage: String?
     internal var filteredData = [Row]()
@@ -28,7 +29,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         parentController = parent
-        tableView.set(delegate: parent).hide()
+        tableView.set(delegate: parent)
         filter = parentController as? CSTableControllerFilter
         self.data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)
@@ -39,12 +40,12 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     override public func onViewWillAppearFromPresentedController() {
         super.onViewWillAppearFromPresentedController()
-        tableView.reloadData()
+        tableView.reload()
     }
 
-    public override func onViewWillTransition(toSizeCompletion size: CGSize,
-                                              _ context: UIViewControllerTransitionCoordinatorContext) {
-        tableView.reloadData()
+    public override func onViewWillTransition(
+            toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+        tableView.reload()
     }
 
     public var dataCount: Int { filteredData.count }
@@ -53,17 +54,19 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public func reload(withProgress: Bool = true) -> CSProcess<Data> {
         if isLoading { loadProcess!.cancel() }
         isLoading = true
+        tableView.reload()
         return parentController.send(operation: onLoad(), progress: withProgress, failedDialog: false)
                 .onFailed { process in
                     self.isFailed = true
                     self.failedMessage = process.message
-                    self.tableView.reloadData()
+                    self.tableView.reload()
                 }.onCancel { process in
                     self.isFailed = true
                     self.failedMessage = process.message
-                    self.tableView.reloadData()
                 }.onDone { data in
                     self.isLoading = false
+                    self.isLoadingDone = true
+                    self.tableView.reload()
                 }.also { process in
                     self.loadProcess = process
                     onLoadResponse.fire(process)
@@ -100,7 +103,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     internal func filterDataAndReload() {
         filteredData.reload(filter(data: data))
-        tableView.reloadData()
+        tableView.reload()
         filter?.onReloadDone(in: self)
     }
 }

@@ -51,7 +51,7 @@ public class CSNameChooserController<T: Any>: CSMainController
 
     private func reload() {
         filteredData = names.filter(bySearch: search.text)
-        table.reloadData()
+        table.reload()
     }
 
     public func tableView(_ tableView: UITableView,

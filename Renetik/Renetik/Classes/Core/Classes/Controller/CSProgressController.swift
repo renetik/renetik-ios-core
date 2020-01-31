@@ -33,7 +33,7 @@ public class CSProgressController: CSObject, CSHasProgress, CSHasDialogVisible {
 
             cancel.notNil { cancel in
                 hud.detailsLabel.text = title.isSet ? "\n" + title + "\n" : "\n"
-                hud.button.title(cancel.title ?? CSStrings.dialogCancel).onClick {
+                hud.button.text(cancel.title ?? CSStrings.dialogCancel).onClick {
                     cancel.action()
                     hud.hide(animated: true)
                 }

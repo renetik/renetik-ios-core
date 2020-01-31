@@ -40,7 +40,7 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     override public func onViewWillAppearFirstTime() {
         super.onViewWillAppearFirstTime()
         view.add(view: bottomBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
-        view.add(view: containerView).matchParent().height(fromBottom: bottomBar.topFromBottom)
+        view.add(view: containerView).matchParent().height(from: bottomBar, bottom: 0)
     }
 
     override public func onViewDidLayout() {
@@ -63,8 +63,7 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
             dismissChild(controller: $0)
             if currentControllerIndex! < bottomBar.selectedItemIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromRight)
-            }
-            else if currentControllerIndex! > bottomBar.selectedItemIndex {
+            } else if currentControllerIndex! > bottomBar.selectedItemIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromLeft)
             }
         }

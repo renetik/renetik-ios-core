@@ -21,8 +21,7 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
     private func onKeyboardChange(keyboardHeight: CGFloat) {
         if keyboardHeight > 0 {
             hideNavigationBar()
-        }
-        else {
+        } else {
             showNavigationBar()
         }
     }

@@ -7,10 +7,7 @@
 
 import RenetikObjc
 
-public protocol CSHasNavigationHiding {
-    var navigationHiding: CSNavigationHidingController { get }
-}
-
+//TODO:  Make standalone library
 public class CSNavigationHidingController: CSMainController {
     private var isNavigationBarHidden = false
     private var shouldShow = false
@@ -50,13 +47,13 @@ public class CSNavigationHidingController: CSMainController {
 
     public override func onViewWillTransition(toSizeCompletion size: CGSize,
                                               _ context: UIViewControllerTransitionCoordinatorContext) {
-        if isNavigationBarHidden { /// TODO: Je totalne dojebany na iphonne x ak otocix skovanyu
-            UIView.animate(withDuration: 0.2) {
-                navigation.navigationBar.alpha = 0
-                navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-                navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
-            }
-        }
+//        if isNavigationBarHidden { /// TODO: Je totalne dojebany na iphonne x ak otocix skovanyu
+//            UIView.animate(withDuration: 0.2) {
+//                navigation.navigationBar.alpha = 0
+//                navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+//                navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
+//            }
+//        }
     }
 
     private var lastContentOffset: CGFloat? = nil
@@ -71,9 +68,9 @@ public class CSNavigationHidingController: CSMainController {
         } else if scrollView.isAtBottom {
         } else {
             lastContentOffset.notNil { lastOffset in
-                if lastOffset < scrollView.contentOffset.y - 50 {
+                if lastOffset < scrollView.contentOffset.y - 400 {
                     requestNavigationBarHidden()
-                } else if lastOffset > scrollView.contentOffset.y + 50 {
+                } else if lastOffset > scrollView.contentOffset.y + 400 {
                     requestNavigationBarShown()
                 }
             }
@@ -105,9 +102,11 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = true
         UIView.animate(withDuration: 0.3, animations: {
             navigation.navigationBar.alpha = 0
+//            navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+//            navigation.last!.view.from(top: UIApplication.statusBarHeight())
+//            navigation.last!.view.height(fromBottom: self.fromBottom)
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-            navigation.last!.view.from(top: UIApplication.statusBarHeight())
-            navigation.last!.view.height(fromBottom: self.fromBottom)
+            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: { _ in
             self.isHidingRunning = false
             if self.shouldShow { self.requestNavigationBarShown() }
@@ -134,9 +133,13 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = false
         UIView.animate(withDuration: 0.3, animations: {
             navigation.navigationBar.alpha = 1
-            navigation.navigationBar.top = UIApplication.statusBarHeight()
-            navigation.last!.view.from(top: navigation.navigationBar.bottom)
-            navigation.last!.view.height(fromBottom: self.fromBottom)
+
+//            navigation.navigationBar.top = UIApplication.statusBarHeight()
+//            navigation.last!.view.from(top: navigation.navigationBar.bottom)
+//            navigation.last!.view.height(fromBottom: self.fromBottom)
+
+            navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
+            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: { _ in
             self.isShowingRunning = false
             if self.shouldHide { self.requestNavigationBarHidden() }

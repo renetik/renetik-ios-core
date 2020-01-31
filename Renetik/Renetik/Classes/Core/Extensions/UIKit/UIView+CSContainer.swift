@@ -97,42 +97,4 @@ public extension UIView {
     public func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
         add(view: UIView.construct()).asBottomSeparator(height)
     }
-
-    @discardableResult
-    public func heightByLastSubview(padding: Int = 0) -> Self {
-        let lastSubViewBottom = content?.subviews.last?.bottom ?? subviews.last?.bottom ?? 0
-        height = lastSubViewBottom > 0 ? lastSubViewBottom + CGFloat(padding) : 0
-        return self
-    }
-
-    class func withContent(_ view: UIView = UIView.construct()) -> Self {
-        let container = self.withFrame(view.frame)
-        container.content(view).matchParent()
-        return container
-    }
-
-    class func wrap(view: UIView) -> Self {
-        let container = self.withFrame(view.frame)
-        let center = view.center
-        let superview = view.superview
-        let autoSize = view.autoresizingMask
-        container.content(view).matchParent()
-        superview?.add(container).center(center).autoresizingMask = autoSize
-        container.backgroundColor = view.backgroundColor
-        view.backgroundColor = UIColor.clear
-        return container
-    }
-
-    class func wrap(view: UIView, padding: CGFloat) -> Self {
-        let container = self.withSize(view.width + padding * 2, view.height + padding * 2)
-        let center = view.center
-        let superview = view.superview
-        let autoSize = view.autoresizingMask
-        container.content(view).matchParent(margin: padding)
-        superview?.add(container).center(center).autoresizingMask = autoSize
-        container.backgroundColor = view.backgroundColor
-        view.backgroundColor = UIColor.clear
-        return container
-    }
-
 }

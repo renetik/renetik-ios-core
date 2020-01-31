@@ -34,6 +34,6 @@ public extension CSTableController {
     public func clear() {
         data.removeAll()
         filteredData.removeAll()
-        tableView.reloadData()
+        tableView.reload()
     }
 }

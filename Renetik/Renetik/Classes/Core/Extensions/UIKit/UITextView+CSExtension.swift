@@ -7,6 +7,7 @@ import RenetikObjc
 
 public extension UITextView {
 
+    @discardableResult
     override public func onClick(_ block: @escaping () -> Void) -> Self {
         self.isEditable = false
         self.isSelectable = false

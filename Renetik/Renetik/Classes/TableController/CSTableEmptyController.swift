@@ -36,8 +36,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
     }
 
     public func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        table.tableView.fadeIn() // Show if hidden, otherwise table empty not visible
-        return true
+        !table.isLoading
     }
 
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
@@ -82,10 +81,6 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
 
     public func imageTintColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor? {
         reloadImageTintColor
-    }
-
-    public func emptyDataSetShouldAllowImageViewAnimate(_ scrollView: UIScrollView!) -> Bool {
-        true
     }
 
     public func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
