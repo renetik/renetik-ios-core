@@ -7,19 +7,19 @@ import RenetikObjc
 
 public extension UIView {
     @discardableResult
-    public func add<View: UIView>(view: View) -> View {
+    func add<View: UIView>(view: View) -> View {
         addSubview(view)
         return view
     }
 
     @discardableResult
-    public func add(_ view: UIView) -> UIView {
+    func add(_ view: UIView) -> UIView {
         addSubview(view)
         return view
     }
 
     @discardableResult
-    public func add(_ views: UIView...) -> Self {
+    func add(_ views: UIView...) -> Self {
         views.forEach { view in add(view) }
         return self
     }
@@ -30,41 +30,41 @@ public extension UIView {
     }
 
     @discardableResult
-    public func horizontalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
+    func horizontalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
         horizontalLine(update: subviews.index(of: view)!, view: view, margin: margin)
     }
 
     @discardableResult
-    public func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
+    func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
         view.from(left: subviews.at(position - 1)?.right ?? 0)
         if view.left != 0 { view.left += margin }
         return view
     }
 
     @discardableResult
-    public func verticalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
+    func verticalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
         verticalLine(update: add(view: view), margin: margin)
     }
 
     @discardableResult
-    public func verticalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
+    func verticalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
         verticalLine(update: subviews.index(of: view)!, view: view, margin: margin)
     }
 
     @discardableResult
-    public func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
+    func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
         view.from(top: subviews.at(position - 1)?.bottom ?? 0)
         if view.top != 0 { view.top += margin }
         return view
     }
 
     @discardableResult
-    public func horizontalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
+    func horizontalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
         horizontalLayout(update: add(view: view), margin: margin, columns: columns)
     }
 
     @discardableResult
-    public func horizontalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
+    func horizontalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
         view.width = (self.width - (margin * (CGFloat(columns) + 1))) / CGFloat(columns);
         subviews.previous(of: view).notNil { previous in
             if previous.right + margin + view.width + margin <= width {
@@ -77,12 +77,12 @@ public extension UIView {
     }
 
     @discardableResult
-    public func verticalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
+    func verticalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
         verticalLayout(update: add(view: view), margin: margin, columns: columns)
     }
 
     @discardableResult
-    public func verticalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
+    func verticalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
         view.height = (self.height - (margin * (CGFloat(columns) + 1))) / CGFloat(columns);
         subviews.previous(of: view).notNil { previous in
             if previous.bottom + margin + view.height + margin <= height {
@@ -94,7 +94,7 @@ public extension UIView {
         return view
     }
 
-    public func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
+    func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
         add(view: UIView.construct()).asBottomSeparator(height)
     }
 }

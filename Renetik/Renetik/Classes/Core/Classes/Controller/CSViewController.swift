@@ -10,6 +10,9 @@ open class CSViewController: UIViewController {
 
     public let onOrientationChanging: CSEvent<Void> = event()
     public let onOrientationChanged: CSEvent<Void> = event()
+    public let eventDismissing: CSEvent<Void> = event()
+    public let eventDidAppear: CSEvent<Void> = event()
+    public let eventDidAppearFirstTime: CSEvent<Void> = event()
 
     public private(set) var isAppearing = false
     public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
@@ -24,9 +27,10 @@ open class CSViewController: UIViewController {
 
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
-//        view = UIView.withSize(1, 1)
-        Renetik.doLater {
+        doLater {
             parent.showChild(controller: self)
+            self.view.matchParent()
+            self.view.isUserInteractionEnabled = false
         }
         isShowing = true
         return self
@@ -97,17 +101,19 @@ open class CSViewController: UIViewController {
             isOnViewDidAppearFirstTime = true
             onViewDidAppearFirstTime()
         } else {
-            //TODO this is probably called also in different situations so has wrong name
             onViewDidAppearFromPresentedController()
         }
     }
 
     open func onViewDidAppear() {
+        eventDidAppear.fire()
     }
 
     open func onViewDidAppearFirstTime() {
+        eventDidAppearFirstTime.fire()
     }
 
+    //TODO: this is probably called also in different situations so has wrong name
     open func onViewDidAppearFromPresentedController() {
     }
 
@@ -142,6 +148,7 @@ open class CSViewController: UIViewController {
     }
 
     open func onViewDismissing() {
+        eventDismissing.fire()
     }
 
     private func onShowingChanged() {
@@ -229,4 +236,5 @@ open class CSViewController: UIViewController {
     }
 
     open func onDisplayChangedTo(darkMode: Bool) {}
+
 }

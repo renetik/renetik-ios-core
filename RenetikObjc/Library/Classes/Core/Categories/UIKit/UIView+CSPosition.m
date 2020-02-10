@@ -55,11 +55,11 @@
 }
 
 - (CGFloat)absTop {
-    return [self convertPoint :CGPointMake(0, self.top) toView :nil].y;
+    return [self convertPoint:CGPointMake(0, self.top) toView:nil].y;
 }
 
 - (CGFloat)absBottom {
-    return [self convertPoint :CGPointMake(0, self.bottom) toView :nil].y;
+    return [self convertPoint:CGPointMake(0, self.bottom) toView:nil].y;
 }
 
 - (CGFloat)verticalCenter {
@@ -70,27 +70,27 @@
     return self.center.x;
 }
 
-- (void)setLeft :(CGFloat)value {
+- (void)setLeft:(CGFloat)value {
     CGRect frame = self.frame;
     frame.origin.x = value;
     self.frame = frame;
 }
 
-- (void)setTop :(CGFloat)value {
+- (void)setTop:(CGFloat)value {
     CGRect frame = self.frame;
     frame.origin.y = value;
     self.frame = frame;
 }
 
-- (void)setRight :(CGFloat)value {
+- (void)setRight:(CGFloat)value {
     self.left = value - self.width;
 }
 
-- (void)setBottom :(CGFloat)value {
+- (void)setBottom:(CGFloat)value {
     self.top = value - self.height;
 }
 
-- (void)setFromRight :(CGFloat)value {
+- (void)setFromRight:(CGFloat)value {
     NSAssert(self.superview, @"Needs to have superview");
     NSAssert(self.width, @"Needs to have width");
     let superViewWidth = self.superview.width;
@@ -99,33 +99,41 @@
     self.left = left;
 }
 
-- (void)setFromBottom :(CGFloat)bottom {
+- (void)setFromBottom:(CGFloat)bottom {
     NSAssert(self.superview, @"Needs to have superview");
 //    NSAssert(self.height, @"Needs to have height"); Not nedded
     self.top = self.superview.height - (bottom + self.height);
 }
 
-- (void)setAbsTop :(CGFloat)value {
-    self.top = [self convertPoint :CGPointMake(0, value) fromView :nil].y;
+- (void)setAbsTop:(CGFloat)value {
+    self.top = [self convertPoint:CGPointMake(0, value) fromView:nil].y;
 }
 
-- (instancetype)verticalCenter :(CGFloat)y {
-    [self center :CGPointMake(self.center.x, y)];
+- (instancetype)verticalCenter:(CGFloat)y {
+    [self center:CGPointMake(self.center.x, y)];
     return self;
 }
 
-- (instancetype)horizontalCenter :(CGFloat)x {
-    [self setCenter :CGPointMake(x, self.center.y)];
+- (instancetype)horizontalCenter:(CGFloat)x {
+    [self setCenter:CGPointMake(x, self.center.y)];
     return self;
 }
 
-- (instancetype)center :(CGPoint)point {
+- (instancetype)position:(CGPoint)point {
+    CGRect frame = self.frame;
+    frame.origin.x = point.x;
+    frame.origin.y = point.y;
+    self.frame = frame;
+    return self;
+}
+
+- (instancetype)center:(CGPoint)point {
     self.center = point;
     return self;
 }
 
-- (instancetype)center :(CGFloat)x :(CGFloat)y {
-    return [self center :CGPointMake(x, y)];
+- (instancetype)center:(CGFloat)x :(CGFloat)y {
+    return [self center:CGPointMake(x, y)];
 }
 
 - (UIView *)centerInParent {

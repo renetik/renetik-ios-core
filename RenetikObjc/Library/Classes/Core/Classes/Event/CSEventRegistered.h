@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CSEventRegistration : NSObject
+@interface CSEventRegistered : NSObject
 
 @property(nonatomic, strong) CSArgEvent *event;
 

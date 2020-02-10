@@ -110,35 +110,35 @@
 }
 
 - (instancetype)onSuccess:(void (^)(id))onSuccess {
-    [_onSuccessEvent add:^(id argument, CSEventRegistration *registration) {
+    [_onSuccessEvent add:^(id argument, CSEventRegistered *registration) {
         onSuccess(argument);
     }];
     return self;
 }
 
 - (instancetype)onProgress:(void (^)(NSNumber *))onProgress {
-    [_onProgressEvent add:^(NSNumber *progress, CSEventRegistration *registration) {
+    [_onProgressEvent add:^(NSNumber *progress, CSEventRegistered *registration) {
         onProgress(progress);
     }];
     return self;
 }
 
 - (instancetype)onCancel:(void (^)(id))onCancel {
-    [_onCancelEvent add:^(id argument, CSEventRegistration *registration) {
+    [_onCancelEvent add:^(id argument, CSEventRegistered *registration) {
         onCancel(argument);
     }];
     return self;
 }
 
 - (instancetype)onDone:(void (^)(id))onDone {
-    [_onDoneEvent add:^(id argument, CSEventRegistration *registration) {
+    [_onDoneEvent add:^(id argument, CSEventRegistered *registration) {
         onDone(argument);
     }];
     return self;
 }
 
 - (instancetype)onFailed:(void (^)(CSResponse *))onFailed {
-    [_onFailedEvent add:^(CSResponse *argument, CSEventRegistration *registration) {
+    [_onFailedEvent add:^(CSResponse *argument, CSEventRegistered *registration) {
         onFailed(argument);
     }];
     return self;

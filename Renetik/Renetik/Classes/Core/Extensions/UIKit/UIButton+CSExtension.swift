@@ -67,7 +67,7 @@ public extension UIButton {
     @discardableResult
     public class func floating(in view: UIView, _ image: UIImage, _ onClick: @escaping (UIButton) -> Void) -> Self {
         let button = self.init().construct()
-        view.add(view: button.resizeToFit().onTouchUp { it in onClick(button) })
+        view.add(view: button.resizeToFit().onTouchUp { onClick(button) })
         return button.image(image).from(right: 25).from(bottom: 25).flexibleLeftTop()
     }
 }

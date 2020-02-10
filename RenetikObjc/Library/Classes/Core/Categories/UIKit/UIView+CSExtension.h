@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (instancetype)onClick:(void (^)())block;
 
-- (instancetype)onTap:(void (^)(UIView *))block;
+//- (instancetype)onTap:(void (^)(UIView *))block;
 
 //- (void)setOnClick:(void (^)(UIView *))block;
 

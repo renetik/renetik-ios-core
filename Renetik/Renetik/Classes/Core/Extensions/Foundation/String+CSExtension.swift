@@ -9,6 +9,7 @@ import Foundation
 import RenetikObjc
 
 public extension String {
+
     public func htmlToText(_ encoding: String.Encoding) -> String? {
         if let data = data(using: encoding) {
             return (try? NSAttributedString(data: data,

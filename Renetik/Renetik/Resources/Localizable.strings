@@ -2,11 +2,15 @@
   Localizable.strings
   Created by Rene Dohan on 1/4/20.
 */
-renetik_send_request_ok="Ok";
+renetik_dialog_yes="Ok";
+renetik_dialog_no="No";
 renetik_dialog_cancel="Cancel";
-renetik_send_request_failed="Request Failed";
-renetik_send_request_retry="Retry";
-renetik_send_request_cancel="Cancel";
-renetik_table_load_next_failed="Loading of more data failed";
-renetik_operation_cancelled_message="Operation was canceled.";
+
+renetik_request_retry="Retry";
+renetik_request_cancel="Cancel";
+renetik_request_failed_message="Request Failed";
+
+renetik_table_load_next_failed_message="Loading of more data failed";
+
+renetik_operation_canceled_message="Operation was canceled.";
 renetik_operation_failed_message="Operation failed.";

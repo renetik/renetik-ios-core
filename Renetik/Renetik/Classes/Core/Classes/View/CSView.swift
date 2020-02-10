@@ -6,33 +6,17 @@ import UIKit
 
 open class CSView: UIView {
 
-    private var isDidLayoutSubviews = false
-    private var _onLayoutSubviews: (() -> Void)?
+    private let layoutFunctions: CSEvent<Void> = event()
 
-    public func execute(onLayoutSubviews: @escaping () -> Void) {
-        _onLayoutSubviews = onLayoutSubviews
+    public func layout(function: @escaping () -> Void) {
+        layoutFunctions.invoke(listener: { _ in function() })
+        function()
     }
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if !isDidLayoutSubviews {
-            isDidLayoutSubviews = true
-            onCreateLayout()
-            onLayoutSubviewsFirstTime()
-        } else {
-            onLayoutSubviewsUpdate()
-        }
-        _onLayoutSubviews?()
         onLayoutSubviews()
-    }
-
-    open func onCreateLayout() {
-    }
-
-    open func onLayoutSubviewsFirstTime() {
-    }
-
-    open func onLayoutSubviewsUpdate() {
+        layoutFunctions.fire()
     }
 
     open func onLayoutSubviews() {

@@ -9,7 +9,7 @@ open class CSTableViewCell: UITableViewCell {
     private let layoutFunctions: CSEvent<Void> = event()
 
     public func layout(function: @escaping () -> Void) {
-        layoutFunctions.add(listener: { _ in function() })
+        layoutFunctions.invoke(listener: { _ in function() })
         function()
     }
 

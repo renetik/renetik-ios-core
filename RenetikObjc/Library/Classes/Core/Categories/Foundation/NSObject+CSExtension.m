@@ -5,6 +5,9 @@
 #import "CSWork.h"
 #import "CSDoLaterProcess.h"
 #import "BlocksKit.h"
+#import "CSLang.h"
+
+static void *extensionPropertyDictionary = &extensionPropertyDictionary;
 
 @implementation NSObject (CSExtension)
 
@@ -15,6 +18,15 @@
 
 - (id)as:(Protocol *)aProtocol {
     return [self.class conformsToProtocol:aProtocol] ? self : nil;
+}
+
+- (NSMutableDictionary *)propertyDictionary {
+    var dictionary = (NSMutableDictionary *) [self getObject:extensionPropertyDictionary];
+    if (!dictionary) {
+        dictionary = NSMutableDictionary.new;
+        [self setObject:extensionPropertyDictionary :dictionary];
+    }
+    return dictionary;
 }
 
 - (instancetype)setObject:(const void *)key :(id)value {

@@ -1,15 +1,14 @@
-
 extension String {
     public func addSizeToHtmlImageTags(_ width: CGFloat) -> String {
         var endTagsToAddSize: Array<Int> = []
+//        var string = String(self)
         let string = NSMutableString(string: self)
         var startTagIndex = -1
         repeat {
-            startTagIndex = string.indexOf("<img ", from: startTagIndex + 1)
+            startTagIndex = string.index(of: "<img ", from: startTagIndex + 1)
             if startTagIndex != NSString.notFound {
-                let endTagIndex = string.indexOf("/>", from: startTagIndex + 1)
-                let tagSubString = string.substring(from: startTagIndex,
-                                                    to: endTagIndex) as String
+                let endTagIndex = string.index(of: "/>", from: startTagIndex + 1)
+                let tagSubString = string.substring(from: startTagIndex, to: endTagIndex)
                 if !tagSubString.contains("width=") {
                     endTagsToAddSize.append(endTagIndex)
                 }

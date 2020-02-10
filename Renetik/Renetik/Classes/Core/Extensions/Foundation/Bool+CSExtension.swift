@@ -8,11 +8,13 @@ public extension Bool {
     var isTrue: Bool { self == true }
     var isFalse: Bool { self == false }
 
+    @discardableResult
     func then(_ function: () -> Void) -> CSConditionalResult {
         if isTrue { function() }
         return CSConditionalResult(doElseIf: isFalse)
     }
 
+    @discardableResult
     func isTrue(_ function: () -> Void) -> CSConditionalResult {
         if isTrue { function() }
         return CSConditionalResult(doElseIf: isFalse)

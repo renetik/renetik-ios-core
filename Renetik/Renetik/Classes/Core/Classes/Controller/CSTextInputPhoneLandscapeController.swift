@@ -14,7 +14,7 @@ public protocol CSHasInputAccessory: NSObjectProtocol {
 }
 
 public protocol CSHasUIResponder: NSObjectProtocol {
-    var uiResponder: UIResponder { get }
+    var responder: UIResponder { get }
 }
 
 public protocol CSHasTextInput: NSObjectProtocol {
@@ -61,7 +61,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     private func onKeyboardChange() {
-        if parentTextInput.uiResponder.isFirstResponder && UIScreen.isShort {
+        if parentTextInput.responder.isFirstResponder && UIScreen.isShort {
             textView.text = parentTextInput.text
             changeAccessory(from: hasAccessory, to: textView, textInput: textView)
             delegate.window!.add(view: container).matchParent()

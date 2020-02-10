@@ -17,10 +17,10 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
     private var reloadResponse: CSResponse<Data>?
     private var data: Data?
     private var request: (() -> CSResponse<Data>)!
-    private var progressBlockedView: CSViewProtocol!
+    private var progressBlockedView: (CSResponseController & CSHasDialog)!
 
     public func construct(_ parent: UIViewController,
-                          _ progressBlockedView: CSViewProtocol,
+                          _ progressBlockedView: (CSResponseController & CSHasDialog),
                           _ request: @escaping () -> CSResponse<Data>) -> Self {
         super.constructAsViewLess(in: parent)
         self.progressBlockedView = progressBlockedView
@@ -30,7 +30,8 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
 
     public func reload() {
         reloadResponse?.cancel()
-        progressBlockedView.show(progress: request(), title: loadTitle, canCancel: data.notNil)
+        progressBlockedView.show(request(), canCancel: data.notNil)
+                //        progressBlockedView.show(progress: request(), title: loadTitle, canCancel: data.notNil)
                 .onSuccess(onSuccess).onFailed(onFailed).onDone(onDone)
     }
 
@@ -39,9 +40,12 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
     }
 
     public func onFailed(response: CSResponse<AnyObject>) {
-        self.progressBlockedView.show(title: self.failedTitle, message: self.failedMessage,
-                positiveTitle: self.failedPositiveButton, onPositive: self.reload,
-                canCancel: self.data.notNil)
+        progressBlockedView.show(title: failedTitle, message: failedMessage,
+                positive: CSDialogAction(title: failedPositiveButton, action: reload),
+                negative: nil, cancel: nil)
+//        progressBlockedView.show(title: failedTitle, message: failedMessage,
+//                positiveTitle: failedPositiveButton, onPositive: reload,
+//                canCancel: data.notNil)
     }
 
     public func onDone(data: Data) {

@@ -27,28 +27,28 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
 
     @discardableResult
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
-        invoke { eventSuccess.add { function($0.argument) } }
+        invoke { eventSuccess.invoke { function($0.argument) } }
     }
 
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
     public func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self {
-        invoke { eventFailed.add { function($0.argument) } }
+        invoke { eventFailed.invoke { function($0.argument) } }
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
     public func onCancel(_ function: @escaping (CSProcess<Data>) -> Void) -> Self {
-        invoke { eventCancel.add { function($0.argument) } }
+        invoke { eventCancel.invoke { function($0.argument) } }
     }
 
-    private let eventDone: CSEvent<Data?> = event()
+    public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
-        invoke { eventDone.add { function($0.argument) } }
+        invoke { eventDone.invoke { function($0.argument) } }
     }
 
     private var process: CSProcess<Data>? = nil
@@ -56,15 +56,15 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
     public var isRefresh = false
     public var expireMinutes: Int? = 1
 
+    public var isLoading: Bool { process?.isDone == false }
+
     @discardableResult
     public func refresh() -> Self { invoke { isRefresh = true } }
 
     @discardableResult
     public func expire(minutes: Int?) -> Self { invoke { expireMinutes = minutes } }
 
-//    public var isJustUseCache = false
-
-    public func send() -> CSProcess<Data> {
+    public func send(listenOnFailed: Bool = true) -> CSProcess<Data> {
         executeProcess().also { process in
             self.process = process
             process.onSuccess { data in
@@ -72,17 +72,18 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
                 self.eventSuccess.fire(process.data!)
                 self.eventDone.fire(process.data)
             }
+            if listenOnFailed { process.onFailed(self.failed) }
         }
     }
 
     public func cancel() {
-        process.notNil { it in
-            if it.isFailed {
-                self.eventFailed.fire(it)
-                self.eventDone.fire(it.data)
+        process.notNil { process in
+            if process.isFailed {
+                self.eventFailed.fire(process)
+                self.eventDone.fire(process.data)
             } else {
-                it.cancel()
-                self.eventDone.fire(it.data)
+                process.cancel()
+                self.eventDone.fire(process.data)
             }
         }
     }
@@ -90,6 +91,7 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
     public func failed(process: CSProcessProtocol) {
         self.eventFailed.fire(process)
         self.eventDone.fire(self.process?.data)
+        self.process = nil
     }
 
 }

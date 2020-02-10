@@ -5,7 +5,7 @@
 
 #import "CSArgEvent.h"
 #import "CSLang.h"
-#import "CSEventRegistration.h"
+#import "CSEventRegistered.h"
 #import "NSMutableArray+CSExtension.h"
 
 @implementation CSArgEvent {
@@ -23,13 +23,13 @@
 
 - (void)fire:(id)argument {
     for (CSEventBlock block in _blockArray)
-        block(argument, [CSEventRegistration.new construct:self :block]);
+        block(argument, [CSEventRegistered.new construct:self :block]);
 }
 
-- (CSEventRegistration *)add:(CSEventBlock)block {
+- (CSEventRegistered *)add:(CSEventBlock)block {
     let blockCopy = (CSEventBlock) [block copy];
     [_blockArray put:blockCopy];
-    return [CSEventRegistration.new construct:self :blockCopy];
+    return [CSEventRegistered.new construct:self :blockCopy];
 }
 
 - (void)remove:(CSEventBlock)block {

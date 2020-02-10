@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)horizontalCenter:(CGFloat)x;
 
+- (instancetype)position:(CGPoint)point;
+
 - (instancetype)center:(CGPoint)point;
 
 - (instancetype)center:(CGFloat)x :(CGFloat)y;

@@ -50,10 +50,10 @@
     return self;
 }
 
-- (instancetype)text:(NSString *)text {
-    self.text = text;
-    return self;
-}
+//- (instancetype)text:(NSString *)text {
+//    self.text = text;
+//    return self;
+//}
 
 - (instancetype)alignText:(enum NSTextAlignment)alignment {
     self.textAlignment = alignment;

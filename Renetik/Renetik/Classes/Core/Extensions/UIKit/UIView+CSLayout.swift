@@ -16,14 +16,14 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(_ view: UIView, left: CGFloat) -> Self {
-        from(left: view.right + left)
-    }
+    func from(_ view: UIView, left: CGFloat) -> Self { from(left: view.right + left) }
 
     @discardableResult
     func fromPrevious(left: CGFloat) -> Self {
-        superview?.subviews.previous(of: self).notNil { previous in from(previous, left: left) }
-                .elseDo { fatalError("View expected to have previous sibling in superview") }
+        superview.isNil { fatalError("View expected to have previous sibling in superview") }.elseDo { superview in
+            superview.subviews.previous(of: self).notNil { previous in from(previous, left: left) }
+                    .elseDo { from(left: 0) }
+        }
         return self
     }
 
@@ -35,16 +35,13 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(_ view: UIView, top: CGFloat) -> Self {
-        from(top: view.bottom + top)
-    }
+    func from(_ view: UIView, top: CGFloat) -> Self { from(top: view.bottom + top) }
 
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
-        superview?.subviews.previous(of: self).notNil { previous in
-            from(previous, top: top)
-        }.elseDo {
-            fatalError("View expected to have previous sibling in superview")
+        superview.isNil { fatalError("View expected to have previous sibling in superview") }.elseDo { superview in
+            superview.subviews.previous(of: self).notNil { previous in from(previous, top: top) }
+                    .elseDo { from(top: 0) }
         }
         return self
     }
@@ -57,9 +54,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(_ view: UIView, right: CGFloat) -> Self {
-        from(right: view.leftFromRight + right)
-    }
+    func from(_ view: UIView, right: CGFloat) -> Self { from(right: view.leftFromRight + right) }
 
     @discardableResult
     func from(bottom: CGFloat) -> Self {
@@ -69,9 +64,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(_ view: UIView, bottom: CGFloat) -> Self {
-        from(bottom: view.topFromBottom + bottom)
-    }
+    func from(_ view: UIView, bottom: CGFloat) -> Self { from(bottom: view.topFromBottom + bottom) }
 
     @discardableResult
     func from(bottomRight: CGFloat) -> Self {
@@ -147,7 +140,10 @@ public extension UIView {
         assert(superview.notNil, "Needs to have superview")
         let right = superview!.width - fromRight
         widthBy(right: CSMath.unsign(right))
-        if flexible { flexibleWidth() }
+        if flexible {
+            fixedLeft()
+            flexibleWidth()
+        }
         return self
     }
 
@@ -159,8 +155,11 @@ public extension UIView {
     @discardableResult
     func width(fromLeft: CGFloat, flexible: Bool = false) -> Self {
         width = CSMath.unsign(right - fromLeft)
+        if flexible {
+            fixedRight()
+            flexibleWidth()
+        }
         from(left: fromLeft)
-        if flexible { flexibleWidth() }
         return self
     }
 
@@ -169,7 +168,10 @@ public extension UIView {
         assert(superview.notNil, "Needs to have superview")
         let bottom = superview!.height - fromBottom
         heightBy(bottom: CSMath.unsign(bottom))
-        if flexible { flexibleHeight() }
+        if flexible {
+            fixedTop()
+            flexibleHeight()
+        }
         return self
     }
 
@@ -182,7 +184,10 @@ public extension UIView {
     func height(fromTop: CGFloat, flexible: Bool = false) -> Self {
         height = CSMath.unsign(bottom - fromTop)
         from(top: fromTop)
-        if flexible { flexibleHeight() }
+        if flexible {
+            fixedBottom()
+            flexibleHeight()
+        }
         return self
     }
 

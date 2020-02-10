@@ -5,15 +5,15 @@
 
 @import Foundation;
 
-@class CSEventRegistration;
+@class CSEventRegistered;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CSEventBlock)(id, CSEventRegistration *);
+typedef void (^CSEventBlock)(id, CSEventRegistered *);
 
 @interface CSArgEvent<Argument> : NSObject
 
-- (CSEventRegistration *)add:(CSEventBlock)block;
+- (CSEventRegistered *)add:(CSEventBlock)block;
 
 - (void)remove:(CSEventBlock)block;
 

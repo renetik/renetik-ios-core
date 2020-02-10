@@ -54,7 +54,7 @@ public class CSConditionalResult {
 
     let isDoElse: Bool
 
-    init(doElseIf: Bool) { self.isDoElse = doElseIf }
+    public init(doElseIf: Bool) { self.isDoElse = doElseIf }
 
     public func elseDo(_ function: () -> Void) { if isDoElse { function() } }
 }

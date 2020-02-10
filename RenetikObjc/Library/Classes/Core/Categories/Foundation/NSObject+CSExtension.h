@@ -11,19 +11,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CSExtension)
 
-+ (instancetype)as :(id)obj;
++ (instancetype)as:(id)obj;
 
-- (id)as :(Protocol *)aProtocol;
+- (id)as:(Protocol *)aProtocol;
 
-- (instancetype)setObject :(const void *)key :(id)value;
+- (NSMutableDictionary *)propertyDictionary;
 
-- (instancetype)setWeakObject :(const void *)key :(id)value;
+- (instancetype)setObject:(const void *)key :(id)value;
 
-- (id)getObject :(const void *)key;
+- (instancetype)setWeakObject:(const void *)key :(id)value;
 
-- (instancetype)addNotificationObserver :(SEL)sel name :(NSString *)name;
+- (id)getObject:(const void *)key;
 
-- (instancetype)addNotificationObserver :(SEL)sel name :(NSString *)name for :(id)object;
+- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name;
+
+- (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name for:(id)object;
 
 - (instancetype)removeNotificationObserver;
 
@@ -33,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (CSDoLaterProcess *)doLater :(NSTimeInterval)seconds :(void (^)(void))method;
 
-- (CSWork *)schedule :(double)seconds :(void (^)(void))method;
+- (CSWork *)schedule:(double)seconds :(void (^)(void))method;
 
-- (BOOL)isNotKindOfClass :(Class)aClass;
+- (BOOL)isNotKindOfClass:(Class)aClass;
 
-- (BOOL)isKindOfOneOfClass :(NSArray *)classes;
+- (BOOL)isKindOfOneOfClass:(NSArray *)classes;
 
 - (NSString *)className;
 

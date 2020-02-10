@@ -10,7 +10,7 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
 
     @discardableResult
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
-        eventSuccess.add { function($0.argument.data!) }
+        eventSuccess.invoke { function($0.argument.data!) }
         return self
     }
 
@@ -18,21 +18,21 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
 
     @discardableResult
     public func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self {
-        invoke { eventFailed.add { function($0.argument) } }
+        invoke { eventFailed.invoke { function($0.argument) } }
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
     public func onCancel(_ function: @escaping (CSProcess<Data>) -> Void) -> Self {
-        invoke { eventCancel.add { function($0.argument) } }
+        invoke { eventCancel.invoke { function($0.argument) } }
     }
 
-    private let eventDone: CSEvent<Data?> = event()
+    public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
-        invoke { eventDone.add { function($0.argument) } }
+        invoke { eventDone.invoke { function($0.argument) } }
     }
 
     private let onProgress: CSEvent<CSProcess<Data>> = event()

@@ -19,29 +19,38 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public var encoding: String.Encoding = .utf8
     public var defaultLinkColor: UIColor = .blue
     private var imageUrls = [URL]()
-
-    public func encoding(_ encoding: String.Encoding) -> Self {
-        self.encoding = encoding
-        return self
-    }
+    private var numberOfImages = 0
 
     public override func construct() -> Self {
         super.construct()
         textDelegate = self
+        attributedTextContentView.matchParentWidth()
+        return self
+    }
+
+    public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
+
+    public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
+
+    public func html(_ html: String) -> Self { invoke { self.html = html } }
+
+    @discardableResult
+    public func fontStyle(_ fontStyle: UIFont.TextStyle) -> Self {
+        font = UIFont.preferredFont(forTextStyle: fontStyle)
         return self
     }
 
     public var html = "" {
         didSet {
-            let correctedHtml = html.addSizeToHtmlImageTags(self.width)
-            attributedString = NSAttributedString(htmlData: correctedHtml.data(using: encoding),
+            numberOfImages = html.countHtmlImageTagsWithoutSize()
+            attributedString = NSAttributedString(htmlData: html.data(using: encoding),
                     options: attributedOptions, documentAttributes: nil)
         }
     }
 
     public var attributedOptions: [AnyHashable: Any] {
         [
-            DTUseiOS6Attributes: true,
+//            DTUseiOS6Attributes: true,
             DTDefaultFontName: font.fontName,
             DTDefaultFontFamily: font.familyName,
             DTDefaultFontSize: font.pointSize,
@@ -65,7 +74,14 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
                                           viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
-            let imageView = UIImageView.construct().frame(frame)
+            if attachment.displaySize.width == 0 {
+                attachment.displaySize = CGSize(width: width, height: width / 2)
+//                doLater {
+                self.relayoutText()
+//                }
+            }
+            let imageView = UIImageView.construct().position(frame.origin).size(attachment.displaySize)
+            imageView.background(.blue).aspectFit()
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
                 imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
@@ -73,7 +89,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
                         UIApplication.shared.open(attachment.hyperLinkURL)
                     }
                 }
-            } else if frame.width > 50 {
+            } else if attachment.displaySize.width > 50 {
                 imageUrls.add(attachment.contentURL)
                 imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
                     let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
@@ -91,25 +107,31 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     @discardableResult
     public override func heightToFit() -> Self {
-        attributedTextContentView.matchParentWidth()
-        attributedTextContentView.heightToFit()
-        height(attributedTextContentView.height)
-        return self
-    }
-
-    @discardableResult
-    public func heightToFit(characters count: Int) -> Self {
-        let previousString = attributedString
-        attributedString = NSAttributedString(string: String.randomString(length: count))
-        attributedTextContentView.matchParentWidth()
-        attributedTextContentView.heightToFit()
-        height(attributedTextContentView.height)
-        attributedString = previousString
+        height(calculateHeightToFitWidth())
         return self
     }
 
     public override func calculateHeightToFitWidth() -> CGFloat {
-        attributedTextContentView.matchParentWidth()
-        return attributedTextContentView.calculateHeightToFitWidth()
+        attributedTextContentView.calculateHeightToFitWidth() + (CGFloat(numberOfImages) * width / 2)
     }
 }
+
+private extension String {
+    public func countHtmlImageTagsWithoutSize() -> Int {
+        var endTagsToAddSize: Array<Int> = []
+        let string = NSMutableString(string: self)
+        var startTagIndex = -1
+        repeat {
+            startTagIndex = string.index(of: "<img ", from: startTagIndex + 1)
+            if startTagIndex != NSString.notFound {
+                let endTagIndex = string.index(of: "/>", from: startTagIndex + 1)
+                let tagSubString = string.substring(from: startTagIndex, to: endTagIndex)
+                if !tagSubString.contains("width=") {
+                    endTagsToAddSize.append(endTagIndex)
+                }
+            }
+        } while startTagIndex != NSString.notFound
+        return endTagsToAddSize.count
+    }
+}
+

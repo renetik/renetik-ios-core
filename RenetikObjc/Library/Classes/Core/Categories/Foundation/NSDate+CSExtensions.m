@@ -12,12 +12,12 @@
  Include GMT and time zone utilities?
 */
 
-#import "NSDate+CSExtensions2.h"
+#import "NSDate+CSExtensions.h"
 
 // Thanks, AshFurrow
 static const unsigned componentFlags = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit);
 
-@implementation NSDate (CSExtensions2)
+@implementation NSDate (CSExtensions)
 
 // Courtesy of Lukasz Margielewski
 // Updated via Holger Haenisch
@@ -256,7 +256,6 @@ static const unsigned componentFlags = (NSYearCalendarUnit | NSMonthCalendarUnit
 
 #pragma mark - Adjusting Dates
 
-// Thaks, rsjohnson
 - (NSDate *)dateByAddingYears:(NSInteger)dYears {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setYear:dYears];

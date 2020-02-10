@@ -10,7 +10,7 @@ open class CSMainController: CSViewController {
     public var parentMainController: CSMainController? = nil
     private var childMainControllers = [CSMainController]()
     private var menuItems = [CSMenuHeader]()
-    private lazy var dialog = { CSDialogController(in: self) }()
+    private lazy var dialog = { CSAlertDialogController(in: self) }()
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,9 +45,7 @@ open class CSMainController: CSViewController {
 
     func onPrepare(menu: inout [CSMenuHeader]) {
         for menuHeader in self.menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
-        for controller in childMainControllers {
-            if controller.isShowing { controller.onPrepare(menu: &menu) }
-        }
+        for controller in childMainControllers { if controller.isShowing { controller.onPrepare(menu: &menu) } }
     }
 
     func createActionBarItems(from menu: inout [CSMenuHeader]) -> [UIBarButtonItem] {

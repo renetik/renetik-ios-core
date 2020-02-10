@@ -14,6 +14,7 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     private(set) var controllers: [CSXLButtonBarPagerChildController]!
     private var currentController: CSXLButtonBarPagerChildController { controllers[currentIndex] }
     private var parentController: CSMainController!
+    private var isViewDidAppear = false
 
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
@@ -38,7 +39,10 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        reloadPagerTabStripView()
+        if !isViewDidAppear {
+            isViewDidAppear = true
+            reloadPagerTabStripView()
+        }
     }
 
     public override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int) {

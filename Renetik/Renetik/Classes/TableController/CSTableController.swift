@@ -8,30 +8,38 @@ public typealias CSTableControllerRow = CSAny & Equatable & CustomStringConverti
 public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
                                            CSOperationController & CSHasDialog & CSHasProgress
 
-public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController {
+public protocol CSTableControllerProtocol {
+    var tableView: UITableView { get }
+}
 
+public typealias CSTableControllerType = UIViewController & CSTableControllerProtocol
+
+public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController, CSTableControllerProtocol {
+
+    public var data: [Row] { filteredData }
     public var onLoad: (() -> CSOperation<Data>)!
     public let onLoadResponse: CSEvent<CSProcess<Data>> = event()
-    public var onUserRefresh: (() -> Bool)?
     public var searchText = "" { didSet { filterDataAndReload() } }
-    internal var isLoading = false
-    internal var isLoadingDone = false
-    internal var isFailed = false
-    internal var failedMessage: String?
-    internal var filteredData = [Row]()
-    private var loadProcess: CSProcess<Data>? = nil
+    internal (set) public var isLoading = false
+    private(set) public var isFirstLoadingDone = false
+    private(set) public var isFailed = false
+    private(set) public var failedMessage: String?
+
+
+    public let tableView = UITableView.construct().also { $0.estimatedRowHeight = 0 }
 
     internal var parentController: CSTableControllerParent!
-    public let tableView = UITableView.construct().also { $0.estimatedRowHeight = 0 }
+    internal var _data: [Row]!
     private var filter: CSTableControllerFilter?
-    internal var data: [Row]!
+    private var filteredData = [Row]()
+    private var loadProcess: CSProcess<Data>? = nil
 
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         parentController = parent
         tableView.set(delegate: parent)
         filter = parentController as? CSTableControllerFilter
-        self.data = data
+        _data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)
         return self
     }
@@ -41,6 +49,11 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     override public func onViewWillAppearFromPresentedController() {
         super.onViewWillAppearFromPresentedController()
         tableView.reload()
+    }
+
+    public override func onViewDidAppearFirstTime() {
+        super.onViewDidAppearFirstTime()
+        if _data.hasItems { filterDataAndReload() }
     }
 
     public override func onViewWillTransition(
@@ -65,7 +78,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
                     self.failedMessage = process.message
                 }.onDone { data in
                     self.isLoading = false
-                    self.isLoadingDone = true
+                    self.isFirstLoadingDone = true
                     self.tableView.reload()
                 }.also { process in
                     self.loadProcess = process
@@ -75,7 +88,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     @discardableResult
     public func load(_ array: [Row]) -> Self {
-        data.reload(array)
+        _data.reload(array)
         filterDataAndReload()
         isFailed = false
         tableView.fadeIn()
@@ -83,7 +96,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     }
 
     public func load(add dataToAdd: [Row]) {
-        data.add(array: dataToAdd)
+        _data.add(array: dataToAdd)
         let filteredDataToAdd = filter(data: dataToAdd)
         var paths = [IndexPath]()
         for index in 0..<filteredDataToAdd.count {
@@ -102,7 +115,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     }
 
     internal func filterDataAndReload() {
-        filteredData.reload(filter(data: data))
+        filteredData.reload(filter(data: _data))
         tableView.reload()
         filter?.onReloadDone(in: self)
     }

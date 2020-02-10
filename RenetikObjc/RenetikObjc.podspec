@@ -44,12 +44,4 @@ Pod::Spec.new do |s|
 		ss.dependency 'RenetikObjc/Core'
 		ss.dependency 'RenetikObjc/CocoaLumberjack'
 	end
-	 
-#	 s.test_spec 'Tests' do |test|
-##		 test.requires_app_host = true
-#		 test.source_files = 'Library/Tests/*.{h,m,swift}'
-##		 test.dependency 'RenetikObjc/All'
-#		 test.dependency 'Quick', '~> 2.1.0'
-#		 test.dependency 'Nimble', '~> 8.0.2'
-#	 end
 end

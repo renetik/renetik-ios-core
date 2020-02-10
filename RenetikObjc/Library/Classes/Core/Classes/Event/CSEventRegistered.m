@@ -3,10 +3,10 @@
 // Copyright (c) 2014 creative_studio. All rights reserved.
 //
 
-#import "CSEventRegistration.h"
+#import "CSEventRegistered.h"
 #import "CSArgEvent.h"
 
-@implementation CSEventRegistration
+@implementation CSEventRegistered
 
 - (instancetype)construct:(CSArgEvent *)event :(CSEventBlock)function {
     _event = event;

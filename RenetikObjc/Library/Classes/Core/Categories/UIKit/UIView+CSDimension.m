@@ -23,13 +23,13 @@
 }
 
 - (void)setWidth:(CGFloat)value {
-    CGRect frame = self.frame;
+    var frame = self.frame;
     frame.size.width = value;
     self.frame = frame;
 }
 
 - (void)setHeight:(CGFloat)value {
-    CGRect frame = self.frame;
+    var frame = self.frame;
     frame.size.height = value;
     self.frame = frame;
 }
@@ -38,11 +38,6 @@
     var rect = CGRectZero;
     for (UIView *view in self.subviews) rect = CGRectUnion(rect, view.frame);
     return rect.size;
-}
-
-- (CGFloat)calculateHeightToFitWidth {
-    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
-    return newSize.height;
 }
 
 - (instancetype)size:(CGSize)size {
@@ -119,17 +114,21 @@
     return self;
 }
 
-- (instancetype)heightToFit {
+- (CGFloat)calculateHeightToFitWidth {
     if (self.width <= 0) {
         @throw [NSException exceptionWithName:@"Width has to be set to calculate height"];
     }
-    CGSize newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
-    return [self height:newSize.height];
+    let newSize = [self sizeThatFits:CGSizeMake(self.width, MAXFLOAT)];
+    return newSize.height;
+}
+
+- (instancetype)heightToFit {
+    return [self height:[self calculateHeightToFitWidth]];
 }
 
 - (instancetype)widthToFit {
     NSAssert(self.height > 0, @"Height has to be set to calculate height");
-    CGSize newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
+    let newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
     return [self width:newSize.width];
 }
 

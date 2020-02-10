@@ -5,8 +5,15 @@
 
 import UIKit
 import RenetikObjc
+import BlocksKit
 
 public extension UIView {
+
+    @discardableResult
+    func visible(if condition: Bool) -> Self {
+        self.visible = condition
+        return self
+    }
 
     func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
@@ -19,9 +26,14 @@ public extension UIView {
 
     @discardableResult
     @objc func onClick(_ block: @escaping () -> Void) -> Self {
-        isUserInteractionEnabled = true
-        onTap { _ in block() }
+        onTap { block() }
         return self
     }
 
+    @discardableResult
+    @objc func onTap(_ block: @escaping () -> Void) -> Self {
+        isUserInteractionEnabled = true
+        bk_(whenTapped: { block() })
+        return self
+    }
 }

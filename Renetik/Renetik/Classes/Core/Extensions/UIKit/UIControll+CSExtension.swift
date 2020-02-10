@@ -4,13 +4,21 @@
 
 import UIKit
 import RenetikObjc
+import BlocksKit
 
 public extension UIControl {
 
     @discardableResult
-    override func onClick(_ block: @escaping () -> Void) -> Self {
+    func onTouchUp(_ block: @escaping () -> Void) -> Self {
         isUserInteractionEnabled = true
-        onTouchUp { _ in block() }
+        bk_addEventHandler({ _ in block() }, for: .touchUpInside)
+        return self
+    }
+
+    @discardableResult
+    func onTouchDown(_ block: @escaping () -> Void) -> Self {
+        isUserInteractionEnabled = true
+        bk_addEventHandler({ _ in block() }, for: .touchDown)
         return self
     }
 }

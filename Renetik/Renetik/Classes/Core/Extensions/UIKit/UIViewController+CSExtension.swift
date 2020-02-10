@@ -15,6 +15,17 @@ public extension UIViewController {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }
 
+    public func invoke(animated: Bool, duration: TimeInterval = 0.3,
+                       operation: @escaping () -> Void, completion: @escaping () -> Void) {
+        if animated {
+            UIView.animate(withDuration: duration, animations: operation,
+                    completion: { _ in completion() })
+        } else {
+            operation()
+            completion()
+        }
+    }
+
     @discardableResult
     public func push() -> Self {
         navigation.push(self)

@@ -257,13 +257,13 @@
 //    }];
 //}
 
-- (instancetype)onTap:(void (^)(UIView *))block {
-    self.userInteractionEnabled = YES;
-    [self bk_whenTapped:^{
-        block(self);
-    }];
-    return self;
-}
+//- (instancetype)onTap:(void (^)(UIView *))block {
+//    self.userInteractionEnabled = YES;
+//    [self bk_whenTapped:^{
+//        block(self);
+//    }];
+//    return self;
+//}
 
 //- (void)setOnClick:(void (^)(UIView *))block {
 //    [self onClick:block];

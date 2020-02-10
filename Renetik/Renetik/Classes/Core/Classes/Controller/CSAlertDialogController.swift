@@ -6,7 +6,7 @@
 import UIKit
 import ChameleonFramework
 
-public class CSDialogController: CSObject, CSHasDialog, CSHasDialogVisible, CSHasSheet {
+public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible, CSHasSheet {
 
     private let controller: UIViewController
     private var alert: UIAlertController?
@@ -30,11 +30,11 @@ public class CSDialogController: CSObject, CSHasDialog, CSHasDialogVisible, CSHa
     }
 
     public func show(title: String?, message: String, positive: CSDialogAction?,
-                     negative: CSDialogAction?, onCanceled: (() -> Void)?) -> CSHasDialogVisible {
+                     negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         negative.notNil { action in alert.add(action: action, style: .destructive) }
         positive.notNil { action in alert.add(action: action, style: .default, preferred: true) }
-        onCanceled.notNil { it in alert.add(action: CSDialogAction(title: nil, action: it), style: .cancel) }
+        cancel.notNil { action in alert.add(action: action, style: .cancel) }
         present(alert)
         return self
     }

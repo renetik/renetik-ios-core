@@ -15,6 +15,7 @@ import UIKit
 
 public class CSDTAttributedLabel: DTAttributedLabel,
         DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
+
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
@@ -122,16 +123,6 @@ public class CSDTAttributedLabel: DTAttributedLabel,
         }
     }
 
-    @discardableResult
-    public func heightToFit(characters count: Int) -> Self {
-        let previousString = attributedString
-        let randomString = String.randomString(length: count)
-        attributedString = NSAttributedString(string: randomString)
-        heightToFit()
-        attributedString = previousString
-        return self
-    }
-
 //    public func attributedTextContentView(_
 //        contentView: DTAttributedTextContentView!,
 //        viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
@@ -157,13 +148,12 @@ public class CSDTAttributedLabel: DTAttributedLabel,
 //        return nil
 //    }
 
-    public func attributedTextContentView(_
-                                          contentView: DTAttributedTextContentView!,
+    public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
                                           viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
-        if attachment.contentURL.absoluteString.hasPrefix("/") {
-            let url = URL(string: "https://rcherz.com" + attachment.contentURL.absoluteString)!
-            attachment.contentURL = url
-        }
+//        if attachment.contentURL.absoluteString.hasPrefix("/") {
+//            let url = URL(string: "https://rcherz.com" + attachment.contentURL.absoluteString)!
+//            attachment.contentURL = url
+//        }
         if attachment is DTImageTextAttachment {
             let imageView = DTLazyImageView(frame: frame)
             imageView.contentMode = .scaleAspectFit

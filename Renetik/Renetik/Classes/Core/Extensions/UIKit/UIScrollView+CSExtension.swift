@@ -24,6 +24,11 @@ public extension UIScrollView {
         return instance as! Self
     }
 
+    public func scrollable(_ isScrollEnabled: Bool) -> Self {
+        self.isScrollEnabled = isScrollEnabled
+        return self
+    }
+
     public var isAtTop: Bool { contentOffset.y <= verticalOffsetForTop }
 
     public var isAtBottom: Bool {

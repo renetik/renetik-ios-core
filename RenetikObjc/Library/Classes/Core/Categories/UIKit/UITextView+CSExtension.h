@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
 
-- (instancetype)text:(NSString *)text;
+//- (instancetype)text:(NSString *)text;
 
 - (instancetype)asLabel;
 

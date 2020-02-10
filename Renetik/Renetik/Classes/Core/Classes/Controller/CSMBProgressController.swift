@@ -6,15 +6,19 @@ import Foundation
 import MBProgressHUD
 import ChameleonFramework
 
-public class CSProgressController: CSObject, CSHasProgress, CSHasDialogVisible {
+public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible {
 
     public var backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.7)
     public var foregroundColor = UIColor.white
-    private let controller: UIViewController
+    private let view: UIView
     private var hud: MBProgressHUD?
 
     public init(in controller: UIViewController) {
-        self.controller = controller
+        self.view = controller.view
+    }
+
+    public init(in view: UIView) {
+        self.view = view
     }
 
     public var isVisible: Bool { hud.notNil }
@@ -22,8 +26,8 @@ public class CSProgressController: CSObject, CSHasProgress, CSHasDialogVisible {
     public func hide(animated: Bool = true) { hud?.hide(animated: animated) }
 
     public func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible {
-        MBProgressHUD.hide(for: controller.view, animated: true)
-        hud = MBProgressHUD.showAdded(to: controller.view, animated: true).also { hud in
+        MBProgressHUD.hide(for: view, animated: true)
+        hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
             hud.removeFromSuperViewOnHide = true
             hud.animationType = .zoom
             hud.contentColor = foregroundColor
