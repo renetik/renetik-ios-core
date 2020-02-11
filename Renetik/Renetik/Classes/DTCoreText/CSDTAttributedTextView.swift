@@ -112,7 +112,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     }
 
     public override func calculateHeightToFitWidth() -> CGFloat {
-        attributedTextContentView.calculateHeightToFitWidth() + (CGFloat(numberOfImages) * width / 2)
+        (html.isSet ? attributedTextContentView.calculateHeightToFitWidth() : 0)
+                + (CGFloat(numberOfImages) * width / 2)
     }
 }
 

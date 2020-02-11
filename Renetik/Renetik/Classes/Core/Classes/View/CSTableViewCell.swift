@@ -15,12 +15,13 @@ open class CSTableViewCell: UITableViewCell {
 
     override open func layoutSubviews() {
         super.layoutSubviews()
+        runLayoutFunctions()
         onLayoutSubviews()
-        layoutFunctions.fire()
     }
 
-    open func onLayoutSubviews() {
-    }
+    open func onLayoutSubviews() {}
+
+    public func runLayoutFunctions() { layoutFunctions.fire() }
 
     override open var reuseIdentifier: String? {
         if super.reuseIdentifier.notNil { return super.reuseIdentifier }

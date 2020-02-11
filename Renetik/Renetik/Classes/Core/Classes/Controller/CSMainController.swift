@@ -77,8 +77,7 @@ open class CSMainController: CSViewController {
         }
     }
 
-    open func onPrepareRightBarButton(items: inout [UIBarButtonItem]) {
-    }
+    open func onPrepareRightBarButton(items: inout [UIBarButtonItem]) {}
 
     public override func addChild(_ controller: UIViewController) {
         super.addChild(controller)

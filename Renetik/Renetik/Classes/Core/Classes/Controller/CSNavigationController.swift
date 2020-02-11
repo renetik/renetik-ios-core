@@ -11,10 +11,13 @@ public enum CSForcedOrientation: Int {
     case landscape
 }
 
-open class CSNavigationController: UINavigationController {
+open class CSNavigationController: UINavigationController, UINavigationBarDelegate {
 
     private(set) var instance: CSNavigationController!
     private(set) var lastPopped: UIViewController?
+    private var navigationBarDelegate: UINavigationBarDelegate?
+
+    public func construct() -> Self { self }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
