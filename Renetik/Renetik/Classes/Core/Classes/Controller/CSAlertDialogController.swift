@@ -48,7 +48,8 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
 
 public extension UIAlertController {
     func add(action: CSDialogAction, style: UIAlertAction.Style, preferred: Bool = false) -> UIAlertAction {
-        UIAlertAction(title: action.title, style: style) { _ in action.action() }.also {
+        let title = style == .cancel && action.title.isNil ? CSStrings.dialogCancel : action.title
+        return UIAlertAction(title: title, style: style) { _ in action.action() }.also {
             addAction($0)
             if preferred { preferredAction = $0 }
         }

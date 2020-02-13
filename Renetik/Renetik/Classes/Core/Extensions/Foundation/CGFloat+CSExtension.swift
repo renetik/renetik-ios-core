@@ -8,11 +8,9 @@
 import Foundation
 
 public extension CGFloat {
-	public func plus(_ value: Int) -> CGFloat {
-		return self + CGFloat(value)
-	}
+    public func plus(_ value: Int) -> CGFloat { self + CGFloat(value) }
 
-	public func multiply(_ value: Int) -> CGFloat {
-		return self * CGFloat(value)
-	}
+    public func multiply(_ value: Int) -> CGFloat { self * CGFloat(value) }
+
+    public var unsigned: CGFloat { self >= 0 ? self : 0 }
 }

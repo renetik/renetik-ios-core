@@ -59,7 +59,8 @@ public extension UITableView {
     }
 
     private func dequeue<CellType: UITableViewCell>(cell type: CellType.Type) -> CellType {
-        dequeueCellWith(identifier: type.className()) as! CellType
+        let cell = dequeueCellWith(identifier: type.className()) as? CellType
+        return cell.isNil ? register(cell: type).dequeueCellWith(identifier: type.className()) as! CellType : cell!
     }
 
     public func dequeue<CellType: UITableViewCell>(

@@ -28,21 +28,21 @@
 //    return progress;
 //}
 //
-- (MBProgressHUD *)showProgress:(UIColor *)color {
-    [MBProgressHUD hideHUDForView:self animated:true];
-    let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    progress.removeFromSuperViewOnHide = true;
-    progress.mode = MBProgressHUDModeIndeterminate;
-    progress.activityIndicatorColor = color;
-    progress.animationType = MBProgressHUDAnimationZoom;
-    progress.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    progress.bezelView.backgroundColor = UIColor.clearColor;
-    return progress;
-}
+//- (MBProgressHUD *)showProgress:(UIColor *)color {
+//    [MBProgressHUD hideHUDForView:self animated:true];
+//    let progress = [MBProgressHUD showHUDAddedTo:self animated:YES];
+//    progress.removeFromSuperViewOnHide = true;
+//    progress.mode = MBProgressHUDModeIndeterminate;
+//    progress.activityIndicatorColor = color;
+//    progress.animationType = MBProgressHUDAnimationZoom;
+//    progress.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+//    progress.bezelView.backgroundColor = UIColor.clearColor;
+//    return progress;
+//}
 
-- (instancetype)hideProgress {
-    [MBProgressHUD hideHUDForView:self animated:YES];
-    return self;
-}
+//- (instancetype)hideProgress {
+//    [MBProgressHUD hideHUDForView:self animated:YES];
+//    return self;
+//}
 
 @end

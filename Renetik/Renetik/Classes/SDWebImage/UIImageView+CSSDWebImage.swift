@@ -16,7 +16,7 @@ public extension UIImageView {
 
     @discardableResult
     public func image(url: String, onSuccess: ((UIImageView) -> Void)? = nil) -> UIImageView {
-        sd_imageIndicator = SDWebImageProgressIndicator.bar
+        sd_imageIndicator = SDWebImageProgressIndicator.default
         sd_setImage(with: URL(url), placeholderImage: nil, options: .retryFailed, progress: nil,
                 completed: { image, error, cacheType, imageURL in error.isNil { onSuccess?(self) } })
         return self

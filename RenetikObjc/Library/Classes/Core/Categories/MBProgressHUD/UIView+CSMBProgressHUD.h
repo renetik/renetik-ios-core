@@ -9,8 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UIView (CSMBProgressHUD)
 //- (MBProgressHUD*)showMessage:(NSString*)string;
-- (instancetype)hideProgress;
+//- (instancetype)hideProgress;
 //- (MBProgressHUD*)showProgress;
-- (MBProgressHUD*)showProgress:(UIColor*)color;
+//- (MBProgressHUD*)showProgress:(UIColor*)color;
 @end
 NS_ASSUME_NONNULL_END

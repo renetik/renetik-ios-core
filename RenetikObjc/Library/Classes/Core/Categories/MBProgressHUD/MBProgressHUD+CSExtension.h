@@ -7,7 +7,7 @@
 @import MBProgressHUD;
 
 @interface MBProgressHUD (CSExtension)
-+ (MBProgressHUD *)showMessage:(NSString *)message;
+//+ (MBProgressHUD *)showMessage:(NSString *)message;
 
-+ (MBProgressHUD *)showMessage:(UIView *)view :(NSString *)message;
+//+ (MBProgressHUD *)showMessage:(UIView *)view :(NSString *)message;
 @end

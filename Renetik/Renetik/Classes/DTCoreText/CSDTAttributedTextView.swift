@@ -28,10 +28,13 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return self
     }
 
+    @discardableResult
     public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
 
+    @discardableResult
     public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
 
+    @discardableResult
     public func html(_ html: String) -> Self { invoke { self.html = html } }
 
     @discardableResult
@@ -42,6 +45,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     public var html = "" {
         didSet {
+            imageUrls.clear()
             numberOfImages = html.countHtmlImageTagsWithoutSize()
             attributedString = NSAttributedString(htmlData: html.data(using: encoding),
                     options: attributedOptions, documentAttributes: nil)

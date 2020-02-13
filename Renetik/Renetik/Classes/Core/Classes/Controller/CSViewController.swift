@@ -124,7 +124,10 @@ open class CSViewController: UIViewController {
 
     open func onViewPushedOver() {}
 
-    open func onViewDismissing() { eventDismissing.fire() }
+    open func onViewDismissing() {
+        eventDismissing.fire()
+        notificationCenterObservers.forEach { observer in NotificationCenter.remove(observer: observer) }
+    }
 
     private func onShowingChanged() {
         onViewVisibilityChanged(isShowing)

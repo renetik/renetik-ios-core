@@ -8,6 +8,6 @@
 @import Foundation;
 
 @interface CSMath : NSObject
-+ (CGFloat)getDistance:(CGPoint)point :(CGPoint)cgPoint;
-+ (CGFloat)unsign:(CGFloat)value;
+//+ (CGFloat)getDistance:(CGPoint)point :(CGPoint)cgPoint;
+//+ (CGFloat)unsign:(CGFloat)value;
 @end

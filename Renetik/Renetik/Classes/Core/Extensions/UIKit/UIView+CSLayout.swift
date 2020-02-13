@@ -109,6 +109,13 @@ public extension UIView {
     }
 
     @discardableResult
+    func from(right: CGFloat, bottom: CGFloat) -> Self {
+        from(right: right)
+        from(bottom: bottom)
+        return self
+    }
+
+    @discardableResult
     func from(left: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat) -> Self {
         from(left: left, top: top)
         self.width(width, height: height)
@@ -139,7 +146,7 @@ public extension UIView {
     func width(fromRight: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let right = superview!.width - fromRight
-        widthBy(right: CSMath.unsign(right))
+        widthBy(right: right.unsigned)
         if flexible {
             fixedLeft()
             flexibleWidth()
@@ -154,7 +161,7 @@ public extension UIView {
 
     @discardableResult
     func width(fromLeft: CGFloat, flexible: Bool = false) -> Self {
-        width = CSMath.unsign(right - fromLeft)
+        width = (right - fromLeft).unsigned
         if flexible {
             fixedRight()
             flexibleWidth()
@@ -164,10 +171,15 @@ public extension UIView {
     }
 
     @discardableResult
+    func width(from view: UIView, left: CGFloat, flexible: Bool = false) -> Self {
+        width(fromLeft: view.right + left, flexible: flexible)
+    }
+
+    @discardableResult
     func height(fromBottom: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let bottom = superview!.height - fromBottom
-        heightBy(bottom: CSMath.unsign(bottom))
+        heightBy(bottom: bottom.unsigned)
         if flexible {
             fixedTop()
             flexibleHeight()
@@ -182,7 +194,7 @@ public extension UIView {
 
     @discardableResult
     func height(fromTop: CGFloat, flexible: Bool = false) -> Self {
-        height = CSMath.unsign(bottom - fromTop)
+        height = (bottom - fromTop).unsigned
         from(top: fromTop)
         if flexible {
             fixedBottom()
@@ -193,14 +205,14 @@ public extension UIView {
 
     @discardableResult
     func widthBy(right: CGFloat) -> Self {
-        width = CSMath.unsign(right - left)
+        width = (right - left).unsigned
         fixedRight()
         return self
     }
 
     @discardableResult
     func heightBy(bottom: CGFloat) -> Self {
-        height = CSMath.unsign(bottom - top)
+        height = (bottom - top).unsigned
         fixedBottom()
         return self
     }

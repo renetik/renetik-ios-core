@@ -41,6 +41,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         filter = parentController as? CSTableControllerFilter
         _data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)
+        view.matchParent()
         return self
     }
 

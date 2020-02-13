@@ -37,12 +37,12 @@ public class CSNavigationHidingController: CSMainController {
 
     public override func onViewDismissing() {
         super.onViewDismissing()
-        requestNavigationBarShown()
+        requestNavigationBarShown(animated: false)
     }
 
     public override func onViewPushedOver() {
         super.onViewPushedOver()
-        requestNavigationBarShown(animated: true)
+        requestNavigationBarShown(animated: false)
     }
 
     public override func onViewWillTransition(toSizeCompletion size: CGSize,
@@ -104,6 +104,7 @@ public class CSNavigationHidingController: CSMainController {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight()
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
+            navigation.navigationBar.isHidden = true
             self.isHidingRunning = false
             if self.shouldShow { self.requestNavigationBarShown() }
         })
@@ -128,6 +129,7 @@ public class CSNavigationHidingController: CSMainController {
         isShowingRunning = true
         isNavigationBarHidden = false
         invoke(animated: animated, duration: 0.3, operation: {
+            navigation.navigationBar.isHidden = false
             navigation.navigationBar.alpha = 1
 
 //            navigation.navigationBar.top = UIApplication.statusBarHeight()
