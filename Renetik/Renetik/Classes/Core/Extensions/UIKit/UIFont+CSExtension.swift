@@ -7,25 +7,16 @@
 
 import UIKit
 
-@objc public extension UIFont {
-    @nonobjc public func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
-		let descriptor = fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))!
-        return UIFont(descriptor: descriptor, size: 0)
+public extension UIFont {
+    func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        UIFont(descriptor: fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))!, size: 0)
     }
 
-    @objc public func bold() -> UIFont {
-		return withTraits(.traitBold)
-    }
-	
-	@objc public func normal() -> UIFont {
-		return withTraits()
-	}
+    func bold() -> UIFont { withTraits(.traitBold) }
 
-    @objc public func italic() -> UIFont {
-		return withTraits(.traitItalic)
-    }
+    func normal() -> UIFont { withTraits() }
 
-    @objc public func boldItalic() -> UIFont {
-		return withTraits(.traitBold, .traitItalic)
-    }
+    func italic() -> UIFont { withTraits(.traitItalic) }
+
+    func boldItalic() -> UIFont { withTraits(.traitBold, .traitItalic) }
 }

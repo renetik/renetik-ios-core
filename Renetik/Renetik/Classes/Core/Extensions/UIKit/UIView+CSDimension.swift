@@ -15,4 +15,8 @@ public extension UIView {
         height = lastSubViewBottom > 0 ? lastSubViewBottom + padding : 0
         return self
     }
+
+    @discardableResult
+    func size(_ size: CGFloat) -> Self { width(size, height: size) }
+
 }

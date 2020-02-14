@@ -95,3 +95,28 @@ extension Int: CSAny {}
 extension Array: CSAny {}
 
 extension Dictionary: CSAny {}
+
+func function(if boolean: Bool, function: () -> Void) -> CSConditionalResult {
+    if boolean { function() }
+    return CSConditionalResult(doElseIf: boolean == false)
+}
+
+public class CSConditionalResult {
+    let isDoElse: Bool
+
+    public init(doElseIf: Bool) { self.isDoElse = doElseIf }
+
+    public func elseDo(_ function: () -> Void) { if isDoElse { function() } }
+}
+
+func functionTest() {
+    let A = "A"
+    let B = "B"
+    function(if: A == B) {
+        let message = "A == B"
+        logInfo(message)
+    }.elseDo {
+        let message = "A != B"
+        logInfo(message)
+    }
+}

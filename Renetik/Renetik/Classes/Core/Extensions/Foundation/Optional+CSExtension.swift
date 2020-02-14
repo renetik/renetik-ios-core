@@ -10,8 +10,7 @@ public extension Optional {
     public var isNil: Bool { self == nil }
 
     public var asString: String {
-        if self == nil { return "" }
-        else { return "\(self!)" }
+        if self == nil { return "" } else { return "\(self!)" }
     }
 
     @discardableResult
@@ -33,8 +32,7 @@ public extension Optional {
     }
 
     public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
-        if self != nil { return function(self!) }
-        else { return nil }
+        if self != nil { return function(self!) } else { return nil }
     }
 
     public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
@@ -48,15 +46,6 @@ public extension Optional where Wrapped: NSObject { //TODO: Use custom isEqual
         if notNil { if objects.contains(self!) { return true } }
         return false
     }
-}
-
-public class CSConditionalResult {
-
-    let isDoElse: Bool
-
-    public init(doElseIf: Bool) { self.isDoElse = doElseIf }
-
-    public func elseDo(_ function: () -> Void) { if isDoElse { function() } }
 }
 
 public class CSConditionalResultNotNil<Type> {

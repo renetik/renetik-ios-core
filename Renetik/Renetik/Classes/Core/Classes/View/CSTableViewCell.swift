@@ -13,6 +13,11 @@ open class CSTableViewCell: UITableViewCell {
         function()
     }
 
+    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) {
+        layoutFunctions.invoke(listener: { _ in function(view) })
+        function(view)
+    }
+
     override open func layoutSubviews() {
         super.layoutSubviews()
         runLayoutFunctions()

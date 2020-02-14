@@ -65,6 +65,10 @@ public extension String {
     func remove(_ string: String?) -> String {
         asNSString.remove(string.asString)
     }
+
+    func replace(all string: String, with replace: String) -> String {
+        asNSString.replace(string, replace)
+    }
 }
 
 public extension Optional where Wrapped == String {

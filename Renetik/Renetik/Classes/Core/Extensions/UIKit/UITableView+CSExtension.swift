@@ -21,24 +21,6 @@ public extension UITableView {
         return self
     }
 
-    public func cellView<ViewType: UIView>(
-            _ cellViewType: ViewType.Type,
-            onCreate: @escaping (UITableViewCell, ViewType) -> Void,
-            onLoad: @escaping (ViewType) -> Void) -> UITableViewCell {
-        var cell = dequeueCellWith(identifier: cellViewType.className())
-        if cell.isNil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellViewType.className())
-//            cell!.contentView.matchParent()
-            let cellView = cellViewType.init()
-            onCreate(cell!, cellView)
-            cell!.contentView.content(cellView.construct())
-            cell!.width(width, height: cellView.height)
-            cellView.matchParent()
-        }
-        onLoad(cell!.cellView as! ViewType)
-        return cell!
-    }
-
     public func cell(with identifier: String, style: UITableViewCell.CellStyle,
                      onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell {
         var cell = dequeueCellWith(identifier: identifier)
@@ -49,9 +31,6 @@ public extension UITableView {
         return cell!
     }
 
-    /**
-    * TODO: Can be registered in dequeue for UITableViewCell Type
-    **/
     @discardableResult
     public func register<CellType: UITableViewCell>(cell type: CellType.Type) -> Self {
         register(type, forCellReuseIdentifier: type.className())
@@ -71,9 +50,10 @@ public extension UITableView {
             cell.contentView.matchParent()
             cell.width(width, height: width)
             cell.construct()
-        } else {
-//            cell.width(width)
         }
+//        else {
+//            cell.width(width)
+//        }
         return cell
     }
 

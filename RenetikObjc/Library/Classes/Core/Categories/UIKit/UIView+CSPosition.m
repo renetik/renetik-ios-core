@@ -38,38 +38,6 @@
     return self.top + self.height;
 }
 
-- (CGFloat)fromRight {
-    return self.superview ? self.superview.width - (self.left + self.width) : self.right;
-}
-
-- (CGFloat)fromBottom {
-    return self.superview ? self.superview.height - (self.top + self.height) : self.bottom;
-}
-
-- (CGFloat)leftFromRight {
-    return self.superview ? self.superview.width - self.left : self.width;
-}
-
-- (CGFloat)topFromBottom {
-    return self.superview ? self.superview.height - self.top : self.height;
-}
-
-- (CGFloat)absTop {
-    return [self convertPoint:CGPointMake(0, self.top) toView:nil].y;
-}
-
-- (CGFloat)absBottom {
-    return [self convertPoint:CGPointMake(0, self.bottom) toView:nil].y;
-}
-
-- (CGFloat)verticalCenter {
-    return self.center.y;
-}
-
-- (CGFloat)horizontalCenter {
-    return self.center.x;
-}
-
 - (void)setLeft:(CGFloat)value {
     CGRect frame = self.frame;
     frame.origin.x = value;
@@ -88,35 +56,6 @@
 
 - (void)setBottom:(CGFloat)value {
     self.top = value - self.height;
-}
-
-- (void)setFromRight:(CGFloat)value {
-    NSAssert(self.superview, @"Needs to have superview");
-    NSAssert(self.width, @"Needs to have width");
-    let superViewWidth = self.superview.width;
-    let width = self.width;
-    let left = superViewWidth - (value + width);
-    self.left = left;
-}
-
-- (void)setFromBottom:(CGFloat)bottom {
-    NSAssert(self.superview, @"Needs to have superview");
-//    NSAssert(self.height, @"Needs to have height"); Not nedded
-    self.top = self.superview.height - (bottom + self.height);
-}
-
-- (void)setAbsTop:(CGFloat)value {
-    self.top = [self convertPoint:CGPointMake(0, value) fromView:nil].y;
-}
-
-- (instancetype)verticalCenter:(CGFloat)y {
-    [self center:CGPointMake(self.center.x, y)];
-    return self;
-}
-
-- (instancetype)horizontalCenter:(CGFloat)x {
-    [self setCenter:CGPointMake(x, self.center.y)];
-    return self;
 }
 
 - (instancetype)position:(CGPoint)point {

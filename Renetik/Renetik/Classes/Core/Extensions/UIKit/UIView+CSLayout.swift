@@ -102,9 +102,23 @@ public extension UIView {
     }
 
     @discardableResult
+    func from(bottom: CGFloat, left: CGFloat) -> Self {
+        from(bottom: bottom)
+        from(left: left)
+        return self
+    }
+
+    @discardableResult
     func from(right: CGFloat, top: CGFloat) -> Self {
         from(right: right)
         from(top: top)
+        return self
+    }
+
+    @discardableResult
+    func from(top: CGFloat, right: CGFloat) -> Self {
+        from(top: top)
+        from(right: right)
         return self
     }
 
@@ -116,9 +130,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(left: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat) -> Self {
-        from(left: left, top: top)
-        self.width(width, height: height)
+    func from(bottom: CGFloat, right: CGFloat) -> Self {
+        from(bottom: bottom)
+        from(right: right)
         return self
     }
 
@@ -194,13 +208,19 @@ public extension UIView {
 
     @discardableResult
     func height(fromTop: CGFloat, flexible: Bool = false) -> Self {
-        height = (bottom - fromTop).unsigned
+        let bottomCorrected = bottom - fromTop > 0 ? bottom : superview!.height
+        height = (bottomCorrected - fromTop).unsigned
         from(top: fromTop)
         if flexible {
             fixedBottom()
             flexibleHeight()
         }
         return self
+    }
+
+    @discardableResult
+    func height(from view: UIView, top: CGFloat, flexible: Bool = false) -> Self {
+        height(fromTop: view.bottom + top, flexible: flexible)
     }
 
     @discardableResult
