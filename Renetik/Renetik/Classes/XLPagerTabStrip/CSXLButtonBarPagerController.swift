@@ -16,10 +16,11 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     private var parentController: CSMainController!
     private var isViewDidAppear = false
 
+    @discardableResult
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
         self.controllers = controllers
-        parent.showChild(controller: self)
+        parent.showChild(controller: self).view.matchParent()
         parent.addChildMain(controllers: controllers)
         settings.style.buttonBarHeight.isNil { self.settings.style.buttonBarHeight = 44 }
         return self

@@ -30,6 +30,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     internal var parentController: CSTableControllerParent!
     internal var _data: [Row]!
+
     private var filter: CSTableControllerFilter?
     private var filteredData = [Row]()
     private var loadProcess: CSProcess<Data>? = nil
@@ -37,7 +38,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         parentController = parent
-        tableView.set(delegate: parent)
+        tableView.delegates(parent)
         filter = parentController as? CSTableControllerFilter
         _data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)

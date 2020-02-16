@@ -47,8 +47,8 @@ public extension CSHasDialog {
 
 
     @discardableResult
-    public func show(title: String?, message: String,
-                     positive: CSDialogAction?, negative: CSDialogAction?) -> CSHasDialogVisible {
+    public func show(title: String? = nil, message: String,
+                     positive: CSDialogAction?, negative: CSDialogAction? = nil) -> CSHasDialogVisible {
         show(title: title, message: message, positive: positive,
                 negative: negative, cancel: CSDialogAction(action: {}))
     }

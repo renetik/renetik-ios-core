@@ -103,9 +103,9 @@ public extension UITableView {
     }
 
     @discardableResult
-    public func set(delegate: (UITableViewDelegate & UITableViewDataSource)) -> Self {
-        self.delegate = delegate
-        self.dataSource = delegate
+    public func delegates(_ delegates: (UITableViewDelegate & UITableViewDataSource)) -> Self {
+        self.delegate = delegates
+        self.dataSource = delegates
         return self
     }
 }

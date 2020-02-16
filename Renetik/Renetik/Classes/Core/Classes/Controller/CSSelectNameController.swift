@@ -36,9 +36,11 @@ public class CSSelectNameController: CSMainController
         view.add(view: table).matchParent()
         table.hideEmptyCellsSeparatorByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
-        table.tableHeaderView = search.bar
-        table.set(delegate: self)
+
         search.construct(by: self) { _ in self.reload() }
+        table.tableHeaderView = search.bar
+
+        table.delegates(self)
         reload()
     }
 

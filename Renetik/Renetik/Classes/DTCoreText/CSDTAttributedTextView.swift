@@ -80,12 +80,9 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         if attachment is DTImageTextAttachment {
             if attachment.displaySize.width == 0 {
                 attachment.displaySize = CGSize(width: width, height: width / 2)
-//                doLater {
                 self.relayoutText()
-//                }
             }
             let imageView = UIImageView.construct().position(frame.origin).size(attachment.displaySize)
-            imageView.background(.blue).aspectFit()
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
                 imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {

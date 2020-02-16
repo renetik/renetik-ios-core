@@ -6,11 +6,14 @@ renetik_dialog_yes="Ok";
 renetik_dialog_no="No";
 renetik_dialog_cancel="Cancel";
 
+renetik_request_loading="Loading...";
 renetik_request_retry="Retry";
 renetik_request_cancel="Cancel";
-renetik_request_failed_message="Request Failed";
+renetik_request_failed_message="Request failed";
 
 renetik_table_load_next_failed_message="Loading of more data failed";
 
 renetik_operation_canceled_message="Operation was canceled.";
 renetik_operation_failed_message="Operation failed.";
+
+renetik_search_placeholder="";

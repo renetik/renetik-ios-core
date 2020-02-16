@@ -9,10 +9,9 @@ import RenetikObjc
 
 public class CSSingleRequestController<Data: AnyObject>: CSMainController {
 
-    public var loadTitle = "Loading data..."
-    public var failedTitle = "Request failed"
-    public var failedMessage = "Repeat ?"
-    public var failedPositiveButton = "Yes"
+    public var stringRequestLoading = CSStrings.requestLoading
+    public var stringRequestFailed = CSStrings.requestFailed
+    public var stringRequestRetry = CSStrings.requestRetry
 
     private var reloadResponse: CSResponse<Data>?
     private var data: Data?
@@ -30,8 +29,7 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
 
     public func reload() {
         reloadResponse?.cancel()
-        progressBlockedView.show(request(), canCancel: data.notNil)
-                //        progressBlockedView.show(progress: request(), title: loadTitle, canCancel: data.notNil)
+        progressBlockedView.show(request(), title: stringRequestLoading, canCancel: data.notNil)
                 .onSuccess(onSuccess).onFailed(onFailed).onDone(onDone)
     }
 
@@ -40,12 +38,8 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
     }
 
     public func onFailed(response: CSResponse<AnyObject>) {
-        progressBlockedView.show(title: failedTitle, message: failedMessage,
-                positive: CSDialogAction(title: failedPositiveButton, action: reload),
-                negative: nil, cancel: nil)
-//        progressBlockedView.show(title: failedTitle, message: failedMessage,
-//                positiveTitle: failedPositiveButton, onPositive: reload,
-//                canCancel: data.notNil)
+        progressBlockedView.show(message: stringRequestFailed,
+                positive: CSDialogAction(title: stringRequestRetry, action: reload))
     }
 
     public func onDone(data: Data) {

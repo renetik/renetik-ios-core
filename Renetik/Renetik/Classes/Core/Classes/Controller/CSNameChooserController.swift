@@ -44,7 +44,7 @@ public class CSNameChooserController<T: Any>: CSMainController
         table.hideEmptyCellsSeparatorByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
         table.tableHeaderView = search.bar
-        table.set(delegate: self)
+        table.delegates(self)
         search.construct(by: self) { _ in self.reload() }
         reload()
     }
