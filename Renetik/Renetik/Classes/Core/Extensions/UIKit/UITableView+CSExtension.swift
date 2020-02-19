@@ -9,7 +9,6 @@ public extension UITableView {
 
     override open func construct() -> Self {
         super.construct()
-//        self.backgroundColor = .clear
         return self
     }
 
@@ -51,9 +50,6 @@ public extension UITableView {
             cell.width(width, height: width)
             cell.construct()
         }
-//        else {
-//            cell.width(width)
-//        }
         return cell
     }
 

@@ -71,19 +71,19 @@
     return self;
 }
 
-- (instancetype)heightToFit {
+- (instancetype)heightToFit { // TODO: move to swift and rename appropriately
     self.numberOfLines = 0;
     super.heightToFit;
     return self;
 }
 
-- (instancetype)sizeFit:(NSString *)value {
+- (instancetype)sizeFit:(NSString *)value { // TODO: move to swift and rename appropriately
     self.numberOfLines = 0;
     let current = self.text;
     return [[self text:value].resizeToFit text:current];
 }
 
-- (instancetype)sizeHeightToFit:(NSString *)value {
+- (instancetype)sizeHeightToFit:(NSString *)value { // TODO: move to swift and rename appropriately
     self.numberOfLines = 0;
     let current = self.text;
     self.text = value;
@@ -92,7 +92,7 @@
     return self;
 }
 
-- (instancetype)heightToLines:(NSInteger)numberOfLines {
+- (instancetype)heightToLines:(NSInteger)numberOfLines { // TODO: move to swift and rename appropriately
 //    NSAssert(self.width > 0, @"Width has to be set to calculate height");
     let currentWidth = self.width;
     let currentText = self.text;

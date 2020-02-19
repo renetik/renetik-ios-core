@@ -86,7 +86,7 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     @discardableResult
-    @objc public func withBoldFont(_ isBold: Bool) -> Self {
+    @objc public func withBoldFont(if isBold: Bool) -> Self {
         if isBold { font = font.bold() } else { font = font.normal() }
         return self
     }

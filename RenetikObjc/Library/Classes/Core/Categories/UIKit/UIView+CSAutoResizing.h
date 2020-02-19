@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)flexibleLeftTop;
 
+- (instancetype)flexibleLeftBottom;
+
 - (BOOL)isFixedLeft;
 
 - (BOOL)isFixedTop;

@@ -67,11 +67,7 @@ public extension UIView {
     func from(_ view: UIView, bottom: CGFloat) -> Self { from(bottom: view.topFromBottom + bottom) }
 
     @discardableResult
-    func from(bottomRight: CGFloat) -> Self {
-        from(bottom: bottomRight)
-        from(right: bottomRight)
-        return self
-    }
+    func from(bottomRight: CGFloat) -> Self { from(bottom: bottomRight, right: bottomRight) }
 
     @discardableResult
     func from(left: CGFloat, top: CGFloat) -> Self {

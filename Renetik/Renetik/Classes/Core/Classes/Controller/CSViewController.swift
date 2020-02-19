@@ -8,10 +8,11 @@ import RenetikObjc
 
 open class CSViewController: UIViewController {
 
-    public let onOrientationChanging: CSEvent<Void> = event()
-    public let onOrientationChanged: CSEvent<Void> = event()
+    public let eventOrientationChanging: CSEvent<Void> = event()
+    public let eventOrientationChanged: CSEvent<Void> = event()
     public let eventDismissing: CSEvent<Void> = event()
     public let eventDidAppear: CSEvent<Void> = event()
+    public let eventWillAppearFirstTime: CSEvent<Void> = event()
     public let eventDidAppearFirstTime: CSEvent<Void> = event()
 
     public private(set) var isAppearing = false
@@ -24,6 +25,7 @@ open class CSViewController: UIViewController {
     private var notificationCenterObservers: [NSObjectProtocol] = []
     private var eventRegistrations = [CSEventRegistration]()
     private var isShouldAutorotate: Bool? = nil
+    private let layoutFunctions: CSEvent<Void> = event()
 
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
@@ -37,7 +39,7 @@ open class CSViewController: UIViewController {
     }
 
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
-    override open func loadView() { view = UIControl.withSize(1, 1) }
+    override open func loadView() { view = UIControl.withSize(UIScreen.width, UIScreen.height) }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,7 @@ open class CSViewController: UIViewController {
 
     open func onViewWillAppear() {}
 
-    open func onViewWillAppearFirstTime() {}
+    open func onViewWillAppearFirstTime() { eventWillAppearFirstTime.fire() }
 
     open func onViewWillAppearFromPresentedController() {}
 
@@ -72,6 +74,7 @@ open class CSViewController: UIViewController {
         } else {
             onUpdateLayout()
         }
+        runLayoutFunctions()
         onViewDidLayout()
     }
 
@@ -142,11 +145,11 @@ open class CSViewController: UIViewController {
 
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        onOrientationChanging.fire()
+        eventOrientationChanging.fire()
         onViewWillTransition(to: size, coordinator)
         coordinator.onCompletion { context in
             self.onViewWillTransition(toSizeCompletion: size, context)
-            self.onOrientationChanged.fire()
+            self.eventOrientationChanged.fire()
         }
     }
 
@@ -199,4 +202,18 @@ open class CSViewController: UIViewController {
     }
 
     open func onDisplayChangedTo(darkMode: Bool) {}
+
+    public func layout(function: @escaping () -> Void) {
+        layoutFunctions.invoke(listener: { _ in function() })
+        function()
+    }
+
+    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) {
+        layoutFunctions.invoke(listener: { _ in function(view) })
+        function(view)
+    }
+
+    public func runLayoutFunctions() {
+        layoutFunctions.fire()
+    }
 }

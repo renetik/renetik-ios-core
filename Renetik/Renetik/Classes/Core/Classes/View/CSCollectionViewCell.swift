@@ -1,10 +1,10 @@
 //
-// Created by Rene Dohan on 12/22/19.
+// Created by Rene Dohan on 2/18/20.
 //
 
 import UIKit
 
-open class CSView: UIView {
+open class CSCollectionViewCell: UICollectionViewCell {
 
     private let layoutFunctions: CSEvent<Void> = event()
 

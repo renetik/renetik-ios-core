@@ -18,12 +18,15 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
     public var defaultLinkColor: UIColor = .blue
+    public var linksActive = true
     private var imageUrls = [URL]()
     private var numberOfImages = 0
+    private var lineBreakMode: NSLineBreakMode = .byWordWrapping
 
     public override func construct() -> Self {
         super.construct()
         textDelegate = self
+        scrollable(false)
         attributedTextContentView.matchParentWidth()
         return self
     }
@@ -43,6 +46,19 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return self
     }
 
+    @discardableResult
+    public func withBoldFont(if condition: Bool = true) -> Self {
+        font = condition ? font.bold() : font.normal()
+        return self
+    }
+
+    @discardableResult
+    public func height(toLines: Int) -> Self {
+        height(UILabel.construct().width(width).font(font).height(toLines: toLines).height)
+        lineBreakMode = .byTruncatingTail
+        return self
+    }
+
     public var html = "" {
         didSet {
             imageUrls.clear()
@@ -54,7 +70,11 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
 
     public var attributedOptions: [AnyHashable: Any] {
         [
-//            DTUseiOS6Attributes: true,
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle().also {
+                $0.lineBreakMode = lineBreakMode
+            },
+            DTUseiOS6Attributes: true,
             DTDefaultFontName: font.fontName,
             DTDefaultFontFamily: font.familyName,
             DTDefaultFontSize: font.pointSize,
@@ -63,12 +83,14 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         ]
     }
 
-    public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!,
+    public func attributedTextContentView(_
+                                          attributedTextContentView: DTAttributedTextContentView!,
                                           viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
-        UIView.construct().frame(frame).also { view in
+        if !linksActive { return nil }
+        return UIView.construct().frame(frame).also { view in
             view.onClick {
-                let controller = UIActivityViewController(activityItems: [url],
-                        applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+                let controller = UIActivityViewController(
+                        activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
                 controller.popoverPresentationController?.sourceView = view
                 navigation.last!.present(controller, animated: true, completion: nil)
             }

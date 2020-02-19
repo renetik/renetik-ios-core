@@ -19,17 +19,29 @@ public extension UIView {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }
 
-    func asBottomSeparator(_ height: CGFloat = 0.5) -> Self {
-        self.height(height).from(bottom: 0).matchParentWidth()
-                .flexibleTop().fixedBottom().background(.darkGray)
+    public func invoke(animated: Bool, duration: TimeInterval = 0.3,
+                       operation: @escaping () -> Void, completion: @escaping () -> Void) {
+        if animated {
+            UIView.animate(withDuration: duration, animations: operation,
+                    completion: { _ in completion() })
+        } else {
+            operation()
+            completion()
+        }
     }
 
+//    func asBottomSeparator(_ height: CGFloat = 0.5) -> Self {
+//        self.height(height).from(bottom: 0).matchParentWidth()
+//                .flexibleTop().fixedBottom().background(.darkGray)
+//    }
+
     @discardableResult
-    @objc func onClick(_ block: @escaping () -> Void) -> Self {
+    func onClick(_ block: @escaping () -> Void) -> Self {
         onTap { block() }
         return self
     }
 
+    /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     @objc func onTap(_ block: @escaping () -> Void) -> Self {
         isUserInteractionEnabled = true

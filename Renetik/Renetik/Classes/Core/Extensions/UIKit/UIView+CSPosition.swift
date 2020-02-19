@@ -40,6 +40,7 @@ public extension UIView {
         set(value) { center = CGPoint(x: center.x, y: value) }
     }
 
+    @discardableResult
     func verticalCenter(_ y: CGFloat) -> Self { invoke { verticalCenter = y } }
 
     var horizontalCenter: CGFloat {
@@ -47,5 +48,6 @@ public extension UIView {
         set(value) { center = CGPoint(x: value, y: center.y) }
     }
 
+    @discardableResult
     func horizontalCenter(_ x: CGFloat) -> Self { invoke { horizontalCenter = x } }
 }

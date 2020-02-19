@@ -20,13 +20,16 @@ open class CSTableViewCell: UITableViewCell {
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        runLayoutFunctions()
         onLayoutSubviews()
     }
 
-    open func onLayoutSubviews() {}
+    open func onLayoutSubviews() {
+        runLayoutFunctions()
+    }
 
-    public func runLayoutFunctions() { layoutFunctions.fire() }
+    private func runLayoutFunctions() {
+        layoutFunctions.fire()
+    }
 
     override open var reuseIdentifier: String? {
         if super.reuseIdentifier.notNil { return super.reuseIdentifier }

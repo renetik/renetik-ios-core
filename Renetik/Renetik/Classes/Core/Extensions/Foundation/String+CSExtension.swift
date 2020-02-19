@@ -58,17 +58,25 @@ public extension String {
         asNSString.substring(from: from, to: length) as String
     }
 
-    func contains(_ string: String?, ignoreCase: Bool = false) -> Bool {
+    func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
         ignoreCase ? asNSString.containsNoCase(string) : asNSString.contains(string)
     }
 
-    func remove(_ string: String?) -> String {
-        asNSString.remove(string.asString)
+    func remove(_ string: String) -> String {
+        remove(all: string)
     }
 
-    func replace(all string: String, with replace: String) -> String {
-        asNSString.replace(string, replace)
+    func remove(all string: String) -> String {
+        replace(all: string, with: "")
     }
+
+    //func remove(first
+
+    func replace(all string: String, with replace: String) -> String {
+        replacingOccurrences(of: string, with: replace)
+    }
+
+    // func replace(first
 }
 
 public extension Optional where Wrapped == String {

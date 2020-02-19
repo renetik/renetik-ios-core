@@ -12,18 +12,13 @@ import RenetikObjc
 public extension UIViewController {
 
     public func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
-        if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
+        view.invoke(animated: animated, duration: duration, operation: operation)
     }
 
     public func invoke(animated: Bool, duration: TimeInterval = 0.3,
                        operation: @escaping () -> Void, completion: @escaping () -> Void) {
-        if animated {
-            UIView.animate(withDuration: duration, animations: operation,
-                    completion: { _ in completion() })
-        } else {
-            operation()
-            completion()
-        }
+        view.invoke(animated: animated, duration: duration,
+                operation: operation, completion: completion)
     }
 
     @discardableResult
@@ -43,17 +38,18 @@ public extension UIViewController {
         showChild(controller: controller, parentView: view)
     }
 
-    func showChildUnderLast(controller: UIViewController) -> UIViewController {
-        view.verticalLine(add: controller.view)
-        showChild(controller: controller, parentView: view)
-        return controller
-    }
+//    func showChildUnderLast(controller: UIViewController) -> UIViewController {
+//        view.verticalLine(add: controller.view)
+//        showChild(controller: controller, parentView: view)
+//        return controller
+//    }
 
-    func showChildNextLast(controller: UIViewController, parentView: UIView) -> UIViewController {
-        view.horizontalLine(add: controller.view)
-        showChild(controller: controller, parentView: parentView)
-        return controller
-    }
+//    func showChildNextLast(controller: UIViewController, parentView: UIView) -> UIViewController {
+//        view.add(controller.view).fromPrevious(left: 0)
+//        view.horizontalLine(add: controller.view)
+//        showChild(controller: controller, parentView: parentView)
+//        return controller
+//    }
 
     @discardableResult
     func showChild(controller: UIViewController, parentView: UIView?) -> UIViewController {

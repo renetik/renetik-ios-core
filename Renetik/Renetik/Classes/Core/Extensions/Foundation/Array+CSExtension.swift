@@ -45,7 +45,7 @@ public extension Array where Element: Equatable {
     }
 
     @discardableResult
-    public mutating func removeAll(_ item: Element) -> Self {
+    public mutating func remove(all item: Element) -> Self {
         removeAll(where: { item == $0 })
         return self
     }
@@ -67,8 +67,8 @@ public extension Array where Element: Equatable {
 
 public extension Array where Element: Equatable & CustomStringConvertible {
 
-    func filter(bySearch searchText: String?) -> [Element] {
-        if searchText?.isSet == true {
+    func filter(bySearch searchText: String) -> [Element] {
+        if searchText.isSet {
             var filtered = [Element]()
             for item in self {
                 if item.description.contains(searchText, ignoreCase: true) {

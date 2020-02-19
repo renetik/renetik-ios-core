@@ -127,7 +127,9 @@
 }
 
 - (instancetype)widthToFit {
-    NSAssert(self.height > 0, @"Height has to be set to calculate height");
+    if (self.height <= 0) {
+        @throw [NSException exceptionWithName:@"Height has to be set to calculate width"];
+    }
     let newSize = [self sizeThatFits:CGSizeMake(MAXFLOAT, self.height)];
     return [self width:newSize.width];
 }

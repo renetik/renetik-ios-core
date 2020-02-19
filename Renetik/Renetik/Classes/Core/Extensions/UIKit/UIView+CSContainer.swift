@@ -19,38 +19,42 @@ public extension UIView {
     }
 
     @discardableResult
-    func add(_ views: UIView...) -> Self {
+    func add(all views: UIView...) -> Self {
         views.forEach { view in add(view) }
         return self
     }
 
+    @available(*, deprecated, message: "use from(.., left:..)")
     @discardableResult
     public func horizontalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
         horizontalLine(update: add(view: view), margin: margin)
     }
 
     @discardableResult
-    func horizontalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
+    private func horizontalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
         horizontalLine(update: subviews.index(of: view)!, view: view, margin: margin)
     }
 
     @discardableResult
-    func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
+    private func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
         view.from(left: subviews.at(position - 1)?.right ?? 0)
         if view.left != 0 { view.left += margin }
         return view
     }
 
+    @available(*, deprecated, message: "use from(.., top:..)")
     @discardableResult
     func verticalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
         verticalLine(update: add(view: view), margin: margin)
     }
 
+    @available(*, deprecated, message: "use from(.., top:..)")
     @discardableResult
     func verticalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
         verticalLine(update: subviews.index(of: view)!, view: view, margin: margin)
     }
 
+    @available(*, deprecated, message: "use from(.., top:..)")
     @discardableResult
     func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
         view.from(top: subviews.at(position - 1)?.bottom ?? 0)
@@ -94,7 +98,7 @@ public extension UIView {
         return view
     }
 
-    func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
-        add(view: UIView.construct()).asBottomSeparator(height)
-    }
+//    func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
+//        add(UIView.construct()).asBottomSeparator(height)
+//    }
 }

@@ -9,8 +9,8 @@ import UIKit
 
 @objc public extension UILabel {
     @discardableResult
-    @objc public func withBoldFont(_ isBold: Bool = true) -> Self {
-        if isBold { font = font.bold() } else { font = font.normal() }
+    public func withBoldFont(if condition: Bool = true) -> Self {
+        font = condition ? font.bold() : font.normal()
         return self
     }
 }

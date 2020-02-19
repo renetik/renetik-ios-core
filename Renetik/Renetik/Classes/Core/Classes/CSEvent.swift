@@ -50,6 +50,15 @@ public class CSEvent<Type> {
         invoke(listener: { _ in listener() })
     }
 
+    public func remove(listener: CSEventListener<Type>) {
+        registrations.remove(all: listener)
+    }
+}
+
+public extension CSEvent where Type == Void {
+
+    public func fire() { fire(()) }
+
     @discardableResult
     public func invokeOnce(listener: @escaping () -> Void) -> CSEventListener<Type> {
         invoke(listener: { argument in
@@ -57,7 +66,9 @@ public class CSEvent<Type> {
             listener()
         })
     }
+}
 
+public extension CSEvent where Type: AnyObject, Type: CSAny {
     @discardableResult
     public func invokeOnce(listener: @escaping (Type) -> Void) -> CSEventListener<Type> {
         invoke(listener: { argument in
@@ -65,12 +76,4 @@ public class CSEvent<Type> {
             listener(argument.argument)
         })
     }
-
-    public func remove(listener: CSEventListener<Type>) {
-        registrations.removeAll(listener)
-    }
-}
-
-public extension CSEvent where Type == Void {
-    public func fire() { fire(()) }
 }
