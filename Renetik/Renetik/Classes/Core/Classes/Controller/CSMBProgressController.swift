@@ -30,11 +30,11 @@ public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible
         hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
             hud.removeFromSuperViewOnHide = true
             hud.animationType = .zoom
-                hud.contentColor = foregroundColor
-                hud.bezelView.style = .solidColor
-                hud.bezelView.backgroundColor = .clear
-                hud.backgroundView.style = .solidColor
-                hud.backgroundView.backgroundColor = backgroundColor
+            hud.contentColor = foregroundColor
+            hud.bezelView.style = .solidColor
+            hud.bezelView.backgroundColor = .clear
+            hud.backgroundView.style = .solidColor
+            hud.backgroundView.backgroundColor = backgroundColor
 
             cancel.notNil { cancel in
                 hud.detailsLabel.text = title.isSet ? "\n" + title + "\n" : "\n"
@@ -45,7 +45,6 @@ public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible
             }.elseDo {
                 hud.detailsLabel.text = "\n" + title.asString
             }
-//            hud.activityIndicatorColor = foregroundColor
         }
         return self
     }

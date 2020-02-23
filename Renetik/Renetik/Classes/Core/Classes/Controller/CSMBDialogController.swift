@@ -37,7 +37,7 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
             negative.notNil { action in
                 fatalError("Negative not implemented")
             }
-            cancel.notNil { onCancel in  //TODO: This is good ?
+            cancel.notNil { onCancel in
                 hud.onClick {
                     hud.hide(animated: true)
                     onCancel.action()
@@ -53,9 +53,7 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
 
     public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
 
-     public func hudWasHidden(_ _: MBProgressHUD) {
-//        onCancelAction?.action() //TODO: This is good ?
-//        onCancelAction = nil
+    public func hudWasHidden(_ _: MBProgressHUD) {
         hud = nil
     }
 }
