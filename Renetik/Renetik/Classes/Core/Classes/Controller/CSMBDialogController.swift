@@ -14,12 +14,10 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
 
     private var view: UIView!
     private var hud: MBProgressHUD!
-//    private var onCancelAction: CSDialogAction? = nil
 
     public func show(in view: UIView, title: String?, message: String, positive: CSDialogAction?,
                      negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
         self.view = view
-//        self.onCancelAction = cancel
         MBProgressHUD.hide(for: view, animated: true)
         hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
             hud.mode = .text
@@ -28,7 +26,8 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
             hud.contentColor = foregroundColor
             hud.bezelView.style = .solidColor
             hud.bezelView.backgroundColor = backgroundColor
-            hud.dimBackground = true
+            hud.backgroundView.style = .solidColor
+            hud.backgroundView.backgroundColor = .clear
             positive.notNil { action in
                 hud.button.text(action.title ?? CSStrings.dialogYes).onClick {
                     action.action()
@@ -38,7 +37,7 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
             negative.notNil { action in
                 fatalError("Negative not implemented")
             }
-            cancel.notNil { onCancel in
+            cancel.notNil { onCancel in  //TODO: This is good ?
                 hud.onClick {
                     hud.hide(animated: true)
                     onCancel.action()
@@ -50,12 +49,12 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
         return self
     }
 
-    public var isVisible: Bool { hud.notNil }
+    public var isDialogVisible: Bool { hud.notNil }
 
-    public func hide(animated: Bool = true) { hud?.hide(animated: animated) }
+    public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
 
      public func hudWasHidden(_ _: MBProgressHUD) {
-//        onCancelAction?.action()
+//        onCancelAction?.action() //TODO: This is good ?
 //        onCancelAction = nil
         hud = nil
     }

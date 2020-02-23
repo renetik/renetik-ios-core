@@ -29,7 +29,7 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
     public func hideNavigationBar() {
         if navigationBarHidden { return }
         UIView.animate(0.5) {
-            navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+            navigation.navigationBar.bottom = UIApplication.statusBarHeight
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeOut(0.7)

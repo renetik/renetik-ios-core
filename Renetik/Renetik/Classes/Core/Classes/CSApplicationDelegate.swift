@@ -7,14 +7,14 @@
 
 import RenetikObjc
 
-public var logger: CSLogger = delegate.logger
-public var navigation: CSNavigationController = delegate.navigation
-public var delegate: CSApplicationDelegate = CSApplicationDelegate.instance()
+public let delegate: CSApplicationDelegate = CSApplicationDelegate.instance()
+public let logger: CSLogger = delegate.logger
+public let navigation: CSNavigationController = delegate.navigation
 
 open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
-    @objc public var logger: CSLogger!
-    @objc public var navigation: CSNavigationController!
-    @objc public var window: UIWindow?
+    public var logger: CSLogger!
+    public var navigation: CSNavigationController!
+    public var window: UIWindow?
 
     public func setup(logger: CSLogger, navigation: CSNavigationController) {
         self.logger = logger
@@ -23,7 +23,7 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
 }
 
 @objc public extension CSApplicationDelegate {
-    public class func instance() -> CSApplicationDelegate {
-        UIApplication.shared.delegate as! CSApplicationDelegate
+    public class func instance() -> Self {
+        UIApplication.shared.delegate as! Self
     }
 }

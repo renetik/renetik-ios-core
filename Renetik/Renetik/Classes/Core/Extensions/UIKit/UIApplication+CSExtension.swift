@@ -7,4 +7,22 @@ import RenetikObjc
 
 public extension UIApplication {
 
+    class var window: UIWindow? { UIApplication.shared.windows.last }
+
+    @objc class func resignFirstResponder() {
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
+    class func open(url: String) {
+        open(url: URL(string: url)!)
+    }
+
+    class func open(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    class var statusBarHeight: CGFloat {
+        let statusBarSize = UIApplication.shared.statusBarFrame.size
+        return min(statusBarSize.width, statusBarSize.height)
+    }
 }

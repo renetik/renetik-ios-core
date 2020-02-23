@@ -7,8 +7,8 @@
 
 import RenetikObjc
 
-public class CSSelectNameController: CSMainController
-        , UITableViewDelegate, UITableViewDataSource {
+public class CSSelectNameController: CSMainController, UITableViewDelegate, UITableViewDataSource {
+
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
     public var selectedName: CSName?

@@ -13,6 +13,13 @@ public struct CSTextViewClearButtonAppearance: CSAny {
 public extension UITextView {
 
     @discardableResult
+    func dataDetector(_ types: UIDataDetectorTypes) -> Self {
+        dataDetectorTypes = types
+        if types.isEmpty { isSelectable = true }
+        return self
+    }
+
+    @discardableResult
     override public func onTap(_ block: @escaping () -> Void) -> Self {
         self.isEditable = false
         self.isSelectable = false

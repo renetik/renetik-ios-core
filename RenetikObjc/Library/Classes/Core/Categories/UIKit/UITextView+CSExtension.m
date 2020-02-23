@@ -44,11 +44,11 @@
     return self;
 }
 
-- (instancetype)dataDetector:(UIDataDetectorTypes)types {
-    self.dataDetectorTypes = types;
-    if (types != UIDataDetectorTypeNone) self.selectable = true;
-    return self;
-}
+//- (instancetype)dataDetector:(UIDataDetectorTypes)types {
+//    self.dataDetectorTypes = types;
+//    if (types != UIDataDetectorTypeNone) self.selectable = true;
+//    return self;
+//}
 
 //- (instancetype)text:(NSString *)text {
 //    self.text = text;

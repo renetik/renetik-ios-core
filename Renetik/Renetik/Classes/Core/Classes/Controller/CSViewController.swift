@@ -27,6 +27,8 @@ open class CSViewController: UIViewController {
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
 
+    public private(set) var controllerInNavigation: UIViewController?
+
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
         doLater {
@@ -39,10 +41,11 @@ open class CSViewController: UIViewController {
     }
 
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
-    override open func loadView() { view = UIControl.withSize(UIScreen.width, UIScreen.height) }
+    override open func loadView() { view = UIControl.construct().defaultSize() }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
+        logInfo("viewDidLoad \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewDidLoad()
     }
 
@@ -50,6 +53,8 @@ open class CSViewController: UIViewController {
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if controllerInNavigation.isNil { controllerInNavigation = findControllerInNavigation() }
+        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillAppear()
         if !isOnViewWillAppearFirstTime {
             isOnViewWillAppearFirstTime = true
@@ -67,6 +72,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
             onCreateLayout()
@@ -88,6 +94,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        logInfo("viewDidAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         isAppearing = true
         onViewDidAppear()
         if !isOnViewDidAppearFirstTime {
@@ -108,6 +115,7 @@ open class CSViewController: UIViewController {
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillDisappear()
         //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
@@ -116,18 +124,32 @@ open class CSViewController: UIViewController {
 
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        logInfo("viewDidDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
-        if controllerInNavigation?.parent == nil { onViewDismissing() }
-        if navigationController?.previous == controllerInNavigation { onViewPushedOver() }
+        if isMovingFromParent == true && controllerInNavigation?.parent == nil {
+            onViewDismissing()
+        } else if navigation.previous == controllerInNavigation {
+            onViewPushedOver()
+        }
+    }
+
+    open override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent.isNil {
+            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+        }
     }
 
     open func onViewDidDisappear() {}
 
-    open func onViewPushedOver() {}
+    open func onViewPushedOver() {
+        logInfo("onViewPushedOver \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+    }
 
     open func onViewDismissing() {
+        logInfo("onViewDismissing \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         eventDismissing.fire()
         notificationCenterObservers.forEach { observer in NotificationCenter.remove(observer: observer) }
     }
@@ -148,15 +170,14 @@ open class CSViewController: UIViewController {
         eventOrientationChanging.fire()
         onViewWillTransition(to: size, coordinator)
         coordinator.onCompletion { context in
-            self.onViewWillTransition(toSizeCompletion: size, context)
+            self.onViewDidTransition(to: size, context)
             self.eventOrientationChanged.fire()
         }
     }
 
     open func onViewWillTransition(to size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {}
 
-    open func onViewWillTransition(toSizeCompletion size: CGSize,
-                                   _ context: UIViewControllerTransitionCoordinatorContext) {}
+    open func onViewDidTransition(to size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {}
 
     public func observe(notification name: NSNotification.Name, callback: @escaping (Notification) -> Void) {
         notificationCenterObservers.add(NotificationCenter.add(observer: name, using: callback))
@@ -169,22 +190,6 @@ open class CSViewController: UIViewController {
 
     public func cancel<T>(event registration: CSEventListener<T>) {
         eventRegistrations.remove(registration)?.cancel()
-    }
-
-    public var isInNavigationController: Bool {
-        if controllerInNavigation.notNil {
-            return true
-        }
-        return false
-    }
-
-    public var controllerInNavigation: UIViewController? {
-        if parent == navigationController { return self }
-        var controller: UIViewController? = self
-        repeat {
-            controller = controller?.parent
-        } while controller.notNil && controller?.parent != navigationController
-        return controller
     }
 
     override public var shouldAutorotate: Bool {

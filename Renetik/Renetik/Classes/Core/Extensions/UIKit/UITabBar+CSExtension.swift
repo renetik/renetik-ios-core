@@ -5,13 +5,29 @@
 //
 
 import UIKit
+import Renetik
+import RenetikObjc
 
-@objc public extension UITabBar {
-//    @objc public var selectedItemIndex: Int {
+public extension UITabBar {
+
+//    static var portraitHeight: CGFloat?
+//    static var landscapeHeight: CGFloat?
 //
+//    class var defaultHeight: CGFloat {
+//        if UIScreen.isPortrait {
+//            if portraitHeight.isNil {
+//                portraitHeight = UIToolbar().resizeToFit().height
+//            }
+//            return portraitHeight!
+//        } else {
+//            if landscapeHeight.isNil {
+//                landscapeHeight = UIToolbar().resizeToFit().height
+//            }
+//            return landscapeHeight!
+//        }
 //    }
 
-    @objc public var selectedItemIndex: Int {
+    public var selectedItemIndex: Int {
         get {
             if selectedItem.notNil {
                 return items!.firstIndex(of: selectedItem!)!

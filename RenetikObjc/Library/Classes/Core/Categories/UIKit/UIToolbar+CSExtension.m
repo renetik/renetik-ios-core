@@ -13,9 +13,6 @@
     [self replaceItem:item by:replacingItem];
 }
 
-+ (CGFloat)HEIGHT {
-    return 44;
-}
 
 - (void)changeTextAt:(NSInteger)itemIndex :(NSString *)title {
     UIBarButtonItem *replacedItem = [self.items objectAtIndex:(NSUInteger) itemIndex];

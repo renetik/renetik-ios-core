@@ -5,12 +5,12 @@
 import Foundation
 
 public protocol CSHasDialogVisible {
-    var isVisible: Bool { get }
-    func hide(animated: Bool)
+    var isDialogVisible: Bool { get }
+    func hideDialog(animated: Bool)
 }
 
 public extension CSHasDialogVisible {
-    func hide() { hide(animated: true) }
+    func hideDialog() { hideDialog(animated: true) }
 }
 
 public struct CSDialogAction {

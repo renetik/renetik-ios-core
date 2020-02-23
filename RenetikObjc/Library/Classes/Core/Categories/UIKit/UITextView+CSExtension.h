@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)scrollToCursorPosition;
 
-- (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
+//- (instancetype)dataDetector:(UIDataDetectorTypes)dataDetectorTypes;
 
 //- (instancetype)text:(NSString *)text;
 

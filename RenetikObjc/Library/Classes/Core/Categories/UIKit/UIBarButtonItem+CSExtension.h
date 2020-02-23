@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIBarButtonItem *)createWithItem:(UIBarButtonSystemItem)item;
 
-+ (UIBarButtonItem *)createFlexSpaceItem;
-
 + (UIImage *)imageFromSystemBarButton:(UIBarButtonSystemItem)systemItem :(UIColor *)color;
 
 - (void)setTarget:(id)target forAction:(SEL)action;

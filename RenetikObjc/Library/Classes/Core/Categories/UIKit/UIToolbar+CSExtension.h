@@ -7,8 +7,6 @@
 @interface UIToolbar (CSExtension)
 - (void)changeText:(UIBarButtonItem *)item :(NSString *)title;
 
-+ (CGFloat)HEIGHT;
-
 - (void)changeTextAt:(NSInteger)itemIndex :(NSString *)title;
 
 - (void)changeItem:(UIBarButtonItem *)item :(UIBarButtonSystemItem)systemItem;

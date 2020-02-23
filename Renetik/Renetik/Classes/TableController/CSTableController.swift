@@ -58,8 +58,8 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         if _data.hasItems { filterDataAndReload() }
     }
 
-    public override func onViewWillTransition(
-            toSizeCompletion size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
+    public override func onViewDidTransition(
+            to size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext) {
         tableView.reload()
     }
 
@@ -124,12 +124,6 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 }
 
 extension CSTableController {
-    @discardableResult
-    public func register<CellType: UITableViewCell>(cell type: CellType.Type) -> Self {
-        tableView.register(cell: type)
-        return self
-    }
-
     public func dequeue<CellType: UITableViewCell>(
             cell type: CellType.Type, onCreate function: ((CellType) -> Void)? = nil) -> CellType {
         tableView.dequeue(cell: type, onCreate: function)

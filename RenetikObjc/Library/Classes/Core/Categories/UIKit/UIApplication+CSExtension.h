@@ -6,13 +6,13 @@
 @import UIKit;
 
 @interface UIApplication (CSExtension)
-+ (UIWindow *)window;
+//+ (UIWindow *)window;
 
-+ (void)resignFirstResponder;
+//+ (void)resignFirstResponder;
 
-+ (CGFloat)statusBarHeight;
+//+ (CGFloat)statusBarHeight;
 
-- (UIApplication *)openNSURL:(NSURL *)url;
+//- (UIApplication *)openNSURL:(NSURL *)url;
 
-- (UIApplication *)openURLString:(NSString *)url;
+//- (UIApplication *)openURLString:(NSString *)url;
 @end

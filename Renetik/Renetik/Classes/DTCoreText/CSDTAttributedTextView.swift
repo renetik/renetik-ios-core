@@ -35,6 +35,9 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
 
     @discardableResult
+    public func defaultLink(color: UIColor) -> Self { invoke { self.defaultLinkColor = color } }
+
+    @discardableResult
     public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
 
     @discardableResult

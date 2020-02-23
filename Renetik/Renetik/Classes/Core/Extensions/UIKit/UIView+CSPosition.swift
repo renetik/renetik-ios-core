@@ -6,6 +6,7 @@ import UIKit
 import RenetikObjc
 
 public extension UIView {
+
     var fromRight: CGFloat {
         get { superview.notNil ? superview!.width - (left + width) : right }
         set(value) {
@@ -25,29 +26,35 @@ public extension UIView {
 
     var topFromBottom: CGFloat { superview.notNil ? superview!.height - top : height }
 
-    var absTop: CGFloat {
+    var screenTop: CGFloat {
         get { convert(CGPoint(x: 0, y: top), to: nil).y }
         set(value) { top = convert(CGPoint(x: 0, y: value), from: nil).y }
     }
 
-    var absBottom: CGFloat {
+    var screenBottom: CGFloat {
         get { convert(CGPoint(x: 0, y: bottom), to: nil).y }
         set(value) { bottom = convert(CGPoint(x: 0, y: value), from: nil).y }
     }
 
-    var verticalCenter: CGFloat {
+    var centerTop: CGFloat {
         get { center.y }
         set(value) { center = CGPoint(x: center.x, y: value) }
     }
 
     @discardableResult
-    func verticalCenter(_ y: CGFloat) -> Self { invoke { verticalCenter = y } }
+    func centerTop(_ y: CGFloat) -> Self { invoke { centerTop = y } }
 
-    var horizontalCenter: CGFloat {
+    @discardableResult
+    func centerTop(as view: UIView) -> Self { centerTop(view.centerTop) }
+
+    var centerLeft: CGFloat {
         get { center.x }
         set(value) { center = CGPoint(x: value, y: center.y) }
     }
 
     @discardableResult
-    func horizontalCenter(_ x: CGFloat) -> Self { invoke { horizontalCenter = x } }
+    func centerLeft(_ x: CGFloat) -> Self { invoke { centerLeft = x } }
+
+    @discardableResult
+    func centerLeft(as view: UIView) -> Self { centerLeft(view.centerLeft) }
 }

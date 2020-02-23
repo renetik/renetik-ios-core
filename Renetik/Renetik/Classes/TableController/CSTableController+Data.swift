@@ -9,10 +9,15 @@ import RenetikObjc
 
 public extension CSTableController {
 
-    public func data(for path: IndexPath) -> Row { data[path.row] }
+    func data(for path: IndexPath) -> Row { data[path.row] }
+
+    func height<View: CSTableHeightCalculatingCell>(for path: IndexPath, _ view: View) -> CGFloat
+            where View.Row == Row {
+        view.height(for: data(for: path))
+    }
 
     @discardableResult
-    public func reload(row: Row) -> Self {
+    func reload(row: Row) -> Self {
         let tableIsAtBottom = isAtBottom()
         let index = data.index(of: row)!
         tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)

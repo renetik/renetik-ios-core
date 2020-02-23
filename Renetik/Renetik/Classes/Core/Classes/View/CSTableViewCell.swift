@@ -4,6 +4,11 @@
 
 import UIKit
 
+public protocol CSTableHeightCalculatingCell {
+    associatedtype Row
+    func height(for data: Row) -> CGFloat
+}
+
 open class CSTableViewCell: UITableViewCell {
 
     private let layoutFunctions: CSEvent<Void> = event()

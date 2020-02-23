@@ -81,9 +81,9 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     private func hide() {
+        container.removeFromSuperview()  // Have to be here so isActive returns false and cycle is prevented
         parentTextInput.text = textView.text
         changeAccessory(from: textView, to: hasAccessory, textInput: accessoryTextInput)
-        container.removeFromSuperview()
         textView.resignFirstResponder()
     }
 

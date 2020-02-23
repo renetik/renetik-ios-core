@@ -11,24 +11,24 @@ import RenetikObjc
 
 public extension UIViewController {
 
-    public func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
+    func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
         view.invoke(animated: animated, duration: duration, operation: operation)
     }
 
-    public func invoke(animated: Bool, duration: TimeInterval = 0.3,
-                       operation: @escaping () -> Void, completion: @escaping () -> Void) {
+    func invoke(animated: Bool, duration: TimeInterval = 0.3,
+                operation: @escaping () -> Void, completion: @escaping () -> Void) {
         view.invoke(animated: animated, duration: duration,
                 operation: operation, completion: completion)
     }
 
     @discardableResult
-    public func push() -> Self {
+    func push() -> Self {
         navigation.push(self)
         return self
     }
 
     @discardableResult
-    public func pushFromTop() -> Self {
+    func pushFromTop() -> Self {
         navigation.push(fromTop: self)
         return self
     }
@@ -37,19 +37,6 @@ public extension UIViewController {
     func showChild(controller: UIViewController) -> UIViewController {
         showChild(controller: controller, parentView: view)
     }
-
-//    func showChildUnderLast(controller: UIViewController) -> UIViewController {
-//        view.verticalLine(add: controller.view)
-//        showChild(controller: controller, parentView: view)
-//        return controller
-//    }
-
-//    func showChildNextLast(controller: UIViewController, parentView: UIView) -> UIViewController {
-//        view.add(controller.view).fromPrevious(left: 0)
-//        view.horizontalLine(add: controller.view)
-//        showChild(controller: controller, parentView: parentView)
-//        return controller
-//    }
 
     @discardableResult
     func showChild(controller: UIViewController, parentView: UIView?) -> UIViewController {
@@ -73,7 +60,7 @@ public extension UIViewController {
         return controller
     }
 
-    public func popoverFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) -> Self {
+    func popoverFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) -> Self {
         modalPresentationStyle = .popover
         view.notNil {
             popoverPresentationController?.sourceRect = $0.frame
@@ -83,5 +70,14 @@ public extension UIViewController {
     }
 
     @available(iOS 12.0, *)
-    public var isDarkMode: Bool { traitCollection.isDarkMode }
+    var isDarkMode: Bool { traitCollection.isDarkMode }
+
+    func findControllerInNavigation() -> UIViewController? {
+        if parent == navigation { return self }
+        var controller: UIViewController? = self
+        repeat {
+            controller = controller?.parent
+        } while controller.notNil && controller?.parent != navigationController
+        return controller
+    }
 }

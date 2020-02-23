@@ -15,9 +15,9 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
         self.controller = controller
     }
 
-    public var isVisible: Bool { alert.notNil }
+    public var isDialogVisible: Bool { alert.notNil }
 
-    public func hide(animated: Bool) { alert?.dismiss(animated: animated) }
+    public func hideDialog(animated: Bool) { alert?.dismiss(animated: animated) }
 
     public func show(title: String?, message: String?, actions: [CSDialogAction]?, positive: CSDialogAction?,
                      cancel: CSDialogAction?, from: CSDisplayElement) -> CSHasDialogVisible {
@@ -40,7 +40,7 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
     }
 
     private func present(_ alert: UIAlertController) {
-        hide(animated: false)
+        hideDialog(animated: false)
         self.alert = alert
         controller.present(alert, animated: true, completion: nil)
     }

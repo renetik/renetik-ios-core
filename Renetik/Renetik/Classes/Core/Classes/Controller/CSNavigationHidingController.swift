@@ -45,8 +45,8 @@ public class CSNavigationHidingController: CSMainController {
         requestNavigationBarShown(animated: false)
     }
 
-    public override func onViewWillTransition(toSizeCompletion size: CGSize,
-                                              _ context: UIViewControllerTransitionCoordinatorContext) {
+    public override func onViewDidTransition(to size: CGSize,
+                                             _ context: UIViewControllerTransitionCoordinatorContext) {
 //        if isNavigationBarHidden { /// TODO: Je totalne dojebany na iphonne x ak otocix skovanyu
 //            UIView.animate(withDuration: 0.2) {
 //                navigation.navigationBar.alpha = 0
@@ -101,7 +101,7 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = true
         invoke(animated: animated, duration: 0.3, operation: {
             navigation.navigationBar.alpha = 0
-            navigation.navigationBar.bottom = UIApplication.statusBarHeight()
+            navigation.navigationBar.bottom = UIApplication.statusBarHeight
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
             navigation.navigationBar.isHidden = true

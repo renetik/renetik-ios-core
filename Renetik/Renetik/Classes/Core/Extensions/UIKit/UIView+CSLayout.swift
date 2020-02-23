@@ -12,6 +12,7 @@ public extension UIView {
     func from(left: CGFloat) -> Self {
         self.left = left;
         fixedLeft()
+        safeAreaInsets
         return self
     }
 
@@ -133,6 +134,16 @@ public extension UIView {
     }
 
     @discardableResult
+    func matchParent(margin: CGFloat = 0) -> Self {
+        matchParent(margin: (horizontal: margin, vertical: margin))
+    }
+
+    @discardableResult
+    func matchParent(margin: (horizontal: CGFloat, vertical: CGFloat)) -> Self {
+        matchParentWidth(margin: margin.horizontal).matchParentHeight(margin: margin.vertical)
+    }
+
+    @discardableResult
     func matchParentWidth(margin: CGFloat = 0) -> Self {
         from(left: margin).width(fromRight: margin).flexibleWidth()
     }
@@ -140,16 +151,6 @@ public extension UIView {
     @discardableResult
     func matchParentHeight(margin: CGFloat = 0) -> Self {
         from(top: margin).height(fromBottom: margin).flexibleHeight()
-    }
-
-    @discardableResult
-    func matchParent(margin: CGFloat = 0) -> Self {
-        matchParentWidth(margin: margin).matchParentHeight(margin: margin)
-    }
-
-    @discardableResult
-    func matchParent(horizontalMargin: CGFloat = 0, verticalMargin: CGFloat = 0) -> Self {
-        matchParentWidth(margin: horizontalMargin).matchParentHeight(margin: verticalMargin)
     }
 
     @discardableResult

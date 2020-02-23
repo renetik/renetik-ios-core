@@ -113,10 +113,7 @@ public class CSNotification: CSObject {
     }
 
     @discardableResult
-    public func show() -> Self { show(navigation.last!) }
-
-    @discardableResult
-    public func show(_ parent: UIViewController?) -> Self {
+    public func show(_ parent: UIViewController? = navigation) -> Self {
         var type = self.type
         type.durationType = dismissible ? .timed : .endless
         type.timeToDismiss = time

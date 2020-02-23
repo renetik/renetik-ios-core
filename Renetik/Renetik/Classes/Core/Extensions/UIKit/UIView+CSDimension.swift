@@ -7,6 +7,9 @@ import RenetikObjc
 
 public extension UIView {
 
+    @discardableResult
+    func defaultSize() -> Self { width(UIScreen.width, height: UIScreen.height) }
+
     public var availableHeight: CGFloat { height - navigation.navigationBar.bottom }
 
     @discardableResult

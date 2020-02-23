@@ -36,10 +36,6 @@
     return [UIBarButtonItem.alloc initWithBarButtonSystemItem:item target:nil action:nil];
 }
 
-+ (UIBarButtonItem *)createFlexSpaceItem {
-    return [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-}
-
 - (void)setTarget:(id)target forAction:(SEL)action {
     self.target = target;
     self.action = action;

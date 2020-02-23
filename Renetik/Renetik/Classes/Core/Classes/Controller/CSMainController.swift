@@ -10,7 +10,7 @@ open class CSMainController: CSViewController {
     public var parentMainController: CSMainController? = nil
     private var childMainControllers = [CSMainController]()
     private var menuItems = [CSMenuHeader]()
-    private lazy var dialog = { CSAlertDialogController(in: self) }()
+    private lazy var menuDialog = { CSAlertDialogController(in: self) }()
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -19,7 +19,7 @@ open class CSMainController: CSViewController {
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        dialog.hide()
+        menuDialog.hideDialog()
     }
 
     public var isTopController: Bool { parent is UINavigationController || parentMainController == nil }
@@ -73,7 +73,7 @@ open class CSMainController: CSViewController {
             actions.add(CSDialogAction(title: item.title!) { item.action!(item) })
         }
         return UIBarButtonItem(image: CSMenuItem.menuImage) { item in
-            self.dialog.show(actions: actions, from: item)
+            self.menuDialog.show(actions: actions, from: item)
         }
     }
 
