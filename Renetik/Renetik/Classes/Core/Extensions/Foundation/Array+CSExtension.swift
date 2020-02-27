@@ -10,6 +10,11 @@ public extension Array where Element: Any {
         return nil
     }
 
+    public func each(_ function: (Element) -> Void) -> Self {
+        forEach { element in function(element) }
+        return self
+    }
+
     public var second: Element? { at(1) }
 
     public var third: Element? { at(2) }

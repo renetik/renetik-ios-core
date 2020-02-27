@@ -9,6 +9,16 @@ import BlocksKit
 
 public extension UIView {
 
+    class func construct(width: CGFloat, height: CGFloat) -> Self {
+        construct().width(width, height: height)
+    }
+
+    class func construct<View: UIView>(onCreate: ((View) -> Void)? = nil) -> Self {
+        let instance = construct()
+        onCreate?(instance as! View)
+        return instance
+    }
+
     @discardableResult
     func visible(if condition: Bool) -> Self {
         self.visible = condition
@@ -36,7 +46,7 @@ public extension UIView {
 //    }
 
     @discardableResult
-    func onClick(_ block: @escaping () -> Void) -> Self {
+    @objc func onClick(_ block: @escaping () -> Void) -> Self {
         onTap { block() }
         return self
     }

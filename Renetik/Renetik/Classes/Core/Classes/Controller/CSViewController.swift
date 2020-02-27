@@ -31,12 +31,21 @@ open class CSViewController: UIViewController {
 
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
+        construct(parent)
         doLater {
             parent.showChild(controller: self)
             self.view.matchParent()
             self.view.isUserInteractionEnabled = false
         }
         isShowing = true
+        return self
+    }
+
+    @discardableResult
+    public func construct(_ parent: UIViewController) -> Self {
+        if let parent = parent as? CSViewController {
+            self.register(event: parent.eventDismissing.invokeOnce(listener: onViewDismissing))
+        }
         return self
     }
 
@@ -128,7 +137,8 @@ open class CSViewController: UIViewController {
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
-        if isMovingFromParent == true && controllerInNavigation?.parent == nil {
+        if isMovingFromParent == true && controllerInNavigation.notNil &&
+                   controllerInNavigation?.parent == nil {
             onViewDismissing()
         } else if navigation.previous == controllerInNavigation {
             onViewPushedOver()
@@ -150,8 +160,9 @@ open class CSViewController: UIViewController {
 
     open func onViewDismissing() {
         logInfo("onViewDismissing \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+        eventRegistrations.each { $0.cancel() }
+        notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
         eventDismissing.fire()
-        notificationCenterObservers.forEach { observer in NotificationCenter.remove(observer: observer) }
     }
 
     private func onShowingChanged() {

@@ -12,7 +12,7 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
     private let keyboardManager = CSKeyboardManager()
 
     @discardableResult
-    public func construct(_ parent: UIViewController) -> Self {
+    public override func construct(_ parent: UIViewController) -> Self {
         super.constructAsViewLess(in: parent)
         keyboardManager.construct(self, onKeyboardChange)
         return self

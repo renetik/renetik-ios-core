@@ -47,13 +47,7 @@ public class CSNavigationHidingController: CSMainController {
 
     public override func onViewDidTransition(to size: CGSize,
                                              _ context: UIViewControllerTransitionCoordinatorContext) {
-//        if isNavigationBarHidden { /// TODO: Je totalne dojebany na iphonne x ak otocix skovanyu
-//            UIView.animate(withDuration: 0.2) {
-//                navigation.navigationBar.alpha = 0
-//                navigation.navigationBar.bottom = UIApplication.statusBarHeight()
-//                navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
-//            }
-//        }
+        requestNavigationBarShown()
     }
 
     private var lastDraggingContentOffset: CGFloat? = nil
@@ -70,7 +64,7 @@ public class CSNavigationHidingController: CSMainController {
         } else {
             if lastDraggingContentOffset! < scrollView.contentOffset.y - 400 {
                 requestNavigationBarHidden()
-            } else if lastDraggingContentOffset! > scrollView.contentOffset.y + 400 {
+            } else if lastDraggingContentOffset! > scrollView.contentOffset.y + 200 {
                 requestNavigationBarShown()
             }
         }

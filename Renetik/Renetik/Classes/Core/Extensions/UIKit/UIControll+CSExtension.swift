@@ -9,6 +9,11 @@ import BlocksKit
 public extension UIControl {
 
     @discardableResult
+    @objc override func onClick(_ block: @escaping () -> ()) -> Self {
+        onTouchUp(block)
+    }
+
+    @discardableResult
     func onTouchUp(_ block: @escaping () -> Void) -> Self {
         isUserInteractionEnabled = true
         bk_addEventHandler({ _ in block() }, for: .touchUpInside)

@@ -23,6 +23,14 @@ public class CSKeyboardManager: CSMainController {
         return self
     }
 
+    public override func onViewWillAppearFirstTime() {
+        super.onViewWillAppearFirstTime()
+    }
+
+    public override func onViewDidDisappear() {
+        super.onViewDidDisappear()
+    }
+
     private func keyboardDidShow(_ note: Notification) {
         let rect = note.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         keyboardHeight = rect.size.height

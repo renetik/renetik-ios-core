@@ -6,6 +6,10 @@ import Foundation
 import RenetikObjc
 
 public extension NSObject {
+//    @objc class func construct() -> Self {
+//        Self()
+//    }
+
     //    var eventChangeProperty: CSEvent<Void> { extensionProperty("eventChange") { CSEvent<Void>() } }
     func extensionProperty<Type>(_ id: String, _ onCreate: () -> Type) -> Type {
         var dict = self.propertyDictionary() as! [String: Any]

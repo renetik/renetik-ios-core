@@ -6,8 +6,12 @@ import UIKit
 import RenetikObjc
 import BlocksKit
 
-public struct CSTextViewClearButtonAppearance: CSAny {
-    var titleColor: UIColor?
+public struct CSTextViewClearButtonAppearance {
+    fileprivate let titleColor: UIColor?
+
+    public init(titleColor: UIColor) {
+        self.titleColor = titleColor
+    }
 }
 
 public extension UITextView {
@@ -31,8 +35,9 @@ public extension UITextView {
     func withClear(_ parent: CSViewController, _ appearance: CSTextViewClearButtonAppearance? = nil) -> Self {
         let button = UIButton(type: .system).construct().text("X").fontStyle(.body)
                 .visible(if: self.text.isSet).onClick { self.text = "" }
-        add(button).from(left: 5).resizeToFit().centerInParentVertical()
-        onChange(parent) { _ in button.visible(if: self.text.isSet) }
+        add(button).from(left: 5).resizeToFit().centerInParentHorizontal()
+        //TODO: Clear button its moving as text exceed space
+        onTextChange(in: parent) { _ in button.visible(if: self.text.isSet) }
         appearance?.titleColor?.then { color in button.textColor(color) }
         return self
     }
@@ -44,12 +49,9 @@ public extension UITextView {
     }
 
     @discardableResult
-    func onChange(_ parent: CSViewController, _ function: @escaping (UITextView) -> Void) -> Self {
-        let observer = NotificationCenter.add(observer: UITextView.textDidChangeNotification) { it in
-            if (it.object as! NSObject) === self { function(self) }
-        }
-        parent.eventDismissing.invoke {
-            NotificationCenter.remove(observer: observer)
+    func onTextChange(in parent: CSViewController, _ function: @escaping (UITextView) -> Void) -> Self {
+        parent.observe(notification: UITextView.textDidChangeNotification) { notification in
+            if (notification.object as! NSObject) === self { function(self) }
         }
         return self
     }

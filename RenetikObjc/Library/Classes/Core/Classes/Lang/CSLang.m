@@ -50,9 +50,9 @@ BOOL isDebug() {
     return DEBUGMODE;
 }
 
-UIEdgeInsets UIEdgeInsetMake(CGFloat inset) {
-    return (UIEdgeInsets) {inset, inset, inset, inset};
-}
+//UIEdgeInsets UIEdgeInsetMake(CGFloat inset) {
+//    return (UIEdgeInsets) {inset, inset, inset, inset};
+//}
 
 BOOL bitmaskContains(NSUInteger mask, NSUInteger contains) {
     return (mask & contains) != 0;

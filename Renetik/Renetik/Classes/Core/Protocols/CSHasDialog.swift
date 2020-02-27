@@ -25,6 +25,8 @@ public struct CSDialogAction {
         self.title = title
         self.action = action
     }
+
+    public func run() { action() }
 }
 
 public protocol CSHasDialog {
@@ -39,10 +41,11 @@ public extension CSHasDialog {
     public func show(message: String,
                      positiveTitle: String = CSStrings.dialogYes,
                      onPositive: (() -> Void)? = nil,
-                     onCanceled: (() -> Void)? = nil) -> CSHasDialogVisible {
+                     onCanceled: (() -> Void)? = nil,
+                     canCancel: Bool = true) -> CSHasDialogVisible {
         show(title: nil, message: message,
                 positive: CSDialogAction(title: positiveTitle, action: onPositive ?? {}),
-                negative: nil, cancel: CSDialogAction(action: onCanceled ?? {}))
+                negative: nil, cancel: canCancel ? CSDialogAction(action: onCanceled ?? {}) : nil)
     }
 
 
@@ -50,7 +53,7 @@ public extension CSHasDialog {
     public func show(title: String? = nil, message: String,
                      positive: CSDialogAction?, negative: CSDialogAction? = nil) -> CSHasDialogVisible {
         show(title: title, message: message, positive: positive,
-                negative: negative, cancel: CSDialogAction(action: {}))
+                negative: negative, cancel: nil)
     }
 
 }

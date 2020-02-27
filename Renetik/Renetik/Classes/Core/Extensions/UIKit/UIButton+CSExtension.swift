@@ -11,9 +11,11 @@ import RenetikObjc
 public extension UIButton {
 
     @discardableResult
+    class func construct(_ image: UIImage) -> Self { construct().image(image) }
+
+    @discardableResult
     override open func construct() -> Self {
-        super.construct()
-        aspectFit()
+        super.construct().aspectFit().resizeToFit()
         return self
     }
 
@@ -64,10 +66,17 @@ public extension UIButton {
         return self
     }
 
-    @discardableResult
-    public class func floating(in view: UIView, _ image: UIImage, _ onClick: @escaping (UIButton) -> Void) -> Self {
-        let button = self.init().construct()
-        view.add(view: button.resizeToFit().onTouchUp { onClick(button) })
-        return button.image(image).from(right: 25).from(bottom: 25).flexibleLeftTop()
+    func floatingDown() -> Self {
+        from(bottom: 25, right: 25)
+        if UIDevice.isTablet { resizeBy(padding: 5) }
+        imageEdgeInsets = UIEdgeInsets(UIDevice.isTablet ? 20 : 15)
+        return self
+    }
+
+    func floatingUp() -> Self {
+        from(top: 25, right: 25)
+        if UIDevice.isTablet { resizeBy(padding: 5) }
+        imageEdgeInsets = UIEdgeInsets(UIDevice.isTablet ? 20 : 15)
+        return self
     }
 }

@@ -46,7 +46,7 @@ void invokeWith(void (^block)(id), id value);
 
 BOOL isDebug(void);
 
-UIEdgeInsets UIEdgeInsetMake(CGFloat inset);
+//UIEdgeInsets UIEdgeInsetMake(CGFloat inset);
 
 BOOL bitmaskContains(NSUInteger mask, NSUInteger contains);
 

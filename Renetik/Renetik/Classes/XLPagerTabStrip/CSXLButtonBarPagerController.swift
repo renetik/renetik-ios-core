@@ -29,10 +29,6 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     override public func viewControllers(
             for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] { controllers }
 
-//    override open func viewDidLayoutSubviews() { if controllers.hasItems { super.viewDidLayoutSubviews() } }
-
-//    override public func viewWillLayoutSubviews() { if controllers.hasItems { super.viewWillLayoutSubviews() } }
-
     override public func viewDidLoad() {
         super.viewDidLoad()
         updateControllersVisible(at: currentIndex, animated: false)

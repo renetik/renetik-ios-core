@@ -10,6 +10,8 @@ import RenetikObjc
 
 public extension String {
 
+    static let newLine = "\n"
+
     public func htmlToText(_ encoding: String.Encoding) -> String? {
         if let data = data(using: encoding) {
             return (try? NSAttributedString(data: data,

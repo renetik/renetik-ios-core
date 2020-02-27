@@ -7,12 +7,10 @@ import Foundation
 public extension Bundle {
 
     public class var shortVersion: String {
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        return version ?? ""
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
 
     public class var build: String {
-        let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
-        return build ?? ""
+        Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? ""
     }
 }

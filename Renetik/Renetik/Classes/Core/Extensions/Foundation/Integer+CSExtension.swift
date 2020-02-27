@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public extension Int {
-    public var isEmpty: Bool { self == 0 }
-    public var isSet: Bool { !isEmpty }
-    public var set: Bool { isSet }
+    var isEmpty: Bool { self == 0 }
+    var isSet: Bool { !isEmpty }
+    var set: Bool { isSet }
+    var asFloat: CGFloat { CGFloat(self) }
 }

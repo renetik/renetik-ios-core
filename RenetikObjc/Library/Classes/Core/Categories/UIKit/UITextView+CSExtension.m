@@ -20,9 +20,9 @@
     return self;
 }
 
-+ (void)hideTextInsets:(NSArray<UITextView *> *)textViews {
-    for (UITextView *view in textViews) view.textContainerInset = UIEdgeInsetsZero;
-}
+//+ (void)hideTextInsets:(NSArray<UITextView *> *)textViews {
+//    for (UITextView *view in textViews) view.textContainerInset = UIEdgeInsetsZero;
+//}
 
 - (instancetype)asLabel {
     self.textContainerInset = UIEdgeInsetsZero;
@@ -43,17 +43,6 @@
     });
     return self;
 }
-
-//- (instancetype)dataDetector:(UIDataDetectorTypes)types {
-//    self.dataDetectorTypes = types;
-//    if (types != UIDataDetectorTypeNone) self.selectable = true;
-//    return self;
-//}
-
-//- (instancetype)text:(NSString *)text {
-//    self.text = text;
-//    return self;
-//}
 
 - (instancetype)alignText:(enum NSTextAlignment)alignment {
     self.textAlignment = alignment;
@@ -99,11 +88,5 @@
     self.width = currentWidth;
     return self;
 }
-
-//- (instancetype)onClick:(void (^)())block {
-//    self.editable = false;
-//    self.selectable = false;
-//    return [super onClick:block];
-//}
 
 @end

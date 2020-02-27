@@ -5,7 +5,7 @@
 @import UIKit;
 
 @interface UISearchBar (CSExtension)
-//- (void)setTextColor:(UIColor *)textColor;
-//
-//- (void)transparent;
+- (void)setTextColor:(UIColor *)textColor;
+
+- (void)transparent;
 @end

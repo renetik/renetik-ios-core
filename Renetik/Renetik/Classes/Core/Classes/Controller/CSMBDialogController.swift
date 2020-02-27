@@ -7,17 +7,19 @@ import UIKit
 import MBProgressHUD
 import RenetikObjc
 
-public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDelegate {
+public class CSMBDialogController: NSObject, CSHasDialog, CSHasDialogVisible, MBProgressHUDDelegate {
 
     public var backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.7)
     public var foregroundColor = UIColor.white
-
-    private var view: UIView!
     private var hud: MBProgressHUD!
+    private let view: UIView
 
-    public func show(in view: UIView, title: String?, message: String, positive: CSDialogAction?,
-                     negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
+    public init(in view: UIView) {
         self.view = view
+    }
+
+    public func show(title: String?, message: String, positive: CSDialogAction?, negative: CSDialogAction?,
+                     cancel: CSDialogAction?) -> CSHasDialogVisible {
         MBProgressHUD.hide(for: view, animated: true)
         hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
             hud.mode = .text
@@ -28,6 +30,8 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
             hud.bezelView.backgroundColor = backgroundColor
             hud.backgroundView.style = .solidColor
             hud.backgroundView.backgroundColor = .clear
+            hud.label.text = title
+            hud.detailsLabel.text = "\n" + message + "\n\n"
             positive.notNil { action in
                 hud.button.text(action.title ?? CSStrings.dialogYes).onClick {
                     action.action()
@@ -37,15 +41,21 @@ public class CSMBDialogController: NSObject, CSHasDialogVisible, MBProgressHUDDe
             negative.notNil { action in
                 fatalError("Negative not implemented")
             }
-            cancel.notNil { onCancel in
+            cancel.notNil { action in
                 hud.onClick {
                     hud.hide(animated: true)
-                    onCancel.action()
+                    action.action()
                 }
             }
-            hud.detailsLabel.text = "\n" + title.asString
             hud.delegate = self
         }
+        return self
+    }
+
+    public func show(in view: UIView, title: String?, message: String, positive: CSDialogAction?,
+                     negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
+        self.view = view
+        show(title: title, message: message, positive: positive, negative: negative, cancel: cancel)
         return self
     }
 

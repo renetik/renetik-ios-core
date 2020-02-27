@@ -37,6 +37,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
+        super.construct(parent)
         parentController = parent
         tableView.delegates(parent)
         filter = parentController as? CSTableControllerFilter

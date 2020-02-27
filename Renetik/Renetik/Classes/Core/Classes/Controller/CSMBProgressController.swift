@@ -35,7 +35,6 @@ public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible
             hud.bezelView.backgroundColor = .clear
             hud.backgroundView.style = .solidColor
             hud.backgroundView.backgroundColor = backgroundColor
-
             cancel.notNil { cancel in
                 hud.detailsLabel.text = title.isSet ? "\n" + title + "\n" : "\n"
                 hud.button.text(cancel.title ?? CSStrings.dialogCancel).onClick {
