@@ -52,13 +52,6 @@ public class CSMBDialogController: NSObject, CSHasDialog, CSHasDialogVisible, MB
         return self
     }
 
-    public func show(in view: UIView, title: String?, message: String, positive: CSDialogAction?,
-                     negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
-        self.view = view
-        show(title: title, message: message, positive: positive, negative: negative, cancel: cancel)
-        return self
-    }
-
     public var isDialogVisible: Bool { hud.notNil }
 
     public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }

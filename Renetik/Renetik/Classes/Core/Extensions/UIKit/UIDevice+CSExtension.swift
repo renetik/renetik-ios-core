@@ -11,7 +11,7 @@ public enum DisplayType {
     static let iphone7plus = iphone6plus
 }
 
-@objc public extension UIDevice {
+public extension UIDevice {
 
     public class func set(orientation: UIDeviceOrientation) {
         UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
