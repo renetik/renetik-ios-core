@@ -20,6 +20,11 @@ public extension UITableView {
         return self
     }
 
+    public func cell(style: UITableViewCell.CellStyle,
+                     onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell {
+        cell(with: "Cell", style: style, onCreate: onCreate)
+    }
+
     public func cell(with identifier: String, style: UITableViewCell.CellStyle,
                      onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell {
         var cell = dequeueCellWith(identifier: identifier)

@@ -11,6 +11,7 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
 
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
+    public var onCellCreate: ((UITableViewCell) -> Void)? = nil
     public var selectedName: CSName?
     private var names: [CSName] = []
     private var filteredData: [CSName] = []
@@ -51,9 +52,8 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
 
     public func tableView(_ tableView: UITableView,
                           cellForRowAt path: IndexPath) -> UITableViewCell {
-        let cell = tableView.cell(with: "Cell", style: .default)
-        cell.textLabel?.text = filteredData[path.row].name
-        return cell
+        tableView.cell(style: .default, onCreate: onCellCreate)
+                .also { $0.textLabel!.text = filteredData[path.row].name }
     }
 
     public func tableView(_ tableView: UITableView,

@@ -66,15 +66,15 @@ public extension UIButton {
         return self
     }
 
-    func floatingDown() -> Self {
-        from(bottom: 25, right: 25)
+    func floatingDown(distance: CGFloat = 25) -> Self {
+        from(bottom: distance, right: distance)
         if UIDevice.isTablet { resizeBy(padding: 5) }
         imageEdgeInsets = UIEdgeInsets(UIDevice.isTablet ? 20 : 15)
         return self
     }
 
-    func floatingUp() -> Self {
-        from(top: 25, right: 25)
+    func floatingUp(distance: CGFloat = 25) -> Self {
+        from(top: distance, right: distance)
         if UIDevice.isTablet { resizeBy(padding: 5) }
         imageEdgeInsets = UIEdgeInsets(UIDevice.isTablet ? 20 : 15)
         return self

@@ -85,12 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)hide;
 
-//- (instancetype)onClick:(void (^)())block;
-
-//- (instancetype)onTap:(void (^)(UIView *))block;
-
-//- (void)setOnClick:(void (^)(UIView *))block;
-
 - (BOOL)isVisibleToUser;
 
 - (instancetype)aspectFit;

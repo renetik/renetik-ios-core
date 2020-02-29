@@ -37,7 +37,7 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
             picker.delegate = self
             picker.allowsEditing = true
             picker.sourceType = .photoLibrary
-            parent.present(picker.popoverFrom(view: element.view, item: element.item))
+            parent.present(picker.popover(from: element))
         } else {
             parent.show(message: "Gallery not available")
         }

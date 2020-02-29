@@ -75,7 +75,7 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.onCompletion { _ in
-            self.containerView.scroll(toPage: self.currentIndex, of: self.controllers.count)
+            self.containerView.scrollTo(page: self.currentIndex, of: self.controllers.count)
 //            doLater { self.reloadPagerTabStripView() }
         }
     }

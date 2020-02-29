@@ -67,7 +67,7 @@ public class CSXLButtonBarPagerControllerNew: CSMainController, PagerTabStripIsP
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.onCompletion { _ in
-            self.pager.containerView.scroll(toPage: self.pager.currentIndex, of: self.controllers.count)
+            self.pager.containerView.scrollTo(page: self.pager.currentIndex, of: self.controllers.count)
         }
     }
 

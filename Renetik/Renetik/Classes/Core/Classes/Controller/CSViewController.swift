@@ -62,7 +62,7 @@ open class CSViewController: UIViewController {
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if controllerInNavigation.isNil { controllerInNavigation = findControllerInNavigation() }
+        updateControllerInNavigation()
         logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillAppear()
         if !isOnViewWillAppearFirstTime {
@@ -81,6 +81,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        updateControllerInNavigation()
         logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
@@ -137,11 +138,12 @@ open class CSViewController: UIViewController {
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
-        if isMovingFromParent == true && controllerInNavigation.notNil &&
-                   controllerInNavigation?.parent == nil {
-            onViewDismissing()
-        } else if navigation.previous == controllerInNavigation {
-            onViewPushedOver()
+        if let controllerInNavigation = controllerInNavigation {
+            if isMovingFromParent == true && controllerInNavigation.parent == nil {
+                onViewDismissing()
+            } else if navigation.previous == controllerInNavigation {
+                onViewPushedOver()
+            }
         }
     }
 
@@ -231,5 +233,9 @@ open class CSViewController: UIViewController {
 
     public func runLayoutFunctions() {
         layoutFunctions.fire()
+    }
+
+    func updateControllerInNavigation(){
+        if controllerInNavigation.isNil { controllerInNavigation = findControllerInNavigation() }
     }
 }

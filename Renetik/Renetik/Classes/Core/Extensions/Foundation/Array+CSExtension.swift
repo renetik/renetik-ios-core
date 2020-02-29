@@ -10,6 +10,7 @@ public extension Array where Element: Any {
         return nil
     }
 
+    @discardableResult
     public func each(_ function: (Element) -> Void) -> Self {
         forEach { element in function(element) }
         return self

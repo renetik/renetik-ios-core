@@ -24,34 +24,11 @@ public extension UIView {
         return self
     }
 
-    @available(*, deprecated, message: "use from(.., left:..)")
-    @discardableResult
-    public func horizontalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
-        horizontalLine(update: add(view: view), margin: margin)
-    }
-
-    @discardableResult
-    private func horizontalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
-        horizontalLine(update: subviews.index(of: view)!, view: view, margin: margin)
-    }
-
     @discardableResult
     private func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
         view.from(left: subviews.at(position - 1)?.right ?? 0)
         if view.left != 0 { view.left += margin }
         return view
-    }
-
-    @available(*, deprecated, message: "use from(.., top:..)")
-    @discardableResult
-    func verticalLine<View: UIView>(add view: View, margin: CGFloat = 0) -> View {
-        verticalLine(update: add(view: view), margin: margin)
-    }
-
-    @available(*, deprecated, message: "use from(.., top:..)")
-    @discardableResult
-    func verticalLine<View: UIView>(update view: View, margin: CGFloat = 0) -> View {
-        verticalLine(update: subviews.index(of: view)!, view: view, margin: margin)
     }
 
     @available(*, deprecated, message: "use from(.., top:..)")
@@ -97,8 +74,4 @@ public extension UIView {
         }.elseDo { view.from(left: margin, top: margin) }
         return view
     }
-
-//    func addBottomSeparator(_ height: CGFloat = 0.5) -> UIView {
-//        add(UIView.construct()).asBottomSeparator(height)
-//    }
 }

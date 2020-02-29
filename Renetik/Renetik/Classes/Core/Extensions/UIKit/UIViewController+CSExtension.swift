@@ -60,12 +60,12 @@ public extension UIViewController {
         return controller
     }
 
-    func popoverFrom(view: UIView? = nil, item: UIBarButtonItem? = nil) -> Self {
+    func popover(from element: CSDisplayElement) -> Self {
         modalPresentationStyle = .popover
-        view.notNil {
+        element.view.notNil {
             popoverPresentationController?.sourceRect = $0.frame
             popoverPresentationController?.sourceView = $0.superview;
-        }.elseDo { popoverPresentationController?.barButtonItem = item }
+        }.elseDo { popoverPresentationController?.barButtonItem = element.item! }
         return self
     }
 
@@ -73,11 +73,10 @@ public extension UIViewController {
     var isDarkMode: Bool { traitCollection.isDarkMode }
 
     func findControllerInNavigation() -> UIViewController? {
-        if parent == navigation { return self }
-        var controller: UIViewController? = self
-        repeat {
-            controller = controller?.parent
-        } while controller.notNil && controller?.parent != navigationController
-        return controller
+        var foundController: UIViewController? = self
+        while foundController.notNil && foundController?.parent != navigation {
+            foundController = foundController?.parent
+        }
+        return foundController?.parent == navigation ? foundController : nil
     }
 }
