@@ -15,36 +15,35 @@
 
 @implementation UIView (CSExtension)
 
-+ (instancetype)construct {
-    return [self.class.new construct];
-}
+//+ (instancetype)construct {
+//    return [self.class.new construct];
+//}
 
 - (instancetype)construct {
     self.clipsToBounds = YES;
     self.setAutoresizingDefaults;
-//    [self width:1 height:1];
     return self;
 }
 
-+ (instancetype)constructByXib:(NSObject *)owner :(NSString *)xibName {
-    if (![NSBundle.mainBundle pathForResource:xibName ofType:@"nib"]) return self.createEmpty;
-    return [[NSBundle.mainBundle loadNibNamed:xibName owner:owner options:nil][0] construct];
-}
-
-+ (instancetype)constructByXib:(NSString *)IBName {
-    return [self constructByXib:nil :IBName];
-}
-
-+ (instancetype)constructByXib {
-    NSString *nibName = [self NIBName];
-    return [self constructByXib:nibName];
-}
-
-+ (NSString *)NIBName {
-    NSString *className = NSStringFromClass(self.class);
-    if ([className contains:@"."]) className = [className split:@"."].second;
-    return className;
-}
+//+ (instancetype)constructByXib:(NSObject *)owner :(NSString *)xibName {
+//    if (![NSBundle.mainBundle pathForResource:xibName ofType:@"nib"]) return self.createEmpty;
+//    return [[NSBundle.mainBundle loadNibNamed:xibName owner:owner options:nil][0] construct];
+//}
+//
+//+ (instancetype)constructByXib:(NSString *)IBName {
+//    return [self constructByXib:nil :IBName];
+//}
+//
+//+ (instancetype)constructByXib {
+//    NSString *nibName = [self NIBName];
+//    return [self constructByXib:nibName];
+//}
+//
+//+ (NSString *)NIBName {
+//    NSString *className = NSStringFromClass(self.class);
+//    if ([className contains:@"."]) className = [className split:@"."].second;
+//    return className;
+//}
 
 - (instancetype)contentMode:(UIViewContentMode)contentMode {
     self.contentMode = contentMode;
@@ -146,37 +145,37 @@
     else [self fadeOut];
 }
 
-+ (instancetype)createEmpty {
-    return [[self.class.alloc initWithFrame:CGRectZero] construct];
-}
-
-+ (instancetype)withColor:(UIColor *)color {
-    UIView *instance = self.createEmpty;
-    instance.backgroundColor = color;
-    return instance;
-}
-
-+ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame {
-    UIView *instance = [self withFrame:frame];
-    instance.backgroundColor = color;
-    return instance;
-}
-
-+ (instancetype)withFrame:(CGRect)frame {
-    return [[self.class.alloc initWithFrame:frame] construct];
-}
-
-+ (instancetype)withSize:(CGFloat)width :(CGFloat)height {
-    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)] construct];
-}
-
-+ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height {
-    return [[self.class.alloc initWithFrame:CGRectMake(left, top, width, height)] construct];
-}
-
-+ (instancetype)withHeight:(CGFloat)height {
-    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, 1, height)] construct];
-}
+//+ (instancetype)createEmpty {
+//    return [[self.class.alloc initWithFrame:CGRectZero] construct];
+//}
+//
+//+ (instancetype)withColor:(UIColor *)color {
+//    UIView *instance = self.createEmpty;
+//    instance.backgroundColor = color;
+//    return instance;
+//}
+//
+//+ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame {
+//    UIView *instance = [self withFrame:frame];
+//    instance.backgroundColor = color;
+//    return instance;
+//}
+//
+//+ (instancetype)withFrame:(CGRect)frame {
+//    return [[self.class.alloc initWithFrame:frame] construct];
+//}
+//
+//+ (instancetype)withSize:(CGFloat)width :(CGFloat)height {
+//    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, width, height)] construct];
+//}
+//
+//+ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height {
+//    return [[self.class.alloc initWithFrame:CGRectMake(left, top, width, height)] construct];
+//}
+//
+//+ (instancetype)withHeight:(CGFloat)height {
+//    return [[self.class.alloc initWithFrame:CGRectMake(0, 0, 1, height)] construct];
+//}
 
 - (BOOL)visible {
     return !self.hidden;
@@ -215,10 +214,6 @@
     [self fadeIn:time :nil];
 }
 
-- (id)getView:(NSInteger)tag {
-    return [self viewWithTag:tag];
-}
-
 - (void)fadeOut:(NSTimeInterval)time {
     [self fadeOut:time :nil];
 }
@@ -250,24 +245,6 @@
     self.visible = NO;
     return self;
 }
-
-//- (instancetype)onClick:(void (^)())block {
-//    return [self onTap:^(UIView *sender) {
-//        block();
-//    }];
-//}
-
-//- (instancetype)onTap:(void (^)(UIView *))block {
-//    self.userInteractionEnabled = YES;
-//    [self bk_whenTapped:^{
-//        block(self);
-//    }];
-//    return self;
-//}
-
-//- (void)setOnClick:(void (^)(UIView *))block {
-//    [self onClick:block];
-//}
 
 - (BOOL)isVisibleToUser {
     infof(@"%@ %@ %@", self.window, @(self.hidden), @(self.alpha));

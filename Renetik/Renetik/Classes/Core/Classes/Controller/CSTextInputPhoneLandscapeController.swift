@@ -26,7 +26,7 @@ extension UITextView: CSHasInputAccessory {}
 public class CSTextInputPhoneLandscapeController: CSViewController {
 
     private let keyboardManager = CSKeyboardManager()
-    public let container = UIView.withSize(100, 50).background(.white)
+    public let container = UIView.construct(width: 100, height: 50).background(.white)
     public let textView = UITextView.construct().background(.white)
     public let doneButton = UIButton.construct().textColor(.blue)
     private var parentTextInput: (CSHasTextProtocol & CSHasUIResponder)!

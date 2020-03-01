@@ -11,13 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSExtension)
 
-+ (instancetype)construct;
+//+ (instancetype)construct;
 
 - (instancetype)construct;
 
-+ (instancetype)constructByXib:(NSString *)IBName;
-
-+ (instancetype)constructByXib;
+//+ (instancetype)constructByXib:(NSString *)IBName;
+//
+//+ (instancetype)constructByXib;
 
 - (instancetype)contentMode:(UIViewContentMode)contentMode;
 
@@ -35,23 +35,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)firstResponder;
 
-+ (NSString *)NIBName;
+//+ (NSString *)NIBName;
 
 + (void)animationFromCurrentState:(NSTimeInterval)time :(UIViewAnimationCurve)curve;
 
-+ (instancetype)createEmpty;
-
-+ (instancetype)withColor:(UIColor *)color;
-
-+ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame;
-
-+ (instancetype)withFrame:(CGRect)frame;
-
-+ (instancetype)withSize:(CGFloat)width :(CGFloat)height;
-
-+ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
-
-+ (instancetype)withHeight:(CGFloat)height;
+//+ (instancetype)createEmpty;
+//
+//+ (instancetype)withColor:(UIColor *)color;
+//
+//+ (instancetype)withColor:(UIColor *)color frame:(CGRect)frame;
+//
+//+ (instancetype)withFrame:(CGRect)frame;
+//
+//+ (instancetype)withSize:(CGFloat)width :(CGFloat)height;
+//
+//+ (instancetype)withRect:(CGFloat)left :(CGFloat)top :(CGFloat)width :(CGFloat)height;
+//
+//+ (instancetype)withHeight:(CGFloat)height;
 
 - (instancetype)fadeIn;
 
@@ -78,8 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)visible:(BOOL)visible;
 
 - (void)setFadeVisible:(BOOL)visible;
-
-- (id)getView:(NSInteger)tag;
 
 - (instancetype)show;
 

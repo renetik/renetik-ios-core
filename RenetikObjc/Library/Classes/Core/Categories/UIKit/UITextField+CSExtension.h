@@ -5,9 +5,9 @@
 @import UIKit;
 
 @interface UITextField (CSExtension)
-- (instancetype)setLeftInsetByLeftView:(int)width;
+//- (instancetype)setLeftInsetByLeftView:(int)width;
 
-- (instancetype)clear;
+//- (instancetype)clear;
 
-- (instancetype)togglePasswordVisibility;
+//- (instancetype)togglePasswordVisibility;
 @end

@@ -9,21 +9,28 @@ import BlocksKit
 
 public extension UIView {
 
+    class func construct(owner: NSObject? = nil, xib: String) -> Self {
+        let arrayOfXibObjects = Bundle.main.loadNibNamed(xib, owner: owner, options: nil)
+        let instance = (arrayOfXibObjects?[0] as? Self)?.construct()
+        return instance!
+    }
+
     class func construct(width: CGFloat, height: CGFloat) -> Self {
         construct().width(width, height: height)
     }
 
-    class func construct<View: UIView>(onCreate: ((View) -> Void)? = nil) -> Self {
-        let instance = construct()
-        onCreate?(instance as! View)
-        return instance
+    class func construct(color: UIColor) -> Self {
+        construct().background(color)
     }
 
-    @discardableResult
-    func visible(if condition: Bool) -> Self {
-        self.visible = condition
-        return self
+    class func construct(frame: CGRect) -> Self {
+        construct().frame(frame)
     }
+
+    class func construct() -> Self { Self().construct() }
+
+    @discardableResult
+    func visible(if condition: Bool) -> Self { invoke { self.visible = condition } }
 
     func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
@@ -40,11 +47,7 @@ public extension UIView {
         }
     }
 
-//    func asBottomSeparator(_ height: CGFloat = 0.5) -> Self {
-//        self.height(height).from(bottom: 0).matchParentWidth()
-//                .flexibleTop().fixedBottom().background(.darkGray)
-//    }
-
+    /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     @objc func onClick(_ block: @escaping () -> Void) -> Self {
         onTap { block() }

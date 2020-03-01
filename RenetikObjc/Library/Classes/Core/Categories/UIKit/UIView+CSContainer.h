@@ -11,12 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSContainer)
 
-//+ (instancetype)withContentView;
-
-//+ (instancetype)wrap:(UIView *)view;
-
-//+ (instancetype)wrap:(UIView *)view withPadding:(NSInteger)padding NS_SWIFT_NAME(wrap(view:padding:));
-
 - (UIView *)content:(UIView *)view;
 
 @property(nonatomic, nullable) UIView *content;
@@ -27,40 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEmpty;
 
-//- (UIView *)add:(UIView *)view;
-
 - (instancetype)addViews:(NSArray<UIView *> *)views;
 
 - (UIView *)addView:(UIView *)view :(NSInteger)index;
 
 - (UIView *)setView:(UIView *)view :(NSInteger)index;
-
-//- (UIView *)horizontalLayoutAdd:(UIView *)view;
-
-//- (UIView *)horizontalLayoutAdd:(UIView *)view margin:(NSInteger)margin columns:(NSInteger)columns;
-
-//- (UIView *)horizontalLineAdd:(UIView *)view;
-
-//- (UIView *)horizontalLineAdd:(UIView *)view margin:(NSInteger)margin;
-
-//- (UIView *)horizontalReverseLayoutAdd:(UIView *)view;
-
-//- (UIView *)verticalLayoutAdd:(UIView *)view;
-
-//- (UIView *)verticalLayoutAdd:(UIView *)view margin:(NSInteger)margin;
-
-//- (UIView *)verticalLayoutUpdate:(UIView *)view margin:(NSInteger)margin;
-
-//- (UIView *)verticalLineAdd:(UIView *)view;
-//
-//- (UIView *)verticalLineAdd:(UIView *)view margin:(NSInteger)margin;
-//
-//- (UIView *)verticalLineUpdate:(UIView *)view margin:(NSInteger)margin;
-
-//- (UIView *)verticalLineAtPosition:(NSInteger)position
-//                              view:(UIView *)view margin:(NSInteger)margin;
-
-//- (instancetype)heightByLastSubviewWithPadding:(NSInteger)padding;
 
 @end
 

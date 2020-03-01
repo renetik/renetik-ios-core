@@ -8,13 +8,13 @@ import RenetikObjc
 public extension UIView {
 
     class func withContent(_ view: UIView = UIView.construct()) -> Self {
-        let container = self.withFrame(view.frame)
+        let container = self.construct(frame: view.frame)
         container.content(view).matchParent()
         return container
     }
 
     class func wrap(view: UIView) -> Self {
-        let container = self.withFrame(view.frame)
+        let container = self.construct(frame: view.frame)
         let center = view.center
         let superview = view.superview
         let autoSize = view.autoresizingMask
@@ -26,7 +26,8 @@ public extension UIView {
     }
 
     class func wrap(view: UIView, padding: CGFloat) -> Self {
-        let container = self.withSize(view.width + padding * 2, view.height + padding * 2)
+        let container = self.construct(width: view.width + padding * 2,
+                height: view.height + padding * 2)
         let center = view.center
         let superview = view.superview
         let autoSize = view.autoresizingMask

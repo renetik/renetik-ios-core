@@ -1,5 +1,5 @@
 //
-// Created by Rene Dohan on 12/17/19.
+// Created by Rene Dohan on 2/16/20.
 //
 
 import Foundation
@@ -9,47 +9,41 @@ import XLPagerTabStrip
 
 public typealias CSXLButtonBarPagerChildController = CSMainController & IndicatorInfoProvider
 
-public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController {
+public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProgressiveDelegate {
 
+    public let pager = CSButtonBarPagerTabStripViewController()
     private(set) var controllers: [CSXLButtonBarPagerChildController]!
-    private var currentController: CSXLButtonBarPagerChildController { controllers[currentIndex] }
+    private var currentController: CSXLButtonBarPagerChildController { controllers[pager.currentIndex] }
     private var parentController: CSMainController!
-    private var isViewDidAppear = false
 
     @discardableResult
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         parentController = parent
         self.controllers = controllers
-        parent.showChild(controller: self).view.matchParent()
-        parent.addChildMain(controllers: controllers)
-        settings.style.buttonBarHeight.isNil { self.settings.style.buttonBarHeight = 44 }
+        parentController.showChild(controller: self).view.matchParent()
+        showChild(controller: pager.construct(self)).view.matchParent()
+        addChildMain(controllers: controllers)
+        pager.settings.style.buttonBarHeight.isNil { self.pager.settings.style.buttonBarHeight = 44 }
+        pager.delegate = self
         return self
     }
 
-    override public func viewControllers(
-            for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] { controllers }
-
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        updateControllersVisible(at: currentIndex, animated: false)
+    public override func onViewWillAppearFirstTime() {
+        super.onViewWillAppearFirstTime()
+        updateControllersVisible(at: pager.currentIndex, animated: false)
     }
 
-    override public func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !isViewDidAppear {
-            isViewDidAppear = true
-            reloadPagerTabStripView()
-        }
+    public override func onViewDidAppearFirstTime() {
+        super.onViewDidAppearFirstTime()
+        pager.reloadPagerTabStripView()
     }
 
-    public override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int) {
-        super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex)
-        updateControllersVisible(at: currentIndex, animated: true)
+    public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int) {
+        updateControllersVisible(at: pager.currentIndex, animated: true)
     }
 
-    public override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
-        super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
-        if progressPercentage == 1 { updateControllersVisible(at: currentIndex, animated: false) }
+    public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
+        if progressPercentage == 1 { updateControllersVisible(at: pager.currentIndex, animated: false) }
     }
 
     func updateControllersVisible(at index: Int, animated: Bool) {
@@ -61,38 +55,59 @@ public class CSXLButtonBarPagerController: ButtonBarPagerTabStripViewController 
     public func load(controllers: [CSXLButtonBarPagerChildController]) {
         self.controllers = controllers
         parentController.addChildMain(controllers: self.controllers)
-        reloadPagerTabStripView()
-        updateControllersVisible(at: currentIndex, animated: false)
+        pager.reloadPagerTabStripView()
+        updateControllersVisible(at: pager.currentIndex, animated: false)
     }
 
-    public func add(controller: (CSXLButtonBarPagerChildController)) {
+    public func add(controller: CSXLButtonBarPagerChildController) {
         controllers.add(controller)
         parentController.addChildMain(controller: controller)
-        reloadPagerTabStripView()
-        updateControllersVisible(at: currentIndex, animated: false)
+        pager.reloadPagerTabStripView()
+        updateControllersVisible(at: pager.currentIndex, animated: false)
     }
 
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransition(to size: CGSize,
+                                            with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.onCompletion { _ in
-            self.containerView.scrollTo(page: self.currentIndex, of: self.controllers.count)
-//            doLater { self.reloadPagerTabStripView() }
+            self.pager.containerView.scrollTo(page: self.pager.currentIndex, of: self.controllers.count)
         }
     }
 
     public func setBar(visible: Bool) {
         if visible {
-            buttonBarView.height = settings.style.buttonBarHeight!
-            containerView.height(fromTop: settings.style.buttonBarHeight!)
+            pager.buttonBarView.height = pager.settings.style.buttonBarHeight!
+            pager.containerView.height(fromTop: pager.settings.style.buttonBarHeight!)
         } else {
-            buttonBarView.height = 0
-            containerView.height(fromTop: 0)
+            pager.buttonBarView.height = 0
+            pager.containerView.height(fromTop: 0)
         }
     }
 
-    override open func updateContent() {
+    public var currentIndex: Int { self.pager.currentIndex }
+
+    @discardableResult
+    public func moveToController(index: Int) -> Self { invoke { self.pager.moveToViewController(at: index) } }
+
+    @discardableResult
+    public func moveTo(controller: UIViewController) -> Self { invoke { self.pager.moveTo(viewController: controller) } }
+}
+
+public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewController {
+
+    var parentController: CSXLButtonBarPagerController!
+
+    func construct(_ parent: CSXLButtonBarPagerController) -> Self {
+        self.parentController = parent
+        return self
+    }
+
+    public override func viewControllers(
+            for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] { parentController.controllers }
+
+    override open func updateContent() { //TODO CHECK IF STILL ISSUE ON IPHONE X AND ADD EXPLANATION COMMENT
         super.updateContent()
-        for (index, childController) in controllers.enumerated() {
+        for (index, childController) in parentController.controllers.enumerated() {
             childController.view.frame = CGRect(x: offsetForChild(at: index) + view.safeAreaInsets.left,
                     y: 0, width: view.bounds.width - (view.safeAreaInsets.left + view.safeAreaInsets.right),
                     height: containerView.bounds.height)

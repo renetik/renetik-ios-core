@@ -9,31 +9,23 @@
 
 @implementation UITextField (CSExtension)
 
-- (instancetype)setLeftInsetByLeftView:(int)width {
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
-    leftView.backgroundColor = self.backgroundColor;
-    self.leftView = [UIView withSize:width :1];
-    self.leftViewMode = UITextFieldViewModeAlways;
-    return self;
-}
+//- (CGRect)caretRectForPosition:(UITextPosition *)position {
+//    return CGRectZero;
+//}
 
-- (CGRect)caretRectForPosition:(UITextPosition *)position {
-    return CGRectZero;
-}
+//- (instancetype)clear {
+//    [self setText:@""];
+//    return self;
+//}
 
-- (instancetype)clear {
-    [self setText:@""];
-    return self;
-}
-
-- (instancetype)togglePasswordVisibility {
-    self.secureTextEntry = !self.isSecureTextEntry;
-    let existingText = self.text;
-    if (self.isSecureTextEntry) {
-        self.deleteBackward;
-        self.text = existingText;
-    }
-    return self;
-}
+//- (instancetype)togglePasswordVisibility {
+//    self.secureTextEntry = !self.isSecureTextEntry;
+//    let existingText = self.text;
+//    if (self.isSecureTextEntry) {
+//        self.deleteBackward;
+//        self.text = existingText;
+//    }
+//    return self;
+//}
 
 @end

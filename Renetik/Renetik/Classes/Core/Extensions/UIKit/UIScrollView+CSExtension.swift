@@ -80,7 +80,7 @@ public extension UIScrollView {
     func contentSizeWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
         content!.width = (content!.subviews.last?.right ?? 0) + padding
         if content!.width < width { content!.width = width }
-        contentSize(width: content!.bottom)
+        contentSize(width: content!.right)
         return self
     }
 
