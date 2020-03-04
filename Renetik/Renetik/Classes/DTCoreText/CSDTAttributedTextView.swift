@@ -56,8 +56,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     }
 
     @discardableResult
-    public func height(toLines: Int) -> Self {
-        height(UILabel.construct().width(width).font(font).height(toLines: toLines).height)
+    public func heightToFit(lines: Int) -> Self {
+        height(UILabel.construct().width(width).font(font).heightToFit(lines: lines).height)
         lineBreakMode = .byTruncatingTail
         return self
     }

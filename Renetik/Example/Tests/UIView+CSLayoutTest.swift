@@ -203,7 +203,7 @@ class UIViewTestSwift: XCTestCase {
         XCTAssertEqual(label.width, 140)
         XCTAssertEqual(label.height, 100)
 
-        label.height(toLines: 2)
+        label.heightToFit(lines: 2)
         XCTAssertEqual(label.left, 30)
         XCTAssertEqual(label.right, 170)
         XCTAssertEqual(label.fromRight, 30)

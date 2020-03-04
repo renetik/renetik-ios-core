@@ -67,7 +67,7 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
 
     private func showLoadNextIndicator() {
         table.tableView.superview!.add(view: loadNextView ?? createLoadNextView())
-                .from(bottom: 15).centerInParentHorizontal()
+                .from(bottom: 15).centeredHorizontal()
     }
 
     private func createLoadNextView() -> UIView {

@@ -38,8 +38,8 @@ public class CSNameChooserController<T: Any>: CSMainController
         return self
     }
 
-    public override func onCreateLayout() {
-        super.onCreateLayout()
+    public override func onViewDidLayoutFirstTime() {
+        super.onViewDidLayoutFirstTime()
         view.add(view: table).matchParent()
         table.hideEmptyCellsSeparatorByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false

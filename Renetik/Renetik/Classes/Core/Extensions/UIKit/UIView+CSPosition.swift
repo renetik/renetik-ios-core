@@ -57,4 +57,26 @@ public extension UIView {
 
     @discardableResult
     func centerLeft(as view: UIView) -> Self { centerLeft(view.centerLeft) }
+
+    @discardableResult
+    func centered() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        center = CGPoint(x: superview!.width / 2, y: superview!.height / 2)
+        return self
+    }
+
+    @discardableResult
+    func centeredVertical() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        center = CGPoint(x: center.x, y: superview!.height / 2)
+        return self
+    }
+
+    @discardableResult
+    func centeredHorizontal() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        center = CGPoint(x: superview!.width / 2, y: center.y)
+        return self
+    }
+
 }

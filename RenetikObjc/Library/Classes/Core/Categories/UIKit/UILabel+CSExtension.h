@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (instancetype)sizeHeightToFit:(NSString *)value;
 
-- (instancetype)heightToLines:(NSInteger)numberOfLines;
+//- (instancetype)heightToLines:(NSInteger)numberOfLines;
 
 //- (instancetype)text:(NSString *)string;
 

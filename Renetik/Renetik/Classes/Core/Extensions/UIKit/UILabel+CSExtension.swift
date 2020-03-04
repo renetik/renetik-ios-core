@@ -52,7 +52,7 @@ public extension UILabel {
     }
 
     @discardableResult
-    func text(_ string: String) -> Self { invoke { text = string } }
+    func text(_ string: String?) -> Self { invoke { text = string } }
 
     @discardableResult
     func textAlign(_ alignment: NSTextAlignment) -> Self { invoke { textAlignment = alignment } }
@@ -89,23 +89,11 @@ public extension UILabel {
 
     @discardableResult
     func heightToFit(lines numberOfLines: Int) -> Self {
-        let currentText = text
-        self.text = "cjksjkljaskljfklsaj fjas klfjaslk jfklaj fklaj fkljs aklfj klasj" +
-                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif " +
-                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk " +
-                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk" +
-                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif " +
-                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk " +
-                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk" +
-                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif " +
-                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk " +
-                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk" +
-                " fljsahflasljh sdiaf uiau fiahfiohe iof aeuhfkuaedfiuaehfueahkufheuafuaehfoiuyeaoif " +
-                "aeil fklaehjlfhaekjfhgkaegfjgeauklfeakuhfkluaehkfheaklufhkljaehfk hleauk " +
-                "fhlkuaehfjkaekfgeakfgkalehfkjahekjlfhkjelhqfkheukfglkgfalkjgfkagefjklgaekfgeajk"
-        self.numberOfLines = numberOfLines
-        super.heightToFit()
-        text = currentText
+        let currentWidth = width; let currentText = text; var linesText = "line"
+        for i in 0..<numberOfLines - 1 {
+            linesText += "\n line"
+        }
+        text(linesText).resizeToFit().text(currentText).width(currentWidth)
         return self
     }
 

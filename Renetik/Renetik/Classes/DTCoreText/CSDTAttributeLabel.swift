@@ -22,28 +22,6 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     public var defaultLinkColor: UIColor = .blue
     public var linksActive = true
 
-    //	private let css = DTCSSStylesheet(styleBlock: """
-//    body {
-//    margin: 0;
-//    padding: 0;
-//    color: #666;
-//    line-height: 250px;
-//    font-family: Arial, serif;
-//    font-size: 140pt;
-//    font-weight: 500;
-//    }
-//    """)!
-//
-//    private let testHtml = """
-//    <html>
-//    <body>
-//    <div style="font-weight: 800;">
-//        <i>Test4 jsi diosj dioj dioj sio disj diosj iod jiod ios ioshiohsioh soi hiosh fioshdioshiodhsiodhsoi hdiosj oidsio dhsio dio jdioj siodj iojd oisjdois </i>
-//    </div>
-//    </body>
-//    </html>
-//    """
-
     public override func construct() -> Self {
         super.construct()
         delegate = self
@@ -72,9 +50,9 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     @discardableResult
-    public func height(toLines: Int) -> Self {
-        height(UILabel.construct().width(width).font(font).height(toLines: toLines).height)
-        numberOfLines = toLines
+    public func heightToFit(lines: Int) -> Self {
+        height(UILabel.construct().width(width).font(font).heightToFit(lines: lines).height)
+        numberOfLines = lines
         lineBreakMode = .byTruncatingTail
         return self
     }

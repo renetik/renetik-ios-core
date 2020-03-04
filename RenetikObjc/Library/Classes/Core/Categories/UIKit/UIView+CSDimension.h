@@ -8,27 +8,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSDimension)
 
-@property(nonatomic, readonly) CGSize size;
-
 @property(nonatomic) CGFloat width;
 
 @property(nonatomic) CGFloat height;
 
-- (CGSize)calculateSizeFromSubviews;
-
 - (CGFloat)calculateHeightToFitWidth;
-
-- (instancetype)size:(CGSize)size;
-
-- (instancetype)frame:(CGRect)rect;
-
-- (instancetype)setSize:(CGSize)size
-NS_SWIFT_NAME(set(size:));
-
-- (instancetype)width:(CGFloat)width height:(CGFloat)height;
-
-- (instancetype)sizeBySquare:(CGFloat)square
-NS_SWIFT_NAME(sizeBy(square:));
 
 - (instancetype)width:(CGFloat)value;
 
@@ -57,8 +41,6 @@ NS_SWIFT_NAME(remove(height:));
 - (instancetype)heightToFit;
 
 - (instancetype)widthToFit;
-
-- (instancetype)resizeToFitSubviews;
 
 - (instancetype)resizeByPadding:(CGFloat)padding
 NS_SWIFT_NAME(resizeBy(padding:));

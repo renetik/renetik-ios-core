@@ -11,7 +11,7 @@ public typealias CSTabBarPagerControllerItem = (item: UITabBarItem, onClick: (@e
 public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
 
     private let containerView = UIView.construct().background(.clear)
-    public lazy var bottomBar = UITabBar(frame: .zero).construct()
+    public lazy var tabBar = UITabBar(frame: .zero).construct()
     private var onClicksDictionary = [UITabBarItem: (callback: @escaping (UIViewController) -> Void) -> Void]()
     private var currentController: UIViewController?
     private var currentControllerIndex: Int?
@@ -25,9 +25,9 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
             barButtonItems.add($0.item)
             onClicksDictionary[$0.item] = $0.onClick
         }
-        bottomBar.delegate = self
-        bottomBar.items = barButtonItems
-        bottomBar.selectedItem = barButtonItems.first
+        tabBar.delegate = self
+        tabBar.items = barButtonItems
+        tabBar.selectedItem = barButtonItems.first
 
         items.first.notNil { item in
             item.onClick { controller in
@@ -39,18 +39,18 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
 
     override public func onViewWillAppearFirstTime() {
         super.onViewWillAppearFirstTime()
-        view.add(view: bottomBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
-        view.add(view: containerView).matchParent().height(from: bottomBar, bottom: 0)
+        view.add(view: tabBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
+        view.add(view: containerView).matchParent().height(from: tabBar, bottom: 0)
     }
 
     override public func onViewDidLayout() {
         super.onViewDidLayout()
-        bottomBar.resizeToFit().from(bottom: 0)
-        containerView.height(fromBottom: bottomBar.topFromBottom)
+        tabBar.resizeToFit().from(bottom: 0)
+        containerView.height(fromBottom: tabBar.topFromBottom)
     }
 
     public func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if currentControllerIndex == bottomBar.selectedItemIndex {
+        if currentControllerIndex == tabBar.selectedItemIndex {
             return
         }
         onClicksDictionary[item]! {
@@ -61,26 +61,26 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     private func show(controller: UIViewController) {
         currentController.notNil {
             dismissChild(controller: $0)
-            if currentControllerIndex! < bottomBar.selectedItemIndex {
+            if currentControllerIndex! < tabBar.selectedItemIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromRight)
-            } else if currentControllerIndex! > bottomBar.selectedItemIndex {
+            } else if currentControllerIndex! > tabBar.selectedItemIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromLeft)
             }
         }
         showChild(controller: controller, parentView: containerView).view.matchParent()
         updateBarItemsAndMenu()
         currentController = controller
-        currentControllerIndex = bottomBar.selectedItemIndex
+        currentControllerIndex = tabBar.selectedItemIndex
     }
 
     public func updateTabSelection() {
-        if bottomBar.selectedItemIndex != currentControllerIndex! {
-            bottomBar.selectedItemIndex = currentControllerIndex!
+        if tabBar.selectedItemIndex != currentControllerIndex! {
+            tabBar.selectedItemIndex = currentControllerIndex!
         }
     }
 
     public func select(item: UITabBarItem) {
-        bottomBar.selectedItem = item
-        tabBar(bottomBar, didSelect: item)
+        tabBar.selectedItem = item
+        tabBar(tabBar, didSelect: item)
     }
 }

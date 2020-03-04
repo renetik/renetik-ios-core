@@ -85,7 +85,7 @@ open class CSViewController: UIViewController {
         logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
-            onCreateLayout()
+            onViewDidLayoutFirstTime()
             onLayoutCreated()
         } else {
             onUpdateLayout()
@@ -94,7 +94,7 @@ open class CSViewController: UIViewController {
         onViewDidLayout()
     }
 
-    open func onCreateLayout() {}
+    open func onViewDidLayoutFirstTime() {}
 
     open func onLayoutCreated() {}
 

@@ -20,8 +20,8 @@ public class CSTableCellForHeightController: CSMainController {
         return self
     }
 
-    override public func onCreateLayout() {
-        super.onCreateLayout()
+    override public func onViewDidLayoutFirstTime() {
+        super.onViewDidLayoutFirstTime()
         for cell in cells { view.add(cell).from(top: -500) }
     }
 

@@ -24,18 +24,18 @@
 //    for (UITextView *view in textViews) view.textContainerInset = UIEdgeInsetsZero;
 //}
 
-- (instancetype)asLabel {
-    self.textContainerInset = UIEdgeInsetsZero;
-    self.contentInset = UIEdgeInsetsZero;
-    self.editable = false;
-    self.scrollEnabled = false;
-    self.backgroundColor = UIColor.clearColor;
-    if (@available(iOS 11, *))
-        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    self.textContainer.lineFragmentPadding = 0;
-    self.layoutManager.usesFontLeading = false;
-    return self;
-}
+//- (instancetype)asLabel {
+//    self.textContainerInset = UIEdgeInsetsZero;
+//    self.contentInset = UIEdgeInsetsZero;
+//    self.editable = false;
+//    self.scrollEnabled = false;
+//    self.backgroundColor = UIColor.clearColor;
+//    if (@available(iOS 11, *))
+//        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    self.textContainer.lineFragmentPadding = 0;
+//    self.layoutManager.usesFontLeading = false;
+//    return self;
+//}
 
 - (instancetype)scrollToCursorPosition {
     doLater(0.1, ^{
@@ -78,15 +78,15 @@
     return self;
 }
 
-- (instancetype)heightToLines:(NSInteger)numberOfLines {
-    let currentWidth = self.width;
-    let currentText = self.text;
-    self.text = @"line";
-    for (int i = 0; i < numberOfLines - 1; i++) self.text = [self.text add:@"\n line"];
-    [self sizeToFit];
-    self.text = currentText;
-    self.width = currentWidth;
-    return self;
-}
+//- (instancetype)heightToLines:(NSInteger)numberOfLines {
+//    let currentWidth = self.width;
+//    let currentText = self.text;
+//    self.text = @"line";
+//    for (int i = 0; i < numberOfLines - 1; i++) self.text = [self.text add:@"\n line"];
+//    [self sizeToFit];
+//    self.text = currentText;
+//    self.width = currentWidth;
+//    return self;
+//}
 
 @end

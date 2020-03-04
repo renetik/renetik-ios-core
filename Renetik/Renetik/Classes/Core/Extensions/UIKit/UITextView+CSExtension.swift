@@ -35,7 +35,7 @@ public extension UITextView {
     func withClear(_ parent: CSViewController, _ appearance: CSTextViewClearButtonAppearance? = nil) -> Self {
         let button = UIButton(type: .system).construct().text("X").fontStyle(.body)
                 .visible(if: self.text.isSet).onClick { self.text = "" }
-        add(button).from(left: 5).resizeToFit().centerInParentHorizontal()
+        add(button).from(left: 5).resizeToFit().centeredHorizontal()
         //TODO: Clear button its moving as text exceed space
         onTextChange(in: parent) { _ in button.visible(if: self.text.isSet) }
         appearance?.titleColor?.then { color in button.textColor(color) }
@@ -43,7 +43,7 @@ public extension UITextView {
     }
 
     @discardableResult
-    public func text(_ value: String) -> Self {
+    public func text(_ value: String?) -> Self {
         text = value
         return self
     }
@@ -56,5 +56,25 @@ public extension UITextView {
         return self
     }
 
+    func heightToFit(lines numberOfLines: Int) -> Self {
+        let currentWidth = width; let currentText = text; var linesText = "line"
+        for i in 0..<numberOfLines - 1 {
+            linesText += "\n line"
+        }
+        text(linesText).resizeToFit().text(currentText).width(currentWidth)
+        return self
+    }
+
+    func asLabel() -> Self {
+        textContainerInset = .zero
+        contentInset = .zero
+        isEditable = false
+        isScrollEnabled = false
+        backgroundColor = .clear
+        if #available(iOS 11, *) { contentInsetAdjustmentBehavior = .never }
+        textContainer.lineFragmentPadding = 0
+        layoutManager.usesFontLeading = false
+        return self
+    }
 
 }
