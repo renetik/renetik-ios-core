@@ -6,15 +6,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (CSExtension)
-- (instancetype)construct;
+//- (instancetype)construct;
 
-- (void)resizableImageWithCapInsets:(UIEdgeInsets)insets;
+//- (void)resizableImageWithCapInsets:(UIEdgeInsets)insets;
 
-- (instancetype)image:(UIImage *)image;
+//- (instancetype)image:(UIImage *)image;
 
-- (void)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
+//- (void)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
 
-- (instancetype)roundImageCorners :(NSInteger)radius;
+//- (instancetype)roundImageCorners :(NSInteger)radius;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -50,10 +50,10 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     }
 
     public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        UIView.animate(0.3) { searchBar.showsCancelButton = true }
+        animate { searchBar.showsCancelButton = true }
     }
 
     public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        UIView.animate(0.3) { searchBar.showsCancelButton = false }
+        animate { searchBar.showsCancelButton = false }
     }
 }

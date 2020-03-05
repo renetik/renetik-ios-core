@@ -11,16 +11,6 @@ import RenetikObjc
 
 public extension UIViewController {
 
-    func invoke(animated: Bool, duration: TimeInterval = 0.3, operation: @escaping () -> Void) {
-        view.invoke(animated: animated, duration: duration, operation: operation)
-    }
-
-    func invoke(animated: Bool, duration: TimeInterval = 0.3,
-                operation: @escaping () -> Void, completion: @escaping () -> Void) {
-        view.invoke(animated: animated, duration: duration,
-                operation: operation, completion: completion)
-    }
-
     @discardableResult
     func push() -> Self {
         navigation.push(self)
@@ -41,7 +31,7 @@ public extension UIViewController {
     @discardableResult
     func showChild(controller: UIViewController, parentView: UIView?) -> UIViewController {
         addChild(controller)
-        parentView?.addSubview(controller.view)
+        parentView?.add(controller.view)
         controller.didMove(toParent: self)
         (controller as? CSMainController)?.isShowing = true
         return controller

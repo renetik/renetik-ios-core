@@ -5,6 +5,8 @@
 
 import Foundation
 
+public let defaultAnimationTime: TimeInterval = 0.25
+
 enum CSError: Error {
     case todo
     case unsupported
@@ -44,15 +46,11 @@ public func localized(_ key: String) -> String {
     return string
 }
 
-public func doLater(function: @escaping () -> Void) {
-    doLater(seconds: 0, function: function)
+public func later(seconds: Int = 0, function: @escaping () -> Void) {
+    later(seconds: Double(seconds), function: function)
 }
 
-public func doLater(seconds: Int, function: @escaping () -> Void) {
-    doLater(seconds: Double(seconds), function: function)
-}
-
-public func doLater(seconds: Double, function: @escaping () -> Void) {
+public func later(seconds: Double, function: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: function)
 }
 

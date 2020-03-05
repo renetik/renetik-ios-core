@@ -11,9 +11,9 @@
             [self titleForSegmentAtIndex:(NSUInteger) self.selectedSegmentIndex] : nil;
 }
 
-+ (int)DEFAULT_HEIGHT {
-    return 28;
-}
+//+ (int)DEFAULT_HEIGHT {
+//    return 28;
+//}
 
 - (NSInteger)selectedIndex {
     return self.selectedSegmentIndex;

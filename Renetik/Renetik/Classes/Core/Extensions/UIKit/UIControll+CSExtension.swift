@@ -9,7 +9,7 @@ import BlocksKit
 public extension UIControl {
 
     @discardableResult
-    @objc override func onClick(_ block: @escaping () -> ()) -> Self {
+    @objc override open func onClick(_ block: @escaping () -> ()) -> Self {
         onTouchUp(block)
     }
 

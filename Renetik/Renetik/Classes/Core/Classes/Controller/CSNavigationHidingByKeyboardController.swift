@@ -28,21 +28,21 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
 
     public func hideNavigationBar() {
         if navigationBarHidden { return }
-        UIView.animate(0.5) {
+        animate(duration: 0.5) {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }
-        navigation.navigationBar.fadeOut(0.7)
+        navigation.navigationBar.fadeOut(duration: 0.7)
         navigationBarHidden = true
     }
 
     public func showNavigationBar() {
         if !navigationBarHidden { return }
-        UIView.animate(0.5) {
+        animate(duration: 0.5) {
             navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }
-        navigation.navigationBar.fade(in: 0.7)
+        navigation.navigationBar.fadeIn(duration: 0.7)
         navigationBarHidden = false
     }
 }

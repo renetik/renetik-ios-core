@@ -24,20 +24,33 @@ public extension UIView {
         return self
     }
 
-    @discardableResult
-    private func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
-        view.from(left: subviews.at(position - 1)?.right ?? 0)
-        if view.left != 0 { view.left += margin }
-        return view
+    func findPreviousVisible(of view: UIView) -> UIView? {
+        if subviews.index(of: view).isNil {
+            fatalError()
+        }
+        var index = subviews.index(of: view)! - 1
+        while index >= 0 {
+            let view = self.subviews[index]
+            if view.isVisible { return view }
+            index -= 1
+        }
+        return nil
     }
 
-    @available(*, deprecated, message: "use from(.., top:..)")
-    @discardableResult
-    func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
-        view.from(top: subviews.at(position - 1)?.bottom ?? 0)
-        if view.top != 0 { view.top += margin }
-        return view
-    }
+//    @discardableResult
+//    private func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
+//        view.from(left: subviews.at(position - 1)?.right ?? 0)
+//        if view.left != 0 { view.left += margin }
+//        return view
+//    }
+
+//    @available(*, deprecated, message: "use from(.., top:..)")
+//    @discardableResult
+//    func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
+//        view.from(top: subviews.at(position - 1)?.bottom ?? 0)
+//        if view.top != 0 { view.top += margin }
+//        return view
+//    }
 
     @discardableResult
     func horizontalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {

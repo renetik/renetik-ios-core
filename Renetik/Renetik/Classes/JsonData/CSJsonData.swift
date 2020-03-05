@@ -43,7 +43,7 @@ public class CSJsonData: CSObject {
         }
         onValueChangedEvent.fire(JsonDataOnValueChange(self, key, value))
         if !dataChanged {
-            doLater {
+            later {
                 self.onChangedEvent.fire(self)
                 self.dataChanged = false
             }

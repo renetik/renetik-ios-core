@@ -8,7 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UICollectionView (CSExtension)
 
-- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
+//- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent;
 
 - (instancetype)layout :(UICollectionViewLayout *)layout;
 

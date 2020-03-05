@@ -6,7 +6,7 @@
 
 @interface UISegmentedControl (CSExtension)
 
-+ (int)DEFAULT_HEIGHT;
+//+ (int)DEFAULT_HEIGHT;
 
 @property(readonly) NSString *selectedTitle;
 

@@ -1,43 +1,43 @@
 //
 //  Created by Rene Dohan on 4/29/12.
 //
-@import UIKit;
+//@import UIKit;
 
-@class MBProgressHUD;
+//@class MBProgressHUD;
 
-static float const CS_FADE_TIME = 0.3;
+//static float const CS_FADE_TIME = 0.3;
 
-NS_ASSUME_NONNULL_BEGIN
+//NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (CSExtension)
+//@interface UIView (CSExtension)
 
 //+ (instancetype)construct;
 
-- (instancetype)construct;
+//- (instancetype)construct;
 
 //+ (instancetype)constructByXib:(NSString *)IBName;
 //
 //+ (instancetype)constructByXib;
 
-- (instancetype)contentMode:(UIViewContentMode)contentMode;
+//- (instancetype)contentMode:(UIViewContentMode)contentMode;
 
-- (instancetype)clipsToBounds:(BOOL)clipsToBounds;
+//- (instancetype)clipsToBounds:(BOOL)clipsToBounds;
 
-+ (void)animate:(NSTimeInterval)duration :(void (^)(void))animations;
+//+ (void)animate:(NSTimeInterval)duration :(void (^)(void))animations;
 
-- (instancetype)asCircular;
+//- (instancetype)asCircular;
 
-- (instancetype)roundedCorners:(NSInteger)width;
+//- (instancetype)roundedCorners:(NSInteger)width;
 
-- (instancetype)clone;
+//- (instancetype)clone;
 
-+ (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve;
+//+ (UIViewAnimationOptions)animationOptionsWithCurve:(UIViewAnimationCurve)curve;
 
-- (UIView *)firstResponder;
+//- (UIView *)firstResponder;
 
 //+ (NSString *)NIBName;
 
-+ (void)animationFromCurrentState:(NSTimeInterval)time :(UIViewAnimationCurve)curve;
+//+ (void)animationFromCurrentState:(NSTimeInterval)time :(UIViewAnimationCurve)curve;
 
 //+ (instancetype)createEmpty;
 //
@@ -53,46 +53,46 @@ NS_ASSUME_NONNULL_BEGIN
 //
 //+ (instancetype)withHeight:(CGFloat)height;
 
-- (instancetype)fadeIn;
+//- (instancetype)fadeIn;
 
-- (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone;
+//- (void)fadeIn:(NSTimeInterval)time :(void (^)(void))onDone;
+//
+//- (void)fadeIn:(NSTimeInterval)time;
+//
+//- (void)fadeBackgroundColorTo:(UIColor *)color;
+//
+//- (void)fadeOut:(NSTimeInterval)time;
+//
+//- (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
 
-- (void)fadeIn:(NSTimeInterval)time;
+//- (instancetype)background:(UIColor *)color;
+//
+//- (instancetype)tintColor:(UIColor *)color;
 
-- (void)fadeBackgroundColorTo:(UIColor *)color;
+//- (void)fadeOut;
+//
+//- (void)fadeToggle;
 
-- (void)fadeOut:(NSTimeInterval)time;
+//@property BOOL visible;
 
-- (void)fadeOut:(NSTimeInterval)time :(void (^)(void))method;
+//- (instancetype)visible:(BOOL)visible;
 
-- (instancetype)background:(UIColor *)color;
+//- (void)setFadeVisible:(BOOL)visible;
 
-- (instancetype)tintColor:(UIColor *)color;
+//- (instancetype)show;
 
-- (void)fadeOut;
+//- (instancetype)hide;
 
-- (void)fadeToggle;
+//- (BOOL)isVisibleToUser;
 
-@property BOOL visible;
+//- (instancetype)aspectFit;
 
-- (instancetype)visible:(BOOL)visible;
+//- (instancetype)aspectFill;
 
-- (void)setFadeVisible:(BOOL)visible;
+//- (instancetype)clipToBounds;
 
-- (instancetype)show;
+//- (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius;
 
-- (instancetype)hide;
+//@end
 
-- (BOOL)isVisibleToUser;
-
-- (instancetype)aspectFit;
-
-- (instancetype)aspectFill;
-
-- (instancetype)clipToBounds;
-
-- (instancetype)border:(CGFloat)width color:(UIColor *)color radius:(int)radius;
-
-@end
-
-NS_ASSUME_NONNULL_END
+//NS_ASSUME_NONNULL_END

@@ -32,7 +32,7 @@ open class CSViewController: UIViewController {
     @discardableResult
     public func constructAsViewLess(in parent: UIViewController) -> Self {
         construct(parent)
-        doLater {
+        later {
             parent.showChild(controller: self)
             self.view.matchParent()
             self.view.isUserInteractionEnabled = false

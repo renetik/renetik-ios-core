@@ -3,8 +3,10 @@
 //
 
 import UIKit
+import RenetikObjc
 
-extension UIImage {
+public extension UIImage {
+
     public convenience init(_ fileName: String) {
         self.init(named: fileName)!
     }

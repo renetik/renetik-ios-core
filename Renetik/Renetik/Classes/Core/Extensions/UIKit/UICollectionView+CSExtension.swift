@@ -6,6 +6,21 @@ import UIKit
 
 public extension UICollectionView {
 
+    override open func construct() -> Self {
+        super.construct()
+        return background(.clear)
+    }
+
+    @discardableResult
+    func construct(_ parent: UICollectionViewDelegate & UICollectionViewDataSource) -> Self {
+        construct()
+        delegate = parent
+        dataSource = parent
+        registerForCell()
+        reloadData()
+        return self
+    }
+
     @discardableResult
     func register<CellType: UICollectionViewCell>(cell cellType: CellType.Type) -> Self {
         register(cellType, forCellWithReuseIdentifier: cellType.className())

@@ -17,20 +17,20 @@
 static NSString * const DEFAULT_CELL_ID = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 
-- (instancetype)construct {
-    super.construct;
-    self.backgroundColor = UIColor.clearColor;
-    return self;
-}
+//- (instancetype)construct {
+//    super.construct;
+//    self.backgroundColor = UIColor.clearColor;
+//    return self;
+//}
 
-- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
-    [self construct];
-    self.delegate = parent;
-    self.dataSource = parent;
-    [self registerForCellView];
-    [self reloadData];
-    return self;
-}
+//- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
+//    [self construct];
+//    self.delegate = parent;
+//    self.dataSource = parent;
+//    [self registerForCellView];
+//    [self reloadData];
+//    return self;
+//}
 
 - (instancetype)layout :(UICollectionViewLayout *)layout {
     [self setCollectionViewLayout :layout animated :false];

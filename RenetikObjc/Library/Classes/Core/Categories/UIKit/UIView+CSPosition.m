@@ -74,23 +74,4 @@
 - (instancetype)center:(CGFloat)x :(CGFloat)y {
     return [self center:CGPointMake(x, y)];
 }
-
-//- (UIView *)centerInParent {
-//    NSAssert(self.superview, @"Needs to have superview");
-//    self.center = CGPointMake(self.superview.width / 2, self.superview.height / 2);
-//    return self;
-//}
-//
-//- (instancetype)centerInParentVertical {
-//    NSAssert(self.superview, @"Needs to have superview");
-//    self.center = CGPointMake(self.center.x, self.superview.height / 2);
-//    return self;
-//}
-//
-//- (instancetype)centerInParentHorizontal {
-//    NSAssert(self.superview, @"Needs to have superview");
-//    self.center = CGPointMake(self.superview.width / 2, self.center.y);
-//    return self;
-//}
-
 @end

@@ -21,12 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)center:(CGFloat)x :(CGFloat)y;
 
-//- (instancetype)centerInParent;
-//
-//- (instancetype)centerInParentVertical;
-//
-//- (instancetype)centerInParentHorizontal;
-
 @end
 
 NS_ASSUME_NONNULL_END

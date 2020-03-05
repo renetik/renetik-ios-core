@@ -22,7 +22,7 @@ public extension CSTableController {
         if isLoading || isFirstLoadingDone.isFalse {
             onLoadResponse.invokeOnce { response in response.onDone { _ in self.scrollToBottom() } }
         } else {
-            doLater { self.scrollToBottom() }
+            later { self.scrollToBottom() }
         }
         return self
     }

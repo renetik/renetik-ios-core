@@ -59,7 +59,7 @@ open class CSAFClient: CSObject {
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
-        Renetik.doLater { self.execute(request, response) }
+        later { self.execute(request, response) }
         return request
     }
 
@@ -101,13 +101,11 @@ open class CSAFClient: CSObject {
             _ request: CSResponse<Data>, _ response: CSAFResponse<Data>) {
         if request.type == .get {
             manager.get(request.service, parameters: request.params, progress: response.onProgress, success: response.onSuccess, failure: response.onFailure)
-        }
-        else {
+        } else {
             if request.form.notNil {
                 manager.post(request.service, parameters: request.params, constructingBodyWith: request.form!, progress: response.onProgress,
                         success: response.onSuccess, failure: response.onFailure)
-            }
-            else {
+            } else {
                 manager.post(request.service, parameters: request.params,
                         progress: response.onProgress, success: response.onSuccess,
                         failure: response.onFailure)
@@ -164,11 +162,9 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         request.data.loadContent(content)
         if error.notNil && request.data.isEmpty {
             onHandleResponseError(task?.response, error!, content)
-        }
-        else if request.data.success {
+        } else if request.data.success {
             request.success(request.data)
-        }
-        else {
+        } else {
             onRequestFailed()
         }
     }
@@ -189,8 +185,7 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
             retryCount += 1
             logInfo("-999 Zruseno Retrying..." + httpResponse.asString)
             client.execute(request, self)
-        }
-        else {
+        } else {
             request.failed(withMessage: error.localizedDescription)
         }
     }
@@ -198,8 +193,7 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
     func onRequestFailed() {
         if let message = request.data.message {
             request.failed(withMessage: message)
-        }
-        else {
+        } else {
             request.failed(withMessage: client.requestFailMessage)
         }
     }
