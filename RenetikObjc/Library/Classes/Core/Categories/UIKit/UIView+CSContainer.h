@@ -5,28 +5,28 @@
 //  Created by Rene Dohan on 4/11/19.
 //
 
-@import UIKit;
+//@import UIKit;
+//
+//NS_ASSUME_NONNULL_BEGIN
+//
+//@interface UIView (CSContainer)
 
-NS_ASSUME_NONNULL_BEGIN
+//- (UIView *)content:(UIView *)view;
 
-@interface UIView (CSContainer)
+//@property(nonatomic, nullable) UIView *content;
 
-- (UIView *)content:(UIView *)view;
+//- (nullable UIView *)findLastSubviewOfClass:(Class)pClass;
 
-@property(nonatomic, nullable) UIView *content;
+//- (instancetype)clearSubviews;
 
-- (nullable UIView *)findLastSubviewOfClass:(Class)pClass;
+//- (BOOL)isEmpty;
 
-- (instancetype)clearSubviews;
+//- (instancetype)addViews:(NSArray<UIView *> *)views;
+//
+//- (UIView *)addView:(UIView *)view :(NSInteger)index;
+//
+//- (UIView *)setView:(UIView *)view :(NSInteger)index;
 
-- (BOOL)isEmpty;
-
-- (instancetype)addViews:(NSArray<UIView *> *)views;
-
-- (UIView *)addView:(UIView *)view :(NSInteger)index;
-
-- (UIView *)setView:(UIView *)view :(NSInteger)index;
-
-@end
-
-NS_ASSUME_NONNULL_END
+//@end
+//
+//NS_ASSUME_NONNULL_END

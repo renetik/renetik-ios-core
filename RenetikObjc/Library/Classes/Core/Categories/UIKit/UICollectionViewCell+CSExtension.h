@@ -7,6 +7,6 @@
 
 @interface UICollectionViewCell (CSExtension)
 
-@property (readonly) UIView *cellView;
+//@property (readonly) UIView *cellView;
 
 @end

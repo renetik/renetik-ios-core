@@ -49,7 +49,7 @@ public extension UITableView {
     public func dequeue<CellType: UITableViewCell>(
             cell type: CellType.Type, onCreate: ((CellType) -> Void)? = nil) -> CellType {
         var cell = dequeue(cell: type)
-        if cell.contentView.isEmpty() {
+        if cell.contentView.isEmpty {
             onCreate?(cell)
             cell.contentView.matchParent()
             cell.width(width, height: width)
@@ -104,7 +104,7 @@ public extension UITableView {
     }
 
     @discardableResult
-    public func delegates(_ delegates: (UITableViewDelegate & UITableViewDataSource)) -> Self {
+    public func delegates(_ delegates: UITableViewDelegate & UITableViewDataSource) -> Self {
         self.delegate = delegates
         self.dataSource = delegates
         return self

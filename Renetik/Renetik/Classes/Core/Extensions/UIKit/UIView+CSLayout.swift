@@ -193,4 +193,19 @@ public extension UIView {
         fixedRight()
         return self
     }
+
+    @discardableResult
+    func layoutHorizontally() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPreviousVisible(of: self)
+        previous.notNil { previous in
+            assert(previous.width == width && previous.height == height, "Needs to have same size as previous")
+            if previous.right + width <= superview!.width {
+                from(left: previous.right, top: previous.top)
+            } else {
+                from(left: 0, top: previous.bottom)
+            }
+        }.elseDo { from(left: 0, top: 0) }
+        return self
+    }
 }

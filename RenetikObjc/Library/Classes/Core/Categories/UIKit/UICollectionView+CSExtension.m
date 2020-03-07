@@ -17,21 +17,6 @@
 static NSString * const DEFAULT_CELL_ID = @"emptyCellIdentifier";
 static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
 
-//- (instancetype)construct {
-//    super.construct;
-//    self.backgroundColor = UIColor.clearColor;
-//    return self;
-//}
-
-//- (instancetype)delegates :(id <UICollectionViewDelegate, UICollectionViewDataSource>)parent {
-//    [self construct];
-//    self.delegate = parent;
-//    self.dataSource = parent;
-//    [self registerForCellView];
-//    [self reloadData];
-//    return self;
-//}
-
 - (instancetype)layout :(UICollectionViewLayout *)layout {
     [self setCollectionViewLayout :layout animated :false];
     return self;
@@ -59,15 +44,6 @@ static NSString *const EMPTY_HEADER = @"emptyHeaderIdentifier";
     [self registerClass :[UICollectionReusableView class] forSupplementaryViewOfKind :UICollectionElementKindSectionHeader withReuseIdentifier :EMPTY_HEADER];
     return self;
 }
-
-//- (UICollectionViewCell *)cellView :(Class)viewClass :(NSIndexPath *)path :(void (^)(UICollectionViewCell *))onCreate {
-//    let cell = [self dequeueCell :DEFAULT_CELL_ID :path];
-//    if (![cell.contentView.content isKindOfClass :viewClass]) {
-//        [cell.contentView content :viewClass.construct].matchParent;
-//        invokeWith(onCreate, cell);
-//    }
-//    return cell;
-//}
 
 - (UICollectionReusableView *)dequeEmptyHeader :(NSIndexPath *)path {
     return [self dequeueReusableSupplementaryViewOfKind :UICollectionElementKindSectionHeader

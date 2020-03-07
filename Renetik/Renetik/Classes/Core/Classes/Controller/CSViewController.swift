@@ -54,7 +54,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-        logInfo("viewDidLoad \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewDidLoad \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewDidLoad()
     }
 
@@ -63,7 +63,7 @@ open class CSViewController: UIViewController {
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateControllerInNavigation()
-        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillAppear()
         if !isOnViewWillAppearFirstTime {
             isOnViewWillAppearFirstTime = true
@@ -82,7 +82,7 @@ open class CSViewController: UIViewController {
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateControllerInNavigation()
-        logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
             onViewDidLayoutFirstTime()
@@ -104,7 +104,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        logInfo("viewDidAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewDidAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         isAppearing = true
         onViewDidAppear()
         if !isOnViewDidAppearFirstTime {
@@ -125,7 +125,7 @@ open class CSViewController: UIViewController {
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillDisappear()
         //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
@@ -134,7 +134,7 @@ open class CSViewController: UIViewController {
 
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        logInfo("viewDidDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("viewDidDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
@@ -149,19 +149,19 @@ open class CSViewController: UIViewController {
 
     open override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-        if parent.isNil {
-            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
-        }
+//        if parent.isNil {
+//            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        }
     }
 
     open func onViewDidDisappear() {}
 
     open func onViewPushedOver() {
-        logInfo("onViewPushedOver \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("onViewPushedOver \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
     }
 
     open func onViewDismissing() {
-        logInfo("onViewDismissing \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        logInfo("onViewDismissing \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         eventRegistrations.each { $0.cancel() }
         notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
         eventDismissing.fire()

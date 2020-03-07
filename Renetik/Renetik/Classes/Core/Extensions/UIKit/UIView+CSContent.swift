@@ -4,8 +4,25 @@
 
 import UIKit
 import RenetikObjc
+import BlocksKit
+
+private var viewContentPropertyKey: UInt8 = 0
 
 public extension UIView {
+
+    var content: UIView? {
+        get { getObject(&viewContentPropertyKey) as? UIView }
+        set(view) {
+            content?.removeFromSuperview()
+            setWeak(&viewContentPropertyKey, view)
+            view?.also { add($0) }
+        }
+    }
+
+    @objc func content(_ view: UIView) -> UIView {
+        content = view
+        return view
+    }
 
     class func withContent(_ view: UIView = UIView.construct()) -> Self {
         let container = self.construct(frame: view.frame)

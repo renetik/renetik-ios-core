@@ -10,8 +10,8 @@
 
 @implementation UICollectionViewCell (CSExtension)
 
-- (UIView *)cellView {
-    return self.contentView.content;
-}
+//- (UIView *)cellView {
+//    return self.contentView.content;
+//}
 
 @end

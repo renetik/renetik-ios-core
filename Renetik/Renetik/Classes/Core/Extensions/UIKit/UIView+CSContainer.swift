@@ -24,6 +24,18 @@ public extension UIView {
         return self
     }
 
+    @discardableResult
+    func add(_ view: UIView, index: Int) -> UIView {
+        insertSubview(view, at: index)
+        return view
+    }
+
+    @discardableResult
+    func set(_ view: UIView, index: Int) -> UIView {
+        subviews.at(index)?.removeFromSuperview()
+        return add(view, index: index)
+    }
+
     func findPreviousVisible(of view: UIView) -> UIView? {
         if subviews.index(of: view).isNil {
             fatalError()
@@ -37,20 +49,20 @@ public extension UIView {
         return nil
     }
 
-//    @discardableResult
-//    private func horizontalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
-//        view.from(left: subviews.at(position - 1)?.right ?? 0)
-//        if view.left != 0 { view.left += margin }
-//        return view
-//    }
+    func findLastSubviewOf(type someType: AnyClass) -> UIView? {
+        var index = subviews.count - 1
+        while index >= 0 {
+            let subView = subviews[index]
+            if type(of: subView) === someType { return subView }
+            index -= 1
+        }
+        return nil
+    }
 
-//    @available(*, deprecated, message: "use from(.., top:..)")
-//    @discardableResult
-//    func verticalLine<View: UIView>(update position: Int, view: View, margin: CGFloat = 0) -> View {
-//        view.from(top: subviews.at(position - 1)?.bottom ?? 0)
-//        if view.top != 0 { view.top += margin }
-//        return view
-//    }
+    @discardableResult
+    func clearSubviews() -> Self { invoke { subviews.each { $0.removeFromSuperview() } } }
+
+    var isEmpty: Bool { subviews.isEmpty }
 
     @discardableResult
     func horizontalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
