@@ -76,3 +76,6 @@ open class CSName: CSDictionaryJsonData {
         return nil
     }
 }
+
+//public extension Array where Element: CSName {
+//}

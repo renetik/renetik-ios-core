@@ -27,14 +27,12 @@ public class CSTableCellForHeightController: CSMainController {
 
     override public func onViewDidLayout() {
         super.onViewDidLayout()
-        logInfo(parentMainController!.view.width)
         for cell in cells { cell.width(parentMainController!.view.width) }
     }
 
     override public func onViewWillTransition(
             to size: CGSize, _ coordinator: UIViewControllerTransitionCoordinator) {
         super.onViewWillTransition(to: size, coordinator)
-        logInfo(size.width)
         for cell in cells { cell.width(size.width) }
     }
 }

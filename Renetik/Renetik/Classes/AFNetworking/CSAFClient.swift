@@ -159,11 +159,11 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         logUrl(task)
         let content = data.notNil ? String(data: data!, encoding: .utf8)! : ""
         logInfo(content)
-        request.data.loadContent(content)
-        if error.notNil && request.data.isEmpty {
+        request.data!.loadContent(content)
+        if error.notNil && request.data!.isEmpty {
             onHandleResponseError(task?.response, error!, content)
-        } else if request.data.success {
-            request.success(request.data)
+        } else if request.data!.success {
+            request.success(request.data!)
         } else {
             onRequestFailed()
         }
@@ -186,15 +186,15 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
             logInfo("-999 Zruseno Retrying..." + httpResponse.asString)
             client.execute(request, self)
         } else {
-            request.failed(withMessage: error.localizedDescription)
+            request.failed(message: error.localizedDescription)
         }
     }
 
     func onRequestFailed() {
-        if let message = request.data.message {
-            request.failed(withMessage: message)
+        if let message = request.data!.message {
+            request.failed(message: message)
         } else {
-            request.failed(withMessage: client.requestFailMessage)
+            request.failed(message: client.requestFailMessage)
         }
     }
 }

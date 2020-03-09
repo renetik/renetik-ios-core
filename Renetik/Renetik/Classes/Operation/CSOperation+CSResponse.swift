@@ -11,7 +11,7 @@ public extension CSOperation where Data: AnyObject {
             let response = request(operation)
             let process = CSProcess(response.data)
             response.onSuccess { data in process.success(data) }
-            response.onFailed { it in process.failed(it.message) }
+            response.onFailed { it in process.failed(it.message ?? "No failed message") }
             return process
         })
     }

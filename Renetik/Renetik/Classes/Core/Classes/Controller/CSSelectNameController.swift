@@ -16,7 +16,7 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
     private var names: [CSName] = []
     private var filteredData: [CSName] = []
     private var onSelected: ((CSName) -> Void)!
-    private var onDelete: ((CSName) -> CSResponse<AnyObject>)?
+    private var onDelete: ((CSName) -> CSResponseProtocol)?
 
     @discardableResult
     public func construct(data: [CSName], onSelected: @escaping (CSName) -> Void) -> Self {
@@ -27,7 +27,7 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
 
     @discardableResult
     public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
-        self.onDelete = onDelete as! ((CSName) -> CSResponse<AnyObject>)
+        self.onDelete = onDelete
         menu(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
         return self
     }
@@ -78,7 +78,7 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
                           forRowAt path: IndexPath) {
         if editingStyle == .delete {
             let value = filteredData[path.row]
-            onDelete?(value).onSuccess { _ in
+            onDelete?(value).onSuccess {
                 self.names.remove(value)
                 if self.names.isEmpty { navigation.popViewController() } else { self.reload() }
             }

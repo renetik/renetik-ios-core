@@ -37,12 +37,12 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
         self.data = data
     }
 
-    public func onFailed(response: CSResponse<AnyObject>) {
+    public func onFailed(response: CSResponseProtocol) {
         progressBlockedView.show(message: stringRequestFailed,
                 positive: CSDialogAction(title: stringRequestRetry, action: reload))
     }
 
-    public func onDone(data: Data) {
+    public func onDone(data: Data?) {
         self.reloadResponse = nil
     }
 }

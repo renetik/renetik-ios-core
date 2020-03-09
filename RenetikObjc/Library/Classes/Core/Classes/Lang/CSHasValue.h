@@ -1,12 +1,12 @@
+////
+//// Created by Rene Dohan on 16/01/15.
+//// Copyright (c) 2015 creative_studio. All rights reserved.
+////
 //
-// Created by Rene Dohan on 16/01/15.
-// Copyright (c) 2015 creative_studio. All rights reserved.
+//@import Foundation;
 //
-
-@import Foundation;
-
-@protocol CSHasValue <NSObject>
-
-- (id)value;
-
-@end
+//@protocol CSHasValue <NSObject>
+//
+//- (id)value;
+//
+//@end

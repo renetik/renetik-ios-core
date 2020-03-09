@@ -7,13 +7,10 @@
 import RenetikObjc
 
 public class CSConcurrentResponse: CSResponse<NSMutableArray> {
-    var failedResponses: [CSResponse<AnyObject>] = []
-    var responses: [CSResponse<AnyObject>] = []
+    var failedResponses: NSMutableArray = NSMutableArray()
+    var responses: NSMutableArray = NSMutableArray()
 
-    public override init() {
-        super.init()
-        self.data = NSMutableArray()
-    }
+    public override init() { super.init(); self.data = NSMutableArray() }
 
     public init<T: AnyObject>(_ response: CSResponse<T>) {
         super.init()
@@ -22,37 +19,36 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
 
     @discardableResult
     public func add<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T> {
-        data.add(response.data)
-        (response as! CSResponse<AnyObject>).also { response in
-            responses.add(response)
-            response.onFailed { _ in self.onResponseFailed(response) }
-                    .onSuccess { _ in self.onResponseSuccess(response) }
-        }
+        data!.add(response.data!)
+        responses.add(response)
+        response.onFailed { _ in self.onResponseFailed(response) }
+                .onSuccess { _ in self.onResponseSuccess(response) }
         return response
     }
 
-    public func onAddDone() {
-        Renetik.later { if self.responses.isEmpty { self.onResponsesDone() } }
-    }
+    public func onAddDone() { later { if self.responses.empty { self.onResponsesDone() } } }
 
-    func onResponseSuccess(_ response: CSResponse<AnyObject>) {
+    func onResponseSuccess<T: AnyObject>(_ response: CSResponse<T>) {
         responses.remove(response)
-        if responses.isEmpty { onResponsesDone() }
+        if responses.empty { onResponsesDone() }
     }
 
-    func onResponseFailed(_ failedResponse: CSResponse<AnyObject>) {
+    func onResponseFailed<T: AnyObject>(_ failedResponse: CSResponse<T>) {
         responses.remove(failedResponses.add(failedResponse))
-        if responses.isEmpty { onResponsesDone() }
+        if responses.empty { onResponsesDone() }
     }
 
     override open func cancel() {
-        for response in responses { response.cancel() }
+        for response in responses { (response as! CSResponseProtocol).cancel() }
         super.cancel()
     }
 
     func onResponsesDone() {
-        if failedResponses.hasItems { failed(failedResponses.first!) }
-        else { success(data) }
+        if failedResponses.hasItems {
+            failed(failedResponses.first as! CSResponseProtocol)
+        } else {
+            success(data!)
+        }
     }
 
 

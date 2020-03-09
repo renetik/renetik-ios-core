@@ -10,8 +10,6 @@
 
 - (UIImage *)inverseColor;
 
-- (UIImage *)template;
-
 - (UIImage *)scaleAndRotateFromCamera:(int)maxResolution;
 
 - (UIImage *)scaleToWidth:(float)width;

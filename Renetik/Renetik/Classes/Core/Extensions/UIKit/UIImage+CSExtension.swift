@@ -10,4 +10,7 @@ public extension UIImage {
     public convenience init(_ fileName: String) {
         self.init(named: fileName)!
     }
+
+    var template: UIImage { withRenderingMode(.alwaysTemplate) }
+
 }

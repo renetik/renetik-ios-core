@@ -151,8 +151,6 @@
     return [UIImage imageWithCIImage :result];
 }
 
-- (UIImage *)template {
-    return [self imageWithRenderingMode :UIImageRenderingModeAlwaysTemplate];
-}
+
 
 @end
