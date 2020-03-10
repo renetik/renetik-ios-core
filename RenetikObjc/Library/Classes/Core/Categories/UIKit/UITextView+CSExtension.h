@@ -9,13 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)scrollToCursorPosition;
 
-//- (instancetype)asLabel;
-
 - (instancetype)setHTMLFromString:(NSString *)string;
 
 - (instancetype)htmlByString:(NSString *)string;
-
-//+ (void)hideTextInsets:(NSArray<UITextView *> *)textViews;
 
 - (instancetype)alignText:(enum NSTextAlignment)alignment;
 
@@ -30,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFontStyle:(UIFontTextStyle)style;
 
 - (instancetype)fontStyle:(UIFontTextStyle)style;
-
-//- (instancetype)heightToLines:(NSInteger)numberOfLines;
 
 @end
 
