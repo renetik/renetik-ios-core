@@ -9,6 +9,7 @@ public extension CSOperation where Data: AnyObject {
     convenience init(title: String, request: @escaping (CSOperation<Data>) -> CSResponse<Data>) {
         self.init(title: title, function: { operation in
             let response = request(operation)
+            response.force(operation.isRefresh)
             let process = CSProcess(response.data)
             response.onSuccess { data in process.success(data) }
             response.onFailed { it in process.failed(it.message ?? "No failed message") }

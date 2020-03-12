@@ -101,10 +101,10 @@ public extension UIScrollView {
                 y: contentSize.height - bounds.size.height - contentInset.bottom), animated: true)
     }
 
-    func scrollTo(page index: Int, of count: Int) {
+    func scrollTo(page index: Int, of count: Int, animated: Bool = true) {
         let pageWidth = contentSize.width / CGFloat(count)
         let x = CGFloat(index) * pageWidth
-        setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        setContentOffset(CGPoint(x: x, y: 0), animated: animated)
     }
 
     func currentPageIndex(from: Int) -> Int {

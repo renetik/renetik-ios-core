@@ -8,7 +8,7 @@
 
 - (void)selectRow:(NSUInteger)row;
 
-- (UILabel *)createCenteredLabel:(NSString *)text height:(int)height;
-
-- (UILabel *)createCenteredLabelWithHeight:(int)height;
+//- (UILabel *)createCenteredLabel:(NSString *)text height:(int)height;
+//
+//- (UILabel *)createCenteredLabelWithHeight:(int)height;
 @end

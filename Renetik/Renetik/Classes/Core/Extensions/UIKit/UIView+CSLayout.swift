@@ -103,8 +103,18 @@ public extension UIView {
     }
 
     @discardableResult
+    func matchParentWidth(margin: (left: CGFloat, right: CGFloat)) -> Self {
+        from(left: margin.left).width(fromRight: margin.right, flexible: true)
+    }
+
+    @discardableResult
     func matchParentHeight(margin: CGFloat = 0) -> Self {
         from(top: margin).height(fromBottom: margin, flexible: true)
+    }
+
+    @discardableResult
+    func matchParentHeight(margin: (top: CGFloat, bottom: CGFloat)) -> Self {
+        from(top: margin.top).height(fromBottom: margin.bottom, flexible: true)
     }
 
     @discardableResult

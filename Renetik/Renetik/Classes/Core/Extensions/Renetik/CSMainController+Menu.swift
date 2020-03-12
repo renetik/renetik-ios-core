@@ -17,6 +17,13 @@ public extension CSMainController {
     }
 
     @discardableResult
+    public func menu(title: String = "", image: UIImage? = nil,
+                     type: UIBarButtonItem.SystemItem? = nil,
+                     onClick: (() -> Void)? = nil) -> CSMenuItem {
+        menuAdd().item(with: title, type: type, image: image, action: { _ in onClick?() })
+    }
+
+    @discardableResult
     public func menu(view: UIView,
                      onClick: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
         menuAdd().item(with: view, action: onClick)

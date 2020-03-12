@@ -7,13 +7,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (CSPosition)
 
-@property(readonly) CGPoint position;
-@property(readonly) CGFloat x;
-@property(readonly) CGFloat y;
-@property(nonatomic) CGFloat left;
-@property(nonatomic) CGFloat right;
-@property(nonatomic) CGFloat top;
-@property(nonatomic) CGFloat bottom;
+//@property(readonly) CGPoint position;
+//@property(readonly) CGFloat x;
+//@property(readonly) CGFloat y;
+//@property(nonatomic) CGFloat left;
+//@property(nonatomic) CGFloat right;
+//@property(nonatomic) CGFloat top;
+//@property(nonatomic) CGFloat bottom;
 
 - (instancetype)position:(CGPoint)point;
 

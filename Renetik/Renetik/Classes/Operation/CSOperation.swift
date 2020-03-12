@@ -59,7 +59,7 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
     public var isLoading: Bool { process?.isDone == false }
 
     @discardableResult
-    public func refresh() -> Self { invoke { isRefresh = true } }
+    public func refresh(_ value: Bool = true) -> Self { invoke { isRefresh = true } }
 
     @discardableResult
     public func expire(minutes: Int?) -> Self { invoke { expireMinutes = minutes } }

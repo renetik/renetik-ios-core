@@ -57,11 +57,11 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if lastDraggingContentOffset.isNil { return }
         if scrollView.isAtTop {
             requestNavigationBarShown()
         } else if scrollView.isAtBottom {
         } else {
+            if lastDraggingContentOffset.isNil { return }
             if lastDraggingContentOffset! < scrollView.contentOffset.y - 400 {
                 requestNavigationBarHidden()
             } else if lastDraggingContentOffset! > scrollView.contentOffset.y + 200 {
@@ -70,8 +70,7 @@ public class CSNavigationHidingController: CSMainController {
         }
     }
 
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView,
-                                         willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate { lastDraggingContentOffset = nil }
     }
 
@@ -93,19 +92,14 @@ public class CSNavigationHidingController: CSMainController {
     private func hideNavigationBar(animated: Bool = true) {
         isHidingRunning = true
         isNavigationBarHidden = true
-        invoke(animated: animated, duration: 0.3, operation: {
-            navigation.navigationBar.alpha = 0
-            navigation.navigationBar.bottom = UIApplication.statusBarHeight
+        invoke(animated: animated, operation: {
+            navigation.navigationBar.bottom = UIApplication.statusBarBottom
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
-            navigation.navigationBar.isHidden = true
+            navigation.navigationBar.hide()
             self.isHidingRunning = false
             if self.shouldShow { self.requestNavigationBarShown() }
         })
-    }
-
-    private var fromBottom: CGFloat {
-        if navigation.isToolbarHidden { return 0 } else { return navigation.toolbar.topFromBottom }
     }
 
     public func requestNavigationBarShown(animated: Bool = true) {
@@ -122,15 +116,9 @@ public class CSNavigationHidingController: CSMainController {
     private func showNavigationBar(animated: Bool = true) {
         isShowingRunning = true
         isNavigationBarHidden = false
-        invoke(animated: animated, duration: 0.3, operation: {
-            navigation.navigationBar.isHidden = false
-            navigation.navigationBar.alpha = 1
-
-//            navigation.navigationBar.top = UIApplication.statusBarHeight()
-//            navigation.last!.view.from(top: navigation.navigationBar.bottom)
-//            navigation.last!.view.height(fromBottom: self.fromBottom)
-
-            navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
+        navigation.navigationBar.show()
+        invoke(animated: animated, operation: {
+            navigation.navigationBar.top = UIApplication.statusBarBottom
             navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
             self.isShowingRunning = false

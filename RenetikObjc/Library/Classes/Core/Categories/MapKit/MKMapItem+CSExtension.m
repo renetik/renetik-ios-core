@@ -8,19 +8,19 @@
 
 @implementation MKMapItem (CSExtension)
 
-+ (void)navigateModeDriving :(double)lat :(double)lng :(NSString *)name {
++ (void)navigateForDriving:(double)lat :(double)lng :(NSString *)name {
     let coordinate = CLLocationCoordinate2DMake(lat, lng);
-    [MKMapItem navigateModeDriving :coordinate :name];
+    [MKMapItem navigateForDriving:coordinate :name];
 }
 
-+ (void)navigateModeDriving :(CLLocationCoordinate2D)coordinate
-                            :(NSString *)name {
++ (void)navigateForDriving:(CLLocationCoordinate2D)coordinate
+        :(NSString *)name {
     let destinationMapItem =
-        [MKMapItem.alloc initWithPlacemark :
-         [MKPlacemark.alloc initWithCoordinate
-          :coordinate addressDictionary :nil]];
+            [MKMapItem.alloc initWithPlacemark:
+                    [MKPlacemark.alloc initWithCoordinate
+                    :coordinate         addressDictionary:nil]];
     destinationMapItem.name = name;
-    [MKMapItem openMapsWithItems :@[destinationMapItem] launchOptions :@{ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving }];
+    [MKMapItem openMapsWithItems:@[destinationMapItem] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving}];
 }
 
 @end

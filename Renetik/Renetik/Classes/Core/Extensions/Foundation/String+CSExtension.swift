@@ -28,33 +28,19 @@ public extension String {
         })
     }
 
-    public var isSet: Bool {
-        !isEmpty
-    }
+    var isSet: Bool { !isEmpty }
 
-    public var trim: String {
-        asNSString.trim()
-    }
+    var trim: String { asNSString.trim() }
 
-    public var length: Int {
-        count
-    }
+    var length: Int { count }
 
-    public var asNSString: NSString {
-        self as NSString
-    }
+    var asNSString: NSString { self as NSString }
 
-    public var boolValue: Bool {
-        asNSString.boolValue
-    }
+    var boolValue: Bool { asNSString.boolValue }
 
-    public var doubleValue: Double {
-        asNSString.doubleValue
-    }
+    public var doubleValue: Double { asNSString.doubleValue }
 
-    public var intValue: Int {
-        asNSString.integerValue
-    }
+    public var intValue: Int { asNSString.integerValue }
 
     func substring(from: Int) -> String {
         asNSString.substring(from: from, to: length) as String
@@ -64,13 +50,9 @@ public extension String {
         ignoreCase ? asNSString.containsNoCase(string) : asNSString.contains(string)
     }
 
-    func remove(_ string: String) -> String {
-        remove(all: string)
-    }
+    func remove(_ string: String) -> String { remove(all: string) }
 
-    func remove(all string: String) -> String {
-        replace(all: string, with: "")
-    }
+    func remove(all string: String) -> String { replace(all: string, with: "") }
 
     //func remove(first
 

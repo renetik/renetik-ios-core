@@ -13,19 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)htmlByString:(NSString *)string;
 
-- (instancetype)alignText:(enum NSTextAlignment)alignment;
+//- (instancetype)alignText:(enum NSTextAlignment)alignment;
 
-- (instancetype)font:(UIFont *)font;
-
-- (instancetype)textColor:(UIColor *)textColor;
-
-- (instancetype)setFontSize:(CGFloat)size;
-
-- (instancetype)fontSize:(CGFloat)size;
-
-- (void)setFontStyle:(UIFontTextStyle)style;
-
-- (instancetype)fontStyle:(UIFontTextStyle)style;
+//- (instancetype)font:(UIFont *)font;
+//
+//- (instancetype)textColor:(UIColor *)textColor;
+//
+//- (instancetype)setFontSize:(CGFloat)size;
+//
+//- (instancetype)fontSize:(CGFloat)size;
+//
+//- (void)setFontStyle:(UIFontTextStyle)style;
+//
+//- (instancetype)fontStyle:(UIFontTextStyle)style;
 
 @end
 

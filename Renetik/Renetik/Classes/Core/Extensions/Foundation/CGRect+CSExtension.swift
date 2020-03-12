@@ -5,6 +5,15 @@
 import CoreGraphics
 
 public extension CGRect {
+
+    init(size: CGFloat) {
+        self.init(width: size, height: size)
+    }
+
+    init(width: CGFloat, height: CGFloat) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
+    }
+
     var x: CGFloat { origin.x }
     var y: CGFloat { origin.y }
     var width: CGFloat { size.width }

@@ -90,6 +90,12 @@ extension String: CSAny {}
 
 extension Int: CSAny {}
 
+extension Float: CSAny {}
+
+extension Double: CSAny {}
+
+extension CGFloat: CSAny {}
+
 extension Array: CSAny {}
 
 extension Dictionary: CSAny {}

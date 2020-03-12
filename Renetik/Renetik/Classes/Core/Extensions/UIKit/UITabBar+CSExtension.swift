@@ -10,32 +10,19 @@ import RenetikObjc
 
 public extension UITabBar {
 
-//    static var portraitHeight: CGFloat?
-//    static var landscapeHeight: CGFloat?
-//
-//    class var defaultHeight: CGFloat {
-//        if UIScreen.isPortrait {
-//            if portraitHeight.isNil {
-//                portraitHeight = UIToolbar().resizeToFit().height
-//            }
-//            return portraitHeight!
-//        } else {
-//            if landscapeHeight.isNil {
-//                landscapeHeight = UIToolbar().resizeToFit().height
-//            }
-//            return landscapeHeight!
-//        }
-//    }
+    class var imageSize: CGFloat { 30 }
 
-    public var selectedItemIndex: Int {
-        get {
-            if selectedItem.notNil {
-                return items!.firstIndex(of: selectedItem!)!
-            }
-            return -1
-        }
-        set {
-            selectedItem = items![newValue]
-        }
+    @discardableResult
+    func items(_ items: [UITabBarItem]) -> Self { invoke { self.items = items } }
+
+    @discardableResult
+    func delegate(_ delegate: UITabBarDelegate) -> Self { invoke { self.delegate = delegate } }
+
+    @discardableResult
+    func selected(index: Int) -> Self { invoke { self.selectedIndex = index } }
+
+    var selectedIndex: Int {
+        get { selectedItem?.get { item in items!.index(of: item)! } ?? -1 }
+        set { selectedItem = items![newValue] }
     }
 }

@@ -67,11 +67,12 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public var dataCount: Int { filteredData.count }
 
     @discardableResult
-    public func reload(withProgress: Bool = true) -> CSProcess<Data> {
+    public func reload(withProgress: Bool = true, refresh: Bool = false) -> CSProcess<Data> {
         if isLoading { loadProcess!.cancel() }
         isLoading = true
         tableView.reload()
-        return parentController.send(operation: onLoad(), progress: withProgress, failedDialog: false)
+        return parentController.send(operation: onLoad().refresh(refresh),
+                        progress: withProgress, failedDialog: false)
                 .onFailed { process in
                     self.isFailed = true
                     self.failedMessage = process.message

@@ -25,4 +25,8 @@ public extension UIApplication {
         let statusBarSize = UIApplication.shared.statusBarFrame.size
         return min(statusBarSize.width, statusBarSize.height)
     }
+
+    class var statusBarBottom: CGFloat {
+        statusBarHeight
+    }
 }

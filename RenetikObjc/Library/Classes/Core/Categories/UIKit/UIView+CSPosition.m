@@ -30,13 +30,13 @@
     return self.top;
 }
 
-- (CGFloat)right {
-    return self.left + self.width;
-}
-
-- (CGFloat)bottom {
-    return self.top + self.height;
-}
+//- (CGFloat)right {
+//    return self.left + self.width;
+//}
+//
+//- (CGFloat)bottom {
+//    return self.top + self.height;
+//}
 
 - (void)setLeft:(CGFloat)value {
     CGRect frame = self.frame;
@@ -50,13 +50,13 @@
     self.frame = frame;
 }
 
-- (void)setRight:(CGFloat)value {
-    self.left = value - self.width;
-}
-
-- (void)setBottom:(CGFloat)value {
-    self.top = value - self.height;
-}
+//- (void)setRight:(CGFloat)value {
+//    self.left = value - self.width;
+//}
+//
+//- (void)setBottom:(CGFloat)value {
+//    self.top = value - self.height;
+//}
 
 - (instancetype)position:(CGPoint)point {
     CGRect frame = self.frame;

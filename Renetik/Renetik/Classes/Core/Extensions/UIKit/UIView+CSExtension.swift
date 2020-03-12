@@ -19,6 +19,10 @@ public extension UIView {
         construct().width(width, height: height)
     }
 
+    class func construct(width: CGFloat) -> Self {
+        construct().width(width)
+    }
+
     class func construct(color: UIColor) -> Self {
         construct().background(color)
     }

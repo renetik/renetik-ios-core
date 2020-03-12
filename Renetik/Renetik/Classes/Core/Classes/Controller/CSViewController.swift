@@ -52,7 +52,7 @@ open class CSViewController: UIViewController {
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
     override open func loadView() { view = UIControl.construct().defaultSize() }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 //        logInfo("viewDidLoad \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewDidLoad()
@@ -60,7 +60,7 @@ open class CSViewController: UIViewController {
 
     open func onViewDidLoad() {}
 
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateControllerInNavigation()
 //        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
@@ -79,7 +79,7 @@ open class CSViewController: UIViewController {
 
     open func onViewWillAppearFromPresentedController() {}
 
-    override public func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateControllerInNavigation()
 //        logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
@@ -102,7 +102,7 @@ open class CSViewController: UIViewController {
 
     open func onViewDidLayout() {}
 
-    override public func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        logInfo("viewDidAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         isAppearing = true
@@ -123,7 +123,7 @@ open class CSViewController: UIViewController {
     open func onViewDidAppearFromPresentedController() {
     }
 
-    override public func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillDisappear()
@@ -132,7 +132,7 @@ open class CSViewController: UIViewController {
 
     open func onViewWillDisappear() {}
 
-    override public func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 //        logInfo("viewDidDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isAppearing { return }
@@ -147,7 +147,7 @@ open class CSViewController: UIViewController {
         }
     }
 
-    open override func didMove(toParent parent: UIViewController?) {
+    override open func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
 //        if parent.isNil {
 //            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
@@ -205,7 +205,7 @@ open class CSViewController: UIViewController {
         eventRegistrations.remove(registration)?.cancel()
     }
 
-    override public var shouldAutorotate: Bool {
+    override open var shouldAutorotate: Bool {
         if isShouldAutorotate.notNil { return isShouldAutorotate! }
         return super.shouldAutorotate
     }
@@ -226,16 +226,18 @@ open class CSViewController: UIViewController {
         function()
     }
 
-    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) {
+    @discardableResult
+    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
         layoutFunctions.invoke(listener: { _ in function(view) })
         function(view)
+        return view
     }
 
     public func runLayoutFunctions() {
         layoutFunctions.fire()
     }
 
-    func updateControllerInNavigation(){
+    func updateControllerInNavigation() {
         if controllerInNavigation.isNil { controllerInNavigation = findControllerInNavigation() }
     }
 }

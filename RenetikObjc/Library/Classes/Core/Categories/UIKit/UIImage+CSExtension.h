@@ -4,6 +4,7 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (CSExtension)
 
 + (UIImage *)imageWithColor:(UIColor *)color;
@@ -12,7 +13,5 @@
 
 - (UIImage *)scaleAndRotateFromCamera:(int)maxResolution;
 
-- (UIImage *)scaleToWidth:(float)width;
-
-- (UIImage *)scaleToHeight:(float)height;
 @end
+NS_ASSUME_NONNULL_END

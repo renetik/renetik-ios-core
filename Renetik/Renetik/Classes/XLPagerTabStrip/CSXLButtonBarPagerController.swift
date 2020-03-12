@@ -43,8 +43,9 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
         updateControllersVisible(at: pager.currentIndex, animated: true)
     }
 
-    public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
-        if progressPercentage == 1 { updateControllersVisible(at: pager.currentIndex, animated: false) }
+    public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int,
+                                withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
+        if indexWasChanged && progressPercentage == 1 { updateControllersVisible(at: pager.currentIndex, animated: false) }
     }
 
     func updateControllersVisible(at index: Int, animated: Bool) {

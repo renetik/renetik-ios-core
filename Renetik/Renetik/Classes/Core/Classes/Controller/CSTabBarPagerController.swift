@@ -39,8 +39,8 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
 
     override public func onViewWillAppearFirstTime() {
         super.onViewWillAppearFirstTime()
-        view.add(view: tabBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
-        view.add(view: containerView).matchParent().height(from: tabBar, bottom: 0)
+        view.add(tabBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
+        view.add(containerView).matchParent().height(from: tabBar, bottom: 0)
     }
 
     override public func onViewDidLayout() {
@@ -50,7 +50,7 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     }
 
     public func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if currentControllerIndex == tabBar.selectedItemIndex {
+        if currentControllerIndex == tabBar.selectedIndex {
             return
         }
         onClicksDictionary[item]! {
@@ -61,21 +61,21 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     private func show(controller: UIViewController) {
         currentController.notNil {
             dismissChild(controller: $0)
-            if currentControllerIndex! < tabBar.selectedItemIndex {
+            if currentControllerIndex! < tabBar.selectedIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromRight)
-            } else if currentControllerIndex! > tabBar.selectedItemIndex {
+            } else if currentControllerIndex! > tabBar.selectedIndex {
                 CATransition.create(for: containerView, type: .push, subtype: .fromLeft)
             }
         }
         showChild(controller: controller, parentView: containerView).view.matchParent()
         updateBarItemsAndMenu()
         currentController = controller
-        currentControllerIndex = tabBar.selectedItemIndex
+        currentControllerIndex = tabBar.selectedIndex
     }
 
     public func updateTabSelection() {
-        if tabBar.selectedItemIndex != currentControllerIndex! {
-            tabBar.selectedItemIndex = currentControllerIndex!
+        if tabBar.selectedIndex != currentControllerIndex! {
+            tabBar.selectedIndex = currentControllerIndex!
         }
     }
 

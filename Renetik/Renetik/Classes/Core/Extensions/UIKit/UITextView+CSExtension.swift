@@ -16,8 +16,9 @@ public struct CSTextViewClearButtonAppearance {
 
 public extension UITextView {
 
+    // TODO: detect(data:[.all, .links]
     @discardableResult
-    func dataDetector(_ types: UIDataDetectorTypes) -> Self {
+    func detectData(_ types: UIDataDetectorTypes = [.all]) -> Self {
         dataDetectorTypes = types
         if types.isEmpty { isSelectable = true }
         return self
@@ -31,22 +32,20 @@ public extension UITextView {
         return self
     }
 
-    @discardableResult
-    func withClear(_ parent: CSViewController, _ appearance: CSTextViewClearButtonAppearance? = nil) -> Self {
-        let button = UIButton(type: .system).construct().text("X").fontStyle(.body)
-                .visible(if: self.text.isSet).onClick { self.text = "" }
-        add(button).from(left: 5).resizeToFit().centeredHorizontal()
-        //TODO: Clear button its moving as text exceed space
-        onTextChange(in: parent) { _ in button.visible(if: self.text.isSet) }
-        appearance?.titleColor?.then { color in button.textColor(color) }
-        return self
-    }
+//    TODO: This is wrong and TextView should be wrapped to view with clear button instead
+//    @discardableResult
+//    func withClear(_ parent: CSViewController, _ appearance: CSTextViewClearButtonAppearance? = nil) -> Self {
+//        let button = UIButton(type: .system).construct().text("X").fontStyle(.body)
+//                .visible(if: self.text.isSet).onClick { self.text = "" }
+//        add(button).from(left: 5).resizeToFit().centeredHorizontal()
+//
+//        onTextChange(in: parent) { _ in button.visible(if: self.text.isSet) }
+//        appearance?.titleColor?.then { color in button.textColor(color) }
+//        return self
+//    }
 
     @discardableResult
-    public func text(_ value: String?) -> Self {
-        text = value
-        return self
-    }
+    public func text(_ value: String?) -> Self { invoke { self.text = value } }
 
     @discardableResult
     func onTextChange(in parent: CSViewController, _ function: @escaping (UITextView) -> Void) -> Self {
@@ -56,6 +55,7 @@ public extension UITextView {
         return self
     }
 
+    @discardableResult
     func heightToFit(lines numberOfLines: Int) -> Self {
         let currentWidth = width; let currentText = text; var linesText = "line"
         for i in 0..<numberOfLines - 1 {
@@ -65,6 +65,7 @@ public extension UITextView {
         return self
     }
 
+    @discardableResult
     func asLabel() -> Self {
         textContainerInset = .zero
         contentInset = .zero
@@ -77,4 +78,32 @@ public extension UITextView {
         return self
     }
 
+    //TODO: text(align:
+    @discardableResult
+    func alignText(_ alignment: NSTextAlignment) -> Self { invoke { self.textAlignment = alignment } }
+
+    //TODO: text(color:
+    @discardableResult
+    func textColor(_ textColor: UIColor) -> Self { invoke { self.textColor = textColor } }
+
+    @discardableResult
+    func font(_ font: UIFont) -> Self { invoke { self.font = font } }
+
+    //TODO: font(size:
+    @discardableResult
+    func fontSize(_ size: CGFloat) -> Self { invoke { self.fontSize = size } }
+
+    var fontSize: CGFloat {
+        get { font!.fontDescriptor.pointSize }
+        set { font = font!.withSize(newValue) }
+    }
+
+    //TODO: font(style:
+    @discardableResult
+    func fontStyle(_ style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
+
+    var fontStyle: UIFont.TextStyle {
+        get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
+        set { font = UIFont.preferredFont(forTextStyle: newValue) }
+    }
 }

@@ -13,8 +13,7 @@ public extension UIResponder {
     func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime,
                 operation: @escaping () -> Void, completion: @escaping () -> Void) {
         if animated {
-            UIView.animate(withDuration: duration, animations: operation,
-                    completion: { _ in completion() })
+            UIView.animate(withDuration: duration, animations: operation, completion: { _ in completion() })
         } else {
             operation()
             completion()

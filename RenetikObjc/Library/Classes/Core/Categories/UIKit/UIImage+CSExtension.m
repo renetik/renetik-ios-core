@@ -3,11 +3,10 @@
 //
 
 #import "UIImage+CSExtension.h"
-#import "CSLang.h"
 
 @implementation UIImage (CSExtension)
 
-- (UIImage *)scaleAndRotateFromCamera :(int)maxResolution {
+- (UIImage *)scaleAndRotateFromCamera:(int)maxResolution {
     CGImageRef imgRef = self.CGImage;
     CGFloat width = CGImageGetWidth(imgRef);
     CGFloat height = CGImageGetHeight(imgRef);
@@ -82,7 +81,7 @@
             break;
 
         default :
-            [NSException raise :NSInternalInconsistencyException format :@"Invalid image orientation"];
+            [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
     }
 
     UIGraphicsBeginImageContext(bounds.size);
@@ -106,31 +105,7 @@
     return imageCopy;
 }
 
-- (UIImage *)scaleToWidth :(float)width {
-    float oldWidth = self.size.width;
-    float scaleFactor = width / oldWidth;
-    float newHeight = self.size.height * scaleFactor;
-    float newWidth = oldWidth * scaleFactor;
-    return [self getImage :newHeight newWidth :newWidth];
-}
-
-- (UIImage *)getImage :(float)newHeight newWidth :(float)newWidth {
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
-    [self drawInRect :CGRectMake(0, 0, newWidth, newHeight)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-- (UIImage *)scaleToHeight :(float)height {
-    float oldHeight = self.size.height;
-    float scaleFactor = height / oldHeight;
-    float newWidth = self.size.width * scaleFactor;
-    float newHeight = oldHeight * scaleFactor;
-    return [self getImage :newHeight newWidth :newWidth];
-}
-
-+ (UIImage *)imageWithColor :(UIColor *)color {
++ (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -144,13 +119,12 @@
 }
 
 - (UIImage *)inverseColor {
-    CIImage *coreImage = [CIImage imageWithCGImage :self.CGImage];
-    CIFilter *filter = [CIFilter filterWithName :@"CIColorInvert"];
-    [filter setValue :coreImage forKey :kCIInputImageKey];
-    CIImage *result = [filter valueForKey :kCIOutputImageKey];
-    return [UIImage imageWithCIImage :result];
+    CIImage *coreImage = [CIImage imageWithCGImage:self.CGImage];
+    CIFilter *filter = [CIFilter filterWithName:@"CIColorInvert"];
+    [filter setValue:coreImage forKey:kCIInputImageKey];
+    CIImage *result = [filter valueForKey:kCIOutputImageKey];
+    return [UIImage imageWithCIImage:result];
 }
-
 
 
 @end
