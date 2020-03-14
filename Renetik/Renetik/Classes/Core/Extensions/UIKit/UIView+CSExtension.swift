@@ -114,8 +114,13 @@ public extension UIView {
     @objc func aspectFill() -> Self { invoke { contentMode = .scaleAspectFill } }
 
     @discardableResult
-    @objc func border(width: CGFloat, color: UIColor, radius: Int32) -> Self {
-        invoke { layer.setBorder(width, color, radius) }
+    @objc func border(width: CGFloat, color: UIColor, radius: CGFloat) -> Self {
+        layer.borderWidth = width
+        layer.borderColor = color.cgColor
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
+        clipsToBounds = true
+        return self
     }
 
     func clone() -> Self {
@@ -130,22 +135,6 @@ public extension UIView {
         }
         return nil
     }
-
-//    class func animationOptions(with curve: UIView.AnimationCurve) -> UIView.AnimationOptions {
-//        switch curve { //Move to extension if ever needed.
-//        case .easeInOut:
-//            return .curveEaseInOut
-//        case .easeIn:
-//            return .curveEaseIn
-//        case .easeOut:
-//            return .curveEaseOut
-//        case .linear:
-//            return .curveLinear
-//        @unknown default:
-//            break
-//        }
-//        return .curveLinear
-//    }
 
     func background(fadeTo color: UIColor) {
         if backgroundColor == color { return }
