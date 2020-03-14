@@ -87,9 +87,7 @@ open class CSMainController: CSViewController {
     @discardableResult
     public override func dismissChild(controller: UIViewController) -> UIViewController {
         super.dismissChild(controller: controller)
-        if controller is CSMainController {
-            childMainControllers.remove(controller.cast())
-        }
+        (controller as? CSMainController).then { controller in childMainControllers.remove(controller) }
         return controller
     }
 
@@ -107,6 +105,15 @@ open class CSMainController: CSViewController {
     public func addChildMain(controller: CSMainController) {
         childMainControllers.add(controller)
         controller.parentMainController = self
+    }
+
+    public func removeChildMain(controllers: [CSMainController]) -> Self {
+        for controller in controllers { removeChildMain(controller: controller) }
+        return self
+    }
+
+    public func removeChildMain(controller: CSMainController) {
+        dismissChild(controller: controller)
     }
 
     open func onPrepareLeftBarItem() -> UIBarButtonItem? {

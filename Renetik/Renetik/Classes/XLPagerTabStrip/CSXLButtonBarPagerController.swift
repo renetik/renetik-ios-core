@@ -13,7 +13,7 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
 
     public let pager = CSButtonBarPagerTabStripViewController()
 
-    fileprivate var controllers: [CSXLButtonBarPagerChildController]!
+    fileprivate var controllers = [CSXLButtonBarPagerChildController]()
     private var currentController: CSXLButtonBarPagerChildController { controllers[pager.currentIndex] }
 
     @discardableResult
@@ -57,6 +57,7 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
     }
 
     public func load(controllers: [CSXLButtonBarPagerChildController]) {
+        removeChildMain(controllers: self.controllers)
         self.controllers = controllers
         addChildMain(controllers: self.controllers)
         pager.reloadPagerTabStripView()
@@ -119,6 +120,7 @@ public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewC
     // PagerTabStripIsProgressiveDelegate delegate was not called by super implementation
     public override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int,
                                          withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
+        if fromIndex == 0 && toIndex == 0 && progressPercentage == 1 && indexWasChanged == false { return }
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
                 withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
         parentController.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
