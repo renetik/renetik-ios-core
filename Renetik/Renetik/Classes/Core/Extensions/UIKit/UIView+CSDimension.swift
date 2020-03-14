@@ -43,10 +43,9 @@ public extension UIView {
     public var availableHeight: CGFloat { height - navigation.navigationBar.bottom }
 
     @discardableResult
-    public func heightByLastSubview(padding: CGFloat = 0) -> Self {
-        let lastSubViewBottom = content?.subviews.last?.bottom ?? subviews.last?.bottom ?? 0
-        height = lastSubViewBottom > 0 ? lastSubViewBottom + padding : 0
-        return self
+    public func heightByLastSubview(padding: CGFloat = 0, minimum: CGFloat = 0) -> Self {
+        let lastSubviewBottom = (content?.subviews.last?.bottom ?? subviews.last?.bottom)
+        return height(lastSubviewBottom?.get { $0 + padding } ?? minimum)
     }
 
     @discardableResult

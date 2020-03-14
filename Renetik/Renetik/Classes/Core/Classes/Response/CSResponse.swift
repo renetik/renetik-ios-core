@@ -7,7 +7,7 @@ import Foundation
 
 public protocol CSResponseProtocol: NSObjectProtocol {
     var message: String { get }
-    func onSuccess(_ onSuccess: @escaping () -> Void)
+    func onSuccess(_ onSuccess: @escaping Func)
     func onFailed(_ onFailed: @escaping (CSResponseProtocol) -> Void) -> Self
     func cancel()
 }
@@ -126,10 +126,10 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
     }
 
     @discardableResult
-    public func onSuccess(_ onSuccess: @escaping () -> Void) { onSuccessEvent.invoke { onSuccess() } }
+    public func onSuccess(_ onSuccess: @escaping Func) { onSuccessEvent.invoke { onSuccess() } }
 
     @discardableResult
-    public func onCancel(_ onCancel: @escaping () -> Void) -> Self {
+    public func onCancel(_ onCancel: @escaping Func) -> Self {
         onCancelEvent.invoke(listener: onCancel)
         return self
     }

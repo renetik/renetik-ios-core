@@ -8,14 +8,18 @@ open class CSCollectionViewCell: UICollectionViewCell {
 
     private let layoutFunctions: CSEvent<Void> = event()
 
-    public func layout(function: @escaping () -> Void) {
+    @discardableResult
+    public func layout(function: @escaping Func) -> Self {
         layoutFunctions.invoke(listener: { _ in function() })
         function()
+        return self
     }
 
-    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) {
+    @discardableResult
+    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
         layoutFunctions.invoke(listener: { _ in function(view) })
         function(view)
+        return view
     }
 
     override open func layoutSubviews() {

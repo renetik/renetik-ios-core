@@ -45,11 +45,13 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
 
     public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int,
                                 withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
-        if indexWasChanged && progressPercentage == 1 { updateControllersVisible(at: pager.currentIndex, animated: false) }
+        if indexWasChanged { updateControllersVisible(at: pager.currentIndex, animated: false) }
     }
 
     func updateControllersVisible(at index: Int, animated: Bool) {
-        for controller in controllers { controller.isShowing = false }
+        for controller in controllers {
+            if controller !== currentController { controller.isShowing = false }
+        }
         currentController.isShowing = true
         updateBarItemsAndMenu(animated: animated)
     }

@@ -112,7 +112,7 @@ public extension UIScrollView {
     }
 
     override func content(_ view: UIView) -> UIView {
-        super.content(view)
+        content = view
         contentSize = view.size
         return view
     }

@@ -5,6 +5,9 @@
 
 import Foundation
 
+public typealias Func = () -> Void
+public typealias ArgFunc<Argument> = (Argument) -> Void
+
 public let defaultAnimationTime: TimeInterval = 0.25
 
 enum CSError: Error {
@@ -46,11 +49,11 @@ public func localized(_ key: String) -> String {
     return string
 }
 
-public func later(seconds: Int = 0, function: @escaping () -> Void) {
+public func later(seconds: Int = 0, function: @escaping Func) {
     later(seconds: Double(seconds), function: function)
 }
 
-public func later(seconds: Double, function: @escaping () -> Void) {
+public func later(seconds: Double, function: @escaping Func) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: function)
 }
 
@@ -100,7 +103,7 @@ extension Array: CSAny {}
 
 extension Dictionary: CSAny {}
 
-func function(if boolean: Bool, function: () -> Void) -> CSConditionalResult {
+func function(if boolean: Bool, function: Func) -> CSConditionalResult {
     if boolean { function() }
     return CSConditionalResult(doElseIf: boolean == false)
 }
@@ -110,7 +113,7 @@ public class CSConditionalResult {
 
     public init(doElseIf: Bool) { self.isDoElse = doElseIf }
 
-    public func elseDo(_ function: () -> Void) { if isDoElse { function() } }
+    public func elseDo(_ function: Func) { if isDoElse { function() } }
 }
 
 func functionTest() {

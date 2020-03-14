@@ -12,6 +12,7 @@ open class CSViewController: UIViewController {
     public let eventOrientationChanged: CSEvent<Void> = event()
     public let eventDismissing: CSEvent<Void> = event()
     public let eventDidAppear: CSEvent<Void> = event()
+    public let eventDidLayoutFirstTime: CSEvent<Void> = event()
     public let eventWillAppearFirstTime: CSEvent<Void> = event()
     public let eventDidAppearFirstTime: CSEvent<Void> = event()
 
@@ -34,8 +35,7 @@ open class CSViewController: UIViewController {
         construct(parent)
         later {
             parent.showChild(controller: self)
-            self.view.matchParent()
-            self.view.isUserInteractionEnabled = false
+            self.view.size(1).isUserInteractionEnabled = false
         }
         isShowing = true
         return self
@@ -86,7 +86,9 @@ open class CSViewController: UIViewController {
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
             onViewDidLayoutFirstTime()
+            onCreateLayout()
             onLayoutCreated()
+            eventDidLayoutFirstTime.fire()
         } else {
             onUpdateLayout()
         }
@@ -95,6 +97,8 @@ open class CSViewController: UIViewController {
     }
 
     open func onViewDidLayoutFirstTime() {}
+
+    open func onCreateLayout() {}
 
     open func onLayoutCreated() {}
 
@@ -221,7 +225,7 @@ open class CSViewController: UIViewController {
 
     open func onDisplayChangedTo(darkMode: Bool) {}
 
-    public func layout(function: @escaping () -> Void) {
+    public func layout(function: @escaping Func) {
         layoutFunctions.invoke(listener: { _ in function() })
         function()
     }

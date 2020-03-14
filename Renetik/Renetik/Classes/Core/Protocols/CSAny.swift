@@ -22,13 +22,13 @@ public extension CSAny {
     }
 
     @discardableResult
-    public func invoke(_ function: () -> Void) -> Self {
+    public func invoke(_ function: Func) -> Self {
         function()
         return self
     }
 
     @discardableResult
-    public func run(_ function: () -> Void) -> Void {
+    public func run(_ function: Func) -> Void {
         function()
     }
 

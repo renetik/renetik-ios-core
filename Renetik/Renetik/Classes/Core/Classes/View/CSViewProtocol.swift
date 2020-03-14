@@ -13,7 +13,7 @@
 //    func show(progress title: String, canCancel: Bool) -> MBProgressHUD
 //
 //    func show(title: String, message: String, positiveTitle: String,
-//              onPositive: @escaping () -> Void, canCancel: Bool) -> MBProgressHUD
+//              onPositive: @escaping Function, canCancel: Bool) -> MBProgressHUD
 //}
 //
 //public extension CSViewProtocol {
@@ -27,7 +27,7 @@
 //
 //    public func show(title: String, message: String,
 //                     positiveTitle: String,
-//                     onPositive: @escaping () -> Void) -> MBProgressHUD {
+//                     onPositive: @escaping Function) -> MBProgressHUD {
 //        show(title: title, message: message, positiveTitle: positiveTitle, onPositive: onPositive, canCancel: true)
 //    }
 //}

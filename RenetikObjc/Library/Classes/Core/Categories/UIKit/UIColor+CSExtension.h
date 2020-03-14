@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(UIColor *)colorWithHex:(NSString *)hex;
 
--(UIColor *)addAlpha:(CGFloat) alpha
-    NS_SWIFT_NAME(add(alpha:));
+//-(UIColor *)addAlpha:(CGFloat) alpha
+//    NS_SWIFT_NAME(add(alpha:));
 @end
 NS_ASSUME_NONNULL_END

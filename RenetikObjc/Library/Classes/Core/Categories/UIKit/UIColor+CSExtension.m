@@ -47,8 +47,8 @@
                            alpha:1.0f];
 }
 
-- (UIColor *)addAlpha:(CGFloat)alpha {
-    return [self colorWithAlphaComponent:alpha];
-}
+//- (UIColor *)addAlpha:(CGFloat)alpha {
+//    return [self colorWithAlphaComponent:alpha];
+//}
 
 @end

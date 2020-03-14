@@ -16,6 +16,48 @@ public struct CSTextViewClearButtonAppearance {
 
 public extension UITextView {
 
+//    func setHTMLFrom(_ string: String?) -> Self {
+//        var string = string
+//        string = string?.add(stringf("<style>body{font-family: '%@'; font-size:%fpx;}</style>", font.fontName, font.pointSize))
+//        do {
+//            if let data = string?.data(using: .unicode) {
+//                attributedText = try NSAttributedString(data: data, options: [
+//                    NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html,
+//                    NSAttributedString.DocumentAttributeKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
+//                ], documentAttributes: nil)
+//            }
+//        } catch {
+//        }
+//        return self
+//    }
+//
+//    func html(_ string: String?) -> Self {
+//        setHTMLFrom(string)
+//        return self
+//    }
+
+    @discardableResult
+    func html(_ text: String) -> Self {
+        let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"
+        let html = (text + String(format: htmlStyleFormat, font!.fontName, font!.pointSize))
+        let htmlData = html.data(using: .unicode, allowLossyConversion: true)
+        htmlData.notNil { data in
+            attributedText = try? NSAttributedString(data: data, options: [
+                .documentType: NSAttributedString.DocumentType.html, .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
+            ], documentAttributes: nil)
+        }
+        return self
+    }
+
+    func scrollToCursorPosition() -> Self {
+        later(seconds: 0.1) {
+            if let start = self.selectedTextRange?.start {
+                self.scrollRectToVisible(self.caretRect(for: start), animated: true)
+            }
+        }
+        return self
+    }
+
     // TODO: detect(data:[.all, .links]
     @discardableResult
     func detectData(_ types: UIDataDetectorTypes = [.all]) -> Self {
@@ -25,7 +67,7 @@ public extension UITextView {
     }
 
     @discardableResult
-    override public func onTap(_ block: @escaping () -> Void) -> Self {
+    override public func onTap(_ block: @escaping Func) -> Self {
         self.isEditable = false
         self.isSelectable = false
         super.onTap(block)

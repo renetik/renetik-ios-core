@@ -23,7 +23,7 @@ public class CSNotification: CSObject {
     public var title: String?
     public var body: String?
     public var icon: UIImage?
-    public var actionOnClick: (() -> Void)?
+    public var actionOnClick: (Func)?
     public var dismissible = true
 
     private var position: RMessagePosition = .top
@@ -91,7 +91,7 @@ public class CSNotification: CSObject {
         return self
     }
 
-    public func action(onClick: @escaping () -> Void) -> Self {
+    public func action(onClick: @escaping Func) -> Self {
         actionOnClick = onClick
         dismissible = false
         return self

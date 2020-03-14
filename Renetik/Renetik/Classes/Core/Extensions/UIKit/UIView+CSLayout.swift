@@ -12,7 +12,7 @@ public extension UIView {
     func from(left: CGFloat) -> Self { invoke { self.left = left; fixedLeft() } }
 
     @discardableResult
-    func from(_ view: UIView, left: CGFloat) -> Self { from(left: view.right + left) }
+    func from(_ view: UIView?, left: CGFloat) -> Self { from(left: view?.get { $0.right + left } ?? left) }
 
     @discardableResult
     func fromPrevious(left: CGFloat) -> Self {
@@ -27,7 +27,7 @@ public extension UIView {
     func from(top: CGFloat) -> Self { invoke { self.top = top; fixedTop() } }
 
     @discardableResult
-    func from(_ view: UIView, top: CGFloat) -> Self { from(top: view.bottom + top) }
+    func from(_ view: UIView?, top: CGFloat) -> Self { from(top: view?.get { $0.bottom + top } ?? top) }
 
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
@@ -44,13 +44,15 @@ public extension UIView {
     func from(right: CGFloat) -> Self { invoke { self.fromRight = right; fixedRight() } }
 
     @discardableResult
-    func from(_ view: UIView, right: CGFloat) -> Self { from(right: view.leftFromRight + right) }
+    func from(_ view: UIView?, right: CGFloat)
+                    -> Self { from(right: view?.get { $0.leftFromRight + right } ?? right) }
 
     @discardableResult
     func from(bottom: CGFloat) -> Self { invoke { self.fromBottom = bottom; fixedBottom() } }
 
     @discardableResult
-    func from(_ view: UIView, bottom: CGFloat) -> Self { from(bottom: view.topFromBottom + bottom) }
+    func from(_ view: UIView?, bottom: CGFloat)
+                    -> Self { from(bottom: view?.get { $0.topFromBottom + bottom } ?? bottom) }
 
     @discardableResult
     func from(bottomRight: CGFloat) -> Self { from(bottom: bottomRight, right: bottomRight) }

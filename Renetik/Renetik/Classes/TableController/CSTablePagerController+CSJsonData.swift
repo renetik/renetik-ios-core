@@ -12,7 +12,7 @@ public extension CSTablePagerController where Row: CSJsonData, Data: CSListServe
         self.table = controller
         onLoadPage = { index in operation(index).onSuccess { data in self.load(data.list) } }
         table.onLoad = onLoad
-        return self;
+        return self
     }
 }
 
@@ -23,6 +23,6 @@ public extension CSTablePagerController where Data: CSListData {
         self.table = controller
         onLoadPage = { index in request(index).onSuccess { data in self.load(data.list.cast()) } }
         table.onLoad = onLoad
-        return self;
+        return self
     }
 }

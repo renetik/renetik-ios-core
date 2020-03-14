@@ -21,12 +21,13 @@ public extension UIView {
 
     @objc func content(_ view: UIView) -> UIView {
         content = view
+        view.matchParent()
         return view
     }
 
     class func withContent(_ view: UIView = UIView.construct()) -> Self {
         let container = self.construct(frame: view.frame)
-        container.content(view).matchParent()
+        container.content(view)
         return container
     }
 

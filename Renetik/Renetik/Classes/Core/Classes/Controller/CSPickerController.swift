@@ -18,11 +18,11 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
 
     var items: [CustomStringConvertible]!
     var onDone: ((Int) -> Void)!
-    var onCancel: (() -> Void)?
+    var onCancel: (Func)?
 
     @discardableResult
     public func showPicker(from parent: UIViewController, title: String, items: [CustomStringConvertible], selected selectedIndex: Int,
-                           from displayElement: CSDisplayElement, onCancel: (() -> Void)?,
+                           from displayElement: CSDisplayElement, onCancel: (Func)?,
                            onDone: @escaping (Int) -> Void) -> CSHasPickerVisible {
         super.constructAsViewLess(in: parent)
         self.items = items

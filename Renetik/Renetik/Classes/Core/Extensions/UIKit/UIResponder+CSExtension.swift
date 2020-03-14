@@ -6,12 +6,12 @@ import Foundation
 
 public extension UIResponder {
 
-    func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime, operation: @escaping () -> Void) {
+    func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }
 
     func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime,
-                operation: @escaping () -> Void, completion: @escaping () -> Void) {
+                operation: @escaping Func, completion: @escaping Func) {
         if animated {
             UIView.animate(withDuration: duration, animations: operation, completion: { _ in completion() })
         } else {
@@ -20,7 +20,7 @@ public extension UIResponder {
         }
     }
 
-    func animate(duration: TimeInterval = defaultAnimationTime, operation: @escaping () -> Void) {
+    func animate(duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
         UIView.animate(withDuration: duration, animations: operation)
     }
 

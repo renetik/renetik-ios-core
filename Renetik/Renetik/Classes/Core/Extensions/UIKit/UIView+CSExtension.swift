@@ -34,9 +34,7 @@ public extension UIView {
     class func construct() -> Self { Self().construct() }
 
     @discardableResult
-    @objc open func construct() -> Self {
-        clipsToBounds().setAutoresizingDefaults()
-    }
+    @objc open func construct() -> Self { clipsToBounds().setAutoresizingDefaults() }
 
     @discardableResult
     @objc func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
@@ -44,14 +42,14 @@ public extension UIView {
 
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
-    @objc open func onClick(_ block: @escaping () -> Void) -> Self {
+    @objc open func onClick(_ block: @escaping Func) -> Self {
         onTap { block() }
         return self
     }
 
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
-    @objc open func onTap(_ block: @escaping () -> Void) -> Self {
+    @objc open func onTap(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
         bk_(whenTapped: { block() })
         return self
@@ -163,7 +161,7 @@ public extension UIView {
 
     func fadeTo(visible: Bool) { invoke { visible.isTrue { fadeIn() }.elseDo { fadeOut() } } }
 
-    func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: (() -> Void)? = nil) {
+    func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
         if isVisible && alpha == 1 { return }
         isVisible = true
         UIView.animate(withDuration: duration, delay: 0,
@@ -172,7 +170,7 @@ public extension UIView {
                 completion: { _ in onDone?() })
     }
 
-    func fadeOut(duration: TimeInterval = defaultAnimationTime, onDone: (() -> Void)? = nil) {
+    func fadeOut(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
         if isHidden || alpha == 0 { return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],

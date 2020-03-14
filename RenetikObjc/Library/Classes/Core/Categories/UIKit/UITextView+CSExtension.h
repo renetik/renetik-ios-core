@@ -1,32 +1,32 @@
+////
+////  Created by Rene Dohan on 1/12/13.
+////
+//@import UIKit;
 //
-//  Created by Rene Dohan on 1/12/13.
+//NS_ASSUME_NONNULL_BEGIN
 //
-@import UIKit;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface UITextView (CSExtension)
-
-- (instancetype)scrollToCursorPosition;
-
-- (instancetype)setHTMLFromString:(NSString *)string;
-
-- (instancetype)htmlByString:(NSString *)string;
-
-//- (instancetype)alignText:(enum NSTextAlignment)alignment;
-
-//- (instancetype)font:(UIFont *)font;
+//@interface UITextView (CSExtension)
 //
-//- (instancetype)textColor:(UIColor *)textColor;
+//- (instancetype)scrollToCursorPosition;
 //
-//- (instancetype)setFontSize:(CGFloat)size;
+//- (instancetype)setHTMLFromString:(NSString *)string;
 //
-//- (instancetype)fontSize:(CGFloat)size;
+//- (instancetype)htmlByString:(NSString *)string;
 //
-//- (void)setFontStyle:(UIFontTextStyle)style;
+////- (instancetype)alignText:(enum NSTextAlignment)alignment;
 //
-//- (instancetype)fontStyle:(UIFontTextStyle)style;
-
-@end
-
-NS_ASSUME_NONNULL_END
+////- (instancetype)font:(UIFont *)font;
+////
+////- (instancetype)textColor:(UIColor *)textColor;
+////
+////- (instancetype)setFontSize:(CGFloat)size;
+////
+////- (instancetype)fontSize:(CGFloat)size;
+////
+////- (void)setFontStyle:(UIFontTextStyle)style;
+////
+////- (instancetype)fontStyle:(UIFontTextStyle)style;
+//
+//@end
+//
+//NS_ASSUME_NONNULL_END

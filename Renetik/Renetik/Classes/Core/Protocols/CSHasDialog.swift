@@ -14,14 +14,14 @@ public extension CSHasDialogVisible {
 }
 
 public struct CSDialogAction {
-    public let title: String?, action: () -> Void
+    public let title: String?, action: Func
 
-    public init(action: @escaping () -> Void) {
+    public init(action: @escaping Func) {
         self.title = nil
         self.action = action
     }
 
-    public init(title: String?, action: @escaping () -> Void) {
+    public init(title: String?, action: @escaping Func) {
         self.title = title
         self.action = action
     }
@@ -40,8 +40,8 @@ public extension CSHasDialog {
     @discardableResult
     public func show(message: String,
                      positiveTitle: String = CSStrings.dialogYes,
-                     onPositive: (() -> Void)? = nil,
-                     onCanceled: (() -> Void)? = nil,
+                     onPositive: (Func)? = nil,
+                     onCanceled: (Func)? = nil,
                      canCancel: Bool = true) -> CSHasDialogVisible {
         show(title: nil, message: message,
                 positive: CSDialogAction(title: positiveTitle, action: onPositive ?? {}),

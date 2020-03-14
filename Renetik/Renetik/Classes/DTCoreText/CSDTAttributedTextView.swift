@@ -7,7 +7,7 @@
 //
 
 import ARChromeActivity
-import DTCoreText
+import DTCoreText.DTAttributedTextView
 import IDMPhotoBrowser
 import RenetikObjc
 import TUSafariActivity

@@ -23,7 +23,7 @@ public extension Optional {
     }
 
     @discardableResult
-    public func isNil(_ function: () -> Void) -> CSConditionalResultNotNil<Wrapped> {
+    public func isNil(_ function: Func) -> CSConditionalResultNotNil<Wrapped> {
         if self == nil {
             function()
             return CSConditionalResultNotNil()

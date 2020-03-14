@@ -42,8 +42,17 @@ public extension String {
 
     public var intValue: Int { asNSString.integerValue }
 
-    func substring(from: Int) -> String {
-        asNSString.substring(from: from, to: length) as String
+    func substring(from index: Int) -> String {
+        asNSString.substring(from: index, to: length) as String
+    }
+
+    func substring(to index: Int) -> String {
+        asNSString.substring(from: 0, to: index) as String
+    }
+
+    func index(of string: String) -> Int? {
+        let index = Int(asNSString.index(of: string))
+        return index >= 0 ? index : nil
     }
 
     func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
@@ -71,7 +80,7 @@ public extension Optional where Wrapped == String {
         return self!.isEmpty
     }
 
-    public func isNilOrEmpty(_ function: () -> Void) -> Self {
+    public func isNilOrEmpty(_ function: Func) -> Self {
         if isNilOrEmpty { function() }
         return self
     }
