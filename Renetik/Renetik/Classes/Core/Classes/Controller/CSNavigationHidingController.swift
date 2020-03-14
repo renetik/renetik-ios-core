@@ -7,7 +7,7 @@
 
 import RenetikObjc
 
-//TODO:  Make standalone library
+//TODO:  Make standalone library !!!
 public class CSNavigationHidingController: CSMainController {
     private var isNavigationBarHidden = false
     private var shouldShow = false
@@ -79,6 +79,7 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     public func requestNavigationBarHidden() {
+        lastDraggingContentOffset = nil
         if isNavigationBarHidden { return }
         shouldHide = false
         shouldShow = false
@@ -103,6 +104,7 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     public func requestNavigationBarShown(animated: Bool = true) {
+        lastDraggingContentOffset = nil
         if !isNavigationBarHidden { return }
         shouldShow = false
         shouldHide = false
