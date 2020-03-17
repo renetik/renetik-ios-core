@@ -12,6 +12,22 @@ public extension UIScrollView {
 
     static let scrollStateInaccuracy: CGFloat = 15
 
+    @discardableResult
+    func contentOffset(top: CGFloat, animated: Bool = true) -> Self {
+        invoke(animated: animated) {
+            self.contentOffset = CGPoint(left: self.contentOffset.left, top: top)
+        }
+        return self
+    }
+
+    @discardableResult
+    func contentOffset(left: CGFloat, animated: Bool = true) -> Self {
+        invoke(animated: animated) {
+            self.contentOffset = CGPoint(left: left, top: self.contentOffset.top)
+        }
+        return self
+    }
+
 //    class func vertical(content view: UIView) -> Self {
 //        let instance: UIScrollView = Self.withSize(view.width, view.height)
 //        instance.vertical(content: view)

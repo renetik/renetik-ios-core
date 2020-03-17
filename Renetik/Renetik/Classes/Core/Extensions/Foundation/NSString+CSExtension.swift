@@ -19,4 +19,8 @@ public extension NSString {
         return substring(with: NSRange(location: from,
                 length: substringLength < length ? substringLength : length))
     }
+
+//    func attributed(_ dictionary: [NSAttributedString.Key: Any]) -> NSAttributedString {
+//        NSAttributedString(string: self as String, attributes: dictionary)
+//    }
 }

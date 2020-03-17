@@ -225,7 +225,7 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [self hasPrefix:string];
 }
 
-- (NSAttributedString *)attributed:(NSDictionary *)dictionary {
-    return [NSAttributedString.alloc initWithString:self attributes:dictionary];
-}
+//- (NSAttributedString *)attributed:(NSDictionary *)dictionary {
+//    return [NSAttributedString.alloc initWithString:self attributes:dictionary];
+//}
 @end

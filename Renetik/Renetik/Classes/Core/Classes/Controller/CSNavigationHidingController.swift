@@ -15,6 +15,7 @@ public class CSNavigationHidingController: CSMainController {
     private var shouldHide = false
     private var isHidingRunning = false
     private let keyboardManager = CSKeyboardManager()
+    private var parentController: UIViewController!
 
     public func showIfNotKeyboard() {
         if isNavigationBarHidden && !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
@@ -23,12 +24,18 @@ public class CSNavigationHidingController: CSMainController {
     @discardableResult
     public func construct(by parent: UIViewController) -> Self {
         super.constructAsViewLess(in: parent)
+        parentController = parent
         keyboardManager.construct(self, onKeyboardChange)
         return self
     }
 
     private func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 && UIScreen.isLandscape { requestNavigationBarHidden() } else { requestNavigationBarShown() }
+        if !isAppearing { return }
+        if keyboardHeight > 0 && UIScreen.isLandscape {
+            requestNavigationBarHidden()
+        } else {
+            requestNavigationBarShown()
+        }
     }
 
     public override func onViewVisibilityChanged(_ visible: Bool) {
@@ -45,8 +52,7 @@ public class CSNavigationHidingController: CSMainController {
         requestNavigationBarShown(animated: false)
     }
 
-    public override func onViewDidTransition(to size: CGSize,
-                                             _ context: UIViewControllerTransitionCoordinatorContext) {
+    public override func onViewDidTransition(to _: CGSize, _ _: UIViewControllerTransitionCoordinatorContext) {
         requestNavigationBarShown()
     }
 
@@ -95,7 +101,7 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = true
         invoke(animated: animated, operation: {
             navigation.navigationBar.bottom = UIApplication.statusBarBottom
-            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
+            self.parentController.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
             navigation.navigationBar.hide()
             self.isHidingRunning = false
@@ -121,7 +127,7 @@ public class CSNavigationHidingController: CSMainController {
         navigation.navigationBar.show()
         invoke(animated: animated, operation: {
             navigation.navigationBar.top = UIApplication.statusBarBottom
-            navigation.last!.view.height(fromTop: navigation.navigationBar.bottom)
+            self.parentController.view.height(fromTop: navigation.navigationBar.bottom)
         }, completion: {
             self.isShowingRunning = false
             if self.shouldHide { self.requestNavigationBarHidden() }

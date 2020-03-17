@@ -21,7 +21,7 @@ open class CSAFClient: CSObject {
         self.url = url
         let configuration = URLSessionConfiguration.default
         configuration.httpMaximumConnectionsPerHost = 10
-        configuration.timeoutIntervalForRequest = 60
+        configuration.timeoutIntervalForRequest = 10//TODO: !!!! Put back 60
         configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
                 sessionConfiguration: configuration)

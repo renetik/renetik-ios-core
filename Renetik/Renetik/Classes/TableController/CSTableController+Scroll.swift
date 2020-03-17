@@ -12,10 +12,11 @@ public extension CSTableController {
     }
 
     @discardableResult
-    public func scroll(to index: Int) -> Self {
+    public func scroll(to index: Int, position: UITableView.ScrollPosition = .middle) -> Self {
         tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
         return self
     }
+
 
     @discardableResult
     public func scrollToBottom() -> Self {

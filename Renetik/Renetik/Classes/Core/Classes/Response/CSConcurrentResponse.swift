@@ -6,16 +6,18 @@
 
 import RenetikObjc
 
+struct Test {
+
+}
+
 public class CSConcurrentResponse: CSResponse<NSMutableArray> {
-    var failedResponses: NSMutableArray = NSMutableArray()
-    var responses: NSMutableArray = NSMutableArray()
+
+    var failedResponse: CSResponseProtocol?
+    let responses = CSArray<CSResponseProtocol>()
 
     public override init() { super.init(); self.data = NSMutableArray() }
 
-    public init<T: AnyObject>(_ response: CSResponse<T>) {
-        super.init()
-        add(response)
-    }
+    public init<T: AnyObject>(_ response: CSResponse<T>) { super.init(); add(response) }
 
     @discardableResult
     public func add<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T> {
@@ -26,30 +28,18 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
         return response
     }
 
-    public func onAddDone() { later { if self.responses.empty { self.onResponsesDone() } } }
+    public func onAddDone() { later { if self.responses.isEmpty { self.success(self.data) } } }
 
     func onResponseSuccess<T: AnyObject>(_ response: CSResponse<T>) {
         responses.remove(response)
-        if responses.empty { onResponsesDone() }
+        if responses.isEmpty { self.success(self.data) }
     }
 
     func onResponseFailed<T: AnyObject>(_ failedResponse: CSResponse<T>) {
-        responses.remove(failedResponses.add(failedResponse))
-        if responses.empty { onResponsesDone() }
+        self.failedResponse = failedResponse
+        responses.remove(failedResponse).forEach { $0.cancel() }
+        failed(failedResponse)
     }
 
-    override open func cancel() {
-        for response in responses { (response as! CSResponseProtocol).cancel() }
-        super.cancel()
-    }
-
-    func onResponsesDone() {
-        if failedResponses.hasItems {
-            failed(failedResponses.first as! CSResponseProtocol)
-        } else {
-            success(data!)
-        }
-    }
-
-
+    override open func cancel() { responses.forEach { $0.cancel() }; super.cancel() }
 }

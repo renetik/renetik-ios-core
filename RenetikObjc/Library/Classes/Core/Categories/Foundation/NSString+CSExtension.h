@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)startsWith:(NSString *)str;
 
-- (NSAttributedString *)attributed:(NSDictionary *)dictionary;
+//- (NSAttributedString *)attributed:(NSDictionary *)dictionary;
 @end
 
 NS_ASSUME_NONNULL_END

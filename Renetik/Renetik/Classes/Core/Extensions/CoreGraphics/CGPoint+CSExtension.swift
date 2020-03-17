@@ -4,7 +4,12 @@
 
 import CoreGraphics
 
-public extension CGPoint {
+public extension CGPoint { //TODO: move to CoreGraphics
+
+    init(left: CGFloat, top: CGFloat) {
+        self.init(x: left, y: top)
+    }
+
     func distance(from point: CGPoint) -> CGFloat {
         ((x - point.x) * (x - point.x) + (y - point.y) * (y - point.y)).squareRoot()
     }

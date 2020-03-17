@@ -16,10 +16,8 @@ public extension UIView {
 
     @discardableResult
     func fromPrevious(left: CGFloat) -> Self {
-        superview.isNil { fatalError("View expected to have previous sibling in superview") }.elseDo { superview in
-            superview.subviews.previous(of: self).notNil { previous in from(previous, left: left) }
-                    .elseDo { from(left: 0) }
-        }
+        assert(superview.notNil, "Needs to have superview")
+        superview!.subviews.previous(of: self).notNil { previous in from(previous, left: left) }.elseDo { from(left: 0) }
         return self
     }
 
@@ -31,12 +29,10 @@ public extension UIView {
 
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
-        superview.isNil { fatalError("View expected to have previous sibling in superview") }
-                .elseDo { superview in
-                    superview.subviews.previous(of: self).notNil { previous in
-                        from(previous, top: top)
-                    }.elseDo { from(top: 0) }
-                }
+        assert(superview.notNil, "Needs to have superview")
+        superview!.subviews.previous(of: self).notNil { previous in
+            from(previous, top: top)
+        }.elseDo { from(top: 0) }
         return self
     }
 
@@ -162,6 +158,7 @@ public extension UIView {
 
     @discardableResult
     func height(fromTop: CGFloat, flexible: Bool = false) -> Self {
+        assert(superview.notNil, "Needs to have superview")
         let bottomCorrected = bottom - fromTop > 0 ? bottom : superview!.height
         height = (bottomCorrected - fromTop).unsigned
         from(top: fromTop)

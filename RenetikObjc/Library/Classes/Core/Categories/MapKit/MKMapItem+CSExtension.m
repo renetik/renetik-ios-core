@@ -9,16 +9,12 @@
 @implementation MKMapItem (CSExtension)
 
 + (void)navigateForDriving:(double)lat :(double)lng :(NSString *)name {
-    let coordinate = CLLocationCoordinate2DMake(lat, lng);
-    [MKMapItem navigateForDriving:coordinate :name];
+    [MKMapItem navigateForDriving:CLLocationCoordinate2DMake(lat, lng) :name];
 }
 
-+ (void)navigateForDriving:(CLLocationCoordinate2D)coordinate
-        :(NSString *)name {
-    let destinationMapItem =
-            [MKMapItem.alloc initWithPlacemark:
-                    [MKPlacemark.alloc initWithCoordinate
-                    :coordinate         addressDictionary:nil]];
++ (void)navigateForDriving:(CLLocationCoordinate2D)coordinate :(NSString *)name {
+    let destinationMapItem = [MKMapItem.alloc initWithPlacemark:
+            [MKPlacemark.alloc initWithCoordinate:coordinate addressDictionary:nil]];
     destinationMapItem.name = name;
     [MKMapItem openMapsWithItems:@[destinationMapItem] launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving}];
 }

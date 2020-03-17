@@ -4,7 +4,7 @@
 
 import CoreGraphics
 
-public extension CGRect {
+public extension CGRect { //TODO: move to CoreGraphics
 
     init(size: CGFloat) {
         self.init(width: size, height: size)

@@ -14,14 +14,14 @@ public extension UIControl {
     }
 
     @discardableResult
-    func onTouchUp(_ block: @escaping Func) -> Self {
+    @objc open func onTouchUp(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
         bk_addEventHandler({ _ in block() }, for: .touchUpInside)
         return self
     }
 
     @discardableResult
-    func onTouchDown(_ block: @escaping Func) -> Self {
+    @objc open func onTouchDown(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
         bk_addEventHandler({ _ in block() }, for: .touchDown)
         return self

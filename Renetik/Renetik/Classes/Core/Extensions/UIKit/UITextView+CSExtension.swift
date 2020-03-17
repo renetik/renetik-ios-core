@@ -16,26 +16,6 @@ public struct CSTextViewClearButtonAppearance {
 
 public extension UITextView {
 
-//    func setHTMLFrom(_ string: String?) -> Self {
-//        var string = string
-//        string = string?.add(stringf("<style>body{font-family: '%@'; font-size:%fpx;}</style>", font.fontName, font.pointSize))
-//        do {
-//            if let data = string?.data(using: .unicode) {
-//                attributedText = try NSAttributedString(data: data, options: [
-//                    NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html,
-//                    NSAttributedString.DocumentAttributeKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
-//                ], documentAttributes: nil)
-//            }
-//        } catch {
-//        }
-//        return self
-//    }
-//
-//    func html(_ string: String?) -> Self {
-//        setHTMLFrom(string)
-//        return self
-//    }
-
     @discardableResult
     func html(_ text: String) -> Self {
         let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"

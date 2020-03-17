@@ -34,7 +34,7 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         negative.notNil { action in alert.add(action: action, style: .destructive) }
         positive.notNil { action in alert.add(action: action, style: .default, preferred: true) }
-        cancel.notNil { action in alert.add(action: action, style: .cancel) }
+        if cancel?.title != nil { alert.add(action: cancel!, style: .cancel) }
         present(alert)
         return self
     }
@@ -48,8 +48,7 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
 
 public extension UIAlertController {
     func add(action: CSDialogAction, style: UIAlertAction.Style, preferred: Bool = false) -> UIAlertAction {
-        let title = style == .cancel && action.title.isNil ? CSStrings.dialogCancel : action.title
-        return UIAlertAction(title: title, style: style) { _ in action.action() }.also {
+        UIAlertAction(title: action.title, style: style) { _ in action.action() }.also {
             addAction($0)
             if preferred { preferredAction = $0 }
         }

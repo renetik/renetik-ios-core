@@ -28,6 +28,12 @@ public extension CSAny {
     }
 
     @discardableResult
+    public func invoke(from: Int, until: Int, function: (Int) -> Void) -> Self {
+        from.until(until, function)
+        return self
+    }
+
+    @discardableResult
     public func run(_ function: Func) -> Void {
         function()
     }

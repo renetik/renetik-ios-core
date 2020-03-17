@@ -76,7 +76,8 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
                 .onFailed { process in
                     self.isFailed = true
                     self.failedMessage = process.message
-                    self.tableView.reload()
+                    self.clear()
+//                    self.tableView.reload()
                 }.onCancel { process in
                     self.isFailed = true
                     self.failedMessage = process.message

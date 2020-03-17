@@ -69,6 +69,9 @@ public extension UIView {
     @discardableResult
     func centerTop(as view: UIView) -> Self { centerTop(view.centerTop) }
 
+    @discardableResult
+    func centerVertical(as view: UIView) -> Self { centerTop(as: view) }
+
     var centerLeft: CGFloat {
         get { center.x }
         set(value) { center = CGPoint(x: value, y: center.y) }

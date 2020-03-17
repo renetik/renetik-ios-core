@@ -6,14 +6,17 @@ import Foundation
 
 public extension UIImageView {
 
+    class func construct(_ image: UIImage) -> Self {
+        construct().image(image)
+    }
+
     override func construct() -> Self {
         super.construct().aspectFit().clipsToBounds()
         return self
     }
 
     func resizableImage(capInsets insets: UIEdgeInsets) -> Self {
-        image = image!.resizableImage(withCapInsets: insets)
-        return self
+        invoke { image = image!.resizableImage(withCapInsets: insets) }
     }
 
     @discardableResult

@@ -153,9 +153,9 @@ open class CSViewController: UIViewController {
 
     override open func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-//        if parent.isNil {
-//            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
-//        }
+        if parent.isNil {
+            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+        }
     }
 
     open func onViewDidDisappear() {}

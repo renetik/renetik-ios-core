@@ -5,9 +5,9 @@
 //  Created by Rene Dohan on 4/12/19.
 //
 
-import Foundation
+import CoreGraphics
 
-public extension CGFloat {
+public extension CGFloat { //TODO: move to CoreGraphics
     public func plus(_ value: Int) -> CGFloat { self + CGFloat(value) }
 
     public func multiply(_ value: Int) -> CGFloat { self * CGFloat(value) }

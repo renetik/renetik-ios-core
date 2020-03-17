@@ -46,4 +46,49 @@ public extension UITextField {
         }
         return self
     }
+
+    @discardableResult
+    func html(_ text: String) -> Self {
+        let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"
+        let html = (text + String(format: htmlStyleFormat, font!.fontName, font!.pointSize))
+        let htmlData = html.data(using: .unicode, allowLossyConversion: true)
+        htmlData.notNil { data in
+            attributedText = try? NSAttributedString(data: data, options: [
+                .documentType: NSAttributedString.DocumentType.html, .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
+            ], documentAttributes: nil)
+        }
+        return self
+    }
+
+    @discardableResult
+    public func text(_ value: String?) -> Self { invoke { self.text = value } }
+
+    //TODO: text(align:
+    @discardableResult
+    func alignText(_ alignment: NSTextAlignment) -> Self { invoke { self.textAlignment = alignment } }
+
+    //TODO: text(color:
+    @discardableResult
+    func textColor(_ textColor: UIColor) -> Self { invoke { self.textColor = textColor } }
+
+    @discardableResult
+    func font(_ font: UIFont) -> Self { invoke { self.font = font } }
+
+    //TODO: font(size:
+    @discardableResult
+    func fontSize(_ size: CGFloat) -> Self { invoke { self.fontSize = size } }
+
+    var fontSize: CGFloat {
+        get { font!.fontDescriptor.pointSize }
+        set { font = font!.withSize(newValue) }
+    }
+
+    //TODO: font(style:
+    @discardableResult
+    func fontStyle(_ style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
+
+    var fontStyle: UIFont.TextStyle {
+        get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
+        set { font = UIFont.preferredFont(forTextStyle: newValue) }
+    }
 }
