@@ -8,6 +8,7 @@
 
 import ARChromeActivity
 import DTCoreText
+import DTCoreText.DTAttributedLabel
 import IDMPhotoBrowser
 import Renetik
 import TUSafariActivity
@@ -58,32 +59,26 @@ public class CSDTAttributedLabel: DTAttributedLabel,
     }
 
     @discardableResult
-    @objc public func html(_ html: String) -> Self {
-        self.html = html
-        return self
-    }
+    public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
 
     @discardableResult
-    @objc public func withBoldFont(if isBold: Bool) -> Self {
-        if isBold { font = font.bold() } else { font = font.normal() }
-        return self
-    }
+    public func defaultLink(color: UIColor) -> Self { invoke { self.defaultLinkColor = color } }
 
     @discardableResult
-    public func encoding(_ encoding: String.Encoding) -> Self {
-        self.encoding = encoding
-        return self
-    }
+    public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
 
     @discardableResult
-    @objc public func textColor(_ textColor: UIColor) -> Self {
-        self.textColor = textColor
-        return self
-    }
+    public func html(_ html: String) -> Self { invoke { self.html = html } }
 
     @discardableResult
-    @objc public func fontStyle(_ fontStyle: UIFont.TextStyle) -> Self {
+    public func fontStyle(_ fontStyle: UIFont.TextStyle) -> Self {
         font = UIFont.preferredFont(forTextStyle: fontStyle)
+        return self
+    }
+
+    @discardableResult
+    public func withBoldFont(if condition: Bool = true) -> Self {
+        font = condition ? font.bold() : font.normal()
         return self
     }
 

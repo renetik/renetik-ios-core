@@ -40,14 +40,18 @@ public extension CSHasDialog {
     @discardableResult
     public func show(message: String,
                      positiveTitle: String = CSStrings.dialogYes,
-                     onPositive: (Func)? = nil,
-                     onCanceled: (Func)? = nil,
+                     onPositive: Func? = nil,
+                     onCanceled: Func? = nil,
                      canCancel: Bool = true) -> CSHasDialogVisible {
         show(title: nil, message: message,
                 positive: CSDialogAction(title: positiveTitle, action: onPositive ?? {}),
                 negative: nil, cancel: canCancel ? CSDialogAction(action: onCanceled ?? {}) : nil)
     }
 
+    @discardableResult
+    public func show(message: String, onPositive: Func? = nil) -> CSHasDialogVisible {
+        show(message: message, positiveTitle: CSStrings.dialogYes, onPositive: onPositive)
+    }
 
     @discardableResult
     public func show(title: String? = nil, message: String,
@@ -55,5 +59,4 @@ public extension CSHasDialog {
         show(title: title, message: message, positive: positive,
                 negative: negative, cancel: nil)
     }
-
 }

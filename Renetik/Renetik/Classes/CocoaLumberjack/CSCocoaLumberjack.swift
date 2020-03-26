@@ -22,7 +22,7 @@ public class CocoaLumberjackCSLogger: NSObject, CSLogger {
     }
 }
 
-public class CSCocoaLumberjackFormater: NSObject, DDLogFormatter {
+public class CSCocoaLumberjackFormatter: NSObject, DDLogFormatter {
     var loggerCount = 0
     let threadUnsafeDateFormatter = DateFormatter().also {
         $0.formatterBehavior = .behavior10_4

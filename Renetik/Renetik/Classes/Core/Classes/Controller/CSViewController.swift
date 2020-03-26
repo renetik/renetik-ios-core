@@ -31,7 +31,7 @@ open class CSViewController: UIViewController {
     public private(set) var controllerInNavigation: UIViewController?
 
     @discardableResult
-    public func constructAsViewLess(in parent: UIViewController) -> Self {
+    open func constructAsViewLess(in parent: UIViewController) -> Self {
         construct(parent)
         later {
             parent.showChild(controller: self)
@@ -42,7 +42,7 @@ open class CSViewController: UIViewController {
     }
 
     @discardableResult
-    public func construct(_ parent: UIViewController) -> Self {
+    open func construct(_ parent: UIViewController) -> Self {
         if let parent = parent as? CSViewController {
             self.register(event: parent.eventDismissing.invokeOnce(listener: onViewDismissing))
         }
@@ -153,9 +153,9 @@ open class CSViewController: UIViewController {
 
     override open func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-        if parent.isNil {
-            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
-        }
+//        if parent.isNil {
+//            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
+//        }
     }
 
     open func onViewDidDisappear() {}

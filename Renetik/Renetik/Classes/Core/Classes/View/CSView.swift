@@ -31,7 +31,7 @@ open class CSView: UIView {
         runLayoutFunctions()
     }
 
-    private func runLayoutFunctions() {
+    public func runLayoutFunctions() {
         layoutFunctions.fire()
     }
 }

@@ -20,6 +20,7 @@ public class CSAlamofireClient: CSObject {
     public var requestFailMessage = "Request failed"
     public var requestCancelMessage = "Request cancelled"
     private lazy var networkReachability = { NetworkReachabilityManager(host: self.host)! }()
+    private var basicAuth: (username: String, password: String)?
 
     public init(url: String, disabledTrustSecurity: Bool = false) {
         self.url = url
@@ -54,8 +55,7 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func basicAuthentication(username: String, password: String) {
-//        manager.requestSerializer
-//                .setAuthorizationHeaderFieldWithUsername(username, password: password)
+        basicAuth = (username: username, password: password)
     }
 
     public func get<DataType: CSServerJsonData>(_ operation: CSOperation<DataType>?, service: String,
@@ -85,6 +85,18 @@ public class CSAlamofireClient: CSObject {
         CSProcess("\(url)/\(service)", data).also { process in
             let request = manager.request(process.url!, method: .post, parameters: params)
 //            request.validate(statusCode: 200..<300).validate(contentType: ["application/json"])
+            request.responseString(encoding: nil,
+                    completionHandler: { response in self.onResponseDone(response: response, process: process) })
+        }
+    }
+
+    public func post<DataType: CSServerJsonData>(service: String, data: DataType,
+                                                 form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
+        CSProcess("\(url)/\(service)", data).also { process in
+            let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
+            let base64Credentials = credentialData.base64EncodedData()
+            let headers = ["Authorization": "Basic \(base64Credentials)"]
+            let request = manager.upload(multipartFormData: form, to: process.url!, headers: HTTPHeaders(headers))
             request.responseString(encoding: nil,
                     completionHandler: { response in self.onResponseDone(response: response, process: process) })
         }

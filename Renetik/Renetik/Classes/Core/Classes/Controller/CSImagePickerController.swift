@@ -16,7 +16,7 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
         UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     private let parent: CSImagePickerParent!
-    private var popover: UIPopoverController?
+    private var picker: UIImagePickerController?
 
     public init(parent: CSImagePickerParent!) {
         self.parent = parent
@@ -31,26 +31,24 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
     }
 
     private func onGalleryClick(from element: CSDisplayElement) {
-        popover = nil
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.allowsEditing = true
-            picker.sourceType = .photoLibrary
-            parent.present(picker.popover(from: element))
+            picker = UIImagePickerController()
+            picker!.delegate = self
+            picker!.allowsEditing = true
+            picker!.sourceType = .photoLibrary
+            parent.present(picker!.popover(from: element))
         } else {
             parent.show(message: "Gallery not available")
         }
     }
 
     private func onCaptureClick() {
-        popover = nil
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.allowsEditing = true
-            picker.sourceType = .camera
-            parent.present(picker)
+            picker = UIImagePickerController()
+            picker!.delegate = self
+            picker!.allowsEditing = true
+            picker!.sourceType = .camera
+            parent.present(picker!)
         } else {
             parent.show(message: "Camera not available")
         }
@@ -64,5 +62,5 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { dismiss() }
 
-    private func dismiss() { popover?.dismiss(animated: true) ?? parent.dismiss() }
+    private func dismiss() { picker?.dismiss() }
 }

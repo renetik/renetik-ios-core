@@ -31,8 +31,7 @@ public class CSNotification: CSObject {
     private var time: TimeInterval = 3
     private static var controller = { RMController() }()
 
-    public override init() {
-    }
+    public override init() { super.init() }
 
     public init(_ title: String) {
         self.title = title

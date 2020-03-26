@@ -144,17 +144,17 @@ public extension UIView {
     @objc open func resizeToFit() -> Self { invoke { self.sizeToFit() } }
 
     @discardableResult
-    @objc open func widthToFit() -> Self { width(calculateWidthToFitHeight()) }
+    @objc open func widthToFit() -> Self { width(calculateWidthToFit()) }
 
     @discardableResult
-    @objc open func heightToFit() -> Self { height(calculateHeightToFitWidth()) }
+    @objc open func heightToFit() -> Self { height(calculateHeightToFit()) }
 
-    @objc open func calculateWidthToFitHeight() -> CGFloat {
+    @objc open func calculateWidthToFit() -> CGFloat {
         assert(height > 0, "Height has to be set to calculate width")
         return sizeThatFits(CGSize(width: .infinity, height: height)).width
     }
 
-    @objc open func calculateHeightToFitWidth() -> CGFloat {
+    @objc open func calculateHeightToFit() -> CGFloat {
         assert(width > 0, "Width has to be set to calculate height")
         return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }

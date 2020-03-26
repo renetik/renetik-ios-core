@@ -16,6 +16,8 @@ public struct CSTextViewClearButtonAppearance {
 
 public extension UITextView {
 
+    func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
+
     @discardableResult
     func html(_ text: String) -> Self {
         let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"

@@ -8,5 +8,18 @@ import UIKit
 public extension UISegmentedControl {
     class var defaultHeight: CGFloat { 28 }
 
+    @discardableResult
     func selected(index: Int) -> Self { invoke { self.selectedSegmentIndex = index } }
+
+    var selectedIndex: Int {
+        get { selectedSegmentIndex }
+        set { selectedSegmentIndex = newValue }
+    }
+
+    var selectedTitle: String? {
+        selectedSegmentIndex != UISegmentedControl.noSegment ?
+                titleForSegment(at: selectedSegmentIndex) : nil
+    }
+
+
 }

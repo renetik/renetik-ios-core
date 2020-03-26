@@ -7,8 +7,6 @@
 #import "CSLang.h"
 #import "NSObject+CSExtension.h"
 #import "NSArray+CSExtension.h"
-#import "UINib+CSExtension.h"
-#import "UIView+CSDimension.h"
 
 @implementation UICollectionView (CSExtension)
 

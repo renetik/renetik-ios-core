@@ -6,25 +6,35 @@
 //  Copyright © 2019 Renetik Software. All rights reserved.
 //
 
-import ARChromeActivity
+import Foundation
+import UIKit
+import DTCoreText
 import DTCoreText.DTAttributedTextView
+import DTCoreText.DTCoreTextLayoutFrame
 import IDMPhotoBrowser
 import RenetikObjc
 import TUSafariActivity
-import UIKit
+import ARChromeActivity
 
+//TODO: Move to extra library
 public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextContentViewDelegate {
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
-    public var defaultLinkColor: UIColor = .blue
-    public var linksActive = true
+    public var linkColor: UIColor = .blue
+    public var linkHighlightedColor: UIColor = .purple
+    public var linksActive = true {
+        didSet {
+            shouldDrawLinks = !linksActive
+        }
+    }
     private var imageUrls = [URL]()
     private var numberOfImages = 0
     private var lineBreakMode: NSLineBreakMode = .byWordWrapping
 
     public override func construct() -> Self {
         super.construct()
+        shouldDrawLinks = !linksActive // We are drawing links to make them clickable and styled right
         textDelegate = self
         scrollable(false)
         attributedTextContentView.matchParentWidth()
@@ -35,7 +45,10 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
     public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
 
     @discardableResult
-    public func defaultLink(color: UIColor) -> Self { invoke { self.defaultLinkColor = color } }
+    public func link(color: UIColor) -> Self { invoke { self.linkColor = color } }
+
+    @discardableResult
+    public func linkHighlighted(color: UIColor) -> Self { invoke { self.linkHighlightedColor = color } }
 
     @discardableResult
     public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
@@ -71,7 +84,7 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         }
     }
 
-    public var attributedOptions: [AnyHashable: Any] {
+    private var attributedOptions: [AnyHashable: Any] {
         [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle().also {
@@ -82,21 +95,43 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             DTDefaultFontFamily: font.familyName,
             DTDefaultFontSize: font.pointSize,
             DTDefaultTextColor: textColor,
-            DTDefaultLinkColor: defaultLinkColor,
+            DTDefaultLinkColor: linkColor,
+            DTDefaultLinkHighlightColor: linkHighlightedColor,
+            DTDefaultLinkDecoration: false
         ]
     }
 
-    public func attributedTextContentView(_
-                                          attributedTextContentView: DTAttributedTextContentView!,
-                                          viewForLink url: URL!, identifier: String!, frame: CGRect) -> UIView! {
+    public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewFor string: NSAttributedString!, frame: CGRect) -> UIView! {
         if !linksActive { return nil }
-        return UIView.construct().frame(frame).also { view in
-            view.onClick {
-                let controller = UIActivityViewController(
-                        activityItems: [url], applicationActivities: [TUSafariActivity(), ARChromeActivity()])
-                controller.popoverPresentationController?.sourceView = view
-                navigation.last!.present(controller, animated: true, completion: nil)
-            }
+
+        let attributes = string.attributes(at: 0, effectiveRange: nil)
+        let url = attributes[NSAttributedString.Key("NSLink")].asString
+        let identifier = attributes[NSAttributedString.Key("DTGUID")].asString
+        let button = DTLinkButton(frame: frame)
+        button.url = URL(url)
+        button.minimumHitSize = CGSize(width: 25, height: 25) // adjusts it's bounds so that button is always large enough
+        button.guid = identifier
+
+        let DTCoreTextLayoutFrameDrawingDefault = DTCoreTextLayoutFrameDrawingOptions(rawValue: 1 << 0)!
+        let normalImage = attributedTextContentView.contentImage(withBounds: frame,
+                options: DTCoreTextLayoutFrameDrawingDefault)
+        button.setImage(normalImage, for: .normal)
+
+        let DTCoreTextLayoutFrameDrawingDrawLinksHighlighted = DTCoreTextLayoutFrameDrawingOptions(rawValue: 1 << 3)!
+        let highlightImage = attributedTextContentView.contentImage(withBounds: frame,
+                options: DTCoreTextLayoutFrameDrawingDrawLinksHighlighted)
+        button.setImage(highlightImage, for: .highlighted)
+        handleExternalUrl(view: button, url: url)
+        return button
+    }
+
+    private func handleExternalUrl(view: UIView, url: String) {
+        view.onClick { UIApplication.open(url: url) }
+        view.onLongPress {
+            let controller = UIActivityViewController(activityItems: [url],
+                    applicationActivities: [TUSafariActivity(), ARChromeActivity()])
+            controller.popoverPresentationController?.sourceView = view
+            navigation.last!.present(controller, animated: true, completion: nil)
         }
     }
 
@@ -110,14 +145,11 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
             let imageView = UIImageView.construct().position(frame.origin).size(attachment.displaySize)
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
-                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
-                    if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
-                        UIApplication.shared.open(attachment.hyperLinkURL)
-                    }
-                }
+                imageView.image(url: attachment.contentURL)
+                handleExternalUrl(view: imageView, url: attachment.hyperLinkURL.path)
             } else if attachment.displaySize.width > 50 {
                 imageUrls.add(attachment.contentURL)
-                imageView.image(url: attachment.contentURL) { $0.roundImageCorners(3) }.onClick {
+                imageView.image(url: attachment.contentURL).onClick {
                     let photoBrowser = IDMPhotoBrowser(photoURLs: self.imageUrls)!
                     photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
                     photoBrowser.disableVerticalSwipe = true
@@ -131,14 +163,8 @@ public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextConte
         return nil
     }
 
-    @discardableResult
-    public override func heightToFit() -> Self {
-        height(calculateHeightToFitWidth())
-        return self
-    }
-
-    public override func calculateHeightToFitWidth() -> CGFloat {
-        (html.isSet ? attributedTextContentView.calculateHeightToFitWidth() : 0)
+    public override func calculateHeightToFit() -> CGFloat {
+        (html.isSet ? attributedTextContentView.calculateHeightToFit() : 0)
                 + (CGFloat(numberOfImages) * width / 2)
     }
 }
@@ -161,4 +187,3 @@ private extension String {
         return endTagsToAddSize.count
     }
 }
-

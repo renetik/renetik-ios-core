@@ -13,7 +13,7 @@ struct Test {
 public class CSConcurrentResponse: CSResponse<NSMutableArray> {
 
     var failedResponse: CSResponseProtocol?
-    let responses = CSArray<CSResponseProtocol>()
+    let responses = CSArray<CSResponseProtocol>() // Cannot use swift array because of equatable shit
 
     public override init() { super.init(); self.data = NSMutableArray() }
 

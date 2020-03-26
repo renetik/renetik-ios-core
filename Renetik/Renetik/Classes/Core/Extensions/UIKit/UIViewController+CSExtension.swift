@@ -29,17 +29,20 @@ public extension UIViewController {
     }
 
     @discardableResult
-    func showChild(controller: UIViewController, parentView: UIView?) -> UIViewController {
+    func showChild(controller: UIViewController, parentView: UIView) -> UIViewController {
         addChild(controller)
-        parentView?.add(controller.view)
+        parentView.add(controller.view)
         controller.didMove(toParent: self)
-        (controller as? CSMainController)?.isShowing = true
+        (controller as? CSViewController)?.isShowing = true
         return controller
     }
 
     @discardableResult
     func addChild(controller: UIViewController) -> UIViewController {
-        showChild(controller: controller, parentView: nil)
+        addChild(controller)
+        controller.didMove(toParent: self)
+        (controller as? CSViewController)?.isShowing = true
+        return controller
     }
 
     @objc open func dismissChild(controller: UIViewController) -> UIViewController {
@@ -59,8 +62,9 @@ public extension UIViewController {
         return self
     }
 
-    @available(iOS 12.0, *)
-    var isDarkMode: Bool { traitCollection.isDarkMode }
+    var isDarkMode: Bool {
+        if #available(iOS 12, *) { return traitCollection.isDarkMode } else { return false }
+    }
 
     func findControllerInNavigation() -> UIViewController? {
         var foundController: UIViewController? = self
@@ -69,4 +73,25 @@ public extension UIViewController {
         }
         return foundController?.parent == navigation ? foundController : nil
     }
+
+    var isLastInNavigation: Bool { navigation.last == self }
+
+    @discardableResult
+    func backButtonWithoutPreviousTitle() -> Self {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+        return self
+    }
+
+    @discardableResult
+    func backButtonTitle(_ title: String?) -> Self {
+        navigationItem.backBarButtonItem?.title = title; return self
+    }
+
+    @discardableResult
+    func present(_ modalViewController: UIViewController) -> Self {
+        present(modalViewController, animated: true); return self
+    }
+
+    @discardableResult
+    func dismiss() -> Self { dismiss(animated: true); return self }
 }

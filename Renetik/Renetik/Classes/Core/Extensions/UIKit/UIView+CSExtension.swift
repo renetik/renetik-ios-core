@@ -55,8 +55,21 @@ public extension UIView {
         return self
     }
 
+    /** Overriding non-@objc declarations from extensions is not supported **/
+    @discardableResult
+    @objc open func onLongPress(_ block: @escaping Func) -> Self {
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UILongPressGestureRecognizer.bk_recognizer { _, _, _ in
+            block()
+        } as! UILongPressGestureRecognizer)
+        return self
+    }
+
     @discardableResult
     @objc func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
+
+    @discardableResult
+    @objc func userInteraction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
     @objc func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
@@ -92,6 +105,9 @@ public extension UIView {
 
     @discardableResult
     @objc func visible(_ visible: Bool) -> Self { invoke { self.isVisible = visible } }
+
+    @discardableResult
+    @objc func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
 
     @discardableResult
     @objc func show() -> Self { invoke { self.isVisible = true } }

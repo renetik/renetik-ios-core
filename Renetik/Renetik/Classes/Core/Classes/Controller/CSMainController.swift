@@ -131,8 +131,7 @@ open class CSMainController: CSViewController {
         transition.type = .moveIn
         transition.subtype = .fromBottom
         view.layer.add(transition, forKey: nil)
-        parent.showChild(controller: self)
-        isShowing = true
+        parent.showChild(controller: self).view.matchParent()
         return self
     }
 

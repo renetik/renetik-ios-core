@@ -7,7 +7,17 @@ import RenetikObjc
 
 public extension UIView {
 
-    var position: CGPoint { frame.origin }
+    var position: CGPoint {
+        get { frame.origin }
+        set {
+            var frame = self.frame
+            frame.origin = newValue
+            self.frame = frame
+        }
+    }
+
+    func position(_ point: CGPoint) -> Self { position = point; return self }
+
     var x: CGFloat { position.x }
     var y: CGFloat { position.y }
     var left: CGFloat {
@@ -58,6 +68,11 @@ public extension UIView {
         get { convert(CGPoint(x: 0, y: bottom), to: nil).y }
         set(value) { bottom = convert(CGPoint(x: 0, y: value), from: nil).y }
     }
+
+    func center(_ point: CGPoint) -> Self { center = point; return self }
+
+    func center(_ x: CGFloat, _ y: CGFloat) -> Self { center(CGPoint(x: x, y: y)) }
+
     var centerTop: CGFloat {
         get { center.y }
         set(value) { center = CGPoint(x: center.x, y: value) }
@@ -103,5 +118,6 @@ public extension UIView {
         center = CGPoint(x: superview!.width / 2, y: center.y)
         return self
     }
+
 
 }

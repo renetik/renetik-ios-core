@@ -204,7 +204,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func layoutHorizontally() -> Self {
+    func alignHorizontalLayout() -> Self {
         assert(superview.notNil, "Needs to have superview")
         let previous = superview!.findPreviousVisible(of: self)
         previous.notNil { previous in
@@ -214,6 +214,15 @@ public extension UIView {
             } else {
                 from(left: 0, top: previous.bottom)
             }
+        }.elseDo { from(left: 0, top: 0) }
+        return self
+    }
+
+    @discardableResult
+    func alignHorizontal() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        superview!.findPreviousVisible(of: self).notNil {
+            from(left: $0.right, top: $0.top)
         }.elseDo { from(left: 0, top: 0) }
         return self
     }

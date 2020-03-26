@@ -4,14 +4,20 @@
 
 import Foundation
 
+public protocol OptionalProtocol {
+    var asString: String { get }
+}
+
+extension Optional: OptionalProtocol, CSAny {
+    public var asString: String {
+        if self == nil { return "" } else { return "\(self!)" }
+    }
+}
+
 public extension Optional {
     public var notNil: Bool { self != nil }
 
     public var isNil: Bool { self == nil }
-
-    public var asString: String {
-        if self == nil { return "" } else { return "\(self!)" }
-    }
 
     @discardableResult
     public func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResult {

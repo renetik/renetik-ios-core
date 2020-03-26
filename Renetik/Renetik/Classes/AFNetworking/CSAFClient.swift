@@ -21,7 +21,7 @@ open class CSAFClient: CSObject {
         self.url = url
         let configuration = URLSessionConfiguration.default
         configuration.httpMaximumConnectionsPerHost = 10
-        configuration.timeoutIntervalForRequest = 10//TODO: !!!! Put back 60
+        configuration.timeoutIntervalForRequest = 60
         configuration.timeoutIntervalForResource = 60
         manager = AFHTTPSessionManager(baseURL: URL(string: url),
                 sessionConfiguration: configuration)
@@ -54,7 +54,7 @@ open class CSAFClient: CSObject {
 
     open func get<Data: CSServerData>(
             service: String, data: Data,
-            params: [String: String?] = [:]) -> CSResponse<Data> {
+            params: [String: Any?] = [:]) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
@@ -65,8 +65,8 @@ open class CSAFClient: CSObject {
 
     open func post<Data: CSServerData>(
             service: String, data: Data,
-            form: @escaping (AFMultipartFormData) -> Void,
-            params: [String: String] = [:]) -> CSResponse<Data> {
+            params: [String: String] = [:],
+            form: @escaping (AFMultipartFormData) -> Void) -> CSResponse<Data> {
         let request = CSResponse(url, service, data, createParams(params))
         request.requestCancelledMessage = requestCancelMessage
         request.type = .post
@@ -90,8 +90,8 @@ open class CSAFClient: CSObject {
         return request
     }
 
-    private func createParams(_ params: [String: String?]) -> [String: String?] {
-        var newParams: [String: String?] = ["version": "IOS \(Bundle.shortVersion) \(Bundle.build)"]
+    private func createParams(_ params: [String: Any?]) -> [String: Any?] {
+        var newParams: [String: Any?] = ["version": "IOS \(Bundle.shortVersion) \(Bundle.build)"]
         newParams.add(defaultParams)
         newParams.add(params)
         return newParams
@@ -115,10 +115,18 @@ open class CSAFClient: CSObject {
 }
 
 public extension AFMultipartFormData {
-    public func appendUTF8(parts: [String: String]) {
+
+    public func appendUnicode(parts: [String: String]) {
         logInfo(parts.asJson?.substring(to: 100))
         for (key, value) in parts {
-            appendPart(withForm: value.data(using: .utf8)!, name: key)
+            appendPart(withForm: value.data(using: .unicode)!, name: key)
+        }
+    }
+
+    public func appendUTF8(parts: [String: Any?]) {
+        logInfo(parts.asJson?.substring(to: 100))
+        for (key, value) in parts {
+            appendPart(withForm: stringify(value).data(using: .utf8)!, name: key)
         }
     }
 

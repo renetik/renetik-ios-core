@@ -68,14 +68,14 @@ public extension UIScrollView {
 
     @discardableResult
     func content<View: UIView>(horizontal view: View) -> View {
-        super.content(view).matchParentHeight().from(left: 0)
+        content(view).matchParentHeight().from(left: 0)
         contentSizeWidthByLastContentSubview()
         return view
     }
 
     @discardableResult
     public func content<View: UIView>(vertical view: View) -> View {
-        super.content(view).matchParentWidth().from(top: 0)
+        content(view).matchParentWidth().from(top: 0)
         contentSizeHeightByLastContentSubview()
         return view
     }

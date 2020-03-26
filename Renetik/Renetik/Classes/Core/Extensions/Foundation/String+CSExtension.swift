@@ -28,6 +28,13 @@ public extension String {
         })
     }
 
+    func jsonValue() -> Any? {
+        if let data = data(using: .utf8) {
+            return try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .allowFragments])
+        }
+        return nil
+    }
+
     var isSet: Bool { !isEmpty }
 
     var trim: String { asNSString.trim() }
