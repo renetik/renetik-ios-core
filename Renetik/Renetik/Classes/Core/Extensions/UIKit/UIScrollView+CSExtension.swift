@@ -126,10 +126,4 @@ public extension UIScrollView {
     func currentPageIndex(from: Int) -> Int {
         lround(Double(contentOffset.x / (contentSize.width / CGFloat(from))))
     }
-
-    override func content(_ view: UIView) -> UIView {
-        content = view
-        contentSize = view.size
-        return view
-    }
 }

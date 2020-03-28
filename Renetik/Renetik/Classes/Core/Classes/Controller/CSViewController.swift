@@ -226,13 +226,13 @@ open class CSViewController: UIViewController {
     open func onDisplayChangedTo(darkMode: Bool) {}
 
     public func layout(function: @escaping Func) {
-        layoutFunctions.invoke(listener: { _ in function() })
+        layoutFunctions.invoke(listener: function)
         function()
     }
 
     @discardableResult
     public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.invoke(listener: { _ in function(view) })
+        layoutFunctions.invoke { function(view) }
         function(view)
         return view
     }

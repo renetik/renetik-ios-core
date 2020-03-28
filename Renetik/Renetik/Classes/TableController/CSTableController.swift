@@ -17,8 +17,8 @@ public typealias CSTableControllerType = UIViewController & CSTableControllerPro
 public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController, CSTableControllerProtocol {
 
     public var data: [Row] { filteredData }
-    public var onLoad: (() -> CSOperation<Data>)!
-    public let onLoadResponse: CSEvent<CSProcess<Data>> = event()
+    public var loadData: (() -> CSOperation<Data>)!
+    public let onLoading: CSEvent<CSProcess<Data>> = event()
     public var searchText = "" { didSet { filterDataAndReload() } }
     internal (set) public var isLoading = false
     private(set) public var isFirstLoadingDone = false
@@ -71,7 +71,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         if isLoading { loadProcess!.cancel() }
         isLoading = true
         tableView.reload()
-        return parentController.send(operation: onLoad().refresh(refresh),
+        return parentController.send(operation: loadData().refresh(refresh),
                         progress: withProgress, failedDialog: false)
                 .onFailed { process in
                     self.isFailed = true
@@ -87,7 +87,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
                     self.tableView.reload()
                 }.also { process in
                     self.loadProcess = process
-                    onLoadResponse.fire(process)
+                    onLoading.fire(process)
                 }
     }
 

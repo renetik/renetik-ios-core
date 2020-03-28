@@ -116,6 +116,27 @@ public extension UIView {
     }
 
     @discardableResult
+    func margin(horizontal margin: (left: CGFloat, right: CGFloat)) -> Self {
+        from(left: margin.left).margin(right: margin.right)
+    }
+
+    func margin(vertical margin: (top: CGFloat, bottom: CGFloat)) -> Self {
+        from(top: margin.top).margin(bottom: margin.bottom)
+    }
+
+    @discardableResult
+    func margin(left: CGFloat) -> Self { width(fromLeft: left) }
+
+    @discardableResult
+    func margin(top: CGFloat) -> Self { height(fromTop: top) }
+
+    @discardableResult
+    func margin(right: CGFloat) -> Self { width(fromRight: right) }
+
+    @discardableResult
+    func margin(bottom: CGFloat) -> Self { height(fromBottom: bottom) }
+
+    @discardableResult
     func width(fromRight: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let right = superview!.width - fromRight

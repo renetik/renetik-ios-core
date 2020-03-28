@@ -7,8 +7,8 @@ import RenetikObjc
 public extension CSTableController {
 
     @discardableResult
-    public func scroll(to row: Row) -> Self {
-        scroll(to: data.index(of: row)!)
+    public func scroll(to row: Row, position: UITableView.ScrollPosition = .middle) -> Self {
+        scroll(to: data.index(of: row)!, position: position)
     }
 
     @discardableResult
@@ -21,7 +21,7 @@ public extension CSTableController {
     @discardableResult
     public func scrollToBottom() -> Self {
         if isLoading || isFirstLoadingDone.isFalse {
-            onLoadResponse.invokeOnce { response in response.onDone { _ in self.scrollToBottom() } }
+            onLoading.invokeOnce { response in response.onDone { _ in self.scrollToBottom() } }
         } else {
             later { self.scrollToBottom() }
         }

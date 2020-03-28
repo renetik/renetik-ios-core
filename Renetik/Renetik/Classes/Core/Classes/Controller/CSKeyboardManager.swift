@@ -10,6 +10,8 @@ import RenetikObjc
 public class CSKeyboardManager: CSMainController {
     public var keyboardHeight: CGFloat = 0
     public var onKeyboardChange: ((CGFloat) -> Void)?
+    public var onKeyboardShow: CSEvent<CGFloat> = event()
+    public var onKeyboardHide = event()
     public var isKeyboardVisible: Bool { keyboardHeight > 0 }
 
     @discardableResult
@@ -23,22 +25,16 @@ public class CSKeyboardManager: CSMainController {
         return self
     }
 
-    public override func onViewWillAppearFirstTime() {
-        super.onViewWillAppearFirstTime()
-    }
-
-    public override func onViewDidDisappear() {
-        super.onViewDidDisappear()
-    }
-
     private func keyboardDidShow(_ note: Notification) {
         let rect = note.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
         keyboardHeight = rect.size.height
+        onKeyboardShow.fire(keyboardHeight)
         onKeyboardChange?(keyboardHeight)
     }
 
     private func keyboardDidHide(_ note: Notification) {
         keyboardHeight = 0
+        onKeyboardHide.fire()
         onKeyboardChange?(0)
     }
 }

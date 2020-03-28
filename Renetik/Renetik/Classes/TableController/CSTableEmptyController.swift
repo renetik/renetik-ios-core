@@ -4,8 +4,8 @@
 //  Created by Renetik Software on 3/10/19.
 //
 
-//import ChameleonFramework
-import DZNEmptyDataSet
+import ChameleonFramework.Chameleon
+import DZNEmptyDataSet.UIScrollView_EmptyDataSet
 import RenetikObjc
 import UIKit
 
@@ -100,4 +100,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
     }
 
     public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat { 0 }
+
+    public func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool { true }
+
 }

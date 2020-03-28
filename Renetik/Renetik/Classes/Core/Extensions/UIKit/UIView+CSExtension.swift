@@ -36,10 +36,6 @@ public extension UIView {
     @discardableResult
     @objc open func construct() -> Self { clipsToBounds().setAutoresizingDefaults() }
 
-    @discardableResult
-    @objc func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
-
-
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {
@@ -69,7 +65,7 @@ public extension UIView {
     @objc func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
 
     @discardableResult
-    @objc func userInteraction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
+    @objc func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
     @objc func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
@@ -104,7 +100,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc func visible(_ visible: Bool) -> Self { invoke { self.isVisible = visible } }
+    @objc func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
 
     @discardableResult
     @objc func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
@@ -115,10 +111,7 @@ public extension UIView {
     @discardableResult
     @objc func hide() -> Self { invoke { self.isVisible = false } }
 
-    @objc func isVisibleToUser() -> Bool {
-        logInfo("window:\(window) visible:\(isVisible) alpha:\(alpha)")
-        return window.notNil && isVisible && alpha > 0
-    }
+    @objc func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
 
     @discardableResult
     @objc func aspectFit() -> Self { invoke { contentMode = .scaleAspectFit } }
@@ -185,5 +178,4 @@ public extension UIView {
                     onDone?()
                 })
     }
-
 }

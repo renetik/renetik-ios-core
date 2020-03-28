@@ -27,28 +27,28 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
 
     @discardableResult
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
-        invoke { eventSuccess.invoke { function($0.argument) } }
+        invoke { eventSuccess.invoke { function($0) } }
     }
 
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
     public func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self {
-        invoke { eventFailed.invoke { function($0.argument) } }
+        invoke { eventFailed.invoke { function($0) } }
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
     public func onCancel(_ function: @escaping (CSProcess<Data>) -> Void) -> Self {
-        invoke { eventCancel.invoke { function($0.argument) } }
+        invoke { eventCancel.invoke { function($0) } }
     }
 
     public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
-        invoke { eventDone.invoke { function($0.argument) } }
+        invoke { eventDone.invoke { function($0) } }
     }
 
     private var process: CSProcess<Data>? = nil

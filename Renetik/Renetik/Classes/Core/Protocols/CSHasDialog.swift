@@ -25,8 +25,6 @@ public struct CSDialogAction {
         self.title = title
         self.action = action
     }
-
-    public func run() { action() }
 }
 
 public protocol CSHasDialog {

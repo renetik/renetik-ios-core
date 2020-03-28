@@ -21,7 +21,7 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
                           onLoadPage: @escaping (Int) -> CSOperation<Data>) -> Self {
         self.table = controller
         self.onLoadPage = onLoadPage
-        table.onLoad = onLoad
+        table.loadData = onLoad
         return self;
     }
 

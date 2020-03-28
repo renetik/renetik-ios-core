@@ -109,4 +109,7 @@ public extension UITableView {
         self.dataSource = delegates
         return self
     }
+
+    @discardableResult
+    public func header<View: UIView>(_ view: View) -> View { tableHeaderView = view; return view }
 }

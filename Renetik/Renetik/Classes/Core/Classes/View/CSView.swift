@@ -10,14 +10,14 @@ open class CSView: UIView {
 
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
-        layoutFunctions.invoke(listener: { _ in function() })
+        layoutFunctions.invoke { function() }
         function()
         return self
     }
 
     @discardableResult
     public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.invoke(listener: { _ in function(view) })
+        layoutFunctions.invoke { function(view) }
         function(view)
         return view
     }
@@ -25,13 +25,11 @@ open class CSView: UIView {
     override open func layoutSubviews() {
         super.layoutSubviews()
         onLayoutSubviews()
+        updateLayout()
     }
 
-    open func onLayoutSubviews() {
-        runLayoutFunctions()
-    }
+    open func onLayoutSubviews() {}
 
-    public func runLayoutFunctions() {
-        layoutFunctions.fire()
-    }
+    @discardableResult
+    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 }

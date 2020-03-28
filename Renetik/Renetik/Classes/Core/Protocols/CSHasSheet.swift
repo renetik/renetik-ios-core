@@ -26,4 +26,14 @@ public extension CSHasSheet {
     func show(actions: [CSDialogAction], from item: UIBarButtonItem) -> CSHasDialogVisible {
         show(actions: actions, from: CSDisplayElement(item: item))
     }
+
+    @discardableResult
+    func show(actions: CSDialogAction..., from view: UIView) -> CSHasDialogVisible {
+        show(actions: actions, from: view)
+    }
+
+    @discardableResult
+    func show(actions: CSDialogAction..., from item: UIBarButtonItem) -> CSHasDialogVisible {
+        show(actions: actions, from: item)
+    }
 }

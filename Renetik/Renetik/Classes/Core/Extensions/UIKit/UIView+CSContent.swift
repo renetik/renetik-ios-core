@@ -15,19 +15,15 @@ public extension UIView {
         set(view) {
             content?.removeFromSuperview()
             setWeak(&viewContentPropertyKey, view)
-            view?.also { add($0) }
+            view.notNil { add($0) }
         }
     }
 
-    @objc func content(_ view: UIView) -> UIView {
-        content = view
-        view.matchParent()
-        return view
-    }
+    func content<View: UIView>(_ view: View) -> View { content = view; return view }
 
     class func withContent(_ view: UIView = UIView.construct()) -> Self {
         let container = self.construct(frame: view.frame)
-        container.content(view)
+        container.content(view).matchParent()
         return container
     }
 

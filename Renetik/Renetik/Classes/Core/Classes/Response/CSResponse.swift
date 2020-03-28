@@ -121,12 +121,12 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
 
     @discardableResult
     public func onSuccess(_ onSuccess: @escaping (Data) -> Void) -> Self {
-        onSuccessEvent.invoke { onSuccess($0.argument) }
+        onSuccessEvent.invoke { onSuccess($0) }
         return self
     }
 
     @discardableResult
-    public func onSuccess(_ onSuccess: @escaping Func) { onSuccessEvent.invoke { onSuccess() } }
+    public func onSuccess(_ onSuccess: @escaping Func) { onSuccessEvent.invoke { _ in onSuccess() } }
 
     @discardableResult
     public func onCancel(_ onCancel: @escaping Func) -> Self {
@@ -136,13 +136,13 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
 
     @discardableResult
     public func onDone(_ onDone: @escaping (Data?) -> Void) -> Self {
-        onDoneEvent.invoke { onDone($0.argument) }
+        onDoneEvent.invoke { onDone($0) }
         return self
     }
 
     @discardableResult
     public func onFailed(_ onFailed: @escaping (CSResponseProtocol) -> Void) -> Self {
-        onFailedEvent.invoke { onFailed($0.argument) }
+        onFailedEvent.invoke { onFailed($0) }
         return self
     }
 

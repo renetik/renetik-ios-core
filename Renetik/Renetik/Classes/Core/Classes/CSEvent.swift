@@ -3,6 +3,8 @@
 
 public func event<Type>() -> CSEvent<Type> { CSEvent<Type>() }
 
+public func event() -> CSEvent<Void> { CSEvent<Void>() }
+
 public class CSEventRegistration: CSObject {
     open func cancel() { fatalError() }
 }
@@ -14,9 +16,11 @@ public struct CSEventArgument<Type> {
 
 public class CSEventListener<Type>: CSEventRegistration {
 
-    private let event: CSEvent<Type>, function: (CSEventArgument<Type>) -> Void
+    public typealias CSEventFunction = (CSEventListener<Type>, Type) -> Void
 
-    fileprivate init(event: CSEvent<Type>, function: @escaping (CSEventArgument<Type>) -> Void) {
+    private let event: CSEvent<Type>, function: CSEventFunction
+
+    fileprivate init(event: CSEvent<Type>, function: @escaping CSEventFunction) {
         self.event = event
         self.function = function
     }
@@ -26,7 +30,7 @@ public class CSEventListener<Type>: CSEventRegistration {
     }
 
     fileprivate func fire(_ argument: Type) {
-        function(CSEventArgument(registration: self, argument: argument))
+        function(self, argument)
     }
 }
 
@@ -41,39 +45,30 @@ public class CSEvent<Type> {
     }
 
     @discardableResult
-    public func invoke(listener: @escaping (CSEventArgument<Type>) -> Void) -> CSEventListener<Type> {
-        registrations.add(CSEventListener(event: self, function: listener))
+    public func invoke(listener: @escaping (Type) -> Void) -> CSEventListener<Type> {
+        registrations.add(CSEventListener(event: self, function: { _, argument in
+            listener(argument)
+        }))
     }
 
     @discardableResult
-    public func invoke(listener: @escaping Func) -> CSEventListener<Type> {
-        invoke(listener: { _ in listener() })
+    public func invoke(listener: @escaping (CSEventListener<Type>, Type) -> Void) -> CSEventListener<Type> {
+        registrations.add(CSEventListener(event: self, function: listener))
     }
 
     public func remove(listener: CSEventListener<Type>) {
         registrations.remove(all: listener)
     }
+
+    @discardableResult
+    public func invokeOnce(listener: @escaping ArgFunc<Type>) -> CSEventListener<Type> {
+        invoke(listener: { registration, argument in
+            registration.cancel()
+            listener(argument)
+        })
+    }
 }
 
 public extension CSEvent where Type == Void {
-
     public func fire() { fire(()) }
-
-    @discardableResult
-    public func invokeOnce(listener: @escaping Func) -> CSEventListener<Type> {
-        invoke(listener: { argument in
-            argument.registration.cancel()
-            listener()
-        })
-    }
-}
-
-public extension CSEvent where Type: AnyObject, Type: CSAny {
-    @discardableResult
-    public func invokeOnce(listener: @escaping (Type) -> Void) -> CSEventListener<Type> {
-        invoke(listener: { argument in
-            argument.registration.cancel()
-            listener(argument.argument)
-        })
-    }
 }

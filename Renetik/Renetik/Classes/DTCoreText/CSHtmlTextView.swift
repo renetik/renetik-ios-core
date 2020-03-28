@@ -17,7 +17,7 @@ import TUSafariActivity
 import ARChromeActivity
 
 //TODO: Move to extra library
-public class CSDTAttributedTextView: DTAttributedTextView, DTAttributedTextContentViewDelegate {
+public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDelegate {
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var encoding: String.Encoding = .utf8
