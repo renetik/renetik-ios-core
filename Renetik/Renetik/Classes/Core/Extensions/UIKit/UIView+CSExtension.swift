@@ -65,6 +65,11 @@ public extension UIView {
     @objc func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
 
     @discardableResult
+    @objc func background(_ color: UIColor, opacity: CGFloat) -> Self {
+        background(color.add(alpha: opacity))
+    }
+
+    @discardableResult
     @objc func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult

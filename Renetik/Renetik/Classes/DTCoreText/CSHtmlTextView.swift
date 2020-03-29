@@ -69,6 +69,9 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     @discardableResult
+    public func lineBreak(mode: NSLineBreakMode) -> Self { lineBreakMode = mode; return self }
+
+    @discardableResult
     public func heightToFit(lines: Int) -> Self {
         height(UILabel.construct().width(width).font(font).heightToFit(lines: lines).height)
         lineBreakMode = .byTruncatingTail

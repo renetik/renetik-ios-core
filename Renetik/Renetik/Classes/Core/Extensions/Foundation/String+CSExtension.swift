@@ -78,7 +78,7 @@ public extension String {
 
     // func replace(first
 
-    func attributed(_ dictionary: [NSAttributedString.Key: Any]) -> NSAttributedString {
+    func attributed(_ dictionary: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
         NSAttributedString(string: self, attributes: dictionary)
     }
 

@@ -128,6 +128,9 @@ public extension UIView {
     func margin(left: CGFloat) -> Self { width(fromLeft: left) }
 
     @discardableResult
+    func margin(from: UIView, left: CGFloat) -> Self { width(from: from, left: left) }
+
+    @discardableResult
     func margin(top: CGFloat) -> Self { height(fromTop: top) }
 
     @discardableResult
@@ -135,6 +138,11 @@ public extension UIView {
 
     @discardableResult
     func margin(bottom: CGFloat) -> Self { height(fromBottom: bottom) }
+
+    @discardableResult
+    func fillToRight(margin: CGFloat = 0, flexible: Bool = true) -> Self {
+        width(fromRight: margin, flexible: flexible)
+    }
 
     @discardableResult
     func width(fromRight: CGFloat, flexible: Bool = false) -> Self {
@@ -161,6 +169,11 @@ public extension UIView {
     @discardableResult
     func width(from view: UIView, left: CGFloat, flexible: Bool = false) -> Self {
         width(fromLeft: view.right + left, flexible: flexible)
+    }
+
+    @discardableResult
+    func fillToBottom(margin: CGFloat = 0, flexible: Bool = true) -> Self {
+        height(fromBottom: margin, flexible: flexible)
     }
 
     @discardableResult

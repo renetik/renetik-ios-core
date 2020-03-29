@@ -14,11 +14,13 @@ import Renetik
 import TUSafariActivity
 import UIKit
 
-public class CSDTAttributedLabel: DTAttributedLabel,
+public class CSHtmlLabel: DTAttributedLabel,
         DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
 
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
+    public var linkColor: UIColor = .blue
+    public var linkHighlightedColor: UIColor = .purple
     public var encoding: String.Encoding = .utf8
     public var defaultLinkColor: UIColor = .blue
     public var linksActive = true
@@ -46,7 +48,9 @@ public class CSDTAttributedLabel: DTAttributedLabel,
             DTDefaultFontFamily: font.familyName,
             DTDefaultFontSize: font.pointSize,
             DTDefaultTextColor: textColor,
-            DTDefaultLinkColor: defaultLinkColor,
+            DTDefaultLinkColor: linkColor,
+            DTDefaultLinkHighlightColor: linkHighlightedColor,
+            DTDefaultLinkDecoration: false
         ]
     }
 
@@ -55,8 +59,15 @@ public class CSDTAttributedLabel: DTAttributedLabel,
         height(UILabel.construct().width(width).font(font).heightToFit(lines: lines).height)
         numberOfLines = lines
         lineBreakMode = .byTruncatingTail
+//        truncationString = "...".attributed()
         return self
     }
+
+    @discardableResult
+    public func link(color: UIColor) -> Self { invoke { self.linkColor = color } }
+
+    @discardableResult
+    public func linkHighlighted(color: UIColor) -> Self { invoke { self.linkHighlightedColor = color } }
 
     @discardableResult
     public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }

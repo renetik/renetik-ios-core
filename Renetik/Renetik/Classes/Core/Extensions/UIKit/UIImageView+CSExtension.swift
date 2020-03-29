@@ -22,13 +22,16 @@ public extension UIImageView {
     @discardableResult
     func image(_ image: UIImage) -> Self { invoke { self.image = image } }
 
+    @discardableResult
+    public func image(template image: UIImage) -> Self { self.image(image.template) }
+
     func stretchableImage(leftCapWidth: Int, topCapHeight: Int) -> Self {
         image = image!.stretchableImage(withLeftCapWidth: leftCapWidth, topCapHeight: topCapHeight)
         return self
     }
 
     @discardableResult
-    func roundImageCorners(_ radius: Int = 3) -> Self {
+    func roundImageCorners(_ radius: Int = 5) -> Self {
         if let image = image {
             let boundsScale = bounds.size.width / bounds.size.height
             let imageScale = image.size.width / image.size.height

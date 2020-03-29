@@ -49,6 +49,9 @@ public extension UIButton {
     }
 
     @discardableResult
+    public func image(template image: UIImage) -> Self { self.image(image.template) }
+
+    @discardableResult
     func textColor(_ color: UIColor) -> Self {
         setTitleColor(color, for: .normal)
         return self

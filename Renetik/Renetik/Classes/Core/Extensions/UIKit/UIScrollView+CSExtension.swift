@@ -28,6 +28,9 @@ public extension UIScrollView {
         return self
     }
 
+    @discardableResult
+    func content(inset: UIEdgeInsets) -> Self { self.contentInset = inset; return self }
+
 //    class func vertical(content view: UIView) -> Self {
 //        let instance: UIScrollView = Self.withSize(view.width, view.height)
 //        instance.vertical(content: view)
@@ -96,7 +99,7 @@ public extension UIScrollView {
     func contentSizeWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
         content!.width = (content!.subviews.last?.right ?? 0) + padding
         if content!.width < width { content!.width = width }
-        contentSize(width: content!.right)
+        contentSize(width: content!.right - contentInset.horizontalSize)
         return self
     }
 
@@ -104,7 +107,7 @@ public extension UIScrollView {
     func contentSizeHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
         content!.height = (content!.subviews.last?.bottom ?? 0) + padding
         if content!.height < height { content!.height = height }
-        contentSize(height: content!.bottom)
+        contentSize(height: content!.bottom - contentInset.verticalSize)
         return self
     }
 
