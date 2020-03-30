@@ -74,6 +74,14 @@ public func notNil(_ items: Any?...) -> Bool {
 
 public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
 
+public func when<Type>(notNil item: Type?, then: ArgFunc<Type>) {
+    if item.notNil { then(item!) }
+}
+
+public func when<Type>(isNil item: Type?, then: Func) {
+    if item.isNil { then() }
+}
+
 open class CSObject: CSAny, Equatable, CustomStringConvertible {
     public init() {}
 
