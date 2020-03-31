@@ -23,11 +23,11 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
     }
 
     @discardableResult
-    public func show(from: CSDisplayElement) -> CSHasDialogVisible {
+    public func show(from element: CSDisplayElement) -> CSHasDialogVisible {
         parent.show(actions: [
-            CSDialogAction(title: "Choose Photo") { self.onGalleryClick(from: from) },
-            CSDialogAction(title: "Take Picture") { self.onCaptureClick() }
-        ], from: from)
+            CSDialogAction(title: "Choose Photo") { self.onGalleryClick(from: element) },
+            CSDialogAction(title: "Take Picture") { self.onCaptureClick(from: element) }
+        ], from: element)
     }
 
     private func onGalleryClick(from element: CSDisplayElement) {
@@ -36,19 +36,19 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
             picker!.delegate = self
             picker!.allowsEditing = true
             picker!.sourceType = .photoLibrary
-            parent.present(picker!.popover(from: element))
+            picker!.present(from: element)
         } else {
             parent.show(message: "Gallery not available")
         }
     }
 
-    private func onCaptureClick() {
+    private func onCaptureClick(from element: CSDisplayElement) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             picker = UIImagePickerController()
             picker!.delegate = self
             picker!.allowsEditing = true
             picker!.sourceType = .camera
-            parent.present(picker!)
+            picker!.present(from: element)
         } else {
             parent.show(message: "Camera not available")
         }

@@ -54,10 +54,13 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     override public func onCreateLayout() {
-        container.add(view: actionButton)
-                .from(right: delegate.window!.safeAreaInsets.right).centeredVertical()
-        container.add(view: textView).matchParent(margin: 5)
-                .from(left: delegate.window!.safeAreaInsets.left).width(from: actionButton, right: 5)
+        layout(container.add(view: actionButton).centeredVertical()) {
+            $0.from(right: self.safeArea.right)
+        }
+        layout(container.add(view: textView).matchParentHeight(margin: 5)) {
+            logInfo(self.container.size)
+            $0.from(left: self.safeArea.left).width(from: self.actionButton, right: 5)
+        }
     }
 
     override public func onViewDidLayout() { self.updateVisibility() }
@@ -68,10 +71,12 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             changeAccessory(from: hasAccessory, to: textView, textInput: textView)
             delegate.window!.add(view: container).matchParent()
             textView.becomeFirstResponder()
+            runLayoutFunctions()
             return
         }
         if textView.isFirstResponder && UIScreen.isShort {
             container.height(fromBottom: keyboardManager.keyboardHeight)
+            runLayoutFunctions()
             return
         }
         updateVisibility()
@@ -152,7 +157,8 @@ public class CSInputAccessoryDone: UIView {
 
     func construct(_ keyboardHide: UIImage) -> Self {
         super.construct().width(400, height: 40).background(.white)
-        add(hideKeyboardButton.image(keyboardHide.template)).matchParentHeight().widthAsHeight().from(left: 5)
+        add(hideKeyboardButton.image(keyboardHide.template)).matchParentHeight()
+                .widthAsHeight().from(left: safeArea.left)
         return self
     }
 }

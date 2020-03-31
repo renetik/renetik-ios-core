@@ -53,13 +53,31 @@ public extension UIViewController {
         return controller
     }
 
-    func popover(from element: CSDisplayElement) -> Self {
-        modalPresentationStyle = .popover
-        element.view.notNil {
-            popoverPresentationController?.sourceRect = $0.frame
-            popoverPresentationController?.sourceView = $0.superview;
-        }.elseDo { popoverPresentationController?.barButtonItem = element.item! }
+    func present(from element: CSDisplayElement) -> Self {
+        element.view.notNil { present(from: $0) }
+        element.item.notNil { present(from: $0) }
         return self
+    }
+
+    @discardableResult
+    public func present(from view: UIView) -> Self {
+        modalPresentationStyle = .popover
+        popoverPresentationController?.sourceView = view.superview
+        popoverPresentationController?.sourceRect = view.frame
+        present()
+        return self
+    }
+
+    @discardableResult
+    public func present(from item: UIBarButtonItem) -> Self {
+        modalPresentationStyle = .popover
+        popoverPresentationController?.barButtonItem = item
+        present()
+        return self
+    }
+
+    public func present() -> Self {
+        navigation.last!.present(self, animated: true, completion: nil); return self
     }
 
     var isDarkMode: Bool {

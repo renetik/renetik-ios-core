@@ -59,7 +59,6 @@ public class CSHtmlLabel: DTAttributedLabel,
         height(UILabel.construct().width(width).font(font).heightToFit(lines: lines).height)
         numberOfLines = lines
         lineBreakMode = .byTruncatingTail
-//        truncationString = "...".attributed()
         return self
     }
 
@@ -107,37 +106,8 @@ public class CSHtmlLabel: DTAttributedLabel,
         }
     }
 
-//    public func attributedTextContentView(_
-//        contentView: DTAttributedTextContentView!,
-//        viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
-//        if attachment is DTImageTextAttachment {
-//            let imageView = UIImageView.construct().frame(frame).imageNSURL(attachment.contentURL)
-//            if attachment.hyperLinkURL.notNil &&
-//                attachment.hyperLinkURL != attachment.contentURL {
-//                imageView.onClick {
-//                    if UIApplication.shared.canOpenURL(attachment.hyperLinkURL) {
-//                        UIApplication.shared.open(attachment.hyperLinkURL)
-//                    }
-//                }
-//            } else if frame.width > 50 {
-//                imageView.onClick {
-//                    let photoBrowser = IDMPhotoBrowser(photoURLs: [attachment.contentURL])!
-//                    photoBrowser.navigationItem.title = navigation.last?.navigationItem.title
-//                    photoBrowser.disableVerticalSwipe = true
-//                    navigation.push(fromTop: photoBrowser)
-//                }
-//            }
-//            return imageView
-//        }
-//        return nil
-//    }
-
     public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
                                           viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
-//        if attachment.contentURL.absoluteString.hasPrefix("/") {
-//            let url = URL(string: "https://rcherz.com" + attachment.contentURL.absoluteString)!
-//            attachment.contentURL = url
-//        }
         if attachment is DTImageTextAttachment {
             let imageView = DTLazyImageView(frame: frame)
             imageView.contentMode = .scaleAspectFit

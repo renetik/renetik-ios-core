@@ -21,28 +21,24 @@ public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible,
 
     public func show(title: String?, message: String?, actions: [CSDialogAction]?, positive: CSDialogAction?,
                      cancel: CSDialogAction?, from element: CSDisplayElement) -> CSHasDialogVisible {
+        hideDialog(animated: false)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         actions?.forEach { action in alert.add(action: action, style: .default) }
         positive.notNil { action in alert.add(action: action, style: .destructive, preferred: true) }
         cancel.notNil { action in alert.add(action: action, style: .cancel) }
-        present(alert.popover(from: element))
+        self.alert = alert.present(from: element)
         return self
     }
 
     public func show(title: String?, message: String, positive: CSDialogAction?,
                      negative: CSDialogAction?, cancel: CSDialogAction?) -> CSHasDialogVisible {
+        hideDialog(animated: false)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         negative.notNil { action in alert.add(action: action, style: .destructive) }
         positive.notNil { action in alert.add(action: action, style: .default, preferred: true) }
         if cancel?.title != nil { alert.add(action: cancel!, style: .cancel) }
-        present(alert)
+        self.alert = alert.present()
         return self
-    }
-
-    private func present(_ alert: UIAlertController) {
-        hideDialog(animated: false)
-        self.alert = alert
-        controller.present(alert, animated: true, completion: nil)
     }
 }
 

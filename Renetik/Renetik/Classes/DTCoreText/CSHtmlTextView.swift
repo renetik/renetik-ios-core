@@ -131,7 +131,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     private func handleExternalUrl(view: UIView, url: String) {
         view.onClick { UIApplication.open(url: url) }
         view.onLongPress {
-            let controller = UIActivityViewController(activityItems: [url],
+            let controller = UIActivityViewController(activityItems: [URL(url)],
                     applicationActivities: [TUSafariActivity(), ARChromeActivity()])
             controller.popoverPresentationController?.sourceView = view
             navigation.last!.present(controller, animated: true, completion: nil)

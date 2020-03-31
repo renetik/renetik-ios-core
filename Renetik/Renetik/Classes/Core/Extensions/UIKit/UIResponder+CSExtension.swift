@@ -6,6 +6,8 @@ import Foundation
 
 public extension UIResponder {
 
+    var safeArea: UIEdgeInsets { delegate.window!.safeAreaInsets }
+
     func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }

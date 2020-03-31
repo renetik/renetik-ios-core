@@ -131,8 +131,8 @@ public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewC
     override open func updateContent() {
         super.updateContent()
         for (index, childController) in parentController.controllers.enumerated() {
-            childController.view.frame = CGRect(x: offsetForChild(at: index) + view.safeAreaInsets.left,
-                    y: 0, width: view.bounds.width - (view.safeAreaInsets.left + view.safeAreaInsets.right),
+            childController.view.frame = CGRect(x: offsetForChild(at: index) + self.safeArea.left,
+                    y: 0, width: view.bounds.width - (view.safeAreaInsets.left + self.safeArea.right),
                     height: containerView.bounds.height)
         }
     }
