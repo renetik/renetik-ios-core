@@ -53,7 +53,7 @@ public extension UIView {
 
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
-    @objc open func onLongPress(_ block: @escaping Func) -> Self {
+    open func onLongPress(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer.bk_recognizer { _, _, _ in
             block()
@@ -62,27 +62,27 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
+    func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
 
     @discardableResult
-    @objc func background(_ color: UIColor, opacity: CGFloat) -> Self {
+    func background(_ color: UIColor, opacity: CGFloat) -> Self {
         background(color.add(alpha: opacity))
     }
 
     @discardableResult
-    @objc func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
+    func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
-    @objc func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
+    func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
 
     @discardableResult
-    @objc func content(mode: UIView.ContentMode) -> Self { invoke { self.contentMode = mode } }
+    func content(mode: UIView.ContentMode) -> Self { invoke { self.contentMode = mode } }
 
     @discardableResult
-    @objc func clipsToBounds(_ value: Bool = true) -> Self { invoke { self.clipsToBounds = value } }
+    func clipsToBounds(_ value: Bool = true) -> Self { invoke { self.clipsToBounds = value } }
 
     @discardableResult
-    @objc func asCircular() -> Self {
+    func asCircular() -> Self {
         //    let longerSide = self.width > self.width ? self.width : self.height;
         aspectFill()
         layer.cornerRadius = width / 2
@@ -92,7 +92,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc func roundedCorners(_ width: Int) -> Self {
+    func roundedCorners(_ width: Int = 5) -> Self {
         layer.cornerRadius = CGFloat(width)
         layer.masksToBounds = true
         clipsToBounds = true
@@ -105,30 +105,30 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
+    func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
 
     @discardableResult
-    @objc func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
+    func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
 
     @discardableResult
-    @objc func show() -> Self { invoke { self.isVisible = true } }
+    func show() -> Self { invoke { self.isVisible = true } }
 
     @discardableResult
-    @objc func hide() -> Self { invoke { self.isVisible = false } }
+    func hide() -> Self { invoke { self.isVisible = false } }
 
-    @objc func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
+    func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
 
     @discardableResult
     @objc func aspectFit() -> Self { invoke { contentMode = .scaleAspectFit } }
 
     @discardableResult
-    @objc func clipToBounds() -> Self { invoke { clipsToBounds = true } }
+    func clipToBounds() -> Self { invoke { clipsToBounds = true } }
 
     @discardableResult
     @objc func aspectFill() -> Self { invoke { contentMode = .scaleAspectFill } }
 
     @discardableResult
-    @objc func border(width: CGFloat, color: UIColor, radius: CGFloat) -> Self {
+    func border(width: CGFloat, color: UIColor, radius: CGFloat) -> Self {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         layer.cornerRadius = radius

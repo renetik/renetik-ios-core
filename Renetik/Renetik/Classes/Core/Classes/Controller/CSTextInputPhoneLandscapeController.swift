@@ -46,7 +46,10 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
         action.notNil { action in
             action.title.notNil { actionButton.text($0).resizeToFit() }
             action.image.notNil { actionButton.image($0).size(40) }
-            actionButton.onClick(action.function)
+            actionButton.onClick {
+                self.parentTextInput.text = self.textView.text
+                action.function()
+            }
         }.elseDo {
             actionButton.size(0)
         }

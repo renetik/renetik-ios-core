@@ -23,14 +23,14 @@ public extension UIScreen {
     public class var isPortrait: Bool { orientation.isPortrait }
     public class var isLandscape: Bool { !isPortrait }
     public class var isThin: Bool { isPortrait && UIDevice.isPhone }
-    public class var isUltraThin: Bool {
-        isPortrait && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
-    }
+    public class var isUltraThin: Bool { isPortrait && isSmallPhone }
     public class var isWide: Bool { !isThin }
     public class var isUltraWide: Bool { UIDevice.isTablet && isLandscape }
     public class var isShort: Bool { isLandscape && UIDevice.isPhone }
-    public class var isUltraShort: Bool {
-        isLandscape && (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
+    public class var isUltraShort: Bool { isLandscape && isSmallPhone }
+    public class var isTall: Bool { !isShort } // tablet || portrait
+    public class var isUltraTall: Bool { UIDevice.isTablet || !isSmallPhone && isPortrait }
+    public class var isSmallPhone: Bool {
+        (UIDevice.typeIsLike == .iphone4 || UIDevice.typeIsLike == .iphone5)
     }
-    public class var isTall: Bool { !isShort }
 }

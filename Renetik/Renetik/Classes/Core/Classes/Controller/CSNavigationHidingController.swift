@@ -85,6 +85,7 @@ public class CSNavigationHidingController: CSMainController {
     }
 
     public func requestNavigationBarHidden() {
+        if UIScreen.isUltraTall { return }
         lastDraggingContentOffset = nil
         if isNavigationBarHidden { return }
         shouldHide = false
