@@ -12,15 +12,6 @@ public extension String {
 
     static let newLine = "\n"
 
-    public func htmlToText(_ encoding: String.Encoding) -> String? {
-        if let data = data(using: encoding) {
-            return (try? NSAttributedString(data: data,
-                    options: [.documentType: NSAttributedString.DocumentType.html],
-                    documentAttributes: nil))?.string
-        }
-        return nil
-    }
-
     static func randomString(length: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<length).map { _ in
@@ -59,6 +50,11 @@ public extension String {
 
     func index(of string: String) -> Int? {
         let index = Int(asNSString.index(of: string))
+        return index >= 0 ? index : nil
+    }
+
+    func index(of string: String, from: Int) -> Int? {
+        let index = Int(asNSString.index(of: string, from: from))
         return index >= 0 ? index : nil
     }
 

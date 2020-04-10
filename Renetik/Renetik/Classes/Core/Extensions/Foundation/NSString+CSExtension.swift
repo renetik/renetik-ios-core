@@ -9,6 +9,7 @@ public extension NSString {
     public static let notFound = -1
 
     func index(of string: String, from index: Int) -> Int {
+        if index > length - 1 { return -1 }
         let _range = range(of: string, range: NSRange(location: index, length: length - index))
         if _range.length == 0 { return NSString.notFound }
         return _range.location
