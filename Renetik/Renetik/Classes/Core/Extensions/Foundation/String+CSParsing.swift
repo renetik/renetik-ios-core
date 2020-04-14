@@ -30,7 +30,8 @@ public extension String {
             startTagCursor = index(of: startTag, from: startTagCursor! + 1)
             if let startTagIndex = startTagCursor {
                 startTagCursor! += startTag.size
-                if let endTagIndex = index(of: endTag, from: startTagIndex + 1) {
+                if let endTagIndex = endTag.isEmpty ? length
+                        : index(of: endTag, from: startTagIndex + 1) {
                     function(startTagIndex, endTagIndex)
                     startTagCursor = endTagIndex + endTag.size
                 }

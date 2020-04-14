@@ -38,6 +38,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
         textDelegate = self
         scrollable(false)
         attributedTextContentView.matchParentWidth()
+        background(.clear)
         return self
     }
 
