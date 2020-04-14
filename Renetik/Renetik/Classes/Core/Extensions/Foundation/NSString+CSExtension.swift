@@ -9,7 +9,7 @@ public extension NSString {
     public static let notFound = -1
 
     func index(of string: String, from index: Int) -> Int {
-        if index > length - 1 { return -1 }
+        if index > length - 1 { return NSString.notFound }
         let _range = range(of: string, range: NSRange(location: index, length: length - index))
         if _range.length == 0 { return NSString.notFound }
         return _range.location
@@ -21,7 +21,4 @@ public extension NSString {
                 length: substringLength < length ? substringLength : length))
     }
 
-//    func attributed(_ dictionary: [NSAttributedString.Key: Any]) -> NSAttributedString {
-//        NSAttributedString(string: self as String, attributes: dictionary)
-//    }
 }

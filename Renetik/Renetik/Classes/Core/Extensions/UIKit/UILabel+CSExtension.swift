@@ -109,5 +109,4 @@ public extension UILabel {
         }
         return self
     }
-
 }

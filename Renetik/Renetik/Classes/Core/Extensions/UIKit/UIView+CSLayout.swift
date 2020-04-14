@@ -17,7 +17,9 @@ public extension UIView {
     @discardableResult
     func fromPrevious(left: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        superview!.subviews.previous(of: self).notNil { previous in from(previous, left: left) }.elseDo { from(left: 0) }
+        superview!.findPreviousVisible(of: self).notNil { previous in
+            from(previous, left: left)
+        }.elseDo { from(left: 0) }
         return self
     }
 
@@ -30,7 +32,7 @@ public extension UIView {
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        superview!.subviews.previous(of: self).notNil { previous in
+        superview!.findPreviousVisible(of: self).notNil { previous in
             from(previous, top: top)
         }.elseDo { from(top: 0) }
         return self

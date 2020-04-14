@@ -36,9 +36,9 @@ public extension String {
 
     var boolValue: Bool { asNSString.boolValue }
 
-    public var doubleValue: Double { asNSString.doubleValue }
+    var doubleValue: Double { asNSString.doubleValue }
 
-    public var intValue: Int { asNSString.integerValue }
+    var intValue: Int { asNSString.integerValue }
 
     func substring(from index: Int) -> String {
         asNSString.substring(from: index, to: length) as String
@@ -48,15 +48,20 @@ public extension String {
         asNSString.substring(from: 0, to: index) as String
     }
 
-    func index(of string: String) -> Int? {
-        let index = Int(asNSString.index(of: string))
-        return index >= 0 ? index : nil
+    func substring(from: Int, to: Int) -> String {
+        asNSString.substring(from: from, to: to) as String
+    }
+
+    @inlinable public func stringIndex(at: String.IndexDistance) -> String.Index {
+        self.index(startIndex, offsetBy: at)
     }
 
     func index(of string: String, from: Int) -> Int? {
-        let index = Int(asNSString.index(of: string, from: from))
+        let index = asNSString.index(of: string, from: from)
         return index >= 0 ? index : nil
     }
+
+    func index(of string: String) -> Int? { index(of: string, from: 0) }
 
     func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
         ignoreCase ? asNSString.containsNoCase(string) : asNSString.contains(string)
@@ -72,13 +77,26 @@ public extension String {
         replacingOccurrences(of: string, with: replace)
     }
 
+
     // func replace(first
 
     func attributed(_ dictionary: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
         NSAttributedString(string: self, attributes: dictionary)
     }
 
+    public func split(by separator: String) -> [String] { components(separatedBy: separator) }
 }
+
+//public extension String {
+//    mutating func insert(_ string: String, index: Int) {
+//        insert(contentsOf: string, at: stringIndex(at: index))
+//        replace(from: index, to: index, with: string)
+//    }
+
+//    mutating func replace(from: Int, to: Int, with replace: String) {
+//        replaceSubrange(stringIndex(at: from)..<stringIndex(at: to), with: replace)
+//    }
+//}
 
 public extension Optional where Wrapped == String {
     public var isNilOrEmpty: Bool {
@@ -106,4 +124,6 @@ public extension Optional where Wrapped == String {
         }
         return self!.contains(string)
     }
+
+
 }

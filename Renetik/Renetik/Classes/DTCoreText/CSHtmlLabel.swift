@@ -34,9 +34,9 @@ public class CSHtmlLabel: DTAttributedLabel,
 
     public var html = "" {
         didSet {
-            let correctedHtml = html.addSizeToHtmlImageTags(self.width)
+            let corrected = html.addSizeToHtmlImageTags(self.width)
             attributedString = NSAttributedString(
-                    htmlData: html.data(using: encoding),
+                    htmlData: corrected.data(using: encoding),
                     options: attributedOptions, documentAttributes: nil)
         }
     }

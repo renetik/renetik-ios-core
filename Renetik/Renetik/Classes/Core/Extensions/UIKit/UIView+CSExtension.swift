@@ -128,7 +128,7 @@ public extension UIView {
     @objc func aspectFill() -> Self { invoke { contentMode = .scaleAspectFill } }
 
     @discardableResult
-    func border(width: CGFloat, color: UIColor, radius: CGFloat) -> Self {
+    func border(width: CGFloat = 1, color: UIColor = .darkGray, radius: CGFloat = 3) -> Self {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         layer.cornerRadius = radius
@@ -183,4 +183,8 @@ public extension UIView {
                     onDone?()
                 })
     }
+
+    func debugSubviewsLayoutByBorder() { subviews.each { $0.border() } }
+
+    func debugSubviewsLayoutByColors() { subviews.each { $0.background(UIColor.random()) } }
 }

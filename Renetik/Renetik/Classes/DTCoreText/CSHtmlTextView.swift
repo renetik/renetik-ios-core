@@ -29,7 +29,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
         }
     }
     private var imageUrls = [URL]()
-    private var numberOfImages = 0
+//    private var numberOfImages = 0
     private var lineBreakMode: NSLineBreakMode = .byWordWrapping
 
     public override func construct() -> Self {
@@ -81,8 +81,10 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public var html = "" {
         didSet {
             imageUrls.clear()
-            numberOfImages = html.countHtmlImageTagsWithoutSize()
-            attributedString = NSAttributedString(htmlData: html.data(using: encoding),
+//            numberOfImages = html.countHtmlImageTagsWithoutSize()
+            let corrected = html.addSizeToHtmlImageTags(self.width)
+            attributedString = NSAttributedString(
+                    htmlData: corrected.data(using: encoding),
                     options: attributedOptions, documentAttributes: nil)
         }
     }
@@ -100,7 +102,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
             DTDefaultTextColor: textColor,
             DTDefaultLinkColor: linkColor,
             DTDefaultLinkHighlightColor: linkHighlightedColor,
-            DTDefaultLinkDecoration: false
+            DTDefaultLinkDecoration: true
         ]
     }
 
@@ -141,10 +143,10 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public func attributedTextContentView(_ contentView: DTAttributedTextContentView!,
                                           viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
-            if attachment.displaySize.width == 0 {
-                attachment.displaySize = CGSize(width: width, height: width / 2)
-                self.relayoutText()
-            }
+//            if attachment.displaySize.width == 0 {
+//                attachment.displaySize = CGSize(width: width, height: width / 2)
+//                self.relayoutText()
+//            }
             let imageView = UIImageView.construct().position(frame.origin).size(attachment.displaySize)
             if attachment.hyperLinkURL.notNil &&
                        attachment.hyperLinkURL != attachment.contentURL {
@@ -167,26 +169,27 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     public override func calculateHeightToFit() -> CGFloat {
-        (html.isSet ? attributedTextContentView.calculateHeightToFit() : 0)
-                + (CGFloat(numberOfImages) * width / 2)
+//        (html.isSet ? attributedTextContentView.calculateHeightToFit() : 0)
+//                + (CGFloat(numberOfImages) * width / 2)
+        html.isSet ? attributedTextContentView.calculateHeightToFit() : 0
     }
 }
 
 private extension String {
     public func countHtmlImageTagsWithoutSize() -> Int {
-        var endTagsToAddSize: Array<Int> = []
-        let string = NSMutableString(string: self)
-        var startTagIndex = -1
+        var endTagsToAddSize = [Int]()
+        var startTagIndex: Int? = -1
         repeat {
-            startTagIndex = string.index(of: "<img ", from: startTagIndex + 1)
-            if startTagIndex != NSString.notFound {
-                let endTagIndex = string.index(of: "/>", from: startTagIndex + 1)
-                let tagSubString = string.substring(from: startTagIndex, to: endTagIndex)
-                if !tagSubString.contains("width=") {
-                    endTagsToAddSize.append(endTagIndex)
+            startTagIndex = index(of: "<img ", from: startTagIndex! + 1)
+            if startTagIndex.notNil {
+                if let endTagIndex = index(of: "/>", from: startTagIndex! + 1) {
+                    let tagSubString = substring(from: startTagIndex!, to: endTagIndex)
+                    if !tagSubString.contains("width=") {
+                        endTagsToAddSize.append(endTagIndex)
+                    }
                 }
             }
-        } while startTagIndex != NSString.notFound
+        } while startTagIndex.notNil
         return endTagsToAddSize.count
     }
 }
