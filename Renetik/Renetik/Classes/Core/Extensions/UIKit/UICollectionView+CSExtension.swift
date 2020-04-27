@@ -4,6 +4,8 @@
 
 import UIKit
 
+private let DEFAULT_CELL_ID = "emptyCellIdentifier"
+
 public extension UICollectionView {
 
     override open func construct() -> Self {
@@ -15,7 +17,7 @@ public extension UICollectionView {
     func construct(_ parent: UICollectionViewDelegate & UICollectionViewDataSource) -> Self {
         construct()
         delegates(parent)
-        registerForCell()
+        registerDefaultCell()
         reloadData()
         return self
     }
@@ -57,4 +59,10 @@ public extension UICollectionView {
             scrollToItem(at: path!, at: .centeredHorizontally, animated: true)
         }
     }
+
+    func registerDefaultCell() -> Self {
+        register(UICollectionViewCell.self, forCellWithReuseIdentifier: DEFAULT_CELL_ID)
+        return self
+    }
+
 }

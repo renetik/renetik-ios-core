@@ -19,19 +19,23 @@ public extension UIBarButtonItem {
 
     func width(_ value: CGFloat) -> Self { invoke { width = value } }
 
-    convenience init(image: UIImage, onClick action: @escaping (_ sender: UIBarButtonItem) -> Void) {
+    convenience init(image: UIImage, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
         self.init()
-        bk_init(with: image, style: UIBarButtonItem.Style.plain, handler: { action($0 as! UIBarButtonItem) })
+        if let action = onClick {
+            bk_init(with: image, style: UIBarButtonItem.Style.plain, handler: { action($0 as! UIBarButtonItem) })
+        }
     }
 
-    convenience init(item: UIBarButtonItem.SystemItem,
-                     onClick action: @escaping (_ sender: UIBarButtonItem) -> Void) {
+    convenience init(item: UIBarButtonItem.SystemItem, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
         self.init()
-        bk_init(with: item, handler: { action($0 as! UIBarButtonItem) })
+        if let action = onClick { bk_init(with: item, handler: { action($0 as! UIBarButtonItem) }) }
     }
 
-    convenience init(title: String, onClick action: @escaping (_ sender: UIBarButtonItem) -> Void) {
+    convenience init(title: String, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
         self.init()
-        bk_init(withTitle: title, style: UIBarButtonItem.Style.plain, handler: { action($0 as! UIBarButtonItem) })
+        if let action = onClick {
+            bk_init(withTitle: title, style: UIBarButtonItem.Style.plain,
+                    handler: { action($0 as! UIBarButtonItem) })
+        }
     }
 }

@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
-  s.version          = '0.1.3'
-  s.summary          = 'A short description of Renetik.'
+  s.version          = '0.9'
+  s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+		Library for rapid development of iOS apps with readable code and pleasure,
+		created out of passion to code my way and to improve readability of my codebase.
                        DESC
 
   s.homepage         = 'https://github.com/rene-dohan/renetik-ios'
@@ -35,7 +36,7 @@ TODO: Add long description of the pod here.
 	s.default_subspecs = 'All'
 	
 	s.subspec 'Core' do |ss|
-		ss.dependency 'RenetikObjc/Core', '~> 0.8.0'
+		ss.dependency 'RenetikObjc/Core'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
 		ss.dependency 'UITextView+Placeholder', '~> 1.3'
 		ss.dependency 'MBProgressHUD', '~> 1.1'
@@ -73,7 +74,7 @@ TODO: Add long description of the pod here.
 	
 	s.subspec 'CocoaLumberjack' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/CocoaLumberjack', '~> 0.8.0'
+		ss.dependency 'RenetikObjc/CocoaLumberjack'
 		ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
 	end
 	
