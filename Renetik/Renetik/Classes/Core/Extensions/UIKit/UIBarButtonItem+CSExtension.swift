@@ -23,12 +23,29 @@ public extension UIBarButtonItem {
         self.init()
         if let action = onClick {
             bk_init(with: image, style: UIBarButtonItem.Style.plain, handler: { action($0 as! UIBarButtonItem) })
+        } else {
+            self.init(image: image, style: UIBarButtonItem.Style.plain, target: nil, action: nil)
         }
     }
 
+//    convenience init(image: UIImage, title: String, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil){
+//        let button = UIButton() // TODO ??
+//        button.setImage(image, for: .normal)
+//        button.setTitle(title, for: .normal)
+//        button.sizeToFit()
+//        return UIBarButtonItem(customView: button)
+//        if let action = onClick {
+//            bk_init(with: image, style: UIBarButtonItem.Style.plain, handler: { action($0 as! UIBarButtonItem) })
+//        }
+//    }
+
     convenience init(item: UIBarButtonItem.SystemItem, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
         self.init()
-        if let action = onClick { bk_init(with: item, handler: { action($0 as! UIBarButtonItem) }) }
+        if let action = onClick {
+            bk_init(with: item, handler: { action($0 as! UIBarButtonItem) })
+        } else {
+            self.init(barButtonSystemItem: item, target: nil, action: nil)
+        }
     }
 
     convenience init(title: String, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
@@ -36,6 +53,8 @@ public extension UIBarButtonItem {
         if let action = onClick {
             bk_init(withTitle: title, style: UIBarButtonItem.Style.plain,
                     handler: { action($0 as! UIBarButtonItem) })
+        } else {
+            self.init(title: title, style: UIBarButtonItem.Style.plain, target: nil, action: nil)
         }
     }
 }

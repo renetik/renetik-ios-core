@@ -17,6 +17,9 @@ public class CSMenuItem: CSObject {
     public var image: UIImage? {
         didSet { updateMenu() }
     }
+    public var tintColor: UIColor? {
+        didSet { updateMenu() }
+    }
     public var isVisible = true {
         didSet { updateMenu() }
     }
@@ -66,7 +69,13 @@ public class CSMenuItem: CSObject {
         }
     }
 
-    internal func createBarButton() -> UIBarButtonItem {
+    internal func createButtonItem() -> UIBarButtonItem {
+        let barButtonItem = createBarButtonItem()
+        barButtonItem.tintColor = tintColor
+        return barButtonItem
+    }
+
+    private func createBarButtonItem() -> UIBarButtonItem {
         if systemItem.notNil { return UIBarButtonItem(item: systemItem!, onClick: onBarButtonClick) }
         if image.notNil { return UIBarButtonItem(image: image!, onClick: onBarButtonClick) }
         return UIBarButtonItem(title: title!, onClick: onBarButtonClick)

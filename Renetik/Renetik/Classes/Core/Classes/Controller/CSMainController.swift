@@ -51,15 +51,15 @@ open class CSMainController: CSViewController {
     func createActionBarItems(from menu: inout [CSMenuHeader]) -> [UIBarButtonItem] {
         var array: [UIBarButtonItem] = []
         if menu.first?.isDisplayedAsItem == true {
-            array.add(menu.first!.items.first!.createBarButton())
+            array.add(menu.first!.items.first!.createButtonItem())
             menu.removeFirst()
         }
         if menu.first?.isDisplayedAsItem == true {
-            array.add(menu.first!.items.first!.createBarButton())
+            array.add(menu.first!.items.first!.createButtonItem())
             menu.removeFirst()
         }
         if menu.first?.isDisplayedAsItem == true {
-            array.add(menu.first!.items.first!.createBarButton())
+            array.add(menu.first!.items.first!.createButtonItem())
             menu.removeFirst()
         }
         return array.reversed()

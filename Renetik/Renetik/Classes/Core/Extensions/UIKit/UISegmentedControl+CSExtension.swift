@@ -9,7 +9,7 @@ public extension UISegmentedControl {
     class var defaultHeight: CGFloat { 28 }
 
     @discardableResult
-    func selected(index: Int) -> Self { invoke { self.selectedSegmentIndex = index } }
+    func selected(index: Int) -> Self { self.selectedIndex = index; return self }
 
     var selectedIndex: Int {
         get { selectedSegmentIndex }
