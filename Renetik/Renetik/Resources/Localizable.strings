@@ -17,3 +17,6 @@ renetik_operation_canceled_message="Operation was canceled.";
 renetik_operation_failed_message="Operation failed.";
 
 renetik_search_placeholder="";
+
+renetik_image_picker_choose_photo="Choose Photo";
+renetik_image_picker_take_picture="Take Picture";

@@ -25,8 +25,8 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
     @discardableResult
     public func show(from element: CSDisplayElement) -> CSHasDialogVisible {
         parent.show(actions: [
-            CSDialogAction(title: "Choose Photo") { self.onGalleryClick(from: element) },
-            CSDialogAction(title: "Take Picture") { self.onCaptureClick(from: element) }
+            CSDialogAction(title: localized("renetik_image_picker_choose_photo")) { self.onGalleryClick(from: element) },
+            CSDialogAction(title: localized("renetik_image_picker_take_picture")) { self.onCaptureClick(from: element) }
         ], from: element)
     }
 
