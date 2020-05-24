@@ -23,7 +23,6 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
         parent.showChild(controller: self).view.matchParent()
         showChild(controller: pager.construct(self)).view.matchParent()
         addChildMain(controllers: controllers)
-        pager.settings.style.buttonBarHeight.isNil { self.pager.settings.style.buttonBarHeight = 44 }
         return self
     }
 
@@ -79,8 +78,9 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
 
     public func setBar(visible: Bool) {
         if visible {
-            pager.buttonBarView.height = pager.settings.style.buttonBarHeight!
-            pager.containerView.height(fromTop: pager.settings.style.buttonBarHeight!)
+            let buttonBarHeight = pager.settings.style.buttonBarHeight ?? 44
+            pager.buttonBarView.height = buttonBarHeight
+            pager.containerView.height(fromTop: buttonBarHeight)
         } else {
             pager.buttonBarView.height = 0
             pager.containerView.height(fromTop: 0)
