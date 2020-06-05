@@ -36,8 +36,12 @@ let isDebug: Bool = {
     return isDebug
 }()
 
-let renetikBundle = {
-    Bundle(path: Bundle.main.path(forResource: "RenetikBundle", ofType: "bundle")!)!
+let renetikBundle: Bundle = {
+//    When use_framewarks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
+//    When #use_modular_headers! Bundle.main
+//    TODO?: How to solve this universally
+    let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
+    return Bundle(path: bundle.path(forResource: "RenetikBundle", ofType: "bundle")!)!
 }()
 
 public func localized(_ key: String) -> String {
