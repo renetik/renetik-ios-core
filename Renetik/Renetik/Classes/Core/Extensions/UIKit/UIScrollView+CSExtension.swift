@@ -72,14 +72,14 @@ public extension UIScrollView {
     @discardableResult
     func content<View: UIView>(horizontal view: View) -> View {
         content(view).matchParentHeight().from(left: 0)
-        contentSizeWidthByLastContentSubview()
+        contentWidthByLastContentSubview()
         return view
     }
 
     @discardableResult
     public func content<View: UIView>(vertical view: View) -> View {
         content(view).matchParentWidth().from(top: 0)
-        contentSizeHeightByLastContentSubview()
+        contentHeightByLastContentSubview()
         return view
     }
 
@@ -96,7 +96,7 @@ public extension UIScrollView {
     }
 
     @discardableResult
-    func contentSizeWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
+    func contentWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
         content!.width = (content!.subviews.last?.right ?? 0) + padding
         if content!.width < width { content!.width = width }
         contentSize(width: content!.right)
@@ -104,7 +104,7 @@ public extension UIScrollView {
     }
 
     @discardableResult
-    func contentSizeHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
+    func contentHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
         content!.height = (content!.subviews.last?.bottom ?? 0) + padding
         if content!.height < height { content!.height = height }
         contentSize(height: content!.bottom)
