@@ -54,11 +54,19 @@ public func localized(_ key: String) -> String {
 }
 
 public func later(seconds: Int = 0, function: @escaping Func) {
-    later(seconds: Double(seconds), function: function)
+    DispatchQueue.main.async(execute: function)
 }
 
 public func later(seconds: Double, function: @escaping Func) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: function)
+}
+
+private let userInitiatedQueue = DispatchQueue(label: "CSUserInitiatedQueue", qos: .userInitiated)
+
+private let utilityQueue = DispatchQueue(label: "CSUtilityQueue", qos: .utility)
+
+public func background(function: @escaping Func) {
+    userInitiatedQueue.async(execute: function)
 }
 
 public func stringify<Subject>(_ value: Subject) -> String {

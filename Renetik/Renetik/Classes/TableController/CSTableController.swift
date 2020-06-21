@@ -4,7 +4,8 @@
 
 import RenetikObjc
 
-public typealias CSTableControllerRow = CSAny & Equatable & CustomStringConvertible
+public typealias CSTableControllerRow = CSAny
+//                                        & Equatable & CustomStringConvertible
 public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
                                            CSOperationController & CSHasDialog & CSHasProgress
 
@@ -16,10 +17,11 @@ public typealias CSTableControllerType = UIViewController & CSTableControllerPro
 
 public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController, CSTableControllerProtocol {
 
+    public var filter: CSTableControllerFilter<Row, Data>?
+
     public var data: [Row] { filteredData }
     public var loadData: (() -> CSOperation<Data>)!
     public let onLoading: CSEvent<CSProcess<Data>> = event()
-    public var searchText = "" { didSet { filterDataAndReload() } }
     internal (set) public var isLoading = false
     private(set) public var isFirstLoadingDone = false
     private(set) public var isFailed = false
@@ -31,7 +33,6 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     internal var parentController: CSTableControllerParent!
     internal var _data: [Row]!
 
-    private var filter: CSTableControllerFilter?
     private var filteredData = [Row]()
     private var loadProcess: CSProcess<Data>? = nil
 
@@ -114,16 +115,13 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         isFailed = false
     }
 
-    private func filter(data: [Row]) -> [Row] {
-        let filteredBySearchData = data.filter(bySearch: searchText)
-        return filter?.filter(data: filteredBySearchData) ?? filteredBySearchData
-    }
-
     internal func filterDataAndReload() {
         filteredData.reload(filter(data: _data))
         tableView.reload()
         filter?.onReloadDone(in: self)
     }
+
+    private func filter(data: [Row]) -> [Row] { self.filter?.filter(data: data) ?? data }
 }
 
 extension CSTableController {

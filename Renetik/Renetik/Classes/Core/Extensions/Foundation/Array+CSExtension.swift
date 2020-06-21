@@ -71,7 +71,7 @@ public extension Array where Element: Equatable {
     }
 }
 
-public extension Array where Element: Equatable & CustomStringConvertible {
+public extension Array where Element: CustomStringConvertible {
 
     func filter(bySearch searchText: String) -> [Element] {
         if searchText.isSet {
