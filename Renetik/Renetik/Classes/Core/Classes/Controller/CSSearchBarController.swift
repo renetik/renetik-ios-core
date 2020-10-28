@@ -10,7 +10,6 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     public let bar = UISearchBar.construct().resizeToFit()
     public var text: String { bar.text ?? "" }
 
-    private var parentController: UIViewController!
     private var searchBarShouldBeginEditing = false
     private var onTextChanged: ((String) -> Void)!
 
@@ -19,7 +18,6 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
                           placeHolder: String = CSStrings.searchPlaceholder,
                           onTextChanged: @escaping (String) -> Void) -> Self {
         super.constructAsViewLess(in: parent)
-        parentController = parent
         self.onTextChanged = onTextChanged
         bar.delegate = self
         bar.showsCancelButton = false
@@ -56,4 +54,31 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         animate { searchBar.showsCancelButton = false }
     }
+}
+
+// CSSearchBarController+CSTableController
+public extension CSSearchBarController {
+
+    @discardableResult
+    public func construct<Row: CSTableControllerRow, Data>(
+            _ parent: CSMainController,
+            placeHolder: String = CSStrings.searchPlaceholder,
+            table: CSTableController<Row, Data>) -> Self
+            where Row: CustomStringConvertible {
+        let tableFilter = TableFilter<Row, Data>()
+        table.filter = tableFilter
+        construct(by: parent, placeHolder: placeHolder) { string in
+            tableFilter.searchText = string
+            table.filterDataAndReload()
+        }
+        return self
+    }
+}
+
+private class TableFilter<Row: CSTableControllerRow, Data>: CSTableControllerFilter<Row, Data>
+        where Row: CustomStringConvertible {
+
+    public var searchText = ""
+
+    public override func filter(data: [Row]) -> [Row] { data.filter(bySearch: searchText) }
 }

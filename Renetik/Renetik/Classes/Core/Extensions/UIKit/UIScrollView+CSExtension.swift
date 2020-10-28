@@ -10,7 +10,79 @@ import RenetikObjc
 
 public extension UIScrollView {
 
-    static let scrollStateInaccuracy: CGFloat = 15
+//    class func vertical(content view: UIView) -> Self {
+//        let instance: UIScrollView = Self.withSize(view.width, view.height)
+//        instance.vertical(content: view)
+//        return instance as! Self
+//    }
+
+//    class func horizontal(content view: UIView) -> Self {
+//        let instance: UIScrollView = Self.withSize(view.width, view.height)
+//        instance.horizontal(content: view)
+//        return instance as! Self
+//    }
+
+    @discardableResult
+    func content<View: UIView>(horizontal view: View) -> View {
+        content(view).matchParentHeight().from(left: 0)
+        contentWidthByLastContentSubview()
+        return view
+    }
+
+    @discardableResult
+    public func content<View: UIView>(vertical view: View) -> View {
+        content(view).matchParentWidth().from(top: 0)
+        contentHeightByLastContentSubview()
+        return view
+    }
+
+    @discardableResult
+    func contentWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
+        content(width: (content!.subviews.last?.right ?? 0) + padding)
+    }
+
+    @discardableResult
+    func content(width: CGFloat) -> Self {
+        content!.width = width
+        if content!.width < self.width {
+            content!.width = self.width
+            isScrollEnabled = false
+        } else {
+            contentSize(width: content!.right)
+            isScrollEnabled = true
+        }
+        return self
+    }
+
+    @discardableResult
+    func contentSize(width: CGFloat) -> Self {
+        contentSize = CGSize(width: width, height: contentSize.height)
+        return self
+    }
+
+    @discardableResult
+    func contentHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
+        content(height: (content!.subviews.last?.bottom ?? 0) + padding)
+    }
+
+    @discardableResult
+    func content(height: CGFloat) -> Self {
+        content!.height = height
+        if content!.height <= self.height {
+            content!.height = self.height
+            isScrollEnabled = false
+        } else {
+            isScrollEnabled = true
+            contentSize(height: content!.bottom)
+        }
+        return self
+    }
+
+    @discardableResult
+    func contentSize(height: CGFloat) -> Self {
+        contentSize = CGSize(width: contentSize.width, height: height)
+        return self
+    }
 
     @discardableResult
     func contentOffset(top: CGFloat, animated: Bool = true) -> Self {
@@ -30,18 +102,6 @@ public extension UIScrollView {
 
     @discardableResult
     func content(inset: UIEdgeInsets) -> Self { self.contentInset = inset; return self }
-
-//    class func vertical(content view: UIView) -> Self {
-//        let instance: UIScrollView = Self.withSize(view.width, view.height)
-//        instance.vertical(content: view)
-//        return instance as! Self
-//    }
-
-//    class func horizontal(content view: UIView) -> Self {
-//        let instance: UIScrollView = Self.withSize(view.width, view.height)
-//        instance.horizontal(content: view)
-//        return instance as! Self
-//    }
 
     public func scrollable(_ isScrollEnabled: Bool) -> Self {
         self.isScrollEnabled = isScrollEnabled
@@ -67,48 +127,6 @@ public extension UIScrollView {
         let bottomInset = contentInset.bottom
         let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
         return scrollViewBottomOffset.rounded()
-    }
-
-    @discardableResult
-    func content<View: UIView>(horizontal view: View) -> View {
-        content(view).matchParentHeight().from(left: 0)
-        contentWidthByLastContentSubview()
-        return view
-    }
-
-    @discardableResult
-    public func content<View: UIView>(vertical view: View) -> View {
-        content(view).matchParentWidth().from(top: 0)
-        contentHeightByLastContentSubview()
-        return view
-    }
-
-    @discardableResult
-    func contentSize(width: CGFloat) -> Self {
-        contentSize = CGSize(width: width, height: contentSize.height)
-        return self
-    }
-
-    @discardableResult
-    func contentSize(height: CGFloat) -> Self {
-        contentSize = CGSize(width: contentSize.width, height: height)
-        return self
-    }
-
-    @discardableResult
-    func contentWidthByLastContentSubview(padding: CGFloat = 0) -> Self {
-        content!.width = (content!.subviews.last?.right ?? 0) + padding
-        if content!.width < width { content!.width = width }
-        contentSize(width: content!.right)
-        return self
-    }
-
-    @discardableResult
-    func contentHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
-        content!.height = (content!.subviews.last?.bottom ?? 0) + padding
-        if content!.height < height { content!.height = height }
-        contentSize(height: content!.bottom)
-        return self
     }
 
     func scrollToTop() {

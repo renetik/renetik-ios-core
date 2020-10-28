@@ -239,12 +239,13 @@ public extension UIView {
         return self
     }
 
+    //TODO!!! Write tests and doc
     @discardableResult
     func alignHorizontalLayout() -> Self {
         assert(superview.notNil, "Needs to have superview")
         let previous = superview!.findPreviousVisible(of: self)
         previous.notNil { previous in
-            assert(previous.width == width && previous.height == height, "Needs to have same size as previous")
+            assert(previous.height == height, "Needs to have same height as previous")
             if previous.right + width <= superview!.width {
                 from(left: previous.right, top: previous.top)
             } else {
@@ -254,12 +255,69 @@ public extension UIView {
         return self
     }
 
+    //TODO!!! Write tests and doc, almost same as fromPrevious
     @discardableResult
-    func alignHorizontal() -> Self {
+    func alignHorizontal(margin: CGFloat = 0) -> Self {
         assert(superview.notNil, "Needs to have superview")
         superview!.findPreviousVisible(of: self).notNil {
-            from(left: $0.right, top: $0.top)
+            from(left: $0.right + margin)
+        }.elseDo { from(left: margin) }
+        return self
+    }
+
+    //TODO!!! Write tests and doc
+    @discardableResult
+    func alignVerticalLayout() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPreviousVisible(of: self)
+        previous.notNil { previous in
+            assert(previous.width == width, "Needs to have same width as previous")
+            if previous.bottom + height <= superview!.height {
+                from(left: previous.left, top: previous.bottom)
+            } else {
+                from(left: previous.right, top: 0)
+            }
         }.elseDo { from(left: 0, top: 0) }
+        return self
+    }
+
+    //TODO!!! Write tests and doc , almost same as fromPrevious
+    @discardableResult
+    func alignVertical(margin: CGFloat = 0) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        superview!.findPreviousVisible(of: self).notNil {
+            from(top: $0.bottom + margin)
+        }.elseDo { from(top: margin) }
+        return self
+    }
+
+    //TODO!!! Write tests and doc
+    @discardableResult
+    func alignHorizontalGrid(margin: CGFloat = 0, columns: Int = 1) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        self.width = (superview!.width - (margin * (CGFloat(columns) + 1))) / CGFloat(columns);
+        superview!.findPreviousVisible(of: self).notNil { previous in
+            if previous.right + margin + self.width + margin <= width {
+                self.from(left: previous.right + margin, top: previous.top)
+            } else {
+                self.from(left: margin, top: previous.bottom + margin)
+            }
+        }.elseDo { self.from(left: margin, top: margin) }
+        return self
+    }
+
+    //TODO!!! Write tests and doc
+    @discardableResult
+    func alignVerticalGrid(margin: CGFloat = 0, rows: Int = 1) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        self.height = (superview!.height - (margin * (CGFloat(rows) + 1))) / CGFloat(rows);
+        superview!.findPreviousVisible(of: self).notNil { previous in
+            if previous.bottom + margin + self.height + margin <= height {
+                self.from(left: previous.left, top: previous.bottom + margin)
+            } else {
+                self.from(left: previous.right + margin, top: margin)
+            }
+        }.elseDo { self.from(left: margin, top: margin) }
         return self
     }
 }

@@ -65,38 +65,18 @@ public extension UIView {
     var isEmpty: Bool { subviews.isEmpty }
 
     @discardableResult
-    func horizontalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
-        horizontalLayout(update: add(view: view), margin: margin, columns: columns)
+    func horizontalGrid<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
+        add(view: view).alignHorizontalGrid(margin: margin, columns: columns)
     }
 
     @discardableResult
-    func horizontalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
-        view.width = (self.width - (margin * (CGFloat(columns) + 1))) / CGFloat(columns);
-        subviews.previous(of: view).notNil { previous in
-            if previous.right + margin + view.width + margin <= width {
-                view.from(left: previous.right + margin, top: previous.top + margin)
-            } else {
-                view.from(left: margin, top: previous.bottom + margin)
-            }
-        }.elseDo { view.from(left: margin, top: margin) }
-        return view
+    func verticalGrid<View: UIView>(add view: View, margin: CGFloat = 0, rows: Int = 1) -> View {
+        add(view: view).alignVerticalGrid(margin: margin, rows: rows)
     }
 
     @discardableResult
-    func verticalLayout<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
-        verticalLayout(update: add(view: view), margin: margin, columns: columns)
-    }
-
-    @discardableResult
-    func verticalLayout<View: UIView>(update view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
-        view.height = (self.height - (margin * (CGFloat(columns) + 1))) / CGFloat(columns);
-        subviews.previous(of: view).notNil { previous in
-            if previous.bottom + margin + view.height + margin <= height {
-                view.from(left: previous.left + margin, top: previous.bottom + margin)
-            } else {
-                view.from(left: previous.right + margin, top: margin)
-            }
-        }.elseDo { view.from(left: margin, top: margin) }
-        return view
+    func addBottomSeparator(height: CGFloat = 0.5, color: UIColor = .darkGray) -> UIView {
+        add(UIView.construct()).height(height).from(bottom: 0).matchParentWidth()
+                .flexibleTop().fixedBottom().background(color)
     }
 }

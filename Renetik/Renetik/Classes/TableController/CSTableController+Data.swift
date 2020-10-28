@@ -17,15 +17,6 @@ public extension CSTableController {
     }
 
     @discardableResult
-    func reload(row: Row) -> Self {
-        let tableIsAtBottom = isAtBottom()
-        let index = data.index(of: row)!
-        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        if tableIsAtBottom { scrollToBottom() }
-        return self
-    }
-
-    @discardableResult
     public func add(item: Row) -> Self {
         _data.add(item)
         filterDataAndReload()
@@ -40,13 +31,6 @@ public extension CSTableController {
     }
 
     @discardableResult
-    public func remove(item: Row) -> Self {
-        _data.remove(item)
-        filterDataAndReload()
-        return self
-    }
-
-    @discardableResult
     public func remove(item index: Int) -> Self {
         _data.remove(at: index)
         filterDataAndReload()
@@ -56,6 +40,25 @@ public extension CSTableController {
     @discardableResult
     public func clear() -> Self {
         _data.removeAll()
+        filterDataAndReload()
+        return self
+    }
+}
+
+public extension CSTableController where Row: Equatable {
+
+    @discardableResult
+    func reload(row: Row) -> Self {
+        let tableIsAtBottom = isAtBottom()
+        let index = data.index(of: row)!
+        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        if tableIsAtBottom { scrollToBottom() }
+        return self
+    }
+
+    @discardableResult
+    public func remove(item: Row) -> Self {
+        _data.remove(item)
         filterDataAndReload()
         return self
     }

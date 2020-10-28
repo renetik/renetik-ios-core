@@ -6,12 +6,18 @@ import Foundation
 import UIKit
 import RenetikObjc
 
-public protocol CSTableControllerFilter {
-    func filter<ObjectType>(data: [ObjectType]) -> [ObjectType]?
-    func onReloadDone<Row>(in controller: CSTableController<Row, Data>)
+open class CSTableControllerFilter<Row: CSTableControllerRow, Data> {
+    open func filter(data: [Row]) -> [Row] { data }
+
+    open func onReloadDone(in controller: CSTableController<Row, Data>) {}
 }
 
-public extension CSTableControllerFilter {
-    func filter<ObjectType>(data: [ObjectType]) -> [ObjectType] { data }
-    func onReloadDone<Row, Data>(in controller: CSTableController<Row, Data>) {}
-}
+//public protocol CSTableControllerFilter {
+//    func filter<Row>(data: [Row]) -> [Row]?
+//    func onReloadDone<Row>(in controller: CSTableController<Row, Data>)
+//}
+
+//public extension CSTableControllerFilter {
+//    func filter(data: [Row]) -> [Row] { data }
+//    func onReloadDone<Row, Data>(in controller: CSTableController<Row, Data>) {}
+//}
