@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name = 'RenetikObjc'
-  s.version = '0.9'
+  s.version = '0.10'
   s.summary = 'Library for rapid development of iOS apps with readable code and pleasure.'
 
   s.description = <<-DESC
@@ -29,15 +29,15 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files = 'Library/Classes/Core/**/*'
     ss.frameworks = 'UIKit'
-    ss.dependency 'MBProgressHUD', '~> 1.1' # Could be moved to subspec
-    ss.dependency 'AFNetworking', '~> 3.0' # CSResponse should be moved to subspec
-    ss.dependency 'BlocksKit', '~> 2.2' # Could be moved to subspec maybe
+    ss.dependency 'MBProgressHUD', '~> 1' # Could be moved to subspec
+    ss.dependency 'AFNetworking', '~> 4' # CSResponse should be moved to subspec
+    ss.dependency 'BlocksKit', '~> 2' # Could be moved to subspec maybe
   end
 
   s.subspec 'CocoaLumberjack' do |ss|
     ss.source_files = 'Library/Classes/CocoaLumberjack/**/*'
     ss.dependency 'RenetikObjc/Core'
-    ss.dependency 'CocoaLumberjack/Swift', '~> 3.6'
+    ss.dependency 'CocoaLumberjack/Swift', '~> 3'
   end
 
   s.subspec 'All' do |ss|

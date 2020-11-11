@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Renetik'
-  s.version          = '0.9'
+  s.version          = '0.10'
   s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure.'
 
 # This description is used to generate tags and improve search results.
@@ -38,13 +38,13 @@ Pod::Spec.new do |s|
 	s.subspec 'Core' do |ss|
 		ss.dependency 'RenetikObjc/Core'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
-		ss.dependency 'UITextView+Placeholder', '~> 1.3'
-		ss.dependency 'MBProgressHUD', '~> 1.1'
-		ss.dependency 'ChameleonFramework', '~> 2.1'
+		ss.dependency 'UITextView+Placeholder', '~> 1'
+		ss.dependency 'MBProgressHUD', '~> 1'
+		ss.dependency 'ChameleonFramework', '~> 2'
 	end
 
 	s.subspec 'Alamofire' do |ss|
-		ss.dependency 'Alamofire', '~> 5.0.0-rc.1'
+		ss.dependency 'Alamofire', '~> 5'
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/JsonData'
 		ss.dependency 'Renetik/Operation'
@@ -81,32 +81,32 @@ Pod::Spec.new do |s|
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/Operation'
-		ss.dependency 'DZNEmptyDataSet','~> 1.8'
-		ss.dependency 'ChameleonFramework', '~> 2.1'
+		ss.dependency 'DZNEmptyDataSet','~> 1'
+		ss.dependency 'ChameleonFramework', '~> 2'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
 	
 	s.subspec 'AFNetworking' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
-		ss.dependency 'AFNetworking', '~> 3.0'
+		ss.dependency 'AFNetworking', '~> 4'
 	end
 	
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'SDWebImage', '~> 5.3'
+		ss.dependency 'SDWebImage', '~> 5'
 		ss.source_files = 'Renetik/Classes/SDWebImage/**/*'
 	end
 
 	s.subspec 'CSNotification' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
-		ss.dependency 'RMessage', '~> 3.0'
+		ss.dependency 'RMessage', '~> 3'
 	end
 	
 	s.subspec 'XLPagerTabStrip' do |ss|
 		ss.dependency 'Renetik/Core'
-        ss.dependency 'XLPagerTabStrip', '~> 9.0'
+        ss.dependency 'XLPagerTabStrip', '~> 9'
 		ss.source_files = 'Renetik/Classes/XLPagerTabStrip/**/*'
 	end
 	

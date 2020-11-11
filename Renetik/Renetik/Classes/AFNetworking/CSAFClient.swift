@@ -59,7 +59,9 @@ open class CSAFClient: CSObject {
         request.requestCancelledMessage = requestCancelMessage
         request.type = .get
         let response = CSAFResponse(self, request)
-        later { self.execute(request, response) }
+        later {
+            self.execute(request, response)
+        }
         return request
     }
 
@@ -73,7 +75,7 @@ open class CSAFClient: CSObject {
         request.form = form
         let response = CSAFResponse(self, request)
 //        execute(request, response)
-        manager.post(service, parameters: request.params, constructingBodyWith: form,
+        manager.post(service, parameters: request.params, headers: nil, constructingBodyWith: form,
                 progress: response.onProgress, success: response.onSuccess,
                 failure: response.onFailure)
         return request
@@ -100,13 +102,16 @@ open class CSAFClient: CSObject {
     func execute<Data: CSServerData>(
             _ request: CSResponse<Data>, _ response: CSAFResponse<Data>) {
         if request.type == .get {
-            manager.get(request.service, parameters: request.params, progress: response.onProgress, success: response.onSuccess, failure: response.onFailure)
+            manager.get(request.service, parameters: request.params, headers: nil,
+                    progress: response.onProgress, success: response.onSuccess,
+                    failure: response.onFailure)
         } else {
             if request.form.notNil {
-                manager.post(request.service, parameters: request.params, constructingBodyWith: request.form!, progress: response.onProgress,
+                manager.post(request.service, parameters: request.params, headers: nil,
+                        constructingBodyWith: request.form!, progress: response.onProgress,
                         success: response.onSuccess, failure: response.onFailure)
             } else {
-                manager.post(request.service, parameters: request.params,
+                manager.post(request.service, parameters: request.params, headers: nil,
                         progress: response.onProgress, success: response.onSuccess,
                         failure: response.onFailure)
             }
