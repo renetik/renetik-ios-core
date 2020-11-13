@@ -62,6 +62,9 @@ public extension UIView {
     @discardableResult
     func clearSubviews() -> Self { invoke { subviews.each { $0.removeFromSuperview() } } }
 
+    @discardableResult
+    func removeAllSubviews() -> Self { clearSubviews() }
+
     var isEmpty: Bool { subviews.isEmpty }
 
     @discardableResult
