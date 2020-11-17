@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
 
 	s.default_subspecs = 'All'
-	
+
 	s.subspec 'Core' do |ss|
 		ss.dependency 'RenetikObjc/Core'
 		ss.source_files = 'Renetik/Classes/Core/**/*'
@@ -65,19 +65,19 @@ Pod::Spec.new do |s|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/JsonData/**/*'
 	end
-	
+
 	s.subspec 'CoreLocation' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.frameworks = 'CoreLocation'
 		ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
 	end
-	
+
 	s.subspec 'CocoaLumberjack' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'RenetikObjc/CocoaLumberjack'
 		ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
 	end
-	
+
 	s.subspec 'TableController' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/Operation'
@@ -85,13 +85,13 @@ Pod::Spec.new do |s|
 		ss.dependency 'ChameleonFramework', '~> 2'
 		ss.source_files = 'Renetik/Classes/TableController/**/*'
 	end
-	
+
 	s.subspec 'AFNetworking' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
 		ss.dependency 'AFNetworking', '~> 4'
 	end
-	
+
 	s.subspec 'SDWebImage' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'SDWebImage', '~> 5'
@@ -103,13 +103,13 @@ Pod::Spec.new do |s|
 		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
 		ss.dependency 'RMessage', '~> 3'
 	end
-	
+
 	s.subspec 'XLPagerTabStrip' do |ss|
 		ss.dependency 'Renetik/Core'
         ss.dependency 'XLPagerTabStrip', '~> 9'
 		ss.source_files = 'Renetik/Classes/XLPagerTabStrip/**/*'
 	end
-	
+
 	s.subspec 'DTCoreText' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'DTCoreText'
@@ -118,8 +118,15 @@ Pod::Spec.new do |s|
 		ss.dependency 'TUSafariActivity'
 		ss.source_files = 'Renetik/Classes/DTCoreText/**/*'
 	end
-	
-	s.subspec 'All' do |ss|
+
+	s.subspec 'CSMaterial' do |ss|
+        ss.dependency 'Renetik/Core'
+        ss.dependency 'MaterialComponents', '~> 119'
+        ss.dependency 'BlocksKit', '~> 2'
+        ss.source_files = 'Renetik/Classes/CSMaterial/**/*'
+    end
+
+    s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/Alamofire'
 		ss.dependency 'Renetik/AlamofireCached'
@@ -133,5 +140,6 @@ Pod::Spec.new do |s|
 		ss.dependency 'Renetik/CSNotification'
 		ss.dependency 'Renetik/XLPagerTabStrip'
 		ss.dependency 'Renetik/DTCoreText'
+		ss.dependency 'Renetik/CSMaterial'
 	end
 end
