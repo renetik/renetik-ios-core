@@ -12,7 +12,7 @@ import MaterialComponents
 import Renetik
 import RenetikObjc
 
-class CSMaterialButton: UIButton {
+public class CSMaterialButton: UIButton {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -23,11 +23,11 @@ class CSMaterialButton: UIButton {
     }
 }
 
-class CSMaterialCard: MDCCard {
+public class CSMaterialCard: MDCCard {
 
 }
 
-class CSMaterialImageView: UIImageView {
+public class CSMaterialImageView: UIImageView {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -38,7 +38,7 @@ class CSMaterialImageView: UIImageView {
     }
 }
 
-class CSMaterialLabel: UILabel {
+public class CSMaterialLabel: UILabel {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -49,7 +49,7 @@ class CSMaterialLabel: UILabel {
     }
 }
 
-class CSMaterialView: CSView {
+public class CSMaterialView: CSView {
 
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
@@ -61,7 +61,7 @@ class CSMaterialView: CSView {
     }
 }
 
-extension MDCCard {
+public extension MDCCard {
     @discardableResult
     open override func construct() -> Self {
         super.construct()
@@ -103,7 +103,7 @@ extension MDCFloatingButton {
     }
 }
 
-extension MDCButton {
+public extension MDCButton {
     @discardableResult
     override open func construct() -> Self {
         super.construct()
@@ -112,7 +112,7 @@ extension MDCButton {
     }
 }
 
-extension MDCMultilineTextField {
+public extension MDCMultilineTextField {
     open override func construct() -> Self {
         super.construct()
         clipsToBounds = false
@@ -120,7 +120,7 @@ extension MDCMultilineTextField {
     }
 }
 
-extension MDCTextField {
+public extension MDCTextField {
     open override func construct() -> Self {
         super.construct()
         clipsToBounds = false

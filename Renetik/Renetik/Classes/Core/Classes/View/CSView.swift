@@ -6,7 +6,7 @@ import UIKit
 
 open class CSView: UIView {
 
-    private let layoutFunctions: CSEvent<Void> = event()
+    public let layoutFunctions: CSEvent<Void> = event()
     public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
 
     @discardableResult

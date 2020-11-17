@@ -27,19 +27,6 @@ extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
     }
 
     @discardableResult
-    func title(_ value: String, require controller: FormController) -> Self {
-        placeholderText = value
-        controller.require(self)
-        return self
-    }
-
-    @discardableResult
-    func require(_ controller: FormController) -> Self {
-        controller.require(self)
-        return self
-    }
-
-    @discardableResult
     func width(_ value: CGFloat) -> Self {
         textInput!.width = value
         return self

@@ -5,7 +5,7 @@
 
 import Renetik
 
-class CSLabeledText: UIView {
+public class CSLabeledText: UIView {
 
     let label = UILabel()
     let textView = UITextView()
@@ -40,7 +40,7 @@ class CSLabeledText: UIView {
     }
 }
 
-class CSLabeledView: UIView {
+public class CSLabeledView: UIView {
     let label = UILabel()
     var view: UIView!
 
@@ -58,7 +58,7 @@ class CSLabeledView: UIView {
     }
 }
 
-extension UIView {
+public extension UIView {
     func addField(title: String? = nil, text: String? = nil,
                   detect dataTypes: UIDataDetectorTypes? = nil, onClick: (Func)? = nil) {
         CSLabeledText().construct(self, title, text, dataTypes, onClick)

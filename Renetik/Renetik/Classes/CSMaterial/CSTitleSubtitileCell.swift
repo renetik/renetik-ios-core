@@ -18,7 +18,6 @@ class CSTitleSubtitleCell: CSTableViewCell {
 
     override func construct() -> Self {
         super.construct()
-        Style.titleSubtitle(cell: self)
         contentView.add(card).matchParent(margin: 5)
         layout(card.add(titleLabel).from(top: 7).matchParentWidth(margin: 7)) {
             $0.heightToFit()
