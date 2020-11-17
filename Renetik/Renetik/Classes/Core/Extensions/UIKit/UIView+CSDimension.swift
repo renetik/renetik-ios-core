@@ -32,6 +32,15 @@ public extension UIView {
     func height(_ value: CGFloat) -> Self { invoke { self.height = value } }
 
     @discardableResult
+    func heightAsPrevious() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPreviousVisible(of: self)
+        assert(previous.notNil, "Needs to have previous visible")
+        height(previous!.height)
+        return self
+    }
+
+    @discardableResult
     func widthAsHeight() -> Self { invoke { width = height } }
 
     @discardableResult
@@ -63,9 +72,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func resizeToFitSubviews() -> Self { size(calculateSizeFromSubviews()) }
+    func resizeToFitSubviews() -> Self { size(sizeThatFitsSubviews()) }
 
-    func calculateSizeFromSubviews() -> CGSize {
+    func sizeThatFitsSubviews() -> CGSize {
         var rect = CGRect.zero
         subviews.each { view in rect = rect.union(view.frame) }
         return rect.size
@@ -83,6 +92,7 @@ public extension UIView {
     @discardableResult
     func add(left value: CGFloat) -> Self {
         left -= value
+        if left < 0 { left = 0 }
         width += value
         return self
     }
@@ -90,6 +100,7 @@ public extension UIView {
     @discardableResult
     func add(top value: CGFloat) -> Self {
         top -= value
+        if top < 0 { top = 0 }
         height += value
         return self
     }
@@ -144,17 +155,23 @@ public extension UIView {
     @objc open func resizeToFit() -> Self { invoke { self.sizeToFit() } }
 
     @discardableResult
-    @objc open func widthToFit() -> Self { width(calculateWidthToFit()) }
+    @objc open func widthToFit() -> Self { width(widthThatFits()) }
 
     @discardableResult
-    @objc open func heightToFit() -> Self { height(calculateHeightToFit()) }
+    @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
 
-    @objc open func calculateWidthToFit() -> CGFloat {
+    @discardableResult
+    @objc open func heightToFit() -> Self { height(heightThatFits()) }
+
+    @discardableResult
+    @objc open func heightToFitSubviews() -> Self { height(sizeThatFitsSubviews().height) }
+
+    @objc open func widthThatFits() -> CGFloat {
         assert(height > 0, "Height has to be set to calculate width")
-        return sizeThatFits(CGSize(width: .infinity, height: height)).width
+        return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }
 
-    @objc open func calculateHeightToFit() -> CGFloat {
+    @objc open func heightThatFits() -> CGFloat {
         assert(width > 0, "Width has to be set to calculate height")
         return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }

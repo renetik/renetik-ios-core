@@ -58,6 +58,12 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public func html(_ html: String) -> Self { invoke { self.html = html } }
 
     @discardableResult
+    public func font(_ font: UIFont) -> Self {
+        self.font = font
+        return self
+    }
+
+    @discardableResult
     public func fontStyle(_ fontStyle: UIFont.TextStyle) -> Self {
         font = UIFont.preferredFont(forTextStyle: fontStyle)
         return self
@@ -169,10 +175,8 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
         return nil
     }
 
-    public override func calculateHeightToFit() -> CGFloat {
-//        (html.isSet ? attributedTextContentView.calculateHeightToFit() : 0)
-//                + (CGFloat(numberOfImages) * width / 2)
-        html.isSet ? attributedTextContentView.calculateHeightToFit() : 0
+    public override func heightThatFits() -> CGFloat {
+        html.isSet ? attributedTextContentView.heightThatFits() : 0
     }
 }
 

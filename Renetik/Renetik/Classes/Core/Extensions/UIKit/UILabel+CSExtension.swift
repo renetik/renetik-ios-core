@@ -82,7 +82,7 @@ public extension UILabel {
         numberOfLines = 0
         let current = text
         text = value
-        height = calculateHeightToFit()
+        height = heightThatFits()
         text = current
         return self
     }

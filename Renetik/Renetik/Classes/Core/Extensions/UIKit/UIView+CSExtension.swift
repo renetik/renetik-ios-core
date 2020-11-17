@@ -31,7 +31,13 @@ public extension UIView {
         construct().frame(frame)
     }
 
-    class func construct() -> Self { Self().construct() }
+//    class func construct() -> Self { Self().construct() }
+
+    class func construct(defaultSize: Bool = false) -> Self {
+        let this: Self = Self().construct()
+        if defaultSize { this.defaultSize() }
+        return this
+    }
 
     @discardableResult
     @objc open func construct() -> Self { clipsToBounds().setAutoresizingDefaults() }
@@ -184,7 +190,17 @@ public extension UIView {
                 })
     }
 
-    func debugSubviewsLayoutByBorder() { subviews.each { $0.border() } }
+    func debugLayoutBySubviewsRandomBorderColor() {
+        subviews.each {
+            $0.border(color: UIColor.random())
+            $0.debugLayoutBySubviewsRandomBorderColor()
+        }
+    }
 
-    func debugSubviewsLayoutByColors() { subviews.each { $0.background(UIColor.random()) } }
+    func debugLayoutBySubviewsRandomBackgroundColor() {
+        subviews.each {
+            $0.background(UIColor.random())
+            $0.debugLayoutBySubviewsRandomBackgroundColor()
+        }
+    }
 }

@@ -56,6 +56,12 @@ public extension Array where Element: Equatable {
         return self
     }
 
+    @discardableResult
+    public mutating func remove(_ items: [Element]) -> Self {
+        items.each { item in remove(all: item) }
+        return self
+    }
+
     public func previous(of item: Element) -> Element? { index(of: item)?.get { index -> Element? in at(index - 1) } }
 
     public func previousIndex(of item: Element) -> Int? { index(of: item)?.get { index -> Int in index - 1 } }

@@ -18,6 +18,18 @@ public extension UIViewController {
     }
 
     @discardableResult
+    func push(_ key: String) -> Self {
+        navigation.push(key, self)
+        return self
+    }
+
+    @discardableResult
+    func pushMain() -> Self {
+        push("mainController")
+        return self
+    }
+
+    @discardableResult
     func pushFromTop() -> Self {
         navigation.push(fromTop: self)
         return self

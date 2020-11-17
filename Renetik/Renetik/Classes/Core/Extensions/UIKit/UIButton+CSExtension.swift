@@ -37,6 +37,12 @@ public extension UIButton {
     }
 
     @discardableResult
+    @objc open func font(_ font: UIFont) -> Self {
+        titleLabel?.font = font
+        return self
+    }
+
+    @discardableResult
     public func text(_ title: String) -> Self {
         setTitle(title, for: .normal)
         return self

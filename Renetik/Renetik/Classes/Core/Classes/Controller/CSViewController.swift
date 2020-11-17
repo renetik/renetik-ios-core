@@ -18,7 +18,7 @@ open class CSViewController: UIViewController {
 
     public private(set) var isAppearing = false
     public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
-    public var isVisible: Bool { self.isAppearing && self.isShowing }
+    public var isVisible: Bool { isAppearing && isShowing }
 
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false

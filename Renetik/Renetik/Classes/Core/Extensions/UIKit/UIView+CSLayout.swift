@@ -39,6 +39,15 @@ public extension UIView {
     }
 
     @discardableResult
+    func fromLeftAsPrevious(offset: CGFloat = 0) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPreviousVisible(of: self)
+        assert(previous.notNil, "Needs to have previous visible")
+        from(left: previous!.left + offset)
+        return self
+    }
+
+    @discardableResult
     func from(right: CGFloat) -> Self { invoke { self.fromRight = right; fixedRight() } }
 
     @discardableResult

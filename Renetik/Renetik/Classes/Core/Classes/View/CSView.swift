@@ -7,6 +7,7 @@ import UIKit
 open class CSView: UIView {
 
     private let layoutFunctions: CSEvent<Void> = event()
+    public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
 
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
@@ -22,11 +23,30 @@ open class CSView: UIView {
         return view
     }
 
+    private var isDidLayoutSubviews = false
+
     override open func layoutSubviews() {
         super.layoutSubviews()
-        onLayoutSubviews()
+        if !isDidLayoutSubviews {
+            isDidLayoutSubviews = true
+            onLayoutSubviewsFirstTime()
+            onCreateLayout()
+            onLayoutCreated()
+            eventLayoutSubviewsFirstTime.fire()
+        } else {
+            onUpdateLayout()
+        }
         updateLayout()
+        onLayoutSubviews()
     }
+
+    open func onLayoutSubviewsFirstTime() {}
+
+    open func onCreateLayout() {}
+
+    open func onLayoutCreated() {}
+
+    open func onUpdateLayout() {}
 
     open func onLayoutSubviews() {}
 

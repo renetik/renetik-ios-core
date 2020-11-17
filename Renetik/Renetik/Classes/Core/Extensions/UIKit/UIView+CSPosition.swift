@@ -87,6 +87,14 @@ public extension UIView {
     @discardableResult
     func centerVertical(as view: UIView) -> Self { centerTop(as: view) }
 
+    @discardableResult
+    func centerVerticalAsPrevious() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPreviousVisible(of: self)
+        assert(previous.notNil, "Needs to have previous")
+        return centerVertical(as: previous!)
+    }
+
     var centerLeft: CGFloat {
         get { center.x }
         set(value) { center = CGPoint(x: value, y: center.y) }
