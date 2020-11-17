@@ -16,6 +16,12 @@ public extension CGRect { //TODO: move to CoreGraphics
 
     var x: CGFloat { origin.x }
     var y: CGFloat { origin.y }
-    var width: CGFloat { size.width }
-    var height: CGFloat { size.height }
+    var width: CGFloat {
+        get { size.width }
+        set { size.width = newValue }
+    }
+    var height: CGFloat {
+        get { size.height }
+        set { size.height = newValue }
+    }
 }

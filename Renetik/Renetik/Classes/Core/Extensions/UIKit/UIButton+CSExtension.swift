@@ -36,6 +36,11 @@ public extension UIButton {
         return self
     }
 
+    public var font: UIFont? {
+        get { titleLabel?.font }
+        set(value) { titleLabel?.font = value }
+    }
+
     @discardableResult
     @objc open func font(_ font: UIFont) -> Self {
         titleLabel?.font = font
@@ -56,6 +61,11 @@ public extension UIButton {
 
     @discardableResult
     public func image(template image: UIImage) -> Self { self.image(image.template) }
+
+    public var textColor: UIColor? {
+        get { titleColor(for: .normal) }
+        set(value) { setTitleColor(value, for: .normal) }
+    }
 
     @discardableResult
     func textColor(_ color: UIColor) -> Self {

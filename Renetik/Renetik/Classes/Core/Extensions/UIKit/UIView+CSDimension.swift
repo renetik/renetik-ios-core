@@ -72,7 +72,30 @@ public extension UIView {
     }
 
     @discardableResult
-    func resizeToFitSubviews() -> Self { size(sizeThatFitsSubviews()) }
+    func resizeToFitSubviews() -> Self {
+//        size(sizeThatFitsSubviews())
+        var x = width
+        var y = height
+        var rect = CGRect.zero
+        subviews.forEach { subview in
+            rect = rect.union(subview.frame)
+            x = subview.frame.x < x ? subview.frame.x : x
+            y = subview.frame.y < y ? subview.frame.y : y
+        }
+        var masks = [UIView.AutoresizingMask]()
+        subviews.forEach { (subview: UIView) in
+            masks.add(subview.autoresizingMask)
+            subview.autoresizingMask = []
+            subview.frame = subview.frame.offsetBy(dx: -x, dy: -y)
+        }
+        rect.size.width -= x
+        rect.size.height -= y
+        frame.size = rect.size
+        subviews.enumerated().forEach { index, subview in
+            subview.autoresizingMask = masks[index]
+        }
+        return self
+    }
 
     func sizeThatFitsSubviews() -> CGSize {
         var rect = CGRect.zero
@@ -164,7 +187,26 @@ public extension UIView {
     @objc open func heightToFit() -> Self { height(heightThatFits()) }
 
     @discardableResult
-    @objc open func heightToFitSubviews() -> Self { height(sizeThatFitsSubviews().height) }
+    @objc open func heightToFitSubviews() -> Self {
+        var y = height
+        var rect = CGRect.zero
+        subviews.forEach { subview in
+            rect = rect.union(subview.frame)
+            y = subview.frame.y < y ? subview.frame.y : y
+        }
+        var masks = [UIView.AutoresizingMask]()
+        subviews.forEach { (subview: UIView) in
+            masks.add(subview.autoresizingMask)
+            subview.autoresizingMask = []
+            subview.frame = subview.frame.offsetBy(dx: 0, dy: -y)
+        }
+        rect.height -= y
+        height(rect.height)
+        subviews.enumerated().forEach { index, subview in
+            subview.autoresizingMask = masks[index]
+        }
+        return self
+    }
 
     @objc open func widthThatFits() -> CGFloat {
         assert(height > 0, "Height has to be set to calculate width")
@@ -177,4 +219,5 @@ public extension UIView {
     }
 
     func hideByHeight(if condition: Bool) -> Self { invoke { if condition { self.height = 0 } } }
+
 }

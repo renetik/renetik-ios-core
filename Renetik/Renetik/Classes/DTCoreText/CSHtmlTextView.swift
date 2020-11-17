@@ -18,8 +18,17 @@ import ARChromeActivity
 
 //TODO: Move to extra library
 public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDelegate {
-    public var font = UIFont.preferredFont(forTextStyle: .body)
-    public var textColor: UIColor = .darkText
+    public var font = UIFont.preferredFont(forTextStyle: .body) {
+        didSet {
+            text(text)
+        }
+    }
+
+    public var textColor: UIColor = .darkText {
+        didSet {
+            text(text)
+        }
+    }
     public var encoding: String.Encoding = .utf8
     public var linkColor: UIColor = .blue
     public var linkHighlightedColor: UIColor = .purple
@@ -55,7 +64,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
 
     @discardableResult
-    public func html(_ html: String) -> Self { invoke { self.html = html } }
+    public func text(_ html: String) -> Self { invoke { self.text = html } }
 
     @discardableResult
     public func font(_ font: UIFont) -> Self {
@@ -85,11 +94,11 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
         return self
     }
 
-    public var html = "" {
+    public var text = "" {
         didSet {
             imageUrls.clear()
 //            numberOfImages = html.countHtmlImageTagsWithoutSize()
-            let corrected = html.addSizeToHtmlImageTags(self.width)
+            let corrected = text.addSizeToHtmlImageTags(self.width)
             attributedString = NSAttributedString(
                     htmlData: corrected.data(using: encoding),
                     options: attributedOptions, documentAttributes: nil)
@@ -176,7 +185,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     public override func heightThatFits() -> CGFloat {
-        html.isSet ? attributedTextContentView.heightThatFits() : 0
+        text.isSet ? attributedTextContentView.heightThatFits() : 0
     }
 }
 
