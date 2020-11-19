@@ -48,14 +48,14 @@ public extension UIView {
         get { superview.notNil ? superview!.width - (left + width) : 0 }
         set(value) {
             assert(superview.notNil, "Needs to have superview")
-            left = superview!.width - (value + width)
+            left = superview!.safeWidth - (value + width)
         }
     }
     var fromBottom: CGFloat {
         get { superview.notNil ? superview!.height - (top + height) : 0 }
         set(value) {
             assert(superview.notNil, "Needs to have superview")
-            top = superview!.height - (value + height)
+            top = superview!.safeHeight - (value + height)
         }
     }
     var leftFromRight: CGFloat { superview.notNil ? superview!.width - left : width }

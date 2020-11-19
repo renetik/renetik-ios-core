@@ -54,6 +54,16 @@ public extension UIScrollView {
         return self
     }
 
+    public func fixScrollViewBehindNavigationBarFeature(_ controller: CSViewController) {
+//        controller.edgesForExtendedLayout = []
+//        contentInsetAdjustmentBehavior = .never
+//        controller.eventDidLayoutFirstTime.invokeOnce { [self] in
+//            contentInset = UIEdgeInsets(top: controller.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
+//            scrollIndicatorInsets = insets
+//            scrollToTop()
+//        }
+    }
+
     @discardableResult
     func contentSize(width: CGFloat) -> Self {
         contentSize = CGSize(width: width, height: contentSize.height)
