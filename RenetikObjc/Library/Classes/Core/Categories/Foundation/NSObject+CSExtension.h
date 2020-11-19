@@ -15,13 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)as:(Protocol *)aProtocol;
 
-- (NSMutableDictionary *)propertyDictionary;
+//- (NSMutableDictionary *)propertyDictionary;
 
-- (instancetype)setObject:(const void *)key :(id)value;
+//- (instancetype)setObject:(const void *)key :(id)value;
 
-- (instancetype)setWeakObject:(const void *)key :(id)value;
+//- (instancetype)setWeakObject:(const void *)key :(id)value;
 
-- (id)getObject:(const void *)key;
+//- (id)getObject:(const void *)key;
 
 - (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name;
 

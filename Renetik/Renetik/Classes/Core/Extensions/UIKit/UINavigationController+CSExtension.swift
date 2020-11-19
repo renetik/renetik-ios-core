@@ -4,6 +4,8 @@
 
 import UIKit
 
+private let pushKey = "UINavigationController+CSExtension.swift:PushKey"
+
 public extension UINavigationController {
 
     @discardableResult
@@ -69,7 +71,7 @@ public extension UINavigationController {
     func push(_ pushingController: UIViewController, keepLast keepLastCount: Int) {
         var toRemove = [UIViewController]()
         var count = keepLastCount
-        for controller in self.viewControllers {
+        for controller in viewControllers {
             if controller.isKind(of: type(of: pushingController)) {
                 if count > 0 { count -= 1 } else { toRemove.add(controller) }
             }
@@ -90,13 +92,11 @@ public extension UINavigationController {
     }
 
     func push(_ pushId: String, _ pushingController: UIViewController) {
-
-        pushingController.propertyDictionary()["PushID"] = pushId
-
+        pushingController.values[pushKey] = pushId
         var toRemove = [UIViewController]()
         for controller in viewControllers {
             toRemove.add(controller)
-            if controller.propertyDictionary()["PushID"] as? String == pushId {
+            if controller.values[pushKey] as? String == pushId {
                 var viewControllers = self.viewControllers
                 toRemove.each { viewControllers.remove($0) }
                 viewControllers.add(pushingController)

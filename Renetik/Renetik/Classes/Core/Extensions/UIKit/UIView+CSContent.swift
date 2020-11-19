@@ -6,7 +6,8 @@ import UIKit
 import RenetikObjc
 import BlocksKit
 
-private var viewContentPropertyKey: UInt8 = 0
+//private var viewContentPropertyKey: UInt8 = 0
+private var viewContentPropertyKey: Void?
 
 public extension UIView {
 
@@ -14,7 +15,7 @@ public extension UIView {
         get { getObject(&viewContentPropertyKey) as? UIView }
         set(view) {
             content?.removeFromSuperview()
-            setWeak(&viewContentPropertyKey, view)
+            setWeakObject(&viewContentPropertyKey, view)
             view.notNil { add($0) }
         }
     }

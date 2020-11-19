@@ -144,6 +144,9 @@ public extension UIView {
     func add(height value: CGFloat) -> Self { invoke { self.height += value } }
 
     @discardableResult
+    func add(width: CGFloat, height: CGFloat) -> Self { invoke { self.width += width; self.height += height } }
+
+    @discardableResult
     func remove(width value: CGFloat) -> Self { invoke { self.width -= value } }
 
     @discardableResult

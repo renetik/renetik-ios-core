@@ -5,19 +5,44 @@
 import Foundation
 import RenetikObjc
 
-public extension NSObject {
-//    @objc class func construct() -> Self {
-//        Self()
-//    }
+private var associatedPropertyValuesKey: Void?
 
-    //    var eventChangeProperty: CSEvent<Void> { extensionProperty("eventChange") { CSEvent<Void>() } }
-    func extensionProperty<Type>(_ id: String, _ onCreate: () -> Type) -> Type {
-        var dict = self.propertyDictionary() as! [String: Any]
-        var instance = dict[id] as! Type?
-        instance.isNil {
-            instance = onCreate()
-            dict[id] = instance
-        }
-        return instance!
+public extension NSObject {
+
+    var values: NSMutableDictionary {
+        getObject(&associatedPropertyValuesKey) { NSMutableDictionary() }
     }
+
+    func getObject<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+        var object: T? = getObject(key) as? T
+        if object == nil {
+            object = onCreate()
+            setObject(key, object)
+        }
+        return object!
+    }
+
+    func getWeakObject<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+        var object: T? = getObject(key) as? T
+        if object == nil {
+            object = onCreate()
+            setWeakObject(key, object)
+        }
+        return object!
+    }
+
+    func getObject(_ key: UnsafeRawPointer!) -> Any? {
+        bk_associatedValue(forKey: key)
+    }
+
+    func setObject(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+        bk_associateValue(value, withKey: key)
+        return self
+    }
+
+    func setWeakObject(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+        bk_weaklyAssociateValue(value, withKey: key)
+        return self
+    }
+
 }

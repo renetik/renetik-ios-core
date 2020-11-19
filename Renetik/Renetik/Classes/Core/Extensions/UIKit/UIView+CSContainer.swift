@@ -14,8 +14,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func add<View: UIView>(_ view: View) -> View {
+    func add<View: UIView>(_ view: View, _ apply: ((View) -> ())? = nil) -> View {
         addSubview(view)
+        apply?(view)
         return view
     }
 

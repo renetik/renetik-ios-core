@@ -6,6 +6,8 @@ import Foundation
 import UIKit
 import BlocksKit
 
+private let previousTextKey = "UITextField+CSExtension.swift:onTextChange:PreviousText"
+
 public extension UITextField {
 
     @objc func caretRect(for position: UITextPosition) -> CGRect { CGRect.zero }
@@ -35,7 +37,19 @@ public extension UITextField {
 
     @discardableResult
     func onChange(_ function: @escaping (UITextField) -> Void) -> Self {
-        bk_addObserver(forKeyPath: "text") { argument in function(self) }
+        bk_addEventHandler({ _ in function(self) }, for: .editingChanged)
+        return self
+    }
+
+
+    @discardableResult
+    func onTextChange(_ function: @escaping (UITextField) -> Void) -> Self {
+        bk_addEventHandler({ [self] _ in
+            if text != values[previousTextKey] as? String {
+                values[previousTextKey] = text
+                function(self)
+            }
+        }, for: .editingChanged)
         return self
     }
 
@@ -49,7 +63,7 @@ public extension UITextField {
     }
 
     @discardableResult
-    func html(_ text: String) -> Self {
+    func text(html: String) -> Self {
         let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"
         let html = (text + String(format: htmlStyleFormat, font!.fontName, font!.pointSize))
         let htmlData = html.data(using: .unicode, allowLossyConversion: true)
@@ -64,29 +78,25 @@ public extension UITextField {
     @discardableResult
     public func text(_ value: String?) -> Self { invoke { self.text = value } }
 
-    //TODO: text(align:
     @discardableResult
-    func alignText(_ alignment: NSTextAlignment) -> Self { invoke { self.textAlignment = alignment } }
+    func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
 
-    //TODO: text(color:
     @discardableResult
-    func textColor(_ textColor: UIColor) -> Self { invoke { self.textColor = textColor } }
+    func text(color: UIColor) -> Self { invoke { self.textColor = textColor } }
 
     @discardableResult
     func font(_ font: UIFont) -> Self { invoke { self.font = font } }
 
-    //TODO: font(size:
     @discardableResult
-    func fontSize(_ size: CGFloat) -> Self { invoke { self.fontSize = size } }
+    func font(size: CGFloat) -> Self { invoke { self.fontSize = size } }
 
     var fontSize: CGFloat {
         get { font!.fontDescriptor.pointSize }
         set { font = font!.withSize(newValue) }
     }
 
-    //TODO: font(style:
     @discardableResult
-    func fontStyle(_ style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
+    func font(style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
 
     var fontStyle: UIFont.TextStyle {
         get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }

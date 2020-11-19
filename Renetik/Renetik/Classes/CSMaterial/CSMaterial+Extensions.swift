@@ -16,22 +16,20 @@ public class CSMaterialButton: UIButton {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
-    @objc override open func onTouchUp(_ block: @escaping Func) -> Self {
+    override open func onTouchUp(_ block: @escaping Func) -> Self {
         super.onTouchUp(block)
         inkTouchController.addRipple(to: self)
         return self
     }
 }
 
-public class CSMaterialCard: MDCCard {
-
-}
+public class CSMaterialCard: MDCCard {}
 
 public class CSMaterialImageView: UIImageView {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
-    @objc override open func onClick(_ block: @escaping Func) -> Self {
+    override open func onClick(_ block: @escaping Func) -> Self {
         super.onClick(block)
         inkTouchController.addRipple(to: self)
         return self
@@ -42,20 +40,37 @@ public class CSMaterialLabel: UILabel {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
-    @objc override open func onClick(_ block: @escaping Func) -> Self {
+    override open func onClick(_ block: @escaping Func) -> Self {
         super.onClick(block)
         inkTouchController.addRipple(to: self)
         return self
     }
 }
 
-public class CSMaterialView: CSView {
+public class CSMaterialControl: UIControl {
 
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
-    @objc override open func onClick(_ block: @escaping Func) -> Self {
+    override open func onClick(_ block: @escaping Func) -> Self {
         super.onClick(block)
+        isUserInteractionEnabled = true
+        inkTouchController.addRipple(to: self)
+        return self
+    }
+
+    @discardableResult
+    override open func onTouchUp(_ block: @escaping Func) -> Self {
+        super.onTouchUp(block)
+        isUserInteractionEnabled = true
+        inkTouchController.addRipple(to: self)
+        return self
+    }
+
+    @discardableResult
+    override open func onTouchDown(_ block: @escaping Func) -> Self {
+        super.onTouchDown(block)
+        isUserInteractionEnabled = true
         inkTouchController.addRipple(to: self)
         return self
     }
@@ -63,7 +78,7 @@ public class CSMaterialView: CSView {
 
 public extension MDCCard {
     @discardableResult
-    open override func construct() -> Self {
+    override open func construct() -> Self {
         super.construct()
         clipsToBounds = false
         isInteractable = false
@@ -71,7 +86,7 @@ public extension MDCCard {
     }
 
     @discardableResult
-    open override func onTouchUp(_ block: @escaping Func) -> Self {
+    override open func onTouchUp(_ block: @escaping Func) -> Self {
         super.onTouchUp(block)
         isInteractable = true
         isUserInteractionEnabled = true
@@ -79,7 +94,7 @@ public extension MDCCard {
     }
 
     @discardableResult
-    open override func onTap(_ block: @escaping Func) -> Self {
+    override open func onTap(_ block: @escaping Func) -> Self {
         super.onTap(block)
         isInteractable = true
         isUserInteractionEnabled = true
@@ -87,7 +102,7 @@ public extension MDCCard {
     }
 
     @discardableResult
-    open override func onTouchDown(_ block: @escaping Func) -> Self {
+    override open func onTouchDown(_ block: @escaping Func) -> Self {
         super.onTouchDown(block)
         isInteractable = true
         isUserInteractionEnabled = true
@@ -96,7 +111,7 @@ public extension MDCCard {
 }
 
 extension MDCFloatingButton {
-    open override func construct() -> Self {
+    override open func construct() -> Self {
         super.construct()
         clipsToBounds = false
         return self
@@ -113,7 +128,7 @@ public extension MDCButton {
 }
 
 public extension MDCMultilineTextField {
-    open override func construct() -> Self {
+    override open func construct() -> Self {
         super.construct()
         clipsToBounds = false
         return self
@@ -121,7 +136,7 @@ public extension MDCMultilineTextField {
 }
 
 public extension MDCTextField {
-    open override func construct() -> Self {
+    override open func construct() -> Self {
         super.construct()
         clipsToBounds = false
         return self

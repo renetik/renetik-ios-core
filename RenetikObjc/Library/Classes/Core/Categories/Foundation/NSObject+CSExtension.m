@@ -20,28 +20,28 @@ static void *extensionPropertyDictionary = &extensionPropertyDictionary;
     return [self.class conformsToProtocol:aProtocol] ? self : nil;
 }
 
-- (NSMutableDictionary *)propertyDictionary {
-    var dictionary = (NSMutableDictionary *) [self getObject:extensionPropertyDictionary];
-    if (!dictionary) {
-        dictionary = NSMutableDictionary.new;
-        [self setObject:extensionPropertyDictionary :dictionary];
-    }
-    return dictionary;
-}
+//- (NSMutableDictionary *)propertyDictionary {
+//    var dictionary = (NSMutableDictionary *) [self getObject:extensionPropertyDictionary];
+//    if (!dictionary) {
+//        dictionary = NSMutableDictionary.new;
+//        [self setObject:extensionPropertyDictionary :dictionary];
+//    }
+//    return dictionary;
+//}
 
-- (instancetype)setObject:(const void *)key :(id)value {
-    [self bk_associateValue:value withKey:key];
-    return self;
-}
+//- (instancetype)setObject:(const void *)key :(id)value {
+//    [self bk_associateValue:value withKey:key];
+//    return self;
+//}
 
-- (instancetype)setWeakObject:(const void *)key :(id)value {
-    [self bk_weaklyAssociateValue:value withKey:key];
-    return self;
-}
+//- (instancetype)setWeakObject:(const void *)key :(id)value {
+//    [self bk_weaklyAssociateValue:value withKey:key];
+//    return self;
+//}
 
-- (id)getObject:(const void *)key {
-    return [self bk_associatedValueForKey:key];
-}
+//- (id)getObject:(const void *)key {
+//    return [self bk_associatedValueForKey:key];
+//}
 
 - (instancetype)addNotificationObserver:(SEL)sel name:(NSString *)name {
     [NSNotificationCenter.defaultCenter addObserver:self selector:sel name:name object:nil];
