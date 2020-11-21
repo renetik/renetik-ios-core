@@ -15,7 +15,7 @@ public extension CSTableController {
     @discardableResult
     public func scrollToBottom() -> Self {
         if isLoading || isFirstLoadingDone.isFalse {
-            onLoading.invokeOnce { response in response.onDone { _ in self.scrollToBottom() } }
+            onLoading.listenOnce { response in response.onDone { _ in self.scrollToBottom() } }
         } else {
             later { self.scrollToBottom() }
         }

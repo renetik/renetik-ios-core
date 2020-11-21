@@ -102,7 +102,7 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = true
         invoke(animated: animated, operation: {
             navigation.navigationBar.bottom = UIApplication.statusBarBottom
-            self.parentController.view.height(fromTop: navigation.navigationBar.bottom)
+            self.parentController.view.margin(top: navigation.navigationBar.bottom)
         }, completion: {
             navigation.navigationBar.hide()
             self.isHidingRunning = false
@@ -128,7 +128,7 @@ public class CSNavigationHidingController: CSMainController {
         navigation.navigationBar.show()
         invoke(animated: animated, operation: {
             navigation.navigationBar.top = UIApplication.statusBarBottom
-            self.parentController.view.height(fromTop: navigation.navigationBar.bottom)
+            self.parentController.view.margin(top: navigation.navigationBar.bottom)
         }, completion: {
             self.isShowingRunning = false
             if self.shouldHide { self.requestNavigationBarHidden() }

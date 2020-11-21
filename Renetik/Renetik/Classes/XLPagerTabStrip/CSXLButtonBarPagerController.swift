@@ -80,10 +80,10 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
         if visible {
             let buttonBarHeight = pager.settings.style.buttonBarHeight ?? 44
             pager.buttonBarView.height = buttonBarHeight
-            pager.containerView.height(fromTop: buttonBarHeight)
+            pager.containerView.margin(top: buttonBarHeight)
         } else {
             pager.buttonBarView.height = 0
-            pager.containerView.height(fromTop: 0)
+            pager.containerView.margin(top: 0)
         }
     }
 

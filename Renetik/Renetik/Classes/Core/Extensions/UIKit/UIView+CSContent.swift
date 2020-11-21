@@ -12,10 +12,10 @@ private var viewContentPropertyKey: Void?
 public extension UIView {
 
     var content: UIView? {
-        get { getObject(&viewContentPropertyKey) as? UIView }
+        get { associatedValue(&viewContentPropertyKey) as? UIView }
         set(view) {
             content?.removeFromSuperview()
-            setWeakObject(&viewContentPropertyKey, view)
+            weaklyAssociateValue(&viewContentPropertyKey, view)
             view.notNil { add($0) }
         }
     }

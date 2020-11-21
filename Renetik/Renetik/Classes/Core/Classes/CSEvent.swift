@@ -45,27 +45,27 @@ public class CSEvent<Type> {
     }
 
     @discardableResult
-    public func invoke(listener: @escaping (Type) -> Void) -> CSEventListener<Type> {
+    public func listen(function: @escaping (Type) -> Void) -> CSEventListener<Type> {
         registrations.add(CSEventListener(event: self, function: { _, argument in
-            listener(argument)
+            function(argument)
         }))
     }
 
     @discardableResult
-    public func invoke(listener: @escaping (CSEventListener<Type>, Type) -> Void) -> CSEventListener<Type> {
-        registrations.add(CSEventListener(event: self, function: listener))
-    }
-
-    public func remove(listener: CSEventListener<Type>) {
-        registrations.remove(all: listener)
+    public func listen(function: @escaping (CSEventListener<Type>, Type) -> Void) -> CSEventListener<Type> {
+        registrations.add(CSEventListener(event: self, function: function))
     }
 
     @discardableResult
-    public func invokeOnce(listener: @escaping ArgFunc<Type>) -> CSEventListener<Type> {
-        invoke(listener: { registration, argument in
+    public func listenOnce(function: @escaping ArgFunc<Type>) -> CSEventListener<Type> {
+        listen(function: { registration, argument in
             registration.cancel()
-            listener(argument)
+            function(argument)
         })
+    }
+
+    fileprivate func remove(listener: CSEventListener<Type>) {
+        registrations.remove(all: listener)
     }
 }
 

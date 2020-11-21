@@ -41,6 +41,7 @@ Pod::Spec.new do |s|
 		ss.dependency 'UITextView+Placeholder', '~> 1'
 		ss.dependency 'MBProgressHUD', '~> 1'
 		ss.dependency 'ChameleonFramework', '~> 2'
+		ss.dependency 'TPKeyboardAvoiding', '~> 1'
 	end
 
 	s.subspec 'Alamofire' do |ss|

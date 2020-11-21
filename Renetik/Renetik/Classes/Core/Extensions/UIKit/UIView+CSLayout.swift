@@ -102,13 +102,28 @@ public extension UIView {
     }
 
     @discardableResult
+    func asParent(margin: CGFloat = 0) -> Self {
+        asParentWidth(margin: margin).asParentHeight(margin: margin)
+    }
+
+    @discardableResult
     func matchParent(margin: (horizontal: CGFloat, vertical: CGFloat)) -> Self {
         matchParentWidth(margin: margin.horizontal).matchParentHeight(margin: margin.vertical)
     }
 
     @discardableResult
+    func asParent(margin: (horizontal: CGFloat, vertical: CGFloat)) -> Self {
+        asParentWidth(margin: margin.horizontal).asParentHeight(margin: margin.vertical)
+    }
+
+    @discardableResult
     func matchParentWidth(margin: CGFloat = 0) -> Self {
         from(left: margin).width(fromRight: margin, flexible: true)
+    }
+
+    @discardableResult
+    func asParentWidth(margin: CGFloat = 0) -> Self {
+        from(left: margin).width(fromRight: margin, flexible: false)
     }
 
     @discardableResult
@@ -122,6 +137,11 @@ public extension UIView {
     }
 
     @discardableResult
+    func asParentHeight(margin: CGFloat = 0) -> Self {
+        from(top: margin).height(fromBottom: margin, flexible: false)
+    }
+
+    @discardableResult
     func matchParentHeight(margin: (top: CGFloat, bottom: CGFloat)) -> Self {
         from(top: margin.top).height(fromBottom: margin.bottom, flexible: true)
     }
@@ -131,28 +151,51 @@ public extension UIView {
         from(left: margin.left).margin(right: margin.right)
     }
 
+    @discardableResult
+    func margin(horizontal margin: CGFloat) -> Self {
+        from(left: margin).margin(right: margin)
+    }
+
     func margin(vertical margin: (top: CGFloat, bottom: CGFloat)) -> Self {
         from(top: margin.top).margin(bottom: margin.bottom)
     }
 
-    @discardableResult
-    func margin(left: CGFloat) -> Self { width(fromLeft: left) }
+    func margin(vertical margin: CGFloat) -> Self {
+        from(top: margin).margin(bottom: margin)
+    }
 
     @discardableResult
-    func margin(from: UIView, left: CGFloat) -> Self { width(from: from, left: left) }
+    func margin(left margin: CGFloat, flexible: Bool = false) -> Self {
+        width = (right - margin).unsigned
+        if flexible { fixedRight().flexibleWidth() }
+        from(left: margin)
+        return self
+    }
 
     @discardableResult
-    func margin(top: CGFloat) -> Self { height(fromTop: top) }
+    func margin(from: UIView, left: CGFloat, flexible: Bool = false) -> Self {
+        self.margin(left: from.right + left, flexible: flexible)
+    }
 
     @discardableResult
-    func margin(right: CGFloat) -> Self { width(fromRight: right) }
+    func margin(top margin: CGFloat, flexible: Bool = false) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let bottomCorrected = bottom - margin > 0 ? bottom : superview!.height
+        height = (bottomCorrected - margin).unsigned
+        from(top: margin)
+        if flexible { fixedBottom().flexibleHeight() }
+        return self
+    }
 
     @discardableResult
-    func margin(bottom: CGFloat) -> Self { height(fromBottom: bottom) }
+    func margin(right: CGFloat, flexible: Bool = false) -> Self { width(fromRight: right, flexible: flexible) }
+
+    @discardableResult
+    func margin(bottom: CGFloat, flexible: Bool = false) -> Self { height(fromBottom: bottom, flexible: flexible) }
 
     @discardableResult
     func fillToRight(margin: CGFloat = 0, flexible: Bool = true) -> Self {
-        width(fromRight: margin, flexible: flexible)
+        self.margin(right: margin, flexible: flexible)
     }
 
     @discardableResult
@@ -170,21 +213,8 @@ public extension UIView {
     }
 
     @discardableResult
-    func width(fromLeft: CGFloat, flexible: Bool = false) -> Self {
-        width = (right - fromLeft).unsigned
-        if flexible { fixedRight().flexibleWidth() }
-        from(left: fromLeft)
-        return self
-    }
-
-    @discardableResult
-    func width(from view: UIView, left: CGFloat, flexible: Bool = false) -> Self {
-        width(fromLeft: view.right + left, flexible: flexible)
-    }
-
-    @discardableResult
     func fillToBottom(margin: CGFloat = 0, flexible: Bool = true) -> Self {
-        height(fromBottom: margin, flexible: flexible)
+        self.margin(bottom: margin, flexible: flexible)
     }
 
     @discardableResult
@@ -202,18 +232,8 @@ public extension UIView {
     }
 
     @discardableResult
-    func height(fromTop: CGFloat, flexible: Bool = false) -> Self {
-        assert(superview.notNil, "Needs to have superview")
-        let bottomCorrected = bottom - fromTop > 0 ? bottom : superview!.height
-        height = (bottomCorrected - fromTop).unsigned
-        from(top: fromTop)
-        if flexible { fixedBottom().flexibleHeight() }
-        return self
-    }
-
-    @discardableResult
     func height(from view: UIView, top: CGFloat, flexible: Bool = false) -> Self {
-        height(fromTop: view.bottom + top, flexible: flexible)
+        margin(top: view.bottom + top, flexible: flexible)
     }
 
     @discardableResult

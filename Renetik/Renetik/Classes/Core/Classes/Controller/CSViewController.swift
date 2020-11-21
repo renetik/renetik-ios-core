@@ -44,7 +44,7 @@ open class CSViewController: UIViewController {
     @discardableResult
     open func construct(_ parent: UIViewController) -> Self {
         if let parent = parent as? CSViewController {
-            self.register(event: parent.eventDismissing.invokeOnce(listener: onViewDismissing))
+            self.register(event: parent.eventDismissing.listenOnce(function: onViewDismissing))
         }
         return self
     }
@@ -226,13 +226,13 @@ open class CSViewController: UIViewController {
     open func onDisplayChangedTo(darkMode: Bool) {}
 
     public func layout(function: @escaping Func) {
-        layoutFunctions.invoke(listener: function)
+        layoutFunctions.listen(function: function)
         function()
     }
 
     @discardableResult
     public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.invoke { function(view) }
+        layoutFunctions.listen { function(view) }
         function(view)
         return view
     }

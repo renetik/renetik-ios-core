@@ -10,37 +10,46 @@ private var associatedPropertyValuesKey: Void?
 public extension NSObject {
 
     var values: NSMutableDictionary {
-        getObject(&associatedPropertyValuesKey) { NSMutableDictionary() }
+        associatedValue(&associatedPropertyValuesKey) { NSMutableDictionary() }
     }
 
-    func getObject<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
-        var object: T? = getObject(key) as? T
+    func value<T>(_ key: String, onCreate: () -> T) -> T {
+        var object: T? = values.get(key) as? T
         if object == nil {
             object = onCreate()
-            setObject(key, object)
+            values.put(key, object)
         }
         return object!
     }
 
-    func getWeakObject<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
-        var object: T? = getObject(key) as? T
+    func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+        var object: T? = associatedValue(key) as? T
         if object == nil {
             object = onCreate()
-            setWeakObject(key, object)
+            associateValue(key, object)
         }
         return object!
     }
 
-    func getObject(_ key: UnsafeRawPointer!) -> Any? {
+    func weaklyAssociatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+        var object: T? = associatedValue(key) as? T
+        if object == nil {
+            object = onCreate()
+            weaklyAssociateValue(key, object)
+        }
+        return object!
+    }
+
+    func associatedValue(_ key: UnsafeRawPointer!) -> Any? {
         bk_associatedValue(forKey: key)
     }
 
-    func setObject(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+    func associateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
         bk_associateValue(value, withKey: key)
         return self
     }
 
-    func setWeakObject(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+    func weaklyAssociateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
         bk_weaklyAssociateValue(value, withKey: key)
         return self
     }

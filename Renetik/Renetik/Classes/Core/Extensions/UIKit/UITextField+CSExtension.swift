@@ -41,15 +41,17 @@ public extension UITextField {
         return self
     }
 
-
     @discardableResult
     func onTextChange(_ function: @escaping (UITextField) -> Void) -> Self {
-        bk_addEventHandler({ [self] _ in
+        func onChange() {
             if text != values[previousTextKey] as? String {
                 values[previousTextKey] = text
                 function(self)
             }
-        }, for: .editingChanged)
+        }
+
+        bk_addEventHandler({ _ in onChange() }, for: .editingChanged)
+        bk_addObserver(forKeyPath: "text") { _ in onChange() }
         return self
     }
 

@@ -10,6 +10,15 @@ public extension UIImageView {
         construct().image(image)
     }
 
+//    class func with(clear clearImage: UIImage, clearTint: UIColor? = nil, size: CGFloat = 16) -> Self {
+//        with(clear: CSView.construct().size(40).also {
+//            $0.add(view: CSImageView.construct()) {
+//                $0.image = clearImage
+//                clearTint?.also { self.tintColor = $0 }
+//            }.size(size).centered()
+//        }.resizeToFitSubviews())
+//    }
+
     override func construct() -> Self {
         super.construct().aspectFit().clipsToBounds()
         return self
@@ -18,6 +27,8 @@ public extension UIImageView {
     func resizableImage(capInsets insets: UIEdgeInsets) -> Self {
         invoke { image = image!.resizableImage(withCapInsets: insets) }
     }
+
+
 
     @discardableResult
     func image(_ image: UIImage) -> Self { invoke { self.image = image } }
