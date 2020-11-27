@@ -114,6 +114,9 @@ public extension UIView {
     func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
 
     @discardableResult
+    func shown(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
+
+    @discardableResult
     func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
 
     @discardableResult

@@ -4,13 +4,13 @@
 
 import Foundation
 
-public protocol CSHasStyle {
+public protocol CSHasStyleProtocol {
     func styledLight()
     func styledDark()
 }
 
 //TODO: get dark or light from delegate probably where it can be changed by code but default goes from system
-public extension CSHasStyle {
+public extension CSHasStyleProtocol {
     @discardableResult
     func styled() -> Self {
         styledLight()

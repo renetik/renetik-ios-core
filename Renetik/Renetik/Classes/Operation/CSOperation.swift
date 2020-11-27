@@ -10,7 +10,7 @@ public protocol CSOperationProtocol {
     func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self
 }
 
-public class CSOperation<Data>: CSAny, CSOperationProtocol {
+public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     public let title: String
     public var data: Data?

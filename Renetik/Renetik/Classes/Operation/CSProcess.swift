@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class CSProcess<Data>: CSAny, CSProcessProtocol {
+public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     private let eventSuccess: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult

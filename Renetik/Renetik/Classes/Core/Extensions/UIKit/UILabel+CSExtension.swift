@@ -12,6 +12,7 @@ public extension UILabel {
 
     override func construct() -> Self {
         super.construct()
+        numberOfLines = 0
         lineBreakMode = .byTruncatingTail
         return self
     }

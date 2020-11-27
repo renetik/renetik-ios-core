@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import RenetikObjc
 
-public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerViewDelegate, UIPickerViewDataSource {
+public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPickerViewDelegate, UIPickerViewDataSource {
 
     public var isPickerVisible: Bool = false
 
@@ -22,8 +22,8 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
 
     @discardableResult
     public func showPicker(from parent: UIViewController, title: String, items: [CustomStringConvertible], selected selectedIndex: Int,
-                           from displayElement: CSDisplayElement, onCancel: (Func)?,
-                           onDone: @escaping (Int) -> Void) -> CSHasPickerVisible {
+            from displayElement: CSDisplayElement, onCancel: (Func)?,
+            onDone: @escaping (Int) -> Void) -> CSPickerVisibleProtocol {
         super.constructAsViewLess(in: parent)
         self.items = items
         self.onDone = onDone
@@ -31,8 +31,12 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
         let window = delegate.window!
         UIApplication.resignFirstResponder() // Hide keyboard or whatever so it don't overlap our view
         window.add(disablerView).matchParent()
-        layout(disablerView.add(pickerView).matchParentWidth()) { $0.heightToFit().from(bottom: 0) }
-        layout(disablerView.add(toolBar).matchParentWidth()) { $0.heightToFit().from(self.pickerView, bottom: 0) }
+        layout(disablerView.add(pickerView).matchParentWidth()) {
+            $0.heightToFit().from(bottom:  0)
+        }
+        layout(disablerView.add(toolBar).matchParentWidth()) {
+            $0.heightToFit().from(self.pickerView, bottom: 0)
+        }
         window.layoutIfNeeded()
         pickerView.selectRow(selectedIndex, inComponent: 0, animated: false)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1,
@@ -65,7 +69,7 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
         let cancelButton = UIBarButtonItem(item: .cancel) { _ in self.onCancelClicked() }
         let doneButton = UIBarButtonItem(item: .done) { _ in self.onDoneClicked() }
         toolBar.items = [UIBarButtonItem.space(7), cancelButton, .flexSpaceItem,
-                         doneButton, UIBarButtonItem.space(7)]
+                doneButton, UIBarButtonItem.space(7)]
         return toolBar
     }()
 
@@ -76,7 +80,7 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
     }
 
     public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
-                           forComponent component: Int) -> NSAttributedString? {
+            forComponent component: Int) -> NSAttributedString? {
         NSAttributedString(string: String(describing: items[row]),
                 attributes: [.foregroundColor: pickerItemTextColor, .font: pickerItemFont])
     }

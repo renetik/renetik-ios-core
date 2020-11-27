@@ -4,10 +4,10 @@
 
 import RenetikObjc
 
-public typealias CSTableControllerRow = CSAny
+public typealias CSTableControllerRow = CSAnyProtocol
 //                                        & Equatable & CustomStringConvertible
 public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
-                                           CSOperationController & CSHasDialog & CSHasProgress
+                                           CSOperationController & CSHasDialog & CSHasProgressProtocol
 
 public protocol CSTableControllerProtocol {
     var tableView: UITableView { get }

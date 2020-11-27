@@ -6,6 +6,8 @@ public func event<Type>() -> CSEvent<Type> { CSEvent<Type>() }
 public func event() -> CSEvent<Void> { CSEvent<Void>() }
 
 public class CSEventRegistration: CSObject {
+    open var isActive = true
+
     open func cancel() { fatalError() }
 }
 
@@ -25,12 +27,17 @@ public class CSEventListener<Type>: CSEventRegistration {
         self.function = function
     }
 
+    private var canceled = false
+
     override public func cancel() {
+        if canceled { return }
+        isActive = false
         event.remove(listener: self)
+        canceled = true
     }
 
     fileprivate func fire(_ argument: Type) {
-        function(self, argument)
+        if isActive { function(self, argument) }
     }
 }
 

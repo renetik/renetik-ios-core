@@ -5,6 +5,7 @@
 
 import Foundation
 
+public typealias Boolean = Bool
 public typealias Func = () -> Void
 public typealias ArgFunc<Argument> = (Argument) -> Void
 
@@ -84,7 +85,7 @@ public func notNil(_ items: Any?...) -> Bool {
     return true
 }
 
-public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
+public func isAnyNil(_ items: Any?...) -> Bool { !notNil(items) }
 
 public func when<Type>(notNil item: Type?, then: ArgFunc<Type>) {
     if item.notNil { then(item!) }
@@ -94,15 +95,15 @@ public func when<Type>(isNil item: Type?, then: Func) {
     if item.isNil { then() }
 }
 
-open class CSObject: CSAny, Equatable, CustomStringConvertible {
+open class CSObject: CSAnyProtocol, Equatable, CustomStringConvertible {
     public init() {}
 
     public static func ==(lhs: CSObject, rhs: CSObject) -> Bool { lhs === rhs }
 
-    public var description: String { "\(type(of: self))" }
+    open var description: String { "\(type(of: self))" }
 }
 
-public class Nil: CSAny, Equatable {
+public class Nil: CSAnyProtocol, Equatable {
     private init() {}
 
     public static var instance: Nil = Nil()
@@ -110,23 +111,23 @@ public class Nil: CSAny, Equatable {
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
-extension IndexPath: CSAny {}
+extension IndexPath: CSAnyProtocol {}
 
-extension NSObject: CSAny {}
+extension NSObject: CSAnyProtocol {}
 
-extension String: CSAny {}
+extension String: CSAnyProtocol {}
 
-extension Int: CSAny {}
+extension Int: CSAnyProtocol {}
 
-extension Float: CSAny {}
+extension Float: CSAnyProtocol {}
 
-extension Double: CSAny {}
+extension Double: CSAnyProtocol {}
 
-extension CGFloat: CSAny {}
+extension CGFloat: CSAnyProtocol {}
 
-extension Array: CSAny {}
+extension Array: CSAnyProtocol {}
 
-extension Dictionary: CSAny {}
+extension Dictionary: CSAnyProtocol {}
 
 func function(if boolean: Bool, function: Func) -> CSConditionalResult {
     if boolean { function() }

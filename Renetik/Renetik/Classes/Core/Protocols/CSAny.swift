@@ -4,10 +4,10 @@
 
 import Foundation
 
-public protocol CSAny {
+public protocol CSAnyProtocol {
 }
 
-public extension CSAny {
+public extension CSAnyProtocol {
 
     public static func cast(_ object: Any) -> Self { object as! Self }
 
@@ -57,7 +57,7 @@ public extension CSAny {
     }
 }
 
-public extension CSAny where Self: NSObject { //TODO: Use custom isEqual
+public extension CSAnyProtocol where Self: NSObject { //TODO: Use custom isEqual
     public func equals(one objects: NSObject...) -> Bool {
         if objects.contains(self) { return true }
         return false

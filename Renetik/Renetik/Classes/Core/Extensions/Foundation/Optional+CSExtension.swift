@@ -8,7 +8,7 @@ public protocol OptionalProtocol {
     var asString: String { get }
 }
 
-extension Optional: OptionalProtocol, CSAny {
+extension Optional: OptionalProtocol, CSAnyProtocol {
     public var asString: String {
         if self == nil { return "" } else { return "\(self!)" }
     }

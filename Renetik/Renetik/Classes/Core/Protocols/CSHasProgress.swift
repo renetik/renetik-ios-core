@@ -4,11 +4,11 @@
 
 import Foundation
 
-public protocol CSHasProgress {
+public protocol CSHasProgressProtocol {
     func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible
 }
 
-public extension CSHasProgress {
+public extension CSHasProgressProtocol {
     func show(progress title: String, onCancel: (Func)? = nil) -> CSHasDialogVisible {
         show(progress: title, cancel: onCancel.notNil ?
                 CSDialogAction(title: CSStrings.dialogCancel, action: onCancel!) : nil)

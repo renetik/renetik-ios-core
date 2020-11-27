@@ -111,7 +111,7 @@ public class CSAlamofireClient: CSObject {
     private func onResponse<DataType: CSServerJsonData>(content: String?, _ process: CSProcess<DataType>) {
         logInfo("\(process.url!) \(content ?? "nil")")
         let jsonValue = content?.asNSString.jsonValue()
-        (jsonValue as? [String: CSAny?]).notNil { it in process.data!.load(data: it) }
+        (jsonValue as? [String: CSAnyProtocol?]).notNil { it in process.data!.load(data: it) }
                 .elseDo { onResponse(error: nil, message: INVALID_RESPONSE, process) }
         if process.data!.success { process.success() } else { onResponse(error: nil, message: process.data!.message ?? "No Message", process) }
     }

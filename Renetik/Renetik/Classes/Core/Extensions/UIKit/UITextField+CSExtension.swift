@@ -36,29 +36,44 @@ public extension UITextField {
     }
 
     @discardableResult
+    @objc override open func onClick(_ function: @escaping Func) -> Self {
+        bk_shouldBeginEditingBlock = { _ in function(); return false }
+        return self
+    }
+
+    @discardableResult
     func onChange(_ function: @escaping (UITextField) -> Void) -> Self {
         bk_addEventHandler({ _ in function(self) }, for: .editingChanged)
         return self
     }
 
+    private var eventTextChangeKey: String { "UITextField+eventTextChange" }
+    private var eventTextChange: CSEvent<Void> { value(eventTextChangeKey, onCreate: { event() }) }
+    private var isEventTextChangeRegistered: Bool { values[eventTextChangeKey] != nil }
+
     @discardableResult
     func onTextChange(_ function: @escaping (UITextField) -> Void) -> Self {
-        func onChange() {
-            if text != values[previousTextKey] as? String {
-                values[previousTextKey] = text
-                function(self)
+        if !isEventTextChangeRegistered {
+            func onChange() {
+                if text != values[previousTextKey] as? String {
+                    values[previousTextKey] = text
+                    eventTextChange.fire()
+                }
             }
-        }
 
-        bk_addEventHandler({ _ in onChange() }, for: .editingChanged)
-        bk_addObserver(forKeyPath: "text") { _ in onChange() }
+            bk_addEventHandler({ _ in onChange() }, for: .editingChanged)
+            bk_addEventHandler({ _ in onChange() }, for: .editingDidEnd)
+            bk_addEventHandler({ _ in onChange() }, for: .editingDidEndOnExit)
+            bk_addObserver(forKeyPath: "text") { _ in onChange() }
+        }
+        eventTextChange.listen { function(self) }
         return self
     }
 
     @discardableResult
-    func onClear(_ function: @escaping (UITextField) -> Void) -> Self {
+    @objc func onClear(_ function: @escaping () -> ()) -> Self {
         bk_shouldClearBlock = { _ in
-            function(self)
+            function()
             return true
         }
         return self

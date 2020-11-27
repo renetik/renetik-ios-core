@@ -27,6 +27,12 @@ public extension UIView {
     func from(top: CGFloat) -> Self { invoke { self.top = top; fixedTop() } }
 
     @discardableResult
+    func from(safeTop: CGFloat) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        return from(top: superview!.safeAreaInsets.top + 0)
+    }
+
+    @discardableResult
     func from(_ view: UIView?, top: CGFloat) -> Self { from(top: view?.get { $0.bottom + top } ?? top) }
 
     @discardableResult
@@ -56,6 +62,12 @@ public extension UIView {
 
     @discardableResult
     func from(bottom: CGFloat) -> Self { invoke { self.fromBottom = bottom; fixedBottom() } }
+
+    @discardableResult
+    func from(safeBottom: CGFloat) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        return from(bottom: superview!.safeAreaInsets.bottom + 0)
+    }
 
     @discardableResult
     func from(_ view: UIView?, bottom: CGFloat)
@@ -194,8 +206,8 @@ public extension UIView {
     func margin(bottom: CGFloat, flexible: Bool = false) -> Self { height(fromBottom: bottom, flexible: flexible) }
 
     @discardableResult
-    func fillToRight(margin: CGFloat = 0, flexible: Bool = true) -> Self {
-        self.margin(right: margin, flexible: flexible)
+    func fillTo(right: CGFloat = 0, flexible: Bool = true) -> Self {
+        self.margin(right: right, flexible: flexible)
     }
 
     @discardableResult

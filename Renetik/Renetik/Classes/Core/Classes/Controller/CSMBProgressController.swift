@@ -6,7 +6,7 @@ import Foundation
 import MBProgressHUD
 import ChameleonFramework
 
-public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible {
+public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialogVisible {
 
     public var backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.85)
     public var foregroundColor = UIColor.white

@@ -9,7 +9,7 @@ public class CSJsonData: CSObject {
     let onValueChangedEvent: CSEvent<JsonDataOnValueChange> = event()
     let onChangedEvent: CSEvent<CSJsonData> = event()
     var index = 0
-    private var _data: [String: CSAny?]!
+    private var _data: [String: CSAnyProtocol?]!
     private var childDataKey: String? = nil
     private var dataChanged = false
 
@@ -18,24 +18,24 @@ public class CSJsonData: CSObject {
     }
 
     @discardableResult
-    func load(data: [String: CSAny?]) -> Self {
+    func load(data: [String: CSAnyProtocol?]) -> Self {
         _data = data
         return self
     }
 
     @discardableResult
-    func construct() -> Self { load(data: [String: CSAny?]()) }
+    func construct() -> Self { load(data: [String: CSAnyProtocol?]()) }
 
-    open var data: [String: CSAny?] {
+    open var data: [String: CSAnyProtocol?] {
         childDataKey?.get { key in
-            (_data[key] as? [String: CSAny?]) ??
-                    [String: CSAny?]().also { _data[key] = $0 }
+            (_data[key] as? [String: CSAnyProtocol?]) ??
+                    [String: CSAnyProtocol?]().also { _data[key] = $0 }
         } ?? _data
     }
 
-    open func setValue(_ key: String, _ value: CSAny?) {
+    open func setValue(_ key: String, _ value: CSAnyProtocol?) {
         childDataKey.notNil { childKey in
-            var childData = (_data[key] as? [String: CSAny?]) ?? [String: CSAny?]()
+            var childData = (_data[key] as? [String: CSAnyProtocol?]) ?? [String: CSAnyProtocol?]()
             childData[key] = value
             _data[childKey] = childData
         }.elseDo {

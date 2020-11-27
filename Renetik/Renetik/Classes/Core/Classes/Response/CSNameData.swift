@@ -7,7 +7,7 @@
 
 import RenetikObjc
 
-open class CSName: CSDictionaryJsonData {
+open class CSNameData: CSDictionaryJsonData {
     public var nameKey = "name"
     public var idKey = "id"
 
@@ -33,8 +33,8 @@ open class CSName: CSDictionaryJsonData {
         self.init().construct(name, id)
     }
 
-    public class func createNames(fromStrings strings: [String]) -> [CSName] {
-        var names = [CSName]()
+    public class func createNames(fromStrings strings: [String]) -> [CSNameData] {
+        var names = [CSNameData]()
         var index = 0
         for name: String in strings {
             names.add(create(name)).index = index
@@ -52,14 +52,14 @@ open class CSName: CSDictionaryJsonData {
     open override var description: String { name }
 
     open override func isEqual(_ object: Any?) -> Bool {
-        if let nameObject = object as? CSName {
+        if let nameObject = object as? CSNameData {
             return nameObject.name == name
         }
         return super.isEqual(object)
     }
 
-    public class func find(nameId: String, _ names: [CSName]) -> CSName? {
-        for name: CSName in names {
+    public class func find(nameId: String, _ names: [CSNameData]) -> CSNameData? {
+        for name: CSNameData in names {
             if name.id.equals(nameId) == true {
                 return name
             }
@@ -67,8 +67,8 @@ open class CSName: CSDictionaryJsonData {
         return nil
     }
 
-    public class func find(name: String, _ names: [CSName]) -> CSName? {
-        for nameObject: CSName in names {
+    public class func find(name: String, _ names: [CSNameData]) -> CSNameData? {
+        for nameObject: CSNameData in names {
             if nameObject.name.equals(name) {
                 return nameObject
             }

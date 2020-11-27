@@ -4,13 +4,13 @@
 
 import UIKit
 
-public protocol CSHasSheet {
+public protocol CSHasSheetProtocol {
     @discardableResult
     func show(title: String?, message: String?, actions: [CSDialogAction]?, positive: CSDialogAction?,
               cancel: CSDialogAction?, from: CSDisplayElement) -> CSHasDialogVisible
 }
 
-public extension CSHasSheet {
+public extension CSHasSheetProtocol {
     @discardableResult
     func show(actions: [CSDialogAction], from: CSDisplayElement) -> CSHasDialogVisible {
         show(title: nil, message: nil, actions: actions, positive: nil,

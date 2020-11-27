@@ -12,21 +12,21 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
     public var onCellCreate: ((UITableViewCell) -> Void)? = nil
-    public var selectedName: CSName?
-    private var names: [CSName] = []
-    private var filteredData: [CSName] = []
-    private var onSelected: ((CSName) -> Void)!
-    private var onDelete: ((CSName) -> CSResponseProtocol)?
+    public var selectedName: CSNameData?
+    private var names: [CSNameData] = []
+    private var filteredData: [CSNameData] = []
+    private var onSelected: ((CSNameData) -> Void)!
+    private var onDelete: ((CSNameData) -> CSResponseProtocol)?
 
     @discardableResult
-    public func construct(data: [CSName], onSelected: @escaping (CSName) -> Void) -> Self {
+    public func construct(data: [CSNameData], onSelected: @escaping (CSNameData) -> Void) -> Self {
         self.names = data
         self.onSelected = onSelected
         return self
     }
 
     @discardableResult
-    public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSName) -> CSResponse<T>) -> Self {
+    public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSNameData) -> CSResponse<T>) -> Self {
         self.onDelete = onDelete
         menu(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
         return self
