@@ -12,9 +12,14 @@ extension Optional: OptionalProtocol, CSAnyProtocol {
     public var asString: String {
         if self == nil { return "" } else { return "\(self!)" }
     }
+    public var asInt: Int {
+        let value = asString
+        return value.isEmpty ? 0 : value.intValue
+    }
 }
 
 public extension Optional {
+
     public var notNil: Bool { self != nil }
 
     public var isNil: Bool { self == nil }
@@ -40,18 +45,22 @@ public extension Optional {
     public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
         if self != nil { return function(self!) } else { return nil }
     }
+}
 
-    public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
-        if String(describing: self) == String(describing: object) { return true }
-        return false
+public extension Optional where Wrapped: AnyObject {
+    public func equals<T>(to object: T?) -> Bool where T: AnyObject {
+        if self == nil { return object == nil } else { return self! === object }
     }
 }
 
-public extension Optional where Wrapped: NSObject { //TODO: Use custom isEqual
-    public func equals(one objects: NSObject...) -> Bool {
-        if notNil { if objects.contains(self!) { return true } }
-        return false
+public extension Optional where Wrapped == String {
+    var boolValue: Bool {
+        if self == nil { return false } else { return unsafelyUnwrapped.boolValue }
     }
+}
+
+public extension Optional where Wrapped: Equatable {
+    public func equals(any objects: Wrapped...) -> Bool { objects.contains { $0 == self } }
 }
 
 public class CSConditionalResultNotNil<Type> {

@@ -43,9 +43,8 @@ open class CSViewController: UIViewController {
 
     @discardableResult
     open func construct(_ parent: UIViewController) -> Self {
-        if let parent = parent as? CSViewController {
-            self.register(event: parent.eventDismissing.listenOnce(function: onViewDismissing))
-        }
+        (parent as? CSViewController)
+                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
         return self
     }
 

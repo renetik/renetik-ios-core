@@ -27,14 +27,14 @@ public struct CSDialogAction {
     }
 }
 
-public protocol CSHasDialog {
+public protocol CSHasDialogProtocol {
     @discardableResult
     func show(title: String?, message: String,
               positive: CSDialogAction?, negative: CSDialogAction?,
               cancel: CSDialogAction?) -> CSHasDialogVisible
 }
 
-public extension CSHasDialog {
+public extension CSHasDialogProtocol {
     @discardableResult
     public func show(message: String,
                      positiveTitle: String = CSStrings.dialogYes,

@@ -16,10 +16,10 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
     private var reloadResponse: CSResponse<Data>?
     private var data: Data?
     private var request: (() -> CSResponse<Data>)!
-    private var progressBlockedView: (CSResponseController & CSHasDialog)!
+    private var progressBlockedView: (CSResponseController & CSHasDialogProtocol)!
 
     public func construct(_ parent: UIViewController,
-                          _ progressBlockedView: (CSResponseController & CSHasDialog),
+                          _ progressBlockedView: (CSResponseController & CSHasDialogProtocol),
                           _ request: @escaping () -> CSResponse<Data>) -> Self {
         super.constructAsViewLess(in: parent)
         self.progressBlockedView = progressBlockedView

@@ -6,8 +6,8 @@ import Foundation
 import RenetikObjc
 
 public extension CSOperation where Data: AnyObject {
-    convenience init(title: String, request: @escaping () -> CSResponse<Data>) {
-        self.init(title: title, function: { operation in
+    convenience init(request: @escaping () -> CSResponse<Data>) {
+        self.init(function: { operation in
             let response = request()
             response.force(operation.isRefresh)
             let process = CSProcess(response.data)

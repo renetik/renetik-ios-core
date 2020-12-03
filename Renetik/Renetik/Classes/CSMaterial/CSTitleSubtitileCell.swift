@@ -18,11 +18,11 @@ class CSTitleSubtitleCell: CSTableViewCell {
 
     override func construct() -> Self {
         super.construct()
-        contentView.add(card).matchParent(margin: 5)
-        layout(card.add(titleLabel).from(top: 7).matchParentWidth(margin: 7)) {
+        contentView.add(view: card).matchParent(margin: 5)
+        layout(card.add(view: titleLabel).from(top: 7).matchParentWidth(margin: 7)) {
             $0.heightToFit()
         }
-        layout(card.add(subtitleLabel).matchParentWidth(margin: 7)) {
+        layout(card.add(view: subtitleLabel).matchParentWidth(margin: 7)) {
             $0.from(self.titleLabel, top: 7).heightToFit()
         }
         card.onTouchUp { self.onCLick?() }

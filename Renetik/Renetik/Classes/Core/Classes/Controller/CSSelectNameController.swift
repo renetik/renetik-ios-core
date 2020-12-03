@@ -7,26 +7,29 @@
 
 import RenetikObjc
 
-public class CSSelectNameController: CSMainController, UITableViewDelegate, UITableViewDataSource {
+public typealias DataType = CSNameProtocol & CustomStringConvertible & Equatable
+
+public class CSSelectNameController<Data: DataType>:
+        CSMainController, UITableViewDelegate, UITableViewDataSource {
 
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
     public var onCellCreate: ((UITableViewCell) -> Void)? = nil
-    public var selectedName: CSNameData?
-    private var names: [CSNameData] = []
-    private var filteredData: [CSNameData] = []
-    private var onSelected: ((CSNameData) -> Void)!
-    private var onDelete: ((CSNameData) -> CSResponseProtocol)?
+    public var selectedName: Data?
+    private var names: [Data] = []
+    private var filteredData: [Data] = []
+    private var onSelected: ((Data) -> Void)!
+    private var onDelete: ((Data) -> CSResponseProtocol)?
 
     @discardableResult
-    public func construct(data: [CSNameData], onSelected: @escaping (CSNameData) -> Void) -> Self {
+    public func construct(data: [Data], onSelected: @escaping (Data) -> Void) -> Self {
         self.names = data
         self.onSelected = onSelected
         return self
     }
 
     @discardableResult
-    public func addDelete<T: AnyObject>(_ onDelete: @escaping (CSNameData) -> CSResponse<T>) -> Self {
+    public func addDelete<T: AnyObject>(_ onDelete: @escaping (Data) -> CSResponse<T>) -> Self {
         self.onDelete = onDelete
         menu(type: .edit) { $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit }
         return self
@@ -51,31 +54,31 @@ public class CSSelectNameController: CSMainController, UITableViewDelegate, UITa
     }
 
     public func tableView(_ tableView: UITableView,
-                          cellForRowAt path: IndexPath) -> UITableViewCell {
+            cellForRowAt path: IndexPath) -> UITableViewCell {
         tableView.cell(style: .default, onCreate: onCellCreate)
                 .also { $0.textLabel!.text = filteredData[path.row].name }
     }
 
     public func tableView(_ tableView: UITableView,
-                          numberOfRowsInSection section: Int) -> Int {
+            numberOfRowsInSection section: Int) -> Int {
         filteredData.count
     }
 
     public func tableView(_ tableView: UITableView,
-                          didSelectRowAt path: IndexPath) {
+            didSelectRowAt path: IndexPath) {
         selectedName = filteredData[path.row]
         navigation.popViewController()
         onSelected!(selectedName!)
     }
 
     public func tableView(_ tableView: UITableView,
-                          canEditRowAt path: IndexPath) -> Bool {
+            canEditRowAt path: IndexPath) -> Bool {
         onDelete.notNil
     }
 
     public func tableView(_ tableView: UITableView,
-                          commit editingStyle: UITableViewCell.EditingStyle,
-                          forRowAt path: IndexPath) {
+            commit editingStyle: UITableViewCell.EditingStyle,
+            forRowAt path: IndexPath) {
         if editingStyle == .delete {
             let value = filteredData[path.row]
             onDelete?(value).onSuccess {

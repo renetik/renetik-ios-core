@@ -16,7 +16,7 @@ public extension UIView {
         set(view) {
             content?.removeFromSuperview()
             weaklyAssociateValue(&viewContentPropertyKey, view)
-            view.notNil { add($0) }
+            view.notNil { add(view: $0) }
         }
     }
 
@@ -34,7 +34,7 @@ public extension UIView {
         let superview = view.superview
         let autoSize = view.autoresizingMask
         container.content(view).matchParent()
-        superview?.add(container).center(center).autoresizingMask = autoSize
+        superview?.add(view: container).center(center).autoresizingMask = autoSize
         container.backgroundColor = view.backgroundColor
         view.backgroundColor = UIColor.clear
         return container
@@ -47,26 +47,34 @@ public extension UIView {
         let superview = view.superview
         let autoSize = view.autoresizingMask
         container.content(view).matchParent(margin: padding)
-        superview?.add(container).center(center).autoresizingMask = autoSize
+        superview?.add(view: container).center(center).autoresizingMask = autoSize
         container.backgroundColor = view.backgroundColor
         view.backgroundColor = UIColor.clear
         return container
     }
 
+    @discardableResult
+    func withContent(_ view: UIView = UIView.construct()) -> Self {
+        content(view).matchParent()
+        return self
+    }
+
+    @discardableResult
     func contentVertical(padding: CGFloat) -> Self {
         content!.from(top: padding).height(fromBottom: padding).flexibleWidth()
         return self
     }
 
+    @discardableResult
     func contentHorizontal(padding: CGFloat) -> Self {
         content!.from(left: padding).width(fromRight: padding).flexibleHeight()
         return self
     }
 
-
-//    func content(padding: CGFloat) -> Self {
-//        contentHorizontal(padding: padding)
-//        contentVertical(padding: padding)
-//        return self
-//    }
+    @discardableResult
+    func content(padding: CGFloat) -> Self {
+        contentHorizontal(padding: padding)
+        contentVertical(padding: padding)
+        return self
+    }
 }

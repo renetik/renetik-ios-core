@@ -8,7 +8,7 @@ public protocol CSVariableProtocol: CSValueProtocol {
     override var value: T { get set }
 }
 
-public func variable<T>(value: T) -> CSVariable<T> {
+public func variable<T>(_ value: T) -> CSVariable<T> {
     CSVariable(value: value)
 }
 
@@ -27,7 +27,7 @@ extension CSVariableProtocol where T: Any {
     }
 }
 
-extension CSVariableProtocol where T == Bool {
+public extension CSVariableProtocol where T == Bool {
     @discardableResult
     mutating func setTrue() -> Self {
         value = true
@@ -36,6 +36,21 @@ extension CSVariableProtocol where T == Bool {
 
     @discardableResult
     mutating func setFalse() -> Self {
+        value = false
+        return self
+    }
+}
+
+
+public extension CSVariable where T == Bool {
+    @discardableResult
+    func setTrue() -> Self {
+        value = true
+        return self
+    }
+
+    @discardableResult
+    func setFalse() -> Self {
         value = false
         return self
     }

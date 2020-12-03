@@ -98,8 +98,6 @@ public func when<Type>(isNil item: Type?, then: Func) {
 open class CSObject: CSAnyProtocol, Equatable, CustomStringConvertible {
     public init() {}
 
-    public static func ==(lhs: CSObject, rhs: CSObject) -> Bool { lhs === rhs }
-
     open var description: String { "\(type(of: self))" }
 }
 
@@ -114,6 +112,8 @@ public class Nil: CSAnyProtocol, Equatable {
 extension IndexPath: CSAnyProtocol {}
 
 extension NSObject: CSAnyProtocol {}
+
+extension Bool: CSAnyProtocol {}
 
 extension String: CSAnyProtocol {}
 

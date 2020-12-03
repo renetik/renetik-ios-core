@@ -19,7 +19,11 @@ public extension String {
         })
     }
 
-    func jsonValue() -> Any? {
+    func parseJsonObject() -> [String: Any?]? { parseJson() as? [String: Any?] }
+
+    func parseJsonArray() -> [Any]? { parseJson() as? [Any] }
+
+    func parseJson() -> Any? {
         if let data = data(using: .utf8) {
             return try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .allowFragments])
         }
@@ -27,8 +31,6 @@ public extension String {
     }
 
     var isSet: Bool { !isEmpty }
-
-    var trim: String { asNSString.trim() }
 
     var length: Int { count }
 
@@ -39,6 +41,8 @@ public extension String {
     var doubleValue: Double { asNSString.doubleValue }
 
     var intValue: Int { asNSString.integerValue }
+
+    func trim() -> String { asNSString.trim() }
 
     func substring(from index: Int) -> String {
         asNSString.substring(from: index, to: length) as String
@@ -71,14 +75,13 @@ public extension String {
 
     func remove(all string: String) -> String { replace(all: string, with: "") }
 
-    //func remove(first
-
     func replace(all string: String, with replace: String) -> String {
         replacingOccurrences(of: string, with: replace)
     }
 
-
-    // func replace(first
+    public func replace(range: NSRange, with string: String) -> String {
+        asNSString.replacingCharacters(in: range, with: string)
+    }
 
     func attributed(_ dictionary: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
         NSAttributedString(string: self, attributes: dictionary)

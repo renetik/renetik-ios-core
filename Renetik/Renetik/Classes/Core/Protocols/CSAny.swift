@@ -43,23 +43,37 @@ public extension CSAnyProtocol {
     // let in kotlin
     public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
-    public var asString: String { "\(self)" }
+    public var asString: String { (self as? CSNameProtocol)?.name ?? "\(self)" }
 
-//    public var description: String { "\(type(of: self))" }
+    public var asInt: Int {
+        let value = asString
+        return value.isEmpty ? 0 : value.intValue
+    }
 
     public func cast<T>() -> T { self as! T }
 
     public func castOrNil<T>() -> T? { self as? T }
 
     public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
-        if String(describing: self) == String(describing: object) { return true }
+        String(describing: self) == String(describing: object)
+    }
+}
+
+public extension CSAnyProtocol where Self: NSObject {
+    public func equals(any objects: NSObject...) -> Bool {
+        if objects.contains(self) { return true }
         return false
     }
 }
 
-public extension CSAnyProtocol where Self: NSObject { //TODO: Use custom isEqual
-    public func equals(one objects: NSObject...) -> Bool {
-        if objects.contains(self) { return true }
-        return false
-    }
+public extension CSAnyProtocol where Self: Equatable {
+    public func equals(any objects: Self...) -> Bool { objects.contains { $0 == self } }
+}
+
+public extension CSAnyProtocol where Self: Equatable, Self: AnyObject {
+    public static func ==(lhs: Self, rhs: Self) -> Bool { lhs === rhs } // is this called ever ?
+}
+
+public extension CSAnyProtocol where Self: CustomStringConvertible {
+    public var description: String { "\(type(of: self))" } // is this called ever ?
 }

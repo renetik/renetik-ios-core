@@ -62,7 +62,7 @@ public extension UILabel {
     func lineBreak(_ mode: NSLineBreakMode) -> Self { invoke { lineBreakMode = mode } }
 
     @discardableResult
-    func hideIfEmpty() -> Self { invoke { self.isVisible = text?.trim.isSet == true } }
+    func hideIfEmpty() -> Self { invoke { self.isVisible = text?.trim().isSet == true } }
 
     @discardableResult
     override func heightToFit() -> Self {

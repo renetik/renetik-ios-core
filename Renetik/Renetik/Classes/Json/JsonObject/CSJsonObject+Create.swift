@@ -6,12 +6,12 @@
 import RenetikObjc
 import Renetik
 
-extension CSJsonData {
-    func createJsonDataList<T: CSJsonData>(_ type: T.Type, _ key: String, defaultDataList: [T]? = nil) -> [T] {
+extension CSJsonObject {
+    func createJsonDataList<T: CSJsonObject>(_ type: T.Type, _ key: String, defaultDataList: [T]? = nil) -> [T] {
         let mapDataArray: [[String: CSAnyProtocol?]]? = getList(key)
         var jsonDataArray: [T] = [T]()
         mapDataArray?.enumerated().forEach { index, item in
-            jsonDataArray.add(type.init().construct().load(data: item).also { $0.index = index })
+            jsonDataArray.add(type.init().load(data: item).also { $0.index = index })
         }
         return jsonDataArray
     }

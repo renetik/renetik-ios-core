@@ -43,7 +43,7 @@ public extension UIViewController {
     @discardableResult
     func showChild(controller: UIViewController, parentView: UIView) -> UIViewController {
         addChild(controller)
-        parentView.add(controller.view)
+        parentView.add(view: controller.view)
         controller.didMove(toParent: self)
         (controller as? CSViewController)?.isShowing = true
         return controller

@@ -49,6 +49,13 @@ public class CSMaterialLabel: UILabel {
 
 open class CSMaterialControl: UIControl {
 
+    @discardableResult
+    open override func construct() -> Self {
+        super.construct().defaultSize().withContent()
+        content!.interaction(enabled: false)
+        return self
+    }
+
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -72,6 +79,17 @@ open class CSMaterialControl: UIControl {
         super.onTouchDown(block)
         isUserInteractionEnabled = true
         inkTouchController.addRipple(to: self)
+        return self
+    }
+
+    @discardableResult
+    override open func heightToFit() -> Self {
+        assert(content.notNil, "Needs to have content to calculate height because of ripple")
+        content!.heightToFitSubviews()
+        let contentAutoresizingMask = content!.autoresizingMask
+        content!.autoresizingMask = []
+        height(content!.height)
+        content!.autoresizingMask = contentAutoresizingMask
         return self
     }
 }

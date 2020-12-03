@@ -7,7 +7,7 @@ import RenetikObjc
 public typealias CSTableControllerRow = CSAnyProtocol
 //                                        & Equatable & CustomStringConvertible
 public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
-                                           CSOperationController & CSHasDialog & CSHasProgressProtocol
+                                           CSOperationController & CSHasDialogProtocol & CSHasProgressProtocol
 
 public protocol CSTableControllerProtocol {
     var tableView: UITableView { get }
@@ -37,7 +37,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     private var loadProcess: CSProcess<Data>? = nil
 
     public func construct(by parent: CSTableControllerParent,
-                          parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
+            parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         super.construct(parent)
         parentController = parent
         tableView.delegates(parent)
@@ -72,7 +72,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         if isLoading { loadProcess!.cancel() }
         isLoading = true
         tableView.reload()
-        return parentController.send(operation: loadData().refresh(refresh),
+        return parentController.send(operation: loadData().refresh(refresh), title: "",
                         progress: withProgress, failedDialog: false)
                 .onFailed { process in
                     self.isFailed = true

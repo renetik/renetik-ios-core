@@ -1,16 +1,16 @@
+////
+//// Created by Rene on 2018-11-21.
+////
 //
-// Created by Rene on 2018-11-21.
+//@import Foundation;
+//#import "CSServerData.h"
 //
-
-@import Foundation;
-#import "CSServerData.h"
-
-NS_ASSUME_NONNULL_BEGIN
-
-@protocol CSListData <CSServerData>
-
-@property (readonly) NSMutableArray *list;
-
-@end
-
-NS_ASSUME_NONNULL_END
+//NS_ASSUME_NONNULL_BEGIN
+//
+//@protocol CSListData <CSServerData>
+//
+//@property (readonly) NSMutableArray *list;
+//
+//@end
+//
+//NS_ASSUME_NONNULL_END

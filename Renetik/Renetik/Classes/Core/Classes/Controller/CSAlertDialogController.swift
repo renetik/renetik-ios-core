@@ -6,7 +6,7 @@
 import UIKit
 import ChameleonFramework
 
-public class CSAlertDialogController: CSObject, CSHasDialog, CSHasDialogVisible, CSHasSheetProtocol {
+public class CSAlertDialogController: CSObject, CSHasDialogProtocol, CSHasDialogVisible, CSHasSheetProtocol {
 
     private let controller: UIViewController
     private var alert: UIAlertController?

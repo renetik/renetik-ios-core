@@ -6,6 +6,8 @@
 import RenetikObjc
 import Renetik
 
-extension CSJsonData {
+public extension CSJsonObject {
     func getStringValue(_ key: String) -> String { getString(key).asString }
+
+    func getBooleanValue(_ key: String) -> Bool { getString(key).boolValue }
 }

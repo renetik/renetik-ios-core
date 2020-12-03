@@ -22,7 +22,7 @@ public class CSTableCellForHeightController: CSMainController {
 
     override public func onViewDidLayoutFirstTime() {
         super.onViewDidLayoutFirstTime()
-        for cell in cells { view.add(cell).from(top: -500) }
+        for cell in cells { view.add(view: cell).from(top: -500) }
     }
 
     override public func onViewDidLayout() {

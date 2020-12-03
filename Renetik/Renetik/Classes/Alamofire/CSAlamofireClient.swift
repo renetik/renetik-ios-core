@@ -58,8 +58,8 @@ public class CSAlamofireClient: CSObject {
         basicAuth = (username: username, password: password)
     }
 
-    public func get<DataType: CSServerJsonData>(_ operation: CSOperation<DataType>?, service: String,
-                                                data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
+    public func get<DataType: CSServerMapData>(_ operation: CSOperation<DataType>?, service: String,
+            data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let loadFromNetwork: Bool = {
                 if operation?.isRefresh == true { return true }
@@ -76,12 +76,12 @@ public class CSAlamofireClient: CSObject {
         }
     }
 
-    public func post(service: String, params: [String: String] = [:]) -> CSProcess<CSServerJsonData> {
-        post(service: service, data: CSServerJsonData(), params: params)
+    public func post(service: String, params: [String: String] = [:]) -> CSProcess<CSServerMapData> {
+        post(service: service, data: CSServerMapData(), params: params)
     }
 
-    public func post<DataType: CSServerJsonData>(service: String, data: DataType,
-                                                 params: [String: String] = [:]) -> CSProcess<DataType> {
+    public func post<DataType: CSServerMapData>(service: String, data: DataType,
+            params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let request = manager.request(process.url!, method: .post, parameters: params)
 //            request.validate(statusCode: 200..<300).validate(contentType: ["application/json"])
@@ -90,8 +90,8 @@ public class CSAlamofireClient: CSObject {
         }
     }
 
-    public func post<DataType: CSServerJsonData>(service: String, data: DataType,
-                                                 form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
+    public func post<DataType: CSServerMapData>(service: String, data: DataType,
+            form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
             let base64Credentials = credentialData.base64EncodedData()
@@ -102,22 +102,20 @@ public class CSAlamofireClient: CSObject {
         }
     }
 
-    private func onResponseDone<DataType: CSServerJsonData>(response: AFDataResponse<String>,
-                                                            process: CSProcess<DataType>) {
-        response.error.notNil { error in onResponse(error: error, message: error.errorDescription, process) }
-                .elseDo { onResponse(content: response.value, process) }
+    private func onResponseDone<DataType: CSServerMapData>(response: AFDataResponse<String>,
+            process: CSProcess<DataType>) {
+        response.error.notNil { onResponse(error: $0, message: $0.errorDescription, process) }
+                .elseDo { onResponse(response, process) }
     }
 
-    private func onResponse<DataType: CSServerJsonData>(content: String?, _ process: CSProcess<DataType>) {
-        logInfo("\(process.url!) \(content ?? "nil")")
-        let jsonValue = content?.asNSString.jsonValue()
-        (jsonValue as? [String: CSAnyProtocol?]).notNil { it in process.data!.load(data: it) }
-                .elseDo { onResponse(error: nil, message: INVALID_RESPONSE, process) }
+    private func onResponse<DataType: CSServerMapData>(_ response: AFDataResponse<String>, _ process: CSProcess<DataType>) {
+        logInfo("\(process.url!) \(response.value ?? "nil")")
+        process.data!.onHttpResponse(code: response.response!.statusCode, message: "", content: response.value)
         if process.data!.success { process.success() } else { onResponse(error: nil, message: process.data!.message ?? "No Message", process) }
     }
 
-    private func onResponse<DataType: CSServerJsonData>(error: AFError?, message: String?,
-                                                        _ process: CSProcess<DataType>) {
+    private func onResponse<DataType: CSServerMapData>(error: AFError?, message: String?,
+            _ process: CSProcess<DataType>) {
         invalidate(url: process.url!)
         process.failed(error, message: message)
     }

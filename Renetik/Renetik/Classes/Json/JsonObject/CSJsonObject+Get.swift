@@ -5,8 +5,8 @@
 
 import Renetik
 
-public extension CSJsonData {
-    func getString(_ key: String) -> String? { data[key]??.get { $0.asString } }
+public extension CSJsonObject {
+    func getString(_ key: String) -> String? { get(key: key)?.asString }
 
     func getBoolean(_ key: String) -> Bool? { getString(key)?.boolValue }
 
@@ -14,5 +14,7 @@ public extension CSJsonData {
 
     func getInt(_ key: String) -> Int? { getString(key)?.intValue }
 
-    func getList<T>(_ key: String) -> [T]? { data[key] as? [T] }
+    func getList<T>(_ key: String) -> [T]? { get(key: key) as? [T] }
+
+    func getStringList(_ key: String) -> [String]? { get(key: key) as? [String] }
 }

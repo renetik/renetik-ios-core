@@ -14,28 +14,24 @@ public extension UIView {
     }
 
     @discardableResult
-    func add<View: UIView>(_ view: View, _ apply: ((View) -> ())? = nil) -> View {
-        addSubview(view)
+    func add(all views: UIView...) -> Self {
+        views.forEach { view in addSubview(view) }
+        return self
+    }
+
+    @discardableResult
+    func add<View: UIView>(view: View, index: Int, _ apply: ((View) -> ())? = nil) -> View {
+        insertSubview(view, at: index)
         apply?(view)
         return view
     }
 
     @discardableResult
-    func add(all views: UIView...) -> Self {
-        views.forEach { view in add(view) }
-        return self
-    }
-
-    @discardableResult
-    func add(_ view: UIView, index: Int) -> UIView {
-        insertSubview(view, at: index)
-        return view
-    }
-
-    @discardableResult
-    func set(_ view: UIView, index: Int) -> UIView {
+    func set<View: UIView>(view: View, index: Int, _ apply: ((View) -> ())? = nil) -> View {
         subviews.at(index)?.removeFromSuperview()
-        return add(view, index: index)
+        add(view: view, index: index)
+        apply?(view)
+        return view
     }
 
     func findPreviousVisible(of view: UIView) -> UIView? {
@@ -81,7 +77,7 @@ public extension UIView {
 
     @discardableResult
     func addBottomSeparator(height: CGFloat = 0.5, color: UIColor = .darkGray) -> UIView {
-        add(UIView.construct()).height(height).from(bottom: 0).matchParentWidth()
+        add(view: UIView.construct()).height(height).from(bottom: 0).matchParentWidth()
                 .flexibleTop().fixedBottom().background(color)
     }
 }

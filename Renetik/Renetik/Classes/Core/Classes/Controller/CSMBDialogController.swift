@@ -7,7 +7,7 @@ import UIKit
 import MBProgressHUD
 import RenetikObjc
 
-public class CSMBDialogController: NSObject, CSHasDialog, CSHasDialogVisible, MBProgressHUDDelegate {
+public class CSMBDialogController: NSObject, CSHasDialogProtocol, CSHasDialogVisible, MBProgressHUDDelegate {
 
     public var backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.7)
     public var foregroundColor = UIColor.white

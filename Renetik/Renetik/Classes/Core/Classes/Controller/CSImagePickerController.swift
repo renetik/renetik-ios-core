@@ -10,7 +10,7 @@ public protocol CSImagePickerListener {
     func imagePicker(controller: CSImagePickerController, didFinishPickingMedia data: [UIImagePickerController.InfoKey: Any])
 }
 
-public typealias CSImagePickerParent = UIViewController & CSImagePickerListener & CSHasSheetProtocol & CSHasDialog
+public typealias CSImagePickerParent = UIViewController & CSImagePickerListener & CSHasSheetProtocol & CSHasDialogProtocol
 
 public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
         UINavigationControllerDelegate, UIImagePickerControllerDelegate {

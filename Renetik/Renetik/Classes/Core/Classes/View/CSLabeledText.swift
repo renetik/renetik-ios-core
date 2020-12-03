@@ -5,6 +5,7 @@
 
 import Renetik
 
+@available(*, deprecated, message: "Look for usage in motorkari and create example or remove but it looks not useful")
 public class CSLabeledText: UIView {
 
     let label = UILabel()

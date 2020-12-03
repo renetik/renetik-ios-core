@@ -30,11 +30,11 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
         self.onCancel = onCancel
         let window = delegate.window!
         UIApplication.resignFirstResponder() // Hide keyboard or whatever so it don't overlap our view
-        window.add(disablerView).matchParent()
-        layout(disablerView.add(pickerView).matchParentWidth()) {
+        window.add(view:disablerView).matchParent()
+        layout(disablerView.add(view:pickerView).matchParentWidth()) {
             $0.heightToFit().from(bottom:  0)
         }
-        layout(disablerView.add(toolBar).matchParentWidth()) {
+        layout(disablerView.add(view:toolBar).matchParentWidth()) {
             $0.heightToFit().from(self.pickerView, bottom: 0)
         }
         window.layoutIfNeeded()

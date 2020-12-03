@@ -5,16 +5,15 @@
 
 import Foundation
 
-public class CSNameJsonData: CSJsonData {
+public class CSNameJsonData: CSJsonObject {
     var nameKey: String!
 
     public func construct(_ nameKey: String) -> Self {
-        super.construct()
         self.nameKey = nameKey
         return self
     }
 
-    public override func construct() -> Self { construct("name") }
+    public func construct() -> Self { construct("name") }
 
     public var id: String { getStringValue("id") }
 

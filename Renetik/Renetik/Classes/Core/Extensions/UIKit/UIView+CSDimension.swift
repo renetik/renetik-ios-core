@@ -186,8 +186,32 @@ public extension UIView {
     @discardableResult
     @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
 
+    /**
+     heightThatFitsSubviews cannot be used because this needs to shift subviews too
+ - Returns:
+     */
     @discardableResult
-    @objc open func heightToFit() -> Self { height(heightThatFits()) }
+    @objc open func heightToFit() -> Self {
+        let heightThatFits = self.heightThatFits()
+        if (heightThatFits == height && !subviews.isEmpty) {
+            heightToFitSubviews()
+        } else {
+            height(heightThatFits)
+        }
+        return self
+    }
+
+    @discardableResult
+    @objc open func heightThatFitsSubviews() -> CGFloat {
+        var y = height
+        var rect = CGRect.zero
+        subviews.forEach { subview in
+            rect = rect.union(subview.frame)
+            y = subview.frame.y < y ? subview.frame.y : y
+        }
+        rect.height -= y
+        return rect.height
+    }
 
     @discardableResult
     @objc open func heightToFitSubviews() -> Self {

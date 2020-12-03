@@ -95,6 +95,11 @@ public extension UITextField {
     @discardableResult
     public func text(_ value: String?) -> Self { invoke { self.text = value } }
 
+    public var title: String {
+        get { text ?? "" }
+        set { text = newValue }
+    }
+
     @discardableResult
     func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
 
@@ -118,5 +123,12 @@ public extension UITextField {
     var fontStyle: UIFont.TextStyle {
         get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
         set { font = UIFont.preferredFont(forTextStyle: newValue) }
+    }
+
+    func filters(_ filter: CSInputFilterProtocol) {
+        bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
+            if string.isNilOrEmpty { return true }
+            return filter.filter(current: self.text ?? "", range: range, string: string!)
+        }
     }
 }

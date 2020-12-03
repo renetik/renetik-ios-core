@@ -12,13 +12,11 @@ public protocol CSOperationProtocol {
 
 public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
-    public let title: String
     public var data: Data?
     private let executeProcessFunction: (CSOperation<Data>) -> CSProcess<Data>
 
-    public init(title: String, function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
+    public init(function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
         executeProcessFunction = function
-        self.title = title
     }
 
     open func executeProcess() -> CSProcess<Data> { executeProcessFunction(self) }
@@ -72,25 +70,25 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
                 self.eventSuccess.fire(process.data!)
                 self.eventDone.fire(process.data)
             }
-            if listenOnFailed { process.onFailed(self.failed) }
+            if listenOnFailed { process.onFailed(failed) }
         }
     }
 
     public func cancel() {
         process.notNil { process in
             if process.isFailed {
-                self.eventFailed.fire(process)
-                self.eventDone.fire(process.data)
+                eventFailed.fire(process)
+                eventDone.fire(process.data)
             } else {
                 process.cancel()
-                self.eventDone.fire(process.data)
+                eventDone.fire(process.data)
             }
         }
     }
 
     public func failed(process: CSProcessProtocol) {
-        self.eventFailed.fire(process)
-        self.eventDone.fire(self.process?.data)
+        eventFailed.fire(process)
+        eventDone.fire(self.process?.data)
         self.process = nil
     }
 

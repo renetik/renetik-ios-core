@@ -56,7 +56,7 @@ public extension UIScrollView {
 
     @discardableResult
     func add<View: UIView>(footer view: View, margin: CGFloat, _ apply: ((View) -> ())? = nil) -> View {
-        add(view).fromPrevious(top: margin).matchParentWidth().heightToFit()
+        add(view: view).fromPrevious(top: margin).matchParentWidth().heightToFit()
         if view.bottom < safeHeight {
             view.flexibleTop().from(bottom: 0)
         } else {
