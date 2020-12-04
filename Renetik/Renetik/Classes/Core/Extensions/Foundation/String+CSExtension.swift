@@ -56,6 +56,10 @@ public extension String {
         asNSString.substring(from: from, to: to) as String
     }
 
+    func substring(_ range: ClosedRange<Int>) -> String {
+        substring(from: range.first!, to: range.last!)
+    }
+
     @inlinable public func stringIndex(at: String.IndexDistance) -> String.Index {
         self.index(startIndex, offsetBy: at)
     }
@@ -70,6 +74,10 @@ public extension String {
     func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
         ignoreCase ? asNSString.containsNoCase(string) : asNSString.contains(string)
     }
+
+    func ends(with value: String) -> Bool { hasSuffix(value) }
+
+    func starts(with value: String) -> Bool { hasPrefix(value) }
 
     func remove(_ string: String) -> String { remove(all: string) }
 
@@ -89,17 +97,6 @@ public extension String {
 
     public func split(by separator: String) -> [String] { components(separatedBy: separator) }
 }
-
-//public extension String {
-//    mutating func insert(_ string: String, index: Int) {
-//        insert(contentsOf: string, at: stringIndex(at: index))
-//        replace(from: index, to: index, with: string)
-//    }
-
-//    mutating func replace(from: Int, to: Int, with replace: String) {
-//        replaceSubrange(stringIndex(at: from)..<stringIndex(at: to), with: replace)
-//    }
-//}
 
 public extension Optional where Wrapped == String {
     public var isNilOrEmpty: Bool {

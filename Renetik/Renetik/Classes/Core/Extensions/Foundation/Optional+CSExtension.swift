@@ -42,7 +42,7 @@ public extension Optional {
         return CSConditionalResultNotNil(variable: self!)
     }
 
-    public func then<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
+    public func get<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
         if self != nil { return function(self!) } else { return nil }
     }
 }

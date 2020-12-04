@@ -9,9 +9,6 @@ public protocol CSValueProtocol {
     var value: T { get }
 }
 
-public extension CSValueProtocol where T == String, Self: CustomStringConvertible {
-    public var description: String {
-        logInfo("CSValueProtocol TODO: Does this ever work somewhere ?")
-        return value
-    }
+public extension CustomStringConvertible where T == String, Self: CSValueProtocol {
+    public var description: String { value }
 }

@@ -8,6 +8,6 @@ public protocol CSNameProtocol {
     var name: String { get }
 }
 
-public extension CSNameProtocol where Self: CustomStringConvertible {
+extension CustomStringConvertible where Self: CSNameProtocol {
     var description: String { name }
 }
