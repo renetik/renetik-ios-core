@@ -93,3 +93,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     }
 
 }
+
+extension CSOperation {
+    public func sendSilently() -> Self { send(listenOnFailed: true); return self }
+}

@@ -60,7 +60,9 @@ public extension String {
         substring(from: range.first!, to: range.last!)
     }
 
-    @inlinable public func stringIndex(at: String.IndexDistance) -> String.Index {
+    var deleteLastPathComponent: String { asNSString.deletingLastPathComponent }
+
+    @inlinable func stringIndex(at: String.IndexDistance) -> String.Index {
         self.index(startIndex, offsetBy: at)
     }
 
@@ -95,35 +97,27 @@ public extension String {
         NSAttributedString(string: self, attributes: dictionary)
     }
 
-    public func split(by separator: String) -> [String] { components(separatedBy: separator) }
+    func split(by separator: String) -> [String] { components(separatedBy: separator) }
 }
 
 public extension Optional where Wrapped == String {
     public var isNilOrEmpty: Bool {
-        if self == nil {
-            return true
-        }
+        if self == nil { return true }
         return self!.isEmpty
     }
 
-    public func isNilOrEmpty(_ function: Func) -> Self {
+    public func nilOrEmpty(_ function: Func) -> Self {
         if isNilOrEmpty { function() }
         return self
     }
 
     public var isSet: Bool {
-        if self == nil {
-            return false
-        }
-        return !self!.isEmpty
+        if self == nil { return false }
+        return self!.isSet
     }
 
-    public func contains(_ string: String) -> Bool {
-        if self == nil {
-            return false
-        }
-        return self!.contains(string)
+    public func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
+        if self == nil { return false }
+        return self!.contains(string, ignoreCase: ignoreCase)
     }
-
-
 }

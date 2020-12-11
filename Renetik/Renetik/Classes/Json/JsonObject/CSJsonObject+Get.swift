@@ -8,7 +8,7 @@ import Renetik
 public extension CSJsonObject {
     func getString(_ key: String) -> String? { get(key: key)?.asString }
 
-    func getBoolean(_ key: String) -> Bool? { getString(key)?.boolValue }
+    func getBoolean(_ key: String) -> Bool? { get(key: key) as? Bool }
 
     func getDouble(_ key: String) -> Double? { getString(key)?.doubleValue }
 

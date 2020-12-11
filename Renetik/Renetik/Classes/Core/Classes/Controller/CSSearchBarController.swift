@@ -15,8 +15,8 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
 
     @discardableResult
     public func construct(by parent: CSMainController,
-                          placeHolder: String = CSStrings.searchPlaceholder,
-                          onTextChanged: @escaping (String) -> Void) -> Self {
+            placeHolder: String = CSStrings.searchPlaceholder,
+            onTextChanged: @escaping (String) -> Void) -> Self {
         super.constructAsViewLess(in: parent)
         self.onTextChanged = onTextChanged
         bar.delegate = self
@@ -56,29 +56,19 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     }
 }
 
-// CSSearchBarController+CSTableController
 public extension CSSearchBarController {
 
     @discardableResult
     public func construct<Row: CSTableControllerRow, Data>(
             _ parent: CSMainController,
             placeHolder: String = CSStrings.searchPlaceholder,
-            table: CSTableController<Row, Data>) -> Self
-            where Row: CustomStringConvertible {
-        let tableFilter = TableFilter<Row, Data>()
-        table.filter = tableFilter
+            table: CSTableController<Row, Data>,
+            filter: CSTableFilter<Row, Data> = CSContainsIgnoreCaseTableFilter<Row, Data>()) -> Self {
+        table.filter = filter
         construct(by: parent, placeHolder: placeHolder) { string in
-            tableFilter.searchText = string
+            filter.searchText = string
             table.filterDataAndReload()
         }
         return self
     }
-}
-
-private class TableFilter<Row: CSTableControllerRow, Data>: CSTableControllerFilter<Row, Data>
-        where Row: CustomStringConvertible {
-
-    public var searchText = ""
-
-    public override func filter(data: [Row]) -> [Row] { data.filter(bySearch: searchText) }
 }

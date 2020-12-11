@@ -16,6 +16,8 @@ public struct CSTextViewClearButtonAppearance {
 
 public extension UITextView {
 
+    class func construct(_ text: String) -> Self { construct().text(text) }
+
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 
     @discardableResult
@@ -130,4 +132,8 @@ public extension UITextView {
         get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
         set { font = UIFont.preferredFont(forTextStyle: newValue) }
     }
+
+    @discardableResult
+    public func textPrepend(_ text: String) -> Self { self.text("\(text)\(self.text.description)") }
+
 }

@@ -11,6 +11,8 @@ public class CSArray<Type>: CSObject {
 
     var isEmpty: Bool { array.empty }
 
+    public var asArray: [Type] { array as! [Type] }
+
     func add(_ value: Type) -> Type { array.add(value); return value }
 
     func remove(_ response: Type) -> Self { array.remove(response); return self }

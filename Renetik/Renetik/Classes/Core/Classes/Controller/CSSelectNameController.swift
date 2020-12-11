@@ -7,9 +7,9 @@
 
 import RenetikObjc
 
-public typealias DataType = CSNameProtocol & CustomStringConvertible & Equatable
+public typealias CSNameRowType = CSNameProtocol & CustomStringConvertible & Equatable
 
-public class CSSelectNameController<Data: DataType>:
+public class CSSelectNameController<Data: CSNameRowType>:
         CSMainController, UITableViewDelegate, UITableViewDataSource {
 
     public let table = UITableView.construct()

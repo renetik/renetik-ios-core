@@ -61,13 +61,13 @@ public extension UIView {
 
     @discardableResult
     func contentVertical(padding: CGFloat) -> Self {
-        content!.from(top: padding).height(fromBottom: padding).flexibleWidth()
+        content!.from(top: padding).margin(bottom: padding).flexibleWidth()
         return self
     }
 
     @discardableResult
     func contentHorizontal(padding: CGFloat) -> Self {
-        content!.from(left: padding).width(fromRight: padding).flexibleHeight()
+        content!.margin(horizontal: padding).flexibleHeight()
         return self
     }
 

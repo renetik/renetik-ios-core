@@ -23,8 +23,6 @@ open class CSJsonArray: CSObject, CSJsonArrayProtocol {
     func at(_ key: Int) -> CSAnyProtocol? { data[key] }
 
     func add(_ value: CSAnyProtocol?) -> CSAnyProtocol? { data.add(value) }
-
-    public override var description: String { super.description }
 }
 
 extension CSJsonArray: Sequence {

@@ -24,7 +24,7 @@ extension UITextView: CSHasInputAccessory {}
 
 public class CSTextInputPhoneLandscapeController: CSViewController {
     public let defaultAccessoryView = CSInputAccessoryDone()
-    private let keyboardManager = CSKeyboardManager()
+    private let keyboardManager = CSKeyboardObserverController()
     public let container = UIView.construct(width: 100, height: 50).background(.white)
     public let textView = UITextView.construct().background(.white)
     public let actionButton = UIButton.construct().textColor(.blue)
@@ -61,8 +61,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             $0.from(right: self.safeArea.right)
         }
         layout(container.add(view: textView).matchParentHeight(margin: 5)) {
-            logInfo(self.container.size)
-            $0.from(left: self.safeArea.left).width(from: self.actionButton, right: 5)
+            $0.from(left: self.safeArea.left).margin(right: 5, from: self.actionButton)
         }
     }
 
@@ -78,7 +77,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             return
         }
         if textView.isFirstResponder && UIScreen.isShort {
-            container.height(fromBottom: keyboardManager.keyboardHeight)
+            container.margin(bottom: keyboardManager.keyboardHeight)
             runLayoutFunctions()
             return
         }

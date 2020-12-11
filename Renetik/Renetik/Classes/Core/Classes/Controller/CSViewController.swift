@@ -91,6 +91,9 @@ open class CSViewController: UIViewController {
         } else {
             onUpdateLayout()
         }
+        // We need to call view.layoutSubviews() so view layout functions if any are called,
+        // because view.layoutSubviews() was already called before viewDidLayoutSubviews
+        view.layoutSubviews()
         runLayoutFunctions()
         onViewDidLayout()
     }

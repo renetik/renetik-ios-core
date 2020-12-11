@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Alamofire' do |ss|
 		ss.dependency 'Alamofire', '~> 5'
 		ss.dependency 'Renetik/Core'
-		ss.dependency 'Renetik/JsonData'
+		ss.dependency 'Renetik/Json'
 		ss.dependency 'Renetik/Operation'
 		ss.source_files = 'Renetik/Classes/Alamofire/**/*'
 	end
@@ -62,9 +62,9 @@ Pod::Spec.new do |s|
 		ss.source_files = 'Renetik/Classes/Operation/**/*'
 	end
 
-    s.subspec 'JsonData' do |ss|
+    s.subspec 'Json' do |ss|
 		ss.dependency 'Renetik/Core'
-		ss.source_files = 'Renetik/Classes/JsonData/**/*'
+		ss.source_files = 'Renetik/Classes/Json/**/*'
 	end
 
 	s.subspec 'CoreLocation' do |ss|
@@ -131,7 +131,7 @@ Pod::Spec.new do |s|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/Alamofire'
 		ss.dependency 'Renetik/AlamofireCached'
-		ss.dependency 'Renetik/JsonData'
+		ss.dependency 'Renetik/Json'
 		ss.dependency 'Renetik/Operation'
 		ss.dependency 'Renetik/CoreLocation'
 		ss.dependency 'Renetik/CocoaLumberjack'

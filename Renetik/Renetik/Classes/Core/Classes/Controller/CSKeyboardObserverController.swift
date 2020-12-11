@@ -5,9 +5,9 @@
 //  Created by Rene Dohan on 7/9/19.
 //
 
-import RenetikObjc
+import UIKit
 
-public class CSKeyboardManager: CSMainController {
+public class CSKeyboardObserverController: CSViewController {
     public var keyboardHeight: CGFloat = 0
     public var onKeyboardChange: ((CGFloat) -> Void)?
     public var onKeyboardShow: CSEvent<CGFloat> = event()

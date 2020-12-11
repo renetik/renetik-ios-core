@@ -40,13 +40,13 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     override public func onViewWillAppearFirstTime() {
         super.onViewWillAppearFirstTime()
         view.add(view: tabBar).resizeToFit().flexibleTop().matchParentWidth().from(bottom: 0)
-        view.add(view: containerView).matchParent().height(from: tabBar, bottom: 0)
+        view.add(view: containerView).matchParent().margin(bottom: 0, from: tabBar)
     }
 
     override public func onViewDidLayout() {
         super.onViewDidLayout()
         tabBar.resizeToFit().from(bottom: 0)
-        containerView.height(fromBottom: tabBar.topFromBottom)
+        containerView.margin(bottom: tabBar.topFromBottom)
     }
 
     public func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

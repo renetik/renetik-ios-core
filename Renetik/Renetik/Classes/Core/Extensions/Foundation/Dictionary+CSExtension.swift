@@ -16,8 +16,9 @@ public extension Dictionary {
         removeValue(forKey: key)
     }
 
-    public var asJson: String? {
-        if let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) {
+    public func toJsonString(formatted: Bool = false) -> String? {
+        var options: JSONSerialization.WritingOptions = formatted ? [.prettyPrinted] : []
+        if let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: options) {
             return String(data: theJSONData, encoding: .ascii)
         }
         return nil

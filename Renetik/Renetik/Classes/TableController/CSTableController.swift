@@ -4,8 +4,7 @@
 
 import RenetikObjc
 
-public typealias CSTableControllerRow = CSAnyProtocol
-//                                        & Equatable & CustomStringConvertible
+public typealias CSTableControllerRow = Equatable & CustomStringConvertible
 public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
                                            CSOperationController & CSHasDialogProtocol & CSHasProgressProtocol
 
@@ -17,7 +16,7 @@ public typealias CSTableControllerType = UIViewController & CSTableControllerPro
 
 public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController, CSTableControllerProtocol {
 
-    public var filter: CSTableControllerFilter<Row, Data>?
+    public var filter: CSTableFilter<Row, Data>?
 
     public var data: [Row] { filteredData }
     public var loadData: (() -> CSOperation<Data>)!
@@ -41,7 +40,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         super.construct(parent)
         parentController = parent
         tableView.delegates(parent)
-        filter = parentController as? CSTableControllerFilter
+        filter = parentController as? CSTableFilter
         _data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)
         view.matchParent()

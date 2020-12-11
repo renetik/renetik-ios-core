@@ -8,6 +8,10 @@ public protocol CSNameProtocol {
     var name: String { get }
 }
 
-extension CustomStringConvertible where Self: CSNameProtocol {
+public extension CustomStringConvertible where Self: CSNameProtocol {
     var description: String { name }
+}
+
+public protocol CSSearchNameProtocol {
+    var searchName: String? { get }
 }

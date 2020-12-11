@@ -22,6 +22,8 @@ public extension Optional {
 
     public var notNil: Bool { self != nil }
 
+    public var isSet: Bool { self != nil }
+
     public var isNil: Bool { self == nil }
 
     @discardableResult
@@ -60,7 +62,11 @@ public extension Optional where Wrapped == String {
 }
 
 public extension Optional where Wrapped: Equatable {
-    public func equals(any objects: Wrapped...) -> Bool { objects.contains { $0 == self } }
+    public func equals(any objects: Wrapped...) -> Bool { equals(any: objects) }
+
+    public func equals(any objects: [Wrapped]) -> Bool { objects.contains { $0 == self } }
+
+    public func equals(none objects: Wrapped...) -> Bool { !equals(any: objects) }
 }
 
 public class CSConditionalResultNotNil<Type> {

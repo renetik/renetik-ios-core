@@ -85,7 +85,10 @@ public func notNil(_ items: Any?...) -> Bool {
     return true
 }
 
-public func isAnyNil(_ items: Any?...) -> Bool { !notNil(items) }
+public func isAnyNil(_ items: Any?...) -> Bool {
+    for it in items { if it.isNil { return true } }
+    return false
+}
 
 public func when<Type>(notNil item: Type?, then: ArgFunc<Type>) {
     if item.notNil { then(item!) }
@@ -97,8 +100,6 @@ public func when<Type>(isNil item: Type?, then: Func) {
 
 open class CSObject: CSAnyProtocol, Equatable, CustomStringConvertible {
     public init() {}
-
-    open var description: String { "\(type(of: self))" }
 }
 
 public class Nil: CSAnyProtocol, Equatable {

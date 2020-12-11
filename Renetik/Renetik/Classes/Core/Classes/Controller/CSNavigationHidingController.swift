@@ -14,7 +14,7 @@ public class CSNavigationHidingController: CSMainController {
     private var isShowingRunning = false
     private var shouldHide = false
     private var isHidingRunning = false
-    private let keyboardManager = CSKeyboardManager()
+    private let keyboardManager = CSKeyboardObserverController()
     private var parentController: UIViewController!
 
     public func showIfNotKeyboard() {

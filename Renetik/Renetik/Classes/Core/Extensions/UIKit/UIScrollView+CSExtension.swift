@@ -10,17 +10,17 @@ import RenetikObjc
 
 public extension UIScrollView {
 
-//    class func vertical(content view: UIView) -> Self {
-//        let instance: UIScrollView = Self.withSize(view.width, view.height)
-//        instance.vertical(content: view)
-//        return instance as! Self
-//    }
+    class func construct(verticalContent: Bool) -> Self {
+        verticalContent ? Self.construct(defaultSize: true).also {
+            $0.content(vertical: UIView.construct(defaultSize: true))
+        }: Self.construct()
+    }
 
-//    class func horizontal(content view: UIView) -> Self {
-//        let instance: UIScrollView = Self.withSize(view.width, view.height)
-//        instance.horizontal(content: view)
-//        return instance as! Self
-//    }
+    class func construct(horizontalContent: Bool) -> Self {
+        horizontalContent ? Self.construct(defaultSize: true).also {
+            $0.content(horizontal: UIView.construct(defaultSize: true))
+        } : Self.construct()
+    }
 
     @discardableResult
     func content<View: UIView>(horizontal view: View) -> View {

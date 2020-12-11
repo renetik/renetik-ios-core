@@ -19,5 +19,5 @@ public class CSNameJsonData: CSJsonObject {
 
     public var name: String { getStringValue(nameKey) }
 
-    override public var description: String { name }
+    public var description: String { name }
 }

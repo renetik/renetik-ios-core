@@ -13,6 +13,8 @@ public extension CSAnyProtocol {
 
     public var notNil: Bool { true }
 
+    public var isSet: Bool { true }
+
     public var isNil: Bool { false }
 
     @discardableResult
@@ -54,9 +56,9 @@ public extension CSAnyProtocol {
 
     public func castOrNil<T>() -> T? { self as? T }
 
-    public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
-        String(describing: self) == String(describing: object)
-    }
+//    public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
+//        String(describing: self) == String(describing: object)
+//    }
 }
 
 public extension CSAnyProtocol where Self: NSObject {
@@ -68,12 +70,18 @@ public extension CSAnyProtocol where Self: NSObject {
 
 public extension CSAnyProtocol where Self: Equatable {
     public func equals(any objects: Self...) -> Bool { objects.contains { $0 == self } }
+
+    public func equals(_ object: Self) -> Bool { object == self }
 }
 
 public extension CSAnyProtocol where Self: Equatable, Self: AnyObject {
-    public static func ==(lhs: Self, rhs: Self) -> Bool { lhs === rhs } // is this called ever ?
+    public static func ==(lhs: Self, rhs: Self) -> Bool { lhs === rhs }
 }
 
 public extension CSAnyProtocol where Self: CustomStringConvertible {
-    public var description: String { "\(type(of: self))" } // is this called ever ?
+    public var description: String { "\(type(of: self))" }
+}
+
+public extension CSAnyProtocol where Self: CustomStringConvertible, Self: CSNameProtocol {
+    public var description: String { name }
 }

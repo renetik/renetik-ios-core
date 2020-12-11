@@ -8,27 +8,28 @@
 import Renetik
 import RenetikObjc
 
-public class CSNameChooserController<T: Any>: CSMainController
+public class CSNameChooserController<RowType: CSNameRowType>: CSMainController
         , UITableViewDelegate, UITableViewDataSource {
 
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
-    public var selectedName: CSNameJsonData?
-    private var names: [CSNameJsonData] = []
-    private var filteredData: [CSNameJsonData] = []
-    private var onSelected: ((CSNameJsonData) -> Void)!
-    private var onDelete: ((CSNameJsonData) -> CSProcess<T>)?
+    public var selectedName: RowType?
+    private var names: [RowType] = []
+    private var filteredData: [RowType] = []
+    private var onSelected: ((RowType) -> Void)!
+    private var onDelete: ((RowType) -> CSResponseProtocol)?
+
     private var editMenuItem: CSMenuItem? = nil
 
     @discardableResult
-    public func construct(data: [CSNameJsonData], onSelected: @escaping (CSNameJsonData) -> Void) -> Self {
+    public func construct(data: [RowType], onSelected: @escaping (RowType) -> Void) -> Self {
         self.names = data
         self.onSelected = onSelected
         return self
     }
 
     @discardableResult
-    public func add(onDelete: @escaping (CSNameJsonData) -> CSProcess<T>) -> Self {
+    public func add(onDelete: @escaping (RowType) -> CSResponseProtocol) -> Self {
         self.onDelete = onDelete
         editMenuItem.isNil {
             self.editMenuItem = menu(type: .edit) {
@@ -79,7 +80,7 @@ public class CSNameChooserController<T: Any>: CSMainController
                           forRowAt path: IndexPath) {
         if editingStyle == .delete {
             let value = filteredData[path.row]
-            onDelete?(value).onSuccess { _ in
+            onDelete?(value).onSuccess {
                 self.names.remove(value)
                 if self.names.isEmpty { navigation.popViewController() } else { self.reload() }
             }

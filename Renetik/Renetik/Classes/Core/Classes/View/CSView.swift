@@ -17,6 +17,13 @@ open class CSView: UIView {
     }
 
     @discardableResult
+    public func layout(function: @escaping (Self) -> Void) -> Self {
+        layoutFunctions.listen { function(self) }
+        function(self)
+        return self
+    }
+
+    @discardableResult
     public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
         layoutFunctions.listen { function(view) }
         function(view)
