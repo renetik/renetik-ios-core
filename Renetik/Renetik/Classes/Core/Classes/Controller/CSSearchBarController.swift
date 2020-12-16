@@ -15,8 +15,8 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
 
     @discardableResult
     public func construct(by parent: CSMainController,
-            placeHolder: String = CSStrings.searchPlaceholder,
-            onTextChanged: @escaping (String) -> Void) -> Self {
+                          placeHolder: String = .searchPlaceholder,
+                          onTextChanged: @escaping (String) -> Void) -> Self {
         super.constructAsViewLess(in: parent)
         self.onTextChanged = onTextChanged
         bar.delegate = self
@@ -61,7 +61,7 @@ public extension CSSearchBarController {
     @discardableResult
     public func construct<Row: CSTableControllerRow, Data>(
             _ parent: CSMainController,
-            placeHolder: String = CSStrings.searchPlaceholder,
+            placeHolder: String = .searchPlaceholder,
             table: CSTableController<Row, Data>,
             filter: CSTableFilter<Row, Data> = CSContainsIgnoreCaseTableFilter<Row, Data>()) -> Self {
         table.filter = filter

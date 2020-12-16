@@ -61,13 +61,21 @@ public extension UIView {
 
     @discardableResult
     func contentVertical(padding: CGFloat) -> Self {
-        content!.from(top: padding).margin(bottom: padding).flexibleWidth()
+        let mask = content!.autoresizingMask
+        content!.autoresizingMask = []
+        height = content!.height + 2 * padding
+        content!.centeredVertical()
+        content!.autoresizingMask = mask
         return self
     }
 
     @discardableResult
     func contentHorizontal(padding: CGFloat) -> Self {
-        content!.margin(horizontal: padding).flexibleHeight()
+        let mask = content!.autoresizingMask
+        content!.autoresizingMask = []
+        width = content!.width + 2 * padding
+        content!.centeredHorizontal()
+        content!.autoresizingMask = mask
         return self
     }
 
@@ -75,6 +83,13 @@ public extension UIView {
     func content(padding: CGFloat) -> Self {
         contentHorizontal(padding: padding)
         contentVertical(padding: padding)
+        return self
+    }
+
+    @discardableResult
+    func content(padding: (horizontal: CGFloat, vertical: CGFloat)) -> Self {
+        contentHorizontal(padding: padding.horizontal)
+        contentVertical(padding: padding.vertical)
         return self
     }
 }

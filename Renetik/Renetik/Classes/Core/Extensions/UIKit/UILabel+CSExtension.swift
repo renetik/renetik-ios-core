@@ -10,6 +10,8 @@ import RenetikObjc
 
 public extension UILabel {
 
+    class func construct(_ text: String) -> Self { construct().text(text) }
+
     override func construct() -> Self {
         super.construct()
         numberOfLines = 0

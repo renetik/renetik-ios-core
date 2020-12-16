@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import RenetikObjc
 import BlocksKit
 
 public extension UIControl {
@@ -26,4 +25,8 @@ public extension UIControl {
         bk_addEventHandler({ _ in block() }, for: .touchDown)
         return self
     }
+
+    func touchUp() { sendActions(for: .touchUpInside) }
+
+    func touchDown() { sendActions(for: .touchDown) }
 }

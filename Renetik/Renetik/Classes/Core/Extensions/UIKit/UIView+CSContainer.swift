@@ -6,6 +6,7 @@ import UIKit
 import RenetikObjc
 
 public extension UIView {
+
     @discardableResult
     func add<View: UIView>(view: View, _ apply: ((View) -> ())? = nil) -> View {
         addSubview(view)

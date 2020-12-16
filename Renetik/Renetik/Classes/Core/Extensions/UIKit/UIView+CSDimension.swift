@@ -168,7 +168,15 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func resizeToFit() -> Self { invoke { self.sizeToFit() } }
+    @objc open func resizeToFit() -> Self {
+        let fitSize = sizeThatFits(.zero)
+        if fitSize == size && !subviews.isEmpty {
+            resizeToFitSubviews()
+        } else {
+            size(fitSize)
+        }
+        return self
+    }
 
     @discardableResult
     @objc open func widthToFit() -> Self { width(widthThatFits()) }

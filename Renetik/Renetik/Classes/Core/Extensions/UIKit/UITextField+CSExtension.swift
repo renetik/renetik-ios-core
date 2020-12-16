@@ -131,4 +131,9 @@ public extension UITextField {
             return filter.filter(current: self.text ?? "", range: range, string: string!)
         }
     }
+
+    func keyboard(_ type: UIKeyboardType) -> Self { keyboardType = type; return self }
+
+    func max(length: Int) -> Self { filters(CSIntMaxLengthInputFilter(length)); return self }
 }
+

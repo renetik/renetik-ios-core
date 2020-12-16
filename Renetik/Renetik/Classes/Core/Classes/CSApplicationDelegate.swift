@@ -5,7 +5,8 @@
 //  Created by Rene Dohan on 2/9/19.
 //
 
-import RenetikObjc
+import Foundation
+import UIKit
 
 public let delegate: CSApplicationDelegate = CSApplicationDelegate.instance
 public let logger: CSLoggerProtocol = delegate.logger
@@ -20,4 +21,14 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
         self.logger = logger
         self.navigation = navigation
     }
+
+    public func applicationWillResignActive(_ application: UIApplication) { logInfo(application) }
+
+    public func applicationDidEnterBackground(_ application: UIApplication) { logInfo(application) }
+
+    public func applicationWillEnterForeground(_ application: UIApplication) { logInfo(application) }
+
+    public func applicationDidBecomeActive(_ application: UIApplication) { logInfo(application) }
+
+    public func applicationWillTerminate(_ application: UIApplication) { logInfo(application) }
 }

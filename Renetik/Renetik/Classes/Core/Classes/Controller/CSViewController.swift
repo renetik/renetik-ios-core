@@ -17,6 +17,7 @@ open class CSViewController: UIViewController {
     public let eventDidAppearFirstTime: CSEvent<Void> = event()
 
     public private(set) var isAppearing = false
+    private var isShowingFirstTime = false
     public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
     public var isVisible: Bool { isAppearing && isShowing }
 
@@ -28,11 +29,18 @@ open class CSViewController: UIViewController {
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
 
+//    open override var parent: UIViewController? { super.parent }
+
     public private(set) var controllerInNavigation: UIViewController?
 
     @discardableResult
     open func constructAsViewLess(in parent: UIViewController) -> Self {
-        construct(parent)
+        construct(parent).asViewLess(in: parent)
+        return self
+    }
+
+    @discardableResult
+    private func asViewLess(in parent: UIViewController) -> Self {
         later {
             parent.showChild(controller: self)
             self.view.size(1).isUserInteractionEnabled = false
@@ -180,7 +188,11 @@ open class CSViewController: UIViewController {
 
     open func onViewVisibilityChanged(_ visible: Bool) {}
 
-    open func onViewShowing() {}
+    open func onViewShowing() {
+        if !isShowingFirstTime { onViewShowingFirstTime(); isShowingFirstTime = true }
+    }
+
+    open func onViewShowingFirstTime() {}
 
     open func onViewHiding() {}
 
@@ -203,8 +215,8 @@ open class CSViewController: UIViewController {
     }
 
     @discardableResult
-    public func register<T>(event registration: CSEventListener<T>) -> CSEventListener<T> {
-        eventRegistrations.add(registration).cast()
+    public func register<EventRegistration: CSEventRegistration>(event registration: EventRegistration) -> EventRegistration {
+        eventRegistrations.add(registration); return registration
     }
 
     public func cancel<T>(event registration: CSEventListener<T>) {
@@ -245,5 +257,29 @@ open class CSViewController: UIViewController {
 
     func updateControllerInNavigation() {
         if controllerInNavigation.isNil { controllerInNavigation = findControllerInNavigation() }
+    }
+
+    @discardableResult
+    public func show(in parent: UIViewController) -> Self {
+        let transition = CATransition()
+        transition.duration = 0.15
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .moveIn
+        transition.subtype = .fromBottom
+        view.layer.add(transition, forKey: nil)
+        parent.showChild(controller: self).view.matchParent()
+        return self
+    }
+
+    @discardableResult
+    open func hideIn() -> Self {
+        isShowing = false
+        UIView.animate(withDuration: 0.5,
+                animations: { self.view.bottom = -5 },
+                completion: { finished in
+                    self.view.hide()
+                    self.parent?.dismissChild(controller: self)
+                })
+        return self
     }
 }

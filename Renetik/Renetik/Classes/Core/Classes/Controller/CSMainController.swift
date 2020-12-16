@@ -44,7 +44,7 @@ open class CSMainController: CSViewController {
     }
 
     func onPrepare(menu: inout [CSMenuHeader]) {
-        for menuHeader in self.menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
+        for menuHeader in menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
         for controller in childMainControllers { if controller.isShowing { controller.onPrepare(menu: &menu) } }
     }
 
@@ -92,7 +92,7 @@ open class CSMainController: CSViewController {
     }
 
     public func setChildMain(controllers: [CSMainController]) -> [CSMainController] {
-        self.childMainControllers.removeAll()
+        childMainControllers.removeAll()
         addChildMain(controllers: controllers)
         return childMainControllers
     }
@@ -121,30 +121,6 @@ open class CSMainController: CSViewController {
             if controller.isShowing { return controller.onPrepareLeftBarItem() }
         }
         return nil
-    }
-
-    @discardableResult
-    public func show(in parent: CSMainController) -> Self {
-        let transition = CATransition()
-        transition.duration = 0.15
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .moveIn
-        transition.subtype = .fromBottom
-        view.layer.add(transition, forKey: nil)
-        parent.showChild(controller: self).view.matchParent()
-        return self
-    }
-
-    @discardableResult
-    open func hideIn() -> Self {
-        isShowing = false
-        UIView.animate(withDuration: 0.5,
-                animations: { self.view.bottom = -5 },
-                completion: { finished in
-                    self.view.hide()
-                    self.parentMainController?.dismissChild(controller: self)
-                })
-        return self
     }
 
     @discardableResult

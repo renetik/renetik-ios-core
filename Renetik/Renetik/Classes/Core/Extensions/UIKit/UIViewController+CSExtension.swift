@@ -18,14 +18,14 @@ public extension UIViewController {
     }
 
     @discardableResult
-    func push(_ key: String) -> Self {
+    func push(key: String) -> Self {
         navigation.push(key, self)
         return self
     }
 
     @discardableResult
     func pushMain() -> Self {
-        push("mainController")
+        push(key: "mainController")
         return self
     }
 
@@ -124,4 +124,7 @@ public extension UIViewController {
 
     @discardableResult
     func dismiss() -> Self { dismiss(animated: true); return self }
+
+    @discardableResult
+    func updateLayout() -> Self { view.setNeedsLayout(); return self }
 }

@@ -23,6 +23,7 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
     public func add<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T> {
         data!.add(response.data!)
         responses.add(response)
+        responses.forEach { response in response.cancel() }
         response.onFailed { _ in self.onResponseFailed(response) }
                 .onSuccess { _ in self.onResponseSuccess(response) }
         return response

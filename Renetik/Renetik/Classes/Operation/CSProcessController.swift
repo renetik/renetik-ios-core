@@ -13,7 +13,7 @@ public protocol CSProcessController {
 
 public extension CSProcessController {
     @discardableResult
-    public func show<Data: AnyObject>(_ process: CSProcess<Data>, title: String = CSStrings.requestLoading,
+    public func show<Data: AnyObject>(_ process: CSProcess<Data>, title: String = .requestLoading,
                                       progress: Bool = true, canCancel: Bool = true,
                                       failedDialog: Bool = true,
                                       onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data> {

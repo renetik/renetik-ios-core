@@ -64,6 +64,19 @@ public extension UIView {
     }
 
     @discardableResult
+    func fill(to view: UIView, bottom: CGFloat, flexible: Bool = true) -> Self {
+        self.margin(bottom: bottom, from: view, flexible: flexible)
+    }
+
+    @discardableResult
+    func fillToPrevious(bottom: CGFloat, flexible: Bool = true) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        return superview!.findPreviousVisible(of: self)?.get {
+            self.margin(bottom: bottom, from: $0, flexible: flexible)
+        } ?? self.margin(bottom: bottom, flexible: flexible)
+    }
+
+    @discardableResult
     func margin(top: CGFloat, bottom: CGFloat, flexible: Bool = false) -> Self {
         margin(top: top, flexible: flexible).margin(bottom: top, flexible: flexible)
     }

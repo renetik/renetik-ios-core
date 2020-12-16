@@ -95,7 +95,7 @@ class CSLangTest: XCTestCase {
         let array: NSMutableArray? = NSMutableArray()
         array?.add("test string 1")
         array?.add("test string 2")
-        let stringArray: [String] = [String].cast(array)
+        let stringArray: [String] = array as [String]
         XCTAssertEqual("test string 2", stringArray[1])
     }
 }

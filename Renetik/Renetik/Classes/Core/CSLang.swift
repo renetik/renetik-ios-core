@@ -54,11 +54,11 @@ public func localized(_ key: String) -> String {
     return string
 }
 
-public func later(seconds: Int = 0, function: @escaping Func) {
+public func later(function: @escaping Func) {
     DispatchQueue.main.async(execute: function)
 }
 
-public func later(seconds: Double, function: @escaping Func) {
+public func later(seconds: TimeInterval, function: @escaping Func) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: function)
 }
 

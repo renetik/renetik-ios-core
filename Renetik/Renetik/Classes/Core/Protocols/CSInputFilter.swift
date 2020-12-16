@@ -20,3 +20,15 @@ public class CSIntMaxValueInputFilter: CSInputFilterProtocol {
         return newString.asInt <= getMaxValue()
     }
 }
+
+public class CSIntMaxLengthInputFilter: CSInputFilterProtocol {
+    let maxLength: Int
+
+    public init(_  maxLength: Int) {
+        self.maxLength = maxLength
+    }
+
+    public func filter(current: String, range: NSRange, string: String) -> Bool {
+        current.length < maxLength
+    }
+}

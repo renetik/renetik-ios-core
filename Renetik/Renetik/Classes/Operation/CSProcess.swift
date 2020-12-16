@@ -42,7 +42,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     var isDone = false
     var isCanceled = false
     var url: String? = nil
-    var data: Data? = nil
+    public var data: Data? = nil
     public var message: String? = nil
     public var error: Error? = nil
     var failedProcess: CSProcessProtocol? = nil
@@ -97,7 +97,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     public func failed(_ error: Error?, message: String? = nil) {
         if isCanceled { return }
         self.error = error
-        self.message = message ?? error?.localizedDescription ?? CSStrings.operationFailed
+        self.message = message ?? error?.localizedDescription ?? .operationFailed
         failed(self)
     }
 
@@ -117,7 +117,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
                 "isSuccess \(isSuccess) isFailed \(isFailed)")
         if (isCanceled || isDone || isSuccess || isFailed) { return }
         isCanceled = true
-        self.message = CSStrings.operationCancelled
+        self.message = .operationCancelled
         eventCancel.fire(self)
         onDoneImpl()
     }
