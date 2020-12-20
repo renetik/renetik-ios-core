@@ -61,15 +61,21 @@ public extension CSAnyProtocol {
 //    }
 }
 
+public extension CSAnyProtocol where Self: AnyObject {
+    var hashString: String { String(UInt(bitPattern: ObjectIdentifier(self))) }
+}
+
 public extension CSAnyProtocol where Self: NSObject {
     public func equals(any objects: NSObject...) -> Bool {
-        if objects.contains(self) { return true }
-        return false
+        if objects.contains(self) { return true }; return false
     }
 }
 
 public extension CSAnyProtocol where Self: Equatable {
     public func equals(any objects: Self...) -> Bool { objects.contains { $0 == self } }
+
+    @available(*, deprecated, message: "Use equals(any)")
+    public func isAny(_ objects: Self...) -> Bool { objects.contains { $0 == self } }
 
     public func equals(_ object: Self) -> Bool { object == self }
 }
@@ -85,3 +91,26 @@ public extension CSAnyProtocol where Self: CustomStringConvertible {
 public extension CSAnyProtocol where Self: CustomStringConvertible, Self: CSNameProtocol {
     public var description: String { name }
 }
+
+
+extension IndexPath: CSAnyProtocol {}
+
+extension NSObject: CSAnyProtocol {}
+
+extension Bool: CSAnyProtocol {}
+
+extension String: CSAnyProtocol {}
+
+extension Int: CSAnyProtocol {}
+
+extension Float: CSAnyProtocol {}
+
+extension Double: CSAnyProtocol {}
+
+extension CGFloat: CSAnyProtocol {}
+
+extension Array: CSAnyProtocol {}
+
+extension Dictionary: CSAnyProtocol {}
+
+extension Date: CSAnyProtocol {}

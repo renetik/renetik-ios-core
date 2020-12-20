@@ -32,6 +32,8 @@ public extension String {
 
     var isSet: Bool { !isEmpty }
 
+    var isNotEmpty: Bool { !isEmpty }
+
     var length: Int { count }
 
     var asNSString: NSString { self as NSString }
@@ -104,6 +106,11 @@ public extension Optional where Wrapped == String {
     public var isNilOrEmpty: Bool {
         if self == nil { return true }
         return self!.isEmpty
+    }
+
+    public var isNotEmpty: Bool {
+        if self == nil { return false }
+        return self!.isNotEmpty
     }
 
     public func nilOrEmpty(_ function: Func) -> Self {

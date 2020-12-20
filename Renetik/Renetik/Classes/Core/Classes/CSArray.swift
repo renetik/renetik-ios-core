@@ -9,15 +9,18 @@ public class CSArray<Type>: CSObject {
 
     private let array = NSMutableArray()
 
-    var isEmpty: Bool { array.empty }
+    public var isEmpty: Bool { array.empty }
 
     public var asArray: [Type] { array as! [Type] }
 
-    func add(_ value: Type) -> Type { array.add(value); return value }
+    @discardableResult
+    public func add(_ value: Type) -> Type { array.add(value); return value }
 
-    func remove(_ response: Type) -> Self { array.remove(response); return self }
+    @discardableResult
+    public func remove(_ response: Type) -> Self { array.remove(response); return self }
 
-    func forEach(_ function: (Type) -> Void) -> Self {
+    @discardableResult
+    public func forEach(_ function: (Type) -> Void) -> Self {
         array.forEach { element in function(element as! Type) }
         return self
     }

@@ -92,11 +92,11 @@ public extension UINavigationController {
     }
 
     func push(_ pushId: String, _ pushingController: UIViewController) {
-        pushingController.values[pushKey] = pushId
+        pushingController.associatedDictionary[pushKey] = pushId
         var toRemove = [UIViewController]()
-        for controller in viewControllers {
+        for controller in viewControllers.reversed() {
             toRemove.add(controller)
-            if controller.values[pushKey] as? String == pushId {
+            if controller.associatedDictionary[pushKey] as? String == pushId {
                 var viewControllers = self.viewControllers
                 toRemove.each { viewControllers.remove($0) }
                 viewControllers.add(pushingController)

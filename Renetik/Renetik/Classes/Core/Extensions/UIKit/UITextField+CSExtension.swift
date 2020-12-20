@@ -48,15 +48,15 @@ public extension UITextField {
     }
 
     private var eventTextChangeKey: String { "UITextField+eventTextChange" }
-    private var eventTextChange: CSEvent<Void> { value(eventTextChangeKey, onCreate: { event() }) }
-    private var isEventTextChangeRegistered: Bool { values[eventTextChangeKey] != nil }
+    private var eventTextChange: CSEvent<Void> { associatedDictionary(eventTextChangeKey) { event() } }
+    private var isEventTextChangeRegistered: Bool { associatedDictionary[eventTextChangeKey] != nil }
 
     @discardableResult
     func onTextChange(_ function: @escaping (UITextField) -> Void) -> Self {
         if !isEventTextChangeRegistered {
             func onChange() {
-                if text != values[previousTextKey] as? String {
-                    values[previousTextKey] = text
+                if text != associatedDictionary[previousTextKey] as? String {
+                    associatedDictionary[previousTextKey] = text
                     eventTextChange.fire()
                 }
             }
@@ -125,15 +125,25 @@ public extension UITextField {
         set { font = UIFont.preferredFont(forTextStyle: newValue) }
     }
 
-    func filters(_ filter: CSInputFilterProtocol) {
+    @discardableResult
+    func filter(_ filter: CSInputFilterProtocol) -> Self {
         bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
             if string.isNilOrEmpty { return true }
             return filter.filter(current: self.text ?? "", range: range, string: string!)
         }
+        return self
     }
 
+    @discardableResult
+    func filters(_ filters: CSInputFilterProtocol...) -> Self {
+        filters.forEach { filter($0) }
+        return self
+    }
+
+    @discardableResult
     func keyboard(_ type: UIKeyboardType) -> Self { keyboardType = type; return self }
 
+    @discardableResult
     func max(length: Int) -> Self { filters(CSIntMaxLengthInputFilter(length)); return self }
 }
 

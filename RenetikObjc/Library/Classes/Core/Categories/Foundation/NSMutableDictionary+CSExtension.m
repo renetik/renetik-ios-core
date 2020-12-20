@@ -24,7 +24,7 @@
 }
 
 - (instancetype)put:(id)key :(id)value {
-    self[key] = nilToNull(value);
+    [self setObject:value forKey:key];
     return self;
 }
 

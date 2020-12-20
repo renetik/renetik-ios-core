@@ -14,6 +14,30 @@ public extension UIView {
         return view
     }
 
+    public func show(in parent: UIView) {
+        let transition = CATransition()
+        transition.duration = 0.15
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .moveIn
+        transition.subtype = .fromBottom
+        layer.add(transition, forKey: nil)
+        parent.add(view: self).matchParent()
+    }
+
+    public func hideIn() {
+//        let transition = CATransition()
+//        transition.duration = 0.15
+//        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+//        transition.type = .push
+//        transition.subtype = .fromBottom
+//        layer.add(transition, forKey: nil)
+//        removeFromSuperview()
+
+        animate(duration: .defaultAnimation, operation: {
+            self.bottom = -5
+        }, completion: { self.removeFromSuperview() })
+    }
+
     @discardableResult
     func add(all views: UIView...) -> Self {
         views.forEach { view in addSubview(view) }

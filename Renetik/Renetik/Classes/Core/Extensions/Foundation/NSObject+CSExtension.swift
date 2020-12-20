@@ -9,20 +9,22 @@ private var associatedPropertyValuesKey: Void?
 
 public extension NSObject {
 
-    var values: NSMutableDictionary {
+    var associatedDictionary: NSMutableDictionary {
         associatedValue(&associatedPropertyValuesKey) { NSMutableDictionary() }
     }
 
-    func value<T>(_ key: String, onCreate: () -> T) -> T {
-        var object: T? = values.get(key) as? T
+    func associatedDictionary<T>(_ key: String, onCreate: () -> T) -> T {
+        var object: T? = associatedDictionary.get(key) as? T
         if object == nil {
             object = onCreate()
-            values.put(key, object)
+            associatedDictionary.put(key, object)
         }
         return object!
     }
 
-    func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+    func associatedDictionary<T>(_ key: String, _ value: T) { associatedDictionary.put(key, value) }
+
+    private func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
         var object: T? = associatedValue(key) as? T
         if object == nil {
             object = onCreate()

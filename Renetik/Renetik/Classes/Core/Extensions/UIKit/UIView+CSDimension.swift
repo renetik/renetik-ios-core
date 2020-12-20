@@ -169,11 +169,18 @@ public extension UIView {
 
     @discardableResult
     @objc open func resizeToFit() -> Self {
-        let fitSize = sizeThatFits(.zero)
-        if fitSize == size && !subviews.isEmpty {
-            resizeToFitSubviews()
+        if content.notNil {
+            content!.resizeToFit()
+            let masks = saveAndClearSubviewsAutoresizingMasks()
+            size(content!.size)
+            restoreSubviewsAutoresizing(masks: masks)
         } else {
-            size(fitSize)
+            let fitSize = sizeThatFits(.zero)
+            if fitSize == size && !subviews.isEmpty {
+                resizeToFitSubviews()
+            } else {
+                size(fitSize)
+            }
         }
         return self
     }
@@ -190,11 +197,18 @@ public extension UIView {
      */
     @discardableResult
     @objc open func heightToFit() -> Self {
-        let heightThatFits = self.heightThatFits()
-        if (heightThatFits == height && !subviews.isEmpty) {
-            heightToFitSubviews()
+        if content.notNil {
+            content!.heightToFit()
+            let masks = saveAndClearSubviewsAutoresizingMasks()
+            height(content!.height)
+            restoreSubviewsAutoresizing(masks: masks)
         } else {
-            height(heightThatFits)
+            let heightThatFits = self.heightThatFits()
+            if (heightThatFits == height && !subviews.isEmpty) {
+                heightToFitSubviews()
+            } else {
+                height(heightThatFits)
+            }
         }
         return self
     }

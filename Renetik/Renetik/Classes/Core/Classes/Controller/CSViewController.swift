@@ -56,6 +56,13 @@ open class CSViewController: UIViewController {
         return self
     }
 
+    @discardableResult
+    convenience init(_ parent: UIViewController) {
+        self.init()
+        (parent as? CSViewController)
+                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
+    }
+
     // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
     override open func loadView() { view = UIControl.construct().defaultSize() }
 
@@ -277,8 +284,8 @@ open class CSViewController: UIViewController {
         UIView.animate(withDuration: 0.5,
                 animations: { self.view.bottom = -5 },
                 completion: { finished in
-                    self.view.hide()
-                    self.parent?.dismissChild(controller: self)
+//                    self.view.hide()
+                    self.parent!.dismissChild(controller: self)
                 })
         return self
     }

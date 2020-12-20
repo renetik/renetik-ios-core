@@ -8,11 +8,11 @@ public extension UIResponder {
 
     var safeArea: UIEdgeInsets { delegate.window!.safeAreaInsets }
 
-    func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
+    func invoke(animated: Bool, duration: TimeInterval = .defaultAnimation, operation: @escaping Func) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }
 
-    func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime,
+    func invoke(animated: Bool, duration: TimeInterval = .defaultAnimation,
                 operation: @escaping Func, completion: @escaping Func) {
         if animated {
             UIView.animate(withDuration: duration, animations: operation, completion: { _ in completion() })
@@ -22,8 +22,8 @@ public extension UIResponder {
         }
     }
 
-    func animate(duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
-        UIView.animate(withDuration: duration, animations: operation)
+    func animate(duration: TimeInterval = .defaultAnimation, operation: @escaping Func, completion: Func? = nil) {
+        UIView.animate(withDuration: duration, animations: operation, completion: { _ in completion?() })
     }
 
 }

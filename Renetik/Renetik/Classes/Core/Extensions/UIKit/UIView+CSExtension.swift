@@ -31,8 +31,7 @@ public extension UIView {
         construct().frame(frame)
     }
 
-//    class func construct() -> Self { Self().construct() }
-
+    @discardableResult
     class func construct(defaultSize: Bool = false) -> Self {
         let this: Self = Self().construct()
         if defaultSize { this.defaultSize() }
@@ -79,13 +78,13 @@ public extension UIView {
     func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
-    func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
+    func tint(color: UIColor) -> Self { self.tintColor = color; return self }
 
     @discardableResult
-    func content(mode: UIView.ContentMode) -> Self { invoke { self.contentMode = mode } }
+    func content(mode: UIView.ContentMode) -> Self { self.contentMode = mode; return self }
 
     @discardableResult
-    func clipsToBounds(_ value: Bool = true) -> Self { invoke { self.clipsToBounds = value } }
+    func clipsToBounds(_ value: Bool = true) -> Self { self.clipsToBounds = value; return self }
 
     @discardableResult
     func asCircular() -> Self {
@@ -107,34 +106,34 @@ public extension UIView {
 
     @objc var isVisible: Bool {
         get { !isHidden }
-        set(value) { self.isHidden = !value }
+        set(value) { isHidden = !value }
     }
 
     @discardableResult
-    func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
+    func visible(if condition: Bool) -> Self { isVisible = condition; return self }
 
     @discardableResult
-    func shown(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
+    func shown(if condition: Bool) -> Self { isVisible = condition; return self }
 
     @discardableResult
-    func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
+    func hidden(if condition: Bool) -> Self { isHidden = condition; return self }
 
     @discardableResult
-    func show() -> Self { invoke { self.isVisible = true } }
+    func show() -> Self { isVisible = true; return self }
 
     @discardableResult
-    func hide() -> Self { invoke { self.isVisible = false } }
+    func hide() -> Self { isVisible = false; return self }
 
     func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
 
     @discardableResult
-    @objc func aspectFit() -> Self { invoke { contentMode = .scaleAspectFit } }
+    @objc func aspectFit() -> Self { contentMode = .scaleAspectFit; return self }
 
     @discardableResult
-    func clipToBounds() -> Self { invoke { clipsToBounds = true } }
+    func clipToBounds() -> Self { clipsToBounds = true; return self }
 
     @discardableResult
-    @objc func aspectFill() -> Self { invoke { contentMode = .scaleAspectFill } }
+    @objc func aspectFill() -> Self { contentMode = .scaleAspectFill; return self }
 
     @discardableResult
     func border(width: CGFloat = 1, color: UIColor = .darkGray, radius: CGFloat = 3) -> Self {
@@ -159,21 +158,25 @@ public extension UIView {
         return nil
     }
 
-    func background(fadeTo color: UIColor) {
-        if backgroundColor == color { return }
+    @discardableResult
+    func background(fadeTo color: UIColor) -> Self {
+        if backgroundColor == color { return self }
         let animation = CABasicAnimation(keyPath: "backgroundColor")
         animation.fromValue = backgroundColor?.cgColor
         animation.toValue = color.cgColor
-        animation.duration = defaultAnimationTime
+        animation.duration = .defaultAnimation
         layer.add(animation, forKey: "fadeAnimation")
         backgroundColor = color
+        return self
     }
 
-    func fadeToggle() -> Self { invoke { (isVisible && alpha == 1).then { fadeOut() }.elseDo { fadeIn() } } }
+    @discardableResult
+    func fadeToggle() -> Self { (isVisible && alpha == 1).then { fadeOut() }.elseDo { fadeIn() }; return self }
 
-    func fadeTo(visible: Bool) { invoke { visible.isTrue { fadeIn() }.elseDo { fadeOut() } } }
+    @discardableResult
+    func fadeTo(visible: Bool) -> Self { visible.isTrue { fadeIn() }.elseDo { fadeOut() }; return self }
 
-    func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
+    func fadeIn(duration: TimeInterval = .defaultAnimation, onDone: (Func)? = nil) {
         if isVisible && alpha == 1 { return }
         isVisible = true
         UIView.animate(withDuration: duration, delay: 0,
@@ -182,7 +185,7 @@ public extension UIView {
                 completion: { _ in onDone?() })
     }
 
-    func fadeOut(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
+    func fadeOut(duration: TimeInterval = .defaultAnimation, onDone: (Func)? = nil) {
         if isHidden || alpha == 0 { return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],

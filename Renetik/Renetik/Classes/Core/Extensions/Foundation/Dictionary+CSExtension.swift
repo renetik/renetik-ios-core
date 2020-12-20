@@ -12,6 +12,12 @@ public extension Dictionary {
     }
 
     @discardableResult
+    public mutating func add(key: Key, value: Value) -> Value {
+        self[key] = value
+        return value
+    }
+
+    @discardableResult
     public mutating func remove(key: Key) -> Value? {
         removeValue(forKey: key)
     }

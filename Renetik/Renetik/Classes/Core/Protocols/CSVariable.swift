@@ -21,7 +21,7 @@ public class CSVariable<T>: CSVariableProtocol {
 }
 
 extension CSVariableProtocol where T: Any {
-    mutating func value(_ value: T) -> Self {
+    func value(_ value: T) -> Self {
         self.value = value
         return self
     }
@@ -29,18 +29,17 @@ extension CSVariableProtocol where T: Any {
 
 public extension CSVariableProtocol where T == Bool {
     @discardableResult
-    mutating func setTrue() -> Self {
+    func setTrue() -> Self {
         value = true
         return self
     }
 
     @discardableResult
-    mutating func setFalse() -> Self {
+    func setFalse() -> Self {
         value = false
         return self
     }
 }
-
 
 public extension CSVariable where T == Bool {
     @discardableResult

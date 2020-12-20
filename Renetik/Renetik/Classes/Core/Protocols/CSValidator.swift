@@ -29,5 +29,7 @@ public class CSVariableValidator<T, Variable: CSVariableProtocol>: CSValidatorPr
         self.variable = variable; self.function = function
     }
 
-    public func validate() -> Bool? { function(variable.value as! T) }
+    public func validate() -> Bool? {
+        function(variable.value as! T)
+    }
 }

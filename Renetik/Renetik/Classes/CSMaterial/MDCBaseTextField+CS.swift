@@ -29,7 +29,7 @@ public extension MDCBaseTextField {
     }
 
     var eventClear: CSEvent<Void> {
-        value("MDCOutlinedTextField+eventClear", onCreate: { event() })
+        associatedDictionary("MDCOutlinedTextField+eventClear", onCreate: { event() })
     }
 
     @discardableResult

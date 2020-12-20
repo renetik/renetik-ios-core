@@ -81,26 +81,4 @@ open class CSMaterialControl: UIControl {
         inkTouchController.addRipple(to: self)
         return self
     }
-
-    @discardableResult
-    open override func resizeToFit() -> Self {
-        assert(content.notNil, "Needs to have content to calculate size because of ripple")
-        content!.resizeToFitSubviews()
-        let contentAutoresizingMask = content!.autoresizingMask
-        content!.autoresizingMask = []
-        size(content!.size)
-        content!.autoresizingMask = contentAutoresizingMask
-        return self
-    }
-
-    @discardableResult
-    override open func heightToFit() -> Self {
-        assert(content.notNil, "Needs to have content to calculate height because of ripple")
-        content!.heightToFitSubviews()
-        let contentAutoresizingMask = content!.autoresizingMask
-        content!.autoresizingMask = []
-        height(content!.height)
-        content!.autoresizingMask = contentAutoresizingMask
-        return self
-    }
 }

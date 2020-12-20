@@ -9,7 +9,9 @@ public typealias Boolean = Bool
 public typealias Func = () -> Void
 public typealias ArgFunc<Argument> = (Argument) -> Void
 
-public let defaultAnimationTime: TimeInterval = 0.25
+extension TimeInterval {
+    public static let defaultAnimation: TimeInterval = 0.25
+}
 
 enum CSError: Error {
     case todo
@@ -38,7 +40,7 @@ let isDebug: Bool = {
 }()
 
 let renetikBundle: Bundle = {
-//    When use_framewarks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
+//    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
 //    When #use_modular_headers! Bundle.main
 //    TODO?: How to solve this universally
     let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
@@ -110,26 +112,6 @@ public class Nil: CSAnyProtocol, Equatable {
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
-extension IndexPath: CSAnyProtocol {}
-
-extension NSObject: CSAnyProtocol {}
-
-extension Bool: CSAnyProtocol {}
-
-extension String: CSAnyProtocol {}
-
-extension Int: CSAnyProtocol {}
-
-extension Float: CSAnyProtocol {}
-
-extension Double: CSAnyProtocol {}
-
-extension CGFloat: CSAnyProtocol {}
-
-extension Array: CSAnyProtocol {}
-
-extension Dictionary: CSAnyProtocol {}
-
 func function(if boolean: Bool, function: Func) -> CSConditionalResult {
     if boolean { function() }
     return CSConditionalResult(doElseIf: boolean == false)
@@ -138,7 +120,7 @@ func function(if boolean: Bool, function: Func) -> CSConditionalResult {
 public class CSConditionalResult {
     let isDoElse: Bool
 
-    public init(doElseIf: Bool) { self.isDoElse = doElseIf }
+    public init(doElseIf: Bool) { isDoElse = doElseIf }
 
     public func elseDo(_ function: Func) { if isDoElse { function() } }
 }

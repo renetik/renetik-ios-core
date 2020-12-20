@@ -13,9 +13,9 @@ public extension Calendar {
                 year: year?.intValue, month: month?.intValue, day: day?.intValue)
         return calendar.date(from: dateComponents)
     }
+
 }
 //
-//val calendar: Calendar get() = Calendar.getInstance()
 //
 //fun Calendar.fromTime(time: Long) =
 //        apply { this.timeInMillis = time }

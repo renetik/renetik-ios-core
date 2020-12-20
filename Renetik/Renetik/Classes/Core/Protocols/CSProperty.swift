@@ -49,7 +49,13 @@ open class CSProperty<T>: CSPropertyProtocol where T: Equatable {
     }
 }
 
-public extension CSProperty where T == Bool {
+public extension CSPropertyProtocol where T: CSAnyProtocol {
+    var isSet: Bool {
+        get { value.notNil }
+    }
+}
+
+public extension CSPropertyProtocol where T == Bool {
     @discardableResult
     func toggle() -> Self { value = !value; return self }
 
