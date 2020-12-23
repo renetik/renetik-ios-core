@@ -2,7 +2,8 @@
   Localizable.strings
   Created by Rene Dohan on 1/4/20.
 */
-renetik_dialog_yes="Ok";
+renetik_dialog_ok="Ok";
+renetik_dialog_yes="Yes";
 renetik_dialog_no="No";
 renetik_dialog_cancel="Cancel";
 

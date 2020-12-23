@@ -10,7 +10,7 @@ public extension CSOperation where Data: AnyObject {
         self.init(function: { operation in
             let response = request()
             response.force(operation.isRefresh)
-            let process = CSProcess(response.data)
+            let process = CSProcess(data: response.data)
             response.onSuccess { data in process.success(data) }
             response.onFailed { it in process.failed(it.message ?? .requestFailed) }
             return process

@@ -81,4 +81,22 @@ open class CSMaterialControl: UIControl {
         inkTouchController.addRipple(to: self)
         return self
     }
+
+    @discardableResult
+    @objc open override func heightToFit() -> Self {
+        content!.heightToFitSubviews()
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        height(content!.height)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
+
+    @discardableResult
+    @objc open override func resizeToFit() -> Self {
+        content!.resizeToFitSubviews()
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        size(content!.size)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
 }

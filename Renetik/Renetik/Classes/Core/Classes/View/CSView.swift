@@ -58,5 +58,17 @@ open class CSView: UIView {
     open func onLayoutSubviews() {}
 
     @discardableResult
-    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
+    public func updateLayout() -> Self { animate { self.layoutFunctions.fire() }; return self }
+
+    @discardableResult
+    @objc open override func heightToFit() -> Self {
+        heightToFitSubviews()
+        return self
+    }
+
+    @discardableResult
+    @objc open override func resizeToFit() -> Self {
+        resizeToFitSubviews()
+        return self
+    }
 }

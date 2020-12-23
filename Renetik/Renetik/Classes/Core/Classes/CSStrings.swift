@@ -7,9 +7,10 @@ import Foundation
 public typealias CSStrings = String
 
 public extension String {
-    public static let dialogYes = localized("renetik_dialog_yes")
-    public static let dialogNo = localized("renetik_dialog_no")
-    public static let dialogCancel = localized("renetik_dialog_cancel")
+    public static let cs_dialog_ok = localized("cs_dialog_ok")
+    public static let cs_dialog_yes = localized("renetik_dialog_yes")
+    public static let cs_dialog_no = localized("renetik_dialog_no")
+    public static let cs_dialog_cancel = localized("renetik_dialog_cancel")
 
     public static let requestRetry = localized("renetik_request_retry")
     public static let requestCancel = localized("renetik_request_cancel")

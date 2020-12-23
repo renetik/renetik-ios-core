@@ -37,7 +37,7 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
             hud.backgroundView.backgroundColor = backgroundColor
             cancel.notNil { cancel in
                 hud.detailsLabel.text = title.isSet ? "\n" + title + "\n" : "\n"
-                hud.button.text(cancel.title ?? .dialogCancel).onClick {
+                hud.button.text(cancel.title ?? .cs_dialog_cancel).onClick {
                     cancel.action()
                     hud.hide(animated: true)
                 }

@@ -52,5 +52,5 @@ open class CSScrollView: TPKeyboardAvoidingScrollView {
     open func onLayoutSubviews() {}
 
     @discardableResult
-    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
+    public func updateLayout() -> Self { animate { self.layoutFunctions.fire() }; return self }
 }

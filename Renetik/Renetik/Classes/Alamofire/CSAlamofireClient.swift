@@ -59,8 +59,8 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func get<DataType: CSServerMapData>(_ operation: CSOperation<DataType>?, service: String,
-            data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
-        CSProcess("\(url)/\(service)", data).also { process in
+                                               data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
+        CSProcess(url: "\(url)/\(service)", data: data).also { process in
             let loadFromNetwork: Bool = {
                 if operation?.isRefresh == true { return true }
                 if operation?.expireMinutes ?? 0 > 0 { return false }
@@ -71,7 +71,7 @@ public class CSAlamofireClient: CSObject {
                     encoding: URLEncoding.default, refreshCache: loadFromNetwork)
             operation?.expireMinutes.notNil { minutes in request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
-                    completionHandler: { response in self.onResponseDone(response: response, process: process) },
+                    completionHandler: { self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error) },
                     autoClearCache: (operation?.isCached).isFalse)
         }
     }
@@ -81,45 +81,59 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func post<DataType: CSServerMapData>(service: String, data: DataType,
-            params: [String: String] = [:]) -> CSProcess<DataType> {
-        CSProcess("\(url)/\(service)", data).also { process in
-            let request = manager.request(process.url!, method: .post, parameters: params)
-//            request.validate(statusCode: 200..<300).validate(contentType: ["application/json"])
-            request.responseString(encoding: nil,
-                    completionHandler: { response in self.onResponseDone(response: response, process: process) })
+                                                params: [String: Any] = [:]) -> CSProcess<DataType> {
+        CSProcess(url: "\(url)/\(service)", data: data).also { process in
+            manager.request(process.url!, method: .post, parameters: params, encoding: JSONEncoding.default).responseString(encoding: nil) {
+                self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error)
+            }
         }
     }
 
-    public func post<DataType: CSServerMapData>(service: String, data: DataType,
-            form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
-        CSProcess("\(url)/\(service)", data).also { process in
+    public func post<DataType: CSHttpResponseDataProtocol>(service: String, data: DataType,
+                                                           form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
+        CSProcess(url: "\(url)/\(service)", data: data).also { process in
             let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
             let base64Credentials = credentialData.base64EncodedData()
             let headers = ["Authorization": "Basic \(base64Credentials)"]
-            let request = manager.upload(multipartFormData: form, to: process.url!, headers: HTTPHeaders(headers))
-            request.responseString(encoding: nil,
-                    completionHandler: { response in self.onResponseDone(response: response, process: process) })
+            manager.upload(multipartFormData: form, to: process.url!, headers: HTTPHeaders(headers))
+                    .responseString(encoding: nil) {
+                        self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error)
+                    }
         }
     }
 
-    private func onResponseDone<DataType: CSServerMapData>(response: AFDataResponse<String>,
-            process: CSProcess<DataType>) {
-        response.error.notNil { onResponse(error: $0, message: $0.errorDescription, process) }
-                .elseDo { onResponse(response, process) }
+    public func download(service: String, params: [String: Any] = [:]) -> CSProcess<CSDownloadResponseData> {
+        CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { process in
+            let fileUrl = getDownloadFileUrl(fileName: "download.pdf")
+            let destination: DownloadRequest.Destination =
+                    { _, _ in (fileUrl, [.removePreviousFile, .createIntermediateDirectories]) }
+            manager.download(process.url!, parameters: params, to: destination).downloadProgress { progress in
+                let progressNumber = progress.completedUnitCount / progress.totalUnitCount
+                logInfo(progressNumber)
+            }.response { self.onResponseDone(process, $0.response!.statusCode, $0.fileURL?.path, $0.error) }
+        }
     }
 
-    private func onResponse<DataType: CSServerMapData>(_ response: AFDataResponse<String>, _ process: CSProcess<DataType>) {
-        logInfo("\(process.url!) \(response.value ?? "nil")")
-        process.data!.onHttpResponse(code: response.response!.statusCode, message: "", content: response.value)
-        if process.data!.success { process.success() } else { onResponse(error: nil, message: process.data!.message ?? "No Message", process) }
+    func getDownloadFileUrl(fileName: String) -> URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let nameUrl = URL(string: fileName)
+        let fileURL = documentsURL.appendingPathComponent((nameUrl?.lastPathComponent)!)
+        NSLog(fileURL.absoluteString)
+        return fileURL;
     }
 
-    private func onResponse<DataType: CSServerMapData>(error: AFError?, message: String?,
-            _ process: CSProcess<DataType>) {
-        invalidate(url: process.url!)
-        process.failed(error, message: message)
+    private func onResponseDone<DataType: CSHttpResponseDataProtocol>(
+            _ process: CSProcess<DataType>, _ statusCode: Int, _ content: String?, _ error: Error?) {
+        error.notNil { process.failed($0, message: $0.localizedDescription) }
+                .elseDo {
+                    logInfo("\(process.url!) \(content ?? "No content")")
+                    process.data!.onHttpResponse(code: statusCode, message: "", content: content)
+                    function(if: process.data!.success) { process.success() }
+                            .elseDo { process.failed(nil, message: process.data!.message ?? "No Message") }
+                }
     }
+}
 
-    // TODO: Invalidate url in cache if request failed maybe already implemented in UrlCacheExtensions
-    private func invalidate(url: String) {}
+public class CSDownloadResponseData: CSHttpResponseData {
+    public var url: URL { URL(fileURLWithPath: content!) }
 }

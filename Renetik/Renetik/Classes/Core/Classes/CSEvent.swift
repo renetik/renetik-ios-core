@@ -78,4 +78,19 @@ public class CSEvent<Type> {
 
 public extension CSEvent where Type == Void {
     public func fire() { fire(()) }
+
+    @discardableResult
+    public func listenOnce(function: @escaping Func) -> CSEventListener<Type> {
+        listen(function: { registration, argument in
+            registration.cancel()
+            function()
+        })
+    }
+
+    @discardableResult
+    public func listen(function: @escaping Func) -> CSEventListener<Type> {
+        registrations.add(CSEventListener(event: self, function: { _, argument in
+            function()
+        }))
+    }
 }

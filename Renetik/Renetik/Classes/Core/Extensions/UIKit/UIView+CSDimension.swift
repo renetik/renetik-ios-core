@@ -175,12 +175,7 @@ public extension UIView {
             size(content!.size)
             restoreSubviewsAutoresizing(masks: masks)
         } else {
-            let fitSize = sizeThatFits(.zero)
-            if fitSize == size && !subviews.isEmpty {
-                resizeToFitSubviews()
-            } else {
-                size(fitSize)
-            }
+            size(sizeThatFits(.zero))
         }
         return self
     }
@@ -203,12 +198,7 @@ public extension UIView {
             height(content!.height)
             restoreSubviewsAutoresizing(masks: masks)
         } else {
-            let heightThatFits = self.heightThatFits()
-            if (heightThatFits == height && !subviews.isEmpty) {
-                heightToFitSubviews()
-            } else {
-                height(heightThatFits)
-            }
+            height(self.heightThatFits())
         }
         return self
     }

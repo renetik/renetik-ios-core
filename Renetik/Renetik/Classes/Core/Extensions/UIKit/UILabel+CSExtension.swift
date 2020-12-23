@@ -99,17 +99,4 @@ public extension UILabel {
         text(linesText).resizeToFit().text(currentText).width(currentWidth)
         return self
     }
-
-    @discardableResult
-    func html(_ text: String) -> Self {
-        let htmlStyleFormat = "<style>body{font-family: '%@'; font-size:%fpx;}</style>"
-        let html = (text + String(format: htmlStyleFormat, font!.fontName, font!.pointSize))
-        let htmlData = html.data(using: .unicode, allowLossyConversion: true)
-        htmlData.notNil { data in
-            attributedText = try? NSAttributedString(data: data, options: [
-                .documentType: NSAttributedString.DocumentType.html, .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
-            ], documentAttributes: nil)
-        }
-        return self
-    }
 }

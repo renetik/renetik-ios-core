@@ -112,11 +112,6 @@ public class Nil: CSAnyProtocol, Equatable {
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
-func function(if boolean: Bool, function: Func) -> CSConditionalResult {
-    if boolean { function() }
-    return CSConditionalResult(doElseIf: boolean == false)
-}
-
 public class CSConditionalResult {
     let isDoElse: Bool
 
@@ -125,14 +120,17 @@ public class CSConditionalResult {
     public func elseDo(_ function: Func) { if isDoElse { function() } }
 }
 
+func function(if boolean: Bool, function: Func) -> CSConditionalResult {
+    if boolean { function() }
+    return CSConditionalResult(doElseIf: boolean == false)
+}
+
 func functionTest() {
     let A = "A"
     let B = "B"
     function(if: A == B) {
-        let message = "A == B"
-        logInfo(message)
+        logInfo("A == B")
     }.elseDo {
-        let message = "A != B"
-        logInfo(message)
+        logInfo("A != B")
     }
 }

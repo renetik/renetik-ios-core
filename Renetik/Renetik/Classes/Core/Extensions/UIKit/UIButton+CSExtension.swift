@@ -17,6 +17,9 @@ public extension UIButton {
     class func construct(_ text: String) -> Self { construct().text(text) }
 
     @discardableResult
+    class func construct(html: String) -> Self { construct().html(text: html) }
+
+    @discardableResult
     override open func construct() -> Self {
         super.construct().aspectFit().resizeToFit()
         return self
@@ -39,17 +42,6 @@ public extension UIButton {
         return self
     }
 
-    public var font: UIFont? {
-        get { titleLabel?.font }
-        set(value) { titleLabel?.font = value }
-    }
-
-    @discardableResult
-    @objc open func font(_ font: UIFont) -> Self {
-        titleLabel?.font = font
-        return self
-    }
-
     @discardableResult
     public func text(_ title: String) -> Self {
         setTitle(title, for: .normal)
@@ -64,17 +56,6 @@ public extension UIButton {
 
     @discardableResult
     public func image(template image: UIImage) -> Self { self.image(image.template) }
-
-    public var textColor: UIColor? {
-        get { titleColor(for: .normal) }
-        set(value) { setTitleColor(value, for: .normal) }
-    }
-
-    @discardableResult
-    func textColor(_ color: UIColor) -> Self {
-        setTitleColor(color, for: .normal)
-        return self
-    }
 
     @discardableResult
     override func aspectFit() -> Self {

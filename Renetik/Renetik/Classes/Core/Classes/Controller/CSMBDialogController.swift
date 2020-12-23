@@ -33,7 +33,7 @@ public class CSMBDialogController: NSObject, CSHasDialogProtocol, CSHasDialogVis
             hud.label.text = title
             hud.detailsLabel.text = "\n" + message + "\n\n"
             positive.notNil { action in
-                hud.button.text(action.title ?? .dialogYes).onClick {
+                hud.button.text(action.title ?? .cs_dialog_ok).onClick {
                     action.action()
                     hud.hide(animated: true)
                 }

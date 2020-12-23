@@ -14,7 +14,7 @@ public extension CSHasSheetProtocol {
     @discardableResult
     func show(actions: [CSDialogAction], from: CSDisplayElement) -> CSHasDialogVisible {
         show(title: nil, message: nil, actions: actions, positive: nil,
-                cancel: CSDialogAction(title: .dialogCancel, action: {}), from: from)
+                cancel: CSDialogAction(title: .cs_dialog_cancel, action: {}), from: from)
     }
 
     @discardableResult
