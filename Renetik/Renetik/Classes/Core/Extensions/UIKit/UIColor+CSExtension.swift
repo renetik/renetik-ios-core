@@ -9,7 +9,7 @@ public extension UIColor {
 
     func add(alpha: CGFloat) -> UIColor { withAlphaComponent(alpha) }
 
-    static func random() -> UIColor {
+    static var random : UIColor {
         UIColor(red: .randomZeroToOne(), green: .randomZeroToOne(), blue: .randomZeroToOne(), alpha: 1.0)
     }
 }

@@ -30,21 +30,24 @@ open class CSViewController: UIViewController {
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
     public private(set) var controllerInNavigation: UIViewController?
-    private var parentController: UIViewController!
+    private var parentController: UIViewController! {
+        didSet {
+            (parentController as? CSViewController)
+                    .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
+        }
+    }
+    private var _view: UIView?
 
     @discardableResult
     open func construct(_ parent: UIViewController, _ view: UIView) -> Self {
-        (parent as? CSViewController)
-                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
-        self.view = view
+        parentController = parent
+        _view = view
         return self
     }
 
     @discardableResult
     open func construct(_ parent: UIViewController) -> Self {
-        (parent as? CSViewController)
-                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
-        view = CSView.construct(defaultSize: true)
+        parentController = parent
         return self
     }
 
@@ -57,6 +60,8 @@ open class CSViewController: UIViewController {
         isShowing = true
         return self
     }
+
+    open override func loadView() { view = _view ?? CSView.construct(defaultSize: true) }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +78,7 @@ open class CSViewController: UIViewController {
             isOnViewWillAppearFirstTime = true
             onViewWillAppearFirstTime()
         } else {
+            view.setNeedsLayout()
             onViewWillAppearFromPresentedController()
         }
     }

@@ -39,7 +39,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func construct() -> Self { clipsToBounds().setAutoresizingDefaults() }
+    @objc open func construct() -> Self { setAutoresizingDefaults() }
 
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
@@ -179,26 +179,30 @@ public extension UIView {
                 })
     }
 
-    func debugLayoutByRandomBorderColor() {
-        border(color: UIColor.random())
+    @discardableResult
+    func debugLayoutByRandomBorderColor() -> Self {
+        border(color: .random)
         debugLayoutBySubviewsRandomBorderColor()
+        return self
     }
 
-    func debugLayoutBySubviewsRandomBorderColor() {
+    private func debugLayoutBySubviewsRandomBorderColor() {
         subviews.each {
-            $0.border(color: UIColor.random())
+            $0.border(color: .random)
             $0.debugLayoutBySubviewsRandomBorderColor()
         }
     }
 
-    func debugLayoutBySubviewsRandomColor() {
-        background(UIColor.random())
+    @discardableResult
+    func debugLayoutBySubviewsRandomColor() -> Self {
+        background(.random)
         debugLayoutBySubviewsRandomBackgroundColor()
+        return self
     }
 
-    func debugLayoutBySubviewsRandomBackgroundColor() {
+    private func debugLayoutBySubviewsRandomBackgroundColor() {
         subviews.each {
-            $0.background(UIColor.random())
+            $0.background(.random)
             $0.debugLayoutBySubviewsRandomBackgroundColor()
         }
     }

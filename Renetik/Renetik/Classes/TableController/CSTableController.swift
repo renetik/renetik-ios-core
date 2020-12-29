@@ -36,18 +36,18 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     private var loadProcess: CSProcess<Data>? = nil
 
     public func construct(by parent: CSTableControllerParent,
-            parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
+                          parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         super.construct(parent)
         parentController = parent
         tableView.delegates(parent)
         filter = parentController as? CSTableFilter
         _data = data
         parentController.showChild(controller: self, parentView: parentView ?? parent.view)
-        view.matchParent()
+        view.matchParent().add(view: tableView).matchParent()
         return self
     }
 
-    override public func loadView() { view = tableView }
+//    override public func loadView() { view = tableView }
 
     override public func onViewWillAppearFromPresentedController() {
         super.onViewWillAppearFromPresentedController()
@@ -86,7 +86,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
                     self.isFirstLoadingDone = true
                     self.tableView.reload()
                 }.also { process in
-                    self.loadProcess = process
+                    loadProcess = process
                     onLoading.fire(process)
                 }
     }
@@ -107,7 +107,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         for index in 0..<filteredDataToAdd.count {
             paths.add(IndexPath(row: index + dataCount, section: 0))
         }
-        self.filteredData.add(array: filteredDataToAdd)
+        filteredData.add(array: filteredDataToAdd)
         tableView.beginUpdates()
         tableView.insertRows(at: paths, with: .automatic)
         tableView.endUpdates()
@@ -120,7 +120,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         filter?.onReloadDone(in: self)
     }
 
-    private func filter(data: [Row]) -> [Row] { self.filter?.filter(data: data) ?? data }
+    private func filter(data: [Row]) -> [Row] { filter?.filter(data: data) ?? data }
 }
 
 extension CSTableController {
