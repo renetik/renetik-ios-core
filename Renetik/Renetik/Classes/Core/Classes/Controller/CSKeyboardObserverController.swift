@@ -18,7 +18,7 @@ public class CSKeyboardObserverController: CSViewController {
     public func construct(
             _ parent: UIViewController,
             _ onKeyboardChange: ((_ keyboardHeight: CGFloat) -> Void)? = nil) -> Self {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.onKeyboardChange = onKeyboardChange
         observe(notification: UIResponder.keyboardDidShowNotification, callback: keyboardDidShow)
         observe(notification: UIResponder.keyboardDidHideNotification, callback: keyboardDidHide)

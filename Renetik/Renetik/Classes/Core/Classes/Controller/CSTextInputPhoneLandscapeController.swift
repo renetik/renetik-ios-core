@@ -25,7 +25,7 @@ extension UITextView: CSHasInputAccessory {}
 public class CSTextInputPhoneLandscapeController: CSViewController {
     public let defaultAccessoryView = CSInputAccessoryDone()
     private let keyboardManager = CSKeyboardObserverController()
-    public let container = UIView.construct(width: 100, height: 50).background(.white)
+    public let container = CSView.construct(width: 100, height: 50).background(.white)
     public let textView = UITextView.construct().background(.white)
     public let actionButton = UIButton.construct().text(color: .blue)
     private var parentTextInput: (CSHasTextProtocol & CSHasUIResponder)!
@@ -36,7 +36,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     func construct(by parent: CSViewController, textInput: CSHasTextProtocol & CSHasUIResponder,
                    hasAccessory: CSHasInputAccessory? = nil, placeHolder: String, hideImage: UIImage,
                    action: (title: String?, image: UIImage?, function: Func)?) -> Self {
-        constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.parentTextInput = textInput
         self.hasAccessory = hasAccessory
         accessoryTextInput = (hasAccessory?.inputAccessoryView as? CSHasTextInput)?.textInput

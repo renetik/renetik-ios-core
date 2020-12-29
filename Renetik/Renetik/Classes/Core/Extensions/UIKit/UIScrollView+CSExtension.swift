@@ -12,13 +12,13 @@ public extension UIScrollView {
 
     class func construct(verticalContent: Bool) -> Self {
         verticalContent ? Self.construct(defaultSize: true).also {
-            $0.content(vertical: UIView.construct(defaultSize: true))
+            $0.content(vertical: CSView.construct(defaultSize: true))
         }: Self.construct()
     }
 
     class func construct(horizontalContent: Bool) -> Self {
         horizontalContent ? Self.construct(defaultSize: true).also {
-            $0.content(horizontal: UIView.construct(defaultSize: true))
+            $0.content(horizontal: CSView.construct(defaultSize: true))
         } : Self.construct()
     }
 
@@ -32,7 +32,7 @@ public extension UIScrollView {
     @discardableResult
     public func content<View: UIView>(vertical view: View) -> View {
         content(view).matchParentWidth().from(top: 0)
-        contentHeightByLastContentSubview()
+        contentHeightByLastVisibleSubview()
         return view
     }
 
@@ -81,8 +81,8 @@ public extension UIScrollView {
     }
 
     @discardableResult
-    func contentHeightByLastContentSubview(padding: CGFloat = 0) -> Self {
-        content(height: (content!.subviews.last?.bottom ?? 0) + padding)
+    func contentHeightByLastVisibleSubview(padding: CGFloat = 0) -> Self {
+        content(height: (content!.lastVisibleSubview?.bottom ?? 0) + padding)
     }
 
     @discardableResult

@@ -40,9 +40,8 @@ public extension UIView {
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        superview!.findPreviousVisible(of: self).notNil { previous in
-            from(previous, top: top)
-        }.elseDo { from(top: 0) }
+        superview!.findPreviousVisible(of: self).notNil { from($0, top: top) }
+                .elseDo { from(top: 0) }
         return self
     }
 
@@ -171,14 +170,14 @@ public extension UIView {
 
     @discardableResult
     func widthBy(right: CGFloat) -> Self {
-        width = (right - left).unsigned
+        width = (right - left).asUnsigned
         fixedRight()
         return self
     }
 
     @discardableResult
     func heightBy(bottom: CGFloat) -> Self {
-        height = (bottom - top).unsigned
+        height = (bottom - top).asUnsigned
         fixedBottom()
         return self
     }

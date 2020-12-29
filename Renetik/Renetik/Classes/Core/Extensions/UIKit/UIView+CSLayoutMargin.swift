@@ -28,7 +28,7 @@ public extension UIView {
 
     @discardableResult
     func margin(left margin: CGFloat, flexible: Bool = false) -> Self {
-        width = (right - margin).unsigned
+        width = (right - margin).asUnsigned
         if flexible { fixedRight().flexibleWidth() }
         from(left: margin)
         return self
@@ -43,7 +43,7 @@ public extension UIView {
     func margin(top margin: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let bottomCorrected = bottom - margin > 0 ? bottom : superview!.height
-        height = (bottomCorrected - margin).unsigned
+        height = (bottomCorrected - margin).asUnsigned
         from(top: margin)
         if flexible { fixedBottom().flexibleHeight() }
         return self
@@ -53,7 +53,7 @@ public extension UIView {
     func margin(bottom: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let bottom = superview!.height - bottom
-        heightBy(bottom: bottom.unsigned)
+        heightBy(bottom: bottom.asUnsigned)
         if flexible { fixedTop().flexibleHeight() }
         return self
     }
@@ -85,7 +85,7 @@ public extension UIView {
     func margin(right: CGFloat, flexible: Bool = false) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let right = superview!.width - right
-        widthBy(right: right.unsigned)
+        widthBy(right: right.asUnsigned)
         if flexible { fixedLeft().flexibleWidth() }
         return self
     }

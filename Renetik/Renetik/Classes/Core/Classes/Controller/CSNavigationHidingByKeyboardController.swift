@@ -13,17 +13,13 @@ public class CSNavigationHidingByKeyboardController: CSMainController {
 
     @discardableResult
     public override func construct(_ parent: UIViewController) -> Self {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         keyboardManager.construct(self, onKeyboardChange)
         return self
     }
 
     private func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 {
-            hideNavigationBar()
-        } else {
-            showNavigationBar()
-        }
+        if keyboardHeight > 0 { hideNavigationBar() } else { showNavigationBar() }
     }
 
     public func hideNavigationBar() {

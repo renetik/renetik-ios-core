@@ -6,32 +6,35 @@
 import Renetik
 
 public protocol CSHttpResponseDataProtocol {
-    func onHttpResponse(code: Int, message: String, content: String?)
     var success: Bool { get }
     var message: String? { get }
+    var httpCode: Int? { get }
+    func onHttpResponse(code: Int, message: String, content: String?)
+}
+
+public extension CSHttpResponseDataProtocol {
+    var isUnauthorized: Bool { httpCode == 401 }
+    var isNoContent: Bool { httpCode == 204 }
+    var success: Bool { httpCode?.in(range: 200...299) ?? false }
 }
 
 open class CSHttpResponseData: CSHttpResponseDataProtocol {
-    public var code: Int?, message: String?, content: String?
+    public var httpCode: Int?, message: String?, content: String?
 
     public func onHttpResponse(code: Int, message: String, content: String? = nil) {
-        self.code = code; self.message = message; self.content = content
+        httpCode = code; self.message = message; self.content = content
     }
-
-    public var success: Bool { code?.get { (200...299).contains($0) } ?? false }
 }
 
-let PARSING_FAILED = "Parsing data as json failed"
-
 open class CSServerMapData: CSJsonObject, CSHttpResponseDataProtocol {
-    var code: Int? = nil
+    static let PARSING_FAILED = "Parsing data as json failed"
+    public var message: String?
+    public var httpCode: Int?
 
     open func onHttpResponse(code: Int, message: String, content: String?) {
+        httpCode = code; self.message = message;
         content?.parseJsonObject().notNil {
             load(data: $0)
-        }.elseDo { put("message", PARSING_FAILED) }
+        }.elseDo { self.message = CSServerMapData.PARSING_FAILED }
     }
-
-    open var success: Bool { getBoolean("success") ?? false }
-    open var message: String? { getString("message") }
 }

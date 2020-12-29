@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class CSView: UIView {
+open class CSView: UIControl {
 
     public let layoutFunctions: CSEvent<Void> = event()
     public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
@@ -25,7 +25,10 @@ open class CSView: UIView {
 
     @discardableResult
     public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.listen { function(view) }
+        layoutFunctions.listen {
+            view.layoutSubviews()
+            function(view)
+        }
         function(view)
         return view
     }
@@ -58,7 +61,7 @@ open class CSView: UIView {
     open func onLayoutSubviews() {}
 
     @discardableResult
-    public func updateLayout() -> Self { animate { self.layoutFunctions.fire() }; return self }
+    public func updateLayout() -> Self { self.layoutFunctions.fire(); return self }
 
     @discardableResult
     @objc open override func heightToFit() -> Self {
@@ -72,3 +75,12 @@ open class CSView: UIView {
         return self
     }
 }
+
+//public extension CSView {
+//    @discardableResult
+//    func add<View: UIView>(view: View, layout function: @escaping (View) -> Void) -> View {
+//        add(view: view)
+//        self.layout(view, function: function)
+//        return view
+//    }
+//}

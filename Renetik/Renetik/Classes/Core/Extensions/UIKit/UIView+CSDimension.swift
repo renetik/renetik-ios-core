@@ -259,5 +259,4 @@ public extension UIView {
     }
 
     func hideByHeight(if condition: Bool) -> Self { invoke { if condition { self.height = 0 } } }
-
 }

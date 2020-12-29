@@ -75,6 +75,11 @@ public extension UIView {
     }
 
     @discardableResult
+    func background(color: UIColor, opacity: CGFloat = 1) -> Self {
+        background(color.add(alpha: opacity))
+    }
+
+    @discardableResult
     func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
@@ -103,28 +108,6 @@ public extension UIView {
         clipsToBounds = true
         return self
     }
-
-    @objc var isVisible: Bool {
-        get { !isHidden }
-        set(value) { isHidden = !value }
-    }
-
-    @discardableResult
-    func visible(if condition: Bool) -> Self { isVisible = condition; return self }
-
-    @discardableResult
-    func shown(if condition: Bool) -> Self { isVisible = condition; return self }
-
-    @discardableResult
-    func hidden(if condition: Bool) -> Self { isHidden = condition; return self }
-
-    @discardableResult
-    func show() -> Self { isVisible = true; return self }
-
-    @discardableResult
-    func hide() -> Self { isVisible = false; return self }
-
-    func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
 
     @discardableResult
     @objc func aspectFit() -> Self { contentMode = .scaleAspectFit; return self }
@@ -196,11 +179,21 @@ public extension UIView {
                 })
     }
 
+    func debugLayoutByRandomBorderColor() {
+        border(color: UIColor.random())
+        debugLayoutBySubviewsRandomBorderColor()
+    }
+
     func debugLayoutBySubviewsRandomBorderColor() {
         subviews.each {
             $0.border(color: UIColor.random())
             $0.debugLayoutBySubviewsRandomBorderColor()
         }
+    }
+
+    func debugLayoutBySubviewsRandomColor() {
+        background(UIColor.random())
+        debugLayoutBySubviewsRandomBackgroundColor()
     }
 
     func debugLayoutBySubviewsRandomBackgroundColor() {

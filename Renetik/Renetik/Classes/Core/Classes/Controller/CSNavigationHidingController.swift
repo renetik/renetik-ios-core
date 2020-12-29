@@ -23,7 +23,7 @@ public class CSNavigationHidingController: CSMainController {
 
     @discardableResult
     public func construct(by parent: UIViewController) -> Self {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         parentController = parent
         keyboardManager.construct(self, onKeyboardChange)
         return self

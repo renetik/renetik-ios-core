@@ -16,13 +16,13 @@ public extension UIView {
         set(view) {
             content?.removeFromSuperview()
             weaklyAssociateValue(&viewContentPropertyKey, view)
-            view.notNil { add(view: $0) }
+            view.notNil { addSubview($0) }
         }
     }
 
     func content<View: UIView>(_ view: View) -> View { content = view; return view }
 
-    class func withContent(_ view: UIView = UIView.construct()) -> Self {
+    class func withContent(_ view: UIView = CSView.construct()) -> Self {
         let container = self.construct(frame: view.frame)
         container.content(view).matchParent()
         return container
@@ -54,7 +54,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func withContent(_ view: UIView = UIView.construct()) -> Self {
+    func withContent(_ view: UIView = CSView.construct()) -> Self {
         content(view).matchParent()
         return self
     }

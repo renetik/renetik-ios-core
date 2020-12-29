@@ -17,7 +17,7 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     public func construct(by parent: CSMainController,
                           placeHolder: String = .searchPlaceholder,
                           onTextChanged: @escaping (String) -> Void) -> Self {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.onTextChanged = onTextChanged
         bar.delegate = self
         bar.showsCancelButton = false

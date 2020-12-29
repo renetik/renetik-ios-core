@@ -106,7 +106,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
         isFailed = true
         message = process.message
         error = process.error
-        logError("\(message.asString), \(error.asString.asString)")
+        logError("message:\(message.asString), error:\(error.asString)")
         eventFailed.fire(process)
     }
 

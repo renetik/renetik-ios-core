@@ -7,6 +7,7 @@ import Renetik
 import RenetikObjc
 
 open class CSViewController: UIViewController {
+    open func view() -> UIView { view }
 
     public let eventOrientationChanging: CSEvent<Void> = event()
     public let eventOrientationChanged: CSEvent<Void> = event()
@@ -28,24 +29,14 @@ open class CSViewController: UIViewController {
     private var eventRegistrations = [CSEventRegistration]()
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
-
-//    open override var parent: UIViewController? { super.parent }
-
     public private(set) var controllerInNavigation: UIViewController?
+    private var parentController: UIViewController!
 
     @discardableResult
-    open func constructAsViewLess(in parent: UIViewController) -> Self {
-        construct(parent).asViewLess(in: parent)
-        return self
-    }
-
-    @discardableResult
-    private func asViewLess(in parent: UIViewController) -> Self {
-        later {
-            parent.showChild(controller: self)
-            self.view.size(1).isUserInteractionEnabled = false
-        }
-        isShowing = true
+    open func construct(_ parent: UIViewController, _ view: UIView) -> Self {
+        (parent as? CSViewController)
+                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
+        self.view = view
         return self
     }
 
@@ -53,22 +44,22 @@ open class CSViewController: UIViewController {
     open func construct(_ parent: UIViewController) -> Self {
         (parent as? CSViewController)
                 .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
+        view = CSView.construct(defaultSize: true)
         return self
     }
 
     @discardableResult
-    convenience init(_ parent: UIViewController) {
-        self.init()
-        (parent as? CSViewController)
-                .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
+    public func asViewLess() -> Self {
+        later {
+            self.parentController.showChild(controller: self)
+            self.view.size(1).isUserInteractionEnabled = false
+        }
+        isShowing = true
+        return self
     }
-
-    // We need some size otherwise viewDidLayoutSubviews not called in some cases especially in constructAsViewLess
-    override open func loadView() { view = UIControl.construct().defaultSize() }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-//        logInfo("viewDidLoad \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewDidLoad()
     }
 
@@ -77,7 +68,6 @@ open class CSViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateControllerInNavigation()
-//        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillAppear()
         if !isOnViewWillAppearFirstTime {
             isOnViewWillAppearFirstTime = true
@@ -96,7 +86,6 @@ open class CSViewController: UIViewController {
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateControllerInNavigation()
-//        logInfo("viewDidLayoutSubviews \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isDidLayoutSubviews {
             isDidLayoutSubviews = true
             onViewDidLayoutFirstTime()
@@ -125,7 +114,6 @@ open class CSViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        logInfo("viewDidAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         isAppearing = true
         onViewDidAppear()
         if !isOnViewDidAppearFirstTime {
@@ -146,7 +134,6 @@ open class CSViewController: UIViewController {
 
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         onViewWillDisappear()
         //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
@@ -155,7 +142,6 @@ open class CSViewController: UIViewController {
 
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        logInfo("viewDidDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
@@ -178,11 +164,9 @@ open class CSViewController: UIViewController {
     open func onViewDidDisappear() {}
 
     open func onViewPushedOver() {
-//        logInfo("onViewPushedOver \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
     }
 
     open func onViewDismissing() {
-//        logInfo("onViewDismissing \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
         eventRegistrations.each { $0.cancel() }
         notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
         eventDismissing.fire()
@@ -283,10 +267,7 @@ open class CSViewController: UIViewController {
         isShowing = false
         UIView.animate(withDuration: 0.5,
                 animations: { self.view.bottom = -5 },
-                completion: { finished in
-//                    self.view.hide()
-                    self.parent!.dismissChild(controller: self)
-                })
+                completion: { finished in self.parent!.dismissChild(controller: self) })
         return self
     }
 }

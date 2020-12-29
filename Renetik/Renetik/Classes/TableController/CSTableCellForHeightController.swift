@@ -15,7 +15,7 @@ public class CSTableCellForHeightController: CSMainController {
 
     @discardableResult
     public func construct(_ parent: CSMainController, _ cells: UIView...) -> Self {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.cells = cells
         return self
     }

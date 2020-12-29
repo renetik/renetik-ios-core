@@ -24,7 +24,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
     public func showPicker(from parent: UIViewController, title: String, items: [CustomStringConvertible], selected selectedIndex: Int,
             from displayElement: CSDisplayElement, onCancel: (Func)?,
             onDone: @escaping (Int) -> Void) -> CSPickerVisibleProtocol {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.items = items
         self.onDone = onDone
         self.onCancel = onCancel

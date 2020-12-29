@@ -10,7 +10,7 @@ public typealias CSTabBarPagerControllerItem = (item: UITabBarItem, onClick: (@e
 
 public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
 
-    private let containerView = UIView.construct().background(.clear)
+    private let containerView = CSView.construct().background(.clear)
     public lazy var tabBar = UITabBar(frame: .zero).construct()
     private var onClicksDictionary = [UITabBarItem: (callback: @escaping (UIViewController) -> Void) -> Void]()
     private var currentController: UIViewController?

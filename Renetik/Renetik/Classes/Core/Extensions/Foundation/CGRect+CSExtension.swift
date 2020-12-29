@@ -4,7 +4,8 @@
 
 import CoreGraphics
 
-public extension CGRect { //TODO: move to CoreGraphics
+public extension CGRect {
+    static let defaultViewRect = CGRect(origin: .zero, size: .defaultViewSize)
 
     init(size: CGFloat) {
         self.init(width: size, height: size)
@@ -24,4 +25,5 @@ public extension CGRect { //TODO: move to CoreGraphics
         get { size.height }
         set { size.height = newValue }
     }
+
 }

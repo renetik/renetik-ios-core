@@ -80,17 +80,18 @@ public class CSAlamofireClient: CSObject {
         post(service: service, data: CSServerMapData(), params: params)
     }
 
-    public func post<DataType: CSServerMapData>(service: String, data: DataType,
-                                                params: [String: Any] = [:]) -> CSProcess<DataType> {
+    public func post<DataType: CSServerMapData>(
+            service: String, data: DataType, params: [String: Any] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
-            manager.request(process.url!, method: .post, parameters: params, encoding: JSONEncoding.default).responseString(encoding: nil) {
-                self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error)
+            manager.request(process.url!, method: .post, parameters: params,
+                    encoding: JSONEncoding.default).responseString(encoding: nil) {
+                self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error)
             }
         }
     }
 
-    public func post<DataType: CSHttpResponseDataProtocol>(service: String, data: DataType,
-                                                           form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
+    public func post<DataType: CSHttpResponseDataProtocol>(
+            service: String, data: DataType, form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
             let base64Credentials = credentialData.base64EncodedData()
@@ -123,11 +124,11 @@ public class CSAlamofireClient: CSObject {
     }
 
     private func onResponseDone<DataType: CSHttpResponseDataProtocol>(
-            _ process: CSProcess<DataType>, _ statusCode: Int, _ content: String?, _ error: Error?) {
-        error.notNil { process.failed($0, message: $0.localizedDescription) }
+            _ process: CSProcess<DataType>, _ statusCode: Int?, _ content: String?, _ error: Error?) {
+        error.notNil { process.failed($0, message: "statusCode:\(statusCode), error:\(error), content:\(content) ") }
                 .elseDo {
                     logInfo("\(process.url!) \(content ?? "No content")")
-                    process.data!.onHttpResponse(code: statusCode, message: "", content: content)
+                    process.data!.onHttpResponse(code: statusCode!, message: "", content: content)
                     function(if: process.data!.success) { process.success() }
                             .elseDo { process.failed(nil, message: process.data!.message ?? "No Message") }
                 }

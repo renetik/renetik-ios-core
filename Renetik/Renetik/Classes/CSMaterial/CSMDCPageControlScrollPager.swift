@@ -20,7 +20,7 @@ class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
 
     func construct(_ parent: CSMainController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
                    _ count: Int, _ createScrollViewContent: @escaping () -> UIView) {
-        super.constructAsViewLess(in: parent)
+        super.construct(parent).asViewLess()
         self.pageControl = pageControl
         pageControl.numberOfPages = count
         pageControl.alpha = count > 1 ? 1 : 0 //BUG! hide/visible not works for MDCPageControl BUG!
