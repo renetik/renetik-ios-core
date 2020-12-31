@@ -9,6 +9,14 @@ import Foundation
 import UIKit
 import RMessage
 
+public func toast(_ title: String) { navigation.toast(title) }
+
+public func toast(success title: String) { navigation.toast(success: title) }
+
+public func toast(warning title: String) { navigation.toast(warning: title) }
+
+public func toast(error title: String) { navigation.toast(error: title) }
+
 public extension UIViewController {
     public func toast(_ title: String) { CSNotification().title(title).show(self) }
 
@@ -86,7 +94,7 @@ public class CSNotification: CSObject {
     }
 
     public func subtitle(_ subtitle: String?) -> Self {
-        self.body = subtitle
+        body = subtitle
         return self
     }
 
@@ -96,8 +104,8 @@ public class CSNotification: CSObject {
         return self
     }
 
-    public func dismissable(_ dismissable: Bool) -> Self {
-        self.dismissible = dismissable
+    public func dismissible(_ dismissible: Bool) -> Self {
+        self.dismissible = dismissible
         return self
     }
 

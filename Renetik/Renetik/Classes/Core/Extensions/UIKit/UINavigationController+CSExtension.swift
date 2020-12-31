@@ -56,6 +56,12 @@ public extension UINavigationController {
 //
 //    }
 
+    func pushAsLast(_ controller: UIViewController) {
+        var controllers = viewControllers
+        controllers[controllers.lastIndex] = controller
+        setViewControllers(controllers, animated: true)
+    }
+
     @discardableResult
     func push(fromTop controller: UIViewController) -> UIViewController {
         let transition = CATransition()

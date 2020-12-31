@@ -18,6 +18,9 @@ import ARChromeActivity
 
 //TODO: Move to extra library
 public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDelegate {
+
+    public class func construct(_ html: String) -> Self { construct().text(html) }
+
     public var font = UIFont.preferredFont(forTextStyle: .body) {
         didSet {
             text(text)
@@ -52,7 +55,7 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     @discardableResult
-    public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
+    public func text(color: UIColor) -> Self { invoke { self.textColor = color } }
 
     @discardableResult
     public func link(color: UIColor) -> Self { invoke { self.linkColor = color } }

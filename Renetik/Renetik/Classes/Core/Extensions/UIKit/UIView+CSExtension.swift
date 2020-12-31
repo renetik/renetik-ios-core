@@ -32,10 +32,11 @@ public extension UIView {
     }
 
     @discardableResult
-    class func construct(defaultSize: Bool = false) -> Self {
-        let this: Self = Self().construct()
-        if defaultSize { this.defaultSize() }
-        return this
+    @objc class func construct(defaultSize: Bool = false) -> Self {
+        let _self: Self = Self()
+        if defaultSize { _self.defaultSize() }
+        _self.construct()
+        return _self
     }
 
     @discardableResult
@@ -194,7 +195,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func debugLayoutBySubviewsRandomColor() -> Self {
+    func debugLayoutByRandomBackgroundColor() -> Self {
         background(.random)
         debugLayoutBySubviewsRandomBackgroundColor()
         return self

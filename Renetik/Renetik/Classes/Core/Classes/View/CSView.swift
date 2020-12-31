@@ -6,6 +6,16 @@ import UIKit
 
 open class CSView: UIControl {
 
+    @discardableResult
+    public class func construct() -> Self { construct(defaultSize: true) }
+
+    @discardableResult
+    public class func construct(_ function: ArgFunc<CSView>) -> Self {
+        let _self = construct(defaultSize: true)
+        function(_self)
+        return _self
+    }
+
     public let layoutFunctions: CSEvent<Void> = event()
     public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
 

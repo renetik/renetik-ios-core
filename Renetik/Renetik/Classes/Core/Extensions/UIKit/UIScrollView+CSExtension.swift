@@ -12,13 +12,13 @@ public extension UIScrollView {
 
     class func construct(verticalContent: Bool) -> Self {
         verticalContent ? Self.construct(defaultSize: true).also {
-            $0.content(vertical: CSView.construct(defaultSize: true))
+            $0.content(vertical: CSView.construct())
         }: Self.construct()
     }
 
     class func construct(horizontalContent: Bool) -> Self {
         horizontalContent ? Self.construct(defaultSize: true).also {
-            $0.content(horizontal: CSView.construct(defaultSize: true))
+            $0.content(horizontal: CSView.construct())
         } : Self.construct()
     }
 
@@ -56,7 +56,7 @@ public extension UIScrollView {
 
     @discardableResult
     func add<View: UIView>(footer view: View, margin: CGFloat, _ apply: ((View) -> ())? = nil) -> View {
-        add(view: view).matchParentWidth().heightToFit()
+        add(view: view).matchParentWidth()
         layout(footer: view, margin: margin)
         apply?(view)
         return view

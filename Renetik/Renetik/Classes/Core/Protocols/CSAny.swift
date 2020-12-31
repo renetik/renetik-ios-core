@@ -45,7 +45,10 @@ public extension CSAnyProtocol {
     // let in kotlin
     public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
-    public var asString: String { (self as? CSNameProtocol)?.name ?? "\(self)" }
+    public var asString: String {
+        (self as? CSNameProtocol)?.name ??
+                (self as? CustomStringConvertible)?.description ?? "\(self)"
+    }
 
     public var asInt: Int {
         let value = asString

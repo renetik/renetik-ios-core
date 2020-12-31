@@ -9,7 +9,7 @@ public protocol OptionalProtocol {
 }
 
 extension Optional: OptionalProtocol, CSAnyProtocol {
-    public var asString: String { self == nil ? "" : "\(self!)" }
+    public var asString: String { self == nil ? "" : "\(unsafelyUnwrapped)" }
     public var asInt: Int { let value = asString; return value.isEmpty ? 0 : value.intValue }
 }
 

@@ -18,6 +18,12 @@ public extension UIViewController {
     }
 
     @discardableResult
+    func pushAsLast() -> Self {
+        navigation.pushAsLast(self)
+        return self
+    }
+
+    @discardableResult
     func push(key: String) -> Self {
         navigation.push(key, self)
         return self

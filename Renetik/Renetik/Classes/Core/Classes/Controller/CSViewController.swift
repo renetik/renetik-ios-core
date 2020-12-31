@@ -30,7 +30,7 @@ open class CSViewController: UIViewController {
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
     public private(set) var controllerInNavigation: UIViewController?
-    private var parentController: UIViewController! {
+    private var parentController: UIViewController? {
         didSet {
             (parentController as? CSViewController)
                     .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
@@ -52,9 +52,15 @@ open class CSViewController: UIViewController {
     }
 
     @discardableResult
+    open func construct(_ view: UIView) -> Self {
+        _view = view
+        return self
+    }
+
+    @discardableResult
     public func asViewLess() -> Self {
         later {
-            self.parentController.showChild(controller: self)
+            self.parentController!.showChild(controller: self)
             self.view.size(1).isUserInteractionEnabled = false
         }
         isShowing = true
