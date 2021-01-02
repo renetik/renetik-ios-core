@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class CSView: UIControl {
+open class CSView: UIControl, CSHasLayoutProtocol {
 
     @discardableResult
     public class func construct() -> Self { construct(defaultSize: true) }
@@ -71,26 +71,17 @@ open class CSView: UIControl {
     open func onLayoutSubviews() {}
 
     @discardableResult
-    public func updateLayout() -> Self { self.layoutFunctions.fire(); return self }
+    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     @discardableResult
-    @objc open override func heightToFit() -> Self {
+    open override func heightToFit() -> Self {
         heightToFitSubviews()
         return self
     }
 
     @discardableResult
-    @objc open override func resizeToFit() -> Self {
+    open override func resizeToFit() -> Self {
         resizeToFitSubviews()
         return self
     }
 }
-
-//public extension CSView {
-//    @discardableResult
-//    func add<View: UIView>(view: View, layout function: @escaping (View) -> Void) -> View {
-//        add(view: view)
-//        self.layout(view, function: function)
-//        return view
-//    }
-//}

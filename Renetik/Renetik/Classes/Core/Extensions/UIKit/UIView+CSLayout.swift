@@ -281,4 +281,25 @@ public extension UIView {
         }.elseDo { self.from(left: margin, top: margin) }
         return self
     }
+
+    func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> UIView {
+        CSView.construct {
+            $0.add(view: rightView).from(right: 0).centeredVertical()
+            $0.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)
+                    .heightToFit().centeredVertical()
+        }
+    }
+}
+
+public extension CSView {
+    func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> UIView {
+        CSView.construct { dateFields in
+            layout(dateFields.add(view: leftView).from(left: 0)) {
+                $0.width((dateFields.width - margin) / 2).heightToFit()
+            }
+            layout(dateFields.add(view: rightView)) {
+                $0.fromPrevious(left: margin).width((dateFields.width - margin) / 2).heightToFit()
+            }
+        }
+    }
 }

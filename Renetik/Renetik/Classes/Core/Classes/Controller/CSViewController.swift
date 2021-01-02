@@ -21,6 +21,7 @@ open class CSViewController: UIViewController {
     private var isShowingFirstTime = false
     public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
     public var isVisible: Bool { isAppearing && isShowing }
+    public private(set) var isDestroyed = false
 
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false
@@ -182,6 +183,7 @@ open class CSViewController: UIViewController {
         eventRegistrations.each { $0.cancel() }
         notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
         eventDismissing.fire()
+        isDestroyed = true
     }
 
     private func onShowingChanged() {

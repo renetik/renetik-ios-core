@@ -8,6 +8,9 @@
 import CoreGraphics
 
 public extension CGFloat { //TODO: move to CoreGraphics
+
+    static let margin = CGFloat(8)
+
     var asUnsigned: CGFloat { self >= 0 ? self : 0 }
 
     func plus(_ value: Int) -> CGFloat { self + CGFloat(value) }

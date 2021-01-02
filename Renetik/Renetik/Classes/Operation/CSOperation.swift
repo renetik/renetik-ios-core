@@ -35,6 +35,9 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
         invoke { eventFailed.listen { function($0) } }
     }
 
+    @discardableResult
+    public func onFailed(_ function: @escaping Func) -> Self { onFailed { _ in function() } }
+
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
@@ -45,9 +48,12 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
-    public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
+    public func onDone(_ function: @escaping ArgFunc<Data?>) -> Self {
         invoke { eventDone.listen { function($0) } }
     }
+
+    @discardableResult
+    public func onDone(_ function: @escaping Func) -> Self { onDone { _ in function() } }
 
     private var process: CSProcess<Data>? = nil
     public var isCached = true

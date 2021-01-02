@@ -20,7 +20,7 @@ open class CSProperty<T>: CSPropertyProtocol where T: Equatable {
         set { value(newValue, fireEvents: true) }
     }
 
-    init(value: T, onApply: ((T) -> ())? = nil) {
+    public init(value: T, onApply: ((T) -> ())? = nil) {
         _value = value
         self.onApply = onApply
     }
@@ -37,8 +37,13 @@ open class CSProperty<T>: CSPropertyProtocol where T: Equatable {
     }
 
     @discardableResult
-    public func onChange(value function: @escaping (T) -> Void) -> CSEventRegistration {
+    public func onChange(value function: @escaping ArgFunc<T>) -> CSEventRegistration {
         eventChange.listen { function($0) }
+    }
+
+    @discardableResult
+    public func onChange(value function: @escaping Func) -> CSEventRegistration {
+        onChange { _ in function() }
     }
 
     @discardableResult

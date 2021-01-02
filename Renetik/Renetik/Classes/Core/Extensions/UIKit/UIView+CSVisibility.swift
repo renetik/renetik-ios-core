@@ -21,35 +21,49 @@ public extension UIView {
     @discardableResult
     func visible(if condition: Bool) -> Self {
         isVisible = condition
-        superview?.layoutSubviews()
+        navigation.topViewController?.view.setNeedsLayout()
+//        superview?.layoutSubviews()
         return self
     }
 
     @discardableResult
     func shown(if condition: Bool) -> Self {
         isVisible = condition
-        superview?.layoutSubviews()
+        navigation.topViewController?.view.setNeedsLayout()
+//        superview?.layoutSubviews()
         return self
     }
 
     @discardableResult
     func hidden(if condition: Bool) -> Self {
         isVisible = !condition
-        superview?.layoutSubviews()
+        navigation.topViewController?.view.setNeedsLayout()
+//        superview?.layoutSubviews()
         return self
     }
 
     @discardableResult
     func show() -> Self {
         isVisible = true
-        superview?.layoutSubviews()
+        navigation.topViewController?.view.setNeedsLayout()
+//        superview?.layoutSubviews()
         return self
     }
 
     @discardableResult
     func hide() -> Self {
         isVisible = false
-        superview?.layoutSubviews()
+        navigation.topViewController?.view.setNeedsLayout()
+//        findSuperviewToUpdateLayout()?.layoutSubviews()
         return self
     }
+
+//    @discardableResult
+//    func findSuperviewToUpdateLayout() -> UIView? {
+//        var parent = superview
+//        while !(parent is CSHasLayoutProtocol) && parent?.superview != nil {
+//            parent = parent?.superview
+//        }
+//        return parent
+//    }
 }

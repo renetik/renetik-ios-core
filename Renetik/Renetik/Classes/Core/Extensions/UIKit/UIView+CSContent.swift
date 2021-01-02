@@ -20,6 +20,7 @@ public extension UIView {
         }
     }
 
+    @discardableResult
     func content<View: UIView>(_ view: View) -> View { content = view; return view }
 
     class func withContent(_ view: UIView = CSView.construct()) -> Self {

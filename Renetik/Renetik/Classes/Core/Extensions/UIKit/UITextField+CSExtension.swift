@@ -42,7 +42,7 @@ public extension UITextField {
     }
 
     @discardableResult
-    func onChange(_ function: @escaping (UITextField) -> Void) -> Self {
+    func onChange(_ function: @escaping ArgFunc<UITextField>) -> Self {
         bk_addEventHandler({ _ in function(self) }, for: .editingChanged)
         return self
     }
@@ -52,7 +52,7 @@ public extension UITextField {
     private var isEventTextChangeRegistered: Bool { associatedDictionary[eventTextChangeKey] != nil }
 
     @discardableResult
-    func onTextChange(_ function: @escaping (UITextField) -> Void) -> Self {
+    func onTextChange(_ function: @escaping ArgFunc<UITextField>) -> Self {
         if !isEventTextChangeRegistered {
             func onChange() {
                 if text != associatedDictionary[previousTextKey] as? String {
@@ -71,7 +71,12 @@ public extension UITextField {
     }
 
     @discardableResult
-    @objc func onClear(_ function: @escaping () -> ()) -> Self {
+    func onTextChange(_ function: @escaping Func) -> Self {
+        onTextChange { _ in function() }
+    }
+
+    @discardableResult
+    @objc func onClear(_ function: @escaping Func) -> Self {
         bk_shouldClearBlock = { _ in
             function()
             return true

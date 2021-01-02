@@ -50,6 +50,21 @@ public class CSMaterialLabel: UILabel {
 open class CSMaterialControl: UIControl {
 
     @discardableResult
+    public override class func construct(defaultSize: Bool = true) -> Self {
+        let _self: Self = Self()
+        if defaultSize { _self.defaultSize() }
+        _self.construct()
+        return _self
+    }
+
+    @discardableResult
+    public class func construct(_ function: ArgFunc<CSMaterialControl>) -> Self {
+        let _self = construct()
+        function(_self)
+        return _self
+    }
+
+    @discardableResult
     open override func construct() -> Self {
         super.construct().defaultSize().withContent()
         content!.interaction(enabled: false)
