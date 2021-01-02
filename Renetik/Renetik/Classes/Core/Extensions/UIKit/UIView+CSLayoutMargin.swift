@@ -71,7 +71,7 @@ public extension UIView {
     @discardableResult
     func fillToPrevious(bottom: CGFloat, flexible: Bool = true) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        return superview!.findPreviousVisible(of: self)?.get {
+        return superview!.findPrevious(of: self)?.get {
             self.margin(bottom: bottom, from: $0, flexible: flexible)
         } ?? self.margin(bottom: bottom, flexible: flexible)
     }

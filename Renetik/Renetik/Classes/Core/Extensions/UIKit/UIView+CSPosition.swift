@@ -78,33 +78,42 @@ public extension UIView {
         set(value) { center = CGPoint(x: center.x, y: value) }
     }
 
-    @discardableResult
-    func centerTop(_ y: CGFloat) -> Self { invoke { centerTop = y } }
-
-    @discardableResult
-    func centerTop(as view: UIView) -> Self { centerTop(view.centerTop) }
-
-    @discardableResult
-    func centerVertical(as view: UIView) -> Self { centerTop(as: view) }
-
-    @discardableResult
-    func centerVerticalAsPrevious() -> Self {
-        assert(superview.notNil, "Needs to have superview")
-        let previous = superview!.findPreviousVisible(of: self)
-        assert(previous.notNil, "Needs to have previous")
-        return centerVertical(as: previous!)
-    }
-
     var centerLeft: CGFloat {
         get { center.x }
         set(value) { center = CGPoint(x: value, y: center.y) }
     }
 
     @discardableResult
-    func centerLeft(_ x: CGFloat) -> Self { invoke { centerLeft = x } }
+    func center(y: CGFloat) -> Self { invoke { centerTop = y } }
 
     @discardableResult
-    func centerLeft(as view: UIView) -> Self { centerLeft(view.centerLeft) }
+    func center(x: CGFloat) -> Self { invoke { centerLeft = x } }
+
+    @discardableResult
+    func center(top y: CGFloat) -> Self { invoke { centerTop = y } }
+
+    @discardableResult
+    func center(left x: CGFloat) -> Self { invoke { centerLeft = x } }
+
+    @discardableResult
+    func centerTop(as view: UIView) -> Self { center(top: view.centerTop) }
+
+    @discardableResult
+    func centerLeft(as view: UIView) -> Self { center(left: view.center.left) }
+
+    @discardableResult
+    func centerVertical(as view: UIView) -> Self { centerTop(as: view) }
+
+    @discardableResult
+    func centerHorizontal(as view: UIView) -> Self { centerLeft(as: view) }
+
+    @discardableResult
+    func centerVerticalAsPrevious() -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        let previous = superview!.findPrevious(of: self)
+        assert(previous.notNil, "Needs to have previous")
+        return centerVertical(as: previous!)
+    }
 
     @discardableResult
     func centered() -> Self {

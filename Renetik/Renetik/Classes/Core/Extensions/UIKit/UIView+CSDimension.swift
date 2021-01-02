@@ -34,7 +34,7 @@ public extension UIView {
     @discardableResult
     func heightAsPrevious() -> Self {
         assert(superview.notNil, "Needs to have superview")
-        let previous = superview!.findPreviousVisible(of: self)
+        let previous = superview!.findPrevious(of: self)
         assert(previous.notNil, "Needs to have previous visible")
         height(previous!.height)
         return self

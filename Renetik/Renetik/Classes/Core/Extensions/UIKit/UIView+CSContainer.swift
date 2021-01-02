@@ -59,9 +59,10 @@ public extension UIView {
         return view
     }
 
-    func findPreviousVisible(of subview: UIView) -> UIView? {
+    func findPrevious(of subview: UIView, skipHidden: Bool = true) -> UIView? {
         if subviews.index(of: subview).isNil { fatalError() }
-        return findVisibleSubviewBackwards(from: subviews.index(of: subview)! - 1)
+        return skipHidden ? findVisibleSubviewBackwards(from: subviews.index(of: subview)! - 1)
+                : subviews.previous(of: subview)
     }
 
     var lastVisibleSubview: UIView? { findVisibleSubviewBackwards(from: subviews.lastIndex) }
