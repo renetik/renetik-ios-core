@@ -110,4 +110,11 @@ public extension UIView {
         add(view: UIView.construct()).height(height).from(bottom: 0).matchParentWidth()
                 .flexibleTop().fixedBottom().background(color)
     }
+
+    class func wrap(left: UIView, margin: CGFloat = 0, right: UIView) -> Self {
+        Self.construct().also {
+            $0.add(view: left).from(left: 0).centeredVertical()
+            $0.add(view: right).fromPrevious(left: margin).centeredVertical()
+        }.resizeToFit()
+    }
 }

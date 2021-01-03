@@ -23,6 +23,10 @@ public extension UIView {
         construct().width(width)
     }
 
+    class func construct(height: CGFloat) -> Self {
+        construct().height(height)
+    }
+
     class func construct(color: UIColor) -> Self {
         construct().background(color)
     }
@@ -85,6 +89,9 @@ public extension UIView {
 
     @discardableResult
     func tint(color: UIColor) -> Self { self.tintColor = color; return self }
+
+    @discardableResult
+    func rotate(angle: CGFloat) -> Self { transform = CGAffineTransform(rotationAngle: angle); return self }
 
     @discardableResult
     func content(mode: UIView.ContentMode) -> Self { self.contentMode = mode; return self }
