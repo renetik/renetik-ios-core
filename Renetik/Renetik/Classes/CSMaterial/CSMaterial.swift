@@ -76,7 +76,7 @@ open class CSMaterialControl: UIControl {
     @discardableResult
     override open func onClick(_ block: @escaping Func) -> Self {
         super.onClick(block)
-        isUserInteractionEnabled = true
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         return self
     }
@@ -84,7 +84,7 @@ open class CSMaterialControl: UIControl {
     @discardableResult
     override open func onTouchUp(_ block: @escaping Func) -> Self {
         super.onTouchUp(block)
-        isUserInteractionEnabled = true
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         return self
     }
@@ -92,14 +92,14 @@ open class CSMaterialControl: UIControl {
     @discardableResult
     override open func onTouchDown(_ block: @escaping Func) -> Self {
         super.onTouchDown(block)
-        isUserInteractionEnabled = true
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         return self
     }
 
     @discardableResult
     @objc open override func heightToFit() -> Self {
-        content!.heightToFitSubviews()
+        content!.heightToFit()
         let masks = saveAndClearSubviewsAutoresizingMasks()
         height(content!.height)
         restoreSubviewsAutoresizing(masks: masks)
@@ -108,7 +108,7 @@ open class CSMaterialControl: UIControl {
 
     @discardableResult
     @objc open override func resizeToFit() -> Self {
-        content!.resizeToFitSubviews()
+        content!.resizeToFit()
         let masks = saveAndClearSubviewsAutoresizingMasks()
         size(content!.size)
         restoreSubviewsAutoresizing(masks: masks)

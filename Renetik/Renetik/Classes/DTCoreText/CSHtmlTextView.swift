@@ -70,6 +70,9 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public func text(_ html: String) -> Self { invoke { self.text = html } }
 
     @discardableResult
+    public func text(html: String) -> Self { invoke { self.text = html } }
+
+    @discardableResult
     public func font(_ font: UIFont) -> Self {
         self.font = font
         return self

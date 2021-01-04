@@ -35,10 +35,10 @@ extension UILabel: CSHasAttributedTextProtocol {
 public extension CSHasAttributedTextProtocol
         where Self: CSHasFontProtocol, Self: CSHasTextColorProtocol {
     @discardableResult
-    func html(_ text: String) -> Self { html(text: text) }
+    func html(_ text: String) -> Self { self.text(html: text) }
 
     @discardableResult
-    func html(text: String) -> Self {
+    func text(html text: String) -> Self {
         let html = """
                    <html><body style="color:\(textColor!.hexValue()!); 
                                 font-family:\(font()!.fontName); 

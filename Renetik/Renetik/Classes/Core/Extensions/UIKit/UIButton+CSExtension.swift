@@ -17,7 +17,7 @@ public extension UIButton {
     class func construct(_ text: String) -> Self { construct().text(text) }
 
     @discardableResult
-    class func construct(html: String) -> Self { construct().html(text: html) }
+    class func construct(html: String) -> Self { construct().text(html: html) }
 
     @discardableResult
     override open func construct() -> Self {

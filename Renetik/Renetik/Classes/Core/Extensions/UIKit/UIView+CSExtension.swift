@@ -214,4 +214,22 @@ public extension UIView {
             $0.debugLayoutBySubviewsRandomBackgroundColor()
         }
     }
+
+    @discardableResult
+    func background(dashed color: UIColor, stroke: NSNumber, gap: NSNumber) -> Self {
+        clipsToBounds()
+        let shapeLayer = CAShapeLayer()
+
+        shapeLayer.strokeColor = color.cgColor
+        shapeLayer.lineWidth = width
+        shapeLayer.lineDashPattern = [stroke, gap]
+
+        let path = CGMutablePath()
+        let point1 = CGPoint(x: frame.minX, y: bounds.midY)
+        let point2 = CGPoint(x: frame.maxX, y: bounds.midY)
+        path.addLines(between: [point1, point2])
+        shapeLayer.path = path
+        layer.addSublayer(shapeLayer)
+        return self
+    }
 }

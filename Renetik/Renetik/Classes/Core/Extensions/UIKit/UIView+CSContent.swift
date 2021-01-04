@@ -11,6 +11,10 @@ private var viewContentPropertyKey: Void?
 
 public extension UIView {
 
+    class func wrap(view: UIView, padding: CGFloat = 0) -> Self {
+        Self.construct().also { $0.content(view).matchParent(margin: padding) }
+    }
+
     var content: UIView? {
         get { associatedValue(&viewContentPropertyKey) as? UIView }
         set(view) {
@@ -29,31 +33,6 @@ public extension UIView {
         return container
     }
 
-    class func wrap(view: UIView) -> Self {
-        let container = self.construct(frame: view.frame)
-        let center = view.center
-        let superview = view.superview
-        let autoSize = view.autoresizingMask
-        container.content(view).matchParent()
-        superview?.add(view: container).center(center).autoresizingMask = autoSize
-        container.backgroundColor = view.backgroundColor
-        view.backgroundColor = UIColor.clear
-        return container
-    }
-
-    class func wrap(view: UIView, padding: CGFloat) -> Self {
-        let container = self.construct(width: view.width + padding * 2,
-                height: view.height + padding * 2)
-        let center = view.center
-        let superview = view.superview
-        let autoSize = view.autoresizingMask
-        container.content(view).matchParent(margin: padding)
-        superview?.add(view: container).center(center).autoresizingMask = autoSize
-        container.backgroundColor = view.backgroundColor
-        view.backgroundColor = UIColor.clear
-        return container
-    }
-
     @discardableResult
     func withContent(_ view: UIView = CSView.construct()) -> Self {
         content(view).matchParent()
@@ -62,21 +41,19 @@ public extension UIView {
 
     @discardableResult
     func contentVertical(padding: CGFloat) -> Self {
-        let mask = content!.autoresizingMask
-        content!.autoresizingMask = []
+        let masks = saveAndClearSubviewsAutoresizingMasks()
         height = content!.height + 2 * padding
         content!.centeredVertical()
-        content!.autoresizingMask = mask
+        restoreSubviewsAutoresizing(masks: masks)
         return self
     }
 
     @discardableResult
     func contentHorizontal(padding: CGFloat) -> Self {
-        let mask = content!.autoresizingMask
-        content!.autoresizingMask = []
+        let masks = saveAndClearSubviewsAutoresizingMasks()
         width = content!.width + 2 * padding
         content!.centeredHorizontal()
-        content!.autoresizingMask = mask
+        restoreSubviewsAutoresizing(masks: masks)
         return self
     }
 
@@ -91,6 +68,30 @@ public extension UIView {
     func content(padding: (horizontal: CGFloat, vertical: CGFloat)) -> Self {
         contentHorizontal(padding: padding.horizontal)
         contentVertical(padding: padding.vertical)
+        return self
+    }
+
+    @discardableResult
+    func content(margin: CGFloat) -> Self {
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        content!.matchParent(margin: margin)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
+
+    @discardableResult
+    func contentVertical(margin: CGFloat) -> Self {
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        content!.matchParentHeight(margin: margin)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
+
+    @discardableResult
+    func contentHorizontal(margin: CGFloat) -> Self {
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        content!.matchParentWidth(margin: margin)
+        restoreSubviewsAutoresizing(masks: masks)
         return self
     }
 }

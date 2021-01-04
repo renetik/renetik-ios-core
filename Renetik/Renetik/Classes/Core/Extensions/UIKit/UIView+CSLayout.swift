@@ -46,6 +46,14 @@ public extension UIView {
     }
 
     @discardableResult
+    func fromPrevious(bottom: CGFloat) -> Self {
+        assert(superview.notNil, "Needs to have superview")
+        superview!.findPrevious(of: self).notNil { from($0, bottom: bottom) }
+                .elseDo { from(bottom: 0) }
+        return self
+    }
+
+    @discardableResult
     func fromLeftAsPrevious(offset: CGFloat = 0) -> Self {
         assert(superview.notNil, "Needs to have superview")
         let previous = superview!.findPrevious(of: self)
