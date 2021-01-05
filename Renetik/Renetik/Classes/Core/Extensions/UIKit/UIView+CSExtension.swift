@@ -232,4 +232,13 @@ public extension UIView {
         layer.addSublayer(shapeLayer)
         return self
     }
+
+    func data(_ value: Any) -> Self {
+        associatedDictionary["UIView+CSExtension.model"] = value
+        return self
+    }
+
+    func data() -> Any? { associatedDictionary["UIView+CSExtension.model"] }
+
+    func child(at condition: (UIView) -> Bool) -> UIView? { subviews.first(where: condition) }
 }

@@ -59,9 +59,9 @@ public extension CSAnyProtocol {
 
     public func castOrNil<T>() -> T? { self as? T }
 
-//    public func equals(to object: Any?) -> Bool { //TODO: check how this is reliable
-//        String(describing: self) == String(describing: object)
-//    }
+    func isTrue(predicate: (Self) -> Bool) -> Bool { predicate(self) }
+
+    func isFalse(predicate: (Self) -> Bool) -> Bool { !predicate(self) }
 }
 
 public extension CSAnyProtocol where Self: AnyObject {
@@ -77,7 +77,6 @@ public extension CSAnyProtocol where Self: NSObject {
 public extension CSAnyProtocol where Self: Equatable {
     public func equals(any objects: Self...) -> Bool { objects.contains { $0 == self } }
 
-    @available(*, deprecated, message: "Use equals(any)")
     public func isAny(_ objects: Self...) -> Bool { objects.contains { $0 == self } }
 
     public func equals(_ object: Self) -> Bool { object == self }

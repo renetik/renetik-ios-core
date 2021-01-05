@@ -59,6 +59,8 @@ public extension Optional where Wrapped: Equatable {
     public func equals(any objects: [Wrapped]) -> Bool { objects.contains { $0 == self } }
 
     public func equals(none objects: Wrapped...) -> Bool { !equals(any: objects) }
+
+    public func isOther(then objects: Wrapped...) -> Bool { !equals(any: objects) }
 }
 
 public class CSConditionalResultNotNil<Type> {
