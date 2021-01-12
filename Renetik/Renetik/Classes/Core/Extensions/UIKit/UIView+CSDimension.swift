@@ -58,6 +58,12 @@ public extension UIView {
     }
 
     @discardableResult
+    public func heightByLastVisibleSubview(padding: CGFloat = 0, minimum: CGFloat = 0) -> Self {
+        let lastSubviewBottom = (content?.lastVisibleSubview?.bottom ?? lastVisibleSubview?.bottom)
+        return height(lastSubviewBottom?.get { $0 + padding } ?? minimum)
+    }
+
+    @discardableResult
     func size(_ size: CGFloat) -> Self { width(size, height: size) }
 
     @discardableResult

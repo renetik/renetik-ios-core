@@ -66,7 +66,7 @@ open class CSMaterialControl: UIControl {
 
     @discardableResult
     open override func construct() -> Self {
-        super.construct().defaultSize().withContent()
+        super.construct().defaultSize().withContent().clipsToBounds()
         content!.interaction(enabled: false)
         return self
     }
