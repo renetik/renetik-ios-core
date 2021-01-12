@@ -11,7 +11,7 @@ extension CSJsonObject {
         let mapDataArray: [[String: CSAnyProtocol?]]? = getList(key)
         var jsonDataArray: [T] = [T]()
         mapDataArray?.enumerated().forEach { index, item in
-            jsonDataArray.add(type.init().load(data: item).also { $0.index = index })
+            jsonDataArray.add(type.init().load(data: item, index: index))
         }
         return jsonDataArray
     }

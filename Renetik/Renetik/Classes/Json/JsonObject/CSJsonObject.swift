@@ -7,16 +7,17 @@ import Renetik
 
 open class CSJsonObject: CSObject, CSJsonObjectProtocol {
 
-    var index = 0
-    fileprivate var data = [String: CSAnyProtocol?]()
+    private(set) public var index: Int? = nil
+    private(set) public var data = [String: CSAnyProtocol?]()
 
     public required override init() { // This is for instantiating by reflection ?
         super.init()
     }
 
     @discardableResult
-    public func load(data: [String: CSAnyProtocol?]) -> Self {
+    public func load(data: [String: CSAnyProtocol?], index: Int? = nil) -> Self {
         self.data.add(data)
+        self.index = index
         return self
     }
 

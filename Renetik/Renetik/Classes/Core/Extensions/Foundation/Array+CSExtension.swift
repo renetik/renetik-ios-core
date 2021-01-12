@@ -8,6 +8,8 @@ public extension Array where Element: Any {
 
     var isSet: Bool { !isEmpty }
 
+    var isNotEmpty: Bool { !isEmpty }
+
     var second: Element? { at(1) }
 
     var third: Element? { at(2) }
@@ -102,7 +104,7 @@ public extension Array where Element: CSSearchNameProtocol, Element: CustomStrin
             var filtered = [Element]()
             for item in self {
                 if (item.searchName ?? item.description)
-                        .contains(searchText, ignoreCase: true) {
+                           .contains(searchText, ignoreCase: true) {
                     filtered.add(item)
                 }
             }

@@ -5,6 +5,11 @@
 import Foundation
 
 public extension Dictionary {
+
+    var isSet: Bool { !isEmpty }
+
+    var isNotEmpty: Bool { !isEmpty }
+
     @discardableResult
     public mutating func add(_ other: Dictionary) -> Dictionary {
         other.forEach { k, v in self[k] = v }

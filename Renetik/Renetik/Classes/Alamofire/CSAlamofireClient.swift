@@ -119,7 +119,7 @@ public class CSAlamofireClient: CSObject {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let nameUrl = URL(string: fileName)
         let fileURL = documentsURL.appendingPathComponent((nameUrl?.lastPathComponent)!)
-        NSLog(fileURL.absoluteString)
+        logInfo(fileURL.absoluteString)
         return fileURL;
     }
 
