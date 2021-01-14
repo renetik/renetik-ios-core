@@ -2,22 +2,22 @@
   Localizable.strings
   Created by Rene Dohan on 1/4/20.
 */
-renetik_dialog_ok="Ok";
-renetik_dialog_yes="Yes";
-renetik_dialog_no="No";
-renetik_dialog_cancel="Cancel";
+cs_dialog_ok="Ok";
+cs_dialog_yes="Yes";
+cs_dialog_no="No";
+cs_dialog_cancel="Cancel";
 
-renetik_request_loading="Loading...";
-renetik_request_retry="Retry";
-renetik_request_cancel="Cancel";
-renetik_request_failed_message="Request failed";
+cs_request_loading="Loading...";
+cs_request_retry="Retry";
+cs_request_cancel="Cancel";
+cs_request_failed_message="Request failed";
 
-renetik_table_load_next_failed_message="Loading of more data failed";
+cs_table_load_next_failed_message="Loading of more data failed";
 
-renetik_operation_canceled_message="Operation was canceled.";
-renetik_operation_failed_message="Operation failed.";
+cs_operation_canceled_message="Operation was canceled.";
+cs_operation_failed_message="Operation failed.";
 
-renetik_search_placeholder="";
+cs_search_placeholder="";
 
-renetik_image_picker_choose_photo="Choose Photo";
-renetik_image_picker_take_picture="Take Picture";
+cs_image_picker_choose_photo="Choose Photo";
+cs_image_picker_take_picture="Take Picture";
