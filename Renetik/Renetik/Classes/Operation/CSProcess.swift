@@ -17,8 +17,13 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
-    public func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self {
+    public func onFailed(_ function: @escaping ArgFunc<CSProcessProtocol>) -> Self {
         invoke { eventFailed.listen { function($0) } }
+    }
+
+    @discardableResult
+    public func onFailed(_ function: @escaping Func) -> Self {
+        invoke { eventFailed.listen { _ in function() } }
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()

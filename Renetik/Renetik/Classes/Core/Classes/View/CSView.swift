@@ -75,13 +75,27 @@ open class CSView: UIControl, CSHasLayoutProtocol {
 
     @discardableResult
     open override func heightToFit() -> Self {
-        heightToFitSubviews()
+        if content.notNil {
+            content!.heightToFit()
+            let masks = saveAndClearSubviewsAutoresizingMasks()
+            height(content!.height)
+            restoreSubviewsAutoresizing(masks: masks)
+        } else {
+            heightToFitSubviews()
+        }
         return self
     }
 
     @discardableResult
     open override func resizeToFit() -> Self {
-        resizeToFitSubviews()
+        if content.notNil {
+            content!.resizeToFit()
+            let masks = saveAndClearSubviewsAutoresizingMasks()
+            size(content!.size)
+            restoreSubviewsAutoresizing(masks: masks)
+        } else {
+            resizeToFitSubviews()
+        }
         return self
     }
 }

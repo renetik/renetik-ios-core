@@ -4,11 +4,11 @@
 
 import Foundation
 
-public protocol CSEnableableProtocol: AnyObject {
+public protocol CSHasIsEnabledProtocol: AnyObject {
     var isEnabled: Bool { get set }
 }
 
-public extension CSEnableableProtocol {
+public extension CSHasIsEnabledProtocol {
 
     @discardableResult
     func disabled(if condition: Bool) -> Self { isEnabled = !condition; return self }
@@ -23,4 +23,11 @@ public extension CSEnableableProtocol {
     func disabled() -> Self { isEnabled = false; return self }
 }
 
-extension UIControl: CSEnableableProtocol {}
+extension UIControl: CSHasIsEnabledProtocol {}
+
+//extension UIImageView: CSHasIsEnabledProtocol {
+//    open var isEnabled: Bool {
+//        get { associatedDictionary("UIImageView+CSHasIsEnabledProtocol") { true } }
+//        set { associatedDictionary("UIImageView+CSHasIsEnabledProtocol", newValue) }
+//    }
+//}

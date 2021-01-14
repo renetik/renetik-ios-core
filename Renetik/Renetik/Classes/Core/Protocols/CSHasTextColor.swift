@@ -13,18 +13,21 @@ public protocol CSHasTextColorProtocol: AnyObject {
 extension UIButton: CSHasTextColorProtocol {
     public func textColor() -> UIColor? { titleColor(for: .normal) }
 
+    @discardableResult
     public func text(color: UIColor?) -> Self { setTitleColor(color, for: .normal); return self }
 }
 
 extension UITextView: CSHasTextColorProtocol {
     public func textColor() -> UIColor? { textColor }
 
+    @discardableResult
     public func text(color: UIColor?) -> Self { textColor = color; return self }
 }
 
 extension UILabel: CSHasTextColorProtocol {
     public func textColor() -> UIColor? { textColor }
 
+    @discardableResult
     public func text(color: UIColor?) -> Self { textColor = color; return self }
 }
 

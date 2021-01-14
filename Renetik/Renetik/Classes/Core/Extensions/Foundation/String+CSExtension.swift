@@ -46,6 +46,8 @@ public extension String {
 
     func trim() -> String { asNSString.trim() }
 
+    func removeAccents() -> String { folding(options: .diacriticInsensitive, locale: .current) }
+
     func substring(from index: Int) -> String {
         asNSString.substring(from: index, to: length) as String
     }
