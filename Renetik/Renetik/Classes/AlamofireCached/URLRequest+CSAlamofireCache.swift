@@ -16,7 +16,7 @@ public extension URLRequest {
         CSAlamofireCache.canUseCacheControl ? headers.addCacheControlField(maxAge: 0, isPrivate: false)
                 : headers.addCacheExpiresField(maxAge: 0)
         HTTPURLResponse(url: httpResponse.url!, statusCode: httpResponse.statusCode,
-                httpVersion: CSAlamofireCache.HTTPVersion, headerFields: headers)?.then { response in
+                httpVersion: CSAlamofireCache.HTTPVersion, headerFields: headers)?.also { response in
             urlCache.storeCachedResponse(CachedURLResponse(response: response, data: cachedResponse.data,
                     userInfo: ["framework": CSAlamofireCache.frameworkName],
                     storagePolicy: URLCache.StoragePolicy.allowed), for: self)

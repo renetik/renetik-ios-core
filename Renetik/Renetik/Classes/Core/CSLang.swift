@@ -39,7 +39,7 @@ let isDebug: Bool = {
     return isDebug
 }()
 
-let renetikBundle: Bundle = {
+let csBundle: Bundle = {
 //    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
 //    When #use_modular_headers! Bundle.main
 //    TODO?: How to solve this universally
@@ -50,7 +50,7 @@ let renetikBundle: Bundle = {
 public func localized(_ key: String) -> String {
     var string = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
     if string == key {
-        string = renetikBundle.localizedString(forKey: key, value: nil, table: nil)
+        string = csBundle.localizedString(forKey: key, value: nil, table: nil)
         if string == key { logWarn("localized key ot found \(key)") }
     }
     return string

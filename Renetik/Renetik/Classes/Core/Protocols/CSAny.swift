@@ -40,7 +40,7 @@ public extension CSAnyProtocol {
         function()
     }
 
-    public func then(_ function: (Self) -> Void) { function(self) }
+//    public func then(_ function: (Self) -> Void) { function(self) }
 
     // let in kotlin
     public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }

@@ -74,7 +74,7 @@ public extension UITableView {
     }
 
     public func deselectSelectedRow(animated: Bool = true) {
-        indexPathForSelectedRow?.then { path in deselectRow(at: path, animated: animated) }
+        indexPathForSelectedRow?.also { path in deselectRow(at: path, animated: animated) }
     }
 
     public func deselectSelectedRows(animated: Bool = true) {

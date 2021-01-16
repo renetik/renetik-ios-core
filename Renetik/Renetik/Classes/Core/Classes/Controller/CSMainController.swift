@@ -87,7 +87,7 @@ open class CSMainController: CSViewController {
     @discardableResult
     public override func dismissChild(controller: UIViewController) -> UIViewController {
         super.dismissChild(controller: controller)
-        (controller as? CSMainController)?.then { childMainControllers.remove($0) }
+        (controller as? CSMainController)?.also { childMainControllers.remove($0) }
         return controller
     }
 
