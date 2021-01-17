@@ -78,7 +78,7 @@ public extension UIView {
 
     @discardableResult
     func margin(top: CGFloat, bottom: CGFloat, flexible: Bool = false) -> Self {
-        margin(top: top, flexible: flexible).margin(bottom: top, flexible: flexible)
+        margin(top: top, flexible: flexible).margin(bottom: bottom, flexible: flexible)
     }
 
     @discardableResult

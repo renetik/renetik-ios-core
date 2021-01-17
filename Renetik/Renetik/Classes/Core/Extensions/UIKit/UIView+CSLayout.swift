@@ -293,8 +293,9 @@ public extension UIView {
     func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> UIView {
         CSView.construct {
             $0.add(view: rightView).from(right: 0).centeredVertical()
-            $0.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)
-                    .heightToFit().centeredVertical()
+            $0.layout($0.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
+                $0.heightToFit().centeredVertical()
+            }
         }
     }
 }

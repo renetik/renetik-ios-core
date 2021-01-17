@@ -17,6 +17,8 @@ public class CSArray<Type>: CSObject {
 
     public var count: Int { array.count }
 
+    public func get(_ index: Int) -> Type { array[index] as! Type }
+
     @discardableResult
     public func add(_ value: Type) -> Type { array.add(value); return value }
 

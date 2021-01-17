@@ -47,8 +47,6 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         return self
     }
 
-//    override public func loadView() { view = tableView }
-
     override public func onViewWillAppearFromPresentedController() {
         super.onViewWillAppearFromPresentedController()
         tableView.reload()

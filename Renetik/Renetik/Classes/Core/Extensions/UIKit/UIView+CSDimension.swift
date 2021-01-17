@@ -192,10 +192,7 @@ public extension UIView {
     @discardableResult
     @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
 
-    /**
-     heightThatFitsSubviews cannot be used because this needs to shift subviews too
- - Returns:
-     */
+//     heightThatFitsSubviews cannot be used because this needs to shift subviews too
     @discardableResult
     @objc open func heightToFit() -> Self {
         if content.notNil {
@@ -204,7 +201,7 @@ public extension UIView {
             height(content!.height)
             restoreSubviewsAutoresizing(masks: masks)
         } else {
-            height(self.heightThatFits())
+            height(heightThatFits())
         }
         return self
     }
