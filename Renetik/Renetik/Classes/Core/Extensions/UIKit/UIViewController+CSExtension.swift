@@ -63,6 +63,7 @@ public extension UIViewController {
         return controller
     }
 
+    @discardableResult
     @objc open func dismissChild(controller: UIViewController) -> UIViewController {
         controller.willMove(toParent: nil)
         controller.view.removeFromSuperview()

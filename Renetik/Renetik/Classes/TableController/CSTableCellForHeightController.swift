@@ -9,12 +9,12 @@
 import Renetik
 import RenetikObjc
 
-public class CSTableCellForHeightController: CSMainController {
+public class CSTableCellForHeightController: CSViewController {
     private var cells: [UIView]!
     public var cell: UIView { cells.first! }
 
     @discardableResult
-    public func construct(_ parent: CSMainController, _ cells: UIView...) -> Self {
+    public func construct(_ parent: CSViewController, _ cells: UIView...) -> Self {
         super.construct(parent).asViewLess()
         self.cells = cells
         return self
@@ -27,7 +27,7 @@ public class CSTableCellForHeightController: CSMainController {
 
     override public func onViewDidLayout() {
         super.onViewDidLayout()
-        for cell in cells { cell.width(parentMainController!.view.width) }
+        for cell in cells { cell.width(parentController!.view.width) }
     }
 
     override public func onViewWillTransition(

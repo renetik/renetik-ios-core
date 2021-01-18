@@ -15,11 +15,10 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     private var onClicksDictionary = [UITabBarItem: (callback: @escaping (UIViewController) -> Void) -> Void]()
     private var currentController: UIViewController?
     private var currentControllerIndex: Int?
-    private var parentController: CSMainController!
 
     @discardableResult
-    public func construct(with parent: CSMainController, items: [CSTabBarPagerControllerItem]) -> Self {
-        parentController = parent
+    public func construct(with parent: CSViewController, items: [CSTabBarPagerControllerItem]) -> Self {
+        super.construct(parent)
         var barButtonItems = [UITabBarItem]()
         items.forEach {
             barButtonItems.add($0.item)

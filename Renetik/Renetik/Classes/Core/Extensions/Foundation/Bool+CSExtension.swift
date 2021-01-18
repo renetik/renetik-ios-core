@@ -6,6 +6,7 @@ import Foundation
 
 public extension Bool {
     var isTrue: Bool { self == true }
+    var not: Bool { !self }
     var isFalse: Bool { self == false }
 
     @discardableResult

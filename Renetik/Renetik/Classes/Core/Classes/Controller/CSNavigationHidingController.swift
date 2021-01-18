@@ -8,14 +8,13 @@
 import RenetikObjc
 
 //TODO:  Make standalone library !!!
-public class CSNavigationHidingController: CSMainController {
+public class CSNavigationHidingController: CSViewController {
     private var isNavigationBarHidden = false
     private var shouldShow = false
     private var isShowingRunning = false
     private var shouldHide = false
     private var isHidingRunning = false
     private let keyboardManager = CSKeyboardObserverController()
-    private var parentController: UIViewController!
 
     public func showIfNotKeyboard() {
         if isNavigationBarHidden && !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
@@ -24,7 +23,6 @@ public class CSNavigationHidingController: CSMainController {
     @discardableResult
     public func construct(by parent: UIViewController) -> Self {
         super.construct(parent).asViewLess()
-        parentController = parent
         keyboardManager.construct(self, onKeyboardChange)
         return self
     }
@@ -102,7 +100,7 @@ public class CSNavigationHidingController: CSMainController {
         isNavigationBarHidden = true
         invoke(animated: animated, operation: {
             navigation.navigationBar.bottom = UIApplication.statusBarBottom
-            self.parentController.view.margin(top: navigation.navigationBar.bottom)
+            self.parentController!.view.margin(top: navigation.navigationBar.bottom)
         }, completion: {
             navigation.navigationBar.hide()
             self.isHidingRunning = false
@@ -128,7 +126,7 @@ public class CSNavigationHidingController: CSMainController {
         navigation.navigationBar.show()
         invoke(animated: animated, operation: {
             navigation.navigationBar.top = UIApplication.statusBarBottom
-            self.parentController.view.margin(top: navigation.navigationBar.bottom)
+            self.parentController!.view.margin(top: navigation.navigationBar.bottom)
         }, completion: {
             self.isShowingRunning = false
             if self.shouldHide { self.requestNavigationBarHidden() }

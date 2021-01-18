@@ -10,7 +10,7 @@ import RenetikObjc
 import Renetik
 import BlocksKit
 
-class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
+class CSMDCPageControlScrollPager: CSViewController, UIScrollViewDelegate {
 
     var pageControl: MDCPageControl!
     var scrollView: UIScrollView!
@@ -18,7 +18,7 @@ class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
     var contentView: UIView?
     var currentPage = 0
 
-    func construct(_ parent: CSMainController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
+    func construct(_ parent: CSViewController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
                    _ count: Int, _ createScrollViewContent: @escaping () -> UIView) {
         super.construct(parent).asViewLess()
         self.pageControl = pageControl

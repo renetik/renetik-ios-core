@@ -6,7 +6,7 @@
 
 import RenetikObjc
 
-public class CSNavigationHidingByKeyboardController: CSMainController {
+public class CSNavigationHidingByKeyboardController: CSViewController {
 
     private var navigationBarHidden = false
     private let keyboardManager = CSKeyboardObserverController()

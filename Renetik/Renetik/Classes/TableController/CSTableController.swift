@@ -5,7 +5,7 @@
 import RenetikObjc
 
 public typealias CSTableControllerRow = Equatable & CustomStringConvertible
-public typealias CSTableControllerParent = CSMainController & UITableViewDataSource & UITableViewDelegate &
+public typealias CSTableControllerParent = CSViewController & UITableViewDataSource & UITableViewDelegate &
                                            CSOperationController & CSHasDialogProtocol & CSHasProgressProtocol
 
 public protocol CSTableControllerProtocol {
@@ -29,7 +29,6 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     public let tableView = UITableView.construct().also { $0.estimatedRowHeight = 0 }
 
-    internal var parentController: CSTableControllerParent!
     internal var _data: [Row]!
 
     private var filteredData = [Row]()
@@ -38,11 +37,10 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         super.construct(parent)
-        parentController = parent
         tableView.delegates(parent)
-        filter = parentController as? CSTableFilter
+        filter = (parent as? CSTableFilter)
         _data = data
-        parentController.showChild(controller: self, parentView: parentView ?? parent.view)
+        parentController!.showChild(controller: self, parentView: parentView ?? parent.view)
         view.matchParent().add(view: tableView).matchParent()
         return self
     }
@@ -69,7 +67,8 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         if isLoading { loadProcess!.cancel() }
         isLoading = true
         tableView.reload()
-        return parentController.send(operation: loadData().refresh(refresh), title: "",
+        return (parentController as! CSTableControllerParent)
+                .send(operation: loadData().refresh(refresh), title: "",
                         progress: withProgress, failedDialog: false)
                 .onFailed { process in
                     self.isFailed = true

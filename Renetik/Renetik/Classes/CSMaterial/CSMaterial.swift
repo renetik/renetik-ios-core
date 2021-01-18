@@ -71,7 +71,7 @@ open class CSMaterialControl: UIControl {
         return self
     }
 
-    lazy var inkTouchController = { MDCRippleTouchController() }()
+    lazy public var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
     override open func onClick(_ block: @escaping Func) -> Self {

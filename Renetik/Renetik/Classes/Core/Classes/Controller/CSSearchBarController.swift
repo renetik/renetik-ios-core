@@ -5,7 +5,7 @@
 import UIKit
 import RenetikObjc
 
-public class CSSearchBarController: CSMainController, UISearchBarDelegate {
+public class CSSearchBarController: CSViewController, UISearchBarDelegate {
 
     public let bar = UISearchBar.construct().resizeToFit()
     public var text: String { bar.text ?? "" }
@@ -14,7 +14,7 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     private var onTextChanged: ((String) -> Void)!
 
     @discardableResult
-    public func construct(by parent: CSMainController,
+    public func construct(by parent: CSViewController,
                           placeHolder: String = .searchPlaceholder,
                           onTextChanged: @escaping (String) -> Void) -> Self {
         super.construct(parent).asViewLess()
@@ -60,7 +60,7 @@ public extension CSSearchBarController {
 
     @discardableResult
     public func construct<Row: CSTableControllerRow, Data>(
-            _ parent: CSMainController,
+            _ parent: CSViewController,
             placeHolder: String = .searchPlaceholder,
             table: CSTableController<Row, Data>,
             filter: CSTableFilter<Row, Data> = CSContainsIgnoreCaseTableFilter<Row, Data>()) -> Self {

@@ -7,7 +7,7 @@ import UIKit
 import Renetik
 import RenetikObjc
 
-public class CSSingleRequestController<Data: AnyObject>: CSMainController {
+public class CSSingleRequestController<Data: AnyObject>: CSViewController {
 
     public var stringRequestLoading: String = .requestLoading
     public var stringRequestFailed: String = .requestFailed

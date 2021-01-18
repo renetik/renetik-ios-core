@@ -7,7 +7,7 @@ import QuartzCore.CAAnimation
 public extension CATransition {
     @discardableResult
     public class func create(for view: UIView,
-                             duration: CFTimeInterval = 0.5,
+                             duration: CFTimeInterval = .defaultAnimation,
                              timing: CAMediaTimingFunctionName = .easeInEaseOut,
                              type: CATransitionType = .fade,
                              subtype: CATransitionSubtype? = nil) -> CATransition {
