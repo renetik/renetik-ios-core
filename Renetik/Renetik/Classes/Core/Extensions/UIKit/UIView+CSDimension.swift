@@ -187,6 +187,11 @@ public extension UIView {
     }
 
     @discardableResult
+    @objc open func resizeToFit(padding: CGFloat = 0) -> Self {
+        resizeToFit().resize(padding: padding)
+    }
+
+    @discardableResult
     @objc open func widthToFit() -> Self { width(widthThatFits()) }
 
     @discardableResult
