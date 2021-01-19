@@ -54,7 +54,7 @@ public class CSAlamofireClient: CSObject {
         basicAuth = (username: username, password: password)
     }
 
-    public func get<DataType: CSServerMapData>(_ operation: CSOperation<DataType>?, service: String,
+    public func get<DataType: CSServerMapData>(_ operation: CSOperation<DataType>? = nil, service: String,
                                                data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(process.url) \(HTTPMethod.get) \(params)")

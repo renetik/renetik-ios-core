@@ -55,6 +55,11 @@ public extension CSAnyProtocol {
         return value.isEmpty ? 0 : value.intValue
     }
 
+    public var asDouble: Double {
+        let value = asString
+        return value.isEmpty ? 0 : value.doubleValue
+    }
+
     public func cast<T>() -> T { self as! T }
 
     public func castOrNil<T>() -> T? { self as? T }
