@@ -152,23 +152,20 @@ public extension UIScrollView {
 public extension CSScrollView {
 
     @discardableResult
-    func add<View: UIView>(footer view: View, margin: CGFloat, _ apply: ((View) -> ())? = nil) -> View {
-        add(view: view).matchParentWidth()
-        layout(footer: view, margin: margin)
-        apply?(view)
-        return view
-    }
-
-    @discardableResult
-    func layout<View: UIView>(footer view: View, margin: CGFloat) -> View {
+    func layout<View: UIView>(footer view: View, margin: CGFloat, function: @escaping ArgFunc<View>) -> View {
         layout { [self] in
-            view.fromPrevious(top: margin)
+            function(view)
             if view.bottom < safeHeight {
-                view.flexibleTop().from(safeBottom: navigation.navigationBar.bottom)
+                view.flexibleTop().from(safeBottom: 0) //navigation.navigationBar.bottom
             } else {
                 contentSize(height: view.bottom)
             }
         }
         return view
+    }
+
+    @discardableResult
+    func layout<View: UIView>(footer view: View, margin: CGFloat) -> View {
+        layout(footer: view, margin: margin) { $0.fromPrevious(top: margin).heightToFit() }
     }
 }

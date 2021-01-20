@@ -17,27 +17,27 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
-    public func onFailed(_ function: @escaping ArgFunc<CSProcessProtocol>) -> Self {
-        invoke { eventFailed.listen { function($0) } }
+    public func onFailed(_ function: @escaping ArgFunc<CSProcess<Data>>) -> Self {
+        onFailed { function(self) }
     }
 
     @discardableResult
     public func onFailed(_ function: @escaping Func) -> Self {
-        invoke { eventFailed.listen { _ in function() } }
+        eventFailed.listen { _ in function() }; return self
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
     public func onCancel(_ function: @escaping (CSProcess<Data>) -> Void) -> Self {
-        invoke { eventCancel.listen { function($0) } }
+        eventCancel.listen { function($0) }; return self
     }
 
     public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
-        invoke { eventDone.listen { function($0) } }
+        eventDone.listen { function($0) }; return self
     }
 
     private let onProgress: CSEvent<CSProcess<Data>> = event()
@@ -50,7 +50,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     public var data: Data? = nil
     public var message: String? = nil
     public var error: Error? = nil
-    var failedProcess: CSProcessProtocol? = nil
+    public var failedProcess: CSProcessProtocol? = nil
 
     public init(url: String? = nil, data: Data? = nil) {
         self.url = url
@@ -120,7 +120,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
                 "isSuccess \(isSuccess) isFailed \(isFailed)")
         if (isCanceled || isDone || isSuccess || isFailed) { return }
         isCanceled = true
-        self.message = .operationCancelled
+        message = .operationCancelled
         eventCancel.fire(self)
         onDoneImpl()
     }
