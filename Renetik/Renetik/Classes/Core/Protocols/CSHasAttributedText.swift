@@ -44,7 +44,7 @@ public extension CSHasAttributedTextProtocol
                                 font-family:\(font()!.fontName); 
                                 font-size:\(font()!.pointSize);">\(text)</body></html>
                    """
-        html.data(using: .unicode, allowLossyConversion: true).notNil { data in
+        html.data(using: .utf8, allowLossyConversion: true).notNil { data in
             attributedText = try? NSAttributedString(data: data, options: [
                 .documentType: NSAttributedString.DocumentType.html,
                 .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)

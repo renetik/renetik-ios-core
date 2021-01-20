@@ -16,8 +16,10 @@ public class CSMaterialButton: UIButton {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
-    override open func onTouchUp(_ block: @escaping Func) -> Self {
-        super.onTouchUp(block)
+    override open func onClick(_ block: @escaping Func) -> Self {
+        // later was needed for ripple, it was not returned back to normal
+        // after click when there was html rendering in click callback
+        super.onClick { later { block() } }
         inkTouchController.addRipple(to: self)
         return self
     }
@@ -30,7 +32,9 @@ public class CSMaterialImageView: UIImageView {
 
     @discardableResult
     override open func onClick(_ block: @escaping Func) -> Self {
-        super.onClick(block)
+        // later was needed for ripple, it was not returned back to normal
+        // after click when there was html rendering in click callback
+        super.onClick { later { block() } }
         inkTouchController.addRipple(to: self)
         return self
     }
@@ -41,7 +45,9 @@ public class CSMaterialLabel: UILabel {
 
     @discardableResult
     override open func onClick(_ block: @escaping Func) -> Self {
-        super.onClick(block)
+        // later was needed for ripple, it was not returned back to normal
+        // after click when there was html rendering in click callback
+        super.onClick { later { block() } }
         inkTouchController.addRipple(to: self)
         return self
     }

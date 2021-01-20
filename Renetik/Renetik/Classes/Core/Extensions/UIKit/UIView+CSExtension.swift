@@ -46,14 +46,12 @@ public extension UIView {
     @discardableResult
     @objc open func construct() -> Self { setAutoresizingDefaults() }
 
-    /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {
         onTap { block() }
         return self
     }
 
-    /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     @objc open func onTap(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
@@ -61,7 +59,6 @@ public extension UIView {
         return self
     }
 
-    /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
     open func onLongPress(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
