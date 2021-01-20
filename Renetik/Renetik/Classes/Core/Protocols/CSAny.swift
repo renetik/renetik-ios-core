@@ -24,6 +24,11 @@ public extension CSAnyProtocol {
     }
 
     @discardableResult
+    public func then(_ function: (Self) -> Void)  {
+        function(self)
+    }
+
+    @discardableResult
     public func invoke(_ function: Func) -> Self {
         function()
         return self
