@@ -9,12 +9,14 @@ public let calendar = Calendar.current
 public extension Calendar {
 
     func dateFrom(_ year: String?, _ month: String? = nil, _ day: String? = nil) -> Date? {
+        if year.isNil { return nil }
         let dateComponents = DateComponents(calendar: self,
                 year: year?.intValue, month: month?.intValue, day: day?.intValue)
         return calendar.date(from: dateComponents)
     }
 
 }
+
 //
 //
 //fun Calendar.fromTime(time: Long) =

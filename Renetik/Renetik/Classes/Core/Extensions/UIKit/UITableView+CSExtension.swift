@@ -68,7 +68,7 @@ public extension UITableView {
     * This triggers table reload !!!
     */
     @discardableResult
-    public func hideEmptyCellsSeparatorByEmptyFooter() -> Self {
+    public func hideEmptySeparatorsByEmptyFooter() -> Self {
         tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
         return self
     }

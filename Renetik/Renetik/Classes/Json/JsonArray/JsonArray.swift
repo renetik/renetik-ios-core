@@ -5,26 +5,25 @@
 import Foundation
 
 open class CSJsonArray: CSObject, CSJsonArrayProtocol {
-    var index = 0
-    fileprivate var data = [CSAnyProtocol?]()
+    fileprivate var array = [CSAnyProtocol]()
 
     public required override init() { // This is for instantiating by reflection ?
         super.init()
     }
 
     @discardableResult
-    func load(data: [String: CSAnyProtocol?]) -> Self {
-        self.data.add(data)
+    public func load(data: [CSAnyProtocol]) -> Self {
+        array = data
         return self
     }
 
-    public var asArray: [Any?] { data }
+    public var asArray: [Any?] { array }
 
-    func at(_ key: Int) -> CSAnyProtocol? { data[key] }
+    public func at(_ key: Int) -> CSAnyProtocol? { array[key] }
 
-    func add(_ value: CSAnyProtocol?) -> CSAnyProtocol? { data.add(value) }
+    public func add(_ value: CSAnyProtocol?) -> CSAnyProtocol? { array.add(value) }
 }
 
 extension CSJsonArray: Sequence {
-    public func makeIterator() -> IndexingIterator<[CSAnyProtocol?]> { data.makeIterator() }
+    public func makeIterator() -> IndexingIterator<[CSAnyProtocol]> { array.makeIterator() }
 }

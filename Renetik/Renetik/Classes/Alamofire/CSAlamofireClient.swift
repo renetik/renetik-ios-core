@@ -54,8 +54,14 @@ public class CSAlamofireClient: CSObject {
         basicAuth = (username: username, password: password)
     }
 
-    public func get<DataType: CSServerMapData>(_ operation: CSOperation<DataType>? = nil, service: String,
-                                               data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
+
+    public func get<DataType: CSHttpResponseDataProtocol>(service: String, data: DataType,
+                                                          params: [String: String] = [:]) -> CSProcess<DataType> {
+        get(nil, service: service, data: data, params: params)
+    }
+
+    public func get<DataType: CSHttpResponseDataProtocol>(_ operation: CSOperation<DataType>?, service: String,
+                                                          data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(process.url) \(HTTPMethod.get) \(params)")
             let loadFromNetwork: Bool = {
@@ -68,7 +74,7 @@ public class CSAlamofireClient: CSObject {
                     encoding: URLEncoding.default, refreshCache: loadFromNetwork)
             operation?.expireMinutes.notNil { minutes in request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
-                    completionHandler: { self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error) },
+                    completionHandler: { self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error) },
                     autoClearCache: (operation?.isCached).isFalse)
         }
     }
@@ -77,7 +83,7 @@ public class CSAlamofireClient: CSObject {
         post(service: service, data: CSServerMapData(), params: params)
     }
 
-    public func post<DataType: CSServerMapData>(
+    public func post<DataType: CSHttpResponseDataProtocol>(
             service: String, data: DataType, params: [String: Any] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(process.url) \(HTTPMethod.post) \(params)")
@@ -125,13 +131,14 @@ public class CSAlamofireClient: CSObject {
 
     private func onResponseDone<DataType: CSHttpResponseDataProtocol>(
             _ process: CSProcess<DataType>, _ statusCode: Int?, _ content: String?, _ error: Error?) {
-        error.notNil { process.failed($0, message: "statusCode:\(statusCode), error:\(error), content:\(content) ") }
-                .elseDo {
-                    logInfo("\(process.url!) \(content ?? "No content")")
-                    process.data!.onHttpResponse(code: statusCode!, message: "", content: content)
-                    function(if: process.data!.success) { process.success() }
-                            .elseDo { process.failed(nil, message: process.data!.message ?? "No Message") }
-                }
+        if error.notNil || statusCode == nil {
+            process.failed(error, message: "statusCode:\(statusCode), error:\(error), content:\(content) ")
+        } else {
+            logInfo("\(process.url!) \(content ?? "No content")")
+            process.data!.onHttpResponse(code: statusCode!, message: "", content: content)
+            function(if: process.data!.success) { process.success() }
+                    .elseDo { process.failed(nil, message: process.data!.message ?? "No Message") }
+        }
     }
 }
 

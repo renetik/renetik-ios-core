@@ -13,6 +13,7 @@ public protocol CSOperationProtocol {
 public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     public var data: Data?
+    public var isCanceled = false
     private let executeProcessFunction: (CSOperation<Data>) -> CSProcess<Data>
 
     public init(function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
@@ -48,8 +49,8 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
-    public func onDone(_ function: @escaping ArgFunc<Data?>) -> Self {
-        invoke { eventDone.listen { function($0) } }
+    public func onDone(_ function: @escaping ArgFunc<CSOperation<Data>>) -> Self {
+        invoke { eventDone.listen { _ in function(self) } }
     }
 
     @discardableResult
@@ -81,6 +82,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     }
 
     public func cancel() {
+        isCanceled = true
         process.notNil { process in
             if process.isFailed {
                 eventFailed.fire(process)

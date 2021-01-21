@@ -28,6 +28,21 @@ open class CSHttpResponseData: CSHttpResponseDataProtocol {
     open var success: Bool { isHttpSuccess }
 }
 
+open class CSServerListData: CSJsonArray, CSHttpResponseDataProtocol {
+    static let PARSING_FAILED = "Parsing data as json failed"
+
+    open var message: String?, code: Int?
+
+    open func onHttpResponse(code: Int, message: String, content: String?) {
+        self.code = code; self.message = message;
+        content?.parseJsonArray().notNil {
+            load(data: $0 as! [CSAnyProtocol])
+        }.elseDo { self.message = CSServerMapData.PARSING_FAILED }
+    }
+
+    open var success: Bool { isHttpSuccess }
+}
+
 open class CSServerMapData: CSJsonObject, CSHttpResponseDataProtocol {
     static let PARSING_FAILED = "Parsing data as json failed"
 

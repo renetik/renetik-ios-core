@@ -42,7 +42,7 @@ public class CSNameChooserController<RowType: CSNameRowType>: CSMainController
     public override func onViewDidLayoutFirstTime() {
         super.onViewDidLayoutFirstTime()
         view.add(view: table).matchParent()
-        table.hideEmptyCellsSeparatorByEmptyFooter()
+        table.hideEmptySeparatorsByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
         table.tableHeaderView = search.bar
         table.delegates(self)

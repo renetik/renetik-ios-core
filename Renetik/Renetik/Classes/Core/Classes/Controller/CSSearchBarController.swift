@@ -41,11 +41,12 @@ public class CSSearchBarController: CSViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 
-    public func searchBarShouldBeginEditing(_ bar: UISearchBar) -> Bool {
-        let boolToReturn = searchBarShouldBeginEditing
-        searchBarShouldBeginEditing = true
-        return boolToReturn
-    }
+//TODO: What exactly was this good for ?
+//    public func searchBarShouldBeginEditing(_ bar: UISearchBar) -> Bool {
+//        let boolToReturn = searchBarShouldBeginEditing
+//        searchBarShouldBeginEditing = true
+//        return boolToReturn
+//    }
 
     public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animate { searchBar.showsCancelButton = true }

@@ -30,6 +30,13 @@ public class CSArray<Type>: CSObject {
         array.forEach { element in function(element as! Type) }
         return self
     }
+
+    @discardableResult
+    public func reload(_ data: [Type]) -> Self  { array.reload(data); return self }
+
+    @discardableResult
+    public func removeAll() -> Self { array.removeAllObjects(); return self }
+
 }
 
 extension CSArray: Collection {
@@ -44,4 +51,10 @@ extension CSArray: Collection {
     public typealias Index = Int
 
     public subscript(index: Index) -> Type { get { array[index] as! Type } }
+}
+
+extension CSArray {
+    public func isSet(function: (CSArray) -> Void) {
+        if isSet { function(self) }
+    }
 }

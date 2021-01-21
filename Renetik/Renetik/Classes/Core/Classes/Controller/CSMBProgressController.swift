@@ -14,7 +14,7 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
     private var hud: MBProgressHUD?
 
     public init(in controller: UIViewController) {
-        self.view = controller.view
+        view = controller.view
     }
 
     public init(in view: UIView) {
@@ -27,8 +27,11 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
 
     public func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible {
         MBProgressHUD.hide(for: view, animated: true)
-        hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
+        hud = MBProgressHUD(view: view).also { hud in
+            view.add(view: hud)
             hud.removeFromSuperViewOnHide = true
+            hud.graceTime = 1
+            hud.minShowTime = 2
             hud.animationType = .zoom
             hud.contentColor = foregroundColor
             hud.bezelView.style = .solidColor
@@ -44,6 +47,8 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
             }.elseDo {
                 hud.detailsLabel.text = "\n" + title.asString
             }
+            hud.completionBlock = { self.hud = nil }
+            hud.show(animated: true)
         }
         return self
     }

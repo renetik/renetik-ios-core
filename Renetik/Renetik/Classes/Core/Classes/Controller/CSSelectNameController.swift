@@ -38,7 +38,7 @@ public class CSSelectNameController<Data: CSNameRowType>:
     public override func onViewWillAppear() {
         super.onViewWillAppear()
         view.add(view: table).matchParent()
-        table.hideEmptyCellsSeparatorByEmptyFooter()
+        table.hideEmptySeparatorsByEmptyFooter()
         table.allowsMultipleSelectionDuringEditing = false
 
         search.construct(by: self) { _ in self.reload() }
