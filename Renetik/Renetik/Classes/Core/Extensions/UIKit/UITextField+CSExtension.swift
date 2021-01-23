@@ -42,6 +42,18 @@ public extension UITextField {
     }
 
     @discardableResult
+    func onBeginEditing(_ function: @escaping () -> Bool) -> Self {
+        bk_shouldBeginEditingBlock = { _ in function() }
+        return self
+    }
+
+    @discardableResult
+    func onEndEditing(_ function: @escaping () -> Bool) -> Self {
+        bk_shouldEndEditingBlock = { _ in function() }
+        return self
+    }
+
+    @discardableResult
     func onChange(_ function: @escaping ArgFunc<UITextField>) -> Self {
         bk_addEventHandler({ _ in function(self) }, for: .editingChanged)
         return self

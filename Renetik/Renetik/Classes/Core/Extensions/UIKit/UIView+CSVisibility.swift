@@ -7,7 +7,7 @@ import UIKit
 import RenetikObjc
 import BlocksKit
 
-extension UIView: CSVisibilityProtocol {
+extension UIView: CSHasVisibilityProtocol {
     public var eventVisibilityChange: CSEvent<Bool> {
         associatedDictionary("UIView+eventVisibilityChange") { event() }
     }
@@ -22,7 +22,7 @@ public extension UIView {
     func visible(if condition: Bool) -> Self {
         isVisible = condition
         navigation.topViewController?.view.setNeedsLayout()
-//        superview?.layoutSubviews()
+        superview?.setNeedsLayout()
         return self
     }
 
@@ -30,7 +30,7 @@ public extension UIView {
     func shown(if condition: Bool) -> Self {
         isVisible = condition
         navigation.topViewController?.view.setNeedsLayout()
-//        superview?.layoutSubviews()
+        superview?.setNeedsLayout()
         return self
     }
 
@@ -38,7 +38,7 @@ public extension UIView {
     func hidden(if condition: Bool) -> Self {
         isVisible = !condition
         navigation.topViewController?.view.setNeedsLayout()
-//        superview?.layoutSubviews()
+        superview?.setNeedsLayout()
         return self
     }
 
@@ -46,7 +46,7 @@ public extension UIView {
     func show() -> Self {
         isVisible = true
         navigation.topViewController?.view.setNeedsLayout()
-//        superview?.layoutSubviews()
+        superview?.setNeedsLayout()
         return self
     }
 
@@ -54,16 +54,19 @@ public extension UIView {
     func hide() -> Self {
         isVisible = false
         navigation.topViewController?.view.setNeedsLayout()
-//        findSuperviewToUpdateLayout()?.layoutSubviews()
+        superview?.setNeedsLayout()
         return self
     }
 
-//    @discardableResult
-//    func findSuperviewToUpdateLayout() -> UIView? {
-//        var parent = superview
-//        while !(parent is CSHasLayoutProtocol) && parent?.superview != nil {
-//            parent = parent?.superview
-//        }
-//        return parent
-//    }
+    var isVisibleThroughHierarchy: Bool {
+        var view: UIView? = self
+        repeat {
+            if view!.isHidden { return false }
+            view = view?.superview
+        } while view.notNil
+        return true
+    }
+
+    var isHiddenThroughHierarchy: Bool { !isVisibleThroughHierarchy }
+
 }

@@ -53,5 +53,9 @@ public extension CSVariable where T == Bool {
         value = false
         return self
     }
+
+    var isTrue: Bool { value }
+
+    var isFalse: Bool { !value }
 }
 

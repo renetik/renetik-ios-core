@@ -87,6 +87,11 @@ public func notNil(_ items: Any?...) -> Bool {
     return true
 }
 
+public func isAllNil(_ items: Any?...) -> Bool {
+    for it in items { if it.notNil { return false } }
+    return true
+}
+
 public func isAnyNil(_ items: Any?...) -> Bool {
     for it in items { if it.isNil { return true } }
     return false

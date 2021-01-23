@@ -9,7 +9,7 @@ public extension UITableViewCell {
     @discardableResult
     override open func construct() -> Self {
         super.construct()
-        selectedBackgroundView = UIView.construct(color: UIColor.clear)
+        selectedBackgroundView = UIView.construct(color: .clear)
         contentView.matchParent()
         return self
     }

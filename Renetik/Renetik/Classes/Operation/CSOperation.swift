@@ -8,6 +8,7 @@ import RenetikObjc
 
 public protocol CSOperationProtocol {
     func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self
+    func cancel()
 }
 
 public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {

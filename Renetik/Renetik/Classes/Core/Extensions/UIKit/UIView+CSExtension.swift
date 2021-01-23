@@ -164,17 +164,17 @@ public extension UIView {
     @discardableResult
     func fadeTo(visible: Bool) -> Self { visible.isTrue { fadeIn() }.elseDo { fadeOut() }; return self }
 
-    func fadeIn(duration: TimeInterval = .defaultAnimation, onDone: (Func)? = nil) {
-        if isVisible && alpha == 1 { return }
-        isVisible = true
+    func fadeIn(duration: TimeInterval = .defaultAnimation, onDone: Func? = nil) {
+        if isVisible && alpha == 1 { onDone?(); return }
+        show()
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
                 animations: { self.alpha = 1.0 },
                 completion: { _ in onDone?() })
     }
 
-    func fadeOut(duration: TimeInterval = .defaultAnimation, onDone: (Func)? = nil) {
-        if isHidden || alpha == 0 { return }
+    func fadeOut(duration: TimeInterval = .defaultAnimation, onDone: Func? = nil) {
+        if isHidden || alpha == 0 { onDone?(); return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
                 animations: { self.alpha = 0.0 },

@@ -45,9 +45,7 @@ public extension CSAnyProtocol {
         function()
     }
 
-//    public func then(_ function: (Self) -> Void) { function(self) }
-
-    // let in kotlin
+    // let in Kotlin
     public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
     public var asString: String {
@@ -126,3 +124,10 @@ extension Array: CSAnyProtocol {}
 extension Dictionary: CSAnyProtocol {}
 
 extension Date: CSAnyProtocol {}
+
+//public extension Optional where Wrapped: CSAnyProtocol {
+//    public var asString: String {
+//        (self as? CSNameProtocol)?.name ??
+//                (self as? CustomStringConvertible)?.description ?? "\(self)"
+//    }
+//}

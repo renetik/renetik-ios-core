@@ -6,5 +6,5 @@ import Foundation
 
 public protocol CSVisibilityProtocol {
     var isVisible: Bool { get set }
-    var eventVisibilityChange: CSEvent<Bool> { get }
+
 }

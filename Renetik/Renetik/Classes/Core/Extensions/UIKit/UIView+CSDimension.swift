@@ -19,6 +19,9 @@ public extension UIView {
     @discardableResult
     func width(_ value: CGFloat) -> Self { invoke { self.width = value } }
 
+    @discardableResult
+    func width(as view: UIView) -> Self { width(view.width) }
+
     var height: CGFloat {
         get { frame.size.height }
         set {
