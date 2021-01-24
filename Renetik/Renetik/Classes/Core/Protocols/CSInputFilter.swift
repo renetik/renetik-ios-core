@@ -8,6 +8,18 @@ public protocol CSInputFilterProtocol {
     func filter(current: String, range: NSRange, string: String) -> Bool
 }
 
+public class CSIntMaxLengthInputFilter: CSInputFilterProtocol {
+    let maxLength: Int
+
+    public init(_  maxLength: Int) {
+        self.maxLength = maxLength
+    }
+
+    public func filter(current: String, range: NSRange, string: String) -> Bool {
+        current.length < maxLength
+    }
+}
+
 public class CSIntMaxValueInputFilter: CSInputFilterProtocol {
     let getMaxValue: () -> Int
 
@@ -21,14 +33,22 @@ public class CSIntMaxValueInputFilter: CSInputFilterProtocol {
     }
 }
 
-public class CSIntMaxLengthInputFilter: CSInputFilterProtocol {
-    let maxLength: Int
+public class CSMaxCharactersInputFilter: CSInputFilterProtocol {
+    let maxCharacters: Int
 
-    public init(_  maxLength: Int) {
-        self.maxLength = maxLength
+    public init(_  maxCharacters: Int) {
+        self.maxCharacters = maxCharacters
     }
 
     public func filter(current: String, range: NSRange, string: String) -> Bool {
-        current.length < maxLength
+        let resultString = current.replace(range: range, with: string)
+        return resultString.length <= maxCharacters
+    }
+}
+
+public class CSNoNumbersInputFilter: CSObject, CSInputFilterProtocol {
+    public func filter(current: String, range: NSRange, string: String) -> Bool {
+        for char in string { if !char.isLetter { return false } }
+        return false
     }
 }

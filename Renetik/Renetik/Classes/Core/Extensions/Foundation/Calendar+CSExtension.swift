@@ -15,6 +15,12 @@ public extension Calendar {
         return calendar.date(from: dateComponents)
     }
 
+    func age(from date: Date) -> Int { age(from: date, for: Date()) }
+
+    func age(from date: Date, for dateFrom: Date) -> Int {
+        dateComponents([.year], from: date, to: dateFrom).year!
+    }
+
 }
 
 //

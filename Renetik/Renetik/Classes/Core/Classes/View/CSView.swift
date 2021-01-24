@@ -16,8 +16,18 @@ open class CSView: UIControl, CSHasLayoutProtocol {
         return _self
     }
 
+    open override func construct() -> Self {
+        super.construct()
+        onCreateLayout()
+        onLayoutCreated()
+        return self
+    }
+
+    open func onCreateLayout() {}
+
+    open func onLayoutCreated() {}
+
     public let layoutFunctions: CSEvent<Void> = event()
-    public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
 
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
@@ -43,30 +53,11 @@ open class CSView: UIControl, CSHasLayoutProtocol {
         return view
     }
 
-    private var isDidLayoutSubviews = false
-
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if !isDidLayoutSubviews {
-            isDidLayoutSubviews = true
-            onLayoutSubviewsFirstTime()
-            onCreateLayout()
-            onLayoutCreated()
-            eventLayoutSubviewsFirstTime.fire()
-        } else {
-            onUpdateLayout()
-        }
-        updateLayout()
+        layoutFunctions.fire()
         onLayoutSubviews()
     }
-
-    open func onLayoutSubviewsFirstTime() {}
-
-    open func onCreateLayout() {}
-
-    open func onLayoutCreated() {}
-
-    open func onUpdateLayout() {}
 
     open func onLayoutSubviews() {}
 
