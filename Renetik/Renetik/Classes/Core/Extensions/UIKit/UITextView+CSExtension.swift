@@ -20,7 +20,6 @@ public extension UITextView {
 
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 
-
     func scrollToCursorPosition() -> Self {
         later(seconds: 0.1) {
             if let start = self.selectedTextRange?.start {
@@ -30,13 +29,18 @@ public extension UITextView {
         return self
     }
 
-    // TODO: detect(data:[.all, .links]
     @discardableResult
     func detectData(_ types: UIDataDetectorTypes = [.all]) -> Self {
         dataDetectorTypes = types
         if types.isEmpty { isSelectable = true }
         return self
     }
+
+    @discardableResult
+    func detect(data: UIDataDetectorTypes) -> Self { detectData(data) }
+
+    @discardableResult
+    func detect(_ data: UIDataDetectorTypes) -> Self { detectData(data) }
 
     @discardableResult
     override public func onTap(_ block: @escaping Func) -> Self {
@@ -109,7 +113,6 @@ public extension UITextView {
         set { font = font!.withSize(newValue) }
     }
 
-    //TODO: font(style:
     @discardableResult
     func font(style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
 
@@ -121,4 +124,6 @@ public extension UITextView {
     @discardableResult
     public func text(prepend: String) -> Self { self.text("\(prepend)\(text ?? "")") }
 
+    @discardableResult
+    public func text(replace: String, with: String) -> Self { self.text(text.replace(all: replace, with: with)) }
 }

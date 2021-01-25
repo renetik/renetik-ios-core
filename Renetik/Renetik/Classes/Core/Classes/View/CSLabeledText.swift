@@ -10,15 +10,15 @@ public class CSLabeledText: UIView {
 
     let label = UILabel()
     let textView = UITextView()
-    var onClick: (Func)?
+    var onClick: Func?
 
     @discardableResult
     func construct(_ container: UIView, _ title: String?, _ value: String?,
-            _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: (Func)? = nil) -> Self {
+                   _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: Func? = nil) -> Self {
         super.construct().width(200, height: 30)
         addLabel(title: title)
         addTextView(value: value)
-        dataTypes.notNil { textView.detectData($0) }
+        dataTypes.notNil { textView.detect(data: $0) }
         onClick.notNil {
             textView.onClick($0)
             self.onClick($0)
@@ -60,11 +60,11 @@ public class CSLabeledView: UIView {
 
 public extension UIView {
     func addField(title: String? = nil, text: String? = nil,
-            detect dataTypes: UIDataDetectorTypes? = nil, onClick: (Func)? = nil) {
+                  detect dataTypes: UIDataDetectorTypes? = nil, onClick: Func? = nil) {
         CSLabeledText().construct(self, title, text, dataTypes, onClick)
     }
 
-    func addField(title: String, view: UIView, onClick: (Func)? = nil) {
+    func addField(title: String, view: UIView, onClick: Func? = nil) {
         CSLabeledView().construct(self, title, view, onClick)
     }
 }

@@ -74,8 +74,14 @@ open class CSMaterialControl: UIControl {
     open override func construct() -> Self {
         super.construct().defaultSize().withContent().clipsToBounds()
         content!.interaction(enabled: false)
+        onCreateLayout()
+        onLayoutCreated()
         return self
     }
+
+    open func onCreateLayout() {}
+
+    open func onLayoutCreated() {}
 
     public let layoutFunctions: CSEvent<Void> = event()
     public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
@@ -108,31 +114,32 @@ open class CSMaterialControl: UIControl {
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if !isDidLayoutSubviews {
-            isDidLayoutSubviews = true
-            onLayoutSubviewsFirstTime()
-            onCreateLayout()
-            onLayoutCreated()
-            eventLayoutSubviewsFirstTime.fire()
-        } else {
-            onUpdateLayout()
-        }
-        updateLayout()
+        layoutFunctions.fire()
         onLayoutSubviews()
     }
-
-    open func onLayoutSubviewsFirstTime() {}
-
-    open func onCreateLayout() {}
-
-    open func onLayoutCreated() {}
-
-    open func onUpdateLayout() {}
 
     open func onLayoutSubviews() {}
 
     @discardableResult
     public func updateLayout() -> Self { layoutFunctions.fire(); return self }
+
+    @discardableResult
+    @objc open override func heightToFit() -> Self {
+        content!.heightToFit()
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        height(content!.height)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
+
+    @discardableResult
+    @objc open override func resizeToFit() -> Self {
+        content!.resizeToFit()
+        let masks = saveAndClearSubviewsAutoresizingMasks()
+        size(content!.size)
+        restoreSubviewsAutoresizing(masks: masks)
+        return self
+    }
 
     lazy public var inkTouchController = { MDCRippleTouchController() }()
 
@@ -157,24 +164,6 @@ open class CSMaterialControl: UIControl {
         super.onTouchDown(block)
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
-        return self
-    }
-
-    @discardableResult
-    @objc open override func heightToFit() -> Self {
-        content!.heightToFit()
-        let masks = saveAndClearSubviewsAutoresizingMasks()
-        height(content!.height)
-        restoreSubviewsAutoresizing(masks: masks)
-        return self
-    }
-
-    @discardableResult
-    @objc open override func resizeToFit() -> Self {
-        content!.resizeToFit()
-        let masks = saveAndClearSubviewsAutoresizingMasks()
-        size(content!.size)
-        restoreSubviewsAutoresizing(masks: masks)
         return self
     }
 }

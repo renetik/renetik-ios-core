@@ -16,6 +16,7 @@ open class CSView: UIControl, CSHasLayoutProtocol {
         return _self
     }
 
+    @discardableResult
     open override func construct() -> Self {
         super.construct()
         onCreateLayout()

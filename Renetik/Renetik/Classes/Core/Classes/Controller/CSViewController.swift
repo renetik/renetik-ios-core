@@ -14,6 +14,7 @@ open class CSViewController: UIViewController {
     public let eventDismissing: CSEvent<Void> = event()
     public let eventDidAppear: CSEvent<Void> = event()
     public let eventDidLayoutFirstTime: CSEvent<Void> = event()
+    public let eventWillAppear: CSEvent<Void> = event()
     public let eventWillAppearFirstTime: CSEvent<Void> = event()
     public let eventDidAppearFirstTime: CSEvent<Void> = event()
 
@@ -90,7 +91,12 @@ open class CSViewController: UIViewController {
         }
     }
 
-    open func onViewWillAppear() {}
+    open func onViewWillAppear() { eventWillAppear.fire() }
+
+    public func onViewWillAppearUpdated(function: @escaping () -> Void) {
+        function()
+        eventWillAppear.listen(function: function)
+    }
 
     open func onViewWillAppearFirstTime() { eventWillAppearFirstTime.fire() }
 
