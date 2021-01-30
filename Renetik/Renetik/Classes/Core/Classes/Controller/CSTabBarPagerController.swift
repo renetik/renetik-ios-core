@@ -66,7 +66,7 @@ public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
                 CATransition.create(for: containerView, type: .push, subtype: .fromLeft)
             }
         }
-        showChild(controller: controller, parentView: containerView).view.matchParent()
+        add(controller: controller, to: containerView).view.matchParent()
         updateBarItemsAndMenu()
         currentController = controller
         currentControllerIndex = tabBar.selectedIndex

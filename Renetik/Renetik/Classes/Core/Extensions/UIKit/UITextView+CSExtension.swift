@@ -97,10 +97,7 @@ public extension UITextView {
     }
 
     @discardableResult
-    func text(align alignment: NSTextAlignment) -> Self { invoke { self.textAlignment = alignment } }
-
-//    @discardableResult
-//    func text(color: UIColor) -> Self { self.textColor = textColor; return self }
+    func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
 
     @discardableResult
     func font(_ font: UIFont) -> Self { invoke { self.font = font } }

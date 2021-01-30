@@ -162,5 +162,7 @@ public extension UITextField {
 
     @discardableResult
     func max(length: Int) -> Self { filters(CSIntMaxLengthInputFilter(length)); return self }
+
+    func secure() -> Self { isSecureTextEntry = true; return self }
 }
 

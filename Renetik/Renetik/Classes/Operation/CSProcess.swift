@@ -14,6 +14,9 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
         return self
     }
 
+    @discardableResult
+    public func onSuccess(_ function: @escaping Func) -> Self { onSuccess { _ in function() } }
+
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
@@ -133,5 +136,37 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
         }
         isDone = true
         eventDone.fire(data)
+    }
+}
+
+extension CSProcess {
+    @discardableResult
+    public func failIfFail<Data: AnyObject>(_ process: CSProcess<Data>) -> CSProcess<Data> {
+        process.onFailed { self.failed($0) }
+    }
+
+}
+
+public class CSMultiProcess: CSProcess<NSMutableArray> {
+
+    var process: CSProcessProtocol!
+
+    public init() { super.init(); data = NSMutableArray() }
+
+    @discardableResult
+    public func add<Data: AnyObject, Process: CSProcess<Data>>(_ process: Process) -> Process {
+        data!.add(process.data)
+        self.process = failIfFail(process)
+        return process
+    }
+
+    @discardableResult
+    public func add<Data: AnyObject, Process: CSProcess<Data>>(last request: Process) -> Process {
+        add(request).onSuccess { data in self.success() }
+    }
+
+    public override func cancel() {
+        super.cancel()
+        process.cancel()
     }
 }

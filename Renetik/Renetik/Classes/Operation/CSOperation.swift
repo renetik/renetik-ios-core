@@ -7,7 +7,9 @@ import Renetik
 import RenetikObjc
 
 public protocol CSOperationProtocol {
+    func onSuccess(_ function: @escaping Func) -> Self
     func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self
+    func onDone(_ function: @escaping Func) -> Self
     func cancel()
 }
 
@@ -29,6 +31,9 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
         invoke { eventSuccess.listen { function($0) } }
     }
+
+    @discardableResult
+    public func onSuccess(_ function: @escaping Func) -> Self { onSuccess { _ in function() } }
 
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 

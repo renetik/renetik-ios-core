@@ -112,4 +112,17 @@ public extension UITableView {
 
     @discardableResult
     public func header<View: UIView>(_ view: View) -> View { tableHeaderView = view; return view }
+
+    public var contentHeight: CGFloat {
+        let lastFooterRect = rectForFooter(inSection: lastSection)
+        return lastFooterRect.origin.y + lastFooterRect.size.height
+    }
+
+    public var lastSection: Int {
+        var lastSection = numberOfSections - 1
+        while lastSection > 0 && numberOfRows(inSection: lastSection) <= 0 {
+            lastSection -= 1
+        }
+        return lastSection
+    }
 }

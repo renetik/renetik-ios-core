@@ -20,8 +20,8 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
         super.construct(parent)
         self.controllers = controllers
-        parent.showChild(controller: self).view.matchParent()
-        showChild(controller: pager.construct(self)).view.matchParent()
+        parent.add(controller: self).view.matchParent()
+        add(controller: pager.construct(self)).view.matchParent()
         addChildMain(controllers: controllers)
         return self
     }

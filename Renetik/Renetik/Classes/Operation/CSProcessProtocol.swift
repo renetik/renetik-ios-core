@@ -9,4 +9,6 @@ public protocol CSProcessProtocol {
     var error: Error? { get }
     var failedProcess: CSProcessProtocol? { get }
     func cancel()
+    func onSuccess(_ function: @escaping Func) -> Self
+    func onFailed(_ function: @escaping Func) -> Self
 }

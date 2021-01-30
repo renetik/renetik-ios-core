@@ -18,32 +18,21 @@ extension UIView: CSHasVisibilityProtocol {
 }
 
 public extension UIView {
-    @discardableResult
-    func visible(if condition: Bool) -> Self {
-        isVisible = condition
-        navigation.topViewController?.view.setNeedsLayout()
-        superview?.setNeedsLayout()
-        return self
-    }
 
     @discardableResult
     func shown(if condition: Bool) -> Self {
-        isVisible = condition
-        navigation.topViewController?.view.setNeedsLayout()
-        superview?.setNeedsLayout()
+        if condition { show() } else { hide() }
         return self
     }
 
     @discardableResult
     func hidden(if condition: Bool) -> Self {
-        isVisible = !condition
-        navigation.topViewController?.view.setNeedsLayout()
-        superview?.setNeedsLayout()
+        if condition { hide() } else { show() }
         return self
     }
 
     @discardableResult
-    func show() -> Self {
+    @objc open func show() -> Self {
         isVisible = true
         navigation.topViewController?.view.setNeedsLayout()
         superview?.setNeedsLayout()
@@ -51,7 +40,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func hide() -> Self {
+    @objc open func hide() -> Self {
         isVisible = false
         navigation.topViewController?.view.setNeedsLayout()
         superview?.setNeedsLayout()

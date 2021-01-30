@@ -91,3 +91,14 @@ open class CSView: UIControl, CSHasLayoutProtocol {
         return self
     }
 }
+
+public extension CSView {
+    class func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> Self {
+        Self.construct().also {
+            $0.add(view: rightView).from(right: 0).centeredVertical()
+            $0.layout($0.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
+                $0.heightToFit().centeredVertical()
+            }
+        }.resizeToFit()
+    }
+}

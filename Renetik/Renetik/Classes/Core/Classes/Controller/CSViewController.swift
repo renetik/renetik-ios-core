@@ -22,7 +22,7 @@ open class CSViewController: UIViewController {
     private var isShowingFirstTime = false
     public var isShowing = false { didSet { if isShowing != oldValue { onShowingChanged() } } }
     public var isVisible: Bool { isAppearing && isShowing }
-    public private(set) var isDestroyed = false
+    public private(set) var isDismissed = false
 
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false
@@ -32,7 +32,7 @@ open class CSViewController: UIViewController {
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
     public private(set) var controllerInNavigation: UIViewController?
-    private(set) var parentController: UIViewController? {
+    public private(set) var parentController: UIViewController? {
         didSet {
             (parentController as? CSViewController)
                     .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
@@ -62,7 +62,7 @@ open class CSViewController: UIViewController {
     @discardableResult
     public func asViewLess() -> Self {
         later {
-            self.parentController!.showChild(controller: self)
+            self.parentController!.add(controller: self)
             self.view.size(1).isUserInteractionEnabled = false
         }
         isShowing = true
@@ -164,20 +164,25 @@ open class CSViewController: UIViewController {
         if !isAppearing { return }
         isAppearing = false
         onViewDidDisappear()
-        if let controllerInNavigation = controllerInNavigation {
-            if isMovingFromParent == true && controllerInNavigation.parent == nil {
-                onViewDismissing()
-            } else if navigation.previous == controllerInNavigation {
-                onViewPushedOver()
+        if parent == nil && (self as? CSPagerPage).isNil {
+            onViewDismissing()
+        } else {
+            if let controllerInNavigation = controllerInNavigation {
+                if isMovingFromParent == true && controllerInNavigation.parent == nil {
+                    onViewDismissing()
+                } else if navigation.previous == controllerInNavigation {
+                    onViewPushedOver()
+                }
             }
         }
     }
 
+    override open func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+    }
+
     override open func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-//        if parent.isNil {
-//            logInfo("didMove(toParent:nil \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing) isShowing:\(isShowing)")
-//        }
     }
 
     open func onViewDidDisappear() {}
@@ -186,10 +191,11 @@ open class CSViewController: UIViewController {
     }
 
     open func onViewDismissing() {
+        if isDismissed { return }
         eventRegistrations.each { $0.cancel() }
         notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
         eventDismissing.fire()
-        isDestroyed = true
+        isDismissed = true
     }
 
     private func onShowingChanged() {
@@ -278,7 +284,7 @@ open class CSViewController: UIViewController {
         transition.type = .moveIn
         transition.subtype = .fromBottom
         view.layer.add(transition, forKey: nil)
-        parent.showChild(controller: self).view.matchParent()
+        parent.add(controller: self).view.matchParent()
         return self
     }
 

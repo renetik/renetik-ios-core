@@ -14,7 +14,16 @@ public extension UIView {
         return view
     }
 
-    public func show(in parent: UIView) {
+    @discardableResult
+    func add<View: UIView>(before view: View, _ apply: ((View) -> ())? = nil) -> View {
+        let index = (content?.subviews.count ?? subviews.count) - 1
+        content?.insertSubview(view, at: index) ?? insertSubview(view, at: index)
+        apply?(view)
+        return view
+    }
+
+    @discardableResult
+    public func show(in parent: UIView) -> Self {
         let transition = CATransition()
         transition.duration = 0.15
         transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
@@ -22,6 +31,7 @@ public extension UIView {
         transition.subtype = .fromBottom
         layer.add(transition, forKey: nil)
         parent.add(view: self).matchParent()
+        return self
     }
 
     public func hideIn() {
@@ -71,7 +81,7 @@ public extension UIView {
         var index = index
         while index >= 0 {
             let view = subviews[index]
-            if view.isVisible { return view }
+            if view.isVisible && (view as? CSLayoutItemProtocol)?.isVisibleToLayout ?? true { return view }
             index -= 1
         }
         return nil

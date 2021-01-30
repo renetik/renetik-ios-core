@@ -58,6 +58,9 @@ public extension UILabel {
     func text(_ string: String?) -> Self { invoke { text = string } }
 
     @discardableResult
+    func text(align: NSTextAlignment) -> Self { invoke { textAlignment = align } }
+
+    @discardableResult
     func textAlign(_ alignment: NSTextAlignment) -> Self { invoke { textAlignment = alignment } }
 
     @discardableResult

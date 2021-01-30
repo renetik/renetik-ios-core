@@ -40,7 +40,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         tableView.delegates(parent)
         filter = (parent as? CSTableFilter)
         _data = data
-        parentController!.showChild(controller: self, parentView: parentView ?? parent.view)
+        parentController!.add(controller: self, to: parentView ?? parent.view)
         view.matchParent().add(view: tableView).matchParent()
         return self
     }

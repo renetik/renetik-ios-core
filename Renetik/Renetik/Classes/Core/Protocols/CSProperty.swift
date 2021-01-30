@@ -6,7 +6,14 @@ import Foundation
 
 public protocol CSPropertyProtocol: CSVariableProtocol {
     @discardableResult
-    func onChange(value: @escaping (T) -> Void) -> CSEventRegistration
+    func onChange(_ function: @escaping (T) -> Void) -> CSEventRegistration
+}
+
+extension CSPropertyProtocol {
+    @discardableResult
+    public func onChange(_ function: @escaping Func) -> CSEventRegistration {
+        onChange { _ in function() }
+    }
 }
 
 open class CSProperty<T>: CSPropertyProtocol where T: Equatable {
@@ -37,13 +44,8 @@ open class CSProperty<T>: CSPropertyProtocol where T: Equatable {
     }
 
     @discardableResult
-    public func onChange(value function: @escaping ArgFunc<T>) -> CSEventRegistration {
+    public func onChange(_ function: @escaping ArgFunc<T>) -> CSEventRegistration {
         eventChange.listen { function($0) }
-    }
-
-    @discardableResult
-    public func onChange(value function: @escaping Func) -> CSEventRegistration {
-        onChange { _ in function() }
     }
 
     @discardableResult

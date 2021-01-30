@@ -42,22 +42,14 @@ public extension UIViewController {
     }
 
     @discardableResult
-    func showChild(controller: UIViewController) -> UIViewController {
-        showChild(controller: controller, parentView: view)
+    func add(controller: UIViewController) -> UIViewController {
+        add(controller: controller, to: view)
     }
 
     @discardableResult
-    func showChild(controller: UIViewController, parentView: UIView) -> UIViewController {
+    func add(controller: UIViewController, to parenView: UIView) -> UIViewController {
         addChild(controller)
-        parentView.add(view: controller.view)
-        controller.didMove(toParent: self)
-        (controller as? CSViewController)?.isShowing = true
-        return controller
-    }
-
-    @discardableResult
-    func addChild(controller: UIViewController) -> UIViewController {
-        addChild(controller)
+        parenView.add(view: controller.view)
         controller.didMove(toParent: self)
         (controller as? CSViewController)?.isShowing = true
         return controller

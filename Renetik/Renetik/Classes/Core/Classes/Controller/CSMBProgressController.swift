@@ -28,7 +28,7 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
     public func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible {
         MBProgressHUD.hide(for: view, animated: true)
         hud = MBProgressHUD(view: view).also { hud in
-            view.add(view: hud)
+            view.add(view: hud).matchParent()
             hud.removeFromSuperViewOnHide = true
             hud.graceTime = 1
             hud.minShowTime = 2

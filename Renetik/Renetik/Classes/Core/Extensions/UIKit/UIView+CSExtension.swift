@@ -169,7 +169,7 @@ public extension UIView {
         show()
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { self.alpha = 1.0 },
+                animations: { self.alpha = 1 },
                 completion: { _ in onDone?() })
     }
 
@@ -177,11 +177,8 @@ public extension UIView {
         if isHidden || alpha == 0 { onDone?(); return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { self.alpha = 0.0 },
-                completion: { isFinished in
-                    if isFinished { self.alpha = 1; self.hide() }
-                    onDone?()
-                })
+                animations: { self.alpha = 0 },
+                completion: { isFinished in if isFinished { self.alpha = 1; self.hide() }; onDone?() })
     }
 
     @discardableResult
