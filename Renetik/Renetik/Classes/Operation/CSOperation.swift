@@ -8,15 +8,18 @@ import RenetikObjc
 
 public protocol CSOperationProtocol {
     func onSuccess(_ function: @escaping Func) -> Self
-    func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self
+    func onFailed(_ function: @escaping Func) -> Self
     func onDone(_ function: @escaping Func) -> Self
     func cancel()
 }
 
 public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
-    public var data: Data?
     public var isCanceled = false
+    public var process: CSProcess<Data>? = nil
+    public var data: Data? { process?.data }
+    public var failedProcess: CSProcessProtocol? { process?.failedProcess }
+
     private let executeProcessFunction: (CSOperation<Data>) -> CSProcess<Data>
 
     public init(function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
@@ -38,12 +41,12 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
-    public func onFailed(_ function: @escaping (CSProcessProtocol) -> Void) -> Self {
-        invoke { eventFailed.listen { function($0) } }
-    }
+    public func onFailed(_ function: @escaping Func) -> Self { onFailed { _ in function() } }
 
     @discardableResult
-    public func onFailed(_ function: @escaping Func) -> Self { onFailed { _ in function() } }
+    public func onFailed(_ function: @escaping ArgFunc<CSOperation<Data>>) -> Self {
+        eventFailed.listen { _ in function(self) }; return self
+    }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
@@ -62,7 +65,6 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     @discardableResult
     public func onDone(_ function: @escaping Func) -> Self { onDone { _ in function() } }
 
-    private var process: CSProcess<Data>? = nil
     public var isCached = true
     public var isRefresh = false
     public var expireMinutes: Int? = 1
@@ -75,28 +77,24 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     @discardableResult
     public func expire(minutes: Int?) -> Self { invoke { expireMinutes = minutes } }
 
-    public func send(listenOnFailed: Bool = true) -> CSProcess<Data> {
-        executeProcess().also { process in
-            self.process = process
-            process.onSuccess { data in
-                self.data = data
-                self.eventSuccess.fire(process.data!)
-                self.eventDone.fire(process.data)
+    @discardableResult
+    public func send(listenOnFailed: Bool = true, onSuccess: ArgFunc<Data>? = nil) -> Self {
+        process = executeProcess().also { process in
+            process.onSuccess { [self] in
+                onSuccess?($0)
+                eventSuccess.fire($0)
+                eventDone.fire($0)
             }
             if listenOnFailed { process.onFailed(failed) }
         }
+        return self
     }
 
     public func cancel() {
         isCanceled = true
         process.notNil { process in
-            if process.isFailed {
-                eventFailed.fire(process)
-                eventDone.fire(process.data)
-            } else {
-                process.cancel()
-                eventDone.fire(process.data)
-            }
+            process.cancel()
+            eventDone.fire(process.data)
         }
     }
 
@@ -109,5 +107,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 }
 
 extension CSOperation {
-    public func sendSilently() -> Self { send(listenOnFailed: true); return self }
+    public func send(listenOnFailed: Bool = true, onSuccess: @escaping Func) -> Self {
+        send(listenOnFailed: listenOnFailed) { _ in onSuccess() }
+    }
 }

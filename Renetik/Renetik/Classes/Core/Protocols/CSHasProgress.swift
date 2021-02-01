@@ -5,12 +5,19 @@
 import Foundation
 
 public protocol CSHasProgressProtocol {
-    func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible
+    func show(progress title: String, _ cancel: CSDialogAction?,
+              _ graceTime: TimeInterval?, _  minShowTime: TimeInterval?) -> CSHasDialogVisible
 }
 
 public extension CSHasProgressProtocol {
-    func show(progress title: String, onCancel: Func? = nil) -> CSHasDialogVisible {
-        show(progress: title, cancel: onCancel.notNil ?
-                CSDialogAction(title: .cs_dialog_cancel, action: onCancel!) : nil)
+    func show(progress title: String, onCancel: Func? = nil,
+              graceTime: TimeInterval = 0, minShowTime: TimeInterval = 2) -> CSHasDialogVisible {
+        show(progress: title, onCancel.notNil ?
+                CSDialogAction(title: .cs_dialog_cancel, action: onCancel!) : nil, graceTime, minShowTime)
+    }
+
+    func show(progress title: String, cancel: CSDialogAction?,
+              graceTime: TimeInterval = 0, minShowTime: TimeInterval = 2) -> CSHasDialogVisible {
+        show(progress: title, cancel, graceTime, minShowTime)
     }
 }

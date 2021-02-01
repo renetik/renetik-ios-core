@@ -20,11 +20,12 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
 
     public var data: [Row] { filteredData }
     public var loadData: (() -> CSOperation<Data>)!
-    public let onLoading: CSEvent<CSProcess<Data>> = event()
+    public let onLoading: CSEvent<CSOperation<Data>> = event()
+    public var isFailed: Bool { loadOperation?.failedProcess.isSet ?? false }
+    public var failedMessage: String? { loadOperation?.failedProcess?.message }
+
     internal (set) public var isLoading = false
     private(set) public var isFirstLoadingDone = false
-    private(set) public var isFailed = false
-    private(set) public var failedMessage: String?
 
 
     public let tableView = UITableView.construct().also { $0.estimatedRowHeight = 0 }
@@ -32,7 +33,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     internal var _data: [Row]!
 
     private var filteredData = [Row]()
-    private var loadProcess: CSProcess<Data>? = nil
+    private var loadOperation: CSOperation<Data>? = nil
 
     public func construct(by parent: CSTableControllerParent,
                           parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
@@ -63,35 +64,21 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     public var dataCount: Int { filteredData.count }
 
     @discardableResult
-    public func reload(withProgress: Bool = true, refresh: Bool = false) -> CSProcess<Data> {
-        if isLoading { loadProcess!.cancel() }
+    public func reload(withProgress: Bool = true, refresh: Bool = false) -> CSOperation<Data> {
+        if isLoading { loadOperation!.cancel() }
         isLoading = true
         tableView.reload()
-        return (parentController as! CSTableControllerParent)
-                .send(operation: loadData().refresh(refresh), title: "",
-                        progress: withProgress, failedDialog: false)
-                .onFailed { process in
-                    self.isFailed = true
-                    self.failedMessage = process.message
-                    self.clear()
-                }.onCancel { process in
-                    self.isFailed = true
-                    self.failedMessage = process.message
-                }.onDone { data in
-                    self.isLoading = false
-                    self.isFirstLoadingDone = true
-                    self.tableView.reload()
-                }.also { process in
-                    loadProcess = process
-                    onLoading.fire(process)
-                }
+        loadOperation = (parentController as! CSTableControllerParent)
+                .send(operation: loadData().refresh(refresh), title: "", progress: withProgress, failedDialog: false)
+                .onFailed { self.clear() }
+                .onDone { [self] data in isLoading = false; isFirstLoadingDone = true; tableView.reload() }
+        return loadOperation!
     }
 
     @discardableResult
     public func load(_ array: [Row]) -> Self {
         _data.reload(array)
         filterDataAndReload()
-        isFailed = false
         tableView.fadeIn()
         return self
     }
@@ -107,7 +94,6 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         tableView.beginUpdates()
         tableView.insertRows(at: paths, with: .automatic)
         tableView.endUpdates()
-        isFailed = false
     }
 
     internal func filterDataAndReload() {

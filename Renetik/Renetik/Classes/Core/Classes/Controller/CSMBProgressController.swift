@@ -25,31 +25,13 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
 
     public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
 
-    public func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible {
-        MBProgressHUD.hide(for: view, animated: true)
-        hud = MBProgressHUD(view: view).also { hud in
-            view.add(view: hud).matchParent()
-            hud.removeFromSuperViewOnHide = true
-            hud.graceTime = 1
-            hud.minShowTime = 2
-            hud.animationType = .zoom
-            hud.contentColor = foregroundColor
-            hud.bezelView.style = .solidColor
-            hud.bezelView.backgroundColor = .clear
-            hud.backgroundView.style = .solidColor
-            hud.backgroundView.backgroundColor = backgroundColor
-            cancel.notNil { cancel in
-                hud.detailsLabel.text = title.isSet ? "\n" + title + "\n" : "\n"
-                hud.button.text(cancel.title ?? .cs_dialog_cancel).onClick {
-                    cancel.action()
-                    hud.hide(animated: true)
-                }
-            }.elseDo {
-                hud.detailsLabel.text = "\n" + title.asString
-            }
-            hud.completionBlock = { self.hud = nil }
-            hud.show(animated: true)
-        }
+    public func show(progress title: String,_ cancel: CSDialogAction?,
+                     _ graceTime: TimeInterval?, _ minShowTime: TimeInterval?) -> CSHasDialogVisible {
+        hud = MBProgressHUD.showProgress(view: view, title: title,
+                foregroundColor: foregroundColor, backgroundColor: backgroundColor,
+                canCancel: cancel.notNil, cancelTitle: cancel?.title, onCancel: cancel?.action,
+                graceTime: graceTime, minShowTime: minShowTime)
+        hud!.completionBlock = { self.hud = nil }
         return self
     }
 }

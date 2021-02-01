@@ -39,9 +39,12 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
-    public func onDone(_ function: @escaping (Data?) -> Void) -> Self {
+    public func onDone(_ function: @escaping ArgFunc<Data?>) -> Self {
         eventDone.listen { function($0) }; return self
     }
+
+    @discardableResult
+    public func onDone(_ function: @escaping  Func) -> Self { onDone { _ in function() } }
 
     private let onProgress: CSEvent<CSProcess<Data>> = event()
     var progress: Double = 0 { didSet { onProgress.fire(self) } }

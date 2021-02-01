@@ -48,7 +48,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
 
     private var titleText: String {
         if table.isFailed {
-            return table.failedMessage ?? "Loading of list content was not successful, click to try again"
+            return "Loading of list content was not successful, click to try again"
         }
         return emptyText ?? "No items in list to display at this time"
     }
@@ -92,11 +92,11 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
     }
 
     public func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
-        table.reload().onDone { _ in self.table.tableView.reloadEmptyDataSet() }
+        table.reload().onDone { self.table.tableView.reloadEmptyDataSet() }
     }
 
     public func emptyDataSetDidTapButton(_ scrollView: UIScrollView!) {
-        table.reload().onDone { _ in self.table.tableView.reloadEmptyDataSet() }
+        table.reload().onDone { self.table.tableView.reloadEmptyDataSet() }
     }
 
     public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat { 0 }
