@@ -23,4 +23,18 @@ public extension UITableViewCell {
     }
 
     public var cellView: UIView? { contentView.content }
+
+    @discardableResult
+    open override func heightToFit() -> Self {
+        contentView.heightToFit()
+        super.heightToFit()
+        return self
+    }
+}
+
+extension UITableViewCell: CSHasTextProtocol {
+    public var text: String? {
+        get { textLabel?.text }
+        set { textLabel?.text = newValue }
+    }
 }
