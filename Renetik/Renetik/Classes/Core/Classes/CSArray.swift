@@ -32,7 +32,7 @@ public class CSArray<Type>: CSObject {
     }
 
     @discardableResult
-    public func reload(_ data: [Type]) -> Self  { array.reload(data); return self }
+    public func reload(_ data: [Type]) -> Self { array.reload(data); return self }
 
     @discardableResult
     public func removeAll() -> Self { array.removeAllObjects(); return self }
@@ -40,17 +40,15 @@ public class CSArray<Type>: CSObject {
 }
 
 extension CSArray: Collection {
-    public func index(after index: Int) -> Int { index + 1 }
-
-    public var startIndex: Int { 0 }
-
-    public var endIndex: Int { array.count - 1 }
-
     public typealias Element = Type
 
-    public typealias Index = Int
+    public func index(after i: Int) -> Int { asArray.index(after: i) }
 
-    public subscript(index: Index) -> Type { get { array[index] as! Type } }
+    public var startIndex: Int { asArray.startIndex }
+
+    public var endIndex: Int { asArray.endIndex }
+
+    public subscript(position: Int) -> Element { asArray[position] }
 }
 
 extension CSArray {

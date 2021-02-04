@@ -86,9 +86,9 @@ open class CSViewController: UIViewController {
             isOnViewWillAppearFirstTime = true
             onViewWillAppearFirstTime()
         } else {
-            view.setNeedsLayout()
             onViewWillAppearFromPresentedController()
         }
+        view.setNeedsLayout()
     }
 
     open func onViewWillAppear() { eventWillAppear.fire() }
@@ -114,8 +114,7 @@ open class CSViewController: UIViewController {
         } else {
             onUpdateLayout()
         }
-        // We need to call view.layoutSubviews() so view layout functions if any are called,
-        // because view.layoutSubviews() was already called before viewDidLayoutSubviews
+        // view.layoutSubviews() was already called before viewDidLayoutSubviews so calling again
         view.layoutSubviews()
         runLayoutFunctions()
         onViewDidLayout()

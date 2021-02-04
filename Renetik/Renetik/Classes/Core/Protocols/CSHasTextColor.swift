@@ -10,13 +10,6 @@ public protocol CSHasTextColorProtocol: AnyObject {
     func text(color: UIColor?) -> Self
 }
 
-extension UIButton: CSHasTextColorProtocol {
-    public func textColor() -> UIColor? { titleColor(for: .normal) }
-
-    @discardableResult
-    public func text(color: UIColor?) -> Self { setTitleColor(color, for: .normal); return self }
-}
-
 extension UITextView: CSHasTextColorProtocol {
     public func textColor() -> UIColor? { textColor }
 

@@ -107,7 +107,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func roundedCorners(_ width: Int = 5) -> Self {
+    func roundedCorners(width: Int = 5) -> Self {
         layer.cornerRadius = CGFloat(width)
         layer.masksToBounds = true
         clipsToBounds = true

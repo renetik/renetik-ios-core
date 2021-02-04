@@ -10,31 +10,33 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
 
     public var isPickerVisible: Bool = false
 
-    public var toolBarColor: UIColor?
-    public var toolBarItemTextColor: UIColor?
-    public var pickerColor: UIColor = .white
-    public var pickerItemTextColor: UIColor = .darkText
-    public var pickerItemFont: UIFont?
+    public static var toolBarColor: UIColor?
+    public static var toolBarItemTextColor: UIColor?
+    public static var pickerBackgroundColor: UIColor? = .white
+    public static var itemTextColor: (normal: UIColor, selected: UIColor)?
+    public static var itemBackgroundColor: (normal: UIColor, selected: UIColor)?
+    public static var itemFont: (normal: UIFont, selected: UIFont)?
+    public static var selectedItemBorder: (width: CGFloat, color: UIColor, radius: CGFloat)?
 
     var items: [CustomStringConvertible]!
-    var onDone: ((Int) -> Void)!
-    var onCancel: (Func)?
+    var onDone: ArgFunc<Int>!
+    var onCancel: Func?
 
     @discardableResult
-    public func showPicker(from parent: UIViewController, title: String, items: [CustomStringConvertible], selected selectedIndex: Int,
-            from displayElement: CSDisplayElement, onCancel: (Func)?,
-            onDone: @escaping (Int) -> Void) -> CSPickerVisibleProtocol {
+    public func showPicker(from parent: UIViewController, title: String, items: [CustomStringConvertible],
+                           selected selectedIndex: Int, from displayElement: CSDisplayElement,
+                           onCancel: Func?, onDone: @escaping ArgFunc<Int>) -> CSPickerVisibleProtocol {
         super.construct(parent).asViewLess()
         self.items = items
         self.onDone = onDone
         self.onCancel = onCancel
         let window = delegate.window!
         UIApplication.resignFirstResponder() // Hide keyboard or whatever so it don't overlap our view
-        window.add(view:disablerView).matchParent()
-        layout(disablerView.add(view:pickerView).matchParentWidth()) {
-            $0.heightToFit().from(bottom:  0)
+        window.add(view: disablerView).matchParent()
+        layout(disablerView.add(view: pickerView).matchParentWidth()) {
+            $0.heightToFit().from(bottom: 0)
         }
-        layout(disablerView.add(view:toolBar).matchParentWidth()) {
+        layout(disablerView.add(view: toolBar).matchParentWidth()) {
             $0.heightToFit().from(self.pickerView, bottom: 0)
         }
         window.layoutIfNeeded()
@@ -51,7 +53,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
         let picker = UIPickerView.construct()
         picker.delegate = self
         picker.dataSource = self
-        picker.backgroundColor = pickerColor
+        CSPickerController.pickerBackgroundColor.notNil { picker.backgroundColor = $0 }
         return picker
     }()
 
@@ -64,12 +66,13 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
 
     lazy var toolBar: UIToolbar = {
         let toolBar = UIToolbar()
-        self.toolBarColor?.also { toolBar.barTintColor = $0 }
-        self.toolBarItemTextColor?.also { toolBar.tintColor = $0 }
+        CSPickerController.toolBarColor?.also { toolBar.barTintColor = $0 }
+        CSPickerController.toolBarColor?.also { toolBar.backgroundColor = $0 }
+        CSPickerController.toolBarItemTextColor?.also { toolBar.tintColor = $0 }
         let cancelButton = UIBarButtonItem(item: .cancel) { _ in self.onCancelClicked() }
         let doneButton = UIBarButtonItem(item: .done) { _ in self.onDoneClicked() }
         toolBar.items = [UIBarButtonItem.space(7), cancelButton, .flexSpaceItem,
-                doneButton, UIBarButtonItem.space(7)]
+                         doneButton, UIBarButtonItem.space(7)]
         return toolBar
     }()
 
@@ -79,10 +82,44 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
         items.count
     }
 
-    public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
-            forComponent component: Int) -> NSAttributedString? {
-        NSAttributedString(string: String(describing: items[row]),
-                attributes: [.foregroundColor: pickerItemTextColor, .font: pickerItemFont])
+    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let isSelected = row == pickerView.selectedRow(inComponent: component)
+        let pickerLabel = UILabel.construct()
+        CSPickerController.itemFont.notNil { normal, selected in
+            pickerLabel.font = isSelected ? selected : normal
+        }.elseDo { pickerLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize) }
+        CSPickerController.itemTextColor.notNil { normal, selected in
+            pickerLabel.textColor = isSelected ? selected : normal
+        }.elseDo { pickerLabel.textColor = .darkText }
+        CSPickerController.itemBackgroundColor.notNil { normal, selected in
+            pickerLabel.backgroundColor = isSelected ? selected : normal
+        }.elseDo { pickerLabel.backgroundColor = .clear }
+        pickerLabel.textAlignment = .center
+        pickerLabel.text = String(describing: items[row])
+        if isSelected {
+            CSPickerController.selectedItemBorder.notNil { width, color, radius in
+                pickerLabel.border(width: width, color: color, radius: radius)
+            }
+        }
+        later { pickerView.reloadAllComponents() }
+        return UIView.wrap(view: pickerLabel).content(padding: (horizontal: 8, vertical: 0))
+    }
+
+//    public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
+//                           forComponent component: Int) -> NSAttributedString? {
+//        let isSelected = row == pickerView.selectedRow(inComponent: component)
+//        var attributes = [NSAttributedString.Key: Any]()
+//        CSPickerController.pickerItemTextColor.notNil { normal, selected in
+//            attributes.add(key: .foregroundColor, value: isSelected ? selected : normal)
+//        }
+//        CSPickerController.pickerItemFont.notNil { normal, selected in
+//            attributes.add(key: .font, value: isSelected ? selected : normal)
+//        }
+//        return NSAttributedString(string: String(describing: items[row]), attributes: attributes)
+//    }
+
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.reloadAllComponents()
     }
 
     func onDoneClicked() {

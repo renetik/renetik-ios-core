@@ -6,17 +6,11 @@ import UIKit
 import RenetikObjc
 import BlocksKit
 
-public struct CSTextViewClearButtonAppearance {
-    fileprivate let titleColor: UIColor?
-
-    public init(titleColor: UIColor) {
-        self.titleColor = titleColor
-    }
-}
-
 public extension UITextView {
 
     class func construct(_ text: String) -> Self { construct().text(text) }
+
+    class func construct(text: String) -> Self { construct().text(text) }
 
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 
@@ -50,27 +44,17 @@ public extension UITextView {
         return self
     }
 
-//    TODO: This is wrong and TextView should be wrapped to view with clear button instead
 //    @discardableResult
-//    func withClear(_ parent: CSViewController, _ appearance: CSTextViewClearButtonAppearance? = nil) -> Self {
-//        let button = UIButton(type: .system).construct().text("X").fontStyle(.body)
-//                .visible(if: self.text.isSet).onClick { self.text = "" }
-//        add(button).from(left: 5).resizeToFit().centeredHorizontal()
-//
-//        onTextChange(in: parent) { _ in button.visible(if: self.text.isSet) }
-//        appearance?.titleColor?.then { color in button.textColor(color) }
+//    func onTextChange(in parent: CSViewController, _ function: @escaping ArgFunc<UITextView>) -> Self {
+//        parent.observe(notification: UITextView.textDidChangeNotification) { notification in
+//            if (notification.object as! NSObject) === self { function(self) }
+//        }
 //        return self
 //    }
 
     @discardableResult
-    public func text(_ value: String?) -> Self { invoke { self.text = value } }
-
-    @discardableResult
-    func onTextChange(in parent: CSViewController, _ function: @escaping (UITextView) -> Void) -> Self {
-        parent.observe(notification: UITextView.textDidChangeNotification) { notification in
-            if (notification.object as! NSObject) === self { function(self) }
-        }
-        return self
+    public func onTextChange(_ function: @escaping ArgFunc<UITextView>) -> Self {
+        bk_didChangeBlock = { _ in function(self) }; return self
     }
 
     @discardableResult
@@ -98,29 +82,16 @@ public extension UITextView {
 
     @discardableResult
     func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
+}
 
-    @discardableResult
-    func font(_ font: UIFont) -> Self { invoke { self.font = font } }
+extension UITextView: CSHasTextProtocol {
+    public func text() -> String? { text }
 
-    @discardableResult
-    func font(size: CGFloat) -> Self { invoke { self.fontSize = size } }
+    public func text(_ text: String?) { self.text = text }
+}
 
-    var fontSize: CGFloat {
-        get { font!.fontDescriptor.pointSize }
-        set { font = font!.withSize(newValue) }
-    }
+extension UITextView: CSHasFontProtocol {
+    public func font() -> UIFont? { font }
 
-    @discardableResult
-    func font(style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
-
-    var fontStyle: UIFont.TextStyle {
-        get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
-        set { font = UIFont.preferredFont(forTextStyle: newValue) }
-    }
-
-    @discardableResult
-    public func text(prepend: String) -> Self { self.text("\(prepend)\(text ?? "")") }
-
-    @discardableResult
-    public func text(replace: String, with: String) -> Self { self.text(text.replace(all: replace, with: with)) }
+    public func font(_ font: UIFont?) { self.font = font }
 }

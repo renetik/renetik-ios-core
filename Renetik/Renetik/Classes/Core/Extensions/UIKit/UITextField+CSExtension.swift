@@ -110,18 +110,10 @@ public extension UITextField {
     }
 
     @discardableResult
-    public func text(_ value: String?) -> Self { invoke { self.text = value } }
-
-    public var title: String {
-        get { text ?? "" }
-        set { text = newValue }
-    }
-
-    @discardableResult
     func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
 
     @discardableResult
-    func text(color: UIColor) -> Self { invoke { self.textColor = textColor } }
+    @objc func text(color: UIColor) -> Self { invoke { self.textColor = textColor } }
 
     @discardableResult
     func font(_ font: UIFont) -> Self { invoke { self.font = font } }
@@ -142,20 +134,22 @@ public extension UITextField {
         set { font = UIFont.preferredFont(forTextStyle: newValue) }
     }
 
-    @discardableResult
-    func filter(_ filter: CSInputFilterProtocol) -> Self {
-        bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
-            if string.isNilOrEmpty { return true }
-            return filter.filter(current: self.text ?? "", range: range, string: string!)
+    var filters: CSArray<CSInputFilterProtocol> {
+        associatedDictionary("UITextField+filters") {
+            let filters = CSArray<CSInputFilterProtocol>()
+            bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
+                if string.isNilOrEmpty { return true }
+                for filter in filters.asArray {
+                    if !filter.filter(current: self.text ?? "", range: range, string: string!) { return false }
+                }
+                return true
+            }
+            return filters
         }
-        return self
     }
 
     @discardableResult
-    func filters(_ filters: CSInputFilterProtocol...) -> Self {
-        filters.forEach { filter($0) }
-        return self
-    }
+    func filters(_ filters: CSInputFilterProtocol...) -> Self { filters.each { self.filters.add($0) }; return self }
 
     @discardableResult
     func keyboard(_ type: UIKeyboardType) -> Self { keyboardType = type; return self }
@@ -166,3 +160,8 @@ public extension UITextField {
     func secure() -> Self { isSecureTextEntry = true; return self }
 }
 
+extension UITextField: CSHasTextProtocol {
+    public func text() -> String? { text }
+
+    public func text(_ text: String?) { self.text = text }
+}

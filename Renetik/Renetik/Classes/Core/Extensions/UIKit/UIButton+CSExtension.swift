@@ -11,10 +11,13 @@ import RenetikObjc
 public extension UIButton {
 
     @discardableResult
-    class func construct(_ image: UIImage) -> Self { construct().image(image) }
+    class func construct(image: UIImage) -> Self { construct().image(image) }
 
     @discardableResult
     class func construct(_ text: String) -> Self { construct().text(text) }
+
+    @discardableResult
+    class func construct(text: String) -> Self { construct().text(text) }
 
     @discardableResult
     class func construct(html: String) -> Self { construct().text(html: html) }
@@ -30,32 +33,6 @@ public extension UIButton {
         contentHorizontalAlignment = alignment
         return self
     }
-
-    public var text: String {
-        get { title(for: .normal) ?? "" }
-        set(value) { text(value) }
-    }
-
-    @discardableResult
-    func fontStyle(_ style: UIFont.TextStyle) -> Self {
-        titleLabel?.fontStyle = style
-        return self
-    }
-
-    @discardableResult
-    public func text(_ title: String) -> Self {
-        setTitle(title, for: .normal)
-        return self
-    }
-
-    @discardableResult
-    public func image(_ image: UIImage) -> Self {
-        setImage(image, for: .normal)
-        return self
-    }
-
-    @discardableResult
-    public func image(template image: UIImage) -> Self { self.image(image.template) }
 
     @discardableResult
     override func aspectFit() -> Self {
@@ -82,4 +59,35 @@ public extension UIButton {
         imageEdgeInsets = UIEdgeInsets(UIDevice.isTablet ? 20 : 15)
         return self
     }
+}
+
+extension UIButton: CSHasTextProtocol {
+    public func text() -> String? { title(for: .normal) }
+
+    public func text(_ text: String?) { setTitle(text, for: .normal) }
+}
+
+extension UIButton: CSHasFontProtocol {
+    public func font() -> UIFont? { titleLabel?.font }
+
+    public func font(_ font: UIFont?) { titleLabel?.font = font }
+}
+
+extension UIButton: CSHasImageProtocol {
+    public func image() -> UIImage? { image(for: .normal) }
+
+    public func image(_ image: UIImage?) { setImage(image, for: .normal) }
+}
+
+extension UIButton: CSHasAttributedTextProtocol {
+    public func attributedText() -> NSAttributedString? { attributedTitle(for: .normal) }
+
+    public func attributed(text: NSAttributedString?) { setAttributedTitle(text, for: .normal) }
+}
+
+extension UIButton: CSHasTextColorProtocol {
+    public func textColor() -> UIColor? { titleColor(for: .normal) }
+
+    @discardableResult
+    public func text(color: UIColor?) -> Self { setTitleColor(color, for: .normal); return self }
 }

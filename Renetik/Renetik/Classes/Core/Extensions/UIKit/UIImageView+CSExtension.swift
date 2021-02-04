@@ -15,21 +15,6 @@ public extension UIImageView {
         return self
     }
 
-    func resizableImage(capInsets insets: UIEdgeInsets) -> Self {
-        invoke { image = image!.resizableImage(withCapInsets: insets) }
-    }
-
-    @discardableResult
-    func image(_ image: UIImage) -> Self { invoke { self.image = image } }
-
-    @discardableResult
-    public func image(template image: UIImage) -> Self { self.image(image.template) }
-
-    func stretchableImage(leftCapWidth: Int, topCapHeight: Int) -> Self {
-        image = image!.stretchableImage(withLeftCapWidth: leftCapWidth, topCapHeight: topCapHeight)
-        return self
-    }
-
     @discardableResult
     func roundImageCorners(_ radius: Int = 5) -> Self {
         if let image = image {
@@ -51,4 +36,10 @@ public extension UIImageView {
         return self
     }
 
+}
+
+extension UIImageView: CSHasImageProtocol {
+    public func image() -> UIImage? { image }
+
+    public func image(_ image: UIImage?) { self.image = image }
 }

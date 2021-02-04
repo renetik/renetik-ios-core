@@ -46,9 +46,16 @@ public class CSMaxCharactersInputFilter: CSInputFilterProtocol {
     }
 }
 
-public class CSNoNumbersInputFilter: CSObject, CSInputFilterProtocol {
+public class CSJustLettersInputFilter: CSObject, CSInputFilterProtocol {
     public func filter(current: String, range: NSRange, string: String) -> Bool {
         for char in string { if !char.isLetter { return false } }
-        return false
+        return true
+    }
+}
+
+public class CSJustNumbersInputFilter: CSObject, CSInputFilterProtocol {
+    public func filter(current: String, range: NSRange, string: String) -> Bool {
+        for char in string { if !char.isNumber { return false } }
+        return true
     }
 }

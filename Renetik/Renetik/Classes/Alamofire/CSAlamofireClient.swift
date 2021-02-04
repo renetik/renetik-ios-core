@@ -63,7 +63,7 @@ public class CSAlamofireClient: CSObject {
     public func get<DataType: CSHttpResponseDataProtocol>(_ operation: CSOperation<DataType>?, service: String,
                                                           data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
-            logInfo("\(process.url) \(HTTPMethod.get) \(params)")
+            logInfo("\(HTTPMethod.get) \(process.url! + createUrlParams(params))")
             let loadFromNetwork: Bool = {
                 if operation?.isRefresh == true { return true }
                 if operation?.expireMinutes ?? 0 > 0 { return false }
@@ -86,7 +86,7 @@ public class CSAlamofireClient: CSObject {
     public func post<DataType: CSHttpResponseDataProtocol>(
             service: String, data: DataType, params: [String: Any] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
-            logInfo("\(process.url) \(HTTPMethod.post) \(params)")
+            logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
             manager.request(process.url!, method: .post, parameters: params,
                     encoding: JSONEncoding.default).responseString(encoding: nil) {
                 self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error)
@@ -97,7 +97,7 @@ public class CSAlamofireClient: CSObject {
     public func post<DataType: CSHttpResponseDataProtocol>(
             service: String, data: DataType, form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
-            logInfo("\(process.url) \(HTTPMethod.post) \(form)")
+            logInfo("\(HTTPMethod.post) \(process.url!) \(form)")
             let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
             let base64Credentials = credentialData.base64EncodedData()
             let headers = ["Authorization": "Basic \(base64Credentials)"]
@@ -110,7 +110,7 @@ public class CSAlamofireClient: CSObject {
 
     public func download(service: String, params: [String: Any] = [:]) -> CSProcess<CSDownloadResponseData> {
         CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { process in
-            logInfo("\(process.url) \(HTTPMethod.post) \(params)")
+            logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
             let fileUrl = getDownloadFileUrl(fileName: "download.pdf")
             let destination: DownloadRequest.Destination =
                     { _, _ in (fileUrl, [.removePreviousFile, .createIntermediateDirectories]) }
@@ -139,6 +139,15 @@ public class CSAlamofireClient: CSObject {
             function(if: process.data!.success) { process.success() }
                     .elseDo { process.failed(nil, message: process.data!.message ?? "No Message") }
         }
+    }
+
+    private func createUrlParams(_ params: [String: String]) -> String {
+        var urlParams = "?"
+        for param in params {
+            urlParams += "\(param.key)=\(param.value)&"
+        }
+        urlParams.removeLast()
+        return urlParams
     }
 }
 

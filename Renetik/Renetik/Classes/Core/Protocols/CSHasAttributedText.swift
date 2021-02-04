@@ -7,29 +7,21 @@ import UIKit
 
 public protocol CSHasAttributedTextProtocol: AnyObject {
     func attributedText() -> NSAttributedString?
-    func attributed(text: NSAttributedString?) -> Self
+    func attributed(text: NSAttributedString?)
 }
 
-extension UIButton: CSHasAttributedTextProtocol {
-    public func attributedText() -> NSAttributedString? {
-        attributedTitle(for: .normal)
-    }
 
-    public func attributed(text: NSAttributedString?) -> Self {
-        setAttributedTitle(text, for: .normal); return self
-    }
-}
 
 extension UITextView: CSHasAttributedTextProtocol {
     public func attributedText() -> NSAttributedString? { attributedText }
 
-    public func attributed(text: NSAttributedString?) -> Self { attributedText = text; return self }
+    public func attributed(text: NSAttributedString?) { attributedText = text }
 }
 
 extension UILabel: CSHasAttributedTextProtocol {
     public func attributedText() -> NSAttributedString? { attributedText }
 
-    public func attributed(text: NSAttributedString?) -> Self { attributedText = text; return self }
+    public func attributed(text: NSAttributedString?) { attributedText = text }
 }
 
 public extension CSHasAttributedTextProtocol
@@ -59,4 +51,6 @@ extension CSHasAttributedTextProtocol {
         get { attributedText() }
         set { attributed(text: newValue) }
     }
+
+    func attributed(text: NSAttributedString?) -> Self { attributed(text: text); return self }
 }

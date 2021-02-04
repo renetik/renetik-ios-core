@@ -36,10 +36,9 @@ extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
         return self
     }
 
-    public var text: String? {
-        get { view.text }
-        set(value) { view.text = value }
-    }
+    public func text() -> String? { view.text }
+
+    public func text(_ text: String?) { view.text = text }
 
     public var isEnabled: Bool {
         get { view.isEnabled }

@@ -6,13 +6,10 @@
 //  Copyright © 2019 Renetik Software. All rights reserved.
 //
 
-import Foundation
-import UIKit
-import MaterialComponents
 import Renetik
-import RenetikObjc
+import MaterialComponents
 
-public extension MDCBaseTextField {
+public extension MDCBaseTextArea {
 
     open override func construct() -> Self {
         super.construct()
@@ -33,9 +30,8 @@ public extension MDCBaseTextField {
     }
 
     @discardableResult
-    @objc override func onClear(_ function: @escaping () -> Void) -> Self {
+    func onClear(_ function: @escaping () -> Void) -> Self {
         eventClear.listen { _ in function() }
-        super.onClear(function)
         return self
     }
 
@@ -51,7 +47,6 @@ public extension MDCBaseTextField {
 
     @discardableResult
     func with(clear clearView: UIView) -> Self {
-        clearButtonMode = .never
         clearView.onClick { [self] in
             text = nil
             eventClear.fire()
@@ -90,18 +85,24 @@ public extension MDCBaseTextField {
         }
 
         updateClearIcon()
-        onTextChange { field in updateClearIcon() }
+        textView.onTextChange { _ in updateClearIcon() }
         return self
     }
 
     @discardableResult
-    override func text(color: UIColor) -> Self {
+    func text(color: UIColor) -> Self {
         setTextColor(color, for: .normal)
         setTextColor(color, for: .editing)
-        setFloatingLabelColor(color, for: .normal)
-        setFloatingLabelColor(color, for: .editing)
-        setNormalLabelColor(color, for: .normal)
-        setNormalLabelColor(color, for: .editing)
+        setFloatingLabel(color, for: .normal)
+        setFloatingLabel(color, for: .editing)
+        setNormalLabel(color, for: .normal)
+        setNormalLabel(color, for: .editing)
         return self
     }
+}
+
+extension MDCBaseTextArea: CSHasTextProtocol {
+    public func text() -> String? { textView.text }
+
+    public func text(_ text: String?) { textView.text = text }
 }
