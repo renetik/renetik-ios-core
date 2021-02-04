@@ -38,26 +38,25 @@ open class CSViewController: UIViewController {
                     .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }
         }
     }
-    private var _view: UIView?
 
-    @discardableResult
-    open func construct(_ parent: UIViewController, _ view: UIView) -> Self {
-        parentController = parent
-        _view = view
-        return self
-    }
+//    @discardableResult
+//    open func construct(_ parent: UIViewController, _ view: UIView) -> Self {
+//        parentController = parent
+//        _view = view
+//        return self
+//    }
 
-    @discardableResult
+    @discardableResult // TODO: change to class method
     open func construct(_ parent: UIViewController) -> Self {
         parentController = parent
         return self
     }
 
-    @discardableResult
-    open func construct(_ view: UIView) -> Self {
-        _view = view
-        return self
-    }
+//    @discardableResult
+//    open func construct(_ view: UIView) -> Self {
+//        _view = view
+//        return self
+//    }
 
     @discardableResult
     public func asViewLess() -> Self {
@@ -69,7 +68,7 @@ open class CSViewController: UIViewController {
         return self
     }
 
-    open override func loadView() { view = _view ?? CSView.construct(defaultSize: true) }
+    open override func loadView() { view = CSView.construct(defaultSize: true) }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
