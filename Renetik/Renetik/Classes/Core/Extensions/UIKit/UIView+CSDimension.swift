@@ -32,7 +32,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func height(_ value: CGFloat) -> Self { invoke { self.height = value } }
+    func height(_ value: CGFloat) -> Self { self.height = value; return self }
 
     @discardableResult
     func heightAsPrevious() -> Self {

@@ -9,7 +9,7 @@ import RenetikObjc
 public extension UIView {
 
     @discardableResult
-    func from(left: CGFloat) -> Self { invoke { self.left = left; fixedLeft() } }
+    func from(left: CGFloat) -> Self { self.left = left; fixedLeft(); return self }
 
     @discardableResult
     func from(_ view: UIView?, left: CGFloat) -> Self {
