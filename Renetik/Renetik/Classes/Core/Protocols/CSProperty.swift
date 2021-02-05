@@ -94,10 +94,14 @@ public extension CSPropertyProtocol where T == Bool {
 }
 
 public extension CSProperty where T == String? {
-    var string: String {
+    var string: T {
         get { value.asString }
         set { value = newValue }
     }
+
+    func text(_ string: T) { value = string }
+
+    func string(_ string: T) { value = string }
 }
 
 public func property<T>(_ value: T, _ onApply: ((T) -> ())? = nil) -> CSProperty<T> {

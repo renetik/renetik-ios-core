@@ -26,11 +26,13 @@ public extension Calendar {
     }
 
     func isLeap(year: Int) -> Bool {
-        range(of: .day, in: .year, for: dateFrom(year)!)!.count == 366
+        guard let date = dateFrom(year) else { return false }
+        return range(of: .day, in: .year, for: date)?.count == 366
     }
 
     func numberOfDays(year: Int, month: Int) -> Int? {
-        dateFrom(year, month).get { range(of: .day, in: .month, for: $0)?.count } ?? nil
+        guard let date = dateFrom(year, month) else { return nil }
+        return range(of: .day, in: .month, for: date)?.count
     }
 }
 
