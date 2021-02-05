@@ -17,6 +17,8 @@ public extension Calendar {
         date(from: DateComponents(calendar: self, year: year, month: month, day: day))
     }
 
+    func dateFrom(year: Int, month: Int? = nil, day: Int? = nil) -> Date? { dateFrom(year, month, day) }
+
     func age(from date: Date) -> Int { age(from: date, for: Date()) }
 
     func age(from date: Date, for dateFrom: Date) -> Int {
@@ -28,7 +30,7 @@ public extension Calendar {
     }
 
     func numberOfDays(year: Int, month: Int) -> Int? {
-        range(of: .day, in: .month, for: DateComponents(calendar: .current, year: year, month: month).date!)?.count
+        dateFrom(year, month).get { range(of: .day, in: .month, for: $0)?.count } ?? nil
     }
 }
 
