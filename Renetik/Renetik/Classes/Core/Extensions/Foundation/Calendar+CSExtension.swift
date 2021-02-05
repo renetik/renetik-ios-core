@@ -10,9 +10,11 @@ public extension Calendar {
 
     func dateFrom(_ year: String?, _ month: String? = nil, _ day: String? = nil) -> Date? {
         if year.isNil { return nil }
-        let dateComponents = DateComponents(calendar: self,
-                year: year?.intValue, month: month?.intValue, day: day?.intValue)
-        return calendar.date(from: dateComponents)
+        return dateFrom(year!.intValue, month?.intValue, day?.intValue)
+    }
+
+    func dateFrom(_ year: Int, _ month: Int? = nil, _ day: Int? = nil) -> Date? {
+        date(from: DateComponents(calendar: self, year: year, month: month, day: day))
     }
 
     func age(from date: Date) -> Int { age(from: date, for: Date()) }
@@ -21,6 +23,13 @@ public extension Calendar {
         dateComponents([.year], from: date, to: dateFrom).year!
     }
 
+    func isLeap(year: Int) -> Bool {
+        range(of: .day, in: .year, for: dateFrom(year)!)!.count == 366
+    }
+
+    func numberOfDays(year: Int, month: Int) -> Int? {
+        range(of: .day, in: .month, for: DateComponents(calendar: .current, year: year, month: month).date!)?.count
+    }
 }
 
 //
