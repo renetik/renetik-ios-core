@@ -12,19 +12,15 @@ import MaterialComponents
 import Renetik
 import RenetikObjc
 
+extension MDCBaseTextField: CSHasEmptyProtocol {
+}
+
 public extension MDCBaseTextField {
 
     open override func construct() -> Self {
         super.construct()
         interaction(enabled: true)
         clipsToBounds = false
-        return self
-    }
-
-    @discardableResult
-    func label(text: String) -> Self {
-        label.text = text
-        placeholder = text
         return self
     }
 
@@ -103,5 +99,14 @@ public extension MDCBaseTextField {
         setNormalLabelColor(color, for: .normal)
         setNormalLabelColor(color, for: .editing)
         return self
+    }
+}
+
+extension MDCBaseTextField: CSHasLabelProtocol {
+    public func label() -> String? { label.text }
+
+    public func label(_ text: String?) {
+        label.text = text
+        placeholder = text
     }
 }

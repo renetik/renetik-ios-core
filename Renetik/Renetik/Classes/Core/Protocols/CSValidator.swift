@@ -6,6 +6,7 @@ import Foundation
 
 public protocol CSValidatorProtocol {
     func validate() -> Bool?
+    var hint: String { get }
 }
 
 public func validator(_ function: @escaping () -> Bool?) -> CSValidatorProtocol {
@@ -18,6 +19,8 @@ class CSValidatorImplementation: CSValidatorProtocol {
     init(_ function: @escaping () -> Bool?) { self.function = function }
 
     func validate() -> Bool? { function() }
+
+    private(set) var hint: String = ""
 }
 
 public class CSVariableValidator<T, Variable: CSVariableProtocol>: CSValidatorProtocol {
@@ -29,7 +32,7 @@ public class CSVariableValidator<T, Variable: CSVariableProtocol>: CSValidatorPr
         self.variable = variable; self.function = function
     }
 
-    public func validate() -> Bool? {
-        function(variable.value as! T)
-    }
+    public func validate() -> Bool? { function(variable.value as! T) }
+
+    private(set) public var hint: String = ""
 }

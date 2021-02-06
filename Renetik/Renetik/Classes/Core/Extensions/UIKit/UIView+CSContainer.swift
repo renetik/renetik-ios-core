@@ -103,8 +103,6 @@ public extension UIView {
     @discardableResult
     func removeAllSubviews() -> Self { clearSubviews() }
 
-    var isEmpty: Bool { subviews.isEmpty }
-
     @discardableResult
     func horizontalGrid<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {
         add(view: view).alignHorizontalGrid(margin: margin, columns: columns)
@@ -127,4 +125,6 @@ public extension UIView {
             $0.add(view: right).fromPrevious(left: margin).centeredVertical()
         }.resizeToFit()
     }
+
+    @objc open var isEmpty: Bool { subviews.isEmpty }
 }

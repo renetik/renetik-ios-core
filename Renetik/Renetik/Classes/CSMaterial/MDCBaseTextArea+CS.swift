@@ -18,13 +18,6 @@ public extension MDCBaseTextArea {
         return self
     }
 
-    @discardableResult
-    func label(text: String) -> Self {
-        label.text = text
-        placeholder = text
-        return self
-    }
-
     var eventClear: CSEvent<Void> {
         associatedDictionary("MDCOutlinedTextField+eventClear", onCreate: { event() })
     }
@@ -105,4 +98,13 @@ extension MDCBaseTextArea: CSHasTextProtocol {
     public func text() -> String? { textView.text }
 
     public func text(_ text: String?) { textView.text = text }
+}
+
+extension MDCBaseTextArea: CSHasLabelProtocol {
+    public func label() -> String? { label.text }
+
+    public func label(_ text: String?) {
+        label.text = text
+        placeholder = text
+    }
 }

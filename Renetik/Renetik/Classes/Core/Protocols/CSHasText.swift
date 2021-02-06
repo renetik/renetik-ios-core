@@ -11,9 +11,9 @@ public protocol CSHasTextProtocol: class {
 
 public extension CSHasTextProtocol {
     @discardableResult
-    func text(_ text: String?) -> Self { self.text = text; return self }
+    func text(_ text: String?) -> Self { self.text(text); return self }
 
-    public var title: String {
+    public var textValue: String {
         get { text() ?? "" }
         set { text(newValue) }
     }
@@ -24,16 +24,20 @@ public extension CSHasTextProtocol {
     }
 
     @discardableResult
-    public func text(prepend: String) -> Self { text("\(prepend)\(title)") }
+    public func text(prepend: String) -> Self { text("\(prepend)\(textValue)") }
 
     @discardableResult
-    public func text(append: String) -> Self { text("\(title)\(append)") }
+    public func text(append: String) -> Self { text("\(textValue)\(append)") }
 
     @discardableResult
-    public func text(replace: String, with: String) -> Self { self.text(title.replace(all: replace, with: with)) }
+    public func text(replace: String, with: String) -> Self { self.text(textValue.replace(all: replace, with: with)) }
 }
 
 public extension CSHasTextProtocol where Self: UIView {
     @discardableResult
     func hideIfEmpty() -> Self { self.isVisible = text?.trim().isSet == true; return self }
+}
+
+extension CSHasEmptyProtocol where Self: CSHasTextProtocol {
+    var isEmpty: Bool { textValue.trim().isEmpty }
 }

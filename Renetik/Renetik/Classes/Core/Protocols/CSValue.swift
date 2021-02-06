@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol CSValueProtocol:AnyObject {
+public protocol CSValueProtocol: AnyObject {
     associatedtype T
     var value: T { get }
 }
