@@ -135,6 +135,8 @@ public extension Optional where Wrapped == String {
         return self!.isEmpty
     }
 
+    public var isEmpty: Bool { isNilOrEmpty }
+
     public var isNotEmpty: Bool {
         if self == nil { return false }
         return self!.isNotEmpty

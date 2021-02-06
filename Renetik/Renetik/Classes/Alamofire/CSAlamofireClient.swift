@@ -109,11 +109,10 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func download(service: String, params: [String: Any] = [:]) -> CSProcess<CSDownloadResponseData> {
-        CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { process in
+        CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { [self] process in
             logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
-            let fileUrl = getDownloadFileUrl(fileName: "download.pdf")
             let destination: DownloadRequest.Destination =
-                    { _, _ in (fileUrl, [.removePreviousFile, .createIntermediateDirectories]) }
+                    { _, _ in (downloadFileUrl, [.removePreviousFile, .createIntermediateDirectories]) }
             manager.download(process.url!, parameters: params, to: destination).downloadProgress { progress in
                 let progressNumber = progress.completedUnitCount / progress.totalUnitCount
                 logInfo(progressNumber)
@@ -121,9 +120,9 @@ public class CSAlamofireClient: CSObject {
         }
     }
 
-    func getDownloadFileUrl(fileName: String) -> URL {
+    public var downloadFileUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let nameUrl = URL(string: fileName)
+        let nameUrl = URL(string: "download.pdf")
         let fileURL = documentsURL.appendingPathComponent((nameUrl?.lastPathComponent)!)
         logInfo(fileURL.absoluteString)
         return fileURL;
