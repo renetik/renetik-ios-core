@@ -18,7 +18,7 @@ open class CSView: UIControl, CSHasLayoutProtocol {
 
     @discardableResult
     open override func construct() -> Self {
-        super.construct()
+        super.construct().defaultSize()
         onCreateLayout()
         onLayoutCreated()
         return self
@@ -94,11 +94,36 @@ open class CSView: UIControl, CSHasLayoutProtocol {
 
 public extension CSView {
     class func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> Self {
-        Self.construct().also {
+        Self.construct {
             $0.add(view: rightView).from(right: 0).centeredVertical()
             $0.layout($0.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
                 $0.heightToFit().centeredVertical()
             }
         }.resizeToFit()
+    }
+
+// questionable if can be used... layout was collapsed for some reason...
+    class func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
+        Self.construct {
+            $0.layout($0.add(view: leftView).from(left: 0)) {
+                $0.width(($0.width - margin) / 2).heightToFit()
+            }
+            $0.layout($0.add(view: rightView)) {
+                $0.fromPrevious(left: margin).width(($0.width - margin) / 2).heightToFit()
+            }
+        }.resizeToFit()
+    }
+}
+
+public extension CSView {
+    func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> UIView {
+        CSView.construct { dateFields in
+            layout(dateFields.add(view: leftView).from(left: 0)) {
+                $0.width((dateFields.width - margin) / 2).heightToFit()
+            }
+            layout(dateFields.add(view: rightView)) {
+                $0.fromPrevious(left: margin).width((dateFields.width - margin) / 2).heightToFit()
+            }
+        }
     }
 }

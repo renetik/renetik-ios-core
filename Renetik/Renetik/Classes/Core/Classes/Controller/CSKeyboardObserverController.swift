@@ -50,13 +50,22 @@ public class CSKeyboardObserver {
 
     @discardableResult
     public init(_ parent: CSViewController, _ onKeyboardChange: ((_ keyboardHeight: CGFloat) -> Void)? = nil) {
-        self.onKeyboardChange = onKeyboardChange
-        parent.observe(notification: UIResponder.keyboardDidShowNotification, callback: keyboardDidShow)
-        parent.observe(notification: UIResponder.keyboardDidHideNotification, callback: keyboardDidHide)
+        self.onKeyboardChange = onKeyboardChange; registerEvents(parent)
     }
 
-    convenience public init(_ onKeyboardChange: ((_ keyboardHeight: CGFloat) -> Void)? = nil) {
-        self.init(navigation.topViewController as! CSViewController, onKeyboardChange)
+    @discardableResult
+    public init(_ onKeyboardChange: ((_ keyboardHeight: CGFloat) -> Void)? = nil) {
+        self.onKeyboardChange = onKeyboardChange; registerEvents(navigation.topViewController as? CSViewController)
+    }
+
+    private func registerEvents(_ parent: CSViewController? = nil) {
+        parent.notNil { controller in
+            controller.observe(notification: UIResponder.keyboardDidShowNotification, callback: keyboardDidShow)
+            controller.observe(notification: UIResponder.keyboardDidHideNotification, callback: keyboardDidHide)
+        }.elseDo {
+            NotificationCenter.add(observer: UIResponder.keyboardDidShowNotification, using: keyboardDidShow)
+            NotificationCenter.add(observer: UIResponder.keyboardDidHideNotification, using: keyboardDidHide)
+        }
     }
 
     private func keyboardDidShow(_ note: Notification) {

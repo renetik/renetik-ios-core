@@ -5,6 +5,7 @@
 import Foundation
 
 public protocol CSHasValidationProtocol {
+    @discardableResult
     func validation(_ validators: [CSValidatorProtocol]) -> Bool
 }
 

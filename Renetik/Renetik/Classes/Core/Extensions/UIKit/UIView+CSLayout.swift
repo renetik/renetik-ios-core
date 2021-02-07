@@ -292,16 +292,3 @@ public extension UIView {
 
 
 }
-
-public extension CSView {
-    func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> UIView {
-        CSView.construct { dateFields in
-            layout(dateFields.add(view: leftView).from(left: 0)) {
-                $0.width((dateFields.width - margin) / 2).heightToFit()
-            }
-            layout(dateFields.add(view: rightView)) {
-                $0.fromPrevious(left: margin).width((dateFields.width - margin) / 2).heightToFit()
-            }
-        }
-    }
-}

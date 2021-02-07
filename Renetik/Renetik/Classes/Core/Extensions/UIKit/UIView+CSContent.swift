@@ -12,7 +12,7 @@ private var viewContentPropertyKey: Void?
 public extension UIView {
 
     class func wrap(view: UIView, padding: CGFloat = 0) -> Self {
-        Self.construct().also { $0.content(view).matchParent(margin: padding) }
+        Self.construct(defaultSize: true).also { $0.content(view).matchParent(margin: padding) }
     }
 
     var content: UIView? {
