@@ -71,8 +71,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
         CSPickerController.toolBarItemTextColor?.also { toolBar.tintColor = $0 }
         let cancelButton = UIBarButtonItem(item: .cancel) { _ in self.onCancelClicked() }
         let doneButton = UIBarButtonItem(item: .done) { _ in self.onDoneClicked() }
-        toolBar.items = [UIBarButtonItem.space(7), cancelButton, .flexSpaceItem,
-                         doneButton, UIBarButtonItem.space(7)]
+        toolBar.items = [.space(7), cancelButton, .flexSpaceItem, doneButton, .space(7)]
         return toolBar
     }()
 
@@ -95,7 +94,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
             pickerLabel.backgroundColor = isSelected ? selected : normal
         }.elseDo { pickerLabel.backgroundColor = .clear }
         pickerLabel.textAlignment = .center
-        pickerLabel.text = String(describing: items[row])
+        pickerLabel.text = items[row].description
         if isSelected {
             CSPickerController.selectedItemBorder.notNil { width, color, radius in
                 pickerLabel.border(width: width, color: color, radius: radius)

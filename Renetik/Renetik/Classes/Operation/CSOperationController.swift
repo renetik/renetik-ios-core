@@ -1,6 +1,6 @@
 //
 // Created by Rene Dohan on 12/30/19.
-// Copyright (c) 2019 Bowbook. All rights reserved.
+// Copyright (c) 2019 Renetik. All rights reserved.
 //
 
 import Foundation
