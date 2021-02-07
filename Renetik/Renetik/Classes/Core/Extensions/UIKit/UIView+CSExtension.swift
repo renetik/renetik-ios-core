@@ -98,7 +98,6 @@ public extension UIView {
 
     @discardableResult
     func asCircular() -> Self {
-        //    let longerSide = self.width > self.width ? self.width : self.height;
         aspectFill()
         layer.cornerRadius = width / 2
         layer.masksToBounds = true

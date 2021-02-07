@@ -1,16 +1,12 @@
 //
-//  MDCCard+CSExtension.swift
-//  Motorkari
-//
 //  Created by Rene Dohan on 3/18/19.
-//  Copyright © 2019 Renetik Software. All rights reserved.
+//  Copyright © 2019 Renetik. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import MaterialComponents
 import Renetik
-import RenetikObjc
 
 public class CSMaterialButton: UIButton {
     lazy var inkTouchController = { MDCRippleTouchController() }()
@@ -20,7 +16,9 @@ public class CSMaterialButton: UIButton {
         // later was needed for ripple, it was not returned back to normal
         // after click when there was html rendering in click callback
         super.onClick { later { block() } }
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 }
@@ -35,7 +33,9 @@ public class CSMaterialImageView: UIImageView {
         // later was needed for ripple, it was not returned back to normal
         // after click when there was html rendering in click callback
         super.onClick { later { block() } }
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 }
@@ -48,12 +48,14 @@ public class CSMaterialLabel: UILabel {
         // later was needed for ripple, it was not returned back to normal
         // after click when there was html rendering in click callback
         super.onClick { later { block() } }
+        interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 }
 
-open class CSMaterialControl: UIControl {
+open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
 
     @discardableResult
     public override class func construct(defaultSize: Bool = true) -> Self {
@@ -124,7 +126,7 @@ open class CSMaterialControl: UIControl {
     public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     @discardableResult
-    @objc open override func heightToFit() -> Self {
+    open override func heightToFit() -> Self {
         content!.heightToFit()
         let masks = saveAndClearSubviewsAutoresizingMasks()
         height(content!.height)
@@ -133,7 +135,7 @@ open class CSMaterialControl: UIControl {
     }
 
     @discardableResult
-    @objc open override func resizeToFit() -> Self {
+    open override func resizeToFit() -> Self {
         content!.resizeToFit()
         let masks = saveAndClearSubviewsAutoresizingMasks()
         size(content!.size)
@@ -148,6 +150,7 @@ open class CSMaterialControl: UIControl {
         super.onClick(block)
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 
@@ -156,6 +159,7 @@ open class CSMaterialControl: UIControl {
         super.onTouchUp(block)
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 
@@ -164,6 +168,7 @@ open class CSMaterialControl: UIControl {
         super.onTouchDown(block)
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
+        inkTouchController.rippleView.rippleStyle = .unbounded
         return self
     }
 }

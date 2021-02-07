@@ -113,17 +113,31 @@ public extension CSView {
             }
         }.resizeToFit()
     }
+
+
 }
 
 public extension CSView {
     func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> UIView {
-        CSView.construct { dateFields in
-            layout(dateFields.add(view: leftView).from(left: 0)) {
-                $0.width((dateFields.width - margin) / 2).heightToFit()
+        CSView.construct {
+            layout($0.add(view: leftView).from(left: 0)) {
+                $0.width(($0.width - margin) / 2).heightToFit()
             }
-            layout(dateFields.add(view: rightView)) {
-                $0.fromPrevious(left: margin).width((dateFields.width - margin) / 2).heightToFit()
+            layout($0.add(view: rightView)) {
+                $0.fromPrevious(left: margin).width(($0.width - margin) / 2).heightToFit()
             }
         }
     }
+
+
+//    func wrap(fixedLeft: UIView, margin: CGFloat = 0, toFitRight: UIView) -> CSView {
+//        CSView.construct {
+//            layout($0.add(view: fixedLeft).from(left: 0)) {
+//                $0.centeredVertical()
+//            }
+//            layout($0.add(view: toFitRight)) {
+//                $0.fromPrevious(left: margin).resizeToFit().centeredVertical()
+//            }
+//        }.resizeToFit()
+//    }
 }
