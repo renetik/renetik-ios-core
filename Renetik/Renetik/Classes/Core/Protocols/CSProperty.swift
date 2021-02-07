@@ -102,6 +102,8 @@ public extension CSProperty where T == String? {
     func text(_ string: T) { value = string }
 
     func string(_ string: T) { value = string }
+
+    func clear() { value = nil } // TODO: How to make this generic for any optional ?
 }
 
 public func property<T>(_ value: T, _ onApply: ((T) -> ())? = nil) -> CSProperty<T> {
