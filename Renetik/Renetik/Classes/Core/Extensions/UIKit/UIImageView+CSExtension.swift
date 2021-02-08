@@ -6,10 +6,6 @@ import Foundation
 
 public extension UIImageView {
 
-    class func construct(_ image: UIImage) -> Self {
-        construct().image(image)
-    }
-
     override func construct() -> Self {
         super.construct().aspectFit().clipsToBounds()
         return self
