@@ -27,8 +27,8 @@ open class CSViewController: UIViewController {
     private var isDidLayoutSubviews = false
     private var isOnViewWillAppearFirstTime = false
     private var isOnViewDidAppearFirstTime = false
-    private var notificationCenterObservers: [NSObjectProtocol] = []
-    private var eventRegistrations = [CSEventRegistration]()
+    private var notificationCenterObservers = CSArray<NSObjectProtocol>()
+    private var eventRegistrations = CSArray<CSEventRegistration>()
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
     public private(set) var controllerInNavigation: UIViewController?
@@ -190,8 +190,8 @@ open class CSViewController: UIViewController {
 
     open func onViewDismissing() {
         if isDismissed { return }
-        eventRegistrations.each { $0.cancel() }
-        notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }
+        eventRegistrations.each { $0.cancel() }.clear()
+        notificationCenterObservers.each { NotificationCenter.remove(observer: $0) }.clear()
         eventDismissing.fire()
         isDismissed = true
     }
@@ -232,10 +232,6 @@ open class CSViewController: UIViewController {
     @discardableResult
     public func register<EventRegistration: CSEventRegistration>(event registration: EventRegistration) -> EventRegistration {
         eventRegistrations.add(registration); return registration
-    }
-
-    public func cancel<T>(event registration: CSEventListener<T>) {
-        eventRegistrations.remove(registration)?.cancel()
     }
 
     override open var shouldAutorotate: Bool {
