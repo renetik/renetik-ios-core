@@ -10,6 +10,7 @@ public protocol CSHasValidationProtocol {
 }
 
 public extension CSHasValidationProtocol {
+    @discardableResult
     func validation(_ validators: CSValidatorProtocol...) -> Bool { validation(validators) }
 }
 

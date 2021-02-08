@@ -5,7 +5,7 @@
 import UIKit
 import TPKeyboardAvoiding
 
-open class CSScrollView: TPKeyboardAvoidingScrollView {
+open class CSScrollView: TPKeyboardAvoidingScrollView, CSHasLayoutProtocol {
 
     @discardableResult
     public class func construct() -> Self { construct(defaultSize: true) }

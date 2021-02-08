@@ -19,6 +19,7 @@ public class CSMaterialButton: UIButton {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 }
@@ -36,6 +37,7 @@ public class CSMaterialImageView: UIImageView {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 }
@@ -51,6 +53,7 @@ public class CSMaterialLabel: UILabel {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 }
@@ -151,6 +154,7 @@ open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 
@@ -160,6 +164,7 @@ open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 
@@ -169,6 +174,7 @@ open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
         interaction(enabled: true)
         inkTouchController.addRipple(to: self)
         inkTouchController.rippleView.rippleStyle = .unbounded
+        clipsToBounds()
         return self
     }
 }

@@ -35,14 +35,6 @@ public extension UIView {
     }
 
     public func hideIn() {
-//        let transition = CATransition()
-//        transition.duration = 0.15
-//        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-//        transition.type = .push
-//        transition.subtype = .fromBottom
-//        layer.add(transition, forKey: nil)
-//        removeFromSuperview()
-
         animate(duration: .defaultAnimation, operation: {
             self.bottom = -5
         }, completion: { self.removeFromSuperview() })
@@ -119,12 +111,18 @@ public extension UIView {
                 .flexibleTop().fixedBottom().background(color)
     }
 
-    class func wrap(left: UIView, margin: CGFloat = 0, right: UIView) -> Self {
+    @objc open var isEmpty: Bool { subviews.isEmpty }
+}
+
+public extension UIView {
+    static func wrap(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> Self {
         Self.construct().also {
-            $0.add(view: left).from(left: 0).centeredVertical()
-            $0.add(view: right).fromPrevious(left: margin).centeredVertical()
+            $0.add(view: leftView).from(left: 0).centeredVertical()
+            $0.add(view: rightView).fromPrevious(left: margin).centeredVertical()
         }.resizeToFit()
     }
 
-    @objc open var isEmpty: Bool { subviews.isEmpty }
+    func wrap(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> CSView {
+        CSView.wrap(left: leftView, margin: margin, right: rightView)
+    }
 }
