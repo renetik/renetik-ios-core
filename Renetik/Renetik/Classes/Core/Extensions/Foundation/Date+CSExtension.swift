@@ -16,4 +16,11 @@ public extension Date {
     func add(months: Int) -> Date { calendar.date(byAdding: .month, value: months, to: self)! }
 
     func add(years: Int) -> Date { calendar.date(byAdding: .year, value: years, to: self)! }
+
+    func set(day: Int) -> Date {
+        var component = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        component.day = day
+        return Calendar.current.date(from: component)!
+//        calendar.date(bySetting: .day, value: day, of: self)!
+    }
 }
