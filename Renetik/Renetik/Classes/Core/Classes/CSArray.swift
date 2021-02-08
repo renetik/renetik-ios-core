@@ -20,16 +20,10 @@ public class CSArray<Type>: CSObject {
     public func get(_ index: Int) -> Type { array[index] as! Type }
 
     @discardableResult
-    public func add(_ value: Type) -> Type { array.add(value); return value }
+    public func add(_ element: Type) -> Type { array.add(element); return element }
 
     @discardableResult
-    public func remove(_ response: Type) -> Self { array.remove(response); return self }
-
-    @discardableResult
-    public func forEach(_ function: (Type) -> Void) -> Self {
-        array.forEach { element in function(element as! Type) }
-        return self
-    }
+    public func remove(_ element: Type) -> Self { array.remove(element); return self }
 
     @discardableResult
     public func reload(_ data: [Type]) -> Self { array.reload(data); return self }
@@ -37,6 +31,7 @@ public class CSArray<Type>: CSObject {
     @discardableResult
     public func removeAll() -> Self { array.removeAllObjects(); return self }
 
+    func clear() -> Self { removeAll() }
 }
 
 extension CSArray: Collection {

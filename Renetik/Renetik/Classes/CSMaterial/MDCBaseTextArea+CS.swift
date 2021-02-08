@@ -103,8 +103,7 @@ extension MDCBaseTextArea: CSHasTextProtocol {
 extension MDCBaseTextArea: CSHasLabelProtocol {
     public func label() -> String? { label.text }
 
-    public func label(_ text: String?) {
+    @objc open func label(_ text: String?) {
         label.text = text
-        placeholder = text
     }
 }

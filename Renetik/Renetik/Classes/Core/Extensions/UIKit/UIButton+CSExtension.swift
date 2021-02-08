@@ -14,15 +14,6 @@ public extension UIButton {
     class func construct(image: UIImage) -> Self { construct().image(image) }
 
     @discardableResult
-    class func construct(_ text: String) -> Self { construct().text(text) }
-
-    @discardableResult
-    class func construct(text: String) -> Self { construct().text(text) }
-
-    @discardableResult
-    class func construct(html: String) -> Self { construct().text(html: html) }
-
-    @discardableResult
     override open func construct() -> Self {
         super.construct().aspectFit().resizeToFit()
         return self

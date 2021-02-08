@@ -11,7 +11,6 @@ public protocol CSHasAttributedTextProtocol: AnyObject {
 }
 
 
-
 extension UITextView: CSHasAttributedTextProtocol {
     public func attributedText() -> NSAttributedString? { attributedText }
 
@@ -25,7 +24,10 @@ extension UILabel: CSHasAttributedTextProtocol {
 }
 
 public extension CSHasAttributedTextProtocol
-        where Self: CSHasFontProtocol, Self: CSHasTextColorProtocol {
+        where Self: UIView, Self: CSHasFontProtocol, Self: CSHasTextColorProtocol {
+
+    static func construct(html: String) -> Self { construct().text(html: html) }
+
     @discardableResult
     func html(_ text: String) -> Self { self.text(html: text) }
 

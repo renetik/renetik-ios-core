@@ -10,7 +10,7 @@ import RenetikObjc
 
 public extension UILabel {
 
-    class func construct(_ text: String) -> Self { construct().text(text) }
+//    class func construct(_ text: String) -> Self { construct().text(text) }
 
     override func construct() -> Self {
         super.construct(); text(lines: 0).text(break: .byTruncatingTail); return self

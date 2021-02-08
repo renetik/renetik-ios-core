@@ -8,9 +8,9 @@ import BlocksKit
 
 public extension UITextView {
 
-    class func construct(_ text: String) -> Self { construct().text(text) }
-
-    class func construct(text: String) -> Self { construct().text(text) }
+//    class func construct(_ text: String) -> Self { construct().text(text) }
+//
+//    class func construct(text: String) -> Self { construct().text(text) }
 
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 

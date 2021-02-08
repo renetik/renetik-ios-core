@@ -20,13 +20,6 @@ public extension Array where Element: Any {
     }
 
     @discardableResult
-    func each(_ function: (Element) -> Void) -> Self {
-        forEach { element in function(element) }
-        return self
-    }
-
-
-    @discardableResult
     mutating func add(_ item: Element) -> Element {
         append(item)
         return item
