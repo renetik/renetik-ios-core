@@ -39,24 +39,11 @@ open class CSViewController: UIViewController {
         }
     }
 
-//    @discardableResult
-//    open func construct(_ parent: UIViewController, _ view: UIView) -> Self {
-//        parentController = parent
-//        _view = view
-//        return self
-//    }
-
     @discardableResult // TODO: change to class method
     open func construct(_ parent: UIViewController) -> Self {
         parentController = parent
         return self
     }
-
-//    @discardableResult
-//    open func construct(_ view: UIView) -> Self {
-//        _view = view
-//        return self
-//    }
 
     @discardableResult
     public func asViewLess() -> Self {
@@ -152,7 +139,6 @@ open class CSViewController: UIViewController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         onViewWillDisappear()
-        //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
 
     open func onViewWillDisappear() {}
