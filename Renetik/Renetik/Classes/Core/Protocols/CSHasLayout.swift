@@ -15,7 +15,7 @@ public protocol CSLayoutItemProtocol {
 }
 
 public extension CSHasLayoutProtocol where Self: UIView {
-    static func wrap(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> Self {
+    static func row(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> Self {
         Self.construct().also { container in
             container.layout(container.add(view: leftView).from(left: 0)) {
                 $0.centeredVertical()
@@ -26,11 +26,11 @@ public extension CSHasLayoutProtocol where Self: UIView {
         }.resizeToFit()
     }
 
-    func wrap(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> UIView {
-        CSView.wrap(fixed: leftView, margin: margin, sizedToFit: rightView)
+    func row(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> UIView {
+        CSView.row(fixed: leftView, margin: margin, sizedToFit: rightView)
     }
 
-    static func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
+    static func row(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
         Self.construct().also { container in
             container.layout(container.add(view: leftView).from(left: 0)) {
                 $0.width((container.width - margin) / 2).heightToFit()
@@ -41,11 +41,11 @@ public extension CSHasLayoutProtocol where Self: UIView {
         }
     }
 
-    func wrap(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> CSView {
-        CSView.wrap(flexible: leftView, margin: margin, flexible: rightView)
+    func row(flexible leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> CSView {
+        CSView.row(flexible: leftView, margin: margin, flexible: rightView)
     }
 
-    static func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> Self {
+    static func row(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> Self {
         Self.construct().also { container in
             container.add(view: rightView).from(right: 0).centeredVertical()
             container.layout(container.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
@@ -54,7 +54,31 @@ public extension CSHasLayoutProtocol where Self: UIView {
         }.resizeToFit()
     }
 
-    func wrap(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> CSView {
-        CSView.wrap(flexible: leftView, margin: margin, fixed: rightView)
+    func row(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> CSView {
+        CSView.row(flexible: leftView, margin: margin, fixed: rightView)
+    }
+
+    static func row(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
+        Self.construct(defaultSize: true).also { container in
+            container.add(view: leftView).from(left: 0).centeredVertical()
+            container.layout(container.add(view: rightView).fromPrevious(left: margin).fillTo(right: 0)) {
+                $0.heightToFit().centeredVertical()
+            }
+        }.resizeToFit()
+    }
+
+    func wrap(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> CSView {
+        CSView.row(fixed: leftView, margin: margin, flexible: rightView)
+    }
+
+    static func column(top topView: UIView, margin: CGFloat = 0, bottom bottomView: UIView) -> Self {
+        Self.construct(defaultSize: true).also { container in
+            container.layout(container.add(view: topView).from(top: 0).matchParentWidth()) {
+                $0.heightToFit()
+            }
+            container.layout(container.add(view: bottomView).matchParentWidth()) {
+                $0.fromPrevious(top: margin).heightToFit()
+            }
+        }.resizeToFit()
     }
 }
