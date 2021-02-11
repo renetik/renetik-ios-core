@@ -84,7 +84,13 @@ public extension UIView {
     @discardableResult
     func from(safeBottom: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        return from(bottom: superview!.safeAreaInsets.bottom + safeBottom)
+        if superview?.window != nil {
+            // superview is already in view hierarchy
+            return from(bottom: superview!.safeAreaInsets.bottom + safeBottom)
+        } else {
+            // superview not in view hierarchy - use default's window bottom inset
+            return from(bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 + safeBottom)
+        }
     }
 
     @discardableResult
