@@ -5,20 +5,27 @@
 import CocoaLumberjack
 
 public class CocoaLumberjackCSLogger: NSObject, CSLoggerProtocol {
+
+    let disabled: Bool
+
+    public init(disabled: Bool = false) {
+        self.disabled = disabled
+    }
+
     public func logDebug(_ value: String) {
-        DDLogDebug(value)
+        if !disabled { DDLogDebug(value) }
     }
 
     public func logInfo(_ value: String) {
-        DDLogInfo(value)
+        if !disabled { DDLogInfo(value) }
     }
 
     public func logWarn(_ value: String) {
-        DDLogWarn(value)
+        if !disabled { DDLogWarn(value) }
     }
 
     public func logError(_ value: String) {
-        DDLogError(value)
+        if !disabled { DDLogError(value) }
     }
 }
 
