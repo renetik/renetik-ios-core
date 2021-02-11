@@ -100,7 +100,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
                 pickerLabel.border(width: width, color: color, radius: radius)
             }
         }
-        later { pickerView.reloadAllComponents() }
+//        later { pickerView.reloadAllComponents() }
         return UIView.wrap(view: pickerLabel).content(padding: (horizontal: 8, vertical: 0))
     }
 
