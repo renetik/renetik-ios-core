@@ -38,9 +38,9 @@ public extension MDCBaseTextField {
     @discardableResult
     func with(clear clearImage: UIImage, clearTint: UIColor? = nil, size: CGFloat = 18) -> Self {
         with(clear: CSMaterialControl.construct().size(40).also {
-            $0.add(view: CSImageView.construct()) {
+            $0.add(view: CSImageView.construct()) { [unowned self] in
                 $0.image = clearImage
-                clearTint?.also { self.tintColor = $0 }
+                clearTint?.also { tintColor = $0 }
             }.size(size).centered()
         })
     }
@@ -48,7 +48,7 @@ public extension MDCBaseTextField {
     @discardableResult
     func with(clear clearView: UIView) -> Self {
         clearButtonMode = .never
-        clearView.onClick { [self] in
+        clearView.onClick { [unowned self] in
             text = nil
             eventClear.fire()
         }
