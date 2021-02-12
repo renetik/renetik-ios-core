@@ -12,7 +12,7 @@ public protocol CSPropertyProtocol: CSVariableProtocol {
 extension CSPropertyProtocol {
     @discardableResult
     public func onChange(_ function: @escaping Func) -> CSEventRegistration {
-        onChange { _ in function() }
+        self.onChange { _ in function() }
     }
 }
 
