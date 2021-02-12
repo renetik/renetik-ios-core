@@ -31,8 +31,8 @@ open class CSViewController: UIViewController {
     private var eventRegistrations = CSArray<CSEventRegistration>()
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
-    public private(set) var controllerInNavigation: UIViewController?
-    public private(set) var parentController: UIViewController? {
+    public private(set) weak var controllerInNavigation: UIViewController?
+    public private(set) weak var parentController: UIViewController? {
         didSet {
             (parentController as? CSViewController)
                     .notNil { self.register(event: $0.eventDismissing.listenOnce(function: onViewDismissing)) }

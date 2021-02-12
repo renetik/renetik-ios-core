@@ -153,7 +153,7 @@ public extension CSScrollView {
 
     @discardableResult
     func layout<View: UIView>(footer view: View, margin: CGFloat, function: @escaping ArgFunc<View>) -> View {
-        layout { [self] in
+        layout { [unowned self] in
             function(view)
             if view.bottom < safeHeight {
                 view.flexibleTop().from(safeBottom: 0) //navigation.navigationBar.bottom
