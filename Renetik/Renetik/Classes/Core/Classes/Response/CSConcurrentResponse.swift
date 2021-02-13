@@ -24,8 +24,8 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
         data!.add(response.data!)
         responses.add(response)
         responses.forEach { response in response.cancel() }
-        response.onFailed { _ in self.onResponseFailed(response) }
-                .onSuccess { _ in self.onResponseSuccess(response) }
+        response.onFailed { [unowned self] _ in onResponseFailed(response) }
+                .onSuccess { [unowned self] _ in onResponseSuccess(response) }
         return response
     }
 
@@ -33,7 +33,7 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
 
     func onResponseSuccess<T: AnyObject>(_ response: CSResponse<T>) {
         responses.remove(response)
-        if responses.isEmpty { self.success(self.data) }
+        if responses.isEmpty { success(data) }
     }
 
     func onResponseFailed<T: AnyObject>(_ failedResponse: CSResponse<T>) {

@@ -16,7 +16,7 @@ public protocol CSOperationProtocol {
 public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     public var isCanceled = false
-    public var process: CSProcess<Data>? = nil
+    public weak var process: CSProcess<Data>? = nil
     public var data: Data? { process?.data }
     public var failedProcess: CSProcessProtocol? { process?.failedProcess }
 
@@ -24,6 +24,10 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     public init(function: @escaping (CSOperation<Data>) -> CSProcess<Data>) {
         executeProcessFunction = function
+    }
+
+    public convenience init(function: @escaping () -> CSProcess<Data>) {
+        self.init { _ in function() }
     }
 
     open func executeProcess() -> CSProcess<Data> { executeProcessFunction(self) }
@@ -45,7 +49,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     @discardableResult
     public func onFailed(_ function: @escaping ArgFunc<CSOperation<Data>>) -> Self {
-        eventFailed.listen { _ in function(self) }; return self
+        eventFailed.listen { [unowned self] _ in function(self) }; return self
     }
 
     private let eventCancel: CSEvent<CSProcess<Data>> = event()
@@ -59,7 +63,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
 
     @discardableResult
     public func onDone(_ function: @escaping ArgFunc<CSOperation<Data>>) -> Self {
-        invoke { eventDone.listen { _ in function(self) } }
+        invoke { eventDone.listen { [unowned self] _ in function(self) } }
     }
 
     @discardableResult
@@ -80,7 +84,7 @@ public class CSOperation<Data>: CSAnyProtocol, CSOperationProtocol {
     @discardableResult
     public func send(listenOnFailed: Bool = true, onSuccess: ArgFunc<Data>? = nil) -> Self {
         process = executeProcess().also { process in
-            process.onSuccess { [self] in
+            process.onSuccess { [unowned self] in
                 onSuccess?($0)
                 eventSuccess.fire($0)
                 eventDone.fire($0)

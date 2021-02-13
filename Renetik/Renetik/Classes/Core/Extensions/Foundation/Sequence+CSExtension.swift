@@ -11,7 +11,3 @@ public extension Sequence {
         return self
     }
 }
-
-extension Sequence where Element: AnyObject {
-//    @inlinable public func contains(where predicate: (Self.Element) throws -> Bool) rethrows -> Bool
-}

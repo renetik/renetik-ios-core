@@ -35,9 +35,8 @@ public extension UIView {
     }
 
     public func hideIn() {
-        animate(duration: .defaultAnimation, operation: {
-            self.bottom = -5
-        }, completion: { self.removeFromSuperview() })
+        animate(duration: .defaultAnimation, operation: { [unowned self] in bottom = -5 },
+                completion: { [unowned self] in removeFromSuperview() })
     }
 
     @discardableResult

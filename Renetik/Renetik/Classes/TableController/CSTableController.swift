@@ -71,7 +71,7 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         loadOperation = (parentController as! CSTableControllerParent)
                 .send(operation: loadData().refresh(refresh), title: "", progress: withProgress, failedDialog: false)
                 .onFailed { self.clear() }
-                .onDone { [self] data in isLoading = false; isFirstLoadingDone = true; tableView.reload() }
+                .onDone { [unowned self] data in isLoading = false; isFirstLoadingDone = true; tableView.reload() }
         return loadOperation!
     }
 

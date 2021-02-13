@@ -10,7 +10,7 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
 
     public var backgroundColor = UIColor.flatBlack()!.lighten(byPercentage: 0.03)!.add(alpha: 0.85)
     public var foregroundColor = UIColor.white
-    private let view: UIView
+    private unowned let view: UIView
     private var hud: MBProgressHUD?
 
     public init(in controller: UIViewController) {
@@ -25,13 +25,13 @@ public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialo
 
     public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
 
-    public func show(progress title: String,_ cancel: CSDialogAction?,
+    public func show(progress title: String, _ cancel: CSDialogAction?,
                      _ graceTime: TimeInterval?, _ minShowTime: TimeInterval?) -> CSHasDialogVisible {
         hud = MBProgressHUD.showProgress(view: view, title: title,
                 foregroundColor: foregroundColor, backgroundColor: backgroundColor,
                 canCancel: cancel.notNil, cancelTitle: cancel?.title, onCancel: cancel?.action,
                 graceTime: graceTime, minShowTime: minShowTime)
-        hud!.completionBlock = { self.hud = nil }
+        hud!.completionBlock = { [weak self] in self?.hud = nil }
         return self
     }
 }

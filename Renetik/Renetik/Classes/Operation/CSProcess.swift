@@ -6,7 +6,11 @@
 import Foundation
 
 public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
+
     private let eventSuccess: CSEvent<CSProcess<Data>> = event()
+    private let eventFailed: CSEvent<CSProcessProtocol> = event()
+    private let eventCancel: CSEvent<CSProcess<Data>> = event()
+    public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onSuccess(_ function: @escaping (Data) -> Void) -> Self {
@@ -17,11 +21,10 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     @discardableResult
     public func onSuccess(_ function: @escaping Func) -> Self { onSuccess { _ in function() } }
 
-    private let eventFailed: CSEvent<CSProcessProtocol> = event()
 
     @discardableResult
     public func onFailed(_ function: @escaping ArgFunc<CSProcess<Data>>) -> Self {
-        onFailed { function(self) }
+        onFailed { [unowned self] in function(self) }
     }
 
     @discardableResult
@@ -29,14 +32,12 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
         eventFailed.listen { _ in function() }; return self
     }
 
-    private let eventCancel: CSEvent<CSProcess<Data>> = event()
 
     @discardableResult
     public func onCancel(_ function: @escaping (CSProcess<Data>) -> Void) -> Self {
         eventCancel.listen { function($0) }; return self
     }
 
-    public let eventDone: CSEvent<Data?> = event()
 
     @discardableResult
     public func onDone(_ function: @escaping ArgFunc<Data?>) -> Self {
@@ -44,7 +45,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     }
 
     @discardableResult
-    public func onDone(_ function: @escaping  Func) -> Self { onDone { _ in function() } }
+    public func onDone(_ function: @escaping Func) -> Self { onDone { _ in function() } }
 
     private let onProgress: CSEvent<CSProcess<Data>> = event()
     var progress: Double = 0 { didSet { onProgress.fire(self) } }
@@ -145,7 +146,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
 extension CSProcess {
     @discardableResult
     public func failIfFail<Data: AnyObject>(_ process: CSProcess<Data>) -> CSProcess<Data> {
-        process.onFailed { self.failed($0) }
+        process.onFailed { [unowned self] in self.failed($0) }
     }
 
 }
@@ -165,7 +166,7 @@ public class CSMultiProcess: CSProcess<NSMutableArray> {
 
     @discardableResult
     public func add<Data: AnyObject, Process: CSProcess<Data>>(last request: Process) -> Process {
-        add(request).onSuccess { data in self.success() }
+        add(request).onSuccess { [unowned self] data in self.success() }
     }
 
     public override func cancel() {

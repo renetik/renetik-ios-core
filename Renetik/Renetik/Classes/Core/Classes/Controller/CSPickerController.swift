@@ -58,7 +58,7 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
     }()
 
     lazy var disablerView: UIView = {
-        let view = UIView().onClick(onCancelClicked)
+        let view = UIView().onClick { [unowned self] in self.onCancelClicked() }
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         view.alpha = 0
         return view
@@ -100,22 +100,8 @@ public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPi
                 pickerLabel.border(width: width, color: color, radius: radius)
             }
         }
-//        later { pickerView.reloadAllComponents() }
         return UIView.wrap(view: pickerLabel).content(padding: (horizontal: 8, vertical: 0))
     }
-
-//    public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
-//                           forComponent component: Int) -> NSAttributedString? {
-//        let isSelected = row == pickerView.selectedRow(inComponent: component)
-//        var attributes = [NSAttributedString.Key: Any]()
-//        CSPickerController.pickerItemTextColor.notNil { normal, selected in
-//            attributes.add(key: .foregroundColor, value: isSelected ? selected : normal)
-//        }
-//        CSPickerController.pickerItemFont.notNil { normal, selected in
-//            attributes.add(key: .font, value: isSelected ? selected : normal)
-//        }
-//        return NSAttributedString(string: String(describing: items[row]), attributes: attributes)
-//    }
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerView.reloadAllComponents()

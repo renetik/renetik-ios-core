@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol CSHasDialogVisible {
+public protocol CSHasDialogVisible: class {
     var isDialogVisible: Bool { get }
     func hideDialog(animated: Bool)
 }

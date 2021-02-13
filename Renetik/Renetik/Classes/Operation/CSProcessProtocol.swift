@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol CSProcessProtocol {
+public protocol CSProcessProtocol: class {
     var message: String? { get }
     var error: Error? { get }
     var failedProcess: CSProcessProtocol? { get }

@@ -35,9 +35,11 @@ open class CSServerListData: CSJsonArray, CSHttpResponseDataProtocol {
 
     open func onHttpResponse(code: Int, message: String, content: String?) {
         self.code = code; self.message = message;
-        content?.parseJsonArray().notNil {
-            load(data: $0 as! [CSAnyProtocol])
-        }.elseDo { self.message = CSServerMapData.PARSING_FAILED }
+        if let data = content?.parseJsonArray() {
+            load(data: data as! [CSAnyProtocol])
+        } else {
+            self.message = CSServerMapData.PARSING_FAILED
+        }
     }
 
     open var success: Bool { isHttpSuccess }
@@ -50,9 +52,11 @@ open class CSServerMapData: CSJsonObject, CSHttpResponseDataProtocol {
 
     open func onHttpResponse(code: Int, message: String, content: String?) {
         self.code = code; self.message = message;
-        content?.parseJsonObject().notNil {
-            load(data: $0)
-        }.elseDo { self.message = CSServerMapData.PARSING_FAILED }
+        if let data = content?.parseJsonObject() {
+            load(data: data as! [String: CSAnyProtocol?])
+        } else {
+            self.message = CSServerMapData.PARSING_FAILED
+        }
     }
 
     open var success: Bool { isHttpSuccess }

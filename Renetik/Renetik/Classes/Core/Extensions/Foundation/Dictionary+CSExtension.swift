@@ -12,7 +12,7 @@ public extension Dictionary {
 
     @discardableResult
     public mutating func add(_ other: Dictionary) -> Dictionary {
-        other.forEach { k, v in self[k] = v }
+        for (k, v) in other { self[k] = v }
         return self
     }
 

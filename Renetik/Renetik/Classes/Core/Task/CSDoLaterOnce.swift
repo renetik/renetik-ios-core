@@ -15,7 +15,7 @@ public class CSDoLaterOnce {
     public func start() {
         if willInvoke { return }
         willInvoke = true
-        later(seconds: delay) { [self] in
+        later(seconds: delay) { [unowned self] in
             function()
             willInvoke = false
         }

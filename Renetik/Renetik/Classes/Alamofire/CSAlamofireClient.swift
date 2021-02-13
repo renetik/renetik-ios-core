@@ -72,7 +72,7 @@ public class CSAlamofireClient: CSObject {
             }()
             let request = manager.request(url: process.url!, method: .get, parameters: params,
                     encoding: URLEncoding.default, refreshCache: loadFromNetwork)
-            operation?.expireMinutes.notNil { minutes in request.cache(manager, maxAge: Double(minutes * 60)) }
+            if let minutes = operation?.expireMinutes { request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
                     completionHandler: { self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error) },
                     autoClearCache: (operation?.isCached).isFalse)
@@ -109,7 +109,7 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func download(service: String, params: [String: Any] = [:]) -> CSProcess<CSDownloadResponseData> {
-        CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { [self] process in
+        CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { [unowned self] process in
             logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
             let destination: DownloadRequest.Destination =
                     { _, _ in (downloadFileUrl, [.removePreviousFile, .createIntermediateDirectories]) }

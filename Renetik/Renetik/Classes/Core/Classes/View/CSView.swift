@@ -39,7 +39,7 @@ open class CSView: UIControl, CSHasLayoutProtocol {
 
     @discardableResult
     public func layout(function: @escaping (Self) -> Void) -> Self {
-        layoutFunctions.listen { function(self) }
+        layoutFunctions.listen { [unowned self] in function(self) }
         function(self)
         return self
     }

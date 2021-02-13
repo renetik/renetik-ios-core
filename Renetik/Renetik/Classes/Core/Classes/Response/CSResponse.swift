@@ -47,10 +47,6 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
     private var id = ""
     private var failedResponse: CSResponseProtocol?
 
-//    override public init() {
-//        super.init()
-//    }
-
     convenience public init(_ url: String, _ service: String, _ data: Data, _ params: [AnyHashable: Any]) {
         self.init()
         self.url = url

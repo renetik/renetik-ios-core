@@ -37,17 +37,17 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
                    hasAccessory: CSHasInputAccessory? = nil, placeHolder: String, hideImage: UIImage,
                    action: (title: String?, image: UIImage?, function: Func)?) -> Self {
         super.construct(parent).asViewLess()
-        self.parentTextInput = textInput
+        parentTextInput = textInput
         self.hasAccessory = hasAccessory
         accessoryTextInput = (hasAccessory?.inputAccessoryView as? CSHasTextInput)?.textInput
         textView.placeholder = placeHolder
         textView.inputAccessoryView = defaultAccessoryView.construct(hideImage)
-        keyboardManager.construct(self) { _ in self.onKeyboardChange() }
-        action.notNil { action in
+        keyboardManager.construct(self) { [unowned self] _ in onKeyboardChange() }
+        action.notNil { [unowned self] action in
             action.title.notNil { actionButton.text($0).resizeToFit() }
             action.image.notNil { actionButton.image($0).size(40) }
             actionButton.onClick {
-                self.parentTextInput.text = self.textView.text
+                parentTextInput.text = textView.text
                 action.function()
             }
         }.elseDo {
@@ -57,15 +57,15 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     override public func onCreateLayout() {
-        layout(container.add(view: actionButton).centeredVertical()) {
-            $0.from(right: self.safeArea.right)
+        layout(container.add(view: actionButton).centeredVertical()) { [unowned self] in
+            $0.from(right: safeArea.right)
         }
-        layout(container.add(view: textView).matchParentHeight(margin: 5)) {
-            $0.from(left: self.safeArea.left).margin(right: 5, from: self.actionButton)
+        layout(container.add(view: textView).matchParentHeight(margin: 5)) { [unowned self] in
+            $0.from(left: safeArea.left).margin(right: 5, from: actionButton)
         }
     }
 
-    override public func onViewDidLayout() { self.updateVisibility() }
+    override public func onViewDidLayout() { updateVisibility() }
 
     private func onKeyboardChange() {
         if parentTextInput.responder.isFirstResponder && UIScreen.isShort {

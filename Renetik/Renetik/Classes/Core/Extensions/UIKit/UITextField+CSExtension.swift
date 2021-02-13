@@ -149,7 +149,9 @@ public extension UITextField {
     }
 
     @discardableResult
-    func filters(_ filters: CSInputFilterProtocol...) -> Self { filters.each { self.filters.add($0) }; return self }
+    func filters(_ filters: CSInputFilterProtocol...) -> Self {
+        for filter in filters { self.filters.add(filter) }; return self
+    }
 
     @discardableResult
     func keyboard(_ type: UIKeyboardType) -> Self { keyboardType = type; return self }

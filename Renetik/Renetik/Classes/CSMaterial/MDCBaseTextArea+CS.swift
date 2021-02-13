@@ -40,7 +40,7 @@ public extension MDCBaseTextArea {
 
     @discardableResult
     func with(clear clearView: UIView) -> Self {
-        clearView.onClick { [self] in
+        clearView.onClick { [unowned self] in
             text = nil
             eventClear.fire()
         }

@@ -68,7 +68,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
+    func background(_ color: UIColor) -> Self { invoke { backgroundColor = color } }
 
     @discardableResult
     func background(_ color: UIColor, opacity: CGFloat) -> Self {
@@ -90,10 +90,10 @@ public extension UIView {
     func rotate(angle: CGFloat) -> Self { transform = CGAffineTransform(rotationAngle: angle); return self }
 
     @discardableResult
-    func content(mode: UIView.ContentMode) -> Self { self.contentMode = mode; return self }
+    func content(mode: UIView.ContentMode) -> Self { contentMode = mode; return self }
 
     @discardableResult
-    func clipsToBounds(_ value: Bool = true) -> Self { self.clipsToBounds = value; return self }
+    func clipsToBounds(_ value: Bool = true) -> Self { clipsToBounds = value; return self }
 
     @discardableResult
     func asCircular() -> Self {
@@ -167,7 +167,7 @@ public extension UIView {
         show()
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { self.alpha = 1 },
+                animations: { [unowned self] in alpha = 1 },
                 completion: { _ in onDone?() })
     }
 
@@ -175,8 +175,8 @@ public extension UIView {
         if isHidden || alpha == 0 { onDone?(); return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { self.alpha = 0 },
-                completion: { isFinished in if isFinished { self.alpha = 1; self.hide() }; onDone?() })
+                animations: { [unowned self] in alpha = 0 },
+                completion: { [unowned self] isFinished in if isFinished { alpha = 1; hide() }; onDone?() })
     }
 
     @discardableResult
