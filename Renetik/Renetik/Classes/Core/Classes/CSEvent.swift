@@ -20,7 +20,8 @@ public class CSEventListener<Type>: CSEventRegistration {
 
     public typealias CSEventFunction = (CSEventListener<Type>, Type) -> Void
 
-    private let event: CSEvent<Type>, function: CSEventFunction
+    private unowned let event: CSEvent<Type>
+    private let function: CSEventFunction
 
     fileprivate init(event: CSEvent<Type>, function: @escaping CSEventFunction) {
         self.event = event
