@@ -56,7 +56,7 @@ public class CSProcess<Data>: CSAnyProtocol, CSProcessProtocol {
     public var data: Data? = nil
     public var message: String? = nil
     public var error: Error? = nil
-    public var failedProcess: CSProcessProtocol? = nil
+    public weak var failedProcess: CSProcessProtocol? = nil
 
     public init(url: String? = nil, data: Data? = nil) {
         self.url = url
