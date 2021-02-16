@@ -30,9 +30,9 @@ public class CSAlamofireClient: CSObject {
 
     private lazy var manager: Session = {
         let configuration = URLSessionConfiguration.default
-        configuration.httpMaximumConnectionsPerHost = 10
-        configuration.timeoutIntervalForRequest = 60
-        configuration.timeoutIntervalForResource = 60
+//        configuration.httpMaximumConnectionsPerHost = 10
+//        configuration.timeoutIntervalForRequest = 60
+//        configuration.timeoutIntervalForResource = 60
         let sessionDelegate = SessionDelegate()
         return Session(configuration: configuration, delegate: sessionDelegate,
                 serverTrustManager: serverTrustManager)
@@ -64,18 +64,9 @@ public class CSAlamofireClient: CSObject {
                                                           data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(HTTPMethod.get) \(process.url! + createUrlParams(params))")
-            let loadFromNetwork: Bool = {
-                if operation?.isRefresh == true { return true }
-                if operation?.expireMinutes ?? 0 > 0 { return false }
-                if networkReachability.isReachable { return true }
-                return false
-            }()
-            let request = manager.request(url: process.url!, method: .get, parameters: params,
-                    encoding: URLEncoding.default, refreshCache: loadFromNetwork)
-            if let minutes = operation?.expireMinutes { request.cache(manager, maxAge: Double(minutes * 60)) }
-            request.responseString(encoding: nil,
-                    completionHandler: { self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error) },
-                    autoClearCache: (operation?.isCached).isFalse)
+            manager.request(process.url!, method: .get, parameters: params).responseString {
+                self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error)
+            }
         }
     }
 
@@ -87,8 +78,7 @@ public class CSAlamofireClient: CSObject {
             service: String, data: DataType, params: [String: Any] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
-            manager.request(process.url!, method: .post, parameters: params,
-                    encoding: JSONEncoding.default).responseString(encoding: nil) {
+            manager.request(process.url!, method: .post, parameters: params).responseString {
                 self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error)
             }
         }
@@ -98,21 +88,20 @@ public class CSAlamofireClient: CSObject {
             service: String, data: DataType, form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(HTTPMethod.post) \(process.url!) \(form)")
-            let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
-            let base64Credentials = credentialData.base64EncodedData()
-            let headers = ["Authorization": "Basic \(base64Credentials)"]
-            manager.upload(multipartFormData: form, to: process.url!, headers: HTTPHeaders(headers))
-                    .responseString(encoding: nil) {
-                        self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error)
-                    }
+//            let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
+//            let base64Credentials = credentialData.base64EncodedData()
+//            let headers = ["Authorization": "Basic \(base64Credentials)"] //headers: HTTPHeaders(headers)
+            manager.upload(multipartFormData: form, to: process.url!).responseString {
+                self.onResponseDone(process, $0.response!.statusCode, $0.value, $0.error)
+            }
         }
     }
 
-    public func download(service: String, params: [String: Any] = [:]) -> CSProcess<CSDownloadResponseData> {
+    public func download(service: String, params: [String: Any] = [:], fileName: String = "download.pdf") -> CSProcess<CSDownloadResponseData> {
         CSProcess(url: "\(url)/\(service)", data: CSDownloadResponseData()).also { [unowned self] process in
             logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
             let destination: DownloadRequest.Destination =
-                    { _, _ in (downloadFileUrl, [.removePreviousFile, .createIntermediateDirectories]) }
+                    { _, _ in (downloadFileUrl(fileName), [.removePreviousFile, .createIntermediateDirectories]) }
             manager.download(process.url!, parameters: params, to: destination).downloadProgress { progress in
                 let progressNumber = progress.completedUnitCount / progress.totalUnitCount
                 logInfo(progressNumber)
@@ -120,9 +109,9 @@ public class CSAlamofireClient: CSObject {
         }
     }
 
-    public var downloadFileUrl: URL {
+    public func downloadFileUrl(_ fileName: String) -> URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let nameUrl = URL(string: "download.pdf")
+        let nameUrl = URL(string: fileName)
         let fileURL = documentsURL.appendingPathComponent((nameUrl?.lastPathComponent)!)
         logInfo(fileURL.absoluteString)
         return fileURL;
