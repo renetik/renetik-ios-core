@@ -6,26 +6,43 @@ import CocoaLumberjack
 
 public class CocoaLumberjackCSLogger: NSObject, CSLoggerProtocol {
 
-    let disabled: Bool
+    var isDisabled: Bool = false
+    var isToast: Bool = false
 
     public init(disabled: Bool = false) {
-        self.disabled = disabled
+        isDisabled = disabled
+    }
+
+    public init(toast: Bool = false) {
+        isToast = toast
     }
 
     public func logDebug(_ value: String) {
-        if !disabled { DDLogDebug(value) }
+        if !isDisabled {
+            DDLogDebug(value)
+            if isToast { CSNotification().title(value).time(5).show() }
+        }
     }
 
     public func logInfo(_ value: String) {
-        if !disabled { DDLogInfo(value) }
+        if !isDisabled {
+            DDLogInfo(value)
+            if isToast { CSNotification().title(value).time(5).show() }
+        }
     }
 
     public func logWarn(_ value: String) {
-        if !disabled { DDLogWarn(value) }
+        if !isDisabled {
+            DDLogWarn(value)
+            if isToast { CSNotification().title(value).time(5).show() }
+        }
     }
 
     public func logError(_ value: String) {
-        if !disabled { DDLogError(value) }
+        if !isDisabled {
+            DDLogError(value)
+            if isToast { CSNotification().title(value).time(5).show() }
+        }
     }
 }
 
