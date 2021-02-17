@@ -52,10 +52,10 @@ Pod::Spec.new do |s|
 		ss.source_files = 'Renetik/Classes/Alamofire/**/*'
 	end
 
-    s.subspec 'AlamofireCached' do |ss|
-		ss.dependency 'Renetik/Alamofire'
-		ss.source_files = 'Renetik/Classes/AlamofireCached/**/*'
-	end
+#    s.subspec 'AlamofireCached' do |ss|
+#		ss.dependency 'Renetik/Alamofire'
+#		ss.source_files = 'Renetik/Classes/AlamofireCached/**/*'
+#	end
 
     s.subspec 'Operation' do |ss|
 		ss.dependency 'Renetik/Core'
@@ -130,7 +130,7 @@ Pod::Spec.new do |s|
     s.subspec 'All' do |ss|
 		ss.dependency 'Renetik/Core'
 		ss.dependency 'Renetik/Alamofire'
-		ss.dependency 'Renetik/AlamofireCached'
+#		ss.dependency 'Renetik/AlamofireCached'
 		ss.dependency 'Renetik/Json'
 		ss.dependency 'Renetik/Operation'
 		ss.dependency 'Renetik/CoreLocation'
