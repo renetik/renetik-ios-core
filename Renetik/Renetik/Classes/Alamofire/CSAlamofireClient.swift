@@ -86,7 +86,7 @@ public class CSAlamofireClient: CSObject {
     public func post<DataType: CSHttpResponseDataProtocol>(
             service: String, data: DataType, params: [String: Any] = [:]) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
-            logInfo("\(HTTPMethod.post) \(process.url!) \(params)")
+            logInfo("\(HTTPMethod.post) \(process.url!) \(params.toJsonString())")
             manager.request(process.url!, method: .post, parameters: params,
                     encoding: JSONEncoding.default).responseString(encoding: nil) {
                 self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error)
