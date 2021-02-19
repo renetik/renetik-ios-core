@@ -48,7 +48,7 @@ public class CSMaxCharactersInputFilter: CSInputFilterProtocol {
 
 public class CSJustLettersInputFilter: CSObject, CSInputFilterProtocol {
     public func filter(current: String, range: NSRange, string: String) -> Bool {
-        for char in string { if !char.isLetter { return false } }
+        for char in string { if !(char.isLetter || char.isWhitespace) { return false } }
         return true
     }
 }
