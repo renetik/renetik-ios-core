@@ -5,15 +5,15 @@
 
 import Renetik
 
-public class CSLabeledText: UIView {
+open class CSLabeledText: UIView {
 
-    let label = UILabel()
-    let textView = UITextView()
-    var onClick: (Func)?
+    public let label = UILabel()
+    public let textView = UITextView()
+    public var onClick: Func?
 
     @discardableResult
     func construct(_ container: UIView, _ title: String?, _ value: String?,
-                   _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: (Func)? = nil) -> Self {
+                   _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: Func? = nil) -> Self {
         super.construct().width(200, height: 30)
         addLabel(title: title)
         addTextView(value: value)
@@ -41,8 +41,8 @@ public class CSLabeledText: UIView {
 }
 
 public class CSLabeledView: UIView {
-    let label = UILabel()
-    var view: UIView!
+    public let label = UILabel()
+    private var view: UIView!
 
     @discardableResult
     func construct(_ container: UIView, _ title: String, _ view: UIView, _ onClick: Func?) -> Self {
@@ -60,11 +60,11 @@ public class CSLabeledView: UIView {
 
 public extension UIView {
     func addField(title: String? = nil, text: String? = nil,
-                  detect dataTypes: UIDataDetectorTypes? = nil, onClick: (Func)? = nil) {
+                  detect dataTypes: UIDataDetectorTypes? = nil, onClick: Func? = nil) {
         CSLabeledText().construct(self, title, text, dataTypes, onClick)
     }
 
-    func addField(title: String, view: UIView, onClick: (Func)? = nil) {
+    func addField(title: String, view: UIView, onClick: Func? = nil) {
         CSLabeledView().construct(self, title, view, onClick)
     }
 }

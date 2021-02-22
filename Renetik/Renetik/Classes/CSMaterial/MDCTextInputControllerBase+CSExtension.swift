@@ -10,9 +10,7 @@ import RenetikObjc
 import MaterialComponents
 import MaterialComponents.MDCTextInputControllerBase
 
-extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
-
-    public var responder: UIResponder { textInput! }
+public extension MDCTextInputControllerBase {
 
     @discardableResult
     func setError(_ message: String?) -> Self {
@@ -46,11 +44,6 @@ extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
         return self
     }
 
-    public var text: String {
-        get { textInput!.text ?? "" }
-        set(value) { textInput!.text = value }
-    }
-
     @discardableResult
     func text(_ text: String?) -> Self {
         textInput!.text = text
@@ -67,5 +60,15 @@ extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
     func noClearButton() -> Self {
         textInput!.clearButtonMode = .never
         return self
+    }
+}
+
+extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
+
+    public var responder: UIResponder { textInput! }
+
+    public var text: String {
+        get { textInput!.text ?? "" }
+        set(value) { textInput!.text = value }
     }
 }

@@ -10,7 +10,7 @@ import RenetikObjc
 import Renetik
 import BlocksKit
 
-class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
+open class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
 
     var pageControl: MDCPageControl!
     var scrollView: UIScrollView!
@@ -18,8 +18,8 @@ class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
     var contentView: UIView?
     var currentPage = 0
 
-    func construct(_ parent: CSMainController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
-                   _ count: Int, _ createScrollViewContent: @escaping () -> UIView) {
+    public func construct(_ parent: CSMainController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
+                          _ count: Int, _ createScrollViewContent: @escaping () -> UIView) {
         super.constructAsViewLess(in: parent)
         self.pageControl = pageControl
         pageControl.numberOfPages = count
@@ -33,9 +33,9 @@ class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
         self.createScrollViewContent = createScrollViewContent
     }
 
-    override func onViewWillAppear() { createContentView() }
+    override open func onViewWillAppear() { createContentView() }
 
-    override func onViewDidTransition(
+    override open func onViewDidTransition(
             to size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext?) {
         animate { self.createContentView(animated: false) }
     }
@@ -46,15 +46,15 @@ class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
         showPage(at: currentPage, animated: animated)
     }
 
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         pageControl.scrollViewDidEndScrollingAnimation(scrollView)
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageControl.scrollViewDidEndDecelerating(scrollView)
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.scrollViewDidScroll(scrollView)
     }
 

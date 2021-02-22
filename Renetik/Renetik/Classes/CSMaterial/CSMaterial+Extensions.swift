@@ -12,7 +12,7 @@ import MaterialComponents
 import Renetik
 import RenetikObjc
 
-public class CSMaterialButton: UIButton {
+open class CSMaterialButton: UIButton {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -23,11 +23,11 @@ public class CSMaterialButton: UIButton {
     }
 }
 
-public class CSMaterialCard: MDCCard {
+open class CSMaterialCard: MDCCard {
 
 }
 
-public class CSMaterialImageView: UIImageView {
+open class CSMaterialImageView: UIImageView {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -38,7 +38,7 @@ public class CSMaterialImageView: UIImageView {
     }
 }
 
-public class CSMaterialLabel: UILabel {
+open class CSMaterialLabel: UILabel {
     lazy var inkTouchController = { MDCRippleTouchController() }()
 
     @discardableResult
@@ -49,7 +49,7 @@ public class CSMaterialLabel: UILabel {
     }
 }
 
-public class CSMaterialView: CSView {
+open class CSMaterialView: CSView {
 
     lazy var inkTouchController = { MDCRippleTouchController() }()
 

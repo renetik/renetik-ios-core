@@ -96,7 +96,7 @@ public extension UITextView {
         isEditable = false
         isScrollEnabled = false
         backgroundColor = .clear
-        if #available(iOS 11, *) { contentInsetAdjustmentBehavior = .never }
+        contentInsetAdjustmentBehavior = .never
         textContainer.lineFragmentPadding = 0
         layoutManager.usesFontLeading = false
         return self

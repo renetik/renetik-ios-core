@@ -69,7 +69,7 @@ open class CSViewController: UIViewController {
             isOnViewWillAppearFirstTime = true
             onViewWillAppearFirstTime()
         } else {
-            onViewWillAppearFromPresentedController()
+            onViewWillAppearLater()
         }
     }
 
@@ -77,7 +77,7 @@ open class CSViewController: UIViewController {
 
     open func onViewWillAppearFirstTime() { eventWillAppearFirstTime.fire() }
 
-    open func onViewWillAppearFromPresentedController() {}
+    open func onViewWillAppearLater() {}
 
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

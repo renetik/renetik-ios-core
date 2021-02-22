@@ -8,15 +8,15 @@ import Renetik
 import RenetikObjc
 import MaterialComponents.MDCCard
 
-class CSTitleSubtitleCell: CSTableViewCell {
+open class CSTitleSubtitleCell: CSTableViewCell {
 
-    let card = MDCCard.construct()
-    let titleLabel = UILabel.construct()
-    let subtitleLabel = UILabel.construct()
+    public let card = MDCCard.construct()
+    public let titleLabel = UILabel.construct()
+    public let subtitleLabel = UILabel.construct()
 
     var onCLick: Func?
 
-    override func construct() -> Self {
+    override open func construct() -> Self {
         super.construct()
         contentView.add(card).matchParent(margin: 5)
         layout(card.add(titleLabel).from(top: 7).matchParentWidth(margin: 7)) {
@@ -29,14 +29,14 @@ class CSTitleSubtitleCell: CSTableViewCell {
         return self
     }
 
-    func load(title: String, subtitle: String? = nil, onCLick: Func? = nil) -> Self {
+    public func load(title: String, subtitle: String? = nil, onCLick: Func? = nil) -> Self {
         self.onCLick = onCLick
         titleLabel.text(title)
         subtitleLabel.text(subtitle)
         return self
     }
 
-    func heightFor(title: String, subtitle: String? = nil) -> CGFloat {
+    public func heightFor(title: String, subtitle: String? = nil) -> CGFloat {
         titleLabel.text(title)
         subtitleLabel.text(subtitle)
         layoutSubviews()

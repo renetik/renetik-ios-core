@@ -170,7 +170,7 @@ public extension UIView {
 
     func fadeTo(visible: Bool) { invoke { visible.isTrue { fadeIn() }.elseDo { fadeOut() } } }
 
-    func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
+    func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: Func? = nil) {
         if isVisible && alpha == 1 { return }
         isVisible = true
         UIView.animate(withDuration: duration, delay: 0,
@@ -179,7 +179,7 @@ public extension UIView {
                 completion: { _ in onDone?() })
     }
 
-    func fadeOut(duration: TimeInterval = defaultAnimationTime, onDone: (Func)? = nil) {
+    func fadeOut(duration: TimeInterval = defaultAnimationTime, onDone: Func? = nil) {
         if isHidden || alpha == 0 { return }
         UIView.animate(withDuration: duration, delay: 0,
                 options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],

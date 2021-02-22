@@ -12,8 +12,13 @@ open class CSMainController: CSViewController {
     private var menuItems = [CSMenuHeader]()
     private lazy var menuDialog = { CSAlertDialogController(in: self) }()
 
-    override public func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    open override func onViewDidLayoutFirstTime() {
+        super.onViewDidLayoutFirstTime()
+        if isTopController { updateBarItemsAndMenu() }
+    }
+
+    open override func onViewWillAppearLater() {
+        super.onViewWillAppearLater()
         if isTopController { updateBarItemsAndMenu() }
     }
 
@@ -44,7 +49,7 @@ open class CSMainController: CSViewController {
     }
 
     func onPrepare(menu: inout [CSMenuHeader]) {
-        for menuHeader in self.menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
+        for menuHeader in menuItems { if menuHeader.isVisible { menu.add(menuHeader) } }
         for controller in childMainControllers { if controller.isShowing { controller.onPrepare(menu: &menu) } }
     }
 
@@ -92,7 +97,7 @@ open class CSMainController: CSViewController {
     }
 
     public func setChildMain(controllers: [CSMainController]) -> [CSMainController] {
-        self.childMainControllers.removeAll()
+        childMainControllers.removeAll()
         addChildMain(controllers: controllers)
         return childMainControllers
     }

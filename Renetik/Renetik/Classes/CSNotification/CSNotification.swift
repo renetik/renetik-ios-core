@@ -23,7 +23,7 @@ public class CSNotification: CSObject {
     public var title: String?
     public var body: String?
     public var icon: UIImage?
-    public var actionOnClick: (Func)?
+    public var actionOnClick: Func?
     public var dismissible = true
 
     private var position: RMessagePosition = .top
