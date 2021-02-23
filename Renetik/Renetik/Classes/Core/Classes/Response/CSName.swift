@@ -23,7 +23,7 @@ open class CSName: CSDictionaryJsonData {
 
     public required override init() { super.init() }
 
-    public init(_ name: String, _ id: String = "") {
+    public init(_ id: String = "", _ name: String) {
         super.init()
         self.id = id
         self.name = name
@@ -76,6 +76,3 @@ open class CSName: CSDictionaryJsonData {
         return nil
     }
 }
-
-//public extension Array where Element: CSName {
-//}
