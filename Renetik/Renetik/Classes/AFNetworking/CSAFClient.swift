@@ -138,10 +138,8 @@ public extension AFMultipartFormData {
     func appendImage(parts: [UIImage]) {
         logInfo(parts)
         for index in 0..<parts.count {
-            appendPart(withFileData:
-            parts[index].jpegData(compressionQuality: 0.8)!,
-                    name: "images[\(index)]",
-                    fileName: "mobileUpload.jpg", mimeType: "image/jpeg")
+            appendPart(withFileData: parts[index].jpegData(compressionQuality: 0.8)!,
+                    name: "images[\(index)]", fileName: "mobileUpload.jpg", mimeType: "image/jpeg")
         }
     }
 }
