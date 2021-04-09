@@ -61,7 +61,8 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func get<DataType: CSHttpResponseDataProtocol>(_ operation: CSOperation<DataType>?, service: String,
-                                                          data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
+                                                          data: DataType, params: [String: String] = [:],
+                                                          headers: [String: String]? = nil) -> CSProcess<DataType> {
         CSProcess(url: "\(url)/\(service)", data: data).also { process in
             logInfo("\(HTTPMethod.get) \(process.url! + createUrlParams(params))")
             let loadFromNetwork: Bool = {
@@ -70,8 +71,9 @@ public class CSAlamofireClient: CSObject {
                 if networkReachability.isReachable { return true }
                 return false
             }()
+            let headers = headers.get { HTTPHeaders($0) }
             let request = manager.request(url: process.url!, method: .get, parameters: params,
-                    encoding: URLEncoding.default, refreshCache: loadFromNetwork)
+                    encoding: URLEncoding.default, headers: headers, refreshCache: loadFromNetwork)
             if let minutes = operation?.expireMinutes { request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
                     completionHandler: { self.onResponseDone(process, $0.response?.statusCode, $0.value, $0.error) },
