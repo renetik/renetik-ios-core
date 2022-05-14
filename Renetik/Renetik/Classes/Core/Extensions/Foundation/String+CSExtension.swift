@@ -19,7 +19,7 @@ public extension String {
         })
     }
 
-    func parseJsonObject() -> [String: Any?]? { parseJson() as? [String: Any?] }
+    func parseJsonObject() -> [String: CSAnyProtocol?]? { parseJson() as? [String: CSAnyProtocol?] }
 
     func parseJsonArray() -> [Any]? { parseJson() as? [Any] }
 

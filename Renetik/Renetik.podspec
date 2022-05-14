@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://renetik-software.github.io'
   s.ios.resource_bundle = { 'RenetikBundle' => 'Renetik/Resources/**/*'}
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '13.0'
 
 	s.default_subspecs = 'All'
 
