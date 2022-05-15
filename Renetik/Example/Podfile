@@ -20,7 +20,7 @@ target 'Renetik_Example' do
 	pod 'ARChromeActivity', '~> 1.0'
 	
 	pod 'RenetikObjc', :path => '../../RenetikObjc'	
-  pod 'Renetik', :path => '../'
+    pod 'Renetik', :path => '../'
 	
 
   target 'Renetik_Tests' do
