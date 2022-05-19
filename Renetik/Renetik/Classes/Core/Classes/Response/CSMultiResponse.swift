@@ -2,7 +2,7 @@
 // Created by Rene Dohan on 3/9/20.
 //
 
-import RenetikObjc
+import Foundation
 
 public class CSMultiResponse: CSResponse<NSMutableArray> {
 

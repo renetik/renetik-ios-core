@@ -6,7 +6,6 @@
 
 import UIKit
 import Renetik
-import RenetikObjc
 
 public extension UITabBar {
 

@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import RenetikObjc
+import BlocksKit
 
 private var associatedPropertyValuesKey: Void?
 

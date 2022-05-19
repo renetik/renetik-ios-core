@@ -5,7 +5,7 @@
 //  Created by Rene Dohan on 7/3/19.
 //
 
-import RenetikObjc
+import UIKit
 
 //TODO:  Make standalone library !!!
 public class CSNavigationHidingController: CSViewController {

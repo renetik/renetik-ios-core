@@ -7,140 +7,153 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'Renetik'
-  s.version          = '0.10'
-  s.summary          = 'Library for rapid development of iOS apps with readable code and pleasure.'
+  s.name = 'Renetik'
+  s.version = '0.11'
+  s.summary = 'Library for rapid development of iOS apps with readable code and pleasure.'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  # This description is used to generate tags and improve search results.
+  #   * Think: What does it do? Why did you write it? What is the focus?
+  #   * Try to keep it short, snappy and to the point.
+  #   * Write the description between the DESC delimiters below.
+  #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
+  s.description = <<-DESC
 		Library for rapid development of iOS apps with readable code and pleasure,
 		created out of passion to code my way and to improve readability of my codebase.
-                       DESC
+  DESC
 
-  s.homepage         = 'https://github.com/rene-dohan/renetik-ios'
+  s.homepage = 'https://github.com/rene-dohan/renetik-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'rene-dohan' => 'dohan.rene@gmail.com' }
-  s.source           = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
-												 :tag => s.version.to_s }
+  s.license = { :type => 'MIT', :file => 'LICENSE' }
+  s.author = { 'rene-dohan' => 'dohan.rene@gmail.com' }
+  s.source = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
+               :tag => s.version.to_s }
   s.social_media_url = 'https://renetik-software.github.io'
-  s.ios.resource_bundle = { 'RenetikBundle' => 'Renetik/Resources/**/*'}
+  s.ios.resource_bundle = { 'RenetikBundle' => 'Renetik/Resources/**/*' }
 
   s.ios.deployment_target = '13.0'
 
-	s.default_subspecs = 'All'
+  s.default_subspecs = 'Core'
 
-	s.subspec 'Core' do |ss|
-		ss.dependency 'RenetikObjc/Core'
-		ss.source_files = 'Renetik/Classes/Core/**/*'
-		ss.dependency 'UITextView+Placeholder', '~> 1'
-		ss.dependency 'MBProgressHUD', '~> 1'
-		ss.dependency 'ChameleonFramework', '~> 2'
-		ss.dependency 'TPKeyboardAvoiding', '~> 1'
-	end
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'Renetik/Classes/Core/**/*'
+    ss.dependency 'BlocksKit', '~> 2'
+    # ss.dependency 'RenetikObjc/Core'
+    # ss.dependency 'UITextView+Placeholder', '~> 1'
+    # ss.dependency 'MBProgressHUD', '~> 1'
+    # ss.dependency 'ChameleonFramework', '~> 2'
+    # ss.dependency 'TPKeyboardAvoiding', '~> 1'
+  end
 
-	s.subspec 'Alamofire' do |ss|
-		ss.dependency 'Alamofire', '~> 5'
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'Renetik/Json'
-		ss.dependency 'Renetik/Operation'
-		ss.source_files = 'Renetik/Classes/Alamofire/**/*'
-	end
+  s.subspec 'Extensions' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'RenetikObjc/Core'
+    ss.source_files = 'Renetik/Classes/Extensions/**/*'
+    ss.dependency 'UITextView+Placeholder', '~> 1'
+    ss.dependency 'MBProgressHUD', '~> 1'
+    ss.dependency 'ChameleonFramework', '~> 2' #https://github.com/fahidattique55/chameleon
+    ss.dependency 'TPKeyboardAvoiding', '~> 1'
+  end
 
-#    s.subspec 'AlamofireCached' do |ss|
-#		ss.dependency 'Renetik/Alamofire'
-#		ss.source_files = 'Renetik/Classes/AlamofireCached/**/*'
-#	end
+  s.subspec 'Alamofire' do |ss|
+    ss.dependency 'Alamofire', '~> 5'
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'Renetik/Json'
+    ss.dependency 'Renetik/Operation'
+    ss.source_files = 'Renetik/Classes/Alamofire/**/*'
+  end
 
-    s.subspec 'Operation' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.source_files = 'Renetik/Classes/Operation/**/*'
-	end
+  s.subspec 'AlamofireCached' do |ss|
+    ss.dependency 'Renetik/Alamofire'
+    ss.source_files = 'Renetik/Classes/AlamofireCached/**/*'
+  end
 
-    s.subspec 'Json' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.source_files = 'Renetik/Classes/Json/**/*'
-	end
+  s.subspec 'Operation' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.source_files = 'Renetik/Classes/Operation/**/*'
+  end
 
-	s.subspec 'CoreLocation' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.frameworks = 'CoreLocation'
-		ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
-	end
+  s.subspec 'Json' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.source_files = 'Renetik/Classes/Json/**/*'
+  end
 
-	s.subspec 'CocoaLumberjack' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'RenetikObjc/CocoaLumberjack'
-		ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
-	end
+  s.subspec 'CoreLocation' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.frameworks = 'CoreLocation'
+    ss.source_files = 'Renetik/Classes/CoreLocation/**/*'
+  end
 
-	s.subspec 'TableController' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'Renetik/Operation'
-		ss.dependency 'DZNEmptyDataSet','~> 1'
-		ss.dependency 'ChameleonFramework', '~> 2'
-		ss.source_files = 'Renetik/Classes/TableController/**/*'
-	end
+  s.subspec 'CocoaLumberjack' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'RenetikObjc/CocoaLumberjack'
+    ss.source_files = 'Renetik/Classes/CocoaLumberjack/**/*'
+  end
 
-	s.subspec 'AFNetworking' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
-		ss.dependency 'AFNetworking', '~> 4'
-	end
+  s.subspec 'TableController' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'Renetik/Operation'
+    ss.dependency 'DZNEmptyDataSet', '~> 1'
+    ss.dependency 'ChameleonFramework', '~> 2'
+    ss.source_files = 'Renetik/Classes/TableController/**/*'
+  end
 
-	s.subspec 'SDWebImage' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'SDWebImage', '~> 5'
-		ss.source_files = 'Renetik/Classes/SDWebImage/**/*'
-	end
+  s.subspec 'AFNetworking' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.source_files = 'Renetik/Classes/AFNetworking/**/*'
+    ss.dependency 'AFNetworking', '~> 4'
+  end
 
-	s.subspec 'CSNotification' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.source_files = 'Renetik/Classes/CSNotification/**/*'
-		ss.dependency 'RMessage', '~> 3'
-	end
+  s.subspec 'SDWebImage' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'SDWebImage', '~> 5'
+    ss.source_files = 'Renetik/Classes/SDWebImage/**/*'
+  end
 
-	s.subspec 'XLPagerTabStrip' do |ss|
-		ss.dependency 'Renetik/Core'
-        ss.dependency 'XLPagerTabStrip', '~> 9'
-		ss.source_files = 'Renetik/Classes/XLPagerTabStrip/**/*'
-	end
+  # To Replace With: https : // github.com / Daltron / NotificationBanner
+  s.subspec 'CSNotification' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.source_files = 'Renetik/Classes/CSNotification/**/*'
+    ss.dependency 'RMessage', '~> 3'
+  end
 
-	s.subspec 'DTCoreText' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'DTCoreText'
-		ss.dependency 'IDMPhotoBrowser'
-		ss.dependency 'ARChromeActivity'
-		ss.dependency 'TUSafariActivity'
-		ss.source_files = 'Renetik/Classes/DTCoreText/**/*'
-	end
+  s.subspec 'XLPagerTabStrip' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'XLPagerTabStrip', '~> 9'
+    ss.source_files = 'Renetik/Classes/XLPagerTabStrip/**/*'
+  end
 
-	s.subspec 'CSMaterial' do |ss|
-        ss.dependency 'Renetik/Core'
-        ss.dependency 'MaterialComponents', '~> 119'
-        ss.dependency 'BlocksKit', '~> 2'
-        ss.source_files = 'Renetik/Classes/CSMaterial/**/*'
-    end
+  s.subspec 'DTCoreText' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'DTCoreText'
+    ss.dependency 'IDMPhotoBrowser'
+    ss.dependency 'ARChromeActivity'
+    ss.dependency 'TUSafariActivity'
+    ss.source_files = 'Renetik/Classes/DTCoreText/**/*'
+  end
 
-    s.subspec 'All' do |ss|
-		ss.dependency 'Renetik/Core'
-		ss.dependency 'Renetik/Alamofire'
-#		ss.dependency 'Renetik/AlamofireCached'
-		ss.dependency 'Renetik/Json'
-		ss.dependency 'Renetik/Operation'
-		ss.dependency 'Renetik/CoreLocation'
-		ss.dependency 'Renetik/CocoaLumberjack'
-		ss.dependency 'Renetik/TableController'
-		ss.dependency 'Renetik/AFNetworking'
-		ss.dependency 'Renetik/SDWebImage'
-		ss.dependency 'Renetik/CSNotification'
-		ss.dependency 'Renetik/XLPagerTabStrip'
-		ss.dependency 'Renetik/DTCoreText'
-		ss.dependency 'Renetik/CSMaterial'
-	end
+  s.subspec 'CSMaterial' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'MaterialComponents', '~> 119'
+    ss.dependency 'BlocksKit', '~> 2'
+    ss.source_files = 'Renetik/Classes/CSMaterial/**/*'
+  end
+
+  s.subspec 'All' do |ss|
+    ss.dependency 'Renetik/Core'
+    ss.dependency 'Renetik/Extensions'
+    ss.dependency 'Renetik/Alamofire'
+    ss.dependency 'Renetik/AlamofireCached'
+    ss.dependency 'Renetik/Json'
+    ss.dependency 'Renetik/Operation'
+    ss.dependency 'Renetik/CoreLocation'
+    ss.dependency 'Renetik/CocoaLumberjack'
+    ss.dependency 'Renetik/TableController'
+    ss.dependency 'Renetik/AFNetworking'
+    ss.dependency 'Renetik/SDWebImage'
+    ss.dependency 'Renetik/CSNotification'
+    ss.dependency 'Renetik/XLPagerTabStrip'
+    ss.dependency 'Renetik/DTCoreText'
+    ss.dependency 'Renetik/CSMaterial'
+  end
 end

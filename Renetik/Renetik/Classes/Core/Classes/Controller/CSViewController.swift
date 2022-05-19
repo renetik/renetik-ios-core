@@ -4,7 +4,6 @@
 
 import UIKit
 import Renetik
-import RenetikObjc
 
 open class CSViewController: UIViewController {
     open func view() -> UIView { view }

@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public class CSArray<Type>: CSObject {
 

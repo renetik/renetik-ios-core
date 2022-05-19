@@ -2,7 +2,6 @@
 // Created by Rene Dohan on 3/8/20.
 //
 
-import AFNetworking
 import Foundation
 
 public protocol CSResponseProtocol: NSObjectProtocol {
@@ -37,7 +36,7 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
     var fromCacheIfPossible = false
     public weak var controller: UIViewController?
     var type: CSRequestType?
-    var form: ((_ formData: AFMultipartFormData) -> Void)?
+//    var form: ((_ formData: AFMultipartFormData) -> Void)?
 
     private let onFailedEvent: CSEvent<CSResponseProtocol> = event()
     private let onProgressEvent: CSEvent<Double> = event()

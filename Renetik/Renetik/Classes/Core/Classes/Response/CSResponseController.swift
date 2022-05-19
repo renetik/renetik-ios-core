@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import RenetikObjc
 
 public protocol CSResponseController {
     func show<T: AnyObject>(_ response: CSResponse<T>, _ title: String, _ progress: Bool, _ canCancel: Bool,

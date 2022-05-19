@@ -5,9 +5,7 @@
 //  Created by Rene Dohan on 2/19/19.
 //
 
-import Foundation
 import UIKit
-import RenetikObjc
 
 public extension UIViewController {
 

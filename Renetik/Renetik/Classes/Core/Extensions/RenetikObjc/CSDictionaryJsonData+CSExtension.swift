@@ -5,7 +5,6 @@
 //  Created by Rene Dohan on 7/10/19.
 //
 
-import RenetikObjc
 //
 //public extension CSDictionaryJsonData {
 //    public func loadArray<DataType: CSDictionaryJsonData>(

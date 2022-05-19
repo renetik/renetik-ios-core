@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public class CSSequenceResponse<Data: AnyObject>: CSResponse<Data> {
 

@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import RenetikObjc
 
 public extension UIImage {
 
@@ -100,7 +99,7 @@ public extension UIImage {
             bounds.size.width = bounds.size.height
             transform = CGAffineTransform(translationX: height, y: 0.0).rotated(by: .pi / 2.0)
         @unknown default:
-            NSException(name: "Invalid image orientation").raise()
+            NSException(reason: "Invalid image orientation").raise()
         }
 
         UIGraphicsBeginImageContext(bounds.size)

@@ -5,7 +5,7 @@
 //  Created by Rene Dohan on 2/20/19.
 //
 
-import RenetikObjc
+import Foundation
 
 //open class CSNameData: CSDictionaryJsonData {
 //    public var nameKey = "name"

@@ -4,11 +4,7 @@
 //  Created by Rene Dohan on 3/14/19.
 //
 
-import RenetikObjc
-
-struct Test {
-
-}
+import Foundation
 
 public class CSConcurrentResponse: CSResponse<NSMutableArray> {
 

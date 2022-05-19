@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import RenetikObjc
 
 public enum CSForcedOrientation: Int {
     case none

@@ -5,7 +5,6 @@
 import Foundation
 import UIKit
 import MBProgressHUD
-import RenetikObjc
 
 public class CSMBDialogController: NSObject, CSHasDialogProtocol, CSHasDialogVisible, MBProgressHUDDelegate {
 

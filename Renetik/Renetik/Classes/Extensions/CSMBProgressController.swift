@@ -4,7 +4,6 @@
 
 import Foundation
 import MBProgressHUD
-import ChameleonFramework
 
 public class CSMBProgressController: CSObject, CSHasProgressProtocol, CSHasDialogVisible {
 

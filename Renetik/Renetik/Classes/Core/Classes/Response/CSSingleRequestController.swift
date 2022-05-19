@@ -5,7 +5,6 @@
 
 import UIKit
 import Renetik
-import RenetikObjc
 
 public class CSSingleRequestController<Data: AnyObject>: CSViewController {
 
@@ -19,7 +18,7 @@ public class CSSingleRequestController<Data: AnyObject>: CSViewController {
     private var progressBlockedView: (CSResponseController & CSHasDialogProtocol)!
 
     public func construct(_ parent: UIViewController,
-                          _ progressBlockedView: (CSResponseController & CSHasDialogProtocol),
+                          _ progressBlockedView: CSResponseController & CSHasDialogProtocol,
                           _ request: @escaping () -> CSResponse<Data>) -> Self {
         super.construct(parent).asViewLess()
         self.progressBlockedView = progressBlockedView

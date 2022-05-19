@@ -3,8 +3,6 @@
 //
 
 import UIKit
-import RenetikObjc
-import BlocksKit
 
 public extension UITextView {
 

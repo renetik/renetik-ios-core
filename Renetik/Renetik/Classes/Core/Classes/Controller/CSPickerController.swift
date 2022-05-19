@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import RenetikObjc
 
 public class CSPickerController: CSViewController, CSPickerVisibleProtocol, UIPickerViewDelegate, UIPickerViewDataSource {
 

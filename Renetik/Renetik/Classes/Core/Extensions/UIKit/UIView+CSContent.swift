@@ -3,8 +3,6 @@
 //
 
 import UIKit
-import RenetikObjc
-import BlocksKit
 
 //private var viewContentPropertyKey: UInt8 = 0
 private var viewContentPropertyKey: Void?

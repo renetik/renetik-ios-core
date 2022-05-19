@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public extension String {
 

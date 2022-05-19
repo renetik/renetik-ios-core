@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public extension CSMainController {
     @discardableResult
@@ -19,7 +18,7 @@ public extension CSMainController {
     @discardableResult
     public func menu(title: String = "", image: UIImage? = nil,
                      type: UIBarButtonItem.SystemItem? = nil,
-                     onClick: (Func)? = nil) -> CSMenuItem {
+                     onClick: Func? = nil) -> CSMenuItem {
         menuAdd().item(with: title, type: type, image: image, action: { _ in onClick?() })
     }
 

@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import ChameleonFramework
 
 public class CSAlertDialogController: CSObject, CSHasDialogProtocol, CSHasDialogVisible, CSHasSheetProtocol {
 

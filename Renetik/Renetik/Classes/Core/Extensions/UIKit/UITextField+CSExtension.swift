@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import BlocksKit
 
 private let previousTextKey = "UITextField+CSExtension.swift:onTextChange:PreviousText"
 
@@ -127,7 +126,7 @@ public extension UITextField {
     }
 
     @discardableResult
-    func font(style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
+    func font(style: UIFont.TextStyle) -> Self { invoke { fontStyle = style } }
 
     var fontStyle: UIFont.TextStyle {
         get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }
@@ -138,9 +137,9 @@ public extension UITextField {
         associatedDictionary("UITextField+filters") {
             let filters = CSArray<CSInputFilterProtocol>()
             bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
-                if string.isNilOrEmpty { return true }
+                if string.isEmpty { return true }
                 for filter in filters.asArray {
-                    if !filter.filter(current: self.text ?? "", range: range, string: string!) { return false }
+                    if !filter.filter(current: self.text ?? "", range: range, string: string) { return false }
                 }
                 return true
             }

@@ -5,7 +5,7 @@
 //  Created by Rene Dohan on 2/20/19.
 //
 
-import RenetikObjc
+import UIKit
 
 public typealias CSNameRowType = CSNameProtocol & CustomStringConvertible & Equatable
 

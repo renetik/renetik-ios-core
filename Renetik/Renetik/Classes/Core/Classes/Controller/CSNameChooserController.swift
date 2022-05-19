@@ -6,7 +6,6 @@
 //
 
 import Renetik
-import RenetikObjc
 
 public class CSNameChooserController<RowType: CSNameRowType>: CSMainController
         , UITableViewDelegate, UITableViewDataSource {

@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public class CSDictionary<Key, Value>: CSObject {
 
@@ -11,9 +10,9 @@ public class CSDictionary<Key, Value>: CSObject {
 
     public var isEmpty: Bool { dictionary.count == 0 }
 
-    public func add(_ key: Key, _ value: Value) -> Value { dictionary.put("\(key)", value); return value }
+    public func add(_ key: Key, _ value: Value) -> Value { dictionary["\(key)"] = value; return value }
 
-    public func add(key: Key, value: Value) -> Value { dictionary.put("\(key)", value); return value }
+    public func add(key: Key, value: Value) -> Value { dictionary["\(key)"] = value; return value }
 
     public func value(_ key: Key) -> Value? { dictionary["\(key)"] as? Value }
 

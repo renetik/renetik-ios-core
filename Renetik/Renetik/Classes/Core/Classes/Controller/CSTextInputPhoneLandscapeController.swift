@@ -5,8 +5,7 @@
 
 import Foundation
 import UIKit
-import RenetikObjc
-import UITextView_Placeholder
+//import UITextView_Placeholder
 
 public protocol CSHasInputAccessory: NSObjectProtocol {
     var inputAccessoryView: UIView? { get set }

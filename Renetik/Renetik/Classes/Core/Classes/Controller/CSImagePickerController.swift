@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import RenetikObjc
 
 public protocol CSImagePickerListener {
     func imagePicker(controller: CSImagePickerController, didFinishPickingMedia data: [UIImagePickerController.InfoKey: Any])

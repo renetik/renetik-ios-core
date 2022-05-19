@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import RenetikObjc
 
 public typealias TagIndex = (startTagIndex: Int, endTagIndex: Int)
 
