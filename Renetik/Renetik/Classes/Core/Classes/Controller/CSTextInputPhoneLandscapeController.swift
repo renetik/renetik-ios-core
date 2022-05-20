@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+
 //import UITextView_Placeholder
 
 public protocol CSHasInputAccessory: NSObjectProtocol {
@@ -39,19 +40,20 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
         parentTextInput = textInput
         self.hasAccessory = hasAccessory
         accessoryTextInput = (hasAccessory?.inputAccessoryView as? CSHasTextInput)?.textInput
-        textView.placeholder = placeHolder
+//        textView.placeholder = placeHolder //TODO
         textView.inputAccessoryView = defaultAccessoryView.construct(hideImage)
         keyboardManager.construct(self) { [unowned self] _ in onKeyboardChange() }
         action.notNil { [unowned self] action in
-            action.title.notNil { actionButton.text($0).resizeToFit() }
-            action.image.notNil { actionButton.image($0).size(40) }
-            actionButton.onClick {
-                parentTextInput.text = textView.text
-                action.function()
-            }
-        }.elseDo {
-            actionButton.size(0)
-        }
+                    action.title.notNil { actionButton.text($0).resizeToFit() }
+                    action.image.notNil { actionButton.image($0).size(40) }
+                    actionButton.onClick {
+                        parentTextInput.text = textView.text
+                        action.function()
+                    }
+                }
+                .elseDo {
+                    actionButton.size(0)
+                }
         return self
     }
 

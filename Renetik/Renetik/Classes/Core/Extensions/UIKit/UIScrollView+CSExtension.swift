@@ -1,10 +1,3 @@
-//
-//  UIScrollView+CSExtension.swift
-//  Renetik
-//
-//  Created by Rene Dohan on 3/6/19.
-//
-
 import UIKit
 
 public extension UIScrollView {
@@ -12,7 +5,7 @@ public extension UIScrollView {
     class func construct(verticalContent: Bool) -> Self {
         verticalContent ? Self.construct(defaultSize: true).also {
             $0.content(vertical: CSView.construct())
-        }: Self.construct()
+        } : Self.construct()
     }
 
     class func construct(horizontalContent: Bool) -> Self {
@@ -145,26 +138,5 @@ public extension UIScrollView {
 
     func currentPageIndex(from: Int) -> Int {
         lround(Double(contentOffset.x / (contentSize.width / CGFloat(from))))
-    }
-}
-
-public extension CSScrollView {
-
-    @discardableResult
-    func layout<View: UIView>(footer view: View, margin: CGFloat, function: @escaping ArgFunc<View>) -> View {
-        layout { [unowned self] in
-            function(view)
-            if view.bottom < safeHeight {
-                view.flexibleTop().from(safeBottom: 0) //navigation.navigationBar.bottom
-            } else {
-                contentSize(height: view.bottom)
-            }
-        }
-        return view
-    }
-
-    @discardableResult
-    func layout<View: UIView>(footer view: View, margin: CGFloat) -> View {
-        layout(footer: view, margin: margin) { $0.fromPrevious(top: margin).heightToFit() }
     }
 }

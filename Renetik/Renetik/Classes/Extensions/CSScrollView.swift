@@ -64,3 +64,24 @@ open class CSScrollView: TPKeyboardAvoidingScrollView, CSHasLayoutProtocol {
     @discardableResult
     public func updateLayout() -> Self { animate { self.layoutFunctions.fire() }; return self }
 }
+
+public extension CSScrollView {
+
+    @discardableResult
+    func layout<View: UIView>(footer view: View, margin: CGFloat, function: @escaping ArgFunc<View>) -> View {
+        layout { [unowned self] in
+            function(view)
+            if view.bottom < safeHeight {
+                view.flexibleTop().from(safeBottom: 0) //navigation.navigationBar.bottom
+            } else {
+                contentSize(height: view.bottom)
+            }
+        }
+        return view
+    }
+
+    @discardableResult
+    func layout<View: UIView>(footer view: View, margin: CGFloat) -> View {
+        layout(footer: view, margin: margin) { $0.fromPrevious(top: margin).heightToFit() }
+    }
+}

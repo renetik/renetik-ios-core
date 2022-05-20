@@ -17,12 +17,6 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
     public var navigation: CSNavigationController!
     public var window: UIWindow?
 
-//    public func setup(logger: CSLoggerProtocol = NSCSLogger(toast: false),
-//                      navigation: CSNavigationController = CSNavigationController()) {
-//        self.logger = logger
-//        self.navigation = navigation
-//    }
-
     public func application(_ application: UIApplication,
                             _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                             logger: CSLoggerProtocol = NSCSLogger(),

@@ -24,7 +24,7 @@ public extension CSAnyProtocol {
     }
 
     @discardableResult
-    public func then(_ function: (Self) -> Void)  {
+    public func then(_ function: (Self) -> Void) {
         function(self)
     }
 
@@ -77,6 +77,11 @@ public extension CSAnyProtocol where Self: AnyObject {
 }
 
 public extension CSAnyProtocol where Self: NSObject {
+
+    static func className() -> String { description() }
+
+    func className() -> String { type(of: self).description() }
+
     public func equals(any objects: NSObject...) -> Bool {
         if objects.contains(self) { return true }; return false
     }

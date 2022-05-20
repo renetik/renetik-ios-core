@@ -12,6 +12,8 @@ public extension UIFont {
         UIFont(descriptor: fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))!, size: 0)
     }
 
+    func serif() -> UIFont { withTraits(.classModernSerifs) }
+
     func bold() -> UIFont { withTraits(.traitBold) }
 
     func normal() -> UIFont { withTraits() }

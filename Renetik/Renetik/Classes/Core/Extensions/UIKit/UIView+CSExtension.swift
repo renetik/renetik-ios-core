@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import BlocksKit
 
 public extension UIView {
 
@@ -83,7 +84,7 @@ public extension UIView {
     func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
 
     @discardableResult
-    func tint(color: UIColor) -> Self { self.tintColor = color; return self }
+    func tint(color: UIColor) -> Self { tintColor = color; return self }
 
     @discardableResult
     func rotate(angle: CGFloat) -> Self { transform = CGAffineTransform(rotationAngle: angle); return self }

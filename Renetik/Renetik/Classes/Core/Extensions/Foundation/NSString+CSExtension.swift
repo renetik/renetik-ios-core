@@ -1,7 +1,3 @@
-//
-// Created by Rene Dohan on 2019-01-21.
-//
-
 import Foundation
 
 public extension NSString {
@@ -21,4 +17,9 @@ public extension NSString {
                 length: substringLength < length ? substringLength : length))
     }
 
+    func trim() -> String { trimmingCharacters(in: .whitespacesAndNewlines) }
+
+    func containsNoCase(_ string: String) -> Boolean {
+        range(of: string, options: .caseInsensitive).location != NSNotFound
+    }
 }

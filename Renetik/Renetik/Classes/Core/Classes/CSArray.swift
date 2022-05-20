@@ -8,7 +8,7 @@ public class CSArray<Type>: CSObject {
 
     let array = NSMutableArray()
 
-    public var isEmpty: Bool { array.empty }
+    public var isEmpty: Bool { array.isEmpty }
 
     public var isSet: Bool { !isEmpty }
 

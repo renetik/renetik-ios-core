@@ -88,7 +88,7 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 
 - (instancetype)add:(NSObject *)first {
     if (!first)return self;
-    NSString *description = first.description;
+    NSString * description = first.description;
     if (description) return [self stringByAppendingString:description];
     return self;
 }
@@ -196,7 +196,7 @@ static NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-- (id)jsonValue {
+- (nullable id)jsonValue {
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding]
                                            options:NSJSONReadingMutableContainers | NSJSONReadingAllowFragments
                                              error:nil];

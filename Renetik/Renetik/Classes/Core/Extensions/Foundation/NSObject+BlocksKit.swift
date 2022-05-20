@@ -14,15 +14,15 @@ public extension NSObject {
     }
 
     func associatedDictionary<T>(_ key: String, onCreate: () -> T) -> T {
-        var object: T? = associatedDictionary.get(key) as? T
+        var object: T? = associatedDictionary[key] as? T
         if object == nil {
             object = onCreate()
-            associatedDictionary.put(key, object)
+            associatedDictionary(key, object)
         }
         return object!
     }
 
-    func associatedDictionary<T>(_ key: String, _ value: T) { associatedDictionary.put(key, value) }
+    func associatedDictionary<T>(_ key: String, _ value: T) { associatedDictionary[key] = value }
 
     private func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
         var object: T? = associatedValue(key) as? T

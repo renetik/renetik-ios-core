@@ -106,3 +106,15 @@ public extension Array where Element: CSSearchNameProtocol, Element: CustomStrin
         return self
     }
 }
+
+extension NSArray {
+    var isEmpty: Bool { count == 0 }
+}
+
+extension NSMutableArray {
+    func reload(_ array: [Any]) -> Self {
+        removeAllObjects()
+        addObjects(from: array)
+        return self
+    }
+}

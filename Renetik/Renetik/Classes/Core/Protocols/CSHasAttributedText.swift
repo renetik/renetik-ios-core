@@ -34,7 +34,7 @@ public extension CSHasAttributedTextProtocol
     @discardableResult
     func text(html text: String) -> Self {
         let html = """
-                   <html><body style="color:\(textColor!.hexValue()!); 
+                   <html><body style="color:\(textColor!.hex); 
                                 font-family:\(font()!.fontName); 
                                 font-size:\(font()!.pointSize);">\(text)</body></html>
                    """
