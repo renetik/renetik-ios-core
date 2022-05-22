@@ -9,51 +9,51 @@ private var associatedPropertyValuesKey: Void?
 
 public extension NSObject {
 
-    var associatedDictionary: NSMutableDictionary {
-        associatedValue(&associatedPropertyValuesKey) { NSMutableDictionary() }
-    }
+	var associatedDictionary: NSMutableDictionary {
+		associatedValue(&associatedPropertyValuesKey) { NSMutableDictionary() }
+	}
 
-    func associatedDictionary<T>(_ key: String, onCreate: () -> T) -> T {
-        var object: T? = associatedDictionary.get(key) as? T
-        if object == nil {
-            object = onCreate()
-            associatedDictionary.put(key, object)
-        }
-        return object!
-    }
+	func associatedDictionary<T>(_ key: String, onCreate: () -> T) -> T {
+		var object: T? = associatedDictionary.get(key) as? T
+		if object == nil {
+			object = onCreate()
+			associatedDictionary.put(key, object)
+		}
+		return object!
+	}
 
-    func associatedDictionary<T>(_ key: String, _ value: T) { associatedDictionary.put(key, value) }
+	func associatedDictionary<T>(_ key: String, _ value: T) { associatedDictionary.put(key, value) }
 
-    private func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
-        var object: T? = associatedValue(key) as? T
-        if object == nil {
-            object = onCreate()
-            associateValue(key, object)
-        }
-        return object!
-    }
+	func associatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+		var object: T? = associatedValue(key) as? T
+		if object == nil {
+			object = onCreate()
+			associateValue(key, object)
+		}
+		return object!
+	}
 
-    func weaklyAssociatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
-        var object: T? = associatedValue(key) as? T
-        if object == nil {
-            object = onCreate()
-            weaklyAssociateValue(key, object)
-        }
-        return object!
-    }
+	func weaklyAssociatedValue<T: NSObject>(_ key: UnsafeRawPointer!, onCreate: () -> T) -> T {
+		var object: T? = associatedValue(key) as? T
+		if object == nil {
+			object = onCreate()
+			weaklyAssociateValue(key, object)
+		}
+		return object!
+	}
 
-    func associatedValue(_ key: UnsafeRawPointer!) -> Any? {
-        bk_associatedValue(forKey: key)
-    }
+	func associatedValue(_ key: UnsafeRawPointer!) -> Any? {
+		bk_associatedValue(forKey: key)
+	}
 
-    func associateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
-        bk_associateValue(value, withKey: key)
-        return self
-    }
+	func associateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+		bk_associateValue(value, withKey: key)
+		return self
+	}
 
-    func weaklyAssociateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
-        bk_weaklyAssociateValue(value, withKey: key)
-        return self
-    }
+	func weaklyAssociateValue(_ key: UnsafeRawPointer!, _ value: Any?) -> Self {
+		bk_weaklyAssociateValue(value, withKey: key)
+		return self
+	}
 
 }

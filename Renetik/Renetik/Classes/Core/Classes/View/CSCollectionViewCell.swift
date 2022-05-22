@@ -6,7 +6,7 @@ import UIKit
 
 open class CSCollectionViewCell: UICollectionViewCell {
 
-    private let layoutFunctions: CSEvent<Void> = event()
+//    private let layoutFunctions: CSEvent<Void> = event()
 
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
@@ -25,10 +25,10 @@ open class CSCollectionViewCell: UICollectionViewCell {
     override open func layoutSubviews() {
         super.layoutSubviews()
         onLayoutSubviews()
-        updateLayout()
+//        updateLayout()
     }
 
-    open func onLayoutSubviews() {}
+//    open func onLayoutSubviews() {}
 
-    private func updateLayout() { layoutFunctions.fire() }
+//    private func updateLayout() { layoutFunctions.fire() }
 }
