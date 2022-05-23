@@ -17,18 +17,6 @@ open class CSScrollView: TPKeyboardAvoidingScrollView {
 		return _self
 	}
 
-//    public let layoutFunctions: CSEvent<Void> = event()
-//	public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
-
-//	@discardableResult
-//	public func layout(function: @escaping Func) -> Self {
-//		layoutFunctions.listen { function() }
-//		function()
-//		return self
-//	}
-
-//	private var isDidLayoutSubviews = false
-
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		onLayoutSubviews()

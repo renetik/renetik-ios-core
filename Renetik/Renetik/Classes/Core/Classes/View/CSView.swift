@@ -24,22 +24,10 @@ open class CSView: UIControl {
         return self
     }
 
-//    open func onCreateLayout() {}
-
-//    open func onLayoutCreated() {}
-
-//    public let layoutFunctions: CSEvent<Void> = event()
-
     override open func layoutSubviews() {
         super.layoutSubviews()
-//        layoutFunctions.fire()
         onLayoutSubviews()
     }
-
-//    open func onLayoutSubviews() {}
-
-//    @discardableResult
-//    public override func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     @discardableResult
     open override func heightToFit() -> Self {

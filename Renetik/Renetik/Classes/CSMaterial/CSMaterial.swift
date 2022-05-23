@@ -84,13 +84,6 @@ open class CSMaterialControl: UIControl {
 		return self
 	}
 
-//	open func onCreateLayout() {}
-
-//	open func onLayoutCreated() {}
-
-//    public let layoutFunctions: CSEvent<Void> = event()
-//    public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
-
 	@discardableResult
 	public func layout(function: @escaping Func) -> Self {
 		layoutFunctions.listen { function() }
@@ -105,19 +98,10 @@ open class CSMaterialControl: UIControl {
 		return self
 	}
 
-//    private var isDidLayoutSubviews = false
-
 	override open func layoutSubviews() {
 		super.layoutSubviews()
-//        layoutFunctions.fire()
-//        onLayoutSubviews()
 		onLayoutSubviews()
 	}
-
-//	open func onLayoutSubviews() {}
-
-//    @discardableResult
-//    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
 	@discardableResult
 	open override func heightToFit() -> Self {

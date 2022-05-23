@@ -68,13 +68,14 @@ public extension UIScrollView {
 	@discardableResult
 	func content(height: CGFloat) -> Self {
 		content!.height = height
-//        if content!.height <= self.height { // ??? TODO: Was Needed For What ?
+//TODO: Was Needed For What? bouncing? not needed?
+//        if content!.height <= self.height {
 //            content!.height = self.height
 //            isScrollEnabled = false
 //        } else {
 //            isScrollEnabled = true
-		contentSize(height: content!.bottom)
 //        }
+		contentSize(height: content!.bottom)
 		return self
 	}
 
