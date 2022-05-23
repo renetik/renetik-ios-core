@@ -201,7 +201,7 @@ public extension UIView {
     @discardableResult
     @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
 
-//     heightThatFitsSubviews cannot be used because this needs to shift subviews too
+//     heightToFitSubviews cannot be used because this needs to shift subviews too
     @discardableResult
     @objc open func heightToFit() -> Self {
         if content.notNil {

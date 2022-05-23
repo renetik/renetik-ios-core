@@ -17,11 +17,13 @@ public extension UIScreen {
     public class var isZoomed: Bool { main.nativeScale >= main.scale }
     public class var isRetina: Bool { main.scale >= 2.0 }
     public class var orientation: UIInterfaceOrientation {
-        delegate.window?.rootViewController?.get { $0.interfaceOrientation }
-                ?? UIApplication.shared.statusBarOrientation
+        UIApplication.shared.delegate?.window??.rootViewController?.interfaceOrientation ??
+            UIApplication.shared.statusBarOrientation
     }
     public class var isPortrait: Bool { orientation.isPortrait }
     public class var isLandscape: Bool { !isPortrait }
+    public class var isLandscapeLeft: Bool { orientation == .landscapeLeft }
+    public class var isLandscapeRight: Bool { orientation == .landscapeRight }
     public class var isThin: Bool { isPortrait && UIDevice.isPhone }
     public class var isUltraThin: Bool { isPortrait && UIScreen.width <= 375 }
     public class var isWide: Bool { !isThin }

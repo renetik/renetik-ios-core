@@ -7,17 +7,17 @@ import UIKit
 public extension UIView {
 
     @discardableResult
-    func add<View: UIView>(view: View, _ apply: ((View) -> ())? = nil) -> View {
+    func add<View: UIView>(view: View, onCreate: ((View) -> ())? = nil) -> View {
         content?.addSubview(view) ?? addSubview(view)
-        apply?(view)
+        onCreate?(view)
         return view
     }
 
     @discardableResult
-    func add<View: UIView>(before view: View, _ apply: ((View) -> ())? = nil) -> View {
+    func add<View: UIView>(before view: View, onCreate: ((View) -> ())? = nil) -> View {
         let index = (content?.subviews.count ?? subviews.count) - 1
         content?.insertSubview(view, at: index) ?? insertSubview(view, at: index)
-        apply?(view)
+        onCreate?(view)
         return view
     }
 
@@ -35,7 +35,7 @@ public extension UIView {
 
     public func hideIn() {
         animate(duration: .defaultAnimation, operation: { [unowned self] in bottom = -5 },
-                completion: { [unowned self] in removeFromSuperview() })
+            completion: { [unowned self] in removeFromSuperview() })
     }
 
     @discardableResult
@@ -62,7 +62,7 @@ public extension UIView {
     func findPrevious(of subview: UIView, skipHidden: Bool = true) -> UIView? {
         if subviews.index(of: subview).isNil { fatalError() }
         return skipHidden ? findVisibleSubviewBackwards(from: subviews.index(of: subview)! - 1)
-                : subviews.previous(of: subview)
+            : subviews.previous(of: subview)
     }
 
     var lastVisibleSubview: UIView? { findVisibleSubviewBackwards(from: subviews.lastIndex) }
@@ -106,7 +106,7 @@ public extension UIView {
     @discardableResult
     func addBottomSeparator(height: CGFloat = 0.5, color: UIColor = .darkGray) -> UIView {
         add(view: UIView.construct()).height(height).from(bottom: 0).matchParentWidth()
-                .flexibleTop().fixedBottom().background(color)
+            .flexibleTop().fixedBottom().background(color)
     }
 
     @objc open var isEmpty: Bool { subviews.isEmpty }

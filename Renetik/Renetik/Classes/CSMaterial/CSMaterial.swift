@@ -58,7 +58,7 @@ public class CSMaterialLabel: UILabel {
     }
 }
 
-open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
+open class CSMaterialControl: UIControl {
 
     @discardableResult
     public override class func construct(defaultSize: Bool = true) -> Self {
@@ -84,13 +84,6 @@ open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
         return self
     }
 
-    open func onCreateLayout() {}
-
-    open func onLayoutCreated() {}
-
-    public let layoutFunctions: CSEvent<Void> = event()
-    public let eventLayoutSubviewsFirstTime: CSEvent<Void> = event()
-
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
         layoutFunctions.listen { function() }
@@ -105,28 +98,10 @@ open class CSMaterialControl: UIControl, CSHasLayoutProtocol {
         return self
     }
 
-    @discardableResult
-    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.listen {
-            view.layoutSubviews()
-            function(view)
-        }
-        function(view)
-        return view
-    }
-
-    private var isDidLayoutSubviews = false
-
     override open func layoutSubviews() {
         super.layoutSubviews()
-        layoutFunctions.fire()
         onLayoutSubviews()
     }
-
-    open func onLayoutSubviews() {}
-
-    @discardableResult
-    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     @discardableResult
     open override func heightToFit() -> Self {

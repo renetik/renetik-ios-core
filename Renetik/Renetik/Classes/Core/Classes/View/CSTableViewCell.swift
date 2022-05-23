@@ -11,8 +11,6 @@ public protocol CSTableHeightCalculatingCell {
 
 open class CSTableViewCell: UITableViewCell {
 
-    let layoutFunctions: CSEvent<Void> = event()
-
     @discardableResult
     public func layout(function: @escaping Func) -> Self {
         layoutFunctions.listen { function() }
@@ -30,12 +28,7 @@ open class CSTableViewCell: UITableViewCell {
     override open func layoutSubviews() {
         super.layoutSubviews()
         onLayoutSubviews()
-        updateLayout()
     }
-
-    private func onLayoutSubviews() {}
-
-    public func updateLayout() { layoutFunctions.fire() }
 
     override open var reuseIdentifier: String? {
         if super.reuseIdentifier.notNil { return super.reuseIdentifier }

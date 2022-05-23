@@ -1,14 +1,10 @@
-//
-// Created by Rene Dohan on 1/25/20.
-//
-
 import UIKit
 
-public extension UITextView {
+public enum CSVerticalAlign { case top; case center; case bottom }
 
-//    class func construct(_ text: String) -> Self { construct().text(text) }
-//
-//    class func construct(text: String) -> Self { construct().text(text) }
+let labelForDefaultFont = UILabel()
+
+public extension UITextView {
 
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 
@@ -35,9 +31,44 @@ public extension UITextView {
     func detect(_ data: UIDataDetectorTypes) -> Self { detectData(data) }
 
     @discardableResult
+    func padding(vertical value: Int) -> Self {
+        heightToFit().add(height: CGFloat(value * 2)).alignContentCenter()
+        return self
+    }
+
+    @discardableResult
+    func textVertical(align: CSVerticalAlign) -> Self {
+        switch align {
+        case .top: alignContentTop()
+        case .center: alignContentCenter()
+        case .bottom: alignContentBottom()
+        }
+        return self;
+    }
+
+    func alignContentCenter() -> Self {
+        let usedRect = layoutManager.usedRect(for: textContainer)
+        let topInset = (bounds.size.height - usedRect.height) / 2.0
+        textContainerInset.top = max(0, topInset)
+        return self
+    }
+
+    func alignContentBottom() -> Self {
+        let usedRect = layoutManager.usedRect(for: textContainer)
+        let topInset = bounds.size.height - usedRect.height
+        textContainerInset.top = max(0, topInset)
+        return self
+    }
+
+    func alignContentTop() -> Self {
+        textContainerInset.top = 0
+        return self
+    }
+
+    @discardableResult
     override public func onTap(_ block: @escaping Func) -> Self {
-        self.isEditable = false
-        self.isSelectable = false
+        isEditable = false
+        isSelectable = false
         super.onTap(block)
         return self
     }
@@ -75,11 +106,13 @@ public extension UITextView {
         contentInsetAdjustmentBehavior = .never
         textContainer.lineFragmentPadding = 0
         layoutManager.usesFontLeading = false
+        font(labelForDefaultFont.font)
+        textContainer.lineBreakMode = .byTruncatingTail
         return self
     }
 
     @discardableResult
-    func text(align: NSTextAlignment) -> Self { invoke { self.textAlignment = align } }
+    func text(align: NSTextAlignment) -> Self { invoke { textAlignment = align } }
 }
 
 extension UITextView: CSHasTextProtocol {

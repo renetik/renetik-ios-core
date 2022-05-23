@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class CSView: UIControl, CSHasLayoutProtocol {
+open class CSView: UIControl {
 
     @discardableResult
     public class func construct() -> Self { construct(defaultSize: true) }
@@ -24,46 +24,10 @@ open class CSView: UIControl, CSHasLayoutProtocol {
         return self
     }
 
-    open func onCreateLayout() {}
-
-    open func onLayoutCreated() {}
-
-    public let layoutFunctions: CSEvent<Void> = event()
-
-    @discardableResult
-    public func layout(function: @escaping Func) -> Self {
-        layoutFunctions.listen { function() }
-        function()
-        return self
-    }
-
-    @discardableResult
-    public func layout(function: @escaping (Self) -> Void) -> Self {
-        layoutFunctions.listen { [unowned self] in function(self) }
-        function(self)
-        return self
-    }
-
-    @discardableResult
-    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.listen {
-            view.layoutSubviews()
-            function(view)
-        }
-        function(view)
-        return view
-    }
-
     override open func layoutSubviews() {
         super.layoutSubviews()
-        layoutFunctions.fire()
         onLayoutSubviews()
     }
-
-    open func onLayoutSubviews() {}
-
-    @discardableResult
-    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     @discardableResult
     open override func heightToFit() -> Self {
