@@ -53,6 +53,7 @@ extension UIView: CSHasLayoutProtocol {
 
     @objc open func onUpdateLayout() {}
 
+    @discardableResult
     @objc open func updateLayout() -> Self { layoutFunctions.fire(); return self }
 }
 
@@ -118,13 +119,13 @@ public extension CSHasLayoutProtocol where Self: UIView {
 
     static func row(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> Self {
         Self.construct().also { container in
-                    container.layout(container.add(view: leftView).from(left: 0)) {
-                        $0.centeredVertical()
-                    }
-                    container.layout(container.add(view: rightView).fromPrevious(left: margin)) {
-                        $0.resizeToFit().centeredVertical()
-                    }
-                }.resizeToFit()
+            container.layout(container.add(view: leftView).from(left: 0)) {
+                $0.centeredVertical()
+            }
+            container.layout(container.add(view: rightView).fromPrevious(left: margin)) {
+                $0.resizeToFit().centeredVertical()
+            }
+        }.resizeToFit()
     }
 
     func row(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> UIView {
@@ -148,11 +149,11 @@ public extension CSHasLayoutProtocol where Self: UIView {
 
     static func row(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> Self {
         Self.construct().also { container in
-                    container.add(view: rightView).from(right: 0).centeredVertical()
-                    container.layout(container.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
-                        $0.heightToFit().centeredVertical()
-                    }
-                }.resizeToFit()
+            container.add(view: rightView).from(right: 0).centeredVertical()
+            container.layout(container.add(view: leftView).from(left: 0).fill(to: rightView, right: margin)) {
+                $0.heightToFit().centeredVertical()
+            }
+        }.resizeToFit()
     }
 
     func row(flexible leftView: UIView, margin: CGFloat = 0, fixed rightView: UIView) -> CSView {
@@ -161,25 +162,25 @@ public extension CSHasLayoutProtocol where Self: UIView {
 
     static func row(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
         Self.construct(defaultSize: true).also { container in
-                    container.add(view: leftView).from(left: 0).centeredVertical()
-                    container.layout(container.add(view: rightView).fromPrevious(left: margin).flex(right: 0)) {
-                        $0.heightToFit().centeredVertical()
-                    }
-                }.resizeToFit()
+            container.add(view: leftView).from(left: 0).centeredVertical()
+            container.layout(container.add(view: rightView).fromPrevious(left: margin).flex(right: 0)) {
+                $0.heightToFit().centeredVertical()
+            }
+        }.resizeToFit()
     }
 
-    func wrap(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> CSView {
+    func row(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> CSView {
         CSView.row(fixed: leftView, margin: margin, flexible: rightView)
     }
 
     static func column(top topView: UIView, margin: CGFloat = 0, bottom bottomView: UIView) -> Self {
         Self.construct(defaultSize: true).also { container in
-                    container.layout(container.add(view: topView).from(top: 0).matchParentWidth()) {
-                        $0.heightToFit()
-                    }
-                    container.layout(container.add(view: bottomView).matchParentWidth()) {
-                        $0.fromPrevious(top: margin).heightToFit()
-                    }
-                }.resizeToFit()
+            container.layout(container.add(view: topView).from(top: 0).matchParentWidth()) {
+                $0.heightToFit()
+            }
+            container.layout(container.add(view: bottomView).matchParentWidth()) {
+                $0.fromPrevious(top: margin).heightToFit()
+            }
+        }.resizeToFit()
     }
 }

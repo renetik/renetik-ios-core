@@ -166,17 +166,17 @@ public extension UIView {
         if isVisible && alpha == 1 { onDone?(); return }
         show()
         UIView.animate(withDuration: duration, delay: 0,
-                options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { [unowned self] in alpha = 1 },
-                completion: { _ in onDone?() })
+            options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
+            animations: { [unowned self] in alpha = 1 },
+            completion: { _ in onDone?() })
     }
 
     func fadeOut(duration: TimeInterval = .defaultAnimation, onDone: Func? = nil) {
         if isHidden || alpha == 0 { onDone?(); return }
         UIView.animate(withDuration: duration, delay: 0,
-                options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
-                animations: { [unowned self] in alpha = 0 },
-                completion: { [unowned self] isFinished in if isFinished { alpha = 1; hide() }; onDone?() })
+            options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState],
+            animations: { [unowned self] in alpha = 0 },
+            completion: { [unowned self] isFinished in if isFinished { alpha = 1; hide() }; onDone?() })
     }
 
     @discardableResult

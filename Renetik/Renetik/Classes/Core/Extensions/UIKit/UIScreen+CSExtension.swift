@@ -22,8 +22,8 @@ public extension UIScreen {
     }
     public class var isPortrait: Bool { orientation.isPortrait }
     public class var isLandscape: Bool { !isPortrait }
-    public class var isLandscapeLeft: Bool { orientation == .landscapeLeft }
-    public class var isLandscapeRight: Bool { orientation == .landscapeRight }
+    public class var isLandscapeLeft: Bool { UIApplication.shared.statusBarOrientation == .landscapeLeft }
+    public class var isLandscapeRight: Bool { UIApplication.shared.statusBarOrientation == .landscapeRight }
     public class var isThin: Bool { isPortrait && UIDevice.isPhone }
     public class var isUltraThin: Bool { isPortrait && UIScreen.width <= 375 }
     public class var isWide: Bool { !isThin }

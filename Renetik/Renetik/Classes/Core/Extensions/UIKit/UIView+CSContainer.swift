@@ -113,14 +113,14 @@ public extension UIView {
 }
 
 public extension UIView {
-    static func wrap(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> Self {
+    static func row(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> Self {
         Self.construct().also {
             $0.add(view: leftView).from(left: 0).centeredVertical()
             $0.add(view: rightView).fromPrevious(left: margin).centeredVertical()
         }.resizeToFit()
     }
 
-    func wrap(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> CSView {
-        CSView.wrap(left: leftView, margin: margin, right: rightView)
+    func row(left leftView: UIView, margin: CGFloat = 0, right rightView: UIView) -> CSView {
+        CSView.row(left: leftView, margin: margin, right: rightView)
     }
 }
