@@ -61,13 +61,44 @@ public protocol CSLayoutItemProtocol {
 }
 
 public extension CSHasLayoutProtocol where Self: UIView {
+
 	@discardableResult
-	public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
+	public func add<View: UIView>(view: View,
+	                              onCreate: ArgFunc<View>? = nil,
+	                              onLayout: @escaping ArgFunc<View>) -> View {
+		add(view: view)
+		onCreate?(view)
 		layoutFunctions.listen {
 			view.layoutSubviews()
-			function(view)
+			onLayout(view)
 		}
-		function(view)
+		view.layoutSubviews()
+		onLayout(view)
+		return view
+	}
+
+	@discardableResult
+	public func add<View: UIView>(view: View,
+	                              onCreate: Func? = nil,
+	                              onLayout: @escaping Func) -> View {
+		add(view: view)
+		onCreate?()
+		layoutFunctions.listen {
+			view.layoutSubviews()
+			onLayout()
+		}
+		view.layoutSubviews()
+		onLayout()
+		return view
+	}
+
+	@discardableResult
+	public func layout<View: UIView>(_ view: View, onLayout: @escaping (View) -> Void) -> View {
+		layoutFunctions.listen {
+			view.layoutSubviews()
+			onLayout(view)
+		}
+		onLayout(view)
 		return view
 	}
 
