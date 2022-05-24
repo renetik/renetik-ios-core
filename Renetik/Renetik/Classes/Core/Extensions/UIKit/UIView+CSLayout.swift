@@ -40,7 +40,7 @@ public extension UIView {
     func fromPrevious(top: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
         superview!.findPrevious(of: self).notNil { from($0, top: top) }
-                .elseDo { from(top: 0) }
+            .elseDo { from(top: 0) }
         return self
     }
 
@@ -48,7 +48,7 @@ public extension UIView {
     func fromPrevious(bottom: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
         superview!.findPrevious(of: self).notNil { from($0, bottom: bottom) }
-                .elseDo { from(bottom: 0) }
+            .elseDo { from(bottom: 0) }
         return self
     }
 
@@ -75,7 +75,7 @@ public extension UIView {
 
     @discardableResult
     func from(_ view: UIView?, right: CGFloat)
-                    -> Self { from(right: view?.get { $0.leftFromRight + right } ?? right) }
+        -> Self { from(right: view?.get { $0.leftFromRight + right } ?? right) }
 
     @discardableResult
     func from(bottom: CGFloat) -> Self { invoke { self.fromBottom = bottom; fixedBottom() } }
@@ -94,7 +94,7 @@ public extension UIView {
 
     @discardableResult
     func from(_ view: UIView?, bottom: CGFloat)
-                    -> Self { from(bottom: view?.get { $0.topFromBottom + bottom } ?? bottom) }
+        -> Self { from(bottom: view?.get { $0.topFromBottom + bottom } ?? bottom) }
 
     @discardableResult
     func from(bottomRight: CGFloat) -> Self { from(bottom: bottomRight, right: bottomRight) }

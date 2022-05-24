@@ -55,6 +55,10 @@ extension UIView: CSHasLayoutProtocol {
 
     @discardableResult
     @objc open func updateLayout() -> Self { layoutFunctions.fire(); return self }
+
+    public func updateLayoutLater() {
+        later(seconds: 0.05) { [unowned self] in updateLayout() }
+    }
 }
 
 public protocol CSLayoutItemProtocol {
@@ -63,9 +67,10 @@ public protocol CSLayoutItemProtocol {
 
 public extension CSHasLayoutProtocol where Self: UIView {
     @discardableResult
-    public func add<View: UIView>(view: View,
-                                  onCreate: ArgFunc<View>? = nil,
-                                  onLayout: @escaping ArgFunc<View>) -> View {
+    public func add<View: UIView>(
+        view: View,
+        onCreate: ArgFunc<View>? = nil,
+        onLayout: @escaping ArgFunc<View>) -> View {
         add(view: view)
         onCreate?(view)
         layoutFunctions.listen {
@@ -78,9 +83,10 @@ public extension CSHasLayoutProtocol where Self: UIView {
     }
 
     @discardableResult
-    public func add<View: UIView>(view: View,
-                                  onCreate: Func? = nil,
-                                  onLayout: @escaping Func) -> View {
+    public func add<View: UIView>(
+        view: View,
+        onCreate: Func? = nil,
+        onLayout: @escaping Func) -> View {
         add(view: view)
         onCreate?()
         layoutFunctions.listen {
