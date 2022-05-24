@@ -36,13 +36,8 @@ Pod::Spec.new do |s|
   s.default_subspecs = 'Core'
 
   s.subspec 'Core' do |ss|
-    # ss.dependency 'RenetikObjc/Core'
     ss.dependency 'BlocksKit', '~> 2'
     ss.source_files = 'Renetik/Classes/Core/**/*'
-    # ss.dependency 'UITextView+Placeholder', '~> 1'
-    # ss.dependency 'MBProgressHUD', '~> 1'
-    # ss.dependency 'ChameleonFramework', '~> 2'
-    # ss.dependency 'TPKeyboardAvoiding', '~> 1'
   end
 
   s.subspec 'Extensions' do |ss|
