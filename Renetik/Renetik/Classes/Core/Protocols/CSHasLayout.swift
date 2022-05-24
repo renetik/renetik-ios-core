@@ -162,7 +162,7 @@ public extension CSHasLayoutProtocol where Self: UIView {
     static func row(fixed leftView: UIView, margin: CGFloat = 0, flexible rightView: UIView) -> Self {
         Self.construct(defaultSize: true).also { container in
                     container.add(view: leftView).from(left: 0).centeredVertical()
-                    container.layout(container.add(view: rightView).fromPrevious(left: margin).fillTo(right: 0)) {
+                    container.layout(container.add(view: rightView).fromPrevious(left: margin).flex(right: 0)) {
                         $0.heightToFit().centeredVertical()
                     }
                 }.resizeToFit()

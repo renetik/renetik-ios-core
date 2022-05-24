@@ -44,16 +44,16 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
         textView.inputAccessoryView = defaultAccessoryView.construct(hideImage)
         keyboardManager.construct(self) { [unowned self] _ in onKeyboardChange() }
         action.notNil { [unowned self] action in
-                    action.title.notNil { actionButton.text($0).resizeToFit() }
-                    action.image.notNil { actionButton.image($0).size(40) }
-                    actionButton.onClick {
-                        parentTextInput.text = textView.text
-                        action.function()
-                    }
+                action.title.notNil { actionButton.text($0).resizeToFit() }
+                action.image.notNil { actionButton.image($0).size(40) }
+                actionButton.onClick {
+                    parentTextInput.text = textView.text
+                    action.function()
                 }
-                .elseDo {
-                    actionButton.size(0)
-                }
+            }
+            .elseDo {
+                actionButton.size(0)
+            }
         return self
     }
 
@@ -62,7 +62,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             $0.from(right: safeArea.right)
         }
         layout(container.add(view: textView).matchParentHeight(margin: 5)) { [unowned self] in
-            $0.from(left: safeArea.left).margin(right: 5, from: actionButton)
+            $0.from(left: safeArea.left).fill(right: 5, from: actionButton)
         }
     }
 
@@ -78,7 +78,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             return
         }
         if textView.isFirstResponder && UIScreen.isShort {
-            container.margin(bottom: keyboardManager.keyboardHeight)
+            container.fill(bottom: keyboardManager.keyboardHeight)
             runLayoutFunctions()
             return
         }
@@ -114,7 +114,7 @@ extension CSTextInputPhoneLandscapeController {
                           placeHolder: String = "Enter text", hideImage: UIImage,
                           doneTitle: String = "Done") -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput,
-                placeHolder: placeHolder, hideImage: hideImage, doneTitle: doneTitle)
+            placeHolder: placeHolder, hideImage: hideImage, doneTitle: doneTitle)
     }
 
     @discardableResult
@@ -122,7 +122,7 @@ extension CSTextInputPhoneLandscapeController {
                           hasAccessory: CSHasInputAccessory? = nil, placeHolder: String = "Enter text",
                           hideImage: UIImage, doneTitle: String = "Done") -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: hasAccessory, placeHolder: placeHolder,
-                hideImage: hideImage, action: (title: doneTitle, image: nil, function: {
+            hideImage: hideImage, action: (title: doneTitle, image: nil, function: {
             self.textView.resignFirstResponder()
         }))
     }
@@ -132,8 +132,8 @@ extension CSTextInputPhoneLandscapeController {
                           textInput: CSHasTextProtocol & CSHasUIResponder & CSHasInputAccessory,
                           placeHolder: String, hideImage: UIImage, action: CSImageAction) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput,
-                placeHolder: placeHolder, hideImage: hideImage,
-                action: (title: nil, image: action.image, function: action.function))
+            placeHolder: placeHolder, hideImage: hideImage,
+            action: (title: nil, image: action.image, function: action.function))
     }
 
     @discardableResult
@@ -141,7 +141,7 @@ extension CSTextInputPhoneLandscapeController {
                           textInput: CSHasTextProtocol & CSHasUIResponder & CSHasInputAccessory,
                           placeHolder: String, hideImage: UIImage, action: CSTextAction) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput, placeHolder: placeHolder,
-                hideImage: hideImage, action: (title: action.title, image: nil, function: action.function))
+            hideImage: hideImage, action: (title: action.title, image: nil, function: action.function))
     }
 
     @discardableResult
@@ -149,14 +149,14 @@ extension CSTextInputPhoneLandscapeController {
                           hasAccessory: CSHasInputAccessory? = nil, placeHolder: String = "Enter text",
                           hideImage: UIImage) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: hasAccessory,
-                placeHolder: placeHolder, hideImage: hideImage, action: nil)
+            placeHolder: placeHolder, hideImage: hideImage, action: nil)
     }
 }
 
 public class CSInputAccessoryDone: UIView {
 
     let hideKeyboardButton = UIButton.construct()
-            .tint(color: .darkText).onClick { UIApplication.resignFirstResponder() }
+        .tint(color: .darkText).onClick { UIApplication.resignFirstResponder() }
 
     func construct(_ keyboardHide: UIImage) -> Self {
         super.construct().width(400, height: 40).background(.white)

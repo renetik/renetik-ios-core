@@ -16,7 +16,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func width(_ value: CGFloat) -> Self { invoke { self.width = value } }
+    func width(_ value: CGFloat) -> Self { width = value; return self }
 
     @discardableResult
     func width(as view: UIView) -> Self { width(view.width) }
@@ -43,10 +43,10 @@ public extension UIView {
     }
 
     @discardableResult
-    func widthAsHeight() -> Self { invoke { width = height } }
+    func widthAsHeight() -> Self { width = height; return self }
 
     @discardableResult
-    func heightAsWidth() -> Self { invoke { height = width } }
+    func heightAsWidth() -> Self { height = width; return self }
 
     @discardableResult
     func defaultSize() -> Self { width(UIScreen.width, height: UIScreen.height) }
@@ -69,7 +69,7 @@ public extension UIView {
     func size(_ size: CGFloat) -> Self { width(size, height: size) }
 
     @discardableResult
-    func size(_ size: CGSize) -> Self { invoke { self.size = size } }
+    func size(_ size: CGSize) -> Self { self.size = size; return self }
 
     @discardableResult
     func size(_ width: CGFloat, _ height: CGFloat) -> Self { self.width(width, height: height) }
@@ -102,7 +102,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func frame(_ rect: CGRect) -> Self { invoke { self.frame = rect } }
+    func frame(_ rect: CGRect) -> Self { frame = rect; return self }
 
     @discardableResult
     func width(_ width: CGFloat, height: CGFloat) -> Self {
@@ -133,13 +133,13 @@ public extension UIView {
     }
 
     @discardableResult
-    func add(bottom value: CGFloat) -> Self { invoke { self.height += value } }
+    func add(bottom value: CGFloat) -> Self { height += value; return self }
 
     @discardableResult
-    func add(width value: CGFloat) -> Self { invoke { self.width += value } }
+    func add(width value: CGFloat) -> Self { width += value; return self }
 
     @discardableResult
-    func add(height value: CGFloat) -> Self { invoke { self.height += value } }
+    func add(height value: CGFloat) -> Self { height += value; return self }
 
     @discardableResult
     func add(width: CGFloat, height: CGFloat) -> Self {
@@ -147,10 +147,10 @@ public extension UIView {
     }
 
     @discardableResult
-    func remove(width value: CGFloat) -> Self { invoke { self.width -= value } }
+    func remove(width value: CGFloat) -> Self { width -= value; return self }
 
     @discardableResult
-    func remove(height value: CGFloat) -> Self { invoke { self.height -= value } }
+    func remove(height value: CGFloat) -> Self { height -= value; return self }
 
     @discardableResult
     func resize(padding: CGFloat) -> Self {

@@ -17,6 +17,9 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
     public var navigation: CSNavigationController!
     public var window: UIWindow?
 
+    // ViewController orientation change not called, but this yes for landscape left/right
+    public let orientationChange = event()
+
     public func application(_ application: UIApplication,
                             _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                             logger: CSLoggerProtocol = NSCSLogger(),
@@ -32,6 +35,11 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
     public func applicationWillEnterForeground(_ application: UIApplication) { logInfo(application) }
 
     public func applicationDidBecomeActive(_ application: UIApplication) { logInfo(application) }
+
+    public func application(_ application: UIApplication,
+                            didChangeStatusBarOrientation oldStatusBarOrientation: UIInterfaceOrientation) {
+        orientationChange.fire()
+    }
 
     public func applicationWillTerminate(_ application: UIApplication) { logInfo(application) }
 }

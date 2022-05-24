@@ -143,12 +143,12 @@ public extension UIView {
 
     @discardableResult
     func matchParentWidth(margin: CGFloat = 0) -> Self {
-        from(left: margin).fillTo(right: margin)
+        from(left: margin).flex(right: margin)
     }
 
     @discardableResult
     func matchParentWidth(margin: (left: CGFloat, right: CGFloat)) -> Self {
-        from(left: margin.left).fillTo(right: margin.right)
+        from(left: margin.left).flex(right: margin.right)
     }
 
     @discardableResult
@@ -158,27 +158,27 @@ public extension UIView {
 
     @discardableResult
     func asParentHeight(margin: CGFloat = 0) -> Self {
-        from(top: margin).margin(bottom: margin, flexible: false)
+        from(top: margin).fill(bottom: margin, flexible: false)
     }
 
     @discardableResult
     func matchParentHeight(margin: (top: CGFloat, bottom: CGFloat)) -> Self {
-        from(top: margin.top).margin(bottom: margin.bottom, flexible: true)
+        from(top: margin.top).fill(bottom: margin.bottom, flexible: true)
     }
 
     @discardableResult
     func fillTo(bottom: CGFloat, flexible: Bool = true) -> Self {
-        self.margin(bottom: bottom, flexible: flexible)
+        self.fill(bottom: bottom, flexible: flexible)
     }
 
     @discardableResult
-    func fillTo(right: CGFloat, flexible: Bool = true) -> Self {
-        margin(right: right, flexible: flexible)
+    func flex(right: CGFloat, flexible: Bool = true) -> Self {
+        fill(right: right, flexible: flexible)
     }
 
     @discardableResult
     func fill(to view: UIView, right: CGFloat, flexible: Bool = true) -> Self {
-        self.margin(right: right, from: view, flexible: flexible)
+        self.fill(right: right, from: view, flexible: flexible)
     }
 
     @discardableResult

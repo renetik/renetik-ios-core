@@ -28,7 +28,7 @@ public class CSLabeledText: UIView {
     }
 
     private func addTextView(value: String?) {
-        add(view: textView).from(label, left: 5).fillTo(right: 5).matchParentHeight()
+        add(view: textView).from(label, left: 5).flex(right: 5).matchParentHeight()
         textView.textAlignment = .left
         textView.asLabel().textContainerInset = UIEdgeInsets(top: 5)
         textView.text(value)

@@ -26,7 +26,7 @@ public class CSNavigationHidingByKeyboardController: CSViewController {
         if navigationBarHidden { return }
         animate(duration: 0.5) {
             navigation.navigationBar.bottom = UIApplication.statusBarHeight
-            navigation.last!.view.margin(top: navigation.navigationBar.bottom)
+            navigation.last!.view.fill(top: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeOut(duration: 0.7)
         navigationBarHidden = true
@@ -36,7 +36,7 @@ public class CSNavigationHidingByKeyboardController: CSViewController {
         if !navigationBarHidden { return }
         animate(duration: 0.5) {
             navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
-            navigation.last!.view.margin(top: navigation.navigationBar.bottom)
+            navigation.last!.view.fill(top: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeIn(duration: 0.7)
         navigationBarHidden = false
