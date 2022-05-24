@@ -16,7 +16,7 @@ public extension UILabel {
     }
 
     @discardableResult
-    func text(color: UIColor) -> Self { self.textColor = textColor; return self }
+    func text(color: UIColor) -> Self { textColor = color; return self }
 
     @discardableResult
     func text(align: NSTextAlignment) -> Self { textAlignment = align; return self }

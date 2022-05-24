@@ -16,7 +16,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func width(_ value: CGFloat) -> Self { width = value; return self }
+    @objc open func width(_ value: CGFloat) -> Self { width = value; return self }
 
     @discardableResult
     func width(as view: UIView) -> Self { width(view.width) }

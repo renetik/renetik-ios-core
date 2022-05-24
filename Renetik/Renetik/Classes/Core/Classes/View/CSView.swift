@@ -7,7 +7,7 @@ import UIKit
 open class CSView: UIControl {
 
     @discardableResult
-    public class func construct() -> Self { construct(defaultSize: true) }
+    open class func construct() -> Self { construct(defaultSize: true) }
 
     @discardableResult
     public class func construct(_ function: ArgFunc<CSView>) -> Self {

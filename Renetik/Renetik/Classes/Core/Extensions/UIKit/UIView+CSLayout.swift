@@ -177,8 +177,8 @@ public extension UIView {
     }
 
     @discardableResult
-    func fill(to view: UIView, right: CGFloat, flexible: Bool = true) -> Self {
-        self.fill(right: right, from: view, flexible: flexible)
+    func flex(to view: UIView, right: CGFloat) -> Self {
+        self.fill(right: right, from: view, flexible: true)
     }
 
     @discardableResult
