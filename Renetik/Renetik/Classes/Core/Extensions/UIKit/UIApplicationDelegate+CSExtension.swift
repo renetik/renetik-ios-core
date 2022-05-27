@@ -5,11 +5,7 @@
 import UIKit
 
 public extension UIApplicationDelegate {
-
-    public static var instance: Self {
-        UIApplication.shared.delegate as! Self
-    }
-
+    public static var instance: Self { UIApplication.shared.delegate as! Self }
     public static var isDebug: Bool {
         #if DEBUG
         return true
