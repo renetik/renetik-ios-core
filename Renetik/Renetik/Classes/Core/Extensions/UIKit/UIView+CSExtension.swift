@@ -53,7 +53,7 @@ public extension UIView {
 
     @discardableResult
     @objc open func onTap(_ block: @escaping Func) -> Self {
-        isUserInteractionEnabled = true
+        interaction(enabled: true)
         bk_(whenTapped: { block() })
         return self
     }

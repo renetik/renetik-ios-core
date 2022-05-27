@@ -13,6 +13,10 @@ public protocol CSHasLayoutProtocol {
     func onUpdateLayout()
 }
 
+public protocol CSLayoutItemProtocol {
+    var isVisibleToLayout: Bool { get }
+}
+
 extension UIView: CSHasLayoutProtocol {
     public var layoutFunctions: CSEvent<Void> { associatedDictionary("layoutFunctions") { event() } }
 
@@ -57,15 +61,9 @@ extension UIView: CSHasLayoutProtocol {
     @objc open func updateLayout() -> Self { layoutFunctions.fire(); return self }
 
     public func updateLayoutLater() {
-        later(seconds: 0.05) { [unowned self] in updateLayout() }
+        later(seconds: 0.15) { [unowned self] in updateLayout() }
     }
-}
 
-public protocol CSLayoutItemProtocol {
-    var isVisibleToLayout: Bool { get }
-}
-
-public extension CSHasLayoutProtocol where Self: UIView {
     @discardableResult
     public func add<View: UIView>(
         view: View,
@@ -122,6 +120,9 @@ public extension CSHasLayoutProtocol where Self: UIView {
         function(self)
         return self
     }
+}
+
+public extension CSHasLayoutProtocol where Self: UIView {
 
     static func row(fixed leftView: UIView, margin: CGFloat = 0, sizedToFit rightView: UIView) -> Self {
         Self.construct().also { container in

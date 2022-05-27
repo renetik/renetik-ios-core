@@ -3,12 +3,8 @@
 // Copyright (c) 2019 Renetik Software. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import Renetik
-import RenetikObjc
 import MaterialComponents
-import MaterialComponents.MDCTextInputControllerBase
 
 extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
 

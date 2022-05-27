@@ -20,6 +20,11 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
     // ViewController orientation change not called, but this yes for landscape left/right
     public let orientationChange = event()
 
+    @discardableResult
+    public func onOrientationChange(function: @escaping Func) -> CSEventRegistration {
+        orientationChange.listen(function: function)
+    }
+
     public func application(_ application: UIApplication,
                             _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                             logger: CSLoggerProtocol = NSCSLogger(),

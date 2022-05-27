@@ -10,71 +10,50 @@ import Foundation
 import UIKit
 import MaterialComponents
 import Renetik
-import RenetikObjc
 
 public extension MDCCard {
     @discardableResult
     override open func construct() -> Self {
-        super.construct()
-        clipsToBounds = false
-        isInteractable = false
-        return self
+        super.construct().clipsToBounds(false).also { $0.isInteractable = true }
     }
 
     @discardableResult
     override open func onTouchUp(_ block: @escaping Func) -> Self {
-        super.onTouchUp(block)
-        isInteractable = true
-        isUserInteractionEnabled = true
-        return self
+        super.onTouchUp(block).also { $0.isInteractable = true }
     }
 
     @discardableResult
     override open func onTap(_ block: @escaping Func) -> Self {
-        super.onTap(block)
-        isInteractable = true
-        isUserInteractionEnabled = true
-        return self
+        super.onTap(block).also { $0.isInteractable = true }
     }
 
     @discardableResult
     override open func onTouchDown(_ block: @escaping Func) -> Self {
-        super.onTouchDown(block)
-        isInteractable = true
-        isUserInteractionEnabled = true
-        return self
+        super.onTouchDown(block).also { $0.isInteractable = true }
     }
 }
 
 extension MDCFloatingButton {
     override open func construct() -> Self {
-        super.construct()
-        clipsToBounds = false
-        return self
+        super.construct().clipsToBounds(false)
     }
 }
 
 public extension MDCButton {
     @discardableResult
     override open func construct() -> Self {
-        super.construct()
-        clipsToBounds = false
-        return self
+        super.construct().clipsToBounds(false)
     }
 }
 
 public extension MDCMultilineTextField {
     override open func construct() -> Self {
-        super.construct()
-        clipsToBounds = false
-        return self
+        super.construct().clipsToBounds(false)
     }
 }
 
 public extension MDCTextField {
     override open func construct() -> Self {
-        super.construct()
-        clipsToBounds = false
-        return self
+        super.construct().clipsToBounds(false)
     }
 }

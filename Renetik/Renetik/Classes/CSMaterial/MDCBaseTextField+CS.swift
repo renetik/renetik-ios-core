@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import MaterialComponents
 import Renetik
-import RenetikObjc
 
 extension MDCBaseTextField: CSHasEmptyProtocol {
 }
@@ -37,7 +36,8 @@ public extension MDCBaseTextField {
 
     @discardableResult
     func with(clear clearImage: UIImage, clearTint: UIColor? = nil, size: CGFloat = 18) -> Self {
-        with(clear: CSMaterialControl.construct().size(40).also {
+        with(clear: UIControl.construct().size(40).also {
+            $0.addRipple()
             $0.add(view: CSImageView.construct()) { [unowned self] in
                 $0.image = clearImage
                 clearTint?.also { tintColor = $0 }

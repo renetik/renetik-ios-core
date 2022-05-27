@@ -6,7 +6,6 @@
 import MaterialComponents
 import MaterialComponents.MDCPageControl
 import UIKit
-import RenetikObjc
 import Renetik
 import BlocksKit
 

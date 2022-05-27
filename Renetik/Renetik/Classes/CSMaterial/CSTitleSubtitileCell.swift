@@ -5,7 +5,6 @@
 
 import Foundation
 import Renetik
-import RenetikObjc
 import MaterialComponents.MDCCard
 
 class CSTitleSubtitleCell: CSTableViewCell {

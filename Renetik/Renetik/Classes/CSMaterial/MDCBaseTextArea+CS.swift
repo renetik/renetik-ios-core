@@ -30,7 +30,8 @@ public extension MDCBaseTextArea {
 
     @discardableResult
     func with(clear clearImage: UIImage, clearTint: UIColor? = nil, size: CGFloat = 18) -> Self {
-        with(clear: CSMaterialControl.construct().size(40).also {
+        with(clear: UIControl.construct().size(40).also {
+            $0.addRipple()
             $0.add(view: CSImageView.construct()) {
                 $0.image = clearImage
                 clearTint?.also { self.tintColor = $0 }

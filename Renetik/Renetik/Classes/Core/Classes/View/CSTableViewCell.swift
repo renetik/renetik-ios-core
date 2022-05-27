@@ -11,19 +11,19 @@ public protocol CSTableHeightCalculatingCell {
 
 open class CSTableViewCell: UITableViewCell {
 
-    @discardableResult
-    public func layout(function: @escaping Func) -> Self {
-        layoutFunctions.listen { function() }
-        function()
-        return self
-    }
+//    @discardableResult
+//    public func layout(function: @escaping Func) -> Self {
+//        layoutFunctions.listen { function() }
+//        function()
+//        return self
+//    }
 
-    @discardableResult
-    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
-        layoutFunctions.listen { function(view) }
-        function(view)
-        return view
-    }
+//    @discardableResult
+//    public func layout<View: UIView>(_ view: View, function: @escaping (View) -> Void) -> View {
+//        layoutFunctions.listen { function(view) }
+//        function(view)
+//        return view
+//    }
 
     override open func layoutSubviews() {
         super.layoutSubviews()
