@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol CSVariableProtocol: CSValueProtocol {
+public protocol CSProperty: CSValueProtocol {
     override var value: T { get set }
 }
 
@@ -12,7 +12,7 @@ public func variable<T>(_ value: T) -> CSVariable<T> {
     CSVariable(value: value)
 }
 
-public class CSVariable<T>: CSVariableProtocol {
+public class CSVariable<T>: CSProperty {
     public var value: T
 
     init(value: T) {
@@ -20,14 +20,14 @@ public class CSVariable<T>: CSVariableProtocol {
     }
 }
 
-extension CSVariableProtocol where T: Any {
+extension CSProperty where T: Any {
     func value(_ value: T) -> Self {
         self.value = value
         return self
     }
 }
 
-public extension CSVariableProtocol where T == Bool {
+public extension CSProperty where T == Bool {
     @discardableResult
     func setTrue() -> Self {
         value = true

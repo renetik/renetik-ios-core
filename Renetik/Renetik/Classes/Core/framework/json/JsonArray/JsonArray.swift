@@ -1,13 +1,8 @@
-//
-// Created by Rene Dohan on 12/1/20.
-//
-
-import Foundation
-
 open class CSJsonArray: CSObject, CSJsonArrayProtocol {
     fileprivate var array = [CSAnyProtocol]()
 
-    public required override init() { // This is for instantiating by reflection ?
+    // This is for instantiating by reflection ?
+    public required override init() {
         super.init()
     }
 

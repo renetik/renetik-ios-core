@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-public let delegate: CSApplicationDelegate = CSApplicationDelegate.instance
+var delegate: CSApplicationDelegate!
+//public let delegate: CSApplicationDelegate = CSApplicationDelegate.instance
 public let logger: CSLoggerProtocol = delegate.logger
 public let navigation: CSNavigationController = delegate.navigation
 
@@ -21,7 +22,7 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
     public let orientationChange = event()
 
     @discardableResult
-    public func onOrientationChange(function: @escaping Func) -> CSEventRegistration {
+    public func onOrientationChange(function: @escaping Func) -> CSRegistration {
         orientationChange.listen(function: function)
     }
 
@@ -29,6 +30,7 @@ open class CSApplicationDelegate: UIResponder, UIApplicationDelegate {
                             _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
                             logger: CSLoggerProtocol = NSCSLogger(),
                             navigation: CSNavigationController = CSNavigationController()) {
+        delegate = self
         self.logger = logger
         self.navigation = navigation
     }

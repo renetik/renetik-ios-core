@@ -34,4 +34,12 @@ public extension Dictionary {
         }
         return nil
     }
+
+    @inlinable public mutating func clear(keepingCapacity keepCapacity: Bool = false) {
+        removeAll(keepingCapacity: keepCapacity)
+    }
+
+    @inlinable public mutating func removeIf(condition: (Self.Element) -> Bool) {
+        for (key, _) in filter(condition) { removeValue(forKey: key) }
+    }
 }

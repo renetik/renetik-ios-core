@@ -1,10 +1,3 @@
-//
-// Created by Rene Dohan on 12/4/19.
-// Copyright (c) 2019 Renetik Software. All rights reserved.
-//
-
-import Foundation
-
 public class CSNameJsonData: CSJsonObject {
     var nameKey: String!
 

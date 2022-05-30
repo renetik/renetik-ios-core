@@ -37,7 +37,6 @@ public extension Array where Element: Any {
         add(array: array)
         return self
     }
-
 }
 
 public extension Array where Element: Equatable {
@@ -74,6 +73,10 @@ public extension Array where Element: Equatable {
         removeAll()
         return self
     }
+
+    @inlinable public mutating func removeIf(condition: (Self.Element) throws -> Bool) rethrows {
+        try removeAll(where: condition)
+    }
 }
 
 public extension Array where Element: CustomStringConvertible {
@@ -97,7 +100,7 @@ public extension Array where Element: CSSearchNameProtocol, Element: CustomStrin
             var filtered = [Element]()
             for item in self {
                 if (item.searchName ?? item.description)
-                           .contains(searchText, ignoreCase: true) {
+                       .contains(searchText, ignoreCase: true) {
                     filtered.add(item)
                 }
             }

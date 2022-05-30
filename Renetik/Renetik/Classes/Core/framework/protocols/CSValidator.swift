@@ -23,7 +23,7 @@ class CSValidatorImplementation: CSValidatorProtocol {
     private(set) var hint: String = ""
 }
 
-public class CSVariableValidator<T, Variable: CSVariableProtocol>: CSValidatorProtocol {
+public class CSVariableValidator<T, Variable: CSProperty>: CSValidatorProtocol {
 
     let variable: Variable
     let function: (T) -> Bool

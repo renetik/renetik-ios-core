@@ -68,10 +68,10 @@ Pod::Spec.new do |s|
     ss.source_files = 'Renetik/Classes/Operation/**/*'
   end
 
-  s.subspec 'Json' do |ss|
-    ss.dependency 'Renetik/Core'
-    ss.source_files = 'Renetik/Classes/Json/**/*'
-  end
+  # s.subspec 'Json' do |ss|
+  #   ss.dependency 'Renetik/Core'
+  #   ss.source_files = 'Renetik/Classes/Json/**/*'
+  # end
 
   s.subspec 'CoreLocation' do |ss|
     ss.dependency 'Renetik/Core'

@@ -23,4 +23,12 @@ public extension String {
     public static let operationFailed = localized("cs_operation_failed_message")
 
     public static let searchPlaceholder = localized("cs_search_placeholder")
+
+    static let dummy_number = "123"
+    static let dummy_word = "Lorem"
+    static let dummy_two_word = "Lorem Ipsum"
+    static let dummy_short = "Lorem ipsum dolor"
+    static let dummy_medium = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    static let dummy_long = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    static let dummy_complete = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nunc pulvinar, pulvinar nulla nec, suscipit ante. Donec finibus, diam in feugiat venenatis, libero turpis convallis massa, id ullamcorper lacus dui ac metus. Suspendisse potenti. Cras vehicula augue orci, id vulputate sem consectetur a. Nam tincidunt arcu in tellus venenatis consectetur. Aenean placerat, sapien sit amet semper sodales, ex est vehicula nibh, vitae volutpat ipsum orci non eros. Praesent a ante dui. Ut eget efficitur odio, eget congue erat."
 }

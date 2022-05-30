@@ -3,8 +3,7 @@
 // Copyright (c) 2019 Renetik. All rights reserved.
 //
 
-import RenetikObjc
-import Renetik
+import Foundation
 
 extension CSJsonObject {
     func createJsonDataList<T: CSJsonObject>(_ type: T.Type, _ key: String, defaultDataList: [T]? = nil) -> [T] {

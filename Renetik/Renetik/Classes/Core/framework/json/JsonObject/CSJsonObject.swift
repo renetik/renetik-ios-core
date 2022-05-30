@@ -10,7 +10,8 @@ open class CSJsonObject: CSObject, CSJsonObjectProtocol {
     private(set) public var index: Int? = nil
     private(set) public var data = [String: CSAnyProtocol?]()
 
-    public required override init() { // This is for instantiating by reflection ?
+    // TODO: This is for instantiating by reflection ? Try to remove and explain in comment..
+    public required override init() {
         super.init()
     }
 

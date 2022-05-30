@@ -6,6 +6,7 @@
 import Foundation
 
 public extension Collection {
+
     public var hasItems: Bool { !isEmpty }
     public var length: Int { count }
     public var size: Int { count }

@@ -27,7 +27,7 @@ open class CSViewController: UIViewController {
     private var isOnViewWillAppearFirstTime = false
     private var isOnViewDidAppearFirstTime = false
     private var notificationCenterObservers = CSArray<NSObjectProtocol>()
-    private var eventRegistrations = CSArray<CSEventRegistration>()
+    private var eventRegistrations = CSArray<CSRegistration>()
     private var isShouldAutorotate: Bool? = nil
     private let layoutFunctions: CSEvent<Void> = event()
     public private(set) weak var controllerInNavigation: UIViewController?
@@ -215,7 +215,7 @@ open class CSViewController: UIViewController {
     }
 
     @discardableResult
-    public func register<EventRegistration: CSEventRegistration>(event registration: EventRegistration) -> EventRegistration {
+    public func register<EventRegistration: CSRegistration>(event registration: EventRegistration) -> EventRegistration {
         eventRegistrations.add(registration); return registration
     }
 

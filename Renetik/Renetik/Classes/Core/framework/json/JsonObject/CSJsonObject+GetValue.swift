@@ -3,7 +3,7 @@
 // Copyright (c) 2019 Renetik. All rights reserved.
 //
 
-import RenetikObjc
+
 import Renetik
 
 public extension CSJsonObject {
