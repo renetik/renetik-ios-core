@@ -18,17 +18,6 @@ public extension String {
         })
     }
 
-    func parseJsonObject() -> [String: CSAnyProtocol?]? { parseJson() as? [String: CSAnyProtocol?] }
-
-    func parseJsonArray() -> [Any]? { parseJson() as? [Any] }
-
-    func parseJson() -> Any? {
-        if let data = data(using: .utf8) {
-            return try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .allowFragments])
-        }
-        return nil
-    }
-
     var isSet: Bool { !isEmpty }
 
     var isNotEmpty: Bool { !isEmpty }
@@ -37,11 +26,13 @@ public extension String {
 
     var asNSString: NSString { self as NSString }
 
-    var boolValue: Bool { asNSString.boolValue }
+    var boolValue: Bool { Bool(self)! }
 
-    var doubleValue: Double { asNSString.doubleValue }
+    var doubleValue: Double { Double(self)! }
 
-    var intValue: Int { asNSString.integerValue }
+    var intValue: Int { Int(self)! }
+
+    var floatValue: Float { Float(self)! }
 
     func trim() -> String { asNSString.trim() }
 
@@ -107,13 +98,14 @@ public extension String {
         var position = startIndex
         while let range = range(of: occurrence, range: position..<endIndex) {
             let i = distance(from: startIndex,
-                    to: range.lowerBound)
+                to: range.lowerBound)
             indices.append(i)
             let offset = occurrence.distance(from: occurrence.startIndex,
-                    to: occurrence.endIndex) - 1
+                to: occurrence.endIndex) - 1
             guard let after = index(range.lowerBound,
-                    offsetBy: offset,
-                    limitedBy: endIndex) else {
+                offsetBy: offset,
+                limitedBy: endIndex)
+            else {
                 break
             }
             position = index(after: after)

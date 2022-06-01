@@ -70,7 +70,7 @@ public extension UIView {
     @discardableResult
     func flexToPrevious(bottom: CGFloat) -> Self {
         assert(superview.notNil, "Needs to have superview")
-        return superview!.findPrevious(of: self)?.get {
+        return superview!.findPrevious(of: self)?.ret {
             self.fill(bottom: bottom, from: $0, flexible: true)
         } ?? self.fill(bottom: bottom, flexible: true)
     }

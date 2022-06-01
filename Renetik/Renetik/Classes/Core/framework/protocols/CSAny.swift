@@ -45,8 +45,8 @@ public extension CSAnyProtocol {
         function()
     }
 
-    // let in Kotlin
-    public func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
+    // Kotlin let
+    public func ret<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
 
     public var asString: String {
         (self as? CSNameProtocol)?.name ??

@@ -10,7 +10,7 @@ public extension NSAttributedString {
         var index: Int?
         repeat {
             index = attributed.string.index(of: replaceString,
-                    from: index?.get { $0 + replaceString.count } ?? 0)
+                    from: index?.ret { $0 + replaceString.count } ?? 0)
             index.notNil {
                 attributed.replaceCharacters(
                         in: NSRange(location: $0, length: replaceString.count),

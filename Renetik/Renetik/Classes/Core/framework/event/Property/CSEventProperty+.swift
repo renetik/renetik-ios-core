@@ -4,13 +4,13 @@
 
 import Foundation
 
-public extension CSEventProperty where T: CSAnyProtocol {
+public extension CSEventPropertyProtocol where T: CSAnyProtocol {
     var isSet: Bool {
         get { value.notNil }
     }
 }
 
-public extension CSEventProperty where T == Bool {
+public extension CSEventPropertyProtocol where T == Bool {
     @discardableResult
     func toggle() -> Self { value = !value; return self }
 
@@ -41,7 +41,7 @@ public extension CSEventProperty where T == Bool {
     }
 }
 
-public extension CSEventProperty where T == String? {
+public extension CSEventPropertyProtocol where T == String? {
     var string: T {
         get { value.asString }
         set { value = newValue }

@@ -7,7 +7,8 @@ import MaterialComponents
 import MaterialComponents.MDCPageControl
 import UIKit
 import Renetik
-import BlocksKit
+
+//import RenetikBlocksKit
 
 class CSMDCPageControlScrollPager: CSViewController, UIScrollViewDelegate {
 
@@ -26,16 +27,19 @@ class CSMDCPageControlScrollPager: CSViewController, UIScrollViewDelegate {
         self.scrollView = scrollView
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
-        pageControl.bk_addEventHandler({ _ in
+        pageControl.addEventHandler(controlEvents: .valueChanged) {
             self.showPage(at: self.pageControl.currentPage)
-        }, for: .valueChanged)
+        }
+//        pageControl.bk_addEventHandler({ _ in
+//            self.showPage(at: self.pageControl.currentPage)
+//        }, for: .valueChanged)
         self.createScrollViewContent = createScrollViewContent
     }
 
     override func onViewWillAppear() { createContentView() }
 
     override func onViewDidTransition(
-            to size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext?) {
+        to size: CGSize, _ context: UIViewControllerTransitionCoordinatorContext?) {
         animate { self.createContentView(animated: false) }
     }
 

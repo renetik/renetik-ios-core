@@ -8,12 +8,12 @@ import UIKit
 public extension UITextInput {
     public var text: String {
         get {
-            textRange(from: beginningOfDocument, to: endOfDocument)?.get { range in
+            textRange(from: beginningOfDocument, to: endOfDocument)?.ret { range in
                 text(in: range) ?? ""
             } ?? ""
         }
         set(value) {
-            textRange(from: beginningOfDocument, to: endOfDocument)?.get { range in
+            textRange(from: beginningOfDocument, to: endOfDocument)?.ret { range in
                 replace(range, withText: value)
             }
         }

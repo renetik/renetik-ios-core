@@ -5,7 +5,7 @@
 
 import Renetik
 
-open class CSJsonObject: CSObject, CSJsonObjectProtocol {
+open class CSJsonObject: CSObject, CSJsonObjectInterface {
 
     private(set) public var index: Int? = nil
     private(set) public var data = [String: CSAnyProtocol?]()

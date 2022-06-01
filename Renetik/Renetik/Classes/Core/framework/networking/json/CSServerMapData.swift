@@ -5,7 +5,7 @@ open class CSServerMapData: CSJsonObject, CSHttpResponseDataProtocol {
 
     open func onHttpResponse(code: Int, message: String, content: String?) {
         self.code = code; self.message = message;
-        if let data = content?.parseJsonObject() {
+        if let data = content?.parseJsonDictionary() {
             load(data: data as! [String: CSAnyProtocol?])
         }
         else {

@@ -1,4 +1,4 @@
-open class CSJsonArray: CSObject, CSJsonArrayProtocol {
+open class CSJsonArray: CSObject, CSJsonArrayInterface {
     fileprivate var array = [CSAnyProtocol]()
 
     // This is for instantiating by reflection ?

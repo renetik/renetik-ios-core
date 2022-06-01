@@ -21,7 +21,7 @@ public extension UITabBar {
     func selected(index: Int) -> Self { invoke { self.selectedIndex = index } }
 
     var selectedIndex: Int {
-        get { selectedItem?.get { item in items!.index(of: item)! } ?? -1 }
+        get { selectedItem?.ret { item in items!.index(of: item)! } ?? -1 }
         set { selectedItem = items![newValue] }
     }
 }

@@ -60,11 +60,11 @@ public extension Array where Element: Equatable {
         return self
     }
 
-    func previous(of item: Element) -> Element? { index(of: item)?.get { index -> Element? in at(index - 1) } }
+    func previous(of item: Element) -> Element? { index(of: item)?.ret { index -> Element? in at(index - 1) } }
 
-    func previousIndex(of item: Element) -> Int? { index(of: item)?.get { index -> Int in index - 1 } }
+    func previousIndex(of item: Element) -> Int? { index(of: item)?.ret { index -> Int in index - 1 } }
 
-    func next(of item: Element) -> Element? { index(of: item)?.get { index -> Element? in at(index + 1) } }
+    func next(of item: Element) -> Element? { index(of: item)?.ret { index -> Element? in at(index + 1) } }
 
     func index(of item: Element) -> Int? { firstIndex(of: item) }
 

@@ -36,7 +36,8 @@ public extension Optional {
         return CSConditionalResultNotNil(variable: self!)
     }
 
-    public func get<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
+    //Kotlin let
+    public func ret<ReturnType>(_ function: (Wrapped) -> ReturnType) -> ReturnType? {
         if self != nil { return function(self!) } else { return nil }
     }
 }

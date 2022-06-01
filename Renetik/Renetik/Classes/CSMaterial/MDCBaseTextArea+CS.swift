@@ -18,9 +18,7 @@ public extension MDCBaseTextArea {
         return self
     }
 
-    var eventClear: CSEvent<Void> {
-        associatedDictionary("MDCOutlinedTextField+eventClear", onCreate: { event() })
-    }
+    var eventClear: CSEvent<Void> { associated("MDCOutlinedTextField+eventClear") { event() } }
 
     @discardableResult
     func onClear(_ function: @escaping () -> Void) -> Self {
@@ -73,7 +71,8 @@ public extension MDCBaseTextArea {
                     saveStateToRestore()
                     showClearIcon()
                 }
-            } else if isClearVisible {
+            }
+            else if isClearVisible {
                 restoreState()
             }
         }

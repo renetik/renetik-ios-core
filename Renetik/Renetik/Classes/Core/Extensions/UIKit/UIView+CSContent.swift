@@ -14,10 +14,10 @@ public extension UIView {
     }
 
     var content: UIView? {
-        get { associatedValue(&viewContentPropertyKey) as? UIView }
+        get { weaklyAssociatedValue("content") }
         set(view) {
             content?.removeFromSuperview()
-            weaklyAssociateValue(&viewContentPropertyKey, view)
+            weaklyAssociateValue("content", view)
             view.notNil { addSubview($0) }
         }
     }

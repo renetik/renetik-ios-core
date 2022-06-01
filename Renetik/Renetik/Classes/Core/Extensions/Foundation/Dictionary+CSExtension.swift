@@ -27,14 +27,6 @@ public extension Dictionary {
         removeValue(forKey: key)
     }
 
-    public func toJsonString(formatted: Bool = false) -> String? {
-        var options: JSONSerialization.WritingOptions = formatted ? [.prettyPrinted] : []
-        if let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: options) {
-            return String(data: theJSONData, encoding: .ascii)
-        }
-        return nil
-    }
-
     @inlinable public mutating func clear(keepingCapacity keepCapacity: Bool = false) {
         removeAll(keepingCapacity: keepCapacity)
     }

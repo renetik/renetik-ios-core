@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   s.default_subspecs = 'Core'
 
   s.subspec 'Core' do |ss|
-    ss.dependency 'BlocksKit', '~> 2'
+    # ss.dependency 'RenetikBlocksKit', '~> 2'
     ss.source_files = 'Renetik/Classes/Core/**/*'
   end
 

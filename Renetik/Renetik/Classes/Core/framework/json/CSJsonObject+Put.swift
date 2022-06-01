@@ -12,9 +12,9 @@ public extension CSJsonObject {
 
     func put(_ key: String, _ value: Bool?) { put(key: key, value: value) }
 
-    func put(_ key: String, _ value: CSJsonObjectProtocol) { put(key: key, value: value.asDictionary) }
+    func put(_ key: String, _ value: CSJsonObjectInterface) { put(key: key, value: value.asDictionary) }
 
-    func put(_ key: String, _ value: CSJsonArrayProtocol) { put(key: key, value: value.asArray) }
+    func put(_ key: String, _ value: CSJsonArrayInterface) { put(key: key, value: value.asArray) }
 
     func put(_ key: String, _ value: [Any?]) { put(key: key, value: value) }
 

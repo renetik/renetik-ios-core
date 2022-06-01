@@ -5,9 +5,62 @@
 import Foundation
 import UIKit
 
-private let previousTextKey = "UITextField+CSExtension.swift:onTextChange:PreviousText"
+public class AssociatedUITextFieldDelegate: NSObject, UITextFieldDelegate {
+    let textFieldShouldBeginEditing: CSEvent<Void> = event()
+    var onTextFieldShouldBeginEditing: (() -> Bool)? = nil
+
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textFieldShouldBeginEditing.fire()
+        onTextFieldShouldBeginEditing?() ?? true
+    }
+
+    let textFieldDidBeginEditing: CSEvent<Void> = event()
+
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        textFieldDidBeginEditing.fire()
+    }
+
+    let textFieldShouldEndEditing: CSEvent<Void> = event()
+    var onTextFieldShouldEndEditing: (() -> Bool)? = nil
+
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textFieldShouldEndEditing.fire()
+        onTextFieldShouldEndEditing?() ?? true
+    }
+
+    let textFieldDidEndEditing: CSEvent<UITextField.DidEndEditingReason> = event()
+
+    public func textFieldDidEndEditing(_ textField: UITextField,
+                                       reason: UITextField.DidEndEditingReason) {
+        textFieldDidEndEditing.fire(reason)
+    }
+
+    var onShouldChangeCharactersIn: ((_ range: NSRange, _ replacement: String) -> Bool)? = nil
+
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        onShouldChangeCharactersIn?(range, string) ?? true
+    }
+
+    let textFieldDidChangeSelection: CSEvent<Void> = event()
+
+    public func textFieldDidChangeSelection(_ textField: UITextField) {
+        textFieldDidChangeSelection.fire()
+    }
+
+    let textFieldShouldClear: CSEvent<Void> = event()
+    var onTextFieldShouldClear: (() -> Bool)? = nil
+
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textFieldShouldClear.fire()
+        onTextFieldShouldClear?() ?? true
+    }
+}
 
 public extension UITextField {
+
+    var associatedDelegate: AssociatedUITextFieldDelegate {
+        associated("delegate") { AssociatedUITextFieldDelegate().also { delegate = $0 } }
+    }
 
     @objc func caretRect(for position: UITextPosition) -> CGRect { CGRect.zero }
 
@@ -36,45 +89,49 @@ public extension UITextField {
 
     @discardableResult
     @objc override open func onClick(_ function: @escaping Func) -> Self {
-        bk_shouldBeginEditingBlock = { _ in function(); return false }
+        associatedDelegate.onTextFieldShouldBeginEditing = { function(); return false }
+//        bk_shouldBeginEditingBlock = { _ in function(); return false }
         return self
     }
 
     @discardableResult
     func onBeginEditing(_ function: @escaping () -> Bool) -> Self {
-        bk_shouldBeginEditingBlock = { _ in function() }
+        associatedDelegate.textFieldShouldBeginEditing.listen { function() }
+//        bk_shouldBeginEditingBlock = { _ in function() }
         return self
     }
 
     @discardableResult
     func onEndEditing(_ function: @escaping () -> Bool) -> Self {
-        bk_shouldEndEditingBlock = { _ in function() }
+        associatedDelegate.textFieldShouldEndEditing.listen { function() }
+//        bk_shouldEndEditingBlock = { _ in function() }
         return self
     }
 
     @discardableResult
-    func onChange(_ function: @escaping ArgFunc<UITextField>) -> Self {
-        bk_addEventHandler({ _ in function(self) }, for: .editingChanged)
+    func onChange(_ function: @escaping Func) -> Self {
+        addEventHandler(controlEvents: .editingChanged) { function() }
         return self
     }
 
-    private var eventTextChangeKey: String { "UITextField+eventTextChange" }
-    private var eventTextChange: CSEvent<Void> { associatedDictionary(eventTextChangeKey) { event() } }
-    private var isEventTextChangeRegistered: Bool { associatedDictionary[eventTextChangeKey] != nil }
+    private static let eventTextChangeKey = "UITextField+CSExtension.swift:eventTextChange"
+    private var eventTextChange: CSEvent<Void> { associated(UITextField.eventTextChangeKey) { event() } }
+    private var isEventTextChangeRegistered: Bool { associatedDictionary[UITextField.eventTextChangeKey] != nil }
+    private static let previousTextKey = "UITextField+CSExtension.swift:onTextChange:PreviousText"
 
     @discardableResult
     func onTextChange(_ function: @escaping ArgFunc<UITextField>) -> Self {
         if !isEventTextChangeRegistered {
             func onChange() {
-                if text != associatedDictionary[previousTextKey] as? String {
-                    associatedDictionary[previousTextKey] = text
+                if text != associatedDictionary[UITextField.previousTextKey] as? String {
+                    associatedDictionary[UITextField.previousTextKey] = text
                     eventTextChange.fire()
                 }
             }
 
-            bk_addEventHandler({ _ in onChange() }, for: .editingChanged)
-            bk_addEventHandler({ _ in onChange() }, for: .editingDidEnd)
-            bk_addEventHandler({ _ in onChange() }, for: .editingDidEndOnExit)
+            addEventHandler(controlEvents: .editingChanged) { onChange() }
+            addEventHandler(controlEvents: .editingDidEnd) { onChange() }
+            addEventHandler(controlEvents: .editingDidEndOnExit) { onChange() }
             bk_addObserver(forKeyPath: "text") { _ in onChange() }
         }
         eventTextChange.listen { function(self) }
@@ -88,10 +145,7 @@ public extension UITextField {
 
     @discardableResult
     @objc func onClear(_ function: @escaping Func) -> Self {
-        bk_shouldClearBlock = { _ in
-            function()
-            return true
-        }
+        associatedDelegate.onTextFieldShouldClear = { function(); return true }
         return self
     }
 
@@ -134,9 +188,9 @@ public extension UITextField {
     }
 
     var filters: CSArray<CSInputFilterProtocol> {
-        associatedDictionary("UITextField+filters") {
+        associated("UITextField+filters") {
             let filters = CSArray<CSInputFilterProtocol>()
-            bk_shouldChangeCharactersInRangeWithReplacementStringBlock = { field, range, string in
+            associatedDelegate.onShouldChangeCharactersIn = { range, string in
                 if string.isEmpty { return true }
                 for filter in filters.asArray {
                     if !filter.filter(current: self.text ?? "", range: range, string: string) { return false }
@@ -165,4 +219,45 @@ extension UITextField: CSHasTextProtocol {
     public func text() -> String? { text }
 
     public func text(_ text: String?) { self.text = text }
+}
+
+class CSControlWrapper: NSObject {
+    init(_ function: @escaping Func, _ controlEvents: UIControl.Event) {
+        self.function = function; self.controlEvents = controlEvents
+    }
+
+    let function: Func
+    let controlEvents: UIControl.Event
+
+    @objc func invoke(sender: UIControl) { function() }
+}
+
+extension UIControl {
+    func addEventHandler(controlEvents: Event, _ function: @escaping Func) {
+        let events: NSMutableDictionary = associated("controlEvents") { NSMutableDictionary() }
+        let handlers: NSMutableSet = events.value(forKey: "\(controlEvents.rawValue)") { NSMutableSet() }
+        let target = CSControlWrapper(function, controlEvents)
+        handlers.add(target)
+        addTarget(target, action: #selector(CSControlWrapper.invoke(sender:)), for: controlEvents)
+    }
+
+    func removeEventHandler(controlEvents: UIControl.Event) {
+        let events: NSMutableDictionary = associated("controlEvents") { NSMutableDictionary() }
+        let key = "\(controlEvents.rawValue)"
+        let handlers: NSMutableSet? = events.value(forKey: key) as? NSMutableSet
+        if handlers == nil { return }
+        handlers?.forEach { element in removeTarget(element, action: nil, for: controlEvents) }
+        events.removeObject(forKey: key)
+    }
+}
+
+extension NSMutableDictionary {
+    func value<T>(forKey key: String, onCreate: () -> T) -> T {
+        var value = value(forKey: key) as? T
+        if (value == nil) {
+            value = onCreate()
+            setValue(value, forKey: key)
+        }
+        return value!
+    }
 }

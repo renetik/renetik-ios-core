@@ -4,7 +4,7 @@
 
 import Foundation
 
-open class CSEventPropertyImpl<T>: CSEventProperty where T: Equatable {
+open class CSEventPropertyImpl<T>: CSEventPropertyProtocol where T: Equatable {
 
     private let eventChange: CSEvent<T> = event()
     private var onApply: ((T) -> ())?
@@ -41,5 +41,41 @@ open class CSEventPropertyImpl<T>: CSEventProperty where T: Equatable {
         onApply?(value)
         eventChange.fire(value)
         return self
+    }
+}
+
+// In android CSEventPropertyBase
+open class CSEventProperty<T>: CSBase, CSEventPropertyProtocol where T: Equatable {
+    private var onApply: ((T) -> ())?
+
+    public init(parent: CSEventOwnerHasDestroy? = nil, onApply: ((T) -> ())? = nil) {
+        self.onApply = onApply
+        super.init(parent: parent)
+    }
+
+    public init(onApply: ((T) -> ())? = nil) {
+        self.onApply = onApply
+    }
+
+    public var value: T {
+        get { fatalError("value has not been implemented") }
+        set {}
+    }
+
+    private let eventChange: CSEvent<T> = event()
+
+    @discardableResult
+    public func onChange(_ function: @escaping ArgFunc<T>) -> CSRegistration {
+        eventChange.listen { function($0) }
+    }
+
+    public var description: String { "\(super.description):\(value)" }
+
+    @discardableResult
+    public func apply() -> Self { onValueChanged(value); return self }
+
+    open func onValueChanged(_ newValue: T, fire: Boolean = true) {
+        onApply?(value)
+        if fire { eventChange.fire(newValue) }
     }
 }

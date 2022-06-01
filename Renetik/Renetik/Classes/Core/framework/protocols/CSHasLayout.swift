@@ -18,11 +18,8 @@ public protocol CSLayoutItemProtocol {
 }
 
 extension UIView: CSHasLayoutProtocol {
-    public var layoutFunctions: CSEvent<Void> { associatedDictionary("layoutFunctions") { event() } }
-
-    public var eventLayoutSubviewsFirstTime: CSEvent<Void> {
-        associatedDictionary("eventLayoutSubviewsFirstTime") { event() }
-    }
+    public var layoutFunctions: CSEvent<Void> { associated("layoutFunctions") { event() } }
+    public var eventLayoutSubviewsFirstTime: CSEvent<Void> { associated("eventLayoutSubviewsFirstTime") { event() } }
     public var isDidLayoutSubviews: Bool {
         get { (associatedDictionary["isDidLayoutSubviews"] as? Bool) ?? false }
         set { associatedDictionary["isDidLayoutSubviews"] = newValue }
@@ -41,7 +38,8 @@ extension UIView: CSHasLayoutProtocol {
                 onLayoutCreated()
             }
             eventLayoutSubviewsFirstTime.fire()
-        } else {
+        }
+        else {
             onUpdateLayout()
         }
         updateLayout()

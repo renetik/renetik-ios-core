@@ -7,7 +7,7 @@ import UIKit
 
 extension UIView: CSHasVisibilityProtocol {
     public var eventVisibilityChange: CSEvent<Bool> {
-        associatedDictionary("UIView+eventVisibilityChange") { event() }
+        associated("UIView+eventVisibilityChange") { event() }
     }
     public var isVisible: Bool {
         get { !isHidden }
@@ -19,13 +19,15 @@ public extension UIView {
 
     @discardableResult
     func shown(if condition: Bool) -> Self {
-        if condition { show() } else { hide() }
+        if condition { show() }
+        else { hide() }
         return self
     }
 
     @discardableResult
     func hidden(if condition: Bool) -> Self {
-        if condition { hide() } else { show() }
+        if condition { hide() }
+        else { show() }
         return self
     }
 

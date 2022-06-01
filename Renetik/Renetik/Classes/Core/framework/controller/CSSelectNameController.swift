@@ -1,10 +1,3 @@
-//
-//  CSSelectNameController.swift
-//  Renetik
-//
-//  Created by Rene Dohan on 2/20/19.
-//
-
 import UIKit
 
 public typealias CSNameRowType = CSNameProtocol & CustomStringConvertible & Equatable
@@ -23,7 +16,7 @@ public class CSSelectNameController<Data: CSNameRowType>:
 
     @discardableResult
     public func construct(data: [Data], onSelected: @escaping (Data) -> Void) -> Self {
-        self.names = data
+        names = data
         self.onSelected = onSelected
         return self
     }

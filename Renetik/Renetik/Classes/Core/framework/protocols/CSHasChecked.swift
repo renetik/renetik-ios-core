@@ -4,6 +4,6 @@
 
 import Foundation
 
-public protocol CSCheckableProtocol {
+public protocol CSHasCheckedProtocol {
     var isChecked: Bool { get set }
 }

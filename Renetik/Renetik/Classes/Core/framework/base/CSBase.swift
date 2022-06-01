@@ -4,8 +4,11 @@
 
 import Foundation
 
-open class CSBase: CSEventOwnerHasDestroy {
+
+
+open class CSBase: CSObject, CSEventOwnerHasDestroy {
     public init(parent: CSHasDestroy? = nil) {
+        super.init()
         parent?.also {
             register($0.eventDestroy.listenOnce { [unowned self] in onDestroy() })
         }

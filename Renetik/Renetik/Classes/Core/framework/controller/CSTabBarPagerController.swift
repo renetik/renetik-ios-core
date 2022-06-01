@@ -1,8 +1,3 @@
-//
-// Created by Rene Dohan on 9/19/19.
-// Copyright (c) 2019 Renetik Software. All rights reserved.
-//
-
 import Renetik
 
 public typealias CSTabBarPagerControllerItem = (item: UITabBarItem, onClick: (@escaping (UIViewController) -> Void) -> Void)

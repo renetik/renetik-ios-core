@@ -1,10 +1,3 @@
-//
-//  CSMainController.swift
-//  Renetik
-//
-//  Created by Rene Dohan on 3/14/19.
-//
-
 import Foundation
 
 public extension CSMainController {

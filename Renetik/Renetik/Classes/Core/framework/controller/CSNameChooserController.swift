@@ -31,7 +31,7 @@ public class CSNameChooserController<RowType: CSNameRowType>: CSMainController
     public func add(onDelete: @escaping (RowType) -> CSResponseProtocol) -> Self {
         self.onDelete = onDelete
         editMenuItem.isNil {
-            self.editMenuItem = menu(type: .edit) {
+            editMenuItem = menu(type: .edit) {
                 $0.systemItem = self.table.toggleEditing().isEditing ? .cancel : .edit
             }
         }
