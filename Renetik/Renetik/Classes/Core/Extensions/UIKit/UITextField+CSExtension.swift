@@ -11,7 +11,7 @@ public class AssociatedUITextFieldDelegate: NSObject, UITextFieldDelegate {
 
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textFieldShouldBeginEditing.fire()
-        onTextFieldShouldBeginEditing?() ?? true
+        return onTextFieldShouldBeginEditing?() ?? true
     }
 
     let textFieldDidBeginEditing: CSEvent<Void> = event()
@@ -25,7 +25,7 @@ public class AssociatedUITextFieldDelegate: NSObject, UITextFieldDelegate {
 
     public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         textFieldShouldEndEditing.fire()
-        onTextFieldShouldEndEditing?() ?? true
+        return onTextFieldShouldEndEditing?() ?? true
     }
 
     let textFieldDidEndEditing: CSEvent<UITextField.DidEndEditingReason> = event()
@@ -52,14 +52,14 @@ public class AssociatedUITextFieldDelegate: NSObject, UITextFieldDelegate {
 
     public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textFieldShouldClear.fire()
-        onTextFieldShouldClear?() ?? true
+        return onTextFieldShouldClear?() ?? true
     }
 }
 
 public extension UITextField {
 
     var associatedDelegate: AssociatedUITextFieldDelegate {
-        associated("delegate") { AssociatedUITextFieldDelegate().also { delegate = $0 } }
+        associated("associatedDelegate") { AssociatedUITextFieldDelegate().also { delegate = $0 } }
     }
 
     @objc func caretRect(for position: UITextPosition) -> CGRect { CGRect.zero }
@@ -132,7 +132,7 @@ public extension UITextField {
             addEventHandler(controlEvents: .editingChanged) { onChange() }
             addEventHandler(controlEvents: .editingDidEnd) { onChange() }
             addEventHandler(controlEvents: .editingDidEndOnExit) { onChange() }
-            bk_addObserver(forKeyPath: "text") { _ in onChange() }
+//            bk_addObserver(forKeyPath: "text") { _ in onChange() }
         }
         eventTextChange.listen { function(self) }
         return self

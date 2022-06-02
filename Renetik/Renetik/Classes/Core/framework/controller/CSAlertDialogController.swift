@@ -1,8 +1,3 @@
-//
-// Created by Rene Dohan on 12/2/19.
-// Copyright (c) 2019 Renetik Software. All rights reserved.
-//
-
 import UIKit
 
 public class CSAlertDialogController: CSObject, CSHasDialogProtocol, CSHasDialogVisible, CSHasSheetProtocol {

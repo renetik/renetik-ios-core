@@ -4,7 +4,7 @@
 
 import Foundation
 
-open class CSAssociatedObject<T> {
+open class CSObjectAssociation<T> {
     private let policy: objc_AssociationPolicy
 
     public init(policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC) {
@@ -17,20 +17,7 @@ open class CSAssociatedObject<T> {
     }
 }
 
-open class CSWeakAssociatedObject<T> {
-    private let policy: objc_AssociationPolicy
-
-    public init(policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC) {
-        self.policy = policy
-    }
-
-    public subscript(source: AnyObject) -> T? {
-        get { objc_getAssociatedObject(source, Unmanaged.passUnretained(self).toOpaque()) as? T }
-        set { objc_setAssociatedObject(source, Unmanaged.passUnretained(self).toOpaque(), newValue, policy) }
-    }
-}
-
-extension CSAssociatedObject {
+extension CSObjectAssociation {
     func value(_ parent: AnyObject, onCreate: () -> T) -> T {
         let value = self[parent]
         if value == nil {
@@ -54,8 +41,4 @@ extension CSAssociatedObject {
             return value!
         }
     }
-}
-
-class WeakAssociatedObject {
-    weak var value: AnyObject?
 }

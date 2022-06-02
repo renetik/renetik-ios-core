@@ -13,7 +13,7 @@ public class CSMenuHeader: CSObject {
     let title: String
 
     public init(by parent: CSMainController, index: Int, title: String) {
-        self.controller = parent
+        controller = parent
         self.index = index
         self.title = title
     }
@@ -21,7 +21,7 @@ public class CSMenuHeader: CSObject {
     public func item(with title: String, type: UIBarButtonItem.SystemItem? = nil,
                      image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
         items.add(CSMenuItem(by: controller, title: title, systemItem: type, image: image, action: action))
-                .also { $0.index = items.size - 1 }
+            .also { $0.index = items.size - 1 }
     }
 
     public func item(with view: UIView, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {

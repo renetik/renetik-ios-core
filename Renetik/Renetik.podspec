@@ -8,38 +8,28 @@
 
 Pod::Spec.new do |s|
   s.name = 'Renetik'
-  s.version = '0.11'
+  s.version = '0.5'
   s.summary = 'Library for rapid development of iOS apps with readable code and pleasure.'
-
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description = <<-DESC
 		Library for rapid development of iOS apps with readable code and pleasure,
 		created out of passion to code my way and to improve readability of my codebase.
   DESC
 
   s.homepage = 'https://github.com/rene-dohan/renetik-ios'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
   s.author = { 'rene-dohan' => 'dohan.rene@gmail.com' }
   s.source = { :git => 'https://github.com/rene-dohan/renetik-ios.git',
                :tag => s.version.to_s }
   s.social_media_url = 'https://renetik-software.github.io'
   s.ios.resource_bundle = { 'RenetikBundle' => 'Renetik/Resources/**/*' }
-
   s.ios.deployment_target = '13.0'
-
   s.default_subspecs = 'Core'
 
   s.subspec 'Core' do |ss|
-    # ss.dependency 'RenetikBlocksKit', '~> 2'
     ss.source_files = 'Renetik/Classes/Core/**/*'
   end
 
+=begin
   s.subspec 'Extensions' do |ss|
     ss.dependency 'Renetik/Core'
     ss.dependency 'RenetikObjc/Core'
@@ -150,4 +140,5 @@ Pod::Spec.new do |s|
     ss.dependency 'Renetik/DTCoreText'
     ss.dependency 'Renetik/CSMaterial'
   end
+=end
 end

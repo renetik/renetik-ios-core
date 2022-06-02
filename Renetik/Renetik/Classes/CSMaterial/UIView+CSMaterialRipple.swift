@@ -6,7 +6,7 @@ extension UIView {
     public func addRipple() -> Self {
         interaction(enabled: true)
         let inkTouchController = MDCRippleTouchController(view: self)
-        associatedDictionary("MDCRippleTouchController", inkTouchController)
+        associate("MDCRippleTouchController", inkTouchController)
         inkTouchController.addRipple(to: self)
         return self
     }

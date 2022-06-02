@@ -6,10 +6,16 @@ import UIKit
 
 public extension UIView {
 
+    func position(left: CGFloat, top: CGFloat) -> Self {
+        self.left = left
+        self.top = top
+        return self
+    }
+
     var position: CGPoint {
         get { frame.origin }
         set {
-            var frame = self.frame
+            var frame = frame
             frame.origin = newValue
             self.frame = frame
         }

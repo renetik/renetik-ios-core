@@ -4,7 +4,19 @@ public enum CSVerticalAlign { case top; case center; case bottom }
 
 let labelForDefaultFont = UILabel()
 
+public class AssociatedUITextViewDelegate: NSObject, UITextViewDelegate {
+    let textViewDidChange: CSEvent<Void> = event()
+
+    public func textViewDidChange(_ textField: UITextView) {
+        textViewDidChange.fire()
+    }
+}
+
 public extension UITextView {
+
+    var associatedDelegate: AssociatedUITextViewDelegate {
+        associated("associatedDelegate") { AssociatedUITextViewDelegate().also { delegate = $0 } }
+    }
 
     func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
 
@@ -83,7 +95,8 @@ public extension UITextView {
 
     @discardableResult
     public func onTextChange(_ function: @escaping ArgFunc<UITextView>) -> Self {
-        bk_didChangeBlock = { _ in function(self) }; return self
+        associatedDelegate.textViewDidChange.listen { function(self) }; return self
+//        bk_didChangeBlock = { _ in function(self) }; return self
     }
 
     @discardableResult

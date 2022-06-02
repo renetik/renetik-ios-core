@@ -4,6 +4,7 @@
 //
 
 import UIKit
+
 //import RenetikBlocksKit
 
 public extension UIView {
@@ -16,6 +17,10 @@ public extension UIView {
 
     class func construct(width: CGFloat, height: CGFloat) -> Self {
         construct().width(width, height: height)
+    }
+    
+    class func construct(left: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat) -> Self {
+        construct().position(left: left, top: top).width(width, height: height)
     }
 
     class func construct(width: CGFloat) -> Self {
@@ -54,16 +59,14 @@ public extension UIView {
     @discardableResult
     @objc open func onTap(_ block: @escaping Func) -> Self {
         interaction(enabled: true)
-        bk_(whenTapped: { block() })
+        addTapRecognizer(numberOfTouches: 1, numberOfTaps: 1) { block() }
         return self
     }
 
     @discardableResult
     open func onLongPress(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
-        addGestureRecognizer(UILongPressGestureRecognizer.bk_recognizer { _, _, _ in
-            block()
-        } as! UILongPressGestureRecognizer)
+        addGestureRecognizer(UILongPressGestureRecognizer { block() })
         return self
     }
 
@@ -233,4 +236,22 @@ public extension UIView {
     func data() -> Any? { associatedDictionary["UIView+CSExtension.model"] }
 
     func child(at condition: (UIView) -> Bool) -> UIView? { subviews.first(where: condition) }
+
+    func addTapRecognizer(numberOfTouches: Int, numberOfTaps: Int, handler: @escaping Func) {
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTouchesRequired = numberOfTouches
+        recognizer.numberOfTapsRequired = numberOfTaps
+        recognizer.add(action: handler)
+        //	[self.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        //		if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
+        //		UITapGestureRecognizer *tap = obj;
+        //		BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
+        //		BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+        //		if (rightTouches && rightTaps) {
+        //			[gesture requireGestureRecognizerToFail:tap];
+        //		}
+        //	}];
+        addGestureRecognizer(recognizer)
+    }
+
 }

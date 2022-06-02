@@ -6,8 +6,8 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import RenetikObjc
+//import RenetikObjc
 
-class ListItemData: CSDictionaryJsonData {
-}
+//class ListItemData: CSDictionaryJsonData {
+//}
 

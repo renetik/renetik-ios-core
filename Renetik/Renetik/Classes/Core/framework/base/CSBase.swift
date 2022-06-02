@@ -1,10 +1,4 @@
-//
-// Created by Rene Dohan on 29/05/22.
-//
-
 import Foundation
-
-
 
 open class CSBase: CSObject, CSEventOwnerHasDestroy {
     public init(parent: CSHasDestroy? = nil) {

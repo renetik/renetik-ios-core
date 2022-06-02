@@ -43,15 +43,15 @@ class CSLangTest: XCTestCase {
         XCTAssertEqual("", optionalStringWithNil.asString)
     }
 
-    func testApply() {
+    func testAlso() {
         XCTAssertEqual("initial", nonOptionalTestClass.testString)
-        XCTAssertEqual("other", nonOptionalTestClass.apply { $0.testString = "other" }.testString)
+        XCTAssertEqual("other", nonOptionalTestClass.also { $0.testString = "other" }.testString)
 
         XCTAssertEqual("initial", optionalTestClassWithValue?.testString)
-        XCTAssertEqual("other", optionalTestClassWithValue?.apply { $0.testString = "other" }.testString)
+        XCTAssertEqual("other", optionalTestClassWithValue?.also { $0.testString = "other" }.testString)
 
         XCTAssertNil(optionalTestClassWithNil?.testString)
-        XCTAssertNil(optionalTestClassWithNil?.apply { $0.testString = "other" }.testString)
+        XCTAssertNil(optionalTestClassWithNil?.also { $0.testString = "other" }.testString)
     }
 
     func testThen() {
@@ -60,31 +60,31 @@ class CSLangTest: XCTestCase {
         XCTAssertEqual("other", nonOptionalTestClass.testString)
 
         XCTAssertEqual("initial", optionalTestClassWithValue?.testString)
-        optionalTestClassWithValue?.apply { $0.testString = "other" }
+        optionalTestClassWithValue?.then { $0.testString = "other" }
         XCTAssertEqual("other", optionalTestClassWithValue?.testString)
 
         XCTAssertNil(optionalTestClassWithNil?.testString)
-        optionalTestClassWithNil?.apply { $0.testString = "other" }
+        optionalTestClassWithNil?.then { $0.testString = "other" }
         XCTAssertNil(optionalTestClassWithNil?.testString)
     }
 
-    func testGet() {
+    func testRet() {
         XCTAssertEqual("initial", nonOptionalTestClass.testString)
-        XCTAssertEqual("returned", nonOptionalTestClass.get {
+        XCTAssertEqual("returned", nonOptionalTestClass.ret {
             $0.testString = "other"
             return "returned"
         })
         XCTAssertEqual("other", nonOptionalTestClass.testString)
 
         XCTAssertEqual("initial", optionalTestClassWithValue?.testString)
-        XCTAssertEqual("returned", optionalTestClassWithValue?.get {
+        XCTAssertEqual("returned", optionalTestClassWithValue?.ret {
             $0.testString = "other"
             return "returned"
         })
         XCTAssertEqual("other", optionalTestClassWithValue?.testString)
 
         XCTAssertNil(optionalTestClassWithNil?.testString)
-        XCTAssertNil(optionalTestClassWithNil?.get {
+        XCTAssertNil(optionalTestClassWithNil?.ret {
             $0.testString = "other"
             return "returned"
         })
@@ -95,7 +95,7 @@ class CSLangTest: XCTestCase {
         let array: NSMutableArray? = NSMutableArray()
         array?.add("test string 1")
         array?.add("test string 2")
-        let stringArray: [String] = array as [String]
+        let stringArray: [String] = array as! [String]
         XCTAssertEqual("test string 2", stringArray[1])
     }
 }
