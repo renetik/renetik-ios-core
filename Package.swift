@@ -23,13 +23,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Renetik",
-            dependencies: [],
-            linkerSettings: [
-                .linkedFramework("UIKit")
-            ]
+            dependencies: []
         ),
-        .testTarget(
-            name: "RenetikTests",
-            dependencies: ["Renetik"]),
+    ],
+    swiftLanguageVersions: [
+        .v5
     ]
 )
