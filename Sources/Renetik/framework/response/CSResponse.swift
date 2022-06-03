@@ -62,7 +62,7 @@ public class CSResponse<Data: CSAnyProtocol>: NSObject, CSResponseProtocol {
     }
 
     override public var description: String {
-        "url:\(url) service:\(service) message:\(message) params:\(params) post:\(post) content:\(content)"
+        "url:\(url) service:\(service) message:\(message) params:\(params) post:\(post) content:\(content.asString)"
     }
 
     @discardableResult

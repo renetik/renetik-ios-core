@@ -32,7 +32,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func show() -> Self {
+    @objc func show() -> Self {
         isVisible = true
         navigation.topViewController?.view.setNeedsLayout()
         superview?.setNeedsLayout()
@@ -40,7 +40,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func hide() -> Self {
+    @objc func hide() -> Self {
         isVisible = false
         navigation.topViewController?.view.setNeedsLayout()
         superview?.setNeedsLayout()

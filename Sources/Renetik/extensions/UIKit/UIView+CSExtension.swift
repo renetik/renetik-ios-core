@@ -18,7 +18,7 @@ public extension UIView {
     class func construct(width: CGFloat, height: CGFloat) -> Self {
         construct().width(width, height: height)
     }
-    
+
     class func construct(left: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat) -> Self {
         construct().position(left: left, top: top).width(width, height: height)
     }
@@ -48,23 +48,23 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func construct() -> Self { setAutoresizingDefaults() }
+    @objc func construct() -> Self { setAutoresizingDefaults() }
 
     @discardableResult
-    @objc open func onClick(_ block: @escaping Func) -> Self {
+    @objc func onClick(_ block: @escaping Func) -> Self {
         onTap { block() }
         return self
     }
 
     @discardableResult
-    @objc open func onTap(_ block: @escaping Func) -> Self {
+    @objc func onTap(_ block: @escaping Func) -> Self {
         interaction(enabled: true)
         addTapRecognizer(numberOfTouches: 1, numberOfTaps: 1) { block() }
         return self
     }
 
     @discardableResult
-    open func onLongPress(_ block: @escaping Func) -> Self {
+    func onLongPress(_ block: @escaping Func) -> Self {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer { block() })
         return self
@@ -135,7 +135,9 @@ public extension UIView {
     }
 
     func clone() -> Self {
-        NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! Self
+        try! NSKeyedUnarchiver.unarchivedObject(ofClass: Self.self,
+            from: try! NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false))!
+//        NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! Self
     }
 
     var firstResponder: UIView? {

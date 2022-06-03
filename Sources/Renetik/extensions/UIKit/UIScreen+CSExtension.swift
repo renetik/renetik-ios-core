@@ -15,16 +15,15 @@ public extension UIScreen {
     class var minLength: CGFloat { min(width, height) }
     class var isZoomed: Bool { main.nativeScale >= main.scale }
     class var isRetina: Bool { main.scale >= 2.0 }
-    // Should change to delegate.window?.windowScene?.interfaceOrientation for ios 13+
     class var orientation: UIInterfaceOrientation {
-        UIApplication.shared.delegate?.window??.rootViewController?.interfaceOrientation ??
-            UIApplication.shared.statusBarOrientation
+        delegate.window?.windowScene?.interfaceOrientation ?? .unknown
+//        UIApplication.shared.delegate?.window??.rootViewController?.interfaceOrientation ??
+//            UIApplication.shared.statusBarOrientation
     }
     class var isPortrait: Bool { orientation.isPortrait }
     class var isLandscape: Bool { !isPortrait }
-    // Should change to delegate.window?.windowScene?.interfaceOrientation for ios 13+
-    class var isLandscapeLeft: Bool { UIApplication.shared.statusBarOrientation == .landscapeLeft }
-    class var isLandscapeRight: Bool { UIApplication.shared.statusBarOrientation == .landscapeRight }
+    class var isLandscapeLeft: Bool { orientation == .landscapeLeft }
+    class var isLandscapeRight: Bool { orientation == .landscapeRight }
     class var isThin: Bool { isPortrait && UIDevice.isPhone }
     class var isUltraThin: Bool { isPortrait && UIScreen.width <= 375 }
     class var isWide: Bool { !isThin }

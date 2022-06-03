@@ -87,7 +87,7 @@ public extension UITextField {
     }
 
     @discardableResult
-    @objc override open func onClick(_ function: @escaping Func) -> Self {
+    @objc override func onClick(_ function: @escaping Func) -> Self {
         associatedDelegate.onTextFieldShouldBeginEditing = { function(); return false }
 //        bk_shouldBeginEditingBlock = { _ in function(); return false }
         return self

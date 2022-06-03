@@ -6,7 +6,7 @@ import UIKit
 
 public extension UIApplication {
 
-    class var window: UIWindow? { UIApplication.shared.windows.last }
+    class var window: UIWindow? { UIApplication.shared.delegate?.window ?? nil }
 
     @objc class func resignFirstResponder() {
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
@@ -20,13 +20,13 @@ public extension UIApplication {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
-    class var statusBarHeight: CGFloat {
-        let statusBarSize = UIApplication.shared.statusBarFrame.size
-        let height = min(statusBarSize.width, statusBarSize.height)
-        return height
-    }
+//    class var statusBarHeight: CGFloat {
+//        let statusBarSize = UIApplication.shared.statusBarFrame.size
+//        let height = min(statusBarSize.width, statusBarSize.height)
+//        return height
+//    }
 
-    class var statusBarBottom: CGFloat {
-        statusBarHeight
-    }
+//    class var statusBarBottom: CGFloat {
+//        statusBarHeight
+//    }
 }

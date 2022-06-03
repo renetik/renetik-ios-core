@@ -1,14 +1,6 @@
-//
-//  CSAppDelegate.swift
-//  BlocksKit
-//
-//  Created by Rene Dohan on 2/9/19.
-//
-
 import UIKit
 
 var delegate: CSApplicationDelegate!
-//public let delegate: CSApplicationDelegate = CSApplicationDelegate.instance
 public let logger: CSLoggerProtocol = delegate.logger
 public let navigation: CSNavigationController = delegate.navigation
 

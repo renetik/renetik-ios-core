@@ -64,10 +64,11 @@ public class CSMenuItem: CSObject {
 
     private func updateMenu() {
         if !controller.isViewLoaded { return }
-        (controller as? CSMainController).notNil { $0.updateBarItemsAndMenu() }.elseDo {
-            (controller.parent as? CSMainController).notNil { $0.updateBarItemsAndMenu() }
-                    .elseDo { logError("CSMainController not found") }
-        }
+        controller.updateBarItemsAndMenu()
+//        (controller as? CSMainController).notNil { $0.updateBarItemsAndMenu() }.elseDo {
+//            (controller.parent as? CSMainController).notNil { $0.updateBarItemsAndMenu() }
+//                    .elseDo { logError("CSMainController not found") }
+//        }
     }
 
     internal func createButtonItem() -> UIBarButtonItem {
@@ -106,17 +107,17 @@ public extension CSMenuItem {
         let frame = CGRect(x: 0, y: 0, width: 26, height: 26)
         // Bottom Bar Drawing
         let bottomBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
-                y: frame.minY + floor((frame.height - 1) * 0.72000 + 0.5), width: 16, height: 1))
+            y: frame.minY + floor((frame.height - 1) * 0.72000 + 0.5), width: 16, height: 1))
         fillColor.setFill()
         bottomBarPath.fill()
         // Middle Bar Drawing
         let middleBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
-                y: frame.minY + floor((frame.height - 1) * 0.48000 + 0.5), width: 16, height: 1))
+            y: frame.minY + floor((frame.height - 1) * 0.48000 + 0.5), width: 16, height: 1))
         fillColor.setFill()
         middleBarPath.fill()
         // Top Bar Drawing
         let topBarPath = UIBezierPath(rect: CGRect(x: frame.minX + floor((frame.width - 16) * 0.50000 + 0.5),
-                y: frame.minY + floor((frame.height - 1) * 0.24000 + 0.5), width: 16, height: 1))
+            y: frame.minY + floor((frame.height - 1) * 0.24000 + 0.5), width: 16, height: 1))
         fillColor.setFill()
         topBarPath.fill()
         return UIGraphicsGetImageFromCurrentImageContext()!

@@ -7,12 +7,12 @@ import UIKit
 public extension UIControl {
 
     @discardableResult
-    @objc override open func onClick(_ block: @escaping Func) -> Self {
+    @objc override func onClick(_ block: @escaping Func) -> Self {
         onTouchUp(block)
     }
 
     @discardableResult
-    @objc open func onTouchUp(_ block: @escaping Func) -> Self {
+    @objc func onTouchUp(_ block: @escaping Func) -> Self {
         interaction(enabled: true)
         addEventHandler(controlEvents: .touchUpInside) { block() }
 //        bk_addEventHandler({ _ in block() }, for: .touchUpInside)
@@ -20,7 +20,7 @@ public extension UIControl {
     }
 
     @discardableResult
-    @objc open func onTouchDown(_ block: @escaping Func) -> Self {
+    @objc func onTouchDown(_ block: @escaping Func) -> Self {
         interaction(enabled: true)
         addEventHandler(controlEvents: .touchDown) { block() }
 //        bk_addEventHandler({ _ in block() }, for: .touchDown)

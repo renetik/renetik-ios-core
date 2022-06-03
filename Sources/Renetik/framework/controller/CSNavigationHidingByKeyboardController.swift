@@ -19,13 +19,14 @@ public class CSNavigationHidingByKeyboardController: CSViewController {
     }
 
     private func onKeyboardChange(keyboardHeight: CGFloat) {
-        if keyboardHeight > 0 { hideNavigationBar() } else { showNavigationBar() }
+        if keyboardHeight > 0 { hideNavigationBar() }
+        else { showNavigationBar() }
     }
 
     public func hideNavigationBar() {
         if navigationBarHidden { return }
         animate(duration: 0.5) {
-            navigation.navigationBar.bottom = UIApplication.statusBarHeight
+            navigation.navigationBar.bottom = delegate.window?.statusBarHeight ?? 0
             navigation.last!.view.fill(top: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeOut(duration: 0.7)
@@ -35,7 +36,8 @@ public class CSNavigationHidingByKeyboardController: CSViewController {
     public func showNavigationBar() {
         if !navigationBarHidden { return }
         animate(duration: 0.5) {
-            navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
+            navigation.navigationBar.top = delegate.window?.statusBarHeight ?? 0
+//            navigation.navigationBar.top = UIApplication.shared.statusBarFrame.height
             navigation.last!.view.fill(top: navigation.navigationBar.bottom)
         }
         navigation.navigationBar.fadeIn(duration: 0.7)

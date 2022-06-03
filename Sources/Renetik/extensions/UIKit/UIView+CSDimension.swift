@@ -16,7 +16,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func width(_ value: CGFloat) -> Self { width = value; return self }
+    @objc func width(_ value: CGFloat) -> Self { width = value; return self }
 
     @discardableResult
     func width(as view: UIView) -> Self { width(view.width) }
@@ -182,7 +182,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func resizeToFit() -> Self {
+    @objc func resizeToFit() -> Self {
         if content.notNil {
             content!.resizeToFit()
             let masks = saveAndClearSubviewsAutoresizingMasks()
@@ -196,19 +196,19 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func resizeToFit(padding: CGFloat = 0) -> Self {
+    @objc func resizeToFit(padding: CGFloat = 0) -> Self {
         resizeToFit().resize(padding: padding)
     }
 
     @discardableResult
-    @objc open func widthToFit() -> Self { width(widthThatFits()) }
+    @objc func widthToFit() -> Self { width(widthThatFits()) }
 
     @discardableResult
-    @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
+    @objc func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
 
 //     heightToFitSubviews cannot be used because this needs to shift subviews too
     @discardableResult
-    @objc open func heightToFit() -> Self {
+    @objc func heightToFit() -> Self {
         if content.notNil {
             content!.heightToFit()
             let masks = saveAndClearSubviewsAutoresizingMasks()
@@ -222,7 +222,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func heightThatFitsSubviews() -> CGFloat {
+    @objc func heightThatFitsSubviews() -> CGFloat {
         var y = height
         var rect = CGRect.zero
         subviews.forEach { subview in
@@ -234,7 +234,7 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func heightToFitSubviews() -> Self {
+    @objc func heightToFitSubviews() -> Self {
         var y = height
         var rect = CGRect.zero
         for subview in subviews {
@@ -266,12 +266,12 @@ public extension UIView {
         }
     }
 
-    @objc open func widthThatFits() -> CGFloat {
+    @objc func widthThatFits() -> CGFloat {
         assert(height > 0, "Height has to be set to calculate width")
         return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }
 
-    @objc open func heightThatFits() -> CGFloat {
+    @objc func heightThatFits() -> CGFloat {
         assert(width > 0, "Width has to be set to calculate height")
         return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }

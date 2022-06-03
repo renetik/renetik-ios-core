@@ -85,9 +85,10 @@ public extension UIView {
         if superview?.window != nil {
             // superview is already in view hierarchy
             return from(bottom: superview!.safeAreaInsets.bottom + safeBottom)
-        } else {
+        }
+        else {
             // superview not in view hierarchy - use default's window bottom inset
-            return from(bottom: UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 + safeBottom)
+            return from(bottom: UIApplication.window?.safeAreaInsets.bottom ?? 0 + safeBottom)
         }
     }
 
@@ -221,7 +222,8 @@ public extension UIView {
             assert(previous.height == height, "Needs to have same height as previous")
             if previous.right + width <= superview!.width {
                 from(left: previous.right, top: previous.top)
-            } else {
+            }
+            else {
                 from(left: 0, top: previous.bottom)
             }
         }.elseDo { from(left: 0, top: 0) }
@@ -246,10 +248,12 @@ public extension UIView {
             assert(previous.width == width, "Needs to have same width as previous")
             if previous.bottom + height <= superview!.height {
                 from(left: previous.left, top: previous.bottom)
-            } else {
+            }
+            else {
                 from(left: previous.right, top: 0)
             }
-        } else {
+        }
+        else {
             from(left: 0, top: 0)
         }
         return self
@@ -261,7 +265,8 @@ public extension UIView {
         assert(superview.notNil, "Needs to have superview")
         if let previous = superview!.findPrevious(of: self) {
             from(top: previous.bottom + margin)
-        } else {
+        }
+        else {
             from(top: margin)
         }
         return self
@@ -275,10 +280,12 @@ public extension UIView {
         if let previous = superview!.findPrevious(of: self) {
             if previous.right + margin + self.width + margin <= width {
                 from(left: previous.right + margin, top: previous.top)
-            } else {
+            }
+            else {
                 from(left: margin, top: previous.bottom + margin)
             }
-        } else {
+        }
+        else {
             from(left: margin, top: margin)
         }
         return self
@@ -292,10 +299,12 @@ public extension UIView {
         if let previous = superview!.findPrevious(of: self) {
             if previous.bottom + margin + height + margin <= height {
                 from(left: previous.left, top: previous.bottom + margin)
-            } else {
+            }
+            else {
                 from(left: previous.right + margin, top: margin)
             }
-        } else {
+        }
+        else {
             from(left: margin, top: margin)
         }
         return self

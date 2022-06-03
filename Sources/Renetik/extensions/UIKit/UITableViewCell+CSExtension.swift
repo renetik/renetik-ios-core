@@ -7,7 +7,7 @@ import UIKit
 public extension UITableViewCell {
 
     @discardableResult
-    override open func construct() -> Self {
+    override func construct() -> Self {
         super.construct()
         selectedBackgroundView = UIView.construct(color: .clear)
         contentView.matchParent()
@@ -25,7 +25,7 @@ public extension UITableViewCell {
     var cellView: UIView? { contentView.content }
 
     @discardableResult
-    open override func heightToFit() -> Self {
+    override func heightToFit() -> Self {
         contentView.heightToFit()
         super.heightToFit()
         return self

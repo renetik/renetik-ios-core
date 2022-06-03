@@ -109,7 +109,7 @@ public extension UIView {
             .flexibleTop().fixedBottom().background(color)
     }
 
-    @objc open var isEmpty: Bool { subviews.isEmpty }
+    @objc var isEmpty: Bool { subviews.isEmpty }
 }
 
 public extension UIView {

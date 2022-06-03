@@ -6,7 +6,7 @@ import UIKit
 
 public extension UITableView {
 
-    override open func construct() -> Self {
+    override func construct() -> Self {
         super.construct()
         return self
     }

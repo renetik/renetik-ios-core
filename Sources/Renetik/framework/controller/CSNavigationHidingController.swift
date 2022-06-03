@@ -31,7 +31,8 @@ public class CSNavigationHidingController: CSViewController {
         if !isAppearing { return }
         if keyboardHeight > 0 && UIScreen.isLandscape {
             requestNavigationBarHidden()
-        } else {
+        }
+        else {
             requestNavigationBarShown()
         }
     }
@@ -63,12 +64,15 @@ public class CSNavigationHidingController: CSViewController {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isAtTop {
             requestNavigationBarShown()
-        } else if scrollView.isAtBottom {
-        } else {
+        }
+        else if scrollView.isAtBottom {
+        }
+        else {
             if lastDraggingContentOffset.isNil { return }
             if lastDraggingContentOffset! < scrollView.contentOffset.y - 400 {
                 requestNavigationBarHidden()
-            } else if lastDraggingContentOffset! > scrollView.contentOffset.y + 200 {
+            }
+            else if lastDraggingContentOffset! > scrollView.contentOffset.y + 200 {
                 requestNavigationBarShown()
             }
         }
@@ -99,7 +103,7 @@ public class CSNavigationHidingController: CSViewController {
         isHidingRunning = true
         isNavigationBarHidden = true
         invoke(animated: animated, operation: {
-            navigation.navigationBar.bottom = UIApplication.statusBarBottom
+            navigation.navigationBar.bottom = delegate.window?.statusBarBottom ?? 0
             self.parentController!.view.fill(top: navigation.navigationBar.bottom)
         }, completion: {
             navigation.navigationBar.hide()
@@ -125,7 +129,7 @@ public class CSNavigationHidingController: CSViewController {
         isNavigationBarHidden = false
         navigation.navigationBar.show()
         invoke(animated: animated, operation: {
-            navigation.navigationBar.top = UIApplication.statusBarBottom
+            navigation.navigationBar.top = delegate.window?.statusBarBottom ?? 0
             self.parentController!.view.fill(top: navigation.navigationBar.bottom)
         }, completion: {
             self.isShowingRunning = false

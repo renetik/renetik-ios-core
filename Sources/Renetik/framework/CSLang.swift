@@ -73,13 +73,11 @@ public func background(function: @escaping Func) {
 }
 
 public func stringify<Subject>(_ value: Subject) -> String {
-    if value == nil { return "" }
-    return (value as? OptionalProtocol)?.asString ?? String(describing: value)
+    (value as? OptionalProtocol)?.asString ?? String(describing: value)
 }
 
 public func describe<Subject>(_ value: Subject) -> String {
-    if value == nil { return "nil" }
-    return String(describing: value)
+    String(describing: value)
 }
 
 public func notNil(_ items: Any?...) -> Bool {

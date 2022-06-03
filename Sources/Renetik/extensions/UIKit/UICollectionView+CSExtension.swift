@@ -9,7 +9,7 @@ private let DEFAULT_CELL_ID = "emptyCellIdentifier"
 public extension UICollectionView {
 
     @discardableResult
-    override open func construct() -> Self {
+    override func construct() -> Self {
         super.construct()
         return background(.clear)
     }
