@@ -213,7 +213,7 @@ public extension UIView {
     }
 
     @discardableResult
-    func background(dashed color: UIColor, stroke: NSNumber, gap: NSNumber) -> Self {
+    func background4(dashed color: UIColor, stroke: NSNumber, gap: NSNumber) -> Self {
         clipsToBounds()
         let shapeLayer = CAShapeLayer()
 
