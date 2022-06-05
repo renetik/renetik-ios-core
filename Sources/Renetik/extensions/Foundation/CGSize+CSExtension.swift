@@ -8,8 +8,6 @@ import CoreGraphics
 
 public extension CGSize {
 
-    static let defaultViewSize = CGSize(width: UIScreen.width, height: UIScreen.height)
-
     init(size: Int) {
         self.init(size: CGFloat(size))
     }

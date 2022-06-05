@@ -7,6 +7,8 @@
 
 import Foundation
 
+public var logger: CSLoggerProtocol!
+
 @objc public protocol CSLoggerProtocol {
     func logDebug(_ value: String)
     func logInfo(_ value: String)

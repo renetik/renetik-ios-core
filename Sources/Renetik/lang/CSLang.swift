@@ -27,7 +27,7 @@ struct RuntimeError: Error {
     public var localizedDescription: String { message }
 }
 
-let isDebug: Bool = {
+public let isDebug: Bool = {
     var isDebug = false
 
     func setDebug() -> Bool {
@@ -39,7 +39,7 @@ let isDebug: Bool = {
     return isDebug
 }()
 
-let csBundle: Bundle = {
+public let csBundle: Bundle = {
 //    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
 //    When #use_modular_headers! Bundle.main
 //    TODO?: How to solve this universally

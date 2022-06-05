@@ -110,11 +110,11 @@ public extension Array where Element: CSSearchNameProtocol, Element: CustomStrin
     }
 }
 
-extension NSArray {
+public extension NSArray {
     var isEmpty: Bool { count == 0 }
 }
 
-extension NSMutableArray {
+public extension NSMutableArray {
     @discardableResult
     func reload(_ array: [Any]) -> Self {
         removeAllObjects()
