@@ -5,9 +5,13 @@
 //  Created by Rene Dohan on 2/10/19.
 //
 
-import Foundation
+public class CSLogger {
+    public static var logger: CSLoggerProtocol!
 
-public var logger: CSLoggerProtocol!
+    class func initialize(_ logger: CSLoggerProtocol = NSCSLogger()) {
+        CSLogger.logger = logger
+    }
+}
 
 @objc public protocol CSLoggerProtocol {
     func logDebug(_ value: String)
@@ -45,7 +49,7 @@ public func logDebug<Subject>(_ value: Subject, functionName: String = #function
                               fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     let message = "<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))"
-    logger.logDebug(message)
+    CSLogger.logger.logDebug(message)
 }
 
 public func logInfo(functionName: String = #function,
@@ -56,17 +60,17 @@ public func logInfo(functionName: String = #function,
 public func logInfo<Subject>(_ value: Subject, functionName: String = #function,
                              fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
-    logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
+    CSLogger.logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logWarn<Subject>(_ value: Subject, functionName: String = #function,
                              fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
-    logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
+    CSLogger.logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logError<Subject>(_ value: Subject, functionName: String = #function,
                               fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
-    logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
+    CSLogger.logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
