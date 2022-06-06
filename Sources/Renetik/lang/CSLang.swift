@@ -9,6 +9,27 @@ public typealias Boolean = Bool
 public typealias Func = () -> Void
 public typealias ArgFunc<Argument> = (Argument) -> Void
 
+public class CSLang {
+    public static var isDebug: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+//    public let isDebug: Bool = {
+//        var isDebug = false
+//
+//        func setDebug() -> Bool {
+//            isDebug = true
+//            return true
+//        }
+//
+//        assert(setDebug())
+//        return isDebug
+//    }()
+}
+
 extension TimeInterval {
     public static let defaultAnimation: TimeInterval = 0.25
 }
@@ -21,28 +42,16 @@ enum CSError: Error {
 
 struct RuntimeError: Error {
     let message: String
-
+    
     init(_ message: String) { self.message = message }
-
+    
     public var localizedDescription: String { message }
 }
 
-public let isDebug: Bool = {
-    var isDebug = false
-
-    func setDebug() -> Bool {
-        isDebug = true
-        return true
-    }
-
-    assert(setDebug())
-    return isDebug
-}()
-
 public let csBundle: Bundle = {
-//    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
-//    When #use_modular_headers! Bundle.main
-//    TODO?: How to solve this universally
+    //    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
+    //    When #use_modular_headers! Bundle.main
+    //    TODO?: How to solve this universally
     let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
     return Bundle(path: bundle.path(forResource: "RenetikBundle", ofType: "bundle")!)!
 }()
@@ -109,16 +118,16 @@ open class CSObject: CSAnyProtocol, Equatable, CustomStringConvertible {
 
 public class Nil: CSAnyProtocol, Equatable {
     private init() {}
-
+    
     public static var instance: Nil = Nil()
-
+    
     public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
 public class CSConditionalResult {
     let isDoElse: Bool
-
+    
     public init(doElseIf: Bool) { isDoElse = doElseIf }
-
+    
     public func elseDo(_ function: Func) { if isDoElse { function() } }
 }
