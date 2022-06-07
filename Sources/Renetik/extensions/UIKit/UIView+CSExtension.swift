@@ -1,17 +1,9 @@
-extension UIView {
-    @discardableResult
-    @objc open func construct() -> Self { self }
+public protocol CSHasConstruct: AnyObject {
+    func construct() -> Self
 }
 
-extension UIView {
-    
-    @discardableResult
-    @objc class func construct() -> Self {
-        let _self: Self = Self()
-        _self.construct()
-        return _self
-    }
-    
+extension UIView{
+
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {
         onTap { block() }
@@ -190,4 +182,6 @@ public extension UIView {
         //	}];
         addGestureRecognizer(recognizer)
     }
+    
+    @objc var isEmpty: Bool { subviews.isEmpty }
 }

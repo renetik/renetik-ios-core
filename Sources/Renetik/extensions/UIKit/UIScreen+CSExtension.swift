@@ -1,10 +1,3 @@
-//
-//  UIScreen.swift
-//  Renetik
-//
-//  Created by Rene Dohan on 8/24/19.
-//
-
 public extension UIScreen {
     class var size: CGSize { main.bounds.size }
     class var width: CGFloat { size.width }
