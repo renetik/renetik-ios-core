@@ -1,9 +1,16 @@
-//
-// Created by Rene on 2018-11-22.
-// Copyright (c) 2018 Renetik Software. All rights reserved.
-//
+extension UIView {
+    @discardableResult
+    @objc open func construct() -> Self { self }
+}
 
 extension UIView {
+    
+    @discardableResult
+    @objc class func construct() -> Self {
+        let _self: Self = Self()
+        _self.construct()
+        return _self
+    }
     
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {

@@ -1,7 +1,4 @@
 //
-//  SceneDelegate.swift
-//  Example
-//
 //  Created by Renetik on 04/06/22.
 //
 
