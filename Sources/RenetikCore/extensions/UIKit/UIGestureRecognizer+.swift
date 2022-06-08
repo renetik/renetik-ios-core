@@ -5,17 +5,17 @@
 import UIKit
 
 extension UIGestureRecognizer {
-    convenience init(handler: @escaping Func) {
+    convenience init(handler: @escaping ArgFunc<UIGestureRecognizer>) {
         self.init()
         add(action: handler)
     }
 
-    func add(action: @escaping Func) {
+    func add(action: @escaping ArgFunc<UIGestureRecognizer>) {
         addTarget(self, action: #selector(handleAction))
         associatedDictionary["action"] = action
     }
 
-    @objc func handleAction(sender: UIBarButtonItem) {
-        (associatedDictionary["action"] as? ArgFunc<UIBarButtonItem>)?(sender)
+    @objc func handleAction(sender: UIGestureRecognizer) {
+        (associatedDictionary["action"] as? ArgFunc<UIGestureRecognizer>)?(sender)
     }
 }
