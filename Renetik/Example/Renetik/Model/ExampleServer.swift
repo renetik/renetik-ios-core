@@ -6,7 +6,7 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import Renetik
+import RenetikCore
 //import RenetikObjc
 
 class ExampleServer {

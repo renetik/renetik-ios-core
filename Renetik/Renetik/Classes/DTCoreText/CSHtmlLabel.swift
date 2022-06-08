@@ -10,7 +10,7 @@ import ARChromeActivity
 import DTCoreText
 import DTCoreText.DTAttributedLabel
 import IDMPhotoBrowser
-import Renetik
+import RenetikCore
 import TUSafariActivity
 import UIKit
 

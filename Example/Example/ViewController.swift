@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Renetik
+import RenetikCore
 
 class ViewController: UIViewController {
 

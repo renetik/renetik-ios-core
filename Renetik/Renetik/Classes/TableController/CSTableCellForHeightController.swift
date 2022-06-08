@@ -6,7 +6,7 @@
 //  Copyright © 2017 Renetik Software. All rights reserved.
 //
 
-import Renetik
+import RenetikCore
 import RenetikObjc
 
 public class CSTableCellForHeightController: CSViewController {

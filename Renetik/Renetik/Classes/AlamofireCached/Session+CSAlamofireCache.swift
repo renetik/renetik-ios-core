@@ -7,7 +7,7 @@
 //import CoreFoundation
 //import Alamofire
 //import RenetikObjc
-//import Renetik
+//import RenetikCore
 //
 //public extension Session {
 //

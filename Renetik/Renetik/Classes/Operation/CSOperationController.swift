@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import Renetik
+import RenetikCore
 
 public protocol CSOperationController {
     @discardableResult

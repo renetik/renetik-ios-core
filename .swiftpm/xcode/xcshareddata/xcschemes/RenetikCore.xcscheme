@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Renetik"
-               BuildableName = "Renetik"
-               BlueprintName = "Renetik"
+               BlueprintIdentifier = "RenetikCore"
+               BuildableName = "RenetikCore"
+               BlueprintName = "RenetikCore"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Renetik"
-            BuildableName = "Renetik"
-            BlueprintName = "Renetik"
+            BlueprintIdentifier = "RenetikCore"
+            BuildableName = "RenetikCore"
+            BlueprintName = "RenetikCore"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

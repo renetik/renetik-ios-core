@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Renetik
+import RenetikCore
 
 @main
 class AppDelegate: CSApplicationDelegate {

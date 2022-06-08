@@ -6,7 +6,7 @@
 //  Copyright © 2019 Renetik Software. All rights reserved.
 //
 
-import Renetik
+import RenetikCore
 import MaterialComponents
 
 public extension MDCBaseTextArea {

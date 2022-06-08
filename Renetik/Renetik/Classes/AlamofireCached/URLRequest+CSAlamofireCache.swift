@@ -6,7 +6,7 @@
 //import Foundation
 //import Alamofire
 //import RenetikObjc
-//import Renetik
+//import RenetikCore
 //
 //public extension URLRequest {
 //    func clearCache(urlCache: URLCache = URLCache.shared) {

@@ -6,7 +6,7 @@
 import MaterialComponents
 import MaterialComponents.MDCPageControl
 import UIKit
-import Renetik
+import RenetikCore
 
 //import RenetikBlocksKit
 

@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Renetik
+import RenetikCore
 
 extension CSProcess where Data: CSHttpResponseDataProtocol {
     public func mockSuccess(code: Int, message: String, content: String) -> Self {

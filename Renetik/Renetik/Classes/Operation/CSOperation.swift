@@ -3,7 +3,7 @@
 // Copyright (c) 2019 Renetik. All rights reserved.
 //
 
-import Renetik
+import RenetikCore
 import RenetikObjc
 
 public protocol CSOperationProtocol {

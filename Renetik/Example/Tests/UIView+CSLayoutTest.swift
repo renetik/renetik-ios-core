@@ -2,7 +2,7 @@
 
 import Nimble
 import Quick
-import Renetik
+import RenetikCore
 import XCTest
 
 class UIViewTestSwift: XCTestCase {

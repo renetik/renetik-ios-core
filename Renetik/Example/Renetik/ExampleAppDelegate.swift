@@ -7,7 +7,7 @@
 //
 
 //import RenetikObjc
-import Renetik
+import RenetikCore
 
 @UIApplicationMain
 class ExampleAppDelegate: CSApplicationDelegate {

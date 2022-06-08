@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import MaterialComponents
-import Renetik
+import RenetikCore
 
 public extension MDCCard {
     @discardableResult

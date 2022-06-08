@@ -6,7 +6,7 @@
 //  Copyright (c) 2019 rene-dohan. All rights reserved.
 //
 
-import Renetik
+import RenetikCore
 
 class ExampleListController: UIViewController {
 //    let table = CSTableController<ListItemData>()

@@ -1,4 +1,4 @@
-import Renetik
+import RenetikCore
 
 public extension UIViewController {
     public func logInfoToast<Subject>(_ value: Subject, functionName: String = #function,
