@@ -7,7 +7,7 @@ extension UIView {
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {
 //        onTap { block() }
-        onTouchUp(block)
+        onTouch({ isDown in if !isDown { block() } }, noUpAfterChanged: true)
         return self
     }
 
@@ -35,15 +35,21 @@ public extension UIView {
     }
 
     @discardableResult
-    func onTouch(_ block: @escaping ArgFunc<Bool>) -> Self {
+    @objc func onTouch(_ block: @escaping ArgFunc<Bool>, noUpAfterChanged: Bool = false) -> Self {
         interaction(enabled: true)
+        var ignoreUp = false
         let recognizer = UILongPressGestureRecognizer { recognizer in
             if recognizer.state == .began {
                 block(true)
+                ignoreUp = false
             }
             else if recognizer.state == .ended || recognizer.state == .cancelled {
-                block(false)
+                if !ignoreUp { block(false) }
             }
+            else if recognizer.state == .changed {
+                if noUpAfterChanged { ignoreUp = true }
+            }
+            logInfo(recognizer.state)
         }
         recognizer.minimumPressDuration = 0
         recognizer.delegate = recognizer.associated("delegate") { RecognizeSimultaneouslyWithAnyDelegate() }
@@ -53,17 +59,17 @@ public extension UIView {
 
     class RecognizeSimultaneouslyWithAnyDelegate: NSObject, UIGestureRecognizerDelegate {
         public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                      shouldRecognizeSimultaneouslyWith
-                                      otherGestureRecognizer: UIGestureRecognizer) -> Bool { true }
+            shouldRecognizeSimultaneouslyWith
+            otherGestureRecognizer: UIGestureRecognizer) -> Bool { true }
     }
 
     @discardableResult
-    func onTouchUp(_ block: @escaping Func) -> Self {
+    @objc func onTouchUp(_ block: @escaping Func) -> Self {
         onTouch { isDown in if !isDown { block() } }
     }
 
     @discardableResult
-    func onTouchDown(_ block: @escaping Func) -> Self {
+    @objc func onTouchDown(_ block: @escaping Func) -> Self {
         onTouch { isDown in if isDown { block() } }
     }
 
@@ -142,7 +148,7 @@ public extension UIView {
 
     @discardableResult
     func addTouchEffect(color: UIColor, fade: Bool = true,
-                        fadeDuration: TimeInterval = .defaultAnimation) -> Self {
+        fadeDuration: TimeInterval = .defaultAnimation) -> Self {
         var originalBackground: UIColor!
         onTouch { [unowned self] isDown in
             if isDown {

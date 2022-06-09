@@ -12,16 +12,23 @@ public extension UIControl {
 //    }
 
 //    @discardableResult
-//    @objc func onTouchUp(_ block: @escaping Func) -> Self {
+//    @objc override func onTouchUp(_ block: @escaping Func) -> Self {
 //        interaction(enabled: true)
 //        addEventHandler(controlEvents: .touchUpInside) { block() }
 //        return self
 //    }
-
+//
 //    @discardableResult
-//    @objc func onTouchDown(_ block: @escaping Func) -> Self {
+//    @objc override func onTouchDown(_ block: @escaping Func) -> Self {
 //        interaction(enabled: true)
 //        addEventHandler(controlEvents: .touchDown) { block() }
+//        return self
+//    }
+//
+//    @discardableResult
+//    @objc override func onTouch(_ block: @escaping ArgFunc<Bool>) -> Self {
+//        onTouchDown { block(true) }
+//        onTouchUp { block(false) }
 //        return self
 //    }
 
