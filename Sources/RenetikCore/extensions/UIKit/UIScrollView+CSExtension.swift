@@ -1,4 +1,11 @@
+import UIKit
 public extension UIScrollView {
+
+    @discardableResult
+    func contentSize(width: CGFloat) -> Self {
+        contentSize = CGSize(width: width, height: contentSize.height)
+        return self
+    }
 
     @discardableResult
     func contentSize(height: CGFloat) -> Self {
@@ -41,7 +48,7 @@ public extension UIScrollView {
 
     func scrollToBottom() {
         setContentOffset(CGPoint(x: contentOffset.x,
-                y: contentSize.height - bounds.size.height - contentInset.bottom), animated: true)
+            y: contentSize.height - bounds.size.height - contentInset.bottom), animated: true)
     }
 
     func scrollTo(page index: Int, of count: Int, animated: Bool = true) {
@@ -52,5 +59,21 @@ public extension UIScrollView {
 
     func currentPageIndex(from: Int) -> Int {
         lround(Double(contentOffset.x / (contentSize.width / CGFloat(from))))
+    }
+
+    @discardableResult
+    func contentOffset(top: CGFloat, animated: Bool = true) -> Self {
+        invoke(animated: animated) {
+            self.contentOffset = CGPoint(left: self.contentOffset.left, top: top)
+        }
+        return self
+    }
+
+    @discardableResult
+    func contentOffset(left: CGFloat, animated: Bool = true) -> Self {
+        invoke(animated: animated) {
+            self.contentOffset = CGPoint(left: left, top: self.contentOffset.top)
+        }
+        return self
     }
 }
