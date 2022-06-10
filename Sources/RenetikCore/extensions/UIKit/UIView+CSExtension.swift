@@ -6,8 +6,10 @@ extension UIView {
 
     @discardableResult
     @objc open func onClick(_ block: @escaping Func) -> Self {
-//        onTap { block() }
-        onTouch({ isDown in if !isDown { block() } }, noUpAfterChanged: true)
+        // We need this to cancel click when scrolling
+        // but in xcode preview not working with noUpAfterChanged:true
+        onTouch({ isDown in if !isDown { block() } },
+            noUpAfterChanged: !Renetik.isPreview)
         return self
     }
 

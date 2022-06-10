@@ -52,16 +52,16 @@ public let csBundle: Bundle = {
     //    When use_frameworks! let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
     //    When #use_modular_headers! Bundle.main
     //    TODO?: How to solve this universally
-    let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
-    return Bundle(path: bundle.path(forResource: "RenetikBundle", ofType: "bundle")!)!
+//    let bundle = Bundle(identifier: "org.cocoapods.Renetik")!
+    return Bundle(path: Bundle.main.path(forResource: "RenetikBundle", ofType: "bundle")!)!
 }()
 
 public func localized(_ key: String) -> String {
     var string = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
-    if string == key {
-        string = csBundle.localizedString(forKey: key, value: nil, table: nil)
-        if string == key { logWarn("localized key ot found \(key)") }
-    }
+//    if string == key {
+//        string = csBundle.localizedString(forKey: key, value: nil, table: nil)
+//        if string == key { logWarn("localized key ot found \(key)") }
+//    }
     return string
 }
 

@@ -4,14 +4,14 @@
 public class Renetik {
     public static var delegate: UIApplicationDelegate { UIApplication.shared.delegate! }
     public static var navigation: UINavigationController?
-    
+
     public class func initialize(_ logger: CSLoggerProtocol = NSCSLogger(),
-                                 _ navigation: UINavigationController? = nil) {
+        _ navigation: UINavigationController? = nil) {
         CSLogger.initialize(logger)
         Renetik.navigation = navigation
     }
-    
-    public class func test() {
-        
+
+    public static var isPreview: Bool {
+        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
 }
