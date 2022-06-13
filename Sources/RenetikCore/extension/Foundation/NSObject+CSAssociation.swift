@@ -7,13 +7,13 @@ import Foundation
 private let dictionaryAssociation = CSObjectAssociation<NSMutableDictionary>()
 private let weakDictionaryAssociation = CSObjectAssociation<NSMapTable<NSString, AnyObject>>()
 
-public extension NSObject {
+public extension NSObjectProtocol {
 
     var associatedDictionary: NSMutableDictionary {
         dictionaryAssociation.value(self, onCreate: { NSMutableDictionary() })
     }
 
-    func associated<T>(_ key: String) -> T? { associatedDictionary[key] as? T }
+    func associated<T>(key: String) -> T? { associatedDictionary[key] as? T }
 
     @discardableResult
     func associate<T>(_ key: String, _ value: T?) -> T? {
@@ -22,7 +22,7 @@ public extension NSObject {
     }
 
     func associated<T>(_ key: String, onCreate: () -> T) -> T {
-        associated(key) ?? associate(key, onCreate())!
+        associated(key: key) ?? associate(key, onCreate())!
     }
 
     var associatedWeakDictionary: NSMapTable<NSString, AnyObject> {

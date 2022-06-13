@@ -57,12 +57,12 @@ public let csBundle: Bundle = {
 }()
 
 public func localized(_ key: String) -> String {
-    var string = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    return Bundle.main.localizedString(forKey: key, value: nil, table: nil)
 //    if string == key {
 //        string = csBundle.localizedString(forKey: key, value: nil, table: nil)
 //        if string == key { logWarn("localized key ot found \(key)") }
 //    }
-    return string
+//    return string
 }
 
 public func later(function: @escaping Func) {
