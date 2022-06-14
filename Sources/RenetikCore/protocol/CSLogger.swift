@@ -6,9 +6,9 @@
 //
 
 public class CSLogger {
-    public static var logger: CSLoggerProtocol!
+    public static var logger: CSLoggerProtocol = NSCSLogger()
 
-    class func initialize(_ logger: CSLoggerProtocol = NSCSLogger()) {
+    class func initialize(_ logger: CSLoggerProtocol) {
         CSLogger.logger = logger
     }
 }
@@ -46,31 +46,31 @@ public class NSCSLogger: NSObject, CSLoggerProtocol {
 }
 
 public func logDebug<Subject>(_ value: Subject, functionName: String = #function,
-                              fileName: String = #file, lineNumber: Int = #line) {
+    fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     let message = "<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))"
     CSLogger.logger.logDebug(message)
 }
 
 public func logInfo(functionName: String = #function,
-                    fileName: String = #file, lineNumber: Int = #line) {
+    fileName: String = #file, lineNumber: Int = #line) {
     logInfo("", functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
 public func logInfo<Subject>(_ value: Subject, functionName: String = #function,
-                             fileName: String = #file, lineNumber: Int = #line) {
+    fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     CSLogger.logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logWarn<Subject>(_ value: Subject, functionName: String = #function,
-                             fileName: String = #file, lineNumber: Int = #line) {
+    fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     CSLogger.logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logError<Subject>(_ value: Subject, functionName: String = #function,
-                              fileName: String = #file, lineNumber: Int = #line) {
+    fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     CSLogger.logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }

@@ -2,9 +2,9 @@
 @_exported import UIKit
 
 public class RenetikCore {
-    public static var delegate: UIApplicationDelegate { UIApplication.shared.delegate! }
+//    public static var delegate: UIApplicationDelegate { UIApplication.shared.delegate! }
 
-    public class func initialize(logger: CSLoggerProtocol = NSCSLogger()) {
+    public class func initialize(logger: CSLoggerProtocol) {
         CSLogger.initialize(logger)
     }
 
