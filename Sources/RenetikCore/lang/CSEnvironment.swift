@@ -9,25 +9,31 @@ public typealias Boolean = Bool
 public typealias Func = () -> Void
 public typealias ArgFunc<Argument> = (Argument) -> Void
 
-public class CSLang {
+public class CSEnvironment {
     public static var isDebug: Bool {
         #if DEBUG
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }
-//    public let isDebug: Bool = {
-//        var isDebug = false
-//
-//        func setDebug() -> Bool {
-//            isDebug = true
-//            return true
-//        }
-//
-//        assert(setDebug())
-//        return isDebug
-//    }()
+    public static var isMac: Bool { tagetEnvironment == .macOS }
+    public enum CSTargetEnvironment {
+        case iOS
+        case macOS
+        case watchOS
+    }
+
+    public static var tagetEnvironment: CSTargetEnvironment {
+        #if targetEnvironment(macCatalyst)
+            .macOS
+        #elseif os(watchOS)
+            .watchOS
+        #else
+            .iOS
+        #endif
+    }
+    public static var isPreview: Bool { ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" }
 }
 
 extension TimeInterval {
@@ -42,9 +48,9 @@ enum CSError: Error {
 
 struct RuntimeError: Error {
     let message: String
-    
+
     init(_ message: String) { self.message = message }
-    
+
     public var localizedDescription: String { message }
 }
 
@@ -113,21 +119,21 @@ public func when<Type>(isNil item: Type?, then: Func) {
 }
 
 open class CSObject: CSAnyProtocol, Equatable, CustomStringConvertible {
-    public init() {}
+    public init() { }
 }
 
 public class Nil: CSAnyProtocol, Equatable {
-    private init() {}
-    
+    private init() { }
+
     public static var instance: Nil = Nil()
-    
-    public static func ==(lhs: Nil, rhs: Nil) -> Bool { true }
+
+    public static func == (lhs: Nil, rhs: Nil) -> Bool { true }
 }
 
 public class CSConditionalResult {
     let isDoElse: Bool
-    
+
     public init(doElseIf: Bool) { isDoElse = doElseIf }
-    
+
     public func elseDo(_ function: Func) { if isDoElse { function() } }
 }
