@@ -48,7 +48,7 @@ public extension CSAnyProtocol {
 
     var asString: String {
         (self as? CSNameProtocol)?.name ??
-            (self as? CustomStringConvertible)?.description ?? "\(self)"
+        (self as? CustomStringConvertible)?.description ?? "\(self)"
     }
 
     var asInt: Int {
@@ -78,7 +78,7 @@ public extension CSAnyProtocol where Self: NSObject {
 
     static func className() -> String { description() }
 
-    func className() -> String { type(of: self).description() }
+    var className: String { type(of: self).description() }
 
     func equals(any objects: NSObject...) -> Bool {
         if objects.contains(self) { return true }; return false
@@ -94,7 +94,7 @@ public extension CSAnyProtocol where Self: Equatable {
 }
 
 public extension CSAnyProtocol where Self: Equatable, Self: AnyObject {
-    static func ==(lhs: Self, rhs: Self) -> Bool { lhs === rhs }
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs === rhs }
 }
 
 public extension CSAnyProtocol where Self: CustomStringConvertible {
@@ -106,27 +106,27 @@ public extension CSAnyProtocol where Self: CustomStringConvertible, Self: CSName
 }
 
 
-extension IndexPath: CSAnyProtocol {}
+extension IndexPath: CSAnyProtocol { }
 
-extension NSObject: CSAnyProtocol {}
+extension NSObject: CSAnyProtocol { }
 
-extension Bool: CSAnyProtocol {}
+extension Bool: CSAnyProtocol { }
 
-extension String: CSAnyProtocol {}
+extension String: CSAnyProtocol { }
 
-extension Int: CSAnyProtocol {}
+extension Int: CSAnyProtocol { }
 
-extension Float: CSAnyProtocol {}
+extension Float: CSAnyProtocol { }
 
-extension Double: CSAnyProtocol {}
+extension Double: CSAnyProtocol { }
 
-extension CGFloat: CSAnyProtocol {}
+extension CGFloat: CSAnyProtocol { }
 
-extension Array: CSAnyProtocol {}
+extension Array: CSAnyProtocol { }
 
-extension Dictionary: CSAnyProtocol {}
+extension Dictionary: CSAnyProtocol { }
 
-extension Date: CSAnyProtocol {}
+extension Date: CSAnyProtocol { }
 
 //public extension Optional where Wrapped: CSAnyProtocol {
 //    public var asString: String {
