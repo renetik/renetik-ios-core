@@ -101,6 +101,10 @@ public extension CSAnyProtocol where Self: CustomStringConvertible {
     var description: String { "\(type(of: self))" }
 }
 
+public extension CSAnyProtocol where Self: CustomStringConvertible, Self: AnyObject {
+    var description: String { "\(type(of: self))+\(hashString)" }
+}
+
 public extension CSAnyProtocol where Self: CustomStringConvertible, Self: CSNameProtocol {
     var description: String { name }
 }
