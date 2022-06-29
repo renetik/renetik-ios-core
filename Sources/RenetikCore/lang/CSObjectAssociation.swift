@@ -18,7 +18,7 @@ open class CSObjectAssociation<T> {
 }
 
 extension CSObjectAssociation {
-    func value(_ parent: NSObjectProtocol, onCreate: () -> T) -> T {
+    func value(_ parent: AnyObject, onCreate: () -> T) -> T {
         let value = self[parent]
         if value == nil {
             let dictionary = onCreate()
@@ -30,7 +30,7 @@ extension CSObjectAssociation {
         }
     }
 
-    func value(weak parent: NSObjectProtocol, onCreate: () -> T) -> T {
+    func value(weak parent: AnyObject, onCreate: () -> T) -> T {
         let value = self[parent]
         if value == nil {
             let dictionary = onCreate()

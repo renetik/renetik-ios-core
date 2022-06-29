@@ -1,11 +1,7 @@
-//
-// Created by Rene Dohan on 1/31/20.
-//
-
 import Foundation
 
 private let dictionaryAssociation = CSObjectAssociation<NSMutableDictionary>()
-private let weakDictionaryAssociation = CSObjectAssociation<NSMapTable<NSString, AnyObject>>()
+private let weakDictionaryAssociation = CSObjectAssociation<CSWeakValueDictionary<NSString, AnyObject>>()
 
 public extension NSObjectProtocol {
 
@@ -25,23 +21,19 @@ public extension NSObjectProtocol {
         associated(key: key) ?? associate(key, onCreate())!
     }
 
-    var associatedWeakDictionary: NSMapTable<NSString, AnyObject> {
+    var associatedWeakDictionary: CSWeakValueDictionary<NSString, AnyObject> {
         weakDictionaryAssociation.value(self, onCreate: {
-            NSMapTable<NSString, AnyObject>(keyOptions: .strongMemory, valueOptions: .weakMemory)
+            CSWeakValueDictionary<NSString, AnyObject>()
         })
     }
 
     func weakAssociated<T: AnyObject>(_ key: String) -> T? {
-        associatedWeakDictionary.object(forKey: key.asNSString) as? T
+        associatedWeakDictionary[key.asNSString] as? T
     }
 
     @discardableResult
     func weakAssociate<T: AnyObject>(_ key: String, _ value: T?) -> T? {
-        associatedWeakDictionary.setObject(value, forKey: key.asNSString)
+        associatedWeakDictionary[key.asNSString] = value
         return value
-    }
-
-    func associatedWeakDictionary<T: AnyObject>(_ key: String, onCreate: () -> T) -> T {
-        weakAssociated(key) ?? weakAssociate(key, onCreate())!
     }
 }

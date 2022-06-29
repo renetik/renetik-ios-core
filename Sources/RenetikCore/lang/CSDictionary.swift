@@ -1,7 +1,3 @@
-//
-// Created by Rene Dohan on 3/15/20.
-//
-
 import Foundation
 
 public class CSDictionary<Key, Value>: CSObject {
