@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>String Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/String" class="dashAnchor"></a>
+    <a title="String Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RenetikCore Docs</a> (9% documented)</p>
+        <p class="header-right"><a href="https://github.com/renetik/renetik-ios-core"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RenetikCore Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        String Extension Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CSAlertDialog.html">CSAlertDialog</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSArray.html">CSArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSCondition.html">CSCondition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSConditionalResult.html">CSConditionalResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSConditionalResultNotNil.html">CSConditionalResultNotNil</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSDictionary.html">CSDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSDoLaterOnce.html">CSDoLaterOnce</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSEnvironment.html">CSEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSEnvironment/CSTargetEnvironment.html">– CSTargetEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSHasIdBase.html">CSHasIdBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSHasTitleBase.html">CSHasTitleBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSImageView.html">CSImageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSIntMaxLengthInputFilter.html">CSIntMaxLengthInputFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSIntMaxValueInputFilter.html">CSIntMaxValueInputFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSJustLettersInputFilter.html">CSJustLettersInputFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSJustNumbersInputFilter.html">CSJustNumbersInputFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSLogger.html">CSLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSMaxCharactersInputFilter.html">CSMaxCharactersInputFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSNetwork.html">CSNetwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSObject.html">CSObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSObjectAssociation.html">CSObjectAssociation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSTextField.html">CSTextField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSValue.html">CSValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSValueStore.html">CSValueStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSVariable.html">CSVariable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSVariableValidator.html">CSVariableValidator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CSWeakValueDictionary.html">CSWeakValueDictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Closeable.html">Closeable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NSCSLogger.html">NSCSLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Nil.html">Nil</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RenetikCore.html">RenetikCore</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:11RenetikCore8calendar10Foundation8CalendarVvp">calendar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:11RenetikCore8csBundleSo8NSBundleCvp">csBundle</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CATransition.html">CATransition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGFloat.html">CGFloat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGPoint.html">CGPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGRect.html">CGRect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGSize.html">CGSize</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Calendar.html">Calendar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Sd">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:Sf">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:10Foundation9IndexPathV">IndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSArray.html">NSArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSException.html">NSException</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableArray.html">NSMutableArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableParagraphStyle.html">NSMutableParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableString.html">NSMutableString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:objc(cs)NSObject">NSObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSObjectProtocol.html">NSObjectProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSString.html">NSString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NotificationCenter.html">NotificationCenter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeInterval.html">TimeInterval</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIAlertController.html">UIAlertController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:objc(cs)UIControl">UIControl</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UserDefaults.html">UserDefaults</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore10background8functionyyyc_tF">background(function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8describeySSxlF">describe(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8function2ifAbA19CSConditionalResultCSb_yyXEtF">function(if:function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8isAllNilySbypSgd_tF">isAllNil(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8isAnyNilySbypSgd_tF">isAnyNil(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore5later8functionyyyc_tF">later(function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore5later7seconds8functionySd_yyctF">later(seconds:function:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore9localizedyS2SF">localized(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8logDebug_12functionName04fileF010lineNumberyx_S2SSitlF">logDebug(_:functionName:fileName:lineNumber:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8logError_12functionName04fileF010lineNumberyx_S2SSitlF">logError(_:functionName:fileName:lineNumber:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore7logInfo_12functionName04fileF010lineNumberyx_S2SSitlF">logInfo(_:functionName:fileName:lineNumber:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore7logInfo12functionName04fileF010lineNumberySS_SSSitF">logInfo(functionName:fileName:lineNumber:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore7logWarn_12functionName04fileF010lineNumberyx_S2SSitlF">logWarn(_:functionName:fileName:lineNumber:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore6notNilySbypSgd_tF">notNil(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore9stringifyySSxlF">stringify(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore9validatoryAA19CSValidatorProtocol_pSbSgycF">validator(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore5valueyAA7CSValueCyxGxlF">value(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore8variableyAA10CSVariableCyxGxlF">variable(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore4when5isNil4thenyxSg_yyXEtlF">when(isNil:then:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11RenetikCore4when6notNil4thenyxSg_yxXEtlF">when(notNil:then:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CSAnyProtocol.html">CSAnyProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSCloseable.html">CSCloseable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSConditionProtocol.html">CSConditionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasCheckedProtocol.html">CSHasCheckedProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasDialogProtocol.html">CSHasDialogProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasDialogVisible.html">CSHasDialogVisible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasEmptyProtocol.html">CSHasEmptyProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasErrorProtocol.html">CSHasErrorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasFilterProtocol.html">CSHasFilterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasId.html">CSHasId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasIsEnabledProtocol.html">CSHasIsEnabledProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasLabelProtocol.html">CSHasLabelProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasPickerProtocol.html">CSHasPickerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasProgressProtocol.html">CSHasProgressProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasSheetProtocol.html">CSHasSheetProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasStyleProtocol.html">CSHasStyleProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasTitle.html">CSHasTitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasValidationProtocol.html">CSHasValidationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSHasVisibilityProtocol.html">CSHasVisibilityProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSInputFilterProtocol.html">CSInputFilterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSLoggerProtocol.html">CSLoggerProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSNameProtocol.html">CSNameProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSPickerVisibleProtocol.html">CSPickerVisibleProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSProperty.html">CSProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSSearchNameProtocol.html">CSSearchNameProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSValidatorProtocol.html">CSValidatorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSValueProtocol.html">CSValueProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CSVisibilityProtocol.html">CSVisibilityProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/OptionalProtocol.html">OptionalProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/CSDialogAction.html">CSDialogAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CSDisplayElement.html">CSDisplayElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CSImageAction.html">CSImageAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CSTextAction.html">CSTextAction</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11RenetikCore7ArgFunca">ArgFunc</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11RenetikCore7Booleana">Boolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11RenetikCore9CSStringsa">CSStrings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11RenetikCore4Funca">Func</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11RenetikCore8TagIndexa">TagIndex</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>String</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">String</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/CSAnyProtocol.html">CSAnyProtocol</a></span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE7newLineSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/newLine" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE7newLineSSvpZ">newLine</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">newLine</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12randomString6lengthSSSi_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/randomString(length:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12randomString6lengthSSSi_tFZ">randomString(length:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">randomString</span><span class="p">(</span><span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE5isSetSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isSet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE5isSetSbvp">isSet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isSet</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10isNotEmptySbvp"></a>
+                    <a name="//apple_ref/swift/Property/isNotEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10isNotEmptySbvp">isNotEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isNotEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE6lengthSivp"></a>
+                    <a name="//apple_ref/swift/Property/length" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE6lengthSivp">length</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10asNSStringSo0D0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/asNSString" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10asNSStringSo0D0Cvp">asNSString</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asNSString</span><span class="p">:</span> <span class="kt">NSString</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE9boolValueSbvp"></a>
+                    <a name="//apple_ref/swift/Property/boolValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE9boolValueSbvp">boolValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">boolValue</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE11doubleValueSdvp"></a>
+                    <a name="//apple_ref/swift/Property/doubleValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE11doubleValueSdvp">doubleValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">doubleValue</span><span class="p">:</span> <span class="kt">Double</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE8intValueSivp"></a>
+                    <a name="//apple_ref/swift/Property/intValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE8intValueSivp">intValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">intValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10floatValueSfvp"></a>
+                    <a name="//apple_ref/swift/Property/floatValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10floatValueSfvp">floatValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">floatValue</span><span class="p">:</span> <span class="kt">Float</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE4trimSSyF"></a>
+                    <a name="//apple_ref/swift/Method/trim()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE4trimSSyF">trim()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">trim</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE13removeAccentsSSyF"></a>
+                    <a name="//apple_ref/swift/Method/removeAccents()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE13removeAccentsSSyF">removeAccents()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">removeAccents</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE9substring4fromSSSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/substring(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE9substring4fromSSSi_tF">substring(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">substring</span><span class="p">(</span><span class="n">from</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE9substring2toSSSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/substring(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE9substring2toSSSi_tF">substring(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">substring</span><span class="p">(</span><span class="n">to</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE9substring4from2toSSSi_SitF"></a>
+                    <a name="//apple_ref/swift/Method/substring(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE9substring4from2toSSSi_SitF">substring(from:<wbr>to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">substring</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE9substringySSSNySiGF"></a>
+                    <a name="//apple_ref/swift/Method/substring(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE9substringySSSNySiGF">substring(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">substring</span><span class="p">(</span><span class="n">_</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE23deleteLastPathComponentSSvp"></a>
+                    <a name="//apple_ref/swift/Property/deleteLastPathComponent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE23deleteLastPathComponentSSvp">deleteLastPathComponent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">deleteLastPathComponent</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE11stringIndex2atSS0D0VSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/stringIndex(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE11stringIndex2atSS0D0VSi_tF">stringIndex(at:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">func</span> <span class="nf">stringIndex</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">IndexDistance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Index</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE5index2of4fromSiSgSS_SitF"></a>
+                    <a name="//apple_ref/swift/Method/index(of:from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE5index2of4fromSiSgSS_SitF">index(of:<wbr>from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">index</span><span class="p">(</span><span class="n">of</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE5index2ofSiSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/index(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE5index2ofSiSgSS_tF">index(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">index</span><span class="p">(</span><span class="n">of</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE8contains_10ignoreCaseSbSS_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:ignoreCase:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE8contains_10ignoreCaseSbSS_SbtF">contains(_:<wbr>ignoreCase:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">ignoreCase</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE4ends4withSbSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/ends(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE4ends4withSbSS_tF">ends(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">ends</span><span class="p">(</span><span class="n">with</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE6starts4withSbSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/starts(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE6starts4withSbSS_tF">starts(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">starts</span><span class="p">(</span><span class="n">with</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE6removeyS2SF"></a>
+                    <a name="//apple_ref/swift/Method/remove(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE6removeyS2SF">remove(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE6remove3allS2S_tF"></a>
+                    <a name="//apple_ref/swift/Method/remove(all:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE6remove3allS2S_tF">remove(all:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="n">all</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE7replace3all4withS2S_SStF"></a>
+                    <a name="//apple_ref/swift/Method/replace(all:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE7replace3all4withS2S_SStF">replace(all:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">replace</span><span class="p">(</span><span class="n">all</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">replace</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE7replace5range4withSSSo8_NSRangeV_SStF"></a>
+                    <a name="//apple_ref/swift/Method/replace(range:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE7replace5range4withSSSo8_NSRangeV_SStF">replace(range:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">replace</span><span class="p">(</span><span class="nv">range</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span> <span class="n">with</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10attributedySo18NSAttributedStringCSDySo0dE3KeyaypGF"></a>
+                    <a name="//apple_ref/swift/Method/attributed(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10attributedySo18NSAttributedStringCSDySo0dE3KeyaypGF">attributed(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">attributed</span><span class="p">(</span><span class="n">_</span> <span class="nv">dictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSAttributedString</span><span class="o">.</span><span class="kt">Key</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span> <span class="o">-&gt;</span> <span class="kt">NSAttributedString</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE5split2bySaySSGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/split(by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE5split2bySaySSGSS_tF">split(by:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">split</span><span class="p">(</span><span class="n">by</span> <span class="nv">separator</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE7indices2ofSaySiGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/indices(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE7indices2ofSaySiGSS_tF">indices(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">indices</span><span class="p">(</span><span class="n">of</span> <span class="nv">occurrence</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE6ranges2ofSaySnySS5IndexVGGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/ranges(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE6ranges2ofSaySnySS5IndexVGGSS_tF">ranges(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">ranges</span><span class="p">(</span><span class="n">of</span> <span class="nv">searchString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Range</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">.</span><span class="kt">Index</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE8findTags8startTag03endF05whereSaySi0eF5Index_Si0gfI0tGSS_SSSbSScSgtF"></a>
+                    <a name="//apple_ref/swift/Method/findTags(startTag:endTag:where:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE8findTags8startTag03endF05whereSaySi0eF5Index_Si0gfI0tGSS_SSSbSScSgtF">findTags(startTag:<wbr>endTag:<wbr>where:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">findTags</span><span class="p">(</span><span class="nv">startTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">endTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+              <span class="k">where</span> <span class="nv">condition</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Typealiases.html#/s:11RenetikCore8TagIndexa">TagIndex</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE7process8startTag03endE04withySS_SSySi_SitXEtF"></a>
+                    <a name="//apple_ref/swift/Method/process(startTag:endTag:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE7process8startTag03endE04withySS_SSySi_SitXEtF">process(startTag:<wbr>endTag:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">process</span><span class="p">(</span><span class="nv">startTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">endTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+             <span class="n">with</span> <span class="nv">function</span><span class="p">:</span> <span class="p">(</span><span class="n">_</span> <span class="nv">startTagIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">_</span> <span class="nv">endTagIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10htmlToTextySSSgSS10FoundationE8EncodingVF"></a>
+                    <a name="//apple_ref/swift/Method/htmlToText(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10htmlToTextySSSgSS10FoundationE8EncodingVF">htmlToText(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">htmlToText</span><span class="p">(</span><span class="n">_</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE25replaceTagsWithEmptySpace8startTag03endI0S2S_SStF"></a>
+                    <a name="//apple_ref/swift/Method/replaceTagsWithEmptySpace(startTag:endTag:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE25replaceTagsWithEmptySpace8startTag03endI0S2S_SStF">replaceTagsWithEmptySpace(startTag:<wbr>endTag:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">replaceTagsWithEmptySpace</span><span class="p">(</span><span class="nv">startTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">endTag</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12cs_dialog_okSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/cs_dialog_ok" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12cs_dialog_okSSvpZ">cs_dialog_ok</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">cs_dialog_ok</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE13cs_dialog_yesSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/cs_dialog_yes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE13cs_dialog_yesSSvpZ">cs_dialog_yes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">cs_dialog_yes</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12cs_dialog_noSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/cs_dialog_no" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12cs_dialog_noSSvpZ">cs_dialog_no</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">cs_dialog_no</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE16cs_dialog_cancelSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/cs_dialog_cancel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE16cs_dialog_cancelSSvpZ">cs_dialog_cancel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">cs_dialog_cancel</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12requestRetrySSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/requestRetry" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12requestRetrySSvpZ">requestRetry</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">requestRetry</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE13requestCancelSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/requestCancel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE13requestCancelSSvpZ">requestCancel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">requestCancel</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE13requestFailedSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/requestFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE13requestFailedSSvpZ">requestFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">requestFailed</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE14requestLoadingSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/requestLoading" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE14requestLoadingSSvpZ">requestLoading</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">requestLoading</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE19tableLoadNextFailedSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/tableLoadNextFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE19tableLoadNextFailedSSvpZ">tableLoadNextFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">tableLoadNextFailed</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE18operationCancelledSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/operationCancelled" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE18operationCancelledSSvpZ">operationCancelled</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">operationCancelled</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE15operationFailedSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/operationFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE15operationFailedSSvpZ">operationFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">operationFailed</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE17searchPlaceholderSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/searchPlaceholder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE17searchPlaceholderSSvpZ">searchPlaceholder</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">searchPlaceholder</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12dummy_numberSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_number" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12dummy_numberSSvpZ">dummy_number</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_number</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10dummy_wordSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_word" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10dummy_wordSSvpZ">dummy_word</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_word</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE14dummy_two_wordSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_two_word" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE14dummy_two_wordSSvpZ">dummy_two_word</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_two_word</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE11dummy_shortSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_short" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE11dummy_shortSSvpZ">dummy_short</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_short</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE12dummy_mediumSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_medium" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE12dummy_mediumSSvpZ">dummy_medium</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_medium</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE10dummy_longSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_long" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE10dummy_longSSvpZ">dummy_long</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_long</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS11RenetikCoreE14dummy_completeSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/dummy_complete" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS11RenetikCoreE14dummy_completeSSvpZ">dummy_complete</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">dummy_complete</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://renetik.github.io" target="_blank" rel="external noopener">Renetik</a>. All rights reserved. (Last updated: 2022-06-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
