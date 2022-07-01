@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, branch: "master"),
+        // .package(url: /* package url */, from: "0.9.10"),
     ],
     targets: [
         .target(
