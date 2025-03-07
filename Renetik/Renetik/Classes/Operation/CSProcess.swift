@@ -123,7 +123,6 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     }
 
     private func onDoneImpl() {
-        logInfo()
         if isDone {
             logError("isDone")
             return

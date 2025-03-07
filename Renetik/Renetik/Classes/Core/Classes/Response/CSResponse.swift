@@ -50,15 +50,15 @@ public class CSResponse<Data: AnyObject>: NSObject, CSResponseProtocol {
         self.init()
         self.url = url
         self.service = service
-        self.data = data
         self.params = params
-        logInfo("\(url) \(service) \(params)")
+        self.data = data
+        logInfo("\(url) \(service) \(params) \(data)")
     }
     
     public convenience init(_ data: Data) {
         self.init()
         self.data = data
-        logInfo("\(url) \(service) \(params)")
+//         logInfo("\(data)")
     }
     
     override public var description: String {
