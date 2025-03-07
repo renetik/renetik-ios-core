@@ -58,7 +58,7 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func get<DataType: CSServerJsonData>(_ operation: CSOperation<DataType>?, service: String,
-                                                data: DataType, params: [String: String] = [:]) -> CSProcess<DataType>
+        data: DataType, params: [String: String] = [:]) -> CSProcess<DataType>
     {
         CSProcess("\(url)/\(service)", data).also { process in
             let loadFromNetwork: Bool = {
