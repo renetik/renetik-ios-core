@@ -28,6 +28,7 @@ open class CSViewController: UIViewController {
     private let layoutFunctions: CSEvent<Void> = event()
 
     public private(set) var controllerInNavigation: UIViewController?
+    private var parentController: UIViewController?
 
     @discardableResult
     open func constructAsViewLess(in parent: UIViewController) -> Self {
@@ -45,6 +46,7 @@ open class CSViewController: UIViewController {
         if let parent = parent as? CSViewController {
             register(event: parent.eventDismissing.invokeOnce(listener: onViewDismissing))
         }
+        self.parentController = parent;
         return self
     }
 
