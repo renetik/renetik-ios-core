@@ -41,19 +41,32 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if(self.menuSheet) [self.menuSheet hide];
+
+    if (self.menuSheet) [self.menuSheet hide];
     [self viewWillDisappear];
-    if([self.navigationController.viewControllers indexOfObject:self] == NSNotFound && self.isMainController) [self onViewDismissing];
-    else if(self.isMovingFromParentViewController) [self onViewDismissing];
+
+    BOOL removedFromNav = (self.navigationController && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound);
+    BOOL beingDismissed = self.isBeingDismissed;
+    BOOL movedFromParent = self.isMovingFromParentViewController;
+
+    if (removedFromNav || movedFromParent || beingDismissed) {
+        [self onViewDismissing];
+    }
 }
 
 - (void)viewWillDisappear {
 }
 
 - (void)onViewDismissing {
+    NSLog(@"%@ onViewDismissing (appearing=%d, showing=%d, parent=%@, navContains=%d)",
+          NSStringFromClass(self.class),
+          (int)self.appearing,
+          (int)self.showing,
+          self.parentViewController,
+          (int)(self.navigationController ? ([self.navigationController.viewControllers containsObject:self]) : 0)
+    );
     [self removeNotificationObserver];
-    for(CSMainController*controller in _controllers)
-        [controller onViewDismissing];
+    for (CSMainController *controller in _controllers) [controller onViewDismissing];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -146,9 +159,34 @@
 }
 
 - (UIViewController*)removeController:(UIViewController*)controller {
-    [super removeController:controller];
-    if([controller isKindOfClass:CSMainController.class]) [_controllers remove:(CSMainController*)controller];
+    if (!controller) return nil;
+
+    // Call willMoveToParentViewController: to follow proper container lifecycle
+    [controller willMoveToParentViewController:nil];
+
+    // remove from our bookkeeping first (so any child onViewDismissing won't re-add)
+    if ([controller isKindOfClass:CSMainController.class]) {
+        [_controllers removeObject:(CSMainController*)controller];
+    }
+
+    // detach view and parent
+    [controller.view removeFromSuperview];
+    [controller removeFromParentViewController];
+
+    // call dismissal hook on the removed controller explicitly to be safe
+    if ([controller isKindOfClass:CSMainController.class]) {
+        [(CSMainController*)controller onViewDismissing];
+    }
+
     return controller;
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+    // if parent becomes nil -> controller was removed from parent
+    if (parent == nil) {
+        [self onViewDismissing];
+    }
 }
 
 - (NSArray<CSMainController*>*)setControllers:(NSArray<CSMainController*>*)controllers {
