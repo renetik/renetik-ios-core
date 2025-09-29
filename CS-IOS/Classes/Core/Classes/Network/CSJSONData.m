@@ -37,8 +37,8 @@
     return [self load:[data getDictionary:id]];
 }
 
-- (id)objectForKeyedSubscript:(NSString *)key {
-    return [self get:key];
+- (NSString *)objectForKeyedSubscript:(NSString *)key {
+    return [self getString:key];
 }
 
 - (id)get:(NSString *)key {

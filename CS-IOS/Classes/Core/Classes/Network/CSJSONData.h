@@ -23,7 +23,7 @@
 
 - (void)clear;
 
-- (id)objectForKeyedSubscript:(NSString *)key;
+- (NSString *)objectForKeyedSubscript:(NSString *)key;
 
 - (id)get:(NSString *)id;
 
