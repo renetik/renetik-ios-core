@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
    s.subspec 'AFNetworking' do |ss|
      ss.source_files = 'CS-IOS/Classes/AFNetworking/**/*'
      ss.dependency 'CS-IOS/Core'
-     ss.dependency 'AFNetworking', '~> 3.2'
+     ss.dependency 'AFNetworking', '~> 4.0'
    end
 
    s.subspec 'Reachability' do |ss|
