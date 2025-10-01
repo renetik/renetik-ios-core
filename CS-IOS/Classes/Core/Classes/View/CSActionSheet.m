@@ -50,18 +50,24 @@
 }
 
 - (instancetype)actions:(NSArray *)titles :(NSArray *)actions {
+    _singleAction = nil;
+    [_titles removeAllObjects];
+    [_actions removeAllObjects];
     [_titles addObjectsFromArray:titles];
     [_actions addObjectsFromArray:[actions copy]];
     return self;
 }
 
 - (instancetype)actions:(NSArray *)titles for:(void (^)(NSInteger))action {
+    [_titles removeAllObjects];
+    [_actions removeAllObjects];
     [_titles addObjectsFromArray:titles];
     _singleAction = [action copy];
     return self;
 }
 
 - (instancetype)addAction:(NSString *)title :(void (^)(void))action {
+    _singleAction = nil;
     [_titles add:title];
     [_actions add:[action copy]];
     return self;
@@ -83,8 +89,8 @@
     _visible = NO;
     if (_onDestructive && buttonIndex == actionSheet.destructiveButtonIndex)run(_onDestructive);
     if (buttonIndex == actionSheet.cancelButtonIndex) return;
-    else if (_actions) run(_actions[(NSUInteger) buttonIndex]);
     else if (_singleAction)_singleAction(buttonIndex);
+    else if (_actions.count > buttonIndex) run(_actions[(NSUInteger) buttonIndex]);
 }
 
 - (instancetype)showFromBarItem:(UIBarButtonItem *)item {
