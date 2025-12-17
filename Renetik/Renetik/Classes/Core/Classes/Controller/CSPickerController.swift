@@ -61,8 +61,15 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
 
     lazy var toolBar: UIToolbar = {
         let toolBar = UIToolbar()
-        self.toolBarColor?.also { toolBar.barTintColor = $0 }
-        self.toolBarItemTextColor?.also { toolBar.tintColor = $0 }
+        let appearance = UIToolbarAppearance()
+        appearance.configureWithOpaqueBackground()
+        self.toolBarColor?.also { appearance.backgroundColor = $0 }
+        self.toolBarItemTextColor?.also {
+            appearance.buttonAppearance.normal.titleTextAttributes = [ .foregroundColor: $0 ]
+            appearance.doneButtonAppearance.normal.titleTextAttributes = [ .foregroundColor: $0 ]
+        }
+        toolBar.standardAppearance = appearance
+        toolBar.scrollEdgeAppearance = appearance
         let cancelButton = UIBarButtonItem(item: .cancel) { _ in self.onCancelClicked() }
         let doneButton = UIBarButtonItem(item: .done) { _ in self.onDoneClicked() }
         toolBar.items = [UIBarButtonItem.space(7), cancelButton, .flexSpaceItem,
@@ -83,13 +90,13 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
                            attributes: [.foregroundColor: pickerItemTextColor, .font: pickerItemFont])
     }
 
-    func onDoneClicked() {
+    @objc func onDoneClicked() {
         hidePicker()
         onDone?(pickerView.selectedRow(inComponent: 0))
         parent!.dismissChild(controller: self)
     }
 
-    func onCancelClicked() {
+    @objc func onCancelClicked() {
         hidePicker()
         onCancel?()
         parent!.dismissChild(controller: self)
