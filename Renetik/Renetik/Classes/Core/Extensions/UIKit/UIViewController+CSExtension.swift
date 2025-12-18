@@ -72,18 +72,26 @@ public extension UIViewController {
 
     @discardableResult
     func present(from view: UIView) -> Self {
-        modalPresentationStyle = .popover
-        popoverPresentationController?.sourceView = view.superview
-        popoverPresentationController?.sourceRect = view.frame
-        present()
+        DispatchQueue.main.async { [self] in
+            modalPresentationStyle = .popover
+            popoverPresentationController?.sourceView = view
+            popoverPresentationController?.sourceRect = view.bounds
+            popoverPresentationController?.permittedArrowDirections = .any
+            popoverPresentationController?.passthroughViews = []
+            present()
+        }
         return self
     }
 
     @discardableResult
     func present(from item: UIBarButtonItem) -> Self {
-        modalPresentationStyle = .popover
-        popoverPresentationController?.barButtonItem = item
-        present()
+        DispatchQueue.main.async { [self] in 
+            modalPresentationStyle = .popover
+            popoverPresentationController?.barButtonItem = item
+            popoverPresentationController?.permittedArrowDirections = .any
+            popoverPresentationController?.passthroughViews = []
+            present()
+        }
         return self
     }
 
