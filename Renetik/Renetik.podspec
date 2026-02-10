@@ -123,7 +123,7 @@ Pod::Spec.new do |s|
 
 	s.subspec 'CSMaterial' do |ss|
         ss.dependency 'Renetik/Core'
-        ss.dependency 'MaterialComponents', '~> 119'
+        ss.dependency 'MaterialComponents'
         ss.dependency 'BlocksKit', '~> 2'
         ss.source_files = 'Renetik/Classes/CSMaterial/**/*'
     end
