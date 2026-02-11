@@ -121,13 +121,22 @@ public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewC
 
     // PagerTabStripIsProgressiveDelegate delegate was not called by super implementation
     override public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int,
-                                         withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool)
-    {
+                                         withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
         if fromIndex == 0 && toIndex == 0 && progressPercentage == 1 && indexWasChanged == false { return }
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
                               withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
         parentController.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
                                          withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
+    }
+
+    override public var scrollPercentage: CGFloat {
+        if pageWidth == 0 { return 0 }
+        return super.scrollPercentage
+    }
+
+    override public func virtualPageFor(contentOffset: CGFloat) -> Int {
+        if pageWidth == 0 { return 0 }
+        return super.virtualPageFor(contentOffset: contentOffset)
     }
 
     // Fixes overlapping of content by bezels on iphone x and similar
