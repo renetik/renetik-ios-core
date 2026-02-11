@@ -32,6 +32,7 @@ open class CSTitleSubtitleCell: CSTableViewCell {
         self.onCLick = onCLick
         titleLabel.text(title)
         subtitleLabel.text(subtitle)
+        accessibilityLabel = [title, subtitle].compactMap { $0 }.joined(separator: ", ")
         return self
     }
 

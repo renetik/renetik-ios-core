@@ -40,4 +40,9 @@ open class CSTableViewCell: UITableViewCell {
         if super.reuseIdentifier.notNil { return super.reuseIdentifier }
         return type(of: self).description()
     }
+
+    override open var isAccessibilityElement: Bool {
+        get { true }
+        set { super.isAccessibilityElement = newValue }
+    }
 }
