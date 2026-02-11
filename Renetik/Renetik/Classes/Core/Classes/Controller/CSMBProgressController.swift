@@ -13,7 +13,7 @@ public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible
     private var hud: MBProgressHUD?
 
     public init(in controller: UIViewController) {
-        view = controller.view
+        view = controller.navigationController?.view ?? controller.view
     }
 
     public init(in view: UIView) {
