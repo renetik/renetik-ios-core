@@ -32,6 +32,9 @@ public class CSAlamofireClient: CSObject {
         configuration.httpMaximumConnectionsPerHost = 10
         configuration.timeoutIntervalForRequest = 60
         configuration.timeoutIntervalForResource = 60
+        configuration.urlCache = URLCache(memoryCapacity: 20 * 1024 * 1024,
+                                          diskCapacity: 100 * 1024 * 1024,
+                                          diskPath: "AlamofireCache")
         let sessionDelegate = SessionDelegate()
         return Session(configuration: configuration, delegate: sessionDelegate,
                        serverTrustManager: serverTrustManager)
