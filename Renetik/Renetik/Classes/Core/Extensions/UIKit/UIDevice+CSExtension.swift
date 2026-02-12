@@ -45,4 +45,13 @@ public extension UIDevice {
     class var systemVersionInt: Int { Int(UIDevice.current.systemVersion)! }
     class var isIOS10: Bool { systemVersionInt >= 10 }
     class var isIOS11: Bool { systemVersionInt >= 11 }
+
+    class var isMac: Bool {
+        var isMac = false
+        if ProcessInfo.processInfo.isiOSAppOnMac { isMac = true }
+        #if targetEnvironment(macCatalyst)
+        isMac = true
+        #endif
+        return isMac
+    }
 }
