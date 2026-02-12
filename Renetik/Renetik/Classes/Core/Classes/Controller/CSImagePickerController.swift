@@ -24,10 +24,14 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
 
     @discardableResult
     public func show(from element: CSDisplayElement) -> CSHasDialogVisible {
-        parent.show(actions: [
+        var actions = [
             CSDialogAction(title: localized("renetik_image_picker_choose_photo")) { self.onGalleryClick(from: element) },
-            CSDialogAction(title: localized("renetik_image_picker_take_picture")) { self.onCaptureClick(from: element) },
-        ], from: element)
+        ]
+        // Camera crashes on Mac Catalyst due to Portrait Effect initialization
+        if !UIDevice.isMac {
+            actions.append(CSDialogAction(title: localized("renetik_image_picker_take_picture")) { self.onCaptureClick(from: element) })
+        }
+        return parent.show(actions: actions, from: element)
     }
 
     private func onGalleryClick(from element: CSDisplayElement) {
@@ -43,6 +47,10 @@ public class CSImagePickerController: NSObject, UIPopoverControllerDelegate,
     }
 
     private func onCaptureClick(from element: CSDisplayElement) {
+        guard !UIDevice.isMac else {
+            parent.show(message: "Camera not available")
+            return
+        }
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             picker = UIImagePickerController()
             picker!.delegate = self
