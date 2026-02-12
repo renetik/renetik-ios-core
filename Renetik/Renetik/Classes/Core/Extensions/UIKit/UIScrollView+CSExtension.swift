@@ -138,12 +138,14 @@ public extension UIScrollView {
     }
 
     func scrollTo(page index: Int, of count: Int, animated: Bool = true) {
+        if count == 0 || contentSize.width == 0 { return }
         let pageWidth = contentSize.width / CGFloat(count)
         let x = CGFloat(index) * pageWidth
         setContentOffset(CGPoint(x: x, y: 0), animated: animated)
     }
 
     func currentPageIndex(from: Int) -> Int {
-        lround(Double(contentOffset.x / (contentSize.width / CGFloat(from))))
+        if from == 0 || contentSize.width == 0 { return 0 }
+        return lround(Double(contentOffset.x / (contentSize.width / CGFloat(from))))
     }
 }
