@@ -1,11 +1,3 @@
-//
-//  CSHtmlTextView.swift
-//  Motorkari
-//
-//  Created by Rene Dohan on 2/7/19.
-//  Copyright © 2019 Renetik Software. All rights reserved.
-//
-
 import ARChromeActivity
 import DTCoreText
 import DTCoreText.DTAttributedTextView
@@ -40,7 +32,6 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     private var imageUrls = [URL]()
-//    private var numberOfImages = 0
     private var lineBreakMode: NSLineBreakMode = .byWordWrapping
 
     override public func construct() -> Self {
@@ -102,12 +93,11 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     public var text = "" {
         didSet {
             imageUrls.clear()
-//            numberOfImages = html.countHtmlImageTagsWithoutSize()
             let corrected = text.addSizeToHtmlImageTags(width)
             attributedString = NSAttributedString(
                 htmlData: corrected.data(using: encoding),
                 options: attributedOptions, documentAttributes: nil
-            )
+            )?.withForcedFontSize(font.pointSize)
         }
     }
 

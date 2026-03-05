@@ -1,11 +1,3 @@
-//
-//  CSHtmlLabel.swift
-//  Motorkari
-//
-//  Created by Rene Dohan on 2/7/19.
-//  Copyright © 2019 Renetik Software. All rights reserved.
-//
-
 import ARChromeActivity
 import DTCoreText
 import DTCoreText.DTAttributedLabel
@@ -37,7 +29,7 @@ public class CSHtmlLabel: DTAttributedLabel,
             attributedString = NSAttributedString(
                 htmlData: corrected.data(using: encoding),
                 options: attributedOptions, documentAttributes: nil
-            )
+            )?.withForcedFontSize(font.pointSize)
         }
     }
 
