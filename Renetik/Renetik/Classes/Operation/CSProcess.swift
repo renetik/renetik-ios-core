@@ -36,23 +36,28 @@ public class CSProcess<Data>: CSAny, CSProcessProtocol {
     }
 
     private let onProgress: CSEvent<CSProcess<Data>> = event()
-    var progress: UInt64 = 0 { didSet { onProgress.fire(self) } }
+    var progress: UInt64 = 0 {
+        didSet { onProgress.fire(self) }
+    }
+
     var isSuccess = false
     var isFailed = false
     var isDone = false
     var isCanceled = false
-    var url: String? = nil
-    var data: Data? = nil
-    public var message: String? = nil
-    public var error: Error? = nil
-    var failedProcess: CSProcessProtocol? = nil
+    var url: String?
+    var data: Data?
+    public var message: String?
+    public var error: Error?
+    var failedProcess: CSProcessProtocol?
 
     public init(_ url: String, _ data: Data) {
         self.url = url
         self.data = data
     }
 
-    public init(_ data: Data?) { self.data = data }
+    public init(_ data: Data?) {
+        self.data = data
+    }
 
     @discardableResult
     public func success() {

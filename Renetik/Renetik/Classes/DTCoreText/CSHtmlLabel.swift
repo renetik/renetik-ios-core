@@ -6,8 +6,7 @@ import TUSafariActivity
 import UIKit
 
 public class CSHtmlLabel: DTAttributedLabel,
-    DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate
-{
+    DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate {
     public var font = UIFont.preferredFont(forTextStyle: .body)
     public var textColor: UIColor = .darkText
     public var linkColor: UIColor = .blue
@@ -42,7 +41,7 @@ public class CSHtmlLabel: DTAttributedLabel,
             DTDefaultTextColor: textColor,
             DTDefaultLinkColor: linkColor,
             DTDefaultLinkHighlightColor: linkHighlightedColor,
-            DTDefaultLinkDecoration: false,
+            DTDefaultLinkDecoration: false
         ]
     }
 
@@ -55,22 +54,34 @@ public class CSHtmlLabel: DTAttributedLabel,
     }
 
     @discardableResult
-    public func link(color: UIColor) -> Self { invoke { self.linkColor = color } }
+    public func link(color: UIColor) -> Self {
+        invoke { self.linkColor = color }
+    }
 
     @discardableResult
-    public func linkHighlighted(color: UIColor) -> Self { invoke { self.linkHighlightedColor = color } }
+    public func linkHighlighted(color: UIColor) -> Self {
+        invoke { self.linkHighlightedColor = color }
+    }
 
     @discardableResult
-    public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
+    public func textColor(_ color: UIColor) -> Self {
+        invoke { self.textColor = color }
+    }
 
     @discardableResult
-    public func defaultLink(color: UIColor) -> Self { invoke { self.defaultLinkColor = color } }
+    public func defaultLink(color: UIColor) -> Self {
+        invoke { self.defaultLinkColor = color }
+    }
 
     @discardableResult
-    public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
+    public func encoding(_ encoding: String.Encoding) -> Self {
+        invoke { self.encoding = encoding }
+    }
 
     @discardableResult
-    public func html(_ html: String) -> Self { invoke { self.html = html } }
+    public func html(_ html: String) -> Self {
+        invoke { self.html = html }
+    }
 
     @discardableResult
     public func fontStyle(_ fontStyle: UIFont.TextStyle) -> Self {
@@ -86,8 +97,7 @@ public class CSHtmlLabel: DTAttributedLabel,
 
     public func attributedTextContentView(_:
         DTAttributedTextContentView!,
-        viewForLink url: URL!, identifier _: String!, frame: CGRect) -> UIView!
-    {
+        viewForLink url: URL!, identifier _: String!, frame: CGRect) -> UIView! {
         if !linksActive { return nil }
         return UIView.construct().frame(frame).also { view in
             view.onClick {
@@ -101,8 +111,7 @@ public class CSHtmlLabel: DTAttributedLabel,
     }
 
     public func attributedTextContentView(_: DTAttributedTextContentView!,
-                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView!
-    {
+                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
             let imageView = DTLazyImageView(frame: frame)
             imageView.contentMode = .scaleAspectFit
@@ -114,13 +123,11 @@ public class CSHtmlLabel: DTAttributedLabel,
     }
 
     public func lazyImageView(_ lazyImageView: DTLazyImageView,
-                              didChangeImageSize: CGSize)
-    {
+                              didChangeImageSize: CGSize) {
         for attachment in layoutFrame.textAttachments() {
             let textAttachment = (attachment as! DTTextAttachment)
             if textAttachment.contentURL.absoluteString ==
-                lazyImageView.url.absoluteString
-            {
+                lazyImageView.url.absoluteString {
                 textAttachment.displaySize =
                     CGSize(width: didChangeImageSize.width + 10,
                            height: didChangeImageSize.height)

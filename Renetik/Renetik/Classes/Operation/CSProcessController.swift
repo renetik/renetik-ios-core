@@ -16,8 +16,7 @@ public extension CSProcessController {
     func show<Data: AnyObject>(_ process: CSProcess<Data>, title: String = .requestLoading,
                                progress: Bool = true, canCancel: Bool = true,
                                failedDialog: Bool = true,
-                               onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data>
-    {
+                               onSuccess: ((Data) -> Void)? = nil) -> CSProcess<Data> {
         show(process, title, progress, canCancel, failedDialog, onSuccess)
     }
 }

@@ -12,13 +12,21 @@ public extension UIFont {
         UIFont(descriptor: fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))!, size: 0)
     }
 
-    func bold() -> UIFont { withTraits(.traitBold) }
+    func bold() -> UIFont {
+        withTraits(.traitBold)
+    }
 
-    func normal() -> UIFont { withTraits() }
+    func normal() -> UIFont {
+        withTraits()
+    }
 
-    func italic() -> UIFont { withTraits(.traitItalic) }
+    func italic() -> UIFont {
+        withTraits(.traitItalic)
+    }
 
-    func boldItalic() -> UIFont { withTraits(.traitBold, .traitItalic) }
+    func boldItalic() -> UIFont {
+        withTraits(.traitBold, .traitItalic)
+    }
 
     class func printNames() {
         for family: String in UIFont.familyNames {

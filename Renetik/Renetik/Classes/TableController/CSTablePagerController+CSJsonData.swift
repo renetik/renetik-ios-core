@@ -8,8 +8,7 @@ import RenetikObjc
 public extension CSTablePagerController where Row: CSJsonData, Data: CSListServerJsonData<Row> {
     @discardableResult
     func construct(by controller: CSTableController<Row, Data>,
-                   operation: @escaping (Int) -> CSOperation<Data>) -> Self
-    {
+                   operation: @escaping (Int) -> CSOperation<Data>) -> Self {
         table = controller
         onLoadPage = { index in operation(index).onSuccess { data in self.load(data.list) } }
         table.loadData = onLoad
@@ -20,8 +19,7 @@ public extension CSTablePagerController where Row: CSJsonData, Data: CSListServe
 public extension CSTablePagerController where Data: CSListData {
     @discardableResult
     func construct(using controller: CSTableController<Row, Data>,
-                   request: @escaping (Int) -> CSOperation<Data>) -> Self
-    {
+                   request: @escaping (Int) -> CSOperation<Data>) -> Self {
         table = controller
         onLoadPage = { index in request(index).onSuccess { data in self.load(data.list.cast()) } }
         table.loadData = onLoad

@@ -10,7 +10,7 @@ public class CSNavigationHidingController: CSMainController {
     private var parentController: UIViewController!
 
     public func showIfNotKeyboard() {
-        if isNavigationBarHidden && !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
+        if isNavigationBarHidden, !keyboardManager.isKeyboardVisible { requestNavigationBarShown() }
     }
 
     @discardableResult
@@ -23,7 +23,7 @@ public class CSNavigationHidingController: CSMainController {
 
     private func onKeyboardChange(keyboardHeight: CGFloat) {
         if !isAppearing { return }
-        if keyboardHeight > 0 && UIScreen.isLandscape {
+        if keyboardHeight > 0, UIScreen.isLandscape {
             requestNavigationBarHidden()
         } else {
             requestNavigationBarShown()
@@ -48,7 +48,7 @@ public class CSNavigationHidingController: CSMainController {
         requestNavigationBarShown()
     }
 
-    private var lastDraggingContentOffset: CGFloat? = nil
+    private var lastDraggingContentOffset: CGFloat?
 
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         lastDraggingContentOffset = scrollView.contentOffset.y

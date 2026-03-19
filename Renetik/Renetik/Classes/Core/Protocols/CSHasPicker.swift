@@ -10,7 +10,9 @@ public protocol CSHasPickerVisible {
 }
 
 public extension CSHasPickerVisible {
-    func hidePicker() { hidePicker(animated: true) }
+    func hidePicker() {
+        hidePicker(animated: true)
+    }
 }
 
 public protocol CSHasPicker {
@@ -24,8 +26,7 @@ public extension CSHasPicker {
     @discardableResult
     func show(picker title: String, items: [String], selected: Int = 0,
               from view: UIView, onCancel: Func? = nil,
-              onDone: @escaping (Int) -> Void) -> CSHasPickerVisible
-    {
+              onDone: @escaping (Int) -> Void) -> CSHasPickerVisible {
         show(picker: title, items: items, selected: selected,
              from: CSDisplayElement(view: view), onCancel: onCancel, onDone: onDone)
     }
@@ -33,8 +34,7 @@ public extension CSHasPicker {
     @discardableResult
     func show(picker title: String, items: [String], selected: Int = 0,
               from item: UIBarButtonItem, onCancel: Func? = nil,
-              onDone: @escaping (Int) -> Void) -> CSHasPickerVisible
-    {
+              onDone: @escaping (Int) -> Void) -> CSHasPickerVisible {
         show(picker: title, items: items, selected: selected,
              from: CSDisplayElement(item: item), onCancel: onCancel, onDone: onDone)
     }
@@ -42,8 +42,7 @@ public extension CSHasPicker {
     @discardableResult
     func show<T: CustomStringConvertible>(picker title: String, items: [T], selected: Int = 0,
                                           from view: UIView, onCancel: Func? = nil,
-                                          onDone: @escaping (T) -> Void) -> CSHasPickerVisible
-    {
+                                          onDone: @escaping (T) -> Void) -> CSHasPickerVisible {
         show(picker: title, items: items, selected: selected,
              from: CSDisplayElement(view: view), onCancel: onCancel, onDone: { onDone(items[$0]) })
     }
@@ -51,8 +50,7 @@ public extension CSHasPicker {
     @discardableResult
     func show<T: CustomStringConvertible>(picker title: String, items: [T], selected: Int = 0,
                                           from item: UIBarButtonItem, onCancel: Func? = nil,
-                                          onDone: @escaping (T) -> Void) -> CSHasPickerVisible
-    {
+                                          onDone: @escaping (T) -> Void) -> CSHasPickerVisible {
         show(picker: title, items: items, selected: selected,
              from: CSDisplayElement(item: item), onCancel: onCancel, onDone: { onDone(items[$0]) })
     }

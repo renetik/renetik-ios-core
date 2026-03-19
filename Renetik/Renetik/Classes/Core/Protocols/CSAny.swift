@@ -7,11 +7,17 @@ import Foundation
 public protocol CSAny {}
 
 public extension CSAny {
-    static func cast(_ object: Any) -> Self { object as! Self }
+    static func cast(_ object: Any) -> Self {
+        object as! Self
+    }
 
-    var notNil: Bool { true }
+    var notNil: Bool {
+        true
+    }
 
-    var isNil: Bool { false }
+    var isNil: Bool {
+        false
+    }
 
     @discardableResult
     func also(_ function: (Self) -> Void) -> Self {
@@ -36,37 +42,48 @@ public extension CSAny {
         function()
     }
 
-    func then(_ function: (Self) -> Void) { function(self) }
+    func then(_ function: (Self) -> Void) {
+        function(self)
+    }
 
-    // let in kotlin
-    func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType { function(self) }
+    /// let in kotlin
+    func get<ReturnType>(_ function: (Self) -> ReturnType) -> ReturnType {
+        function(self)
+    }
+
     func getAsync<ReturnType>(_ function: @escaping (Self) async -> ReturnType) async -> ReturnType {
         return await function(self)
     }
-    
-    public func convert<ReturnType>(_ function: @escaping (Self) -> ReturnType) async -> ReturnType {
+
+    func convert<ReturnType>(_ function: @escaping (Self) -> ReturnType) async -> ReturnType {
         return function(self)
     }
-    
-    public func convertIf<ReturnType>(
+
+    func convertIf<ReturnType>(
         _ condition: (Self) -> Bool, _ function: @escaping (Self) -> ReturnType
-    )  -> ReturnType? {
-         if condition(self){ return function(self) } else { return nil }
+    ) -> ReturnType? {
+        if condition(self) { return function(self) } else { return nil }
     }
-    
-    public func convertIfAsync<ReturnType>(
+
+    func convertIfAsync<ReturnType>(
         _ condition: (Self) -> Bool, _ function: @escaping (Self) async -> ReturnType
     ) async -> ReturnType? {
-        if condition(self){ return await function(self) } else { return nil }
+        if condition(self) { return await function(self) } else { return nil }
     }
-    
-    var asString: String { "\(self)" }
+
+    var asString: String {
+        "\(self)"
+    }
 
 //    public var description: String { "\(type(of: self))" }
 
-    func cast<T>() -> T { self as! T }
+    func cast<T>() -> T {
+        self as! T
+    }
 
-    func castOrNil<T>() -> T? { self as? T }
+    func castOrNil<T>() -> T? {
+        self as? T
+    }
 
     func equals(to object: Any?) -> Bool { // TODO: check how this is reliable
         if String(describing: self) == String(describing: object) { return true }

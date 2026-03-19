@@ -12,14 +12,14 @@ open class CSLabeledText: UIView {
 
     @discardableResult
     func construct(_ container: UIView, _ title: String?, _ value: String?,
-                   _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: Func? = nil) -> Self
-    {
+                   _ dataTypes: UIDataDetectorTypes? = nil, _ onClick: Func? = nil) -> Self {
         super.construct().width(200, height: 35)
         addLabel(title: title)
         addTextView(value: value)
         textView.textContainer.lineBreakMode = .byTruncatingHead
         textView.scrollRangeToVisible(
-            NSMakeRange(textView.text.count - 1, 0))
+            NSMakeRange(textView.text.count - 1, 0)
+        )
         dataTypes.notNil { textView.detectData($0) }
         self.onClick = onClick
         onClick.notNil { textView.onClick($0) }
@@ -33,7 +33,7 @@ open class CSLabeledText: UIView {
         add(view: label).from(left: 10).width(110).matchParentHeight()
         label.text(title)
     }
-    
+
     private func addTextView(value: String?) {
         add(view: textView).from(left: label.right + 5)
             .width(fromRight: 5, flexible: true).matchParentHeight()
@@ -62,9 +62,8 @@ public class CSLabeledView: UIView {
 
 public extension UIView {
     func addField(title: String? = nil, text: String? = nil,
-                  detect dataTypes: UIDataDetectorTypes? = nil, 
-                  onClick: Func? = nil)
-    {
+                  detect dataTypes: UIDataDetectorTypes? = nil,
+                  onClick: Func? = nil) {
         CSLabeledText().construct(self, title, text, dataTypes, onClick)
     }
 

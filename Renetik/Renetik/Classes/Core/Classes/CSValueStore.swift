@@ -9,7 +9,9 @@ public class CSValueStore {
         UserDefaults.load(key, defaultValue)
     }
 
-    public class func save(key: String, value: String) { UserDefaults.save(key, value) }
+    public class func save(key: String, value: String) {
+        UserDefaults.save(key, value)
+    }
 }
 
 public extension CSValueStore {
@@ -17,5 +19,7 @@ public extension CSValueStore {
         getString(key: key, default: stringify(defaultValue)).intValue
     }
 
-    class func save(key: String, value: Int) { save(key: key, value: stringify(value)) }
+    class func save(key: String, value: Int) {
+        save(key: key, value: stringify(value))
+    }
 }

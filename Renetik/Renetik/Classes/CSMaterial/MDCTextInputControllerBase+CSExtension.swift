@@ -35,7 +35,9 @@ public extension MDCTextInputControllerBase {
         return self
     }
 
-    var right: CGFloat { textInput!.right }
+    var right: CGFloat {
+        textInput!.right
+    }
 
     @discardableResult
     func clear() -> Self {
@@ -63,7 +65,9 @@ public extension MDCTextInputControllerBase {
 }
 
 extension MDCTextInputControllerBase: CSHasTextProtocol, CSHasUIResponder {
-    public var responder: UIResponder { textInput! }
+    public var responder: UIResponder {
+        textInput!
+    }
 
     public var text: String {
         get { textInput!.text ?? "" }

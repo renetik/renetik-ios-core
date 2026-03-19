@@ -19,9 +19,13 @@ enum CSError: Error {
 struct RuntimeError: Error {
     let message: String
 
-    init(_ message: String) { self.message = message }
+    init(_ message: String) {
+        self.message = message
+    }
 
-    public var localizedDescription: String { message }
+    var localizedDescription: String {
+        message
+    }
 }
 
 let isDebug: Bool = {
@@ -95,7 +99,9 @@ public func notNil(_ items: Any?...) -> Bool {
     return true
 }
 
-public func isSomeNil(_ items: Any?...) -> Bool { !notNil(items) }
+public func isSomeNil(_ items: Any?...) -> Bool {
+    !notNil(items)
+}
 
 public func when<Type>(notNil item: Type?, then: ArgFunc<Type>) {
     if item.notNil { then(item!) }
@@ -108,9 +114,13 @@ public func when<Type>(isNil item: Type?, then: Func) {
 open class CSObject: CSAny, Equatable, CustomStringConvertible {
     public init() {}
 
-    public static func == (lhs: CSObject, rhs: CSObject) -> Bool { lhs === rhs }
+    public static func == (lhs: CSObject, rhs: CSObject) -> Bool {
+        lhs === rhs
+    }
 
-    public var description: String { "\(type(of: self))" }
+    public var description: String {
+        "\(type(of: self))"
+    }
 }
 
 public class Nil: CSAny, Equatable {
@@ -118,7 +128,9 @@ public class Nil: CSAny, Equatable {
 
     public static var instance: Nil = .init()
 
-    public static func == (_: Nil, _: Nil) -> Bool { true }
+    public static func == (_: Nil, _: Nil) -> Bool {
+        true
+    }
 }
 
 extension IndexPath: CSAny {}
@@ -147,9 +159,13 @@ func function(if boolean: Bool, function: Func) -> CSConditionalResult {
 public class CSConditionalResult {
     let isDoElse: Bool
 
-    public init(doElseIf: Bool) { isDoElse = doElseIf }
+    public init(doElseIf: Bool) {
+        isDoElse = doElseIf
+    }
 
-    public func elseDo(_ function: Func) { if isDoElse { function() } }
+    public func elseDo(_ function: Func) {
+        if isDoElse { function() }
+    }
 }
 
 func functionTest() {

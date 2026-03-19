@@ -18,7 +18,9 @@ public extension UIView {
         }
     }
 
-    func content<View: UIView>(_ view: View) -> View { content = view; return view }
+    func content<View: UIView>(_ view: View) -> View {
+        content = view; return view
+    }
 
     class func withContent(_ view: UIView = UIView.construct()) -> Self {
         let container = construct(frame: view.frame)

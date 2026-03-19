@@ -10,8 +10,7 @@ import RenetikObjc
 import UIKit
 
 public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
-    DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
-{
+    DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     public var emptyText: String?
     public var emptyDescription: String?
     public var table: CSTableController<Row, Data>!
@@ -26,8 +25,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
     @discardableResult
     public func construct(_ table: CSTableController<Row, Data>,
                           _ title: String? = nil,
-                          _ description: String? = nil) -> Self
-    {
+                          _ description: String? = nil) -> Self {
         self.table = table
         emptyText = title
         emptyDescription = description
@@ -43,7 +41,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
     public func title(forEmptyDataSet _: UIScrollView!) -> NSAttributedString! {
         titleText.attributed([
             NSAttributedString.Key.font: titleFont,
-            NSAttributedString.Key.foregroundColor: titleColor,
+            NSAttributedString.Key.foregroundColor: titleColor
         ])
     }
 
@@ -61,7 +59,7 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
             NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle().also {
                 $0.lineBreakMode = .byWordWrapping
                 $0.alignment = .center
-            },
+            }
         ])
     }
 
@@ -100,7 +98,11 @@ public class CSTableEmptyController<Row: CSTableControllerRow, Data>: NSObject,
         table.reload().onDone { _ in self.table.tableView.reloadEmptyDataSet() }
     }
 
-    public func verticalOffset(forEmptyDataSet _: UIScrollView!) -> CGFloat { 0 }
+    public func verticalOffset(forEmptyDataSet _: UIScrollView!) -> CGFloat {
+        0
+    }
 
-    public func emptyDataSetShouldAllowScroll(_: UIScrollView!) -> Bool { true }
+    public func emptyDataSetShouldAllowScroll(_: UIScrollView!) -> Bool {
+        true
+    }
 }

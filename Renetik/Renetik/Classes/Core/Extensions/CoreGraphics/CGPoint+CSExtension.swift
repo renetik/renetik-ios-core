@@ -13,7 +13,11 @@ public extension CGPoint { // TODO: move to CoreGraphics
         ((x - point.x) * (x - point.x) + (y - point.y) * (y - point.y)).squareRoot()
     }
 
-    var left: CGFloat { x }
+    var left: CGFloat {
+        x
+    }
 
-    var top: CGFloat { y }
+    var top: CGFloat {
+        y
+    }
 }

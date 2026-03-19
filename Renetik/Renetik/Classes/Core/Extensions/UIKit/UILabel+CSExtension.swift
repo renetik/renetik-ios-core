@@ -25,7 +25,9 @@ public extension UILabel {
     }
 
     @discardableResult
-    func fontSize(_ size: CGFloat) -> Self { invoke { fontSize = size } }
+    func fontSize(_ size: CGFloat) -> Self {
+        invoke { fontSize = size }
+    }
 
     var fontStyle: UIFont.TextStyle {
         get {
@@ -37,13 +39,19 @@ public extension UILabel {
     }
 
     @discardableResult
-    func fontStyle(_ style: UIFont.TextStyle) -> Self { invoke { fontStyle = style } }
+    func fontStyle(_ style: UIFont.TextStyle) -> Self {
+        invoke { fontStyle = style }
+    }
 
     @discardableResult
-    func font(_ font: UIFont) -> Self { invoke { self.font = font } }
+    func font(_ font: UIFont) -> Self {
+        invoke { self.font = font }
+    }
 
     @discardableResult
-    func textColor(_ textColor: UIColor) -> Self { invoke { self.textColor = textColor } }
+    func textColor(_ textColor: UIColor) -> Self {
+        invoke { self.textColor = textColor }
+    }
 
     @discardableResult
     func withBoldFont(if condition: Bool = true) -> Self {
@@ -51,16 +59,24 @@ public extension UILabel {
     }
 
     @discardableResult
-    func text(_ string: String?) -> Self { invoke { text = string } }
+    func text(_ string: String?) -> Self {
+        invoke { text = string }
+    }
 
     @discardableResult
-    func textAlign(_ alignment: NSTextAlignment) -> Self { invoke { textAlignment = alignment } }
+    func textAlign(_ alignment: NSTextAlignment) -> Self {
+        invoke { textAlignment = alignment }
+    }
 
     @discardableResult
-    func lineBreak(_ mode: NSLineBreakMode) -> Self { invoke { lineBreakMode = mode } }
+    func lineBreak(_ mode: NSLineBreakMode) -> Self {
+        invoke { lineBreakMode = mode }
+    }
 
     @discardableResult
-    func hideIfEmpty() -> Self { invoke { self.isVisible = text?.trim.isSet == true } }
+    func hideIfEmpty() -> Self {
+        invoke { self.isVisible = text?.trim.isSet == true }
+    }
 
     @discardableResult
     override func heightToFit() -> Self {
@@ -89,7 +105,7 @@ public extension UILabel {
     @discardableResult
     func heightToFit(lines numberOfLines: Int) -> Self {
         let currentWidth = width; let currentText = text; var linesText = "line"
-        for i in 0 ..< numberOfLines - 1 {
+        for _ in 0 ..< numberOfLines - 1 {
             linesText += "\n line"
         }
         text(linesText).resizeToFit().text(currentText).width(currentWidth)
@@ -103,7 +119,8 @@ public extension UILabel {
         let htmlData = html.data(using: .unicode, allowLossyConversion: true)
         htmlData.notNil { data in
             attributedText = try? NSAttributedString(data: data, options: [
-                .documentType: NSAttributedString.DocumentType.html, .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue),
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
             ], documentAttributes: nil)
         }
         return self

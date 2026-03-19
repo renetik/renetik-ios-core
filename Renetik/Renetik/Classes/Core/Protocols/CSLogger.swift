@@ -16,8 +16,7 @@ import Foundation
 
 public extension UIViewController {
     func logInfoToast<Subject>(_ value: Subject, functionName: String = #function,
-                               fileName: String = #file, lineNumber: Int = #line)
-    {
+                               fileName: String = #file, lineNumber: Int = #line) {
         let className = fileName.asNSString.lastPathComponent
         logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
         toast(describe(value))
@@ -25,8 +24,7 @@ public extension UIViewController {
 }
 
 public func logDebug<Subject>(_ value: Subject, functionName: String = #function,
-                              fileName: String = #file, lineNumber: Int = #line)
-{
+                              fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     let message = "<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))"
     logger.logDebug(message)
@@ -34,28 +32,24 @@ public func logDebug<Subject>(_ value: Subject, functionName: String = #function
 }
 
 public func logInfo(functionName: String = #function,
-                    fileName: String = #file, lineNumber: Int = #line)
-{
+                    fileName: String = #file, lineNumber: Int = #line) {
     logInfo("", functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
 public func logInfo<Subject>(_ value: Subject, functionName: String = #function,
-                             fileName: String = #file, lineNumber: Int = #line)
-{
+                             fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     logger.logInfo("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logWarn<Subject>(_ value: Subject, functionName: String = #function,
-                             fileName: String = #file, lineNumber: Int = #line)
-{
+                             fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     logger.logWarn("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }
 
 public func logError<Subject>(_ value: Subject, functionName: String = #function,
-                              fileName: String = #file, lineNumber: Int = #line)
-{
+                              fileName: String = #file, lineNumber: Int = #line) {
     let className = fileName.asNSString.lastPathComponent
     logger.logError("<\(className)> \(functionName) [#\(lineNumber)]| \(describe(value))")
 }

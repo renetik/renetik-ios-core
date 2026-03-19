@@ -18,8 +18,7 @@ public class CSMenuHeader: CSObject {
     }
 
     public func item(with title: String, type: UIBarButtonItem.SystemItem? = nil,
-                     image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem
-    {
+                     image: UIImage? = nil, action: ((CSMenuItem) -> Void)? = nil) -> CSMenuItem {
         items.add(CSMenuItem(by: controller, title: title, systemItem: type, image: image, action: action))
             .also { $0.index = items.size - 1 }
     }
@@ -40,5 +39,7 @@ public class CSMenuHeader: CSObject {
         return self
     }
 
-    public var isDisplayedAsItem: Bool { title.isEmpty && items.count == 1 && !items.first!.isNoActionItem }
+    public var isDisplayedAsItem: Bool {
+        title.isEmpty && items.count == 1 && !items.first!.isNoActionItem
+    }
 }

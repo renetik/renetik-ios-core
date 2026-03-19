@@ -50,12 +50,12 @@ open class CSAFClient: CSObject {
         manager.requestSerializer
             .setAuthorizationHeaderFieldWithUsername(username, password: password)
     }
-    
+
     open func get<Data: CSServerData>(
         service: String, data: Data,
         params: [String: Any?]
     ) -> CSResponse<Data> {
-        return get(service:service, data:data, params:params.map{($0,$1)})
+        return get(service: service, data: data, params: params.map { ($0, $1) })
     }
 
     open func get<Data: CSServerData>(
@@ -119,7 +119,7 @@ open class CSAFClient: CSObject {
         let queryString = buildQueryString(from: request.params)
         let urlWithQuery = request.service + "?" + queryString
         if request.type == .get {
-            manager.get(urlWithQuery, parameters:nil, headers: nil,
+            manager.get(urlWithQuery, parameters: nil, headers: nil,
                         progress: response.onProgress, success: response.onSuccess,
                         failure: response.onFailure)
         } else {
@@ -165,7 +165,6 @@ public extension AFMultipartFormData {
         appendUTF8(parts: partsArray)
     }
 
-    
     func appendUTF8(parts: [String: Any?]) {
         logInfo(parts.asJson?.substring(to: 100))
         for (key, value) in parts {
@@ -201,7 +200,11 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
     }
 
     func onFailure(_ task: URLSessionDataTask?, _ error: Error) {
-        handleResponse(task, NSError.cast(error).userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? Data, error: NSError.cast(error))
+        handleResponse(
+            task,
+            NSError.cast(error).userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? Data,
+            error: NSError.cast(error)
+        )
     }
 
     func handleResponse(_ task: URLSessionDataTask?, _ data: Data?, error: NSError?) {
@@ -209,7 +212,7 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
         let content = data.notNil ? String(data: data!, encoding: .utf8)! : ""
         logInfo(content)
         request.data!.loadContent(content)
-        if error.notNil && request.data!.isEmpty {
+        if error.notNil, request.data!.isEmpty {
             onHandleResponseError(task?.response, error!, content)
         } else if request.data!.success {
             request.success(request.data!)
@@ -230,7 +233,7 @@ class CSAFResponse<ServerData: CSServerData>: NSObject {
     func onHandleResponseError(_ httpResponse: URLResponse?, _ error: NSError, _ content: String) {
         logWarn("Failed \(String(describing: httpResponse)) \(error.code) \(error.localizedDescription) \(content)")
         // Sometimes reciving code -999 canceled
-        if error.code == -999 && retryCount < 3 {
+        if error.code == -999, retryCount < 3 {
             retryCount += 1
             logInfo("-999 Zruseno Retrying..." + httpResponse.asString)
             client.execute(request, self)

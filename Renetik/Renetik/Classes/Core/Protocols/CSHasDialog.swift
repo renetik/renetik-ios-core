@@ -10,7 +10,9 @@ public protocol CSHasDialogVisible {
 }
 
 public extension CSHasDialogVisible {
-    func hideDialog() { hideDialog(animated: true) }
+    func hideDialog() {
+        hideDialog(animated: true)
+    }
 }
 
 public struct CSDialogAction {
@@ -40,8 +42,7 @@ public extension CSHasDialog {
               positiveTitle: String = .dialogYes,
               onPositive: Func? = nil,
               onCanceled: Func? = nil,
-              canCancel: Bool = true) -> CSHasDialogVisible
-    {
+              canCancel: Bool = true) -> CSHasDialogVisible {
         show(title: nil, message: message,
              positive: CSDialogAction(title: positiveTitle, action: onPositive ?? {}),
              negative: nil, cancel: canCancel ? CSDialogAction(action: onCanceled ?? {}) : nil)
@@ -54,8 +55,7 @@ public extension CSHasDialog {
 
     @discardableResult
     func show(title: String? = nil, message: String,
-              positive: CSDialogAction?, negative: CSDialogAction? = nil) -> CSHasDialogVisible
-    {
+              positive: CSDialogAction?, negative: CSDialogAction? = nil) -> CSHasDialogVisible {
         show(title: title, message: message, positive: positive,
              negative: negative, cancel: nil)
     }

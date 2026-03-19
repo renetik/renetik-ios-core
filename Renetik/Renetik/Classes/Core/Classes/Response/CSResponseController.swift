@@ -17,8 +17,7 @@ public extension CSResponseController {
                                title: String = .requestLoading,
                                progress: Bool = true, canCancel: Bool = true,
                                failedDialog: Bool = true,
-                               onSuccess: ((Data) -> Void)? = nil
-    ) -> CSResponse<Data> {
+                               onSuccess: ((Data) -> Void)? = nil) -> CSResponse<Data> {
         show(response, title, progress, canCancel, failedDialog, onSuccess)
     }
 }

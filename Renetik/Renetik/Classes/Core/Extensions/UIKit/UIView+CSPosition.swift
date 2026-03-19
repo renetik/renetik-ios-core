@@ -15,10 +15,18 @@ public extension UIView {
         }
     }
 
-    func position(_ point: CGPoint) -> Self { position = point; return self }
+    func position(_ point: CGPoint) -> Self {
+        position = point; return self
+    }
 
-    var x: CGFloat { position.x }
-    var y: CGFloat { position.y }
+    var x: CGFloat {
+        position.x
+    }
+
+    var y: CGFloat {
+        position.y
+    }
+
     var left: CGFloat {
         get { position.left }
         set {
@@ -63,8 +71,14 @@ public extension UIView {
         }
     }
 
-    var leftFromRight: CGFloat { superview.notNil ? superview!.width - left : width }
-    var topFromBottom: CGFloat { superview.notNil ? superview!.height - top : height }
+    var leftFromRight: CGFloat {
+        superview.notNil ? superview!.width - left : width
+    }
+
+    var topFromBottom: CGFloat {
+        superview.notNil ? superview!.height - top : height
+    }
+
     var screenTop: CGFloat {
         get { convert(CGPoint(x: 0, y: top), to: nil).y }
         set(value) { top = convert(CGPoint(x: 0, y: value), from: nil).y }
@@ -75,9 +89,13 @@ public extension UIView {
         set(value) { bottom = convert(CGPoint(x: 0, y: value), from: nil).y }
     }
 
-    func center(_ point: CGPoint) -> Self { center = point; return self }
+    func center(_ point: CGPoint) -> Self {
+        center = point; return self
+    }
 
-    func center(_ x: CGFloat, _ y: CGFloat) -> Self { center(CGPoint(x: x, y: y)) }
+    func center(_ x: CGFloat, _ y: CGFloat) -> Self {
+        center(CGPoint(x: x, y: y))
+    }
 
     var centerTop: CGFloat {
         get { center.y }
@@ -85,13 +103,19 @@ public extension UIView {
     }
 
     @discardableResult
-    func centerTop(_ y: CGFloat) -> Self { invoke { centerTop = y } }
+    func centerTop(_ y: CGFloat) -> Self {
+        invoke { centerTop = y }
+    }
 
     @discardableResult
-    func centerTop(as view: UIView) -> Self { centerTop(view.centerTop) }
+    func centerTop(as view: UIView) -> Self {
+        centerTop(view.centerTop)
+    }
 
     @discardableResult
-    func centerVertical(as view: UIView) -> Self { centerTop(as: view) }
+    func centerVertical(as view: UIView) -> Self {
+        centerTop(as: view)
+    }
 
     @discardableResult
     func centerVerticalAsPrevious() -> Self {
@@ -107,10 +131,14 @@ public extension UIView {
     }
 
     @discardableResult
-    func centerLeft(_ x: CGFloat) -> Self { invoke { centerLeft = x } }
+    func centerLeft(_ x: CGFloat) -> Self {
+        invoke { centerLeft = x }
+    }
 
     @discardableResult
-    func centerLeft(as view: UIView) -> Self { centerLeft(view.centerLeft) }
+    func centerLeft(as view: UIView) -> Self {
+        centerLeft(view.centerLeft)
+    }
 
     @discardableResult
     func centered() -> Self {

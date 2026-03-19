@@ -9,5 +9,7 @@ public extension NotificationCenter {
         NotificationCenter.default.addObserver(forName: observer, object: nil, queue: nil, using: block)
     }
 
-    class func remove(observer: NSObjectProtocol?) { NotificationCenter.default.removeObserver(observer) }
+    class func remove(observer: NSObjectProtocol?) {
+        NotificationCenter.default.removeObserver(observer)
+    }
 }

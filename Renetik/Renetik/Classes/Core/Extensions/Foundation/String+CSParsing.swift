@@ -9,8 +9,7 @@ public typealias TagIndex = (startTagIndex: Int, endTagIndex: Int)
 
 public extension String {
     func findTags(startTag: String, endTag: String,
-                  where condition: ((_ tag: String) -> Bool)? = nil) -> [TagIndex]
-    {
+                  where condition: ((_ tag: String) -> Bool)? = nil) -> [TagIndex] {
         var tags = [TagIndex]()
         process(startTag: startTag, endTag: endTag) { startTagIndex, endTagIndex in
             let shouldAdd = condition.isNil ? true :
@@ -23,8 +22,10 @@ public extension String {
     }
 
     func process(startTag: String, endTag: String,
-                 with function: (_ startTagIndex: Int, _ endTagIndex: Int) -> Void) -> [(startTagIndex: Int, endTagIndex: Int)]
-    {
+                 with function: (_ startTagIndex: Int, _ endTagIndex: Int) -> Void) -> [(
+        startTagIndex: Int,
+        endTagIndex: Int
+    )] {
         var tags = [(startTagIndex: Int, endTagIndex: Int)]()
         var startTagCursor: Int? = -1
         repeat {
@@ -32,8 +33,7 @@ public extension String {
             if let startTagIndex = startTagCursor {
                 startTagCursor! += startTag.size
                 if let endTagIndex = endTag.isEmpty ? length
-                    : index(of: endTag, from: startTagIndex + 1)
-                {
+                    : index(of: endTag, from: startTagIndex + 1) {
                     function(startTagIndex, endTagIndex)
                     startTagCursor = endTagIndex + endTag.size
                 }

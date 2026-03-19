@@ -10,13 +10,21 @@ import RMessage
 import UIKit
 
 public extension UIViewController {
-    func toast(_ title: String) { CSNotification().title(title).show(self) }
+    func toast(_ title: String) {
+        CSNotification().title(title).show(self)
+    }
 
-    func toast(success title: String) { CSNotification().success().title(title).show(self) }
+    func toast(success title: String) {
+        CSNotification().success().title(title).show(self)
+    }
 
-    func toast(warning title: String) { CSNotification().warning().title(title).show(self) }
+    func toast(warning title: String) {
+        CSNotification().warning().title(title).show(self)
+    }
 
-    func toast(error title: String) { CSNotification().error().title(title).show(self) }
+    func toast(error title: String) {
+        CSNotification().error().title(title).show(self)
+    }
 }
 
 public class CSNotification: CSObject {
@@ -31,7 +39,9 @@ public class CSNotification: CSObject {
     private var time: TimeInterval = 3
     private static var controller = RMController()
 
-    override public init() { super.init() }
+    override public init() {
+        super.init()
+    }
 
     public init(_ title: String) {
         self.title = title
@@ -42,7 +52,9 @@ public class CSNotification: CSObject {
         self.body = body
     }
 
-    public func bottom() -> Self { invoke { position = .bottom } }
+    public func bottom() -> Self {
+        invoke { position = .bottom }
+    }
 
     public func top() -> Self {
         position = .top
@@ -118,10 +130,13 @@ public class CSNotification: CSObject {
         type.timeToDismiss = time
         type.iconImage = icon
         Self.controller.showMessage(withSpec: type, atPosition: position, title: title ?? "",
-                                    body: body, viewController: parent, leftView: nil, rightView: nil, backgroundView: nil,
+                                    body: body, viewController: parent, leftView: nil, rightView: nil,
+                                    backgroundView: nil,
                                     tapCompletion: actionOnClick, presentCompletion: nil, dismissCompletion: nil)
         return self
     }
 
-    public class func dismissActive() { controller.dismissOnScreenMessage() }
+    public class func dismissActive() {
+        controller.dismissOnScreenMessage()
+    }
 }

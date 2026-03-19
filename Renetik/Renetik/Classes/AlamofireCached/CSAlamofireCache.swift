@@ -7,7 +7,10 @@ import Foundation
 
 public enum CSAlamofireCache {
     public static var HTTPVersion = "HTTP/1.1"
-    static var canUseCacheControl: Bool { !HTTPVersion.contains("1.0") }
+    static var canUseCacheControl: Bool {
+        !HTTPVersion.contains("1.0")
+    }
+
     static let frameworkName = "RenetikAlamofireCache"
     static let refreshCacheKey = "refreshCache"
     static let refreshCacheValueRefresh = "refreshCache"

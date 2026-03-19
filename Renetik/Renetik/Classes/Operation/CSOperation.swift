@@ -20,7 +20,9 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
         self.title = title
     }
 
-    open func executeProcess() -> CSProcess<Data> { executeProcessFunction(self) }
+    open func executeProcess() -> CSProcess<Data> {
+        executeProcessFunction(self)
+    }
 
     private let eventSuccess: CSEvent<Data> = event()
 
@@ -50,18 +52,24 @@ public class CSOperation<Data>: CSAny, CSOperationProtocol {
         invoke { eventDone.invoke { function($0) } }
     }
 
-    private var process: CSProcess<Data>? = nil
+    private var process: CSProcess<Data>?
     public var isCached = true
     public var isRefresh = false
     public var expireMinutes: Int? = 1
 
-    public var isLoading: Bool { process?.isDone == false }
+    public var isLoading: Bool {
+        process?.isDone == false
+    }
 
     @discardableResult
-    public func refresh(_: Bool = true) -> Self { invoke { isRefresh = true } }
+    public func refresh(_: Bool = true) -> Self {
+        invoke { isRefresh = true }
+    }
 
     @discardableResult
-    public func expire(minutes: Int?) -> Self { invoke { expireMinutes = minutes } }
+    public func expire(minutes: Int?) -> Self {
+        invoke { expireMinutes = minutes }
+    }
 
     public func send(listenOnFailed: Bool = true) -> CSProcess<Data> {
         executeProcess().also { process in

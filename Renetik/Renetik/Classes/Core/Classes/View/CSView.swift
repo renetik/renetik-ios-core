@@ -50,5 +50,7 @@ open class CSView: UIView {
     open func onLayoutSubviews() {}
 
     @discardableResult
-    public func updateLayout() -> Self { layoutFunctions.fire(); return self }
+    public func updateLayout() -> Self {
+        layoutFunctions.fire(); return self
+    }
 }

@@ -6,7 +6,7 @@ import Foundation
 
 public extension Array where Element: Any {
     func at(_ index: Int) -> Element? {
-        if index >= 0 && index < count { return self[index] }
+        if index >= 0, index < count { return self[index] }
         return nil
     }
 
@@ -16,9 +16,13 @@ public extension Array where Element: Any {
         return self
     }
 
-    var second: Element? { at(1) }
+    var second: Element? {
+        at(1)
+    }
 
-    var third: Element? { at(2) }
+    var third: Element? {
+        at(2)
+    }
 
     @discardableResult
     mutating func add(_ item: Element) -> Element {
@@ -61,13 +65,21 @@ public extension Array where Element: Equatable {
         return self
     }
 
-    func previous(of item: Element) -> Element? { index(of: item)?.get { index -> Element? in at(index - 1) } }
+    func previous(of item: Element) -> Element? {
+        index(of: item)?.get { index -> Element? in at(index - 1) }
+    }
 
-    func previousIndex(of item: Element) -> Int? { index(of: item)?.get { index -> Int in index - 1 } }
+    func previousIndex(of item: Element) -> Int? {
+        index(of: item)?.get { index -> Int in index - 1 }
+    }
 
-    func next(of item: Element) -> Element? { index(of: item)?.get { index -> Element? in at(index + 1) } }
+    func next(of item: Element) -> Element? {
+        index(of: item)?.get { index -> Element? in at(index + 1) }
+    }
 
-    func index(of item: Element) -> Int? { firstIndex(of: item) }
+    func index(of item: Element) -> Int? {
+        firstIndex(of: item)
+    }
 
     @discardableResult
     mutating func clear() -> Self {

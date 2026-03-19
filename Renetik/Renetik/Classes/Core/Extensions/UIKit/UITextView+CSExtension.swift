@@ -15,7 +15,9 @@ public struct CSTextViewClearButtonAppearance {
 }
 
 public extension UITextView {
-    func delegate(_ delegate: UITextViewDelegate) -> Self { self.delegate = delegate; return self }
+    func delegate(_ delegate: UITextViewDelegate) -> Self {
+        self.delegate = delegate; return self
+    }
 
     @discardableResult
     func html(_ text: String) -> Self {
@@ -24,7 +26,8 @@ public extension UITextView {
         let htmlData = html.data(using: .unicode, allowLossyConversion: true)
         htmlData.notNil { data in
             attributedText = try? NSAttributedString(data: data, options: [
-                .documentType: NSAttributedString.DocumentType.html, .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue),
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)
             ], documentAttributes: nil)
         }
         return self
@@ -68,7 +71,9 @@ public extension UITextView {
 //    }
 
     @discardableResult
-    func text(_ value: String?) -> Self { invoke { self.text = value } }
+    func text(_ value: String?) -> Self {
+        invoke { self.text = value }
+    }
 
     @discardableResult
     func onTextChange(in parent: CSViewController, _ function: @escaping (UITextView) -> Void) -> Self {
@@ -81,7 +86,7 @@ public extension UITextView {
     @discardableResult
     func heightToFit(lines numberOfLines: Int) -> Self {
         let currentWidth = width; let currentText = text; var linesText = "line"
-        for i in 0 ..< numberOfLines - 1 {
+        for _ in 0 ..< numberOfLines - 1 {
             linesText += "\n line"
         }
         text(linesText).resizeToFit().text(currentText).width(currentWidth)
@@ -101,33 +106,41 @@ public extension UITextView {
         layoutManager.usesFontLeading = false
         return self
     }
-    
+
     func centerTextVertical() -> Self {
-           let contentHeight = layoutManager.usedRect(for: textContainer).height
-           let totalHeight = bounds.height
-           if contentHeight < totalHeight {
-               let topInset = (totalHeight - contentHeight) / 2
-               textContainerInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-           } else {
-               textContainerInset = .zero
-           }
-           return self
+        let contentHeight = layoutManager.usedRect(for: textContainer).height
+        let totalHeight = bounds.height
+        if contentHeight < totalHeight {
+            let topInset = (totalHeight - contentHeight) / 2
+            textContainerInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+        } else {
+            textContainerInset = .zero
+        }
+        return self
     }
-    
+
     // TODO: text(align:
     @discardableResult
-    func alignText(_ alignment: NSTextAlignment) -> Self { invoke { self.textAlignment = alignment } }
+    func alignText(_ alignment: NSTextAlignment) -> Self {
+        invoke { self.textAlignment = alignment }
+    }
 
     // TODO: text(color:
     @discardableResult
-    func textColor(_ textColor: UIColor) -> Self { invoke { self.textColor = textColor } }
+    func textColor(_ textColor: UIColor) -> Self {
+        invoke { self.textColor = textColor }
+    }
 
     @discardableResult
-    func font(_ font: UIFont) -> Self { invoke { self.font = font } }
+    func font(_ font: UIFont) -> Self {
+        invoke { self.font = font }
+    }
 
     // TODO: font(size:
     @discardableResult
-    func fontSize(_ size: CGFloat) -> Self { invoke { self.fontSize = size } }
+    func fontSize(_ size: CGFloat) -> Self {
+        invoke { self.fontSize = size }
+    }
 
     var fontSize: CGFloat {
         get { font!.fontDescriptor.pointSize }
@@ -136,7 +149,9 @@ public extension UITextView {
 
     // TODO: font(style:
     @discardableResult
-    func fontStyle(_ style: UIFont.TextStyle) -> Self { invoke { self.fontStyle = style } }
+    func fontStyle(_ style: UIFont.TextStyle) -> Self {
+        invoke { self.fontStyle = style }
+    }
 
     var fontStyle: UIFont.TextStyle {
         get { font!.fontDescriptor.object(forKey: .textStyle) as! UIFont.TextStyle }

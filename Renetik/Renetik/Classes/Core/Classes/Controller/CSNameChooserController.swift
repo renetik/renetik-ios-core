@@ -9,8 +9,7 @@ import Renetik
 import RenetikObjc
 
 public class CSNameChooserController<T: Any>: CSMainController,
-    UITableViewDelegate, UITableViewDataSource
-{
+    UITableViewDelegate, UITableViewDataSource {
     public let table = UITableView.construct()
     public let search = CSSearchBarController()
     public var selectedName: CSNameJsonData?
@@ -18,7 +17,7 @@ public class CSNameChooserController<T: Any>: CSMainController,
     private var filteredData: [CSNameJsonData] = []
     private var onSelected: ((CSNameJsonData) -> Void)!
     private var onDelete: ((CSNameJsonData) -> CSProcess<T>)?
-    private var editMenuItem: CSMenuItem? = nil
+    private var editMenuItem: CSMenuItem?
 
     @discardableResult
     public func construct(data: [CSNameJsonData], onSelected: @escaping (CSNameJsonData) -> Void) -> Self {
@@ -55,31 +54,32 @@ public class CSNameChooserController<T: Any>: CSMainController,
     }
 
     public func tableView(_ tableView: UITableView,
-                          cellForRowAt path: IndexPath) -> UITableViewCell
-    {
+                          cellForRowAt path: IndexPath) -> UITableViewCell {
         let cell = tableView.cell(with: "Cell", style: .default)
         cell.textLabel?.text = filteredData[path.row].name
         return cell
     }
 
     public func tableView(_: UITableView,
-                          numberOfRowsInSection _: Int) -> Int { filteredData.count }
+                          numberOfRowsInSection _: Int) -> Int {
+        filteredData.count
+    }
 
     public func tableView(_: UITableView,
-                          didSelectRowAt path: IndexPath)
-    {
+                          didSelectRowAt path: IndexPath) {
         selectedName = filteredData[path.row]
         navigation.popViewController()
         onSelected!(selectedName!)
     }
 
     public func tableView(_: UITableView,
-                          canEditRowAt _: IndexPath) -> Bool { onDelete.notNil }
+                          canEditRowAt _: IndexPath) -> Bool {
+        onDelete.notNil
+    }
 
     public func tableView(_: UITableView,
                           commit editingStyle: UITableViewCell.EditingStyle,
-                          forRowAt path: IndexPath)
-    {
+                          forRowAt path: IndexPath) {
         if editingStyle == .delete {
             let value = filteredData[path.row]
             onDelete?(value).onSuccess { _ in

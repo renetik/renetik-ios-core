@@ -18,10 +18,21 @@ public extension UIDevice {
         UIDevice.current.setValue(UIDeviceOrientation.unknown.rawValue, forKey: "orientation")
     }
 
-    class var isPhone: Bool { UIDevice.current.userInterfaceIdiom == .phone }
-    class var isTablet: Bool { UIDevice.current.userInterfaceIdiom == .pad }
-    class var isCarPlay: Bool { UIDevice.current.userInterfaceIdiom == .carPlay }
-    class var isTV: Bool { UIDevice.current.userInterfaceIdiom == .tv }
+    class var isPhone: Bool {
+        UIDevice.current.userInterfaceIdiom == .phone
+    }
+
+    class var isTablet: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
+    class var isCarPlay: Bool {
+        UIDevice.current.userInterfaceIdiom == .carPlay
+    }
+
+    class var isTV: Bool {
+        UIDevice.current.userInterfaceIdiom == .tv
+    }
 
     @nonobjc class var typeIsLike: DisplayType {
         if isPhone && UIScreen.maxLength < 568 {
@@ -42,9 +53,17 @@ public extension UIDevice {
         return .unknown
     }
 
-    class var systemVersionInt: Int { Int(UIDevice.current.systemVersion)! }
-    class var isIOS10: Bool { systemVersionInt >= 10 }
-    class var isIOS11: Bool { systemVersionInt >= 11 }
+    class var systemVersionInt: Int {
+        Int(UIDevice.current.systemVersion)!
+    }
+
+    class var isIOS10: Bool {
+        systemVersionInt >= 10
+    }
+
+    class var isIOS11: Bool {
+        systemVersionInt >= 11
+    }
 
     class var isMac: Bool {
         var isMac = false

@@ -14,9 +14,13 @@ public extension UIBarButtonItem {
         UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
     }
 
-    class func space(_ width: CGFloat = 15) -> UIBarButtonItem { fixedSpaceItem.width(width) }
+    class func space(_ width: CGFloat = 15) -> UIBarButtonItem {
+        fixedSpaceItem.width(width)
+    }
 
-    func width(_ value: CGFloat) -> Self { invoke { width = value } }
+    func width(_ value: CGFloat) -> Self {
+        invoke { width = value }
+    }
 
     convenience init(image: UIImage, onClick: ((_ sender: UIBarButtonItem) -> Void)? = nil) {
         self.init()

@@ -5,7 +5,7 @@
 import RenetikObjc
 
 public typealias CSTableControllerRow = CSAny
-//                                        & Equatable & CustomStringConvertible
+///                                        & Equatable & CustomStringConvertible
 public typealias CSTableControllerParent = CSHasDialog & CSHasProgress & CSMainController &
     CSOperationController & UITableViewDataSource & UITableViewDelegate
 
@@ -18,7 +18,10 @@ public typealias CSTableControllerType = CSTableControllerProtocol & UIViewContr
 public class CSTableController<Row: CSTableControllerRow, Data>: CSViewController, CSTableControllerProtocol {
     public var filter: CSTableControllerFilter<Row, Data>?
 
-    public var data: [Row] { filteredData }
+    public var data: [Row] {
+        filteredData
+    }
+
     public var loadData: (() -> CSOperation<Data>)!
     public let onLoading: CSEvent<CSProcess<Data>> = event()
     public var isLoading = false
@@ -32,11 +35,10 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
     var _data: [Row]!
 
     private var filteredData = [Row]()
-    private var loadProcess: CSProcess<Data>? = nil
+    private var loadProcess: CSProcess<Data>?
 
     public func construct(by parent: CSTableControllerParent,
-                          parentView: UIView? = nil, data: [Row] = [Row]()) -> Self
-    {
+                          parentView: UIView? = nil, data: [Row] = [Row]()) -> Self {
         super.construct(parent)
         parentController = parent
         tableView.delegates(parent)
@@ -47,7 +49,9 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         return self
     }
 
-    override public func loadView() { view = tableView }
+    override public func loadView() {
+        view = tableView
+    }
 
     override public func onViewWillAppearLater() {
         super.onViewWillAppearLater()
@@ -65,7 +69,9 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         tableView.reload()
     }
 
-    public var dataCount: Int { filteredData.count }
+    public var dataCount: Int {
+        filteredData.count
+    }
 
     @discardableResult
     public func reload(withProgress: Bool = true, refresh: Bool = false) -> CSProcess<Data> {
@@ -121,7 +127,9 @@ public class CSTableController<Row: CSTableControllerRow, Data>: CSViewControlle
         filter?.onReloadDone(in: self)
     }
 
-    private func filter(data: [Row]) -> [Row] { filter?.filter(data: data) ?? data }
+    private func filter(data: [Row]) -> [Row] {
+        filter?.filter(data: data) ?? data
+    }
 }
 
 public extension CSTableController {

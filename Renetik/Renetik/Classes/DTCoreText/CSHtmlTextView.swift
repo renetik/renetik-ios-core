@@ -45,22 +45,34 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     @discardableResult
-    public func textColor(_ color: UIColor) -> Self { invoke { self.textColor = color } }
+    public func textColor(_ color: UIColor) -> Self {
+        invoke { self.textColor = color }
+    }
 
     @discardableResult
-    public func link(color: UIColor) -> Self { invoke { self.linkColor = color } }
+    public func link(color: UIColor) -> Self {
+        invoke { self.linkColor = color }
+    }
 
     @discardableResult
-    public func linkHighlighted(color: UIColor) -> Self { invoke { self.linkHighlightedColor = color } }
+    public func linkHighlighted(color: UIColor) -> Self {
+        invoke { self.linkHighlightedColor = color }
+    }
 
     @discardableResult
-    public func encoding(_ encoding: String.Encoding) -> Self { invoke { self.encoding = encoding } }
+    public func encoding(_ encoding: String.Encoding) -> Self {
+        invoke { self.encoding = encoding }
+    }
 
     @discardableResult
-    public func text(_ html: String) -> Self { invoke { self.text = html } }
+    public func text(_ html: String) -> Self {
+        invoke { self.text = html }
+    }
 
     @discardableResult
-    public func html(_ html: String) -> Self { invoke { self.text = html } }
+    public func html(_ html: String) -> Self {
+        invoke { self.text = html }
+    }
 
     @discardableResult
     public func font(_ font: UIFont) -> Self {
@@ -81,7 +93,9 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     @discardableResult
-    public func lineBreak(mode: NSLineBreakMode) -> Self { lineBreakMode = mode; return self }
+    public func lineBreak(mode: NSLineBreakMode) -> Self {
+        lineBreakMode = mode; return self
+    }
 
     @discardableResult
     public func heightToFit(lines: Int) -> Self {
@@ -114,11 +128,15 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
             DTDefaultTextColor: textColor,
             DTDefaultLinkColor: linkColor,
             DTDefaultLinkHighlightColor: linkHighlightedColor,
-            DTDefaultLinkDecoration: true,
+            DTDefaultLinkDecoration: true
         ]
     }
 
-    public func attributedTextContentView(_ attributedTextContentView: DTAttributedTextContentView!, viewFor string: NSAttributedString!, frame: CGRect) -> UIView! {
+    public func attributedTextContentView(
+        _ attributedTextContentView: DTAttributedTextContentView!,
+        viewFor string: NSAttributedString!,
+        frame: CGRect
+    ) -> UIView! {
         if !linksActive { return nil }
 
         let attributes = string.attributes(at: 0, effectiveRange: nil)
@@ -126,7 +144,8 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
         let identifier = attributes[NSAttributedString.Key("DTGUID")].asString
         let button = DTLinkButton(frame: frame)
         button.url = URL(url)
-        button.minimumHitSize = CGSize(width: 25, height: 25) // adjusts it's bounds so that button is always large enough
+        button
+            .minimumHitSize = CGSize(width: 25, height: 25) // adjusts it's bounds so that button is always large enough
         button.guid = identifier
 
         let DTCoreTextLayoutFrameDrawingDefault = DTCoreTextLayoutFrameDrawingOptions(rawValue: 1 << 0)!
@@ -153,17 +172,15 @@ public class CSHtmlTextView: DTAttributedTextView, DTAttributedTextContentViewDe
     }
 
     public func attributedTextContentView(_: DTAttributedTextContentView!,
-                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView!
-    {
+                                          viewFor attachment: DTTextAttachment!, frame: CGRect) -> UIView! {
         if attachment is DTImageTextAttachment {
 //            if attachment.displaySize.width == 0 {
 //                attachment.displaySize = CGSize(width: width, height: width / 2)
 //                self.relayoutText()
 //            }
             let imageView = UIImageView.construct().position(frame.origin).size(attachment.displaySize)
-            if attachment.hyperLinkURL.notNil &&
-                attachment.hyperLinkURL != attachment.contentURL
-            {
+            if attachment.hyperLinkURL.notNil,
+               attachment.hyperLinkURL != attachment.contentURL {
                 imageView.image(url: attachment.contentURL)
                 handleExternalUrl(view: imageView, url: attachment.hyperLinkURL.path)
             } else if attachment.displaySize.width > 50 {

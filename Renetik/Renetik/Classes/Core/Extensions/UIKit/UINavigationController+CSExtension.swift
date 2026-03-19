@@ -8,7 +8,7 @@ public extension UINavigationController {
     @discardableResult
     func popViewController() -> UIViewController? {
         (self as? CSNavigationController)?.popViewController(animated: true)
-        ?? popViewController(animated: true)
+            ?? popViewController(animated: true)
     }
 
     var last: UIViewController? {
@@ -29,13 +29,13 @@ public extension UINavigationController {
 
     @objc func push(asRoot newRoot: UIViewController) {
         (self as? CSNavigationController)?.setViewControllers([newRoot], animated: true)
-        ?? setViewControllers([newRoot], animated: true)
+            ?? setViewControllers([newRoot], animated: true)
     }
-    
+
     @discardableResult
     func push(_ controller: UIViewController) -> UIViewController {
         (self as? CSNavigationController)?.pushViewController(controller, animated: true)
-        ?? pushViewController(controller, animated: true)
+            ?? pushViewController(controller, animated: true)
         return controller
     }
 
@@ -48,7 +48,7 @@ public extension UINavigationController {
         transition.subtype = .fromBottom
         view.layer.add(transition, forKey: nil)
         (self as? CSNavigationController)?.pushViewController(controller, animated: false)
-        ?? pushViewController(controller, animated: false)
+            ?? pushViewController(controller, animated: false)
         return controller
     }
 
@@ -64,7 +64,7 @@ public extension UINavigationController {
         toRemove.each { viewControllers.remove($0) }
         viewControllers.add(pushingController)
         (self as? CSNavigationController)?.setViewControllers(viewControllers, animated: true)
-        ?? setViewControllers(viewControllers, animated: true)
+            ?? setViewControllers(viewControllers, animated: true)
     }
 
     func contains<T: UIViewController>(controllerType: T.Type) -> Bool {
@@ -88,11 +88,10 @@ public extension UINavigationController {
                 viewControllers.add(pushingController)
                 (self as? CSNavigationController)?
                     .setViewControllers(viewControllers, animated: true)
-                ?? setViewControllers(viewControllers, animated: true)
+                    ?? setViewControllers(viewControllers, animated: true)
                 return
             }
         }
         push(pushingController)
     }
 }
-

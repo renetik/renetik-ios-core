@@ -5,8 +5,13 @@
 import Foundation
 
 public extension Bool {
-    var isTrue: Bool { self == true }
-    var isFalse: Bool { self == false }
+    var isTrue: Bool {
+        self == true
+    }
+
+    var isFalse: Bool {
+        self == false
+    }
 
     @discardableResult
     func then(_ function: Func) -> CSConditionalResult {
@@ -22,6 +27,11 @@ public extension Bool {
 }
 
 public extension Optional where Wrapped == Bool {
-    var isTrue: Bool { self == true }
-    var isFalse: Bool { self == false }
+    var isTrue: Bool {
+        self == true
+    }
+
+    var isFalse: Bool {
+        self == false
+    }
 }

@@ -100,14 +100,18 @@ public extension UIScrollView {
     }
 
     @discardableResult
-    func content(inset: UIEdgeInsets) -> Self { contentInset = inset; return self }
+    func content(inset: UIEdgeInsets) -> Self {
+        contentInset = inset; return self
+    }
 
     func scrollable(_ isScrollEnabled: Bool) -> Self {
         self.isScrollEnabled = isScrollEnabled
         return self
     }
 
-    var isAtTop: Bool { contentOffset.y <= verticalOffsetForTop }
+    var isAtTop: Bool {
+        contentOffset.y <= verticalOffsetForTop
+    }
 
     var isAtBottom: Bool {
 //        let bottomEdge = contentOffset.y + height

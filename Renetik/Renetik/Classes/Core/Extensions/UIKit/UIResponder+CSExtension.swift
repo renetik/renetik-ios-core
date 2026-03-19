@@ -5,15 +5,16 @@
 import Foundation
 
 public extension UIResponder {
-    var safeArea: UIEdgeInsets { delegate.window!.safeAreaInsets }
+    var safeArea: UIEdgeInsets {
+        delegate.window!.safeAreaInsets
+    }
 
     func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime, operation: @escaping Func) {
         if animated { UIView.animate(withDuration: duration, animations: operation) } else { operation() }
     }
 
     func invoke(animated: Bool, duration: TimeInterval = defaultAnimationTime,
-                operation: @escaping Func, completion: @escaping Func)
-    {
+                operation: @escaping Func, completion: @escaping Func) {
         if animated {
             UIView.animate(withDuration: duration, animations: operation, completion: { _ in completion() })
         } else {

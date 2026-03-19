@@ -6,10 +6,21 @@ import CoreGraphics
 import Foundation
 
 public extension Int {
-    var isEmpty: Bool { self == 0 }
-    var isSet: Bool { !isEmpty }
-    var set: Bool { isSet }
-    var asFloat: CGFloat { CGFloat(self) }
+    var isEmpty: Bool {
+        self == 0
+    }
+
+    var isSet: Bool {
+        !isEmpty
+    }
+
+    var set: Bool {
+        isSet
+    }
+
+    var asFloat: CGFloat {
+        CGFloat(self)
+    }
 
     func until(_ end: Int) -> CountableRange<Int> {
         self <= end ? self ..< end : self ..< self

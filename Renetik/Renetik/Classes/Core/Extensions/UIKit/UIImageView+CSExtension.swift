@@ -19,10 +19,14 @@ public extension UIImageView {
     }
 
     @discardableResult
-    func image(_ image: UIImage?) -> Self { invoke { self.image = image } }
+    func image(_ image: UIImage?) -> Self {
+        invoke { self.image = image }
+    }
 
     @discardableResult
-    func image(template image: UIImage) -> Self { self.image(image.template) }
+    func image(template image: UIImage) -> Self {
+        self.image(image.template)
+    }
 
     func stretchableImage(leftCapWidth: Int, topCapHeight: Int) -> Self {
         image = image!.stretchableImage(withLeftCapWidth: leftCapWidth, topCapHeight: topCapHeight)

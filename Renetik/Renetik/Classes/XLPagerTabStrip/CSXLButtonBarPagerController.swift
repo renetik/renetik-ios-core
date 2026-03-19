@@ -13,7 +13,9 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
     public let pager = CSButtonBarPagerTabStripViewController()
 
     fileprivate var controllers = [CSXLButtonBarPagerChildController]()
-    private var currentController: CSXLButtonBarPagerChildController { controllers[pager.currentIndex] }
+    private var currentController: CSXLButtonBarPagerChildController {
+        controllers[pager.currentIndex]
+    }
 
     @discardableResult
     public func construct(by parent: CSMainController, controllers: [CSXLButtonBarPagerChildController]) -> Self {
@@ -42,8 +44,7 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
     }
 
     public func updateIndicator(for _: PagerTabStripViewController, fromIndex _: Int, toIndex _: Int,
-                                withProgressPercentage _: CGFloat, indexWasChanged: Bool)
-    {
+                                withProgressPercentage _: CGFloat, indexWasChanged: Bool) {
         if indexWasChanged { updateControllersVisible(at: pager.currentIndex, animated: false) }
     }
 
@@ -71,8 +72,7 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
     }
 
     override public func onViewDidTransition(to size: CGSize,
-                                             _ context: UIViewControllerTransitionCoordinatorContext)
-    {
+                                             _ context: UIViewControllerTransitionCoordinatorContext) {
         super.onViewDidTransition(to: size, context)
         pager.containerView.scrollTo(page: pager.currentIndex, of: controllers.count)
     }
@@ -88,13 +88,19 @@ public class CSXLButtonBarPagerController: CSMainController, PagerTabStripIsProg
         }
     }
 
-    public var currentIndex: Int { pager.currentIndex }
+    public var currentIndex: Int {
+        pager.currentIndex
+    }
 
     @discardableResult
-    public func moveToController(index: Int) -> Self { invoke { self.pager.moveToViewController(at: index) } }
+    public func moveToController(index: Int) -> Self {
+        invoke { self.pager.moveToViewController(at: index) }
+    }
 
     @discardableResult
-    public func moveTo(controller: UIViewController) -> Self { invoke { self.pager.moveTo(viewController: controller) } }
+    public func moveTo(controller: UIViewController) -> Self {
+        invoke { self.pager.moveTo(viewController: controller) }
+    }
 }
 
 public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewController {
@@ -106,23 +112,22 @@ public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewC
     }
 
     override public func viewControllers(
-        for _: PagerTabStripViewController) -> [UIViewController]
-    {
+        for _: PagerTabStripViewController
+    ) -> [UIViewController] {
         parentController.controllers
     }
 
-    // PagerTabStripDelegate delegate was not called by super implementation
+    /// PagerTabStripDelegate delegate was not called by super implementation
     override public func updateIndicator(for viewController: PagerTabStripViewController,
-                                         fromIndex: Int, toIndex: Int)
-    {
+                                         fromIndex: Int, toIndex: Int) {
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex)
         parentController.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex)
     }
 
-    // PagerTabStripIsProgressiveDelegate delegate was not called by super implementation
+    /// PagerTabStripIsProgressiveDelegate delegate was not called by super implementation
     override public func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int,
                                          withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
-        if fromIndex == 0 && toIndex == 0 && progressPercentage == 1 && indexWasChanged == false { return }
+        if fromIndex == 0, toIndex == 0, progressPercentage == 1, indexWasChanged == false { return }
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
                               withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
         parentController.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex,
@@ -139,12 +144,13 @@ public class CSButtonBarPagerTabStripViewController: ButtonBarPagerTabStripViewC
         return super.virtualPageFor(contentOffset: contentOffset)
     }
 
-    // Fixes overlapping of content by bezels on iphone x and similar
+    /// Fixes overlapping of content by bezels on iphone x and similar
     override open func updateContent() {
         super.updateContent()
         for (index, childController) in parentController.controllers.enumerated() {
             childController.view.frame = CGRect(x: offsetForChild(at: index) + safeArea.left,
-                                                y: 0, width: view.bounds.width - (view.safeAreaInsets.left + safeArea.right),
+                                                y: 0,
+                                                width: view.bounds.width - (view.safeAreaInsets.left + safeArea.right),
                                                 height: containerView.bounds.height)
         }
     }

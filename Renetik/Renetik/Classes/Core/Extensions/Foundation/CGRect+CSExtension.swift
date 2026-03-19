@@ -13,8 +13,14 @@ public extension CGRect { // TODO: move to CoreGraphics
         self.init(origin: .zero, size: CGSize(width: width, height: height))
     }
 
-    var x: CGFloat { origin.x }
-    var y: CGFloat { origin.y }
+    var x: CGFloat {
+        origin.x
+    }
+
+    var y: CGFloat {
+        origin.y
+    }
+
     var width: CGFloat {
         get { size.width }
         set { size.width = newValue }

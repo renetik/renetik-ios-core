@@ -19,8 +19,7 @@ public class CSSingleRequestController<Data: AnyObject>: CSMainController {
 
     public func construct(_ parent: UIViewController,
                           _ progressBlockedView: CSResponseController & CSHasDialog,
-                          _ request: @escaping () -> CSResponse<Data>) -> Self
-    {
+                          _ request: @escaping () -> CSResponse<Data>) -> Self {
         super.constructAsViewLess(in: parent)
         self.progressBlockedView = progressBlockedView
         self.request = request

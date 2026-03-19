@@ -12,7 +12,9 @@ public class CSKeyboardManager: CSMainController {
     public var onKeyboardChange: ((CGFloat) -> Void)?
     public var onKeyboardShow: CSEvent<CGFloat> = event()
     public var onKeyboardHide = event()
-    public var isKeyboardVisible: Bool { keyboardHeight > 0 }
+    public var isKeyboardVisible: Bool {
+        keyboardHeight > 0
+    }
 
     @discardableResult
     public func construct(

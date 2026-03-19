@@ -1,12 +1,18 @@
 // Created by Rene Dohan on 9/23/19.
 //
 
-public func event<Type>() -> CSEvent<Type> { CSEvent<Type>() }
+public func event<Type>() -> CSEvent<Type> {
+    CSEvent<Type>()
+}
 
-public func event() -> CSEvent<Void> { CSEvent<Void>() }
+public func event() -> CSEvent<Void> {
+    CSEvent<Void>()
+}
 
 public class CSEventRegistration: CSObject {
-    open func cancel() { fatalError() }
+    open func cancel() {
+        fatalError()
+    }
 }
 
 public struct CSEventArgument<Type> {
@@ -70,5 +76,7 @@ public class CSEvent<Type> {
 }
 
 public extension CSEvent where Type == Void {
-    func fire() { fire(()) }
+    func fire() {
+        fire(())
+    }
 }

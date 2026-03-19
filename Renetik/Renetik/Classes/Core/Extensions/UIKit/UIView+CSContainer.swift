@@ -61,12 +61,18 @@ public extension UIView {
     }
 
     @discardableResult
-    func clearSubviews() -> Self { invoke { subviews.each { $0.removeFromSuperview() } } }
+    func clearSubviews() -> Self {
+        invoke { subviews.each { $0.removeFromSuperview() } }
+    }
 
     @discardableResult
-    func removeAllSubviews() -> Self { clearSubviews() }
+    func removeAllSubviews() -> Self {
+        clearSubviews()
+    }
 
-    var isEmpty: Bool { subviews.isEmpty }
+    var isEmpty: Bool {
+        subviews.isEmpty
+    }
 
     @discardableResult
     func horizontalGrid<View: UIView>(add view: View, margin: CGFloat = 0, columns: Int = 1) -> View {

@@ -10,9 +10,13 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
     var failedResponse: CSResponseProtocol?
     let responses = CSArray<CSResponseProtocol>() // Cannot use swift array because of equatable shit
 
-    override public init() { super.init(); data = NSMutableArray() }
+    override public init() {
+        super.init(); data = NSMutableArray()
+    }
 
-    public init<T: AnyObject>(_ response: CSResponse<T>) { super.init(); add(response) }
+    public init<T: AnyObject>(_ response: CSResponse<T>) {
+        super.init(); add(response)
+    }
 
     @discardableResult
     public func add<T: AnyObject>(_ response: CSResponse<T>) -> CSResponse<T> {
@@ -23,7 +27,9 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
         return response
     }
 
-    public func onAddDone() { later { if self.responses.isEmpty { self.success(self.data) } } }
+    public func onAddDone() {
+        later { if self.responses.isEmpty { self.success(self.data) } }
+    }
 
     func onResponseSuccess<T: AnyObject>(_ response: CSResponse<T>) {
         responses.remove(response)
@@ -36,5 +42,7 @@ public class CSConcurrentResponse: CSResponse<NSMutableArray> {
         failed(failedResponse)
     }
 
-    override open func cancel() { responses.forEach { $0.cancel() }; super.cancel() }
+    override open func cancel() {
+        responses.forEach { $0.cancel() }; super.cancel()
+    }
 }

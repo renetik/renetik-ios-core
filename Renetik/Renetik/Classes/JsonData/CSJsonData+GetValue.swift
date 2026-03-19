@@ -7,5 +7,7 @@ import Renetik
 import RenetikObjc
 
 extension CSJsonData {
-    func getStringValue(_ key: String) -> String { getString(key).asString }
+    func getStringValue(_ key: String) -> String {
+        getString(key).asString
+    }
 }

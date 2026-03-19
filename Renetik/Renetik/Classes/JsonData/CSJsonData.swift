@@ -10,7 +10,7 @@ public class CSJsonData: CSObject {
     let onChangedEvent: CSEvent<CSJsonData> = event()
     var index = 0
     private var _data: [String: CSAny?]!
-    private var childDataKey: String? = nil
+    private var childDataKey: String?
     private var dataChanged = false
 
     override public required init() {
@@ -24,7 +24,9 @@ public class CSJsonData: CSObject {
     }
 
     @discardableResult
-    func construct() -> Self { load(data: [String: CSAny?]()) }
+    func construct() -> Self {
+        load(data: [String: CSAny?]())
+    }
 
     open var data: [String: CSAny?] {
         childDataKey?.get { key in

@@ -17,7 +17,9 @@ open class CSNavigationController: UINavigationController, UINavigationBarDelega
     public private(set) var lastPushed: UIViewController?
     private var navigationBarDelegate: UINavigationBarDelegate?
 
-    public func construct() -> Self { self }
+    public func construct() -> Self {
+        self
+    }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +43,10 @@ open class CSNavigationController: UINavigationController, UINavigationBarDelega
         lastPopped = nil
         super.pushViewController(viewController, animated: animated)
     }
-    
-    override open func setViewControllers(_ viewControllers: [UIViewController], animated: Bool){
+
+    override open func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
         lastPushed = viewControllers.last
-        super.setViewControllers(viewControllers, animated:animated)
+        super.setViewControllers(viewControllers, animated: animated)
     }
 
     override open func push(asRoot newRoot: UIViewController!) {
@@ -85,9 +87,9 @@ open class CSNavigationController: UINavigationController, UINavigationBarDelega
     public func force(orientation: CSForcedOrientation) {
         forcedOrientation = orientation
         orientationToReturnToFromForcedOrientation = UIDeviceOrientation(rawValue: UIScreen.orientation.rawValue)
-        if (forcedOrientation == .portrait || forcedOrientation == .none) && UIScreen.isLandscape {
+        if forcedOrientation == .portrait || forcedOrientation == .none, UIScreen.isLandscape {
             UIDevice.set(orientation: .portrait)
-        } else if (forcedOrientation == .landscape || forcedOrientation == .none) && UIScreen.isPortrait {
+        } else if forcedOrientation == .landscape || forcedOrientation == .none, UIScreen.isPortrait {
             UIDevice.set(orientation: .landscapeLeft)
         }
         orientationDidChangeNotificationObserverToken =

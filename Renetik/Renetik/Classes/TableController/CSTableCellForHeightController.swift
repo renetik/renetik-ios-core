@@ -11,7 +11,9 @@ import RenetikObjc
 
 public class CSTableCellForHeightController: CSMainController {
     private var cells: [UIView]!
-    public var cell: UIView { cells.first! }
+    public var cell: UIView {
+        cells.first!
+    }
 
     @discardableResult
     public func construct(_ parent: CSMainController, _ cells: UIView...) -> Self {

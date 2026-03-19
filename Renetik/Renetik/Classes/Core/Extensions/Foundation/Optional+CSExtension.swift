@@ -15,9 +15,13 @@ extension Optional: OptionalProtocol, CSAny {
 }
 
 public extension Optional {
-    var notNil: Bool { self != nil }
+    var notNil: Bool {
+        self != nil
+    }
 
-    var isNil: Bool { self == nil }
+    var isNil: Bool {
+        self == nil
+    }
 
     @discardableResult
     func notNil(_ function: (Wrapped) -> Void) -> CSConditionalResult {
@@ -68,5 +72,7 @@ public class CSConditionalResultNotNil<Type> {
         self.variable = variable
     }
 
-    public func elseDo(_ function: (Type) -> Void) { if notNil { function(variable!) } }
+    public func elseDo(_ function: (Type) -> Void) {
+        if notNil { function(variable!) }
+    }
 }

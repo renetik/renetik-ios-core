@@ -7,7 +7,9 @@ import UIKit
 
 public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     public let bar = UISearchBar.construct().resizeToFit()
-    public var text: String { bar.text ?? "" }
+    public var text: String {
+        bar.text ?? ""
+    }
 
     private var searchBarShouldBeginEditing = false
     private var onTextChanged: ((String) -> Void)!
@@ -15,8 +17,7 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     @discardableResult
     public func construct(by parent: CSMainController,
                           placeHolder: String = .searchPlaceholder,
-                          onTextChanged: @escaping (String) -> Void) -> Self
-    {
+                          onTextChanged: @escaping (String) -> Void) -> Self {
         super.constructAsViewLess(in: parent)
         self.onTextChanged = onTextChanged
         bar.delegate = self
@@ -56,16 +57,14 @@ public class CSSearchBarController: CSMainController, UISearchBarDelegate {
     }
 }
 
-// CSSearchBarController+CSTableController
+/// CSSearchBarController+CSTableController
 public extension CSSearchBarController {
     @discardableResult
-    func construct<Row: CSTableControllerRow, Data>(
+    func construct<Row: CSTableControllerRow & CustomStringConvertible, Data>(
         _ parent: CSMainController,
         placeHolder: String = .searchPlaceholder,
         table: CSTableController<Row, Data>
-    ) -> Self
-        where Row: CustomStringConvertible
-    {
+    ) -> Self {
         let tableFilter = TableFilter<Row, Data>()
         table.filter = tableFilter
         construct(by: parent, placeHolder: placeHolder) { string in
@@ -76,10 +75,11 @@ public extension CSSearchBarController {
     }
 }
 
-private class TableFilter<Row: CSTableControllerRow, Data>: CSTableControllerFilter<Row, Data>
-    where Row: CustomStringConvertible
+private class TableFilter<Row: CSTableControllerRow & CustomStringConvertible, Data>: CSTableControllerFilter<Row, Data>
 {
-    public var searchText = ""
+    var searchText = ""
 
-    override public func filter(data: [Row]) -> [Row] { data.filter(bySearch: searchText) }
+    override func filter(data: [Row]) -> [Row] {
+        data.filter(bySearch: searchText)
+    }
 }

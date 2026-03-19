@@ -20,14 +20,12 @@ public extension UITableView {
     }
 
     func cell(style: UITableViewCell.CellStyle,
-              onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell
-    {
+              onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell {
         cell(with: "Cell", style: style, onCreate: onCreate)
     }
 
     func cell(with identifier: String, style: UITableViewCell.CellStyle,
-              onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell
-    {
+              onCreate: ((UITableViewCell) -> Void)? = nil) -> UITableViewCell {
         var cell = dequeueCellWith(identifier: identifier)
         if cell.isNil {
             cell = UITableViewCell(style: style, reuseIdentifier: identifier)
@@ -66,7 +64,7 @@ public extension UITableView {
         return self
     }
 
-    /*
+    /**
      * This triggers table reload !!!
      */
     @discardableResult
@@ -115,5 +113,7 @@ public extension UITableView {
     }
 
     @discardableResult
-    func header<View: UIView>(_ view: View) -> View { tableHeaderView = view; return view }
+    func header<View: UIView>(_ view: View) -> View {
+        tableHeaderView = view; return view
+    }
 }

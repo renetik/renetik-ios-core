@@ -18,8 +18,7 @@ public class CSMBDialogController: NSObject, CSHasDialog, CSHasDialogVisible, MB
     }
 
     public func show(title: String?, message: String, positive: CSDialogAction?, negative: CSDialogAction?,
-                     cancel: CSDialogAction?) -> CSHasDialogVisible
-    {
+                     cancel: CSDialogAction?) -> CSHasDialogVisible {
         MBProgressHUD.hide(for: view, animated: true)
         hud = MBProgressHUD.showAdded(to: view, animated: true).also { hud in
             hud.mode = .text
@@ -52,9 +51,13 @@ public class CSMBDialogController: NSObject, CSHasDialog, CSHasDialogVisible, MB
         return self
     }
 
-    public var isDialogVisible: Bool { hud.notNil }
+    public var isDialogVisible: Bool {
+        hud.notNil
+    }
 
-    public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
+    public func hideDialog(animated: Bool = true) {
+        hud?.hide(animated: animated)
+    }
 
     public func hudWasHidden(_ _: MBProgressHUD) {
         hud = nil

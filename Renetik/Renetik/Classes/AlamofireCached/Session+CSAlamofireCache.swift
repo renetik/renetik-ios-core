@@ -13,8 +13,7 @@ public extension Session {
     @discardableResult
     func request(url: URLConvertible, method: HTTPMethod = .get, parameters: Parameters? = nil,
                  encoding: ParameterEncoding = URLEncoding.default, headers: HTTPHeaders? = nil,
-                 refreshCache: Bool = false) -> DataRequest
-    {
+                 refreshCache: Bool = false) -> DataRequest {
         let headers = (method == .get && refreshCache) ? addCacheControl(to: headers) : headers
         return request(url, method: method, parameters: parameters,
                        encoding: encoding, headers: headers, interceptor: nil)

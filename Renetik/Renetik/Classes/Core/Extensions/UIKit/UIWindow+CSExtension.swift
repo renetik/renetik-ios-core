@@ -13,9 +13,17 @@ public extension UIWindow {
         return window
     }
 
-    class var window: UIWindow { delegate.window! }
-    class var safeWidth: CGFloat { window.width - (window.safeAreaInsets.left + window.safeAreaInsets.right) }
-    class var safeHeight: CGFloat { window.height - (window.safeAreaInsets.top + window.safeAreaInsets.bottom) }
+    class var window: UIWindow {
+        delegate.window!
+    }
+
+    class var safeWidth: CGFloat {
+        window.width - (window.safeAreaInsets.left + window.safeAreaInsets.right)
+    }
+
+    class var safeHeight: CGFloat {
+        window.height - (window.safeAreaInsets.top + window.safeAreaInsets.bottom)
+    }
 
     func show(root controller: UIViewController) -> Self {
         UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations: {

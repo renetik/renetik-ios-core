@@ -29,5 +29,7 @@ open class CSCollectionViewCell: UICollectionViewCell {
 
     open func onLayoutSubviews() {}
 
-    private func updateLayout() { layoutFunctions.fire() }
+    private func updateLayout() {
+        layoutFunctions.fire()
+    }
 }

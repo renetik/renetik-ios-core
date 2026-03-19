@@ -16,5 +16,7 @@ public extension UISearchBar {
         backgroundColor = UIColor.clear
     }
 
-    private var textFieldInsideSearchBar: UITextField? { value(forKey: "searchField") as? UITextField }
+    private var textFieldInsideSearchBar: UITextField? {
+        value(forKey: "searchField") as? UITextField
+    }
 }

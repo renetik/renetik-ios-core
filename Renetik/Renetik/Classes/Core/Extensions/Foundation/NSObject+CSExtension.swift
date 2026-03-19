@@ -10,7 +10,7 @@ public extension NSObject {
 //        Self()
 //    }
 
-    //    var eventChangeProperty: CSEvent<Void> { extensionProperty("eventChange") { CSEvent<Void>() } }
+    ///    var eventChangeProperty: CSEvent<Void> { extensionProperty("eventChange") { CSEvent<Void>() } }
     func extensionProperty<Type>(_ id: String, _ onCreate: () -> Type) -> Type {
         var dict = propertyDictionary() as! [String: Any]
         var instance = dict[id] as! Type?

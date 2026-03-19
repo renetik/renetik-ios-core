@@ -35,8 +35,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     @discardableResult
     func construct(by parent: CSViewController, textInput: CSHasTextProtocol & CSHasUIResponder,
                    hasAccessory: CSHasInputAccessory? = nil, placeHolder: String, hideImage: UIImage,
-                   action: (title: String?, image: UIImage?, function: Func)?) -> Self
-    {
+                   action: (title: String?, image: UIImage?, function: Func)?) -> Self {
         constructAsViewLess(in: parent)
         parentTextInput = textInput
         self.hasAccessory = hasAccessory
@@ -67,10 +66,12 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
         }
     }
 
-    override public func onViewDidLayout() { updateVisibility() }
+    override public func onViewDidLayout() {
+        updateVisibility()
+    }
 
     private func onKeyboardChange() {
-        if parentTextInput.responder.isFirstResponder && UIScreen.isShort {
+        if parentTextInput.responder.isFirstResponder, UIScreen.isShort {
             textView.text = parentTextInput.text
             changeAccessory(from: hasAccessory, to: textView, textInput: textView)
             delegate.window!.add(view: container).matchParent()
@@ -78,7 +79,7 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
             runLayoutFunctions()
             return
         }
-        if textView.isFirstResponder && UIScreen.isShort {
+        if textView.isFirstResponder, UIScreen.isShort {
             container.height(fromBottom: keyboardManager.keyboardHeight)
             runLayoutFunctions()
             return
@@ -87,8 +88,8 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     private func updateVisibility() {
-        if !UIScreen.isShort && isActive { hide() }
-        if !textView.isFirstResponder && isActive { hide() }
+        if !UIScreen.isShort, isActive { hide() }
+        if !textView.isFirstResponder, isActive { hide() }
     }
 
     private func hide() {
@@ -99,14 +100,15 @@ public class CSTextInputPhoneLandscapeController: CSViewController {
     }
 
     private func changeAccessory(from hasAccessory1: CSHasInputAccessory?,
-                                 to hasAccessory2: CSHasInputAccessory?, textInput: UITextInput?)
-    {
+                                 to hasAccessory2: CSHasInputAccessory?, textInput: UITextInput?) {
         let accessoryView = hasAccessory1?.inputAccessoryView
         textInput.notNil { input in (accessoryView as? CSHasTextInput)?.textInput = input }
         accessoryView.notNil { hasAccessory2?.inputAccessoryView = $0 }
     }
 
-    private var isActive: Bool { container.superview.notNil }
+    private var isActive: Bool {
+        container.superview.notNil
+    }
 }
 
 public extension CSTextInputPhoneLandscapeController {
@@ -114,8 +116,7 @@ public extension CSTextInputPhoneLandscapeController {
     func construct(by parent: CSViewController,
                    textInput: CSHasTextProtocol & CSHasUIResponder & CSHasInputAccessory,
                    placeHolder: String = "Enter text", hideImage: UIImage,
-                   doneTitle: String = "Done") -> Self
-    {
+                   doneTitle: String = "Done") -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput,
                   placeHolder: placeHolder, hideImage: hideImage, doneTitle: doneTitle)
     }
@@ -123,8 +124,7 @@ public extension CSTextInputPhoneLandscapeController {
     @discardableResult
     func construct(by parent: CSViewController, textInput: CSHasTextProtocol & CSHasUIResponder,
                    hasAccessory: CSHasInputAccessory? = nil, placeHolder: String = "Enter text",
-                   hideImage: UIImage, doneTitle: String = "Done") -> Self
-    {
+                   hideImage: UIImage, doneTitle: String = "Done") -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: hasAccessory, placeHolder: placeHolder,
                   hideImage: hideImage, action: (title: doneTitle, image: nil, function: {
                       self.textView.resignFirstResponder()
@@ -134,8 +134,7 @@ public extension CSTextInputPhoneLandscapeController {
     @discardableResult
     func construct(by parent: CSViewController,
                    textInput: CSHasTextProtocol & CSHasUIResponder & CSHasInputAccessory,
-                   placeHolder: String, hideImage: UIImage, action: CSImageAction) -> Self
-    {
+                   placeHolder: String, hideImage: UIImage, action: CSImageAction) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput,
                   placeHolder: placeHolder, hideImage: hideImage,
                   action: (title: nil, image: action.image, function: action.function))
@@ -144,8 +143,7 @@ public extension CSTextInputPhoneLandscapeController {
     @discardableResult
     func construct(by parent: CSViewController,
                    textInput: CSHasTextProtocol & CSHasUIResponder & CSHasInputAccessory,
-                   placeHolder: String, hideImage: UIImage, action: CSTextAction) -> Self
-    {
+                   placeHolder: String, hideImage: UIImage, action: CSTextAction) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: textInput, placeHolder: placeHolder,
                   hideImage: hideImage, action: (title: action.title, image: nil, function: action.function))
     }
@@ -153,8 +151,7 @@ public extension CSTextInputPhoneLandscapeController {
     @discardableResult
     func construct(by parent: CSViewController, textInput: CSHasTextProtocol & CSHasUIResponder,
                    hasAccessory: CSHasInputAccessory? = nil, placeHolder: String = "Enter text",
-                   hideImage: UIImage) -> Self
-    {
+                   hideImage: UIImage) -> Self {
         construct(by: parent, textInput: textInput, hasAccessory: hasAccessory,
                   placeHolder: placeHolder, hideImage: hideImage, action: nil)
     }

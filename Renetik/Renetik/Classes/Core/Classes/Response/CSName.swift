@@ -21,7 +21,9 @@ open class CSName: CSDictionaryJsonData {
         set(value) { put(idKey, value) }
     }
 
-    override public required init() { super.init() }
+    override public required init() {
+        super.init()
+    }
 
     public init(_ id: String = "", _ name: String) {
         super.init()
@@ -49,7 +51,9 @@ open class CSName: CSDictionaryJsonData {
         return self
     }
 
-    override open var description: String { name }
+    override open var description: String {
+        name
+    }
 
     override open func isEqual(_ object: Any?) -> Bool {
         if let nameObject = object as? CSName {

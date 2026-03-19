@@ -39,7 +39,9 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func construct() -> Self { clipsToBounds().setAutoresizingDefaults() }
+    @objc open func construct() -> Self {
+        clipsToBounds().setAutoresizingDefaults()
+    }
 
     /** Overriding non-@objc declarations from extensions is not supported **/
     @discardableResult
@@ -67,7 +69,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func background(_ color: UIColor) -> Self { invoke { self.backgroundColor = color } }
+    func background(_ color: UIColor) -> Self {
+        invoke { self.backgroundColor = color }
+    }
 
     @discardableResult
     func background(_ color: UIColor, opacity: CGFloat) -> Self {
@@ -75,16 +79,24 @@ public extension UIView {
     }
 
     @discardableResult
-    func interaction(enabled: Bool) -> Self { isUserInteractionEnabled = enabled; return self }
+    func interaction(enabled: Bool) -> Self {
+        isUserInteractionEnabled = enabled; return self
+    }
 
     @discardableResult
-    func tint(color: UIColor) -> Self { invoke { self.tintColor = color } }
+    func tint(color: UIColor) -> Self {
+        invoke { self.tintColor = color }
+    }
 
     @discardableResult
-    func content(mode: UIView.ContentMode) -> Self { invoke { self.contentMode = mode } }
+    func content(mode: UIView.ContentMode) -> Self {
+        invoke { self.contentMode = mode }
+    }
 
     @discardableResult
-    func clipsToBounds(_ value: Bool = true) -> Self { invoke { self.clipsToBounds = value } }
+    func clipsToBounds(_ value: Bool = true) -> Self {
+        invoke { self.clipsToBounds = value }
+    }
 
     @discardableResult
     func asCircular() -> Self {
@@ -110,27 +122,43 @@ public extension UIView {
     }
 
     @discardableResult
-    func visible(if condition: Bool) -> Self { invoke { self.isVisible = condition } }
+    func visible(if condition: Bool) -> Self {
+        invoke { self.isVisible = condition }
+    }
 
     @discardableResult
-    func hidden(if condition: Bool) -> Self { invoke { self.isHidden = condition } }
+    func hidden(if condition: Bool) -> Self {
+        invoke { self.isHidden = condition }
+    }
 
     @discardableResult
-    func show() -> Self { invoke { self.isVisible = true } }
+    func show() -> Self {
+        invoke { self.isVisible = true }
+    }
 
     @discardableResult
-    func hide() -> Self { invoke { self.isVisible = false } }
+    func hide() -> Self {
+        invoke { self.isVisible = false }
+    }
 
-    func isVisibleToUser() -> Bool { window.notNil && isVisible && alpha > 0 }
-
-    @discardableResult
-    @objc func aspectFit() -> Self { invoke { contentMode = .scaleAspectFit } }
-
-    @discardableResult
-    func clipToBounds() -> Self { invoke { clipsToBounds = true } }
+    func isVisibleToUser() -> Bool {
+        window.notNil && isVisible && alpha > 0
+    }
 
     @discardableResult
-    @objc func aspectFill() -> Self { invoke { contentMode = .scaleAspectFill } }
+    @objc func aspectFit() -> Self {
+        invoke { contentMode = .scaleAspectFit }
+    }
+
+    @discardableResult
+    func clipToBounds() -> Self {
+        invoke { clipsToBounds = true }
+    }
+
+    @discardableResult
+    @objc func aspectFill() -> Self {
+        invoke { contentMode = .scaleAspectFill }
+    }
 
     @discardableResult
     func border(width: CGFloat = 1, color: UIColor = .darkGray, radius: CGFloat = 3) -> Self {
@@ -165,9 +193,13 @@ public extension UIView {
         backgroundColor = color
     }
 
-    func fadeToggle() -> Self { invoke { (isVisible && alpha == 1).then { fadeOut() }.elseDo { fadeIn() } } }
+    func fadeToggle() -> Self {
+        invoke { (isVisible && alpha == 1).then { fadeOut() }.elseDo { fadeIn() } }
+    }
 
-    func fadeTo(visible: Bool) { invoke { visible.isTrue { fadeIn() }.elseDo { fadeOut() } } }
+    func fadeTo(visible: Bool) {
+        invoke { visible.isTrue { fadeIn() }.elseDo { fadeOut() } }
+    }
 
     func fadeIn(duration: TimeInterval = defaultAnimationTime, onDone: Func? = nil) {
         if isVisible, alpha == 1 { return }

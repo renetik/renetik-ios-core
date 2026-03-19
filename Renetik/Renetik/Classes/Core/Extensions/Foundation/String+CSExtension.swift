@@ -25,19 +25,33 @@ public extension String {
         return nil
     }
 
-    var isSet: Bool { !isEmpty }
+    var isSet: Bool {
+        !isEmpty
+    }
 
-    var trim: String { asNSString.trim() }
+    var trim: String {
+        asNSString.trim()
+    }
 
-    var length: Int { count }
+    var length: Int {
+        count
+    }
 
-    var asNSString: NSString { self as NSString }
+    var asNSString: NSString {
+        self as NSString
+    }
 
-    var boolValue: Bool { asNSString.boolValue }
+    var boolValue: Bool {
+        asNSString.boolValue
+    }
 
-    var doubleValue: Double { asNSString.doubleValue }
+    var doubleValue: Double {
+        asNSString.doubleValue
+    }
 
-    var intValue: Int { asNSString.integerValue }
+    var intValue: Int {
+        asNSString.integerValue
+    }
 
     func substring(from index: Int) -> String {
         asNSString.substring(from: index, to: length) as String
@@ -60,15 +74,21 @@ public extension String {
         return index >= 0 ? index : nil
     }
 
-    func index(of string: String) -> Int? { index(of: string, from: 0) }
+    func index(of string: String) -> Int? {
+        index(of: string, from: 0)
+    }
 
     func contains(_ string: String, ignoreCase: Bool = false) -> Bool {
         ignoreCase ? asNSString.containsNoCase(string) : asNSString.contains(string)
     }
 
-    func remove(_ string: String) -> String { remove(all: string) }
+    func remove(_ string: String) -> String {
+        remove(all: string)
+    }
 
-    func remove(all string: String) -> String { replace(all: string, with: "") }
+    func remove(all string: String) -> String {
+        replace(all: string, with: "")
+    }
 
     // func remove(first
 
@@ -82,7 +102,9 @@ public extension String {
         NSAttributedString(string: self, attributes: dictionary)
     }
 
-    func split(by separator: String) -> [String] { components(separatedBy: separator) }
+    func split(by separator: String) -> [String] {
+        components(separatedBy: separator)
+    }
 }
 
 // public extension String {

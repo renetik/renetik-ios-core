@@ -47,5 +47,7 @@ public class CSCocoaLumberjackFormatter: NSObject, DDLogFormatter {
         assert(loggerCount <= 1, "This logger isn't thread-safe")
     }
 
-    public func willRemove(from _: DDLogger) { loggerCount -= 1 }
+    public func willRemove(from _: DDLogger) {
+        loggerCount -= 1
+    }
 }

@@ -13,8 +13,7 @@ open class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
     var currentPage = 0
 
     public func construct(_ parent: CSMainController, _ pageControl: MDCPageControl, _ scrollView: UIScrollView,
-        _ createScrollViewContent: @escaping () -> UIView) -> Self
-    {
+                          _ createScrollViewContent: @escaping () -> UIView) -> Self {
         super.constructAsViewLess(in: parent)
         self.pageControl = pageControl
         self.scrollView = scrollView
@@ -26,15 +25,17 @@ open class CSMDCPageControlScrollPager: CSMainController, UIScrollViewDelegate {
         self.createScrollViewContent = createScrollViewContent
         return self
     }
-    
-    public func reload(count:Int){
+
+    public func reload(count: Int) {
         pageControl.numberOfPages = count
         // BUG! hide/visible not works for MDCPageControl BUG!
         pageControl.alpha = count > 1 ? 1 : 0
         if isVisible { animate { self.createContentView(animated: false) } }
     }
 
-    override open func onViewWillAppear() { createContentView() }
+    override open func onViewWillAppear() {
+        createContentView()
+    }
 
     override open func onViewDidTransition(
         to _: CGSize, _: UIViewControllerTransitionCoordinatorContext?

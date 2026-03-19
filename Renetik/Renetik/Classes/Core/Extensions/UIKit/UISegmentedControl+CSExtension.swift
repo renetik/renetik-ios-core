@@ -6,10 +6,14 @@ import Foundation
 import UIKit
 
 public extension UISegmentedControl {
-    class var defaultHeight: CGFloat { 28 }
+    class var defaultHeight: CGFloat {
+        28
+    }
 
     @discardableResult
-    func selected(index: Int) -> Self { selectedIndex = index; return self }
+    func selected(index: Int) -> Self {
+        selectedIndex = index; return self
+    }
 
     var selectedIndex: Int {
         get { selectedSegmentIndex }

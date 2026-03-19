@@ -18,16 +18,14 @@ public extension DataRequest {
 public extension DataRequest {
     @discardableResult
     func cache(_ session: Session, maxAge: TimeInterval,
-               isPrivate: Bool = false, ignoreServer: Bool = true) -> Self
-    {
+               isPrivate: Bool = false, ignoreServer: Bool = true) -> Self {
         if maxAge <= 0 { return self }
         let requestRefreshCache = request?.allHTTPHeaderFields?[CSAlamofireCache.refreshCacheKey]
         if requestRefreshCache.notNil && requestRefreshCache != CSAlamofireCache.refreshCacheValueRefresh {
             let cachedResponse = session.sessionConfiguration.urlCache?
                 .cachedResponse(for: request!)?.response as? HTTPURLResponse
             if cachedResponse?.allHeaderFields[CSAlamofireCache.refreshCacheKey].asString
-                == CSAlamofireCache.refreshCacheValueUse
-            {
+                == CSAlamofireCache.refreshCacheValueUse {
                 return self
             }
         }
@@ -50,10 +48,10 @@ public extension DataRequest {
                 if CSAlamofireCache.canUseCacheControl {
                     let httpResponseCacheControl = httpResponseHeaders["Cache-Control"]
                     if httpResponseCacheControl == nil || httpResponseCacheControl.contains("no-cache") ||
-                        httpResponseCacheControl.contains("no-store") || ignoreServer || useServerButRefresh
-                    {
+                        httpResponseCacheControl.contains("no-store") || ignoreServer || useServerButRefresh {
                         if ignoreServer {
-                            if httpResponseHeaders["Vary"] != nil { httpResponseHeaders.remove(key: "Vary") } // http 1.1
+                            if httpResponseHeaders["Vary"] !=
+                                nil { httpResponseHeaders.remove(key: "Vary") } // http 1.1
                             if httpResponseHeaders["Pragma"] != nil { httpResponseHeaders.remove(key: "Pragma") }
                         }
                         httpResponseHeaders.addCacheControlField(maxAge: maxAge, isPrivate: isPrivate)
@@ -65,7 +63,8 @@ public extension DataRequest {
                         httpResponseHeaders.addCacheExpiresField(maxAge: maxAge)
                         if ignoreServer {
                             if httpResponseHeaders["Pragma"] != nil { httpResponseHeaders["Pragma"] = "cache" }
-                            if httpResponseHeaders["Cache-Control"] != nil { httpResponseHeaders.remove(key: "Cache-Control") }
+                            if httpResponseHeaders["Cache-Control"] !=
+                                nil { httpResponseHeaders.remove(key: "Cache-Control") }
                         }
                     } else {
                         return
@@ -73,8 +72,8 @@ public extension DataRequest {
                 }
                 httpResponseHeaders[CSAlamofireCache.refreshCacheKey] = CSAlamofireCache.refreshCacheValueUse
                 if let newResponse = HTTPURLResponse(url: newURL, statusCode: httpResponse.statusCode,
-                                                     httpVersion: CSAlamofireCache.HTTPVersion, headerFields: httpResponseHeaders)
-                {
+                                                     httpVersion: CSAlamofireCache.HTTPVersion,
+                                                     headerFields: httpResponseHeaders) {
                     let newCacheResponse = CachedURLResponse(response: newResponse, data: newData,
                                                              userInfo: ["framework": CSAlamofireCache.frameworkName],
                                                              storagePolicy: URLCache.StoragePolicy.allowed)
@@ -99,24 +98,21 @@ public extension DataRequest {
 
     @discardableResult
     func responseData(queue: DispatchQueue = .main,
-                      completionHandler: @escaping (AFDataResponse<Data>) -> Void, autoClearCache: Bool) -> Self
-    {
+                      completionHandler: @escaping (AFDataResponse<Data>) -> Void, autoClearCache: Bool) -> Self {
         response(queue: queue, responseSerializer: DataResponseSerializer(),
                  completionHandler: completionHandler, autoClearCache: autoClearCache)
     }
 
     @discardableResult
     func responseString(queue: DispatchQueue = .main, encoding: String.Encoding? = nil,
-                        completionHandler: @escaping (AFDataResponse<String>) -> Void, autoClearCache: Bool) -> Self
-    {
+                        completionHandler: @escaping (AFDataResponse<String>) -> Void, autoClearCache: Bool) -> Self {
         response(queue: queue, responseSerializer: StringResponseSerializer(encoding: encoding),
                  completionHandler: completionHandler, autoClearCache: autoClearCache)
     }
 
     @discardableResult
     func responseJSON(queue: DispatchQueue = .main, options: JSONSerialization.ReadingOptions = .allowFragments,
-                      completionHandler: @escaping (AFDataResponse<Any>) -> Void, autoClearCache: Bool) -> Self
-    {
+                      completionHandler: @escaping (AFDataResponse<Any>) -> Void, autoClearCache: Bool) -> Self {
         response(queue: queue, responseSerializer: JSONResponseSerializer(options: options),
                  completionHandler: completionHandler, autoClearCache: autoClearCache)
     }

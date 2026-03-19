@@ -7,7 +7,9 @@ import RenetikObjc
 public class CSMultiResponse: CSResponse<NSMutableArray> {
     var response: CSResponseProtocol!
 
-    override public init() { super.init(); data = NSMutableArray() }
+    override public init() {
+        super.init(); data = NSMutableArray()
+    }
 
     @discardableResult
     public func add<Data: AnyObject, Response: CSResponse<Data>>(_ response: Response) -> Response {

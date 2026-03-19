@@ -7,7 +7,9 @@ import RenetikObjc
 import UIKit
 
 open class CSTableControllerFilter<Row: CSTableControllerRow, Data> {
-    open func filter(data: [Row]) -> [Row] { data }
+    open func filter(data: [Row]) -> [Row] {
+        data
+    }
 
     open func onReloadDone(in _: CSTableController<Row, Data>) {}
 }

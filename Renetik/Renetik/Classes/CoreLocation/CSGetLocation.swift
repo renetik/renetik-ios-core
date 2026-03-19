@@ -24,8 +24,7 @@ public class CSGetLocation: NSObject, CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager,
-                                didUpdateLocations locations: [CLLocation])
-    {
+                                didUpdateLocations locations: [CLLocation]) {
         locationCallback(locations.last!)
         manager.stopUpdatingLocation()
     }
@@ -38,8 +37,7 @@ public class CSGetLocation: NSObject, CLLocationManagerDelegate {
     }
 
     public func locationManager(_: CLLocationManager,
-                                didChangeAuthorization status: CLAuthorizationStatus)
-    {
+                                didChangeAuthorization status: CLAuthorizationStatus) {
         logWarn(status)
     }
 

@@ -16,7 +16,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func width(_ value: CGFloat) -> Self { invoke { self.width = value } }
+    func width(_ value: CGFloat) -> Self {
+        invoke { self.width = value }
+    }
 
     var height: CGFloat {
         get { frame.size.height }
@@ -28,7 +30,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func height(_ value: CGFloat) -> Self { invoke { self.height = value } }
+    func height(_ value: CGFloat) -> Self {
+        invoke { self.height = value }
+    }
 
     @discardableResult
     func heightAsPrevious() -> Self {
@@ -40,15 +44,23 @@ public extension UIView {
     }
 
     @discardableResult
-    func widthAsHeight() -> Self { invoke { width = height } }
+    func widthAsHeight() -> Self {
+        invoke { width = height }
+    }
 
     @discardableResult
-    func heightAsWidth() -> Self { invoke { height = width } }
+    func heightAsWidth() -> Self {
+        invoke { height = width }
+    }
 
     @discardableResult
-    func defaultSize() -> Self { width(UIScreen.width, height: UIScreen.height) }
+    func defaultSize() -> Self {
+        width(UIScreen.width, height: UIScreen.height)
+    }
 
-    var availableHeight: CGFloat { height - navigation.navigationBar.bottom }
+    var availableHeight: CGFloat {
+        height - navigation.navigationBar.bottom
+    }
 
     @discardableResult
     func heightByLastSubview(padding: CGFloat = 0, minimum: CGFloat = 0) -> Self {
@@ -57,13 +69,19 @@ public extension UIView {
     }
 
     @discardableResult
-    func size(_ size: CGFloat) -> Self { width(size, height: size) }
+    func size(_ size: CGFloat) -> Self {
+        width(size, height: size)
+    }
 
     @discardableResult
-    func size(_ size: CGSize) -> Self { invoke { self.size = size } }
+    func size(_ size: CGSize) -> Self {
+        invoke { self.size = size }
+    }
 
     @discardableResult
-    func size(_ width: CGFloat, _ height: CGFloat) -> Self { self.width(width, height: height) }
+    func size(_ width: CGFloat, _ height: CGFloat) -> Self {
+        self.width(width, height: height)
+    }
 
     var size: CGSize {
         get { frame.size }
@@ -103,7 +121,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func frame(_ rect: CGRect) -> Self { invoke { self.frame = rect } }
+    func frame(_ rect: CGRect) -> Self {
+        invoke { self.frame = rect }
+    }
 
     @discardableResult
     func width(_ width: CGFloat, height: CGFloat) -> Self {
@@ -134,19 +154,29 @@ public extension UIView {
     }
 
     @discardableResult
-    func add(bottom value: CGFloat) -> Self { invoke { self.height += value } }
+    func add(bottom value: CGFloat) -> Self {
+        invoke { self.height += value }
+    }
 
     @discardableResult
-    func add(width value: CGFloat) -> Self { invoke { self.width += value } }
+    func add(width value: CGFloat) -> Self {
+        invoke { self.width += value }
+    }
 
     @discardableResult
-    func add(height value: CGFloat) -> Self { invoke { self.height += value } }
+    func add(height value: CGFloat) -> Self {
+        invoke { self.height += value }
+    }
 
     @discardableResult
-    func remove(width value: CGFloat) -> Self { invoke { self.width -= value } }
+    func remove(width value: CGFloat) -> Self {
+        invoke { self.width -= value }
+    }
 
     @discardableResult
-    func remove(height value: CGFloat) -> Self { invoke { self.height -= value } }
+    func remove(height value: CGFloat) -> Self {
+        invoke { self.height -= value }
+    }
 
     @discardableResult
     func resize(padding: CGFloat) -> Self {
@@ -174,16 +204,24 @@ public extension UIView {
     }
 
     @discardableResult
-    @objc open func resizeToFit() -> Self { invoke { self.sizeToFit() } }
+    @objc open func resizeToFit() -> Self {
+        invoke { self.sizeToFit() }
+    }
 
     @discardableResult
-    @objc open func widthToFit() -> Self { width(widthThatFits()) }
+    @objc open func widthToFit() -> Self {
+        width(widthThatFits())
+    }
 
     @discardableResult
-    @objc open func widthToFitSubviews() -> Self { width(sizeThatFitsSubviews().width) }
+    @objc open func widthToFitSubviews() -> Self {
+        width(sizeThatFitsSubviews().width)
+    }
 
     @discardableResult
-    @objc open func heightToFit() -> Self { height(heightThatFits()) }
+    @objc open func heightToFit() -> Self {
+        height(heightThatFits())
+    }
 
     @discardableResult
     @objc open func heightToFitSubviews() -> Self {
@@ -217,5 +255,7 @@ public extension UIView {
         return sizeThatFits(CGSize(width: width, height: .infinity)).height
     }
 
-    func hideByHeight(if condition: Bool) -> Self { invoke { if condition { self.height = 0 } } }
+    func hideByHeight(if condition: Bool) -> Self {
+        invoke { if condition { self.height = 0 } }
+    }
 }

@@ -8,11 +8,12 @@ import RenetikObjc
 import UIKit
 
 public extension CSTableController {
-    func data(for path: IndexPath) -> Row { data[path.row] }
+    func data(for path: IndexPath) -> Row {
+        data[path.row]
+    }
 
     func height<View: CSTableHeightCalculatingCell>(for path: IndexPath, _ view: View) -> CGFloat
-        where View.Row == Row
-    {
+        where View.Row == Row {
         view.height(for: data(for: path))
     }
 

@@ -6,5 +6,3 @@
 //
 
 import UIKit
-
-public extension UIActivityViewController {}

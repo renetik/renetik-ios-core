@@ -14,11 +14,19 @@ public class CSNameJsonData: CSJsonData {
         return self
     }
 
-    override public func construct() -> Self { construct("name") }
+    override public func construct() -> Self {
+        construct("name")
+    }
 
-    public var id: String { getStringValue("id") }
+    public var id: String {
+        getStringValue("id")
+    }
 
-    public var name: String { getStringValue(nameKey) }
+    public var name: String {
+        getStringValue(nameKey)
+    }
 
-    override public var description: String { name }
+    override public var description: String {
+        name
+    }
 }

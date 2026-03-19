@@ -6,8 +6,7 @@ import Foundation
 
 public extension NSMutableParagraphStyle {
     class func with(lineBreak: NSLineBreakMode = .byWordWrapping,
-                    alignment: NSTextAlignment = .left) -> NSMutableParagraphStyle
-    {
+                    alignment: NSTextAlignment = .left) -> NSMutableParagraphStyle {
         var paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = lineBreak
         paragraph.alignment = alignment

@@ -6,7 +6,7 @@ import RenetikObjc
 import UIKit
 
 open class CSMainController: CSViewController {
-    public var parentMainController: CSMainController? = nil
+    public var parentMainController: CSMainController?
     private var childMainControllers = [CSMainController]()
     private var menuItems = [CSMenuHeader]()
     private lazy var menuDialog = CSAlertDialogController(in: self)
@@ -26,9 +26,13 @@ open class CSMainController: CSViewController {
         menuDialog.hideDialog()
     }
 
-    public var isTopController: Bool { parent is UINavigationController || parentMainController == nil }
+    public var isTopController: Bool {
+        parent is UINavigationController || parentMainController == nil
+    }
 
-    public var isChildController: Bool { !isTopController }
+    public var isChildController: Bool {
+        !isTopController
+    }
 
     public func updateBarItemsAndMenu(animated: Bool = false) {
         if isChildController {

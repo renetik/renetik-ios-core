@@ -10,7 +10,9 @@ import UIKit
 
 public extension UIButton {
     @discardableResult
-    class func construct(_ image: UIImage) -> Self { construct().image(image) }
+    class func construct(_ image: UIImage) -> Self {
+        construct().image(image)
+    }
 
     @discardableResult
     override open func construct() -> Self {
@@ -59,7 +61,9 @@ public extension UIButton {
     }
 
     @discardableResult
-    func image(template image: UIImage) -> Self { self.image(image.template) }
+    func image(template image: UIImage) -> Self {
+        self.image(image.template)
+    }
 
     var textColor: UIColor? {
         get { titleColor(for: .normal) }

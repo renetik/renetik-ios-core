@@ -20,9 +20,13 @@ public class CSMBProgressController: CSObject, CSHasProgress, CSHasDialogVisible
         self.view = view
     }
 
-    public var isDialogVisible: Bool { hud.notNil }
+    public var isDialogVisible: Bool {
+        hud.notNil
+    }
 
-    public func hideDialog(animated: Bool = true) { hud?.hide(animated: animated) }
+    public func hideDialog(animated: Bool = true) {
+        hud?.hide(animated: animated)
+    }
 
     public func show(progress title: String, cancel: CSDialogAction?) -> CSHasDialogVisible {
         MBProgressHUD.hide(for: view, animated: true)

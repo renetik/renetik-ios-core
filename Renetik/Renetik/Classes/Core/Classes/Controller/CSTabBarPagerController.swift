@@ -6,7 +6,10 @@
 import Renetik
 import RenetikObjc
 
-public typealias CSTabBarPagerControllerItem = (item: UITabBarItem, onClick: (@escaping (UIViewController) -> Void) -> Void)
+public typealias CSTabBarPagerControllerItem = (
+    item: UITabBarItem,
+    onClick: (@escaping (UIViewController) -> Void) -> Void
+)
 
 public class CSTabBarPagerController: CSMainController, UITabBarDelegate {
     private let containerView = UIView.construct().background(.clear)

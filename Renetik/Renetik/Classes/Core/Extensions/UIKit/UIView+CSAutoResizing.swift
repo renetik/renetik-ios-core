@@ -17,13 +17,19 @@ public extension UIView {
     }
 
     @discardableResult
-    func flexibleLeftTop() -> Self { flexibleLeft().flexibleTop() }
+    func flexibleLeftTop() -> Self {
+        flexibleLeft().flexibleTop()
+    }
 
     @discardableResult
-    func flexibleLeftBottom() -> Self { flexibleLeft().flexibleBottom() }
+    func flexibleLeftBottom() -> Self {
+        flexibleLeft().flexibleBottom()
+    }
 
     @discardableResult
-    func flexibleWidthHeight() -> Self { flexibleWidth().flexibleHeight() }
+    func flexibleWidthHeight() -> Self {
+        flexibleWidth().flexibleHeight()
+    }
 
     @discardableResult
     func flexibleWidth() -> Self {
@@ -97,11 +103,19 @@ public extension UIView {
         return self
     }
 
-    func isFixedLeft() -> Bool { autoresizingMask.contains(.flexibleLeftMargin) }
+    func isFixedLeft() -> Bool {
+        autoresizingMask.contains(.flexibleLeftMargin)
+    }
 
-    func isFixedTop() -> Bool { !autoresizingMask.contains(.flexibleTopMargin) }
+    func isFixedTop() -> Bool {
+        !autoresizingMask.contains(.flexibleTopMargin)
+    }
 
-    func isFixedRight() -> Bool { !autoresizingMask.contains(.flexibleRightMargin) }
+    func isFixedRight() -> Bool {
+        !autoresizingMask.contains(.flexibleRightMargin)
+    }
 
-    func isFixedBottom() -> Bool { !autoresizingMask.contains(.flexibleBottomMargin) }
+    func isFixedBottom() -> Bool {
+        !autoresizingMask.contains(.flexibleBottomMargin)
+    }
 }

@@ -85,7 +85,7 @@ public extension UIViewController {
 
     @discardableResult
     func present(from item: UIBarButtonItem) -> Self {
-        DispatchQueue.main.async { [self] in 
+        DispatchQueue.main.async { [self] in
             modalPresentationStyle = .popover
             popoverPresentationController?.barButtonItem = item
             popoverPresentationController?.permittedArrowDirections = .any
@@ -111,7 +111,9 @@ public extension UIViewController {
         return foundController?.parent == navigation ? foundController : nil
     }
 
-    var isLastInNavigation: Bool { navigation.last == self }
+    var isLastInNavigation: Bool {
+        navigation.last == self
+    }
 
     @discardableResult
     func backButtonWithoutPreviousTitle() -> Self {
@@ -130,5 +132,7 @@ public extension UIViewController {
     }
 
     @discardableResult
-    func dismiss() -> Self { dismiss(animated: true); return self }
+    func dismiss() -> Self {
+        dismiss(animated: true); return self
+    }
 }

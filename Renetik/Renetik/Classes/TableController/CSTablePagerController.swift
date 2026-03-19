@@ -17,8 +17,7 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
     public var onShouldLoadNext: ((IndexPath) -> Bool)?
 
     public func construct(by controller: CSTableController<Row, Data>,
-                          onLoadPage: @escaping (Int) -> CSOperation<Data>) -> Self
-    {
+                          onLoadPage: @escaping (Int) -> CSOperation<Data>) -> Self {
         table = controller
         self.onLoadPage = onLoadPage
         table.loadData = onLoad

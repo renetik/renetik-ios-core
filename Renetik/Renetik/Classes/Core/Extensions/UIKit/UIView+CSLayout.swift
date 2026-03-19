@@ -8,10 +8,14 @@ import UIKit
 
 public extension UIView {
     @discardableResult
-    func from(left: CGFloat) -> Self { invoke { self.left = left; fixedLeft() } }
+    func from(left: CGFloat) -> Self {
+        invoke { self.left = left; fixedLeft() }
+    }
 
     @discardableResult
-    func from(_ view: UIView?, left: CGFloat) -> Self { from(left: view?.get { $0.right + left } ?? left) }
+    func from(_ view: UIView?, left: CGFloat) -> Self {
+        from(left: view?.get { $0.right + left } ?? left)
+    }
 
     @discardableResult
     func fromPrevious(left: CGFloat) -> Self {
@@ -23,10 +27,14 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(top: CGFloat) -> Self { invoke { self.top = top; fixedTop() } }
+    func from(top: CGFloat) -> Self {
+        invoke { self.top = top; fixedTop() }
+    }
 
     @discardableResult
-    func from(_ view: UIView?, top: CGFloat) -> Self { from(top: view?.get { $0.bottom + top } ?? top) }
+    func from(_ view: UIView?, top: CGFloat) -> Self {
+        from(top: view?.get { $0.bottom + top } ?? top)
+    }
 
     @discardableResult
     func fromPrevious(top: CGFloat) -> Self {
@@ -47,48 +55,76 @@ public extension UIView {
     }
 
     @discardableResult
-    func from(right: CGFloat) -> Self { invoke { self.fromRight = right; fixedRight() } }
+    func from(right: CGFloat) -> Self {
+        invoke { self.fromRight = right; fixedRight() }
+    }
 
     @discardableResult
     func from(_ view: UIView?, right: CGFloat)
-        -> Self { from(right: view?.get { $0.leftFromRight + right } ?? right) }
+        -> Self {
+        from(right: view?.get { $0.leftFromRight + right } ?? right)
+    }
 
     @discardableResult
-    func from(bottom: CGFloat) -> Self { invoke { self.fromBottom = bottom; fixedBottom() } }
+    func from(bottom: CGFloat) -> Self {
+        invoke { self.fromBottom = bottom; fixedBottom() }
+    }
 
     @discardableResult
     func from(_ view: UIView?, bottom: CGFloat)
-        -> Self { from(bottom: view?.get { $0.topFromBottom + bottom } ?? bottom) }
+        -> Self {
+        from(bottom: view?.get { $0.topFromBottom + bottom } ?? bottom)
+    }
 
     @discardableResult
-    func from(bottomRight: CGFloat) -> Self { from(bottom: bottomRight, right: bottomRight) }
+    func from(bottomRight: CGFloat) -> Self {
+        from(bottom: bottomRight, right: bottomRight)
+    }
 
     @discardableResult
-    func from(left: CGFloat, top: CGFloat) -> Self { from(left: left).from(top: top) }
+    func from(left: CGFloat, top: CGFloat) -> Self {
+        from(left: left).from(top: top)
+    }
 
     @discardableResult
-    func from(topLeft: CGFloat) -> Self { from(top: topLeft).from(left: topLeft) }
+    func from(topLeft: CGFloat) -> Self {
+        from(top: topLeft).from(left: topLeft)
+    }
 
     @discardableResult
-    func from(topRight: CGFloat) -> Self { from(top: topRight).from(right: topRight) }
+    func from(topRight: CGFloat) -> Self {
+        from(top: topRight).from(right: topRight)
+    }
 
     @discardableResult
-    func from(left: CGFloat, bottom: CGFloat) -> Self { from(left: left).from(bottom: bottom) }
+    func from(left: CGFloat, bottom: CGFloat) -> Self {
+        from(left: left).from(bottom: bottom)
+    }
 
     @discardableResult
-    func from(bottom: CGFloat, left: CGFloat) -> Self { from(bottom: bottom).from(left: left) }
+    func from(bottom: CGFloat, left: CGFloat) -> Self {
+        from(bottom: bottom).from(left: left)
+    }
 
     @discardableResult
-    func from(right: CGFloat, top: CGFloat) -> Self { from(right: right).from(top: top) }
+    func from(right: CGFloat, top: CGFloat) -> Self {
+        from(right: right).from(top: top)
+    }
 
     @discardableResult
-    func from(top: CGFloat, right: CGFloat) -> Self { from(top: top).from(right: right) }
+    func from(top: CGFloat, right: CGFloat) -> Self {
+        from(top: top).from(right: right)
+    }
 
     @discardableResult
-    func from(right: CGFloat, bottom: CGFloat) -> Self { from(right: right).from(bottom: bottom) }
+    func from(right: CGFloat, bottom: CGFloat) -> Self {
+        from(right: right).from(bottom: bottom)
+    }
 
     @discardableResult
-    func from(bottom: CGFloat, right: CGFloat) -> Self { from(bottom: bottom).from(right: right) }
+    func from(bottom: CGFloat, right: CGFloat) -> Self {
+        from(bottom: bottom).from(right: right)
+    }
 
     @discardableResult
     func from(left: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat) -> Self {
@@ -135,19 +171,29 @@ public extension UIView {
     }
 
     @discardableResult
-    func margin(left: CGFloat) -> Self { width(fromLeft: left) }
+    func margin(left: CGFloat) -> Self {
+        width(fromLeft: left)
+    }
 
     @discardableResult
-    func margin(from: UIView, left: CGFloat) -> Self { width(from: from, left: left) }
+    func margin(from: UIView, left: CGFloat) -> Self {
+        width(from: from, left: left)
+    }
 
     @discardableResult
-    func margin(top: CGFloat) -> Self { height(fromTop: top) }
+    func margin(top: CGFloat) -> Self {
+        height(fromTop: top)
+    }
 
     @discardableResult
-    func margin(right: CGFloat) -> Self { width(fromRight: right) }
+    func margin(right: CGFloat) -> Self {
+        width(fromRight: right)
+    }
 
     @discardableResult
-    func margin(bottom: CGFloat) -> Self { height(fromBottom: bottom) }
+    func margin(bottom: CGFloat) -> Self {
+        height(fromBottom: bottom)
+    }
 
     @discardableResult
     func fillToRight(margin: CGFloat = 0, flexible: Bool = true) -> Self {
@@ -247,7 +293,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc
+    /// TODO!!! Write tests and doc
     @discardableResult
     func alignHorizontalLayout() -> Self {
         assert(superview.notNil, "Needs to have superview")
@@ -263,7 +309,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc, almost same as fromPrevious
+    /// TODO!!! Write tests and doc, almost same as fromPrevious
     @discardableResult
     func alignHorizontal(margin: CGFloat = 0) -> Self {
         assert(superview.notNil, "Needs to have superview")
@@ -273,7 +319,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc
+    /// TODO!!! Write tests and doc
     @discardableResult
     func alignVerticalLayout() -> Self {
         assert(superview.notNil, "Needs to have superview")
@@ -289,7 +335,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc , almost same as fromPrevious
+    /// TODO!!! Write tests and doc , almost same as fromPrevious
     @discardableResult
     func alignVertical(margin: CGFloat = 0) -> Self {
         assert(superview.notNil, "Needs to have superview")
@@ -299,7 +345,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc
+    /// TODO!!! Write tests and doc
     @discardableResult
     func alignHorizontalGrid(margin: CGFloat = 0, columns: Int = 1) -> Self {
         assert(superview.notNil, "Needs to have superview")
@@ -314,7 +360,7 @@ public extension UIView {
         return self
     }
 
-    // TODO!!! Write tests and doc
+    /// TODO!!! Write tests and doc
     @discardableResult
     func alignVerticalGrid(margin: CGFloat = 0, rows: Int = 1) -> Self {
         assert(superview.notNil, "Needs to have superview")

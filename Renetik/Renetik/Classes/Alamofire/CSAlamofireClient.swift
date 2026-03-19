@@ -13,7 +13,10 @@ let APPLICATION_ERROR = "Application error or invalid data"
 
 public class CSAlamofireClient: CSObject {
     private let url: String
-    private var host: String { url.remove("https://").remove("http://") }
+    private var host: String {
+        url.remove("https://").remove("http://")
+    }
+
     private var disabledTrustSecurity: Bool
     private var defaultParams: [String: String] = [:]
     public var requestFailMessage = "Request failed"
@@ -61,8 +64,7 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func get<DataType: CSServerJsonData>(_ operation: CSOperation<DataType>?, service: String,
-        data: DataType, params: [String: String] = [:]) -> CSProcess<DataType>
-    {
+                                                data: DataType, params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let loadFromNetwork: Bool = {
                 if operation?.isRefresh == true { return true }
@@ -74,7 +76,10 @@ public class CSAlamofireClient: CSObject {
                                           encoding: URLEncoding.default, refreshCache: loadFromNetwork)
             operation?.expireMinutes.notNil { minutes in request.cache(manager, maxAge: Double(minutes * 60)) }
             request.responseString(encoding: nil,
-                                   completionHandler: { response in self.onResponseDone(response: response, process: process) },
+                                   completionHandler: { response in self.onResponseDone(
+                                       response: response,
+                                       process: process
+                                   ) },
                                    autoClearCache: (operation?.isCached).isFalse)
         }
     }
@@ -84,32 +89,35 @@ public class CSAlamofireClient: CSObject {
     }
 
     public func post<DataType: CSServerJsonData>(service: String, data: DataType,
-                                                 params: [String: String] = [:]) -> CSProcess<DataType>
-    {
+                                                 params: [String: String] = [:]) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let request = manager.request(process.url!, method: .post, parameters: params)
 //            request.validate(statusCode: 200..<300).validate(contentType: ["application/json"])
             request.responseString(encoding: nil,
-                                   completionHandler: { response in self.onResponseDone(response: response, process: process) })
+                                   completionHandler: { response in self.onResponseDone(
+                                       response: response,
+                                       process: process
+                                   ) })
         }
     }
 
     public func post<DataType: CSServerJsonData>(service: String, data: DataType,
-                                                 form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType>
-    {
+                                                 form: @escaping (MultipartFormData) -> Void) -> CSProcess<DataType> {
         CSProcess("\(url)/\(service)", data).also { process in
             let credentialData = "\(basicAuth!.username):\(basicAuth!.password)".data(using: .utf8)!
             let base64Credentials = credentialData.base64EncodedData()
             let headers = ["Authorization": "Basic \(base64Credentials)"]
             let request = manager.upload(multipartFormData: form, to: process.url!, headers: HTTPHeaders(headers))
             request.responseString(encoding: nil,
-                                   completionHandler: { response in self.onResponseDone(response: response, process: process) })
+                                   completionHandler: { response in self.onResponseDone(
+                                       response: response,
+                                       process: process
+                                   ) })
         }
     }
 
     private func onResponseDone<DataType: CSServerJsonData>(response: AFDataResponse<String>,
-                                                            process: CSProcess<DataType>)
-    {
+                                                            process: CSProcess<DataType>) {
         response.error.notNil { error in onResponse(error: error, message: error.errorDescription, process) }
             .elseDo { onResponse(content: response.value, process) }
     }
@@ -119,12 +127,15 @@ public class CSAlamofireClient: CSObject {
         let jsonValue = content?.asNSString.jsonValue()
         (jsonValue as? [String: CSAny?]).notNil { it in process.data!.load(data: it) }
             .elseDo { onResponse(error: nil, message: INVALID_RESPONSE, process) }
-        if process.data!.success { process.success() } else { onResponse(error: nil, message: process.data!.message ?? "No Message", process) }
+        if process.data!.success { process.success() } else { onResponse(
+            error: nil,
+            message: process.data!.message ?? "No Message",
+            process
+        ) }
     }
 
     private func onResponse<DataType: CSServerJsonData>(error: AFError?, message: String?,
-                                                        _ process: CSProcess<DataType>)
-    {
+                                                        _ process: CSProcess<DataType>) {
         invalidate(url: process.url!)
         process.failed(error, message: message)
     }

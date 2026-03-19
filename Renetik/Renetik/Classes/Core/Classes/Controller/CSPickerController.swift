@@ -20,11 +20,10 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
     var onCancel: Func?
 
     @discardableResult
-    public func showPicker(from parent: UIViewController, title _: String, 
+    public func showPicker(from parent: UIViewController, title _: String,
                            items: [CustomStringConvertible], selected selectedIndex: Int,
                            from _: CSDisplayElement, onCancel: Func?,
-                           onDone: @escaping (Int) -> Void) -> CSHasPickerVisible
-    {
+                           onDone: @escaping (Int) -> Void) -> CSHasPickerVisible {
         super.constructAsViewLess(in: parent)
         self.items = items
         self.onDone = onDone
@@ -65,8 +64,8 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
         appearance.configureWithOpaqueBackground()
         self.toolBarColor?.also { appearance.backgroundColor = $0 }
         self.toolBarItemTextColor?.also {
-            appearance.buttonAppearance.normal.titleTextAttributes = [ .foregroundColor: $0 ]
-            appearance.doneButtonAppearance.normal.titleTextAttributes = [ .foregroundColor: $0 ]
+            appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: $0]
+            appearance.doneButtonAppearance.normal.titleTextAttributes = [.foregroundColor: $0]
         }
         toolBar.standardAppearance = appearance
         toolBar.scrollEdgeAppearance = appearance
@@ -77,15 +76,16 @@ public class CSPickerController: CSViewController, CSHasPickerVisible, UIPickerV
         return toolBar
     }()
 
-    public func numberOfComponents(in _: UIPickerView) -> Int { 1 }
+    public func numberOfComponents(in _: UIPickerView) -> Int {
+        1
+    }
 
     public func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
         items.count
     }
 
     public func pickerView(_: UIPickerView, attributedTitleForRow row: Int,
-                           forComponent _: Int) -> NSAttributedString?
-    {
+                           forComponent _: Int) -> NSAttributedString? {
         NSAttributedString(string: String(describing: items[row]),
                            attributes: [.foregroundColor: pickerItemTextColor, .font: pickerItemFont])
     }

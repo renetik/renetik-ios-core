@@ -6,8 +6,13 @@
 import Renetik
 
 public class CSServerJsonData: CSJsonData {
-    open var success: Bool { getBoolean("success") ?? false }
-    open var message: String? { getString("message") }
+    open var success: Bool {
+        getBoolean("success") ?? false
+    }
+
+    open var message: String? {
+        getString("message")
+    }
 }
 
 public class CSListServerJsonData<ListItem: CSJsonData>: CSServerJsonData {
@@ -23,7 +28,11 @@ public class CSListServerJsonData<ListItem: CSJsonData>: CSServerJsonData {
         return self
     }
 
-    public func construct(_ type: ListItem.Type) -> Self { construct("list", type) }
+    public func construct(_ type: ListItem.Type) -> Self {
+        construct("list", type)
+    }
 
-    public var list: [ListItem] { property.list }
+    public var list: [ListItem] {
+        property.list
+    }
 }
