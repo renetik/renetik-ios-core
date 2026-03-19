@@ -75,6 +75,24 @@ public class CSEvent<Type> {
     }
 }
 
+public extension CSEvent {
+    @discardableResult
+    func action(_ listener: @escaping () -> Void) -> CSEventListener<Type> {
+        listener()
+        return invoke { _ in listener() }
+    }
+
+    @discardableResult
+    func action(_ listener: @escaping (CSEventListener<Type>) -> Void) -> CSEventListener<Type> {
+        var registration: CSEventListener<Type>!
+        registration = invoke { currentRegistration, _ in
+            listener(currentRegistration)
+        }
+        listener(registration)
+        return registration
+    }
+}
+
 public extension CSEvent where Type == Void {
     func fire() {
         fire(())
