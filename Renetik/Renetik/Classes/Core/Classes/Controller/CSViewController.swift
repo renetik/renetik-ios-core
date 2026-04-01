@@ -10,6 +10,8 @@ open class CSViewController: UIViewController {
     public let eventOrientationChanging: CSEvent<Void> = event()
     public let eventOrientationChanged: CSEvent<Void> = event()
     public let eventDismissing: CSEvent<Void> = event()
+    public let eventWillAppear: CSEvent<Void> = event()
+    public let eventWillDisappear: CSEvent<Void> = event()
     public let eventDidAppear: CSEvent<Void> = event()
     public let eventDidLayoutFirstTime: CSEvent<Void> = event()
     public let eventWillAppearFirstTime: CSEvent<Void> = event()
@@ -75,6 +77,7 @@ open class CSViewController: UIViewController {
 //        logInfo("viewWillAppear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing)
 //        isShowing:\(isShowing)")
         onViewWillAppear()
+        eventWillAppear.fire()
         if !isOnViewWillAppearFirstTime {
             isOnViewWillAppearFirstTime = true
             onViewWillAppearFirstTime()
@@ -149,6 +152,7 @@ open class CSViewController: UIViewController {
 //        logInfo("viewWillDisappear \(self) controllerInNavigation:\(controllerInNavigation) isAppearing:\(isAppearing)
 //        isShowing:\(isShowing)")
         onViewWillDisappear()
+        eventWillDisappear.fire()
         //    if (self.navigationController.previous == self.controllerInNavigation) self.onViewPushedOver;
     }
 
