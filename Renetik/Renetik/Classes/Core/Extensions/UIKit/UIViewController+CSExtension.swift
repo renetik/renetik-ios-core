@@ -100,7 +100,7 @@ public extension UIViewController {
     }
 
     var isDarkMode: Bool {
-        if #available(iOS 12, *) { return traitCollection.isDarkMode } else { return false }
+        traitCollection.isDarkMode
     }
 
     func findControllerInNavigation() -> UIViewController? {

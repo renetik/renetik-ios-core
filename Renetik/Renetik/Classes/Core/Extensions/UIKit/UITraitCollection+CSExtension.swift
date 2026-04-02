@@ -5,7 +5,6 @@
 import UIKit
 
 public extension UITraitCollection {
-    @available(iOS 12.0, *)
     var isDarkMode: Bool {
         userInterfaceStyle == .dark
     }
