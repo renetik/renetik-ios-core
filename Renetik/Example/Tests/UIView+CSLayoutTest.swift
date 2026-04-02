@@ -1,4 +1,4 @@
-//  Created by Rene Dohan on 5/9/12.
+//  Created by Rene Dohan on 5/9/12
 
 import Renetik
 import XCTest
