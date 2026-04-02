@@ -10,7 +10,6 @@ import Renetik
 import RenetikObjc
 
 class ExampleListController: UIViewController {
-    let table = CSTableController<ListItemData>()
     override func viewDidLoad() {
         super.viewDidLoad()
     }

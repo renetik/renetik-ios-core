@@ -3,8 +3,6 @@
 // Copyright (c) 2019 Renetik Software. All rights reserved.
 //
 
-import Nimble
-import Quick
 import Renetik
 import XCTest
 
@@ -45,13 +43,13 @@ class CSLangTest: XCTestCase {
 
     func testApply() {
         XCTAssertEqual("initial", nonOptionalTestClass.testString)
-        XCTAssertEqual("other", nonOptionalTestClass.apply { $0.testString = "other" }.testString)
+        XCTAssertEqual("other", nonOptionalTestClass.also { $0.testString = "other" }.testString)
 
         XCTAssertEqual("initial", optionalTestClassWithValue?.testString)
-        XCTAssertEqual("other", optionalTestClassWithValue?.apply { $0.testString = "other" }.testString)
+        XCTAssertEqual("other", optionalTestClassWithValue?.also { $0.testString = "other" }.testString)
 
         XCTAssertNil(optionalTestClassWithNil?.testString)
-        XCTAssertNil(optionalTestClassWithNil?.apply { $0.testString = "other" }.testString)
+        XCTAssertNil(optionalTestClassWithNil?.also { $0.testString = "other" }.testString)
     }
 
     func testThen() {
@@ -60,11 +58,11 @@ class CSLangTest: XCTestCase {
         XCTAssertEqual("other", nonOptionalTestClass.testString)
 
         XCTAssertEqual("initial", optionalTestClassWithValue?.testString)
-        optionalTestClassWithValue?.apply { $0.testString = "other" }
+        optionalTestClassWithValue?.also { $0.testString = "other" }
         XCTAssertEqual("other", optionalTestClassWithValue?.testString)
 
         XCTAssertNil(optionalTestClassWithNil?.testString)
-        optionalTestClassWithNil?.apply { $0.testString = "other" }
+        optionalTestClassWithNil?.also { $0.testString = "other" }
         XCTAssertNil(optionalTestClassWithNil?.testString)
     }
 

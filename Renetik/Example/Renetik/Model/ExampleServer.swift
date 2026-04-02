@@ -12,7 +12,7 @@ import RenetikObjc
 class ExampleServer {
     let client = CSAFClient(url: "https://renetik-library-server.herokuapp.com/api").also {
         $0.acceptable(contentTypes: ["text/html", "application/json"])
-        $0.basicAuhentification(username: "username", password: "password")
+        $0.basicAuthentication(username: "username", password: "password")
     }
 
 //    func loadSampleList(page: Int) -> CSResponse<ListData> {

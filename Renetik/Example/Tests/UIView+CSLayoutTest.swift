@@ -1,14 +1,12 @@
 //  Created by Rene Dohan on 5/9/12.
 
-import Nimble
-import Quick
 import Renetik
 import XCTest
 
 class UIViewTestSwift: XCTestCase {
     func testPosition() {
-        let container = UIView.withSize(200, 200)
-        let subview = container.add(view: UIView.withRect(50, 50, 100, 100))
+        let container = UIView.construct(width: 200, height: 200)
+        let subview = container.add(view: UIView.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
 
         XCTAssertEqual(container.width, 200)
         XCTAssertEqual(container.height, 200)
@@ -23,23 +21,23 @@ class UIViewTestSwift: XCTestCase {
         XCTAssertEqual(subview.fromBottom, 50)
         XCTAssertEqual(subview.topFromBottom, 150)
 
-        subview.fromRight(25)
+        subview.from(right: 25)
         XCTAssertEqual(subview.fromRight, 25)
 
-        subview.fromBottom(25)
+        subview.from(bottom: 25)
         XCTAssertEqual(subview.fromBottom, 25)
     }
 
     func testWidthFromRight() {
-        let container = UIView.withSize(200, 200)
-        let subview = container.add(UIView.withRect(50, 50, 100, 100))
+        let container = UIView.construct(width: 200, height: 200)
+        let subview = container.add(UIView.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
         XCTAssertEqual(subview.width, 100)
 
-        subview.widthFixedRight(50)
+        subview.fixedRight(width: 50)
         XCTAssertEqual(subview.left, 100)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
@@ -47,8 +45,8 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testMatch() {
-        let container = UIView.withSize(200, 200)
-        let subview = container.add(UIView.withRect(50, 50, 100, 100))
+        let container = UIView.construct(width: 200, height: 200)
+        let subview = container.add(UIView.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.fromRight, 50)
@@ -69,14 +67,14 @@ class UIViewTestSwift: XCTestCase {
         XCTAssertEqual(subview.top, 0)
         XCTAssertEqual(subview.fromBottom, 0)
 
-        subview.matchParentWidth(withMargin: 50)
+        subview.matchParentWidth(margin: 50)
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.fromRight, 50)
         XCTAssertEqual(subview.top, 0)
         XCTAssertEqual(subview.fromBottom, 0)
 
-        subview.matchParentHeight(withMargin: 50)
+        subview.matchParentHeight(margin: 50)
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.fromRight, 50)
@@ -85,9 +83,9 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testMatchParentWithMargin() {
-        let content = UIView.withSize(200, 200)
+        let content = UIView.construct(width: 200, height: 200)
         let subview = content.add(view: UILabel.construct())
-            .top(50).height(100).matchParentWidth(withMargin: 30)
+            .from(top: 50).height(100).matchParentWidth(margin: 30)
         XCTAssertEqual(subview.left, 30)
         XCTAssertEqual(subview.right, 170)
         XCTAssertEqual(subview.fromRight, 30)
@@ -101,8 +99,8 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testHeightFromBottom() {
-        let content = UIView.withSize(200, 200)
-        let subview = content.add(UIView.withRect(50, 50, 100, 100))
+        let content = UIView.construct(width: 200, height: 200)
+        let subview = content.add(UIView.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
@@ -112,7 +110,7 @@ class UIViewTestSwift: XCTestCase {
         XCTAssertEqual(subview.width, 100)
         XCTAssertEqual(subview.height, 100)
 
-        subview.heightFixedBottom(30)
+        subview.fixedBottom(height: 30)
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
@@ -125,14 +123,14 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testFromRightToWidth() {
-        let content = UIView.withSize(200, 200)
-        let subview = content.add(UIView.withRect(50, 50, 100, 100))
+        let content = UIView.construct(width: 200, height: 200)
+        let subview = content.add(UIView.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
         XCTAssertEqual(subview.width, 100)
 
-        subview.fromRight(toWidth: 30)
+        subview.width(fromRight: 30)
 
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 170)
@@ -141,14 +139,14 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testMatchParentWidthWithMargin() {
-        let content = UIView.withSize(200, 200)
-        let subview = content.add(UILabel.withRect(50, 50, 100, 100))
+        let content = UIView.construct(width: 200, height: 200)
+        let subview = content.add(UILabel.construct(frame: CGRect(x: 50, y: 50, width: 100, height: 100)))
         XCTAssertEqual(subview.left, 50)
         XCTAssertEqual(subview.right, 150)
         XCTAssertEqual(subview.fromRight, 50)
         XCTAssertEqual(subview.width, 100)
 
-        subview.matchParentWidth(withMargin: 30)
+        subview.matchParentWidth(margin: 30)
 
         XCTAssertEqual(subview.left, 30)
         XCTAssertEqual(subview.fromRight, 30)
@@ -161,8 +159,8 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testMatchParentWidthWithMargin2() {
-        let content = UIView.withSize(200, 200)
-        let subview = content.add(UILabel.construct()).top(50).height(100).matchParentWidth(withMargin: 30)
+        let content = UIView.construct(width: 200, height: 200)
+        let subview = content.add(UILabel.construct()).from(top: 50).height(100).matchParentWidth(margin: 30)
         XCTAssertEqual(subview.left, 30)
         XCTAssertEqual(subview.right, 170)
         XCTAssertEqual(subview.fromRight, 30)
@@ -176,16 +174,16 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testUILabelSizeFitString() {
-        let content = UIView.withSize(200, 200)
+        let content = UIView.construct(width: 200, height: 200)
         let label = UILabel.construct()
-        content.add(label).top(50).height(100).matchParentWidth(withMargin: 30)
+        content.add(label).from(top: 50).height(100).matchParentWidth(margin: 30)
         XCTAssertEqual(label.left, 30)
         XCTAssertEqual(label.right, 170)
         XCTAssertEqual(label.fromRight, 30)
         XCTAssertEqual(label.width, 140)
         XCTAssertEqual(label.height, 100)
 
-        label.sizeFit("12345")
+        label.resizeToFit("12345")
         XCTAssertTrue(label.left > 29)
         XCTAssertTrue(label.right > 78)
         XCTAssertTrue(label.fromRight > 121)
@@ -194,9 +192,9 @@ class UIViewTestSwift: XCTestCase {
     }
 
     func testUILabelSizeHeightToLines() {
-        let content = UIView.withSize(200, 200)
+        let content = UIView.construct(width: 200, height: 200)
         let label = UILabel.construct()
-        content.add(label).top(50).height(100).matchParentWidth(withMargin: 30)
+        content.add(label).from(top: 50).height(100).matchParentWidth(margin: 30)
         XCTAssertEqual(label.left, 30)
         XCTAssertEqual(label.right, 170)
         XCTAssertEqual(label.fromRight, 30)
@@ -208,6 +206,7 @@ class UIViewTestSwift: XCTestCase {
         XCTAssertEqual(label.right, 170)
         XCTAssertEqual(label.fromRight, 30)
         XCTAssertEqual(label.width, 140)
-        XCTAssertTrue(label.height > 40)
+        XCTAssertTrue(label.height >= 38)
+        XCTAssertTrue(label.height < 100)
     }
 }

@@ -1,48 +1,24 @@
-// https://github.com/Quick/Quick
+import XCTest
 
-import Nimble
-import Quick
-import Renetik
+final class TableOfContentsTests: XCTestCase {
+    func testMath() {
+        XCTAssertEqual(23, 23)
+    }
 
-class TableOfContentsSpec: QuickSpec {
-    override func spec() {
-        describe("these will fail") {
-//            it("can do maths") {
-//                expect(1) == 2
-//            }
-//
-//            it("can read") {
-//                expect("number") == "string"
-//            }
-//
-//            it("will eventually fail") {
-//                expect("time").toEventually( equal("done") )
-//            }
+    func testRead() {
+        XCTAssertEqual("text", "text")
+    }
 
-            context("these will pass") {
-                it("can do maths") {
-                    expect(23) == 23
-                }
+    func testAsyncChange() {
+        let expectation = expectation(description: "time changed")
+        var time = "passing"
 
-                it("can read") {
-                    expect("🐮") == "🐮"
-                }
-
-                it("will eventually pass") {
-                    var time = "passing"
-
-                    DispatchQueue.main.async {
-                        time = "done"
-                    }
-
-                    waitUntil { done in
-                        Thread.sleep(forTimeInterval: 0.5)
-                        expect(time) == "done"
-
-                        done()
-                    }
-                }
-            }
+        DispatchQueue.main.async {
+            time = "done"
+            expectation.fulfill()
         }
+
+        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual("done", time)
     }
 }

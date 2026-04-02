@@ -10,11 +10,12 @@ import Renetik
 import RenetikObjc
 
 @UIApplicationMain
-class ExampleAppDelegate: CSAppDelegate {
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        DDLog.add(DDTTYLogger.sharedInstance)
+class ExampleAppDelegate: CSApplicationDelegate {
+    func application(_: UIApplication,
+                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        DDTTYLogger.sharedInstance.map { DDLog.add($0) }
         DDLog.add(DDASLLogger.sharedInstance)
-        setup(CocoaLumberjackCSLogger(), CSNavigationController())
+        setup(logger: CocoaLumberjackCSLogger(), navigation: CSNavigationController())
         window = UIWindow()
         window!.rootViewController = navigation
         window!.makeKeyAndVisible()
