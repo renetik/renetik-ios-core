@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '15.0'
 inhibit_all_warnings!
 use_frameworks!
 #use_modular_headers!
@@ -6,11 +6,11 @@ install! 'cocoapods', :disable_input_output_paths => true   # workaround for ign
 
 target 'Renetik_Example' do
 	pod 'CocoaLumberjack/Swift', '~> 3.4'
-	pod 'AFNetworking', '~> 3.2'
+	pod 'AFNetworking', '~> 4'
 	pod 'Reachability', '~> 3.2'
-	pod 'SDWebImage', '5.0.0-beta3'
-	pod 'RMessage', :git => 'https://github.com/donileo/RMessage', :branch => '2.x.x_develop'
-	pod 'XLPagerTabStrip', :git => 'https://github.com/xmartlabs/XLPagerTabStrip', :branch => 'obj-c'
+	pod 'SDWebImage', '~> 5'
+	pod 'RMessage', '~> 3'
+	pod 'XLPagerTabStrip', '~> 9'
 	pod 'ChameleonFramework', '~> 2.1'
 	pod 'DZNEmptyDataSet', '~> 1.8'
 	pod 'MBProgressHUD', '~> 1.1'
@@ -25,10 +25,37 @@ target 'Renetik_Example' do
 
   target 'Renetik_Tests' do
     inherit! :search_paths
+  end
+end
 
-    pod 'Quick', '~> 1.2'
-    pod 'Nimble', '~> 7.0'
-    pod 'FBSnapshotTestCase' , '~> 2.1'
-    pod 'Nimble-Snapshots' , '~> 6.3'
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      config.build_settings['SWIFT_VERSION'] = '5.0' if target.name == 'Renetik'
+    end
+  end
+
+  {
+    'AFNetworking/AFNetworking/AFNetworkReachabilityManager.m' => [
+      ["#import <netinet6/in6.h>\n", '']
+    ],
+    'AFNetworking/AFNetworking/AFHTTPSessionManager.m' => [
+      ["#import <netinet6/in6.h>\n", '']
+    ],
+    'HexColors/Sources/HexColors.swift' => [
+      ['string.characters.count', 'string.count']
+    ]
+  }.each do |relative_path, replacements|
+    path = installer.sandbox.root + relative_path
+    next unless path.exist?
+
+    patched = replacements.reduce(path.read) do |content, (pattern, replacement)|
+      content.gsub(pattern, replacement)
+    end
+    next if patched == path.read
+
+    File.chmod(0644, path.to_s)
+    path.open('w') { |file| file.write(patched) }
   end
 end
