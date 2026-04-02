@@ -104,11 +104,15 @@ public extension UILabel {
 
     @discardableResult
     func heightToFit(lines numberOfLines: Int) -> Self {
-        let currentWidth = width; let currentText = text; var linesText = "line"
+        let currentWidth = width; let currentText = text
+        let currentNumberOfLines = self.numberOfLines
+        var linesText = "line"
         for _ in 0 ..< numberOfLines - 1 {
             linesText += "\n line"
         }
+        self.numberOfLines = numberOfLines
         text(linesText).resizeToFit().text(currentText).width(currentWidth)
+        self.numberOfLines = currentNumberOfLines
         return self
     }
 
