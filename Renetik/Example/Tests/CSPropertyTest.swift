@@ -25,13 +25,13 @@ final class CSPropertyTest: XCTestCase {
         XCTAssertEqual("third", value.value)
     }
 
-    func testNullable() {
+    func testNullable() throws {
         var changeCount = 0
         let value: CSProperty<Int?> = property { (_: Int?) in changeCount += 1 }
         value.value = 0
-        value.value = value.value! + 2
-        value.value = value.value! + 3
-        XCTAssertEqual(5, value.value!)
+        value.value = try XCTUnwrap(value.value) + 2
+        value.value = try XCTUnwrap(value.value) + 3
+        XCTAssertEqual(5, value.value)
         XCTAssertEqual(3, changeCount)
     }
 

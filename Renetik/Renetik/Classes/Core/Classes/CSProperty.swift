@@ -80,11 +80,11 @@ open class CSProperty<Type>: CSObject {
     open func resume(fireChange shouldFireChange: Bool = true) {
         if pauseCount > 0 { pauseCount -= 1 }
         if isPaused { return }
-        if isChanged, shouldFireChange { self.fireChange() }
+        if isChanged, shouldFireChange { fireChange() }
         isChanged = false
     }
 
-    open func onValueChanged(_ newValue: Type, fire: Bool = true) {
+    open func onValueChanged(_: Type, fire: Bool = true) {
         isChanged = true
         if fire { fireChange() }
     }
