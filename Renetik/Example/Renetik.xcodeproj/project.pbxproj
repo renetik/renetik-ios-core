@@ -10,6 +10,7 @@
 		04A1BA40221C88450016907B /* CSLangTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BA3E221C88440016907B /* CSLangTest.swift */; };
 		04A1BA41221C88450016907B /* UIView+CSLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */; };
 		04A1BAA9221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */; };
+		7F2A5B072C4D100100000001 /* CSPropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2A5B062C4D100100000001 /* CSPropertyTest.swift */; };
 		04B9301F221CCE330052F195 /* ExampleServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9301E221CCE330052F195 /* ExampleServer.swift */; };
 		04B9302C221CD1A30052F195 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9302B221CD1A30052F195 /* Style.swift */; };
 		04B9302E221CD4F70052F195 /* ListItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9302D221CD4F70052F195 /* ListItemData.swift */; };
@@ -268,6 +269,7 @@
 		04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CSLayoutTest.swift"; sourceTree = "<group>"; };
 		04A1BA42221C8D1A0016907B /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSizeToHtmlImageTagsTest.swift; sourceTree = "<group>"; };
+		7F2A5B062C4D100100000001 /* CSPropertyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSPropertyTest.swift; sourceTree = "<group>"; };
 		04B9301E221CCE330052F195 /* ExampleServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleServer.swift; sourceTree = "<group>"; };
 		04B9302B221CD1A30052F195 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		04B9302D221CD4F70052F195 /* ListItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemData.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				04A1BA3E221C88440016907B /* CSLangTest.swift */,
+				7F2A5B062C4D100100000001 /* CSPropertyTest.swift */,
 				04A1BA3F221C88450016907B /* UIView+CSLayoutTest.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				04A1BAA8221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift */,
@@ -501,7 +504,6 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				2203D95091F41274B8A3B4E2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -815,37 +817,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2203D95091F41274B8A3B4E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Renetik_Tests/Pods-Renetik_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3123176FCBE3CA6CEA63F065 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -917,6 +896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				7F2A5B072C4D100100000001 /* CSPropertyTest.swift in Sources */,
 				04A1BA41221C88450016907B /* UIView+CSLayoutTest.swift in Sources */,
 				04A1BAA9221C91EB0016907B /* AddSizeToHtmlImageTagsTest.swift in Sources */,
 				04A1BA40221C88450016907B /* CSLangTest.swift in Sources */,
@@ -992,7 +972,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1040,7 +1020,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1060,7 +1040,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1076,7 +1056,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1098,7 +1078,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Renetik_Example.app/Renetik_Example";
 			};
 			name = Debug;
@@ -1117,7 +1097,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Renetik_Example.app/Renetik_Example";
 			};
 			name = Release;
