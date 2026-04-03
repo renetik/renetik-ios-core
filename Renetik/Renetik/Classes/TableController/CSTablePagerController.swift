@@ -16,6 +16,7 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
 
     public var onShouldLoadNext: ((IndexPath) -> Bool)?
 
+    @discardableResult
     public func construct(by controller: CSTableController<Row, Data>,
                           onLoadPage: @escaping (Int) -> CSOperation<Data>) -> Self {
         table = controller
@@ -35,6 +36,10 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
         (pageIndex == 0).then { table.load(array) }.elseDo { table.load(add: array) }
         (array.hasItems).then { pageIndex += 1 }.elseDo { noNext = true }
         return self
+    }
+
+    public func didLoadPage(hasItems: Bool) {
+        hasItems.then { pageIndex += 1 }.elseDo { noNext = true }
     }
 
     public func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt path: IndexPath) {
