@@ -38,10 +38,6 @@ public class CSTablePagerController<Row: CSTableControllerRow, Data>: NSObject {
         return self
     }
 
-    public func didLoadPage(hasItems: Bool) {
-        hasItems.then { pageIndex += 1 }.elseDo { noNext = true }
-    }
-
     public func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt path: IndexPath) {
         if shouldLoadNext(path: path) { loadNext() }
     }
