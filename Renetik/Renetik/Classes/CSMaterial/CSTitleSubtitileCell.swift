@@ -9,7 +9,7 @@ import Renetik
 import RenetikObjc
 
 open class CSTitleSubtitleCell: CSTableViewCell {
-    public let card = MDCCard.construct()
+    public let card = CSCard.construct()
     public let titleLabel = UILabel.construct()
     public let subtitleLabel = UILabel.construct()
 
