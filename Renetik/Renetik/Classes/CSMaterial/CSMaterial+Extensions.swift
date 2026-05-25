@@ -23,7 +23,7 @@ open class CSMaterialButton: UIButton {
     }
 }
 
-open class CSMaterialCard: MDCCard {}
+open class CSMaterialCard: CSCard {}
 
 open class CSMaterialImageView: UIImageView {
     lazy var inkTouchController = MDCRippleTouchController()
